@@ -12,37 +12,70 @@ enum ObjectType {
 	ATTRIBUTE = 'Attribute',
 	TARGETER = 'Targeter',
 	CONDITION = 'Condition',
+	INLINECONDITION = 'Inline Condition',
 }
 
 const mechanicsDatasetPath = path.join(__dirname, '../data/MythicMobs_Mechanics_dataset.json');
 const mechanicsDataset = JSON.parse(fs.readFileSync(mechanicsDatasetPath, 'utf8'));
 
-// Utility to get mechanic data by name
-function getMechanicDataByName(name: string) {
-    return mechanicsDataset.find((mechanic: any) => mechanic.name.includes(name.toLowerCase()));
+const targetersDatasetPath = path.join(__dirname, '../data/MythicMobs_Targeters_dataset.json');
+const targetersDataset = JSON.parse(fs.readFileSync(targetersDatasetPath, 'utf8'));
+
+const conditionsDatasetPath = path.join(__dirname, '../data/MythicMobs_Conditions_dataset.json');
+const conditionsDataset = JSON.parse(fs.readFileSync(conditionsDatasetPath, 'utf8'));
+
+
+const ObjectInfo = {
+	[ObjectType.MECHANIC]: {
+		dataset: mechanicsDataset,
+		regex: /(?<=\s- )[\w:]+(?=[\s{])/gm,
+	},
+	[ObjectType.ATTRIBUTE]: {
+		dataset: mechanicsDataset,
+		regex: /(?<=[{;])\w+(?==)/gm,
+	},
+	[ObjectType.TARGETER]: {
+		dataset: targetersDataset,
+		regex: /(?<=\s@)[\w:]+/gm,
+	},
+	[ObjectType.CONDITION]: {
+		dataset: conditionsDataset,
+		regex: /(?<=\s[-\(\|\&)] )[\w:]+(?=[\s{])/gm,
+	},
+	[ObjectType.INLINECONDITION]: {
+		dataset: conditionsDataset,
+		regex: /(?<=\s(\?)|(\?!)|(\?~)|(\?~!))[\w:]+/gm,
+	},
 }
 
-function getMechanicDataInLine(line: string) {
-	const regex = /(?<=- )\w+(?=[\s{])/;
-	const maybeMechanic = line.match(regex);  // Use match directly on the line text
-	return maybeMechanic ? getMechanicDataByName(maybeMechanic[0]) : null;
+
+
+
+// Utility to get mechanic data by name
+function getMechanicDataByName(name: string, dataset = mechanicsDataset) {
+    return dataset.find((mechanic: any) => mechanic.name.includes(name.toLowerCase()));
+}
+
+// Utility to get all mechanics that have a name that starts with a certain string
+function getMechanicsByPrefix(prefix: string, dataset = mechanicsDataset) {
+	return dataset.filter((mechanic: any) => mechanic.name.some((name: string) => name.startsWith(prefix.toLowerCase())));
 }
 
 // Utility to get mechanic data by class
-function getMechanicDataByClass(name: string) {
-	return mechanicsDataset.find((mechanic: any) => mechanic.class === name);
+function getMechanicDataByClass(name: string, dataset = mechanicsDataset) {
+	return dataset.find((mechanic: any) => mechanic.class === name);
 }
 
 // Utility to get attribute data by name
-function getAttributeDataByName(mechanic: any, attributeName: string) {
+function getAttributeDataByName(mechanic: any, attributeName: string, dataset: any = mechanicsDataset) {
 	var attribute = mechanic.attributes.find((attr: any) => attr.name.includes(attributeName.toLowerCase()));
 	if (!attribute && mechanic.extends) {
-		const parentMechanic = getMechanicDataByClass(mechanic.extends);
-		return getInheritedAttributeDataByName(parentMechanic, attributeName);
+		const parentMechanic = getMechanicDataByClass(mechanic.extends, dataset);
+		return getInheritedAttributeDataByName(parentMechanic, attributeName, dataset);
 	}
 	return attribute;
 }
-function getInheritedAttributeDataByName(mechanic: any, attributeName: string) {
+function getInheritedAttributeDataByName(mechanic: any, attributeName: string, dataset: any) {
 
 	var attribute = null;
 
@@ -56,13 +89,15 @@ function getInheritedAttributeDataByName(mechanic: any, attributeName: string) {
 	}
 
 	if (!attribute && mechanic.extends) {
-		const parentMechanic = getMechanicDataByClass(mechanic.extends);
+		const parentMechanic = getMechanicDataByClass(mechanic.extends, dataset);
 		if (parentMechanic) {
-			return getInheritedAttributeDataByName(parentMechanic, attributeName);
+			return getInheritedAttributeDataByName(parentMechanic, attributeName, dataset);
 		}
 	}
 	return attribute;
 }
+
+
 
 
 
@@ -95,7 +130,7 @@ function getObjectLinkedToAttribute(document: vscode.TextDocument, position: vsc
                 const textBeforeBrace = textBeforeAttribute.substring(0, i).trim();
 
                 // Use a regex to find the object name before the '{'
-                const objectMatch = textBeforeBrace.match(/(?<= )[@~]?\w+$/);  // Match the last word before the brace
+                const objectMatch = textBeforeBrace.match(/(?<= )([@~]|(\?~?!?))?\w+$/);  // Match the last word before the brace
                 if (objectMatch && objectMatch[0]) {
                     return objectMatch[0];  // Return the object name
                 }
@@ -108,14 +143,41 @@ function getObjectLinkedToAttribute(document: vscode.TextDocument, position: vsc
     return null;  // No unbalanced opening brace found
 }
 
-function getCursorSkills(document: vscode.TextDocument, position: vscode.Position) {
-	const maybeMechanic = document.getWordRangeAtPosition(position, /(?<=- )[\w:]+(?=[\s{])/)
+function fetchCursorSkills(document: vscode.TextDocument, position: vscode.Position, type: ObjectType, exact : boolean = true) {
+	const maybeMechanic = document.getWordRangeAtPosition(position, ObjectInfo[type].regex);
 	if (maybeMechanic) {
 		const mechanic = document.getText(maybeMechanic);
-		return getMechanicDataByName(mechanic);
+		if (exact) {
+			return [getMechanicDataByName(mechanic, ObjectInfo[type].dataset), type];
+		}
+		return [getMechanicsByPrefix(mechanic, ObjectInfo[type]), type];
+	}
+	return null;
+
+}
+
+function getCursorSkills(document: vscode.TextDocument, position: vscode.Position, exact : boolean = true) {
+	const maybeMechanic = fetchCursorSkills(document, position, ObjectType.MECHANIC, exact);
+	if (maybeMechanic) {
+		return maybeMechanic;
+	}
+	
+	const maybeTargeter = fetchCursorSkills(document, position, ObjectType.TARGETER, exact);
+	if (maybeTargeter) {
+		return maybeTargeter;
 	}
 
-	const maybeAttribute = document.getWordRangeAtPosition(position, /(?<=[{;])\w+(?==)/);
+	const maybeCondition = fetchCursorSkills(document, position, ObjectType.CONDITION, exact);
+	if (maybeCondition) {
+		return maybeCondition;
+	}
+
+	const maybeInlineCondition = fetchCursorSkills(document, position, ObjectType.INLINECONDITION, exact);
+	if (maybeInlineCondition) {
+		return maybeInlineCondition;
+	}
+
+	const maybeAttribute = document.getWordRangeAtPosition(position, /(?<=[{;])\w+/gm);
 	if (maybeAttribute) {
 		const attribute = document.getText(maybeAttribute);
 		const object = getObjectLinkedToAttribute(document, position);
@@ -123,13 +185,18 @@ function getCursorSkills(document: vscode.TextDocument, position: vscode.Positio
 			return null;
 		}
 		else if (object?.startsWith('@')){
-			return null
+			const targeter = getMechanicDataByName(object.replace("@",""), targetersDataset);
+			return [getAttributeDataByName(targeter, attribute, targetersDataset), ObjectType.ATTRIBUTE];
 		}
 		else if (object?.startsWith('~')){
 			return null
 		}
-		const mechanic = getMechanicDataByName(object)
-		return getAttributeDataByName(mechanic, attribute);
+		else if (object?.startsWith('?')){
+			const condition = getMechanicDataByName(object.replace("?","").replace("!","").replace("~",""), conditionsDataset);
+			return [getAttributeDataByName(condition, attribute, conditionsDataset), ObjectType.ATTRIBUTE];
+		}
+		const mechanic = getMechanicDataByName(object, mechanicsDataset);
+		return [getAttributeDataByName(mechanic, attribute), ObjectType.ATTRIBUTE];
 		
 	}
 }
@@ -198,7 +265,8 @@ function getHoverForAttribute(attribute: any): vscode.Hover {
 
     // Format the hover content using Markdown
     const hoverContent = new vscode.MarkdownString(`
-## [Attribute \`${attributeNames}\`](${attribute.link})
+## [Attribute](${attribute.link})
+### [\`${attributeNames}\`](${attribute.link})
 
 #### Type \`${attribute.type}\`
 #### Default \`${attribute.default_value}\`
@@ -237,21 +305,20 @@ export function activate(context: vscode.ExtensionContext) {
     const hoverProvider = vscode.languages.registerHoverProvider('yaml', {
         provideHover(document: vscode.TextDocument, position: vscode.Position) {
 
-			var obj = null;
-
+			var obj, type = null;
 			const keys = yamlutils.getParentKeys(document, position.line);
 
 			switch (keys[0]) {
 				case 'Skills':
 
-				obj = getCursorSkills(document, position);
+				[obj, type] = getCursorSkills(document, position);
 				console.log(obj);
 
 				if (!obj) {
 					return null;
 				}
 
-				return getHover(obj, ObjectType.MECHANIC);
+				return getHover(obj, type);
 
 			}
 
@@ -263,7 +330,22 @@ export function activate(context: vscode.ExtensionContext) {
     // Register the providers
     context.subscriptions.push(hoverProvider);
 
+
+	
 }
 
 // This method is called when your extension is deactivated
 export function deactivate() {}
+
+
+
+
+
+
+
+
+// function getMechanicDataInLine(line: string) {
+// 	const regex = /(?<=- )\w+(?=[\s{])/;
+// 	const maybeMechanic = line.match(regex);  // Use match directly on the line text
+// 	return maybeMechanic ? getMechanicDataByName(maybeMechanic[0]) : null;
+// }
