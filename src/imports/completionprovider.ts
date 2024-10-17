@@ -3,13 +3,16 @@ import * as yamlutils from './yamlutils';
 import { mechanicsDataset, targetersDataset, conditionsDataset, ObjectType, ObjectInfo } from '../objectInfos';
 import { getAllAttributes, getMechanicDataByName } from './mechanicutils';
 import { getObjectLinkedToAttribute } from './cursorutils';
+import { isEnabled } from './configutils';
 
-// Register the completion provider for a specific language (e.g., 'yaml')
 export const mechanicsCompletionProvider = vscode.languages.registerCompletionItemProvider(
-    'yaml',  // The language to provide autocompletion for
+    'yaml',
     {
-        // Method that returns autocompletion items
         async provideCompletionItems(document: vscode.TextDocument, position: vscode.Position, token: vscode.CancellationToken, context: vscode.CompletionContext) {
+
+            if (isEnabled(document) === false) {
+                return undefined;
+            }
 
             if (context.triggerCharacter === undefined) {
                 return undefined;
@@ -44,7 +47,6 @@ export const mechanicsCompletionProvider = vscode.languages.registerCompletionIt
                             }
                             completionItem.command = { command: 'editor.action.triggerSuggest', title: 'Re-trigger completions...' };
                             completionItems.push(completionItem);
-
                         });
                     });
 
@@ -56,19 +58,55 @@ export const mechanicsCompletionProvider = vscode.languages.registerCompletionIt
     }, "-", " "
 );
 
+export const targeterCompletionProvider = vscode.languages.registerCompletionItemProvider(
+    'yaml',
+    {
+        async provideCompletionItems(document: vscode.TextDocument, position: vscode.Position, token: vscode.CancellationToken, context: vscode.CompletionContext) {
+
+            if (isEnabled(document) === false) {
+                return undefined;
+            }
+
+            const keys = yamlutils.getParentKeys(document, position.line);
+            if (keys[0] !== 'Skills') {
+                return undefined;
+            }
+
+            const completionItems: vscode.CompletionItem[] = [];
+
+            targetersDataset.forEach((item: any) => {
+                item.name.forEach((name: string) => {
+                    const completionItem = new vscode.CompletionItem(name, vscode.CompletionItemKind.Function);
+                    completionItem.detail = `${item.description}`;
+                    completionItem.kind = vscode.CompletionItemKind.Function;
+                    completionItem.insertText = new vscode.SnippetString(name + "{$0}");
+                    completionItem.command = { command: 'editor.action.triggerSuggest', title: 'Re-trigger completions...' };
+                    completionItems.push(completionItem);
+                });
+            });
+
+            return completionItems;
+        }
+    }, "@",
+);
+
+
+
 export const attributeCompletionProvider = vscode.languages.registerCompletionItemProvider(
     'yaml',
     {
         async provideCompletionItems(document: vscode.TextDocument, position: vscode.Position, token: vscode.CancellationToken, context: vscode.CompletionContext) {
 
-            console.log("Trigger Kind for Attribute: " + context.triggerKind);
+            if (isEnabled(document) === false) {
+                return undefined;
+            }
+
             const completionItems: vscode.CompletionItem[] = [];
             let mechanic = null;
             let type = ObjectType.MECHANIC;
 
 
             const object = getObjectLinkedToAttribute(document, position);
-            console.log(object);
             if (!object) {
                 return null;
             }
@@ -96,12 +134,17 @@ export const attributeCompletionProvider = vscode.languages.registerCompletionIt
             let index = 10000;
 
             attributes.forEach((attribute: any) => {
+                let mainname = attribute.name.reduce((a: string, b: string) => a.length > b.length ? a : b);
                 attribute.name.forEach((name: string) => {
+                    let thisindex = index;
+                    if (name != mainname) {
+                        thisindex = index * 2;
+                    }
                     const completionItem = new vscode.CompletionItem(name, vscode.CompletionItemKind.Field);
                     completionItem.detail = `${attribute.description}`;
                     completionItem.kind = vscode.CompletionItemKind.Field;
                     completionItem.insertText = new vscode.SnippetString(name + "=");
-                    completionItem.sortText = index.toString();
+                    completionItem.sortText = thisindex.toString();
                     index++;
                     completionItems.push(completionItem);
                 });

@@ -56,7 +56,6 @@ export function fetchCursorSkills(document: vscode.TextDocument, position: vscod
 
 export function getCursorSkills(document: vscode.TextDocument, position: vscode.Position, exact: boolean = true) {
 	const maybeMechanic = fetchCursorSkills(document, position, ObjectType.MECHANIC, exact);
-	console.log(maybeMechanic);
 	if (maybeMechanic) {
 		return maybeMechanic;
 	}

@@ -1,11 +1,16 @@
 import * as vscode from 'vscode';
 import { ObjectType } from '../objectInfos';
 import * as yamlutils from './yamlutils';
+import { isEnabled } from './configutils';
 import { getCursorSkills } from './cursorutils';
 
 
 export const hoverProvider = vscode.languages.registerHoverProvider('yaml', {
     provideHover(document: vscode.TextDocument, position: vscode.Position) {
+
+        if (isEnabled(document) === false) {
+            return undefined;
+        }
 
         var obj, type = null;
         const keys = yamlutils.getParentKeys(document, position.line);
@@ -14,7 +19,6 @@ export const hoverProvider = vscode.languages.registerHoverProvider('yaml', {
             case 'Skills':
     
                 [obj, type] = getCursorSkills(document, position);
-                console.log(obj);
     
                 if (!obj) {
                     return null;

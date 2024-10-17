@@ -25,7 +25,6 @@ function getAllAttributes(mechanic: any, dataset = mechanicsDataset) {
 		}
 		attributes = attributes.concat(getAllAttributes(parentMechanic));
 	}
-	console.log(attributes);
 	return attributes;
 
 }
