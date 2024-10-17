@@ -53,7 +53,7 @@ const ObjectInfo = {
 
 // Utility to get mechanic data by name
 function getMechanicDataByName(name: string, dataset = mechanicsDataset) {
-    return dataset.find((mechanic: any) => mechanic.name.includes(name.toLowerCase()));
+	return dataset.find((mechanic: any) => mechanic.name.includes(name.toLowerCase()));
 }
 
 // Utility to get all mechanics that have a name that starts with a certain string
@@ -64,6 +64,20 @@ function getMechanicsByPrefix(prefix: string, dataset = mechanicsDataset) {
 // Utility to get mechanic data by class
 function getMechanicDataByClass(name: string, dataset = mechanicsDataset) {
 	return dataset.find((mechanic: any) => mechanic.class === name);
+}
+
+function getAllAttributes(mechanic: any, dataset = mechanicsDataset) {
+	let attributes = mechanic.attributes;
+	if (mechanic.extends) {
+		const parentMechanic = getMechanicDataByClass(mechanic.extends, dataset);
+		if (!parentMechanic) {
+			return attributes;
+		}
+		attributes = attributes.concat(getAllAttributes(parentMechanic));
+	}
+	console.log(attributes);
+	return attributes;
+
 }
 
 // Utility to get attribute data by name
@@ -111,39 +125,39 @@ function getInheritedAttributeDataByName(mechanic: any, attributeName: string, d
  * @returns The object linked to the attribute, or null if no object is found
  */
 function getObjectLinkedToAttribute(document: vscode.TextDocument, position: vscode.Position): string | null {
-    // Get the text from the beginning of the document to the current position
-    const textBeforeAttribute = document.getText(new vscode.Range(new vscode.Position(0, 0), position));
+	// Get the text from the beginning of the document to the current position
+	const textBeforeAttribute = document.getText(new vscode.Range(new vscode.Position(0, 0), position));
 
-    let openBraceCount = 0;
+	let openBraceCount = 0;
 
-    // Traverse backwards through the text before the position
-    for (let i = textBeforeAttribute.length - 1; i >= 0; i--) {
-        const char = textBeforeAttribute[i];
+	// Traverse backwards through the text before the position
+	for (let i = textBeforeAttribute.length - 1; i >= 0; i--) {
+		const char = textBeforeAttribute[i];
 
-        if (char === '}') {
-            openBraceCount++;
-        } else if (char === '{') {
-            openBraceCount--;
-            // If the brace count becomes negative, we've found an unbalanced opening '{'
-            if (openBraceCount < 0) {
-                // Get the text before the '{' which should be the object
-                const textBeforeBrace = textBeforeAttribute.substring(0, i).trim();
+		if (char === '}') {
+			openBraceCount++;
+		} else if (char === '{') {
+			openBraceCount--;
+			// If the brace count becomes negative, we've found an unbalanced opening '{'
+			if (openBraceCount < 0) {
+				// Get the text before the '{' which should be the object
+				const textBeforeBrace = textBeforeAttribute.substring(0, i).trim();
 
-                // Use a regex to find the object name before the '{'
-                const objectMatch = textBeforeBrace.match(/(?<= )([@~]|(\?~?!?))?\w+$/);  // Match the last word before the brace
-                if (objectMatch && objectMatch[0]) {
-                    return objectMatch[0];  // Return the object name
-                }
+				// Use a regex to find the object name before the '{'
+				const objectMatch = textBeforeBrace.match(/(?<= )([@~]|(\?~?!?))?\w+$/);  // Match the last word before the brace
+				if (objectMatch && objectMatch[0]) {
+					return objectMatch[0];  // Return the object name
+				}
 
-                return null;  // No object found before '{'
-            }
-        }
-    }
+				return null;  // No object found before '{'
+			}
+		}
+	}
 
-    return null;  // No unbalanced opening brace found
+	return null;  // No unbalanced opening brace found
 }
 
-function fetchCursorSkills(document: vscode.TextDocument, position: vscode.Position, type: ObjectType, exact : boolean = true) {
+function fetchCursorSkills(document: vscode.TextDocument, position: vscode.Position, type: ObjectType, exact: boolean = true) {
 	const maybeMechanic = document.getWordRangeAtPosition(position, ObjectInfo[type].regex);
 	if (maybeMechanic) {
 		const mechanic = document.getText(maybeMechanic);
@@ -156,21 +170,22 @@ function fetchCursorSkills(document: vscode.TextDocument, position: vscode.Posit
 
 }
 
-function getCursorSkills(document: vscode.TextDocument, position: vscode.Position, exact : boolean = true) {
+function getCursorSkills(document: vscode.TextDocument, position: vscode.Position, exact: boolean = true) {
 	const maybeMechanic = fetchCursorSkills(document, position, ObjectType.MECHANIC, exact);
+	console.log(maybeMechanic);
 	if (maybeMechanic) {
 		return maybeMechanic;
 	}
-	
+
 	const maybeTargeter = fetchCursorSkills(document, position, ObjectType.TARGETER, exact);
 	if (maybeTargeter) {
 		return maybeTargeter;
 	}
 
-	const maybeCondition = fetchCursorSkills(document, position, ObjectType.CONDITION, exact);
-	if (maybeCondition) {
-		return maybeCondition;
-	}
+	// const maybeCondition = fetchCursorSkills(document, position, ObjectType.CONDITION, exact);
+	// if (maybeCondition) {
+	// 	return maybeCondition;
+	// }
 
 	const maybeInlineCondition = fetchCursorSkills(document, position, ObjectType.INLINECONDITION, exact);
 	if (maybeInlineCondition) {
@@ -181,36 +196,36 @@ function getCursorSkills(document: vscode.TextDocument, position: vscode.Positio
 	if (maybeAttribute) {
 		const attribute = document.getText(maybeAttribute);
 		const object = getObjectLinkedToAttribute(document, position);
-		if (!object){
+		if (!object) {
 			return null;
 		}
-		else if (object?.startsWith('@')){
-			const targeter = getMechanicDataByName(object.replace("@",""), targetersDataset);
+		else if (object?.startsWith('@')) {
+			const targeter = getMechanicDataByName(object.replace("@", ""), targetersDataset);
 			return [getAttributeDataByName(targeter, attribute, targetersDataset), ObjectType.ATTRIBUTE];
 		}
-		else if (object?.startsWith('~')){
+		else if (object?.startsWith('~')) {
 			return null
 		}
-		else if (object?.startsWith('?')){
-			const condition = getMechanicDataByName(object.replace("?","").replace("!","").replace("~",""), conditionsDataset);
+		else if (object?.startsWith('?')) {
+			const condition = getMechanicDataByName(object.replace("?", "").replace("!", "").replace("~", ""), conditionsDataset);
 			return [getAttributeDataByName(condition, attribute, conditionsDataset), ObjectType.ATTRIBUTE];
 		}
 		const mechanic = getMechanicDataByName(object, mechanicsDataset);
 		return [getAttributeDataByName(mechanic, attribute), ObjectType.ATTRIBUTE];
-		
+
 	}
 }
 
-function getHover(mechanic: any, type: ObjectType): vscode.Hover {
-	if(type == ObjectType.ATTRIBUTE) {
+async function getHover(mechanic: any, type: ObjectType): Promise<vscode.Hover> {
+	if (type == ObjectType.ATTRIBUTE) {
 		return getHoverForAttribute(mechanic);
 	}
 
-    // Combine the mechanic names into a comma-separated string for the mechanic's names
-    const mechanicNames = mechanic.name.join(', ');
+	// Combine the mechanic names into a comma-separated string for the mechanic's names
+	const mechanicNames = mechanic.name.join(', ');
 
-    // Start building the hover content for the mechanic
-    let hoverContent = new vscode.MarkdownString(`
+	// Start building the hover content for the mechanic
+	let hoverContent = new vscode.MarkdownString(`
 ### [${type}](${mechanic.link})
 [\`${mechanicNames}\`](${mechanic.link})
 
@@ -222,36 +237,36 @@ ${mechanic.description}
 
 `);
 
-    // Check if there are any attributes to display in the table
-    if (mechanic.attributes && mechanic.attributes.length > 0) {
-        // Add headers for the attribute table
-        hoverContent.appendMarkdown(`\n\n`);
-        hoverContent.appendMarkdown(`
+	// Check if there are any attributes to display in the table
+	if (mechanic.attributes && mechanic.attributes.length > 0) {
+		// Add headers for the attribute table
+		hoverContent.appendMarkdown(`\n\n`);
+		hoverContent.appendMarkdown(`
 | **Name**        | **Aliases**    | **Description**                  | **Default**       | **Type**            |
 |-----------------|----------------|----------------------------------|-------------------|---------------------|
 `);
 
-        // Add each attribute to the table
-        mechanic.attributes.forEach((attribute: any) => {
-            const attributeName = attribute.name[0]; // First element as the primary name
-            const attributeAliases = attribute.name.slice(1).join(', ') || ''; // Remaining names as aliases
-            const attributeDescription = attribute.description || 'No description provided.';
-            const defaultValue = attribute.default_value || 'None'; // Assuming there's a defaultValue field
-            const attributeType = attribute.type || ''; // Default to "Unknown" if type is missing
+		// Add each attribute to the table
+		mechanic.attributes.forEach((attribute: any) => {
+			const attributeName = attribute.name[0]; // First element as the primary name
+			const attributeAliases = attribute.name.slice(1).join(', ') || ''; // Remaining names as aliases
+			const attributeDescription = attribute.description || 'No description provided.';
+			const defaultValue = attribute.default_value || 'None'; // Assuming there's a defaultValue field
+			const attributeType = attribute.type || ''; // Default to "Unknown" if type is missing
 
-            // Append the attribute details as a row in the table
+			// Append the attribute details as a row in the table
 			hoverContent.appendMarkdown(`| ${attributeName ? `\`${attributeName}\`` : ''} | ${attributeAliases ? `\`${attributeAliases}\`` : ''} | ${attributeDescription ? attributeDescription : ''} | ${defaultValue ? `\`${defaultValue}\`` : ''} | ${attributeType ? `\`${attributeType}\`` : ''} |\n`);
-        });
-    }
+		});
+	}
 
 	hoverContent.appendMarkdown(`\n\n[Get More Information By Visiting Its Wiki Page](${mechanic.link})`);
 
-    // Enable support for links
-    hoverContent.isTrusted = true;
+	// Enable support for links
+	hoverContent.isTrusted = true;
 
-    // Return the hover with the formatted content
-    return new vscode.Hover(hoverContent);
-	
+	// Return the hover with the formatted content
+	return new vscode.Hover(hoverContent);
+
 }
 
 /**
@@ -260,11 +275,11 @@ ${mechanic.description}
  * @returns A new Hover object with Markdown content
  */
 function getHoverForAttribute(attribute: any): vscode.Hover {
-    // Combine the names into a comma-separated string
-    const attributeNames = attribute.name.join(', ');
+	// Combine the names into a comma-separated string
+	const attributeNames = attribute.name.join(', ');
 
-    // Format the hover content using Markdown
-    const hoverContent = new vscode.MarkdownString(`
+	// Format the hover content using Markdown
+	const hoverContent = new vscode.MarkdownString(`
 ## [Attribute](${attribute.link})
 ### [\`${attributeNames}\`](${attribute.link})
 
@@ -273,37 +288,28 @@ function getHoverForAttribute(attribute: any): vscode.Hover {
 ### Description\n\n${attribute.description}
 `);
 
-    // Enable support for links
-    hoverContent.isTrusted = true;
+	// Enable support for links
+	hoverContent.isTrusted = true;
 
-    // Return a new hover with the formatted content
-    return new vscode.Hover(hoverContent);
+	// Return a new hover with the formatted content
+	return new vscode.Hover(hoverContent);
 }
 
 
-// This method is called when your extension is activated
-// Your extension is activated the very first time the command is executed
 export function activate(context: vscode.ExtensionContext) {
 
-	// Use the console to output diagnostic information (console.log) and errors (console.error)
-	// This line of code will only be executed once when your extension is activated
 	console.log('Congratulations, your extension "mythicscribe" is now active!');
 
-	// The command has been defined in the package.json file
-	// Now provide the implementation of the command with registerCommand
-	// The commandId parameter must match the command field in package.json
-	const disposable = vscode.commands.registerCommand('mythicscribe.helloWorld', () => {
-		// The code you place here will be executed every time your command is executed
-		// Display a message box to the user
-		vscode.window.showInformationMessage('Hello World from MythicScribe!');
-	});
+	// const disposable = vscode.commands.registerCommand('mythicscribe.helloWorld', () => {
+	// 	vscode.window.showInformationMessage('Hello World from MythicScribe!');
+	// });
 
-	context.subscriptions.push(disposable);
+	// context.subscriptions.push(disposable);
 
 
-    // Hover provider for mechanics and attributes
-    const hoverProvider = vscode.languages.registerHoverProvider('yaml', {
-        provideHover(document: vscode.TextDocument, position: vscode.Position) {
+	// Hover provider for mechanics and attributes
+	const hoverProvider = vscode.languages.registerHoverProvider('yaml', {
+		provideHover(document: vscode.TextDocument, position: vscode.Position) {
 
 			var obj, type = null;
 			const keys = yamlutils.getParentKeys(document, position.line);
@@ -311,31 +317,143 @@ export function activate(context: vscode.ExtensionContext) {
 			switch (keys[0]) {
 				case 'Skills':
 
-				[obj, type] = getCursorSkills(document, position);
-				console.log(obj);
+					[obj, type] = getCursorSkills(document, position);
+					console.log(obj);
 
-				if (!obj) {
-					return null;
-				}
+					if (!obj) {
+						return null;
+					}
 
-				return getHover(obj, type);
+					return getHover(obj, type);
 
 			}
 
 
-            return null;
-        }
-    });
+			return null;
+		}
+	});
 
-    // Register the providers
-    context.subscriptions.push(hoverProvider);
+	// Register the providers
+	context.subscriptions.push(hoverProvider);
 
 
-	
+	// Register the completion provider for a specific language (e.g., 'yaml')
+	const mechanicsCompletionProvider = vscode.languages.registerCompletionItemProvider(
+		'yaml',  // The language to provide autocompletion for
+		{
+			// Method that returns autocompletion items
+			async provideCompletionItems(document: vscode.TextDocument, position: vscode.Position, token: vscode.CancellationToken, context: vscode.CompletionContext) {
+
+				if(context.triggerCharacter === undefined){
+					return undefined;
+				}
+
+				let space = " ";
+
+				if (context.triggerKind === vscode.CompletionTriggerKind.TriggerCharacter && context.triggerCharacter === " ") {
+					const charBefore = document.getText(new vscode.Range(position.translate(0, -2), position));
+					if (charBefore != '- ') {
+						return undefined;
+					}
+					space = "";
+				}
+
+				const keys = yamlutils.getParentKeys(document, position.line);
+				const completionItems: vscode.CompletionItem[] = [];
+
+
+				switch (keys[0]) {
+					case 'Skills':
+						mechanicsDataset.forEach((item: any) => {
+							item.name.forEach((name: string) => {
+								const completionItem = new vscode.CompletionItem(name, vscode.CompletionItemKind.Function);
+								completionItem.detail = `${item.description}`;
+								completionItem.kind = vscode.CompletionItemKind.Function;
+								if (!item.attributes && item.extends != "SkillMechanic") {
+									completionItem.insertText = new vscode.SnippetString(space + name);
+								}
+								else {
+									completionItem.insertText = new vscode.SnippetString(space + name + "{$0}");
+								}
+								completionItem.command = { command: 'editor.action.triggerSuggest', title: 'Re-trigger completions...' };
+								completionItems.push(completionItem);
+
+							});
+						});
+
+						return completionItems;
+
+				}
+
+			}
+		}, "-", " "
+	);
+
+	const attributeCompletionProvider = vscode.languages.registerCompletionItemProvider(
+		'yaml',
+		{
+			async provideCompletionItems(document: vscode.TextDocument, position: vscode.Position, token: vscode.CancellationToken, context: vscode.CompletionContext) {
+
+				console.log("Trigger Kind for Attribute: " + context.triggerKind);
+				const completionItems: vscode.CompletionItem[] = [];
+				let mechanic = null;
+				let type = ObjectType.MECHANIC;
+
+
+				const object = getObjectLinkedToAttribute(document, position);
+				console.log(object);
+				if (!object) {
+					return null;
+				}
+				else if (object?.startsWith('@')) {
+					mechanic = getMechanicDataByName(object.replace("@", ""), targetersDataset);
+					type = ObjectType.TARGETER;
+				}
+				else if (object?.startsWith('~')) {
+					return null
+				}
+				else if (object?.startsWith('?')) {
+					mechanic = getMechanicDataByName(object.replace("?", "").replace("!", "").replace("~", ""), conditionsDataset);
+					type = ObjectType.CONDITION;
+				}
+				else {
+					mechanic = getMechanicDataByName(object, mechanicsDataset);
+					type = ObjectType.MECHANIC;
+				}
+			
+				if (!mechanic) {
+					return null;
+				}
+
+				const attributes = getAllAttributes(mechanic, ObjectInfo[type].dataset);
+				let index = 10000;
+
+				attributes.forEach((attribute: any) => {
+					attribute.name.forEach((name: string) => {
+						const completionItem = new vscode.CompletionItem(name, vscode.CompletionItemKind.Field);
+						completionItem.detail = `${attribute.description}`;
+						completionItem.kind = vscode.CompletionItemKind.Field;
+						completionItem.insertText = new vscode.SnippetString(name + "=");
+						completionItem.sortText = index.toString();
+						index++;
+						completionItems.push(completionItem);
+					});
+				});
+
+				return completionItems
+			}
+		}, "{", ";"
+	);
+
+	// Register the provider
+	context.subscriptions.push(mechanicsCompletionProvider);
+	context.subscriptions.push(attributeCompletionProvider);
+
+
 }
 
 // This method is called when your extension is deactivated
-export function deactivate() {}
+export function deactivate() { }
 
 
 

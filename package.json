@@ -26,6 +26,12 @@
         "extensions": [".yaml", ".yml"],
         "aliases": ["YAML", "yaml"]
       }
+    ],
+    "completionItemProvider": [
+      {
+        "language": "yaml",
+        "triggerCharacters": [" ", "@", "?", "{", ";"]
+      }
     ]
   },
   "scripts": {
