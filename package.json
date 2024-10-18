@@ -23,14 +23,27 @@
     "languages": [
       {
         "id": "yaml",
-        "extensions": [".yaml", ".yml"],
-        "aliases": ["YAML", "yaml"]
+        "extensions": [
+          ".yaml",
+          ".yml"
+        ],
+        "aliases": [
+          "YAML",
+          "yaml"
+        ]
       }
     ],
     "completionItemProvider": [
       {
         "language": "yaml",
-        "triggerCharacters": [" ", "@", "?", "{", ";", "-"]
+        "triggerCharacters": [
+          " ",
+          "@",
+          "?",
+          "{",
+          ";",
+          "-"
+        ]
       }
     ],
     "configuration": {
@@ -54,14 +67,17 @@
     "test": "vscode-test"
   },
   "devDependencies": {
-    "@types/vscode": "^1.94.0",
     "@types/mocha": "^10.0.8",
     "@types/node": "20.x",
+    "@types/vscode": "^1.94.0",
     "@typescript-eslint/eslint-plugin": "^8.7.0",
     "@typescript-eslint/parser": "^8.7.0",
-    "eslint": "^9.11.1",
-    "typescript": "^5.6.2",
     "@vscode/test-cli": "^0.0.10",
-    "@vscode/test-electron": "^2.4.1"
+    "@vscode/test-electron": "^2.4.1",
+    "eslint": "^9.11.1",
+    "typescript": "^5.6.2"
+  },
+  "dependencies": {
+    "vsce": "^2.15.0"
   }
 }

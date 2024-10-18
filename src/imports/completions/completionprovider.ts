@@ -1,9 +1,69 @@
 import * as vscode from 'vscode';
 import * as yamlutils from '../utils/yamlutils';
-import { mechanicsDataset, targetersDataset, conditionsDataset, ObjectType, ObjectInfo, ConditionActions } from '../../objectInfos';
+import { mechanicsDataset, targetersDataset, conditionsDataset, ObjectType, ObjectInfo, ConditionActions, SkillFileObjects } from '../../objectInfos';
 import { getAllAttributes, getMechanicDataByName } from '../utils/mechanicutils';
 import { getObjectLinkedToAttribute } from '../utils/cursorutils';
 import { isEnabled } from '../utils/configutils';
+
+export const SkillFileCompletionProvider = vscode.languages.registerCompletionItemProvider(
+    'yaml',
+    {
+        async provideCompletionItems(document: vscode.TextDocument, position: vscode.Position, token: vscode.CancellationToken, context: vscode.CompletionContext) {
+
+            if (isEnabled(document) === false) {
+                return undefined;
+            }
+            const documentPath = document.uri.path.toLowerCase();
+            if (!documentPath.includes('/skills/')) {
+                return undefined;
+            }
+
+            if (!/^\s*$/.test(document.lineAt(position.line).text)) {
+                return undefined;
+            }
+
+            const keys = yamlutils.getParentKeys(document, position.line);
+            const completionItems: vscode.CompletionItem[] = [];
+            const spaces = document.lineAt(position.line).firstNonWhitespaceCharacterIndex;
+            let indentation = " ".repeat(2 - spaces);
+
+            console.log(spaces);
+
+            if(keys.length == 0){
+                console.log("keys.length == 0");
+                return undefined;
+            }
+            else if(keys.length == 2){
+                console.log("keys[0].length == 2");
+                if(SkillFileObjects[keys[0] as keyof typeof SkillFileObjects] == "list"){
+                    const completionItem = new vscode.CompletionItem("-", vscode.CompletionItemKind.Snippet);
+                    completionItem.insertText = new vscode.SnippetString(indentation + "- $0");
+                    completionItem.command = { command: 'editor.action.triggerSuggest', title: 'Re-trigger completions...' };
+                    completionItems.push(completionItem);
+                }
+            }
+            else if(keys.length > 2){
+                console.log("keys[0].length > 2");
+                return undefined;
+            }
+
+            Object.entries(SkillFileObjects).forEach(([key, value]) => {
+                const completionItem = new vscode.CompletionItem(key, vscode.CompletionItemKind.File);
+                completionItem.kind = vscode.CompletionItemKind.File;
+                if(value == "list"){
+                    completionItem.insertText = new vscode.SnippetString(indentation + key + ":\n" + indentation + "- $0");
+                }
+                else {
+                    completionItem.insertText = new vscode.SnippetString(indentation + key + ": $0");
+                }
+                completionItem.command = { command: 'editor.action.triggerSuggest', title: 'Re-trigger completions...' };
+                completionItems.push(completionItem);
+            });
+            
+            return completionItems;
+        }
+    }, "\n"
+);
 
 export const mechanicsCompletionProvider = vscode.languages.registerCompletionItemProvider(
     'yaml',
@@ -14,9 +74,6 @@ export const mechanicsCompletionProvider = vscode.languages.registerCompletionIt
                 return undefined;
             }
 
-            if (context.triggerCharacter === undefined) {
-                return undefined;
-            }
 
             if(yamlutils.getParentKeys(document, position.line)[0] !== 'Skills'){
                 return undefined;
@@ -24,11 +81,16 @@ export const mechanicsCompletionProvider = vscode.languages.registerCompletionIt
 
             let space = " ";
 
+            const charBefore = document.getText(new vscode.Range(position.translate(0, -2), position));
+            if (charBefore != '- ') {
+                return undefined;
+            }
+
             if (context.triggerKind === vscode.CompletionTriggerKind.TriggerCharacter && context.triggerCharacter === " ") {
-                const charBefore = document.getText(new vscode.Range(position.translate(0, -2), position));
-                if (charBefore != '- ') {
-                    return undefined;
-                }
+                space = "";
+            }
+
+            if (context.triggerCharacter === undefined) {
                 space = "";
             }
 
@@ -224,8 +286,6 @@ export const conditionCompletionProvider = vscode.languages.registerCompletionIt
             if (charBefore[1] === "{") {
                 return undefined;
             }
-            console.log("|" + charBefore + "|");
-            console.log(yamlutils.getWordBeforePosition(document, position));
 
             let space = " ";
 
@@ -300,6 +360,7 @@ export const attributeCompletionProvider = vscode.languages.registerCompletionIt
                 return undefined;
             }
 
+
             const keys = yamlutils.getParentKeys(document, position.line);
             const completionItems: vscode.CompletionItem[] = [];
             let mechanic = null;
@@ -322,6 +383,7 @@ export const attributeCompletionProvider = vscode.languages.registerCompletionIt
                 type = ObjectType.INLINECONDITION;
             }
             else if (["Conditions", "TargetConditions", "TriggerConditions"].includes(keys[0])) {
+                console.log("CONDITIONS");
                 mechanic = getMechanicDataByName(object, conditionsDataset);
                 type = ObjectType.CONDITION;
             }
@@ -333,6 +395,7 @@ export const attributeCompletionProvider = vscode.languages.registerCompletionIt
             if (!mechanic) {
                 return null;
             }
+
 
             const attributes = getAllAttributes(mechanic, ObjectInfo[type].dataset);
             let index = 10000;

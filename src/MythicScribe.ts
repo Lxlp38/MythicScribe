@@ -2,7 +2,7 @@
 // Import the module and reference it with the alias vscode in your code below
 import * as vscode from 'vscode';
 import { hoverProvider } from './imports/hovers/hoverprovider';
-import { mechanicsCompletionProvider, targeterCompletionProvider, inlineConditionCompletionProvider, attributeCompletionProvider } from './imports/completions/completionprovider';
+import { mechanicsCompletionProvider, targeterCompletionProvider, inlineConditionCompletionProvider, attributeCompletionProvider, SkillFileCompletionProvider } from './imports/completions/completionprovider';
 
 
 export function activate(context: vscode.ExtensionContext) {
@@ -19,6 +19,7 @@ export function activate(context: vscode.ExtensionContext) {
 	context.subscriptions.push(attributeCompletionProvider);
 	context.subscriptions.push(targeterCompletionProvider);
 	context.subscriptions.push(inlineConditionCompletionProvider);
+	context.subscriptions.push(SkillFileCompletionProvider);
 
 
 

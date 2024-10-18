@@ -64,15 +64,15 @@ export const ConditionActions = {
 	}
 }
 
-export const SkillFileObjects = [
-	"Skills",
-	"Conditions",
-	"TargetConditions",
-	"TriggerConditions",
-	"Cooldown",
-	"CancelIfNoTargets",
-	"FailedConditionsSkill",
-	"OnCooldownSkill",
-]
+export const SkillFileObjects = {
+	"Skills" : "list",
+	"Conditions": "list",
+	"TargetConditions": "list",
+	"TriggerConditions": "list",
+	"Cooldown": "float",
+	"CancelIfNoTargets": "bool",
+	"FailedConditionsSkill": "string",
+	"OnCooldownSkill": "string",
+}
 
 export { ObjectType, ObjectInfo, mechanicsDataset, targetersDataset, conditionsDataset };
