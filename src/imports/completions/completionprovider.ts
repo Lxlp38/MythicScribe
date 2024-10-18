@@ -27,14 +27,11 @@ export const SkillFileCompletionProvider = vscode.languages.registerCompletionIt
             const spaces = document.lineAt(position.line).firstNonWhitespaceCharacterIndex;
             let indentation = " ".repeat(2 - spaces);
 
-            console.log(spaces);
 
             if(keys.length == 0){
-                console.log("keys.length == 0");
                 return undefined;
             }
             else if(keys.length == 2){
-                console.log("keys[0].length == 2");
                 if(SkillFileObjects[keys[0] as keyof typeof SkillFileObjects] == "list"){
                     const completionItem = new vscode.CompletionItem("-", vscode.CompletionItemKind.Snippet);
                     completionItem.insertText = new vscode.SnippetString(indentation + "- $0");
@@ -43,7 +40,6 @@ export const SkillFileCompletionProvider = vscode.languages.registerCompletionIt
                 }
             }
             else if(keys.length > 2){
-                console.log("keys[0].length > 2");
                 return undefined;
             }
 
@@ -267,7 +263,6 @@ export const conditionCompletionProvider = vscode.languages.registerCompletionIt
     {
         async provideCompletionItems(document: vscode.TextDocument, position: vscode.Position, token: vscode.CancellationToken, context: vscode.CompletionContext) {
 
-            console.log(context);
 
             if (isEnabled(document) === false) {
                 return undefined;
@@ -383,7 +378,6 @@ export const attributeCompletionProvider = vscode.languages.registerCompletionIt
                 type = ObjectType.INLINECONDITION;
             }
             else if (["Conditions", "TargetConditions", "TriggerConditions"].includes(keys[0])) {
-                console.log("CONDITIONS");
                 mechanic = getMechanicDataByName(object, conditionsDataset);
                 type = ObjectType.CONDITION;
             }

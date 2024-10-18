@@ -27,7 +27,6 @@ export const hoverProvider = vscode.languages.registerHoverProvider('yaml', {
                 return getHover(obj, type);
             case "Conditions": case "TargetConditions": case "TriggerConditions":
                 [obj, type] = getCursorCondition(document, position, true);
-                console.log(obj, type);
     
                 if (!obj) {
                     return null;
