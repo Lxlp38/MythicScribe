@@ -24,8 +24,11 @@ export const SkillFileCompletionProvider = vscode.languages.registerCompletionIt
 
             const keys = yamlutils.getParentKeys(document, position.line);
             const completionItems: vscode.CompletionItem[] = [];
-            const spaces = document.lineAt(position.line).firstNonWhitespaceCharacterIndex;
-            let indentation = " ".repeat(2 - spaces);
+            const indentnow = document.lineAt(position.line).firstNonWhitespaceCharacterIndex;
+            const indentpre = document.lineAt(position.line - 1).firstNonWhitespaceCharacterIndex;
+            //const lastcharoflastline = document.lineAt(position.line - 1).text.trim().slice(-1);
+            //console.log(lastcharoflastline);
+            let indentation = " ".repeat(indentpre - indentnow);
 
 
             if(keys.length == 0){
@@ -41,6 +44,9 @@ export const SkillFileCompletionProvider = vscode.languages.registerCompletionIt
             }
             else if(keys.length > 2){
                 return undefined;
+            }
+            else{
+                indentation = indentation + "  ";
             }
 
             Object.entries(SkillFileObjects).forEach(([key, value]) => {
@@ -66,6 +72,7 @@ export const mechanicsCompletionProvider = vscode.languages.registerCompletionIt
     {
         async provideCompletionItems(document: vscode.TextDocument, position: vscode.Position, token: vscode.CancellationToken, context: vscode.CompletionContext) {
 
+
             if (isEnabled(document) === false) {
                 return undefined;
             }
@@ -90,34 +97,63 @@ export const mechanicsCompletionProvider = vscode.languages.registerCompletionIt
                 space = "";
             }
 
-            const keys = yamlutils.getParentKeys(document, position.line);
             const completionItems: vscode.CompletionItem[] = [];
 
 
-            switch (keys[0]) {
-                case 'Skills':
-                    mechanicsDataset.forEach((item: any) => {
-                        item.name.forEach((name: string) => {
-                            const completionItem = new vscode.CompletionItem(name, vscode.CompletionItemKind.Function);
-                            completionItem.detail = `${item.description}`;
-                            completionItem.kind = vscode.CompletionItemKind.Function;
-                            if (!item.attributes && item.extends != "SkillMechanic") {
-                                completionItem.insertText = new vscode.SnippetString(space + name);
-                            }
-                            else {
-                                completionItem.insertText = new vscode.SnippetString(space + name + "{$0}");
-                            }
-                            completionItem.command = { command: 'editor.action.triggerSuggest', title: 'Re-trigger completions...' };
-                            completionItems.push(completionItem);
-                        });
-                    });
+            mechanicsDataset.forEach((item: any) => {
+                item.name.forEach((name: string) => {
+                    const completionItem = new vscode.CompletionItem(name, vscode.CompletionItemKind.Function);
+                    completionItem.detail = `${item.description}`;
+                    completionItem.kind = vscode.CompletionItemKind.Function;
+                    if (!item.attributes && item.extends != "SkillMechanic") {
+                        completionItem.insertText = new vscode.SnippetString(space + name);
+                    }
+                    else {
+                        completionItem.insertText = new vscode.SnippetString(space + name + "{$0}");
+                    }
+                    completionItem.command = { command: 'editor.action.triggerSuggest', title: 'Re-trigger completions...' };
+                    completionItems.push(completionItem);
+                });
+            });
+            return completionItems;
 
-                    return completionItems;
-
-            }
 
         }
     }, "-", " "
+);
+
+export const inlineMetaskillCompletionProvider = vscode.languages.registerCompletionItemProvider(
+    'yaml',
+    {
+        async provideCompletionItems(document: vscode.TextDocument, position: vscode.Position, token: vscode.CancellationToken, context: vscode.CompletionContext) {
+
+            if (isEnabled(document) === false) {
+                return undefined;
+            }
+
+            const keys = yamlutils.getParentKeys(document, position.line);
+            if (keys[0] !== 'Skills') {
+                return undefined;
+            }
+
+            const lastTwoChars = document.getText(new vscode.Range(position.translate(0, -2), position));
+            if (lastTwoChars !== "=[") {
+                return undefined;
+            }
+            
+            const indent = document.lineAt(position.line).firstNonWhitespaceCharacterIndex + 0;
+            const indentation = " ".repeat(indent);
+
+
+            const completionItem = new vscode.CompletionItem("Inline Metaskill", vscode.CompletionItemKind.Function);
+            completionItem.detail = "Generate the syntax for an inline metaskill";
+            completionItem.kind = vscode.CompletionItemKind.Function;
+            completionItem.insertText = new vscode.SnippetString("\n" + indentation + "- $0\n" + indentation);
+            completionItem.command = { command: 'editor.action.triggerSuggest', title: 'Re-trigger completions...' };
+
+            return [completionItem];
+        }
+    }, "["
 );
 
 export const targeterCompletionProvider = vscode.languages.registerCompletionItemProvider(
@@ -273,6 +309,7 @@ export const conditionCompletionProvider = vscode.languages.registerCompletionIt
             // }
 
             const keys = yamlutils.getParentKeys(document, position.line);
+            console.log(keys);
             if (!['Conditions', 'TargetConditions', 'TriggerConditions'].includes(keys[0])) {
                 return undefined;
             }
@@ -351,7 +388,20 @@ export const attributeCompletionProvider = vscode.languages.registerCompletionIt
     {
         async provideCompletionItems(document: vscode.TextDocument, position: vscode.Position, token: vscode.CancellationToken, context: vscode.CompletionContext) {
 
+
             if (isEnabled(document) === false) {
+                return undefined;
+            }
+
+            const charBefore = document.getText(new vscode.Range(position.translate(0, -2), position));
+            if (charBefore === ";;" || charBefore === "{;") {
+                const edit = new vscode.WorkspaceEdit();
+                edit.delete(document.uri, new vscode.Range(position.translate(0, -1), position));
+                await vscode.workspace.applyEdit(edit);
+                vscode.commands.executeCommand('editor.action.triggerSuggest');
+                return undefined;
+            }
+            else if (charBefore === "- ") {
                 return undefined;
             }
 
@@ -360,7 +410,6 @@ export const attributeCompletionProvider = vscode.languages.registerCompletionIt
             const completionItems: vscode.CompletionItem[] = [];
             let mechanic = null;
             let type = ObjectType.MECHANIC;
-
 
             const object = getObjectLinkedToAttribute(document, position);
             if (!object) {

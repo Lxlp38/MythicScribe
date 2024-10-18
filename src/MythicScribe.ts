@@ -7,7 +7,7 @@ import { mechanicsCompletionProvider, targeterCompletionProvider, inlineConditio
 
 export function activate(context: vscode.ExtensionContext) {
 
-	//console.log('MythicScribe is active');
+	console.log('MythicScribe is active');
 
 
 	// Hover provider for mechanics and attributes

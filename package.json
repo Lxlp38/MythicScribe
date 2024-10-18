@@ -3,7 +3,8 @@
   "displayName": "MythicScribe",
   "repository": {
     "type": "git",
-    "url": "https://github.com/Lxlp38/MythicScribe"},
+    "url": "https://github.com/Lxlp38/MythicScribe"
+  },
   "description": "",
   "version": "0.0.1",
   "engines": {
@@ -62,10 +63,12 @@
     }
   },
   "scripts": {
-    "vscode:prepublish": "npm run compile",
+    "vscode:prepublish": "npm run package",
     "compile": "npm run check-types && node esbuild.js",
     "check-types": "tsc --noEmit",
-    "watch": "tsc -watch -p ./",
+    "watch": "npm-run-all -p watch:*",
+    "watch:esbuild": "node esbuild.js --watch",
+    "watch:tsc": "tsc --noEmit --watch --project tsconfig.json",
     "pretest": "npm run compile && npm run lint",
     "build": "node esbuild.js",
     "lint": "eslint src",
@@ -85,6 +88,7 @@
     "typescript": "^5.6.2"
   },
   "dependencies": {
+    "npm-run-all": "^4.1.5",
     "vsce": "^2.15.0"
   }
 }
