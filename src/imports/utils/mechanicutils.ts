@@ -1,4 +1,4 @@
-import { mechanicsDataset } from '../objectInfos';
+import { mechanicsDataset } from '../../objectInfos';
 
 
 // Utility to get mechanic data by name

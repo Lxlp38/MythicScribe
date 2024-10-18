@@ -1,3 +1,4 @@
+import { off } from 'process';
 import * as vscode from 'vscode';
 
 function getUpstreamKey(document: vscode.TextDocument, lineIndex: number): string {
@@ -86,6 +87,18 @@ function isInsideKey(document: vscode.TextDocument, lineIndex: number, key: stri
 		}
 	}
 	return false;
+}
+
+/**
+ * Function to get the word before a given position in the document
+ * @param document - The TextDocument of the YAML file
+ * @param position - The position in the document
+ * @returns The word before the given position
+ */
+export function getWordBeforePosition(document: vscode.TextDocument, position: vscode.Position, offset: number = 0): string {
+	const lineText = document.lineAt(position.line).text.substring(0, position.character);
+	const words = lineText.trim().split(/\s+/);
+	return words.length > 0+offset ? words[words.length - 1+offset] : '';
 }
 
 export { getUpstreamKey, getParentKeys, isKey, isInsideKey };

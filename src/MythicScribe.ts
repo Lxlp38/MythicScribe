@@ -1,8 +1,8 @@
 // The module 'vscode' contains the VS Code extensibility API
 // Import the module and reference it with the alias vscode in your code below
 import * as vscode from 'vscode';
-import { hoverProvider } from './imports/hoverprovider';
-import { mechanicsCompletionProvider, targeterCompletionProvider, inlineConditionCompletionProvider, attributeCompletionProvider } from './imports/completionprovider';
+import { hoverProvider } from './imports/hovers/hoverprovider';
+import { mechanicsCompletionProvider, targeterCompletionProvider, inlineConditionCompletionProvider, attributeCompletionProvider } from './imports/completions/completionprovider';
 
 
 export function activate(context: vscode.ExtensionContext) {

@@ -43,4 +43,36 @@ const ObjectInfo = {
 	},
 }
 
+export const ConditionActions = {
+	"true": {
+		"type": "check",
+	},
+	"false": {
+		"type": "check",
+	},
+	"cast": {
+		"type": "metaskill",
+	},
+	"castinstead": {
+		"type": "metaskill",
+	},
+	"orElseCast": {
+		"type": "metaskill",
+	},
+	"power": {
+		"type": "float",
+	}
+}
+
+export const SkillFileObjects = [
+	"Skills",
+	"Conditions",
+	"TargetConditions",
+	"TriggerConditions",
+	"Cooldown",
+	"CancelIfNoTargets",
+	"FailedConditionsSkill",
+	"OnCooldownSkill",
+]
+
 export { ObjectType, ObjectInfo, mechanicsDataset, targetersDataset, conditionsDataset };

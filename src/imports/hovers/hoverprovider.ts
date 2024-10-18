@@ -1,8 +1,8 @@
 import * as vscode from 'vscode';
-import { ObjectType } from '../objectInfos';
-import * as yamlutils from './yamlutils';
-import { isEnabled } from './configutils';
-import { getCursorSkills, getCursorCondition } from './cursorutils';
+import { ObjectType } from '../../objectInfos';
+import * as yamlutils from '../utils/yamlutils';
+import { isEnabled } from '../utils/configutils';
+import { getCursorSkills, getCursorCondition } from '../utils/cursorutils';
 
 
 export const hoverProvider = vscode.languages.registerHoverProvider('yaml', {
