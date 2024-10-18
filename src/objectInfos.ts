@@ -35,7 +35,7 @@ const ObjectInfo = {
 	},
 	[ObjectType.CONDITION]: {
 		dataset: conditionsDataset,
-		regex: /(?<=\s[-\(\|\&)] )[\w:]+(?=[\s{])/gm,
+		regex: /(?<=[\s\|\&][-\(\|\&\)] )[\w:]+/gm,
 	},
 	[ObjectType.INLINECONDITION]: {
 		dataset: conditionsDataset,

@@ -95,3 +95,22 @@ export function getCursorSkills(document: vscode.TextDocument, position: vscode.
 }
 
 
+export function getCursorCondition(document: vscode.TextDocument, position: vscode.Position, exact: boolean = true) {
+	const maybeCondition = fetchCursorSkills(document, position, ObjectType.CONDITION, exact);
+	if (maybeCondition) {
+		return maybeCondition;
+	}
+
+	const maybeAttribute = document.getWordRangeAtPosition(position, /(?<=[{;])\w+/gm);
+	if (maybeAttribute) {
+		const attribute = document.getText(maybeAttribute);
+		const object = getObjectLinkedToAttribute(document, position);
+		if (!object) {
+			return null;
+		}
+		const mechanic = getMechanicDataByName(object, conditionsDataset);
+		return [getAttributeDataByName(mechanic, attribute, conditionsDataset), ObjectType.ATTRIBUTE];
+
+	}
+	return null;
+}

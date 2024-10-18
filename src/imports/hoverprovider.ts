@@ -2,7 +2,7 @@ import * as vscode from 'vscode';
 import { ObjectType } from '../objectInfos';
 import * as yamlutils from './yamlutils';
 import { isEnabled } from './configutils';
-import { getCursorSkills } from './cursorutils';
+import { getCursorSkills, getCursorCondition } from './cursorutils';
 
 
 export const hoverProvider = vscode.languages.registerHoverProvider('yaml', {
@@ -25,6 +25,15 @@ export const hoverProvider = vscode.languages.registerHoverProvider('yaml', {
                 }
     
                 return getHover(obj, type);
+            case "Conditions": case "TargetConditions": case "TriggerConditions":
+                [obj, type] = getCursorCondition(document, position, true);
+                console.log(obj, type);
+    
+                if (!obj) {
+                    return null;
+                }
+    
+                return getHover(obj, type);
     
         }
     
@@ -35,13 +44,16 @@ export const hoverProvider = vscode.languages.registerHoverProvider('yaml', {
 
 
 
-async function getHover(mechanic: any, type: ObjectType): Promise<vscode.Hover> {
+async function getHover(mechanic: any, type: ObjectType): Promise<vscode.Hover | undefined> {
     if (type == ObjectType.ATTRIBUTE) {
         return getHoverForAttribute(mechanic);
     }
 
+
+
     // Combine the mechanic names into a comma-separated string for the mechanic's names
     const mechanicNames = mechanic.name.join(', ');
+    
 
     // Start building the hover content for the mechanic
     let hoverContent = new vscode.MarkdownString(`
@@ -67,6 +79,7 @@ ${mechanic.description}
 
         // Add each attribute to the table
         mechanic.attributes.forEach((attribute: any) => {
+
             const attributeName = attribute.name[0]; // First element as the primary name
             const attributeAliases = attribute.name.slice(1).join(', ') || ''; // Remaining names as aliases
             const attributeDescription = attribute.description || 'No description provided.';
@@ -85,7 +98,6 @@ ${mechanic.description}
 
     // Return the hover with the formatted content
     return new vscode.Hover(hoverContent);
-
 }
 
 /**
