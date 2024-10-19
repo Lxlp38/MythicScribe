@@ -18,12 +18,6 @@
   ],
   "main": "./out/MythicScribe.js",
   "contributes": {
-    "commands": [
-      {
-        "command": "mythicscribe.helloWorld",
-        "title": "Hello World"
-      }
-    ],
     "languages": [
       {
         "id": "yaml",
@@ -54,10 +48,17 @@
       "type": "object",
       "title": "MythicScribe",
       "properties": {
-        "mythicscribe.alwaysEnabled": {
+        "MythicScribe.alwaysEnabled": {
+          "title": "Always Enabled",
           "type": "boolean",
           "default": false,
           "description": "Enable MythicScribe's functionalities in all files."
+        },
+        "MythicScribe.enableEmptyBracketsAutomaticRemoval": {
+          "title": "Enable Empty Brackets Automatic Removal",
+          "type": "boolean",
+          "default": true,
+          "description": "Enable the removal of empty curly brackets `{}` by moving the cursor past them. Changes applies on extension reload."
         }
       }
     }

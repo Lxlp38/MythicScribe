@@ -2,7 +2,7 @@ import * as vscode from 'vscode';
 import * as path from 'path';
 import * as fs from 'fs';
 
-enum ObjectType {
+export enum ObjectType {
 	MECHANIC = 'Mechanic',
 	ATTRIBUTE = 'Attribute',
 	TARGETER = 'Targeter',
@@ -10,17 +10,17 @@ enum ObjectType {
 	INLINECONDITION = 'Inline Condition',
 }
 
-const mechanicsDatasetPath = path.join(__dirname, '../data/MythicMobs_Mechanics_dataset.json');
-const mechanicsDataset = JSON.parse(fs.readFileSync(mechanicsDatasetPath, 'utf8'));
+export const mechanicsDatasetPath = path.join(__dirname, '../data/MythicMobs_Mechanics_dataset.json');
+export const mechanicsDataset = JSON.parse(fs.readFileSync(mechanicsDatasetPath, 'utf8'));
 
-const targetersDatasetPath = path.join(__dirname, '../data/MythicMobs_Targeters_dataset.json');
-const targetersDataset = JSON.parse(fs.readFileSync(targetersDatasetPath, 'utf8'));
+export const targetersDatasetPath = path.join(__dirname, '../data/MythicMobs_Targeters_dataset.json');
+export const targetersDataset = JSON.parse(fs.readFileSync(targetersDatasetPath, 'utf8'));
 
-const conditionsDatasetPath = path.join(__dirname, '../data/MythicMobs_Conditions_dataset.json');
-const conditionsDataset = JSON.parse(fs.readFileSync(conditionsDatasetPath, 'utf8'));
+export const conditionsDatasetPath = path.join(__dirname, '../data/MythicMobs_Conditions_dataset.json');
+export const conditionsDataset = JSON.parse(fs.readFileSync(conditionsDatasetPath, 'utf8'));
 
 
-const ObjectInfo = {
+export const ObjectInfo = {
 	[ObjectType.MECHANIC]: {
 		dataset: mechanicsDataset,
 		regex: /(?<=\s- )[\w:]+(?=[\s{])/gm,
@@ -74,5 +74,3 @@ export const SkillFileObjects = {
 	"FailedConditionsSkill": "string",
 	"OnCooldownSkill": "string",
 }
-
-export { ObjectType, ObjectInfo, mechanicsDataset, targetersDataset, conditionsDataset };

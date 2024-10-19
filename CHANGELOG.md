@@ -4,13 +4,18 @@ All notable changes to the "mythicscribe" extension will be documented in this f
 
 Check [Keep a Changelog](http://keepachangelog.com/) for recommendations on how to structure this file.
 
-## [0.0.2]
+## [Unreleased]
 
 ### Added
 
 - Support for inline metaskills
   - By writing `=[` a new completion will be displayed, allowing you to write down the syntax for inline metaskills
 - By writing a `;` after either another `;` or a `{` now deleted the newly added character and brings up attribute suggestions
+- Moving the cursor to the right of empty curly brackets `{}` now deletes the brackets and puts a space. Enabled by default, can be configured via the `MythicScribe.enableEmptyBracketsAutomaticRemoval` config 
+  - `  - mechanic{}` --> `  - mechanic `
+
+### Fixed
+- Inline Conditions showing their completions alongside mechanics
 
 
 ## [0.0.1]
