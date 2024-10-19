@@ -70,7 +70,8 @@
     "watch:tsc": "tsc --noEmit --watch --project tsconfig.json",
     "vscode:prepublish": "npm run package",
     "package": "npm run check-types && node esbuild.js --production",
-    "build": "node esbuild.js"
+    "build": "node esbuild.js",
+    "buildtag": "npm run package && npx @vscode/vsce package"
   },
   "devDependencies": {
     "@types/mocha": "^10.0.8",

@@ -50,7 +50,7 @@ jobs:
 
       # Step 8: Package the extension into a .vsix file using vsce
       - name: Package the VSCode extension (.vsix)
-        run: vsce package
+        run: npm run buildtag
       
       - name: List files after packaging
         run: ls -al
