@@ -57,7 +57,13 @@ jobs:
 
       # Step 9: Rename the .vsix file to include the version
       - name: Rename .vsix file
-        run: mv ./mythicscribe-*.vsix ./mythicscribe-${{ env.VERSION }}.vsix
+        run: |
+          FILE=$(ls *.vsix)
+          if [ "$FILE" != "mythicscribe-${{ env.VERSION }}.vsix" ]; then
+            mv "$FILE" "mythicscribe-${{ env.VERSION }}.vsix"
+          else
+            echo "File is already named correctly: $FILE"
+          fi
 
       # Step 10: Create a release on GitHub based on the tag and upload the .vsix file
       - name: Create release and upload .vsix
