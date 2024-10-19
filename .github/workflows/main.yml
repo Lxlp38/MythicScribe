@@ -28,7 +28,7 @@ jobs:
         id: extract_version
         run: |
           VERSION=${GITHUB_REF#refs/tags/}
-          VERSION=${VERSION#v}
+          VERSION=${VERSION#v}  # Remove leading 'v' if present
           echo "VERSION=$VERSION" >> $GITHUB_ENV
 
       # Step 4: Install jq
@@ -52,9 +52,14 @@ jobs:
       - name: Package the VSCode extension (.vsix)
         run: npm run package
 
-      # Step 9: Create a release on GitHub based on the tag
-      - name: Create release
+      # Step 9: Rename the .vsix file to include the version
+      - name: Rename .vsix file
+        run: mv ./mythicscribe-*.vsix ./mythicscribe-${{ env.VERSION }}.vsix
+
+      # Step 10: Create a release on GitHub based on the tag and upload the .vsix file
+      - name: Create release and upload .vsix
         uses: softprops/action-gh-release@v1
         with:
-          files: './mythicscribe-${{ github.ref }}.vsix'
-          
+          files: './mythicscribe-${{ env.VERSION }}.vsix'
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
