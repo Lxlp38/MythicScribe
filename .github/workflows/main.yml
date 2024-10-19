@@ -51,6 +51,9 @@ jobs:
       # Step 8: Package the extension into a .vsix file using vsce
       - name: Package the VSCode extension (.vsix)
         run: npm run package
+      
+      - name: List files after packaging
+        run: ls -al
 
       # Step 9: Rename the .vsix file to include the version
       - name: Rename .vsix file
