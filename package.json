@@ -5,7 +5,7 @@
     "type": "git",
     "url": "https://github.com/Lxlp38/MythicScribe"
   },
-  "description": "",
+  "description": "Offers support for MythicMobs scripting in VSCode",
   "version": "0.0.1",
   "engines": {
     "vscode": "^1.94.0"
@@ -63,17 +63,15 @@
     }
   },
   "scripts": {
-    "vscode:prepublish": "npm run package",
     "compile": "npm run check-types && node esbuild.js",
     "check-types": "tsc --noEmit",
     "watch": "npm-run-all -p watch:*",
     "watch:esbuild": "node esbuild.js --watch",
     "watch:tsc": "tsc --noEmit --watch --project tsconfig.json",
-    "pretest": "npm run compile && npm run lint",
-    "build": "node esbuild.js",
-    "lint": "eslint src",
-    "test": "vscode-test",
-    "package": "npm run check-types && node esbuild.js --production"
+    "vscode:prepublish": "npm run package",
+    "package": "npm run check-types && node esbuild.js --production",
+    "build": "node esbuild.js"
+
   },
   "devDependencies": {
     "@types/mocha": "^10.0.8",

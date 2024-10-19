@@ -1,0 +1,68 @@
+name: Build and Release Extension
+
+on:
+  push:
+    tags:
+      - '*' # Trigger on any tag push
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+
+    steps:
+      # Step 1: Checkout the repository
+      - name: Checkout code
+        uses: actions/checkout@v3
+
+      # Step 2: Set up Node.js environment
+      - name: Set up Node.js
+        uses: actions/setup-node@v3
+        with:
+          node-version: '16'
+
+      # Step 3: Extract version from tag
+      - name: Extract version from tag
+        id: extract_version
+        run: echo "VERSION=${GITHUB_REF#refs/tags/}" >> $GITHUB_ENV
+
+      # Step 4: Install jq
+      - name: Install jq
+        run: sudo apt-get install -y jq
+
+      # Step 5: Update package.json version to match the tag version
+      - name: Update package.json version
+        run: |
+          jq --arg v "$VERSION" '.version = $v' package.json > tmp.json && mv tmp.json package.json
+
+      # Step 6: Install dependencies
+      - name: Install dependencies
+        run: npm install
+
+      # Step 7: Build the extension using esbuild
+      - name: Build the extension
+        run: npm run build
+
+      # Step 8: Package the extension into a .vsix file using vsce
+      - name: Package the VSCode extension (.vsix)
+        run: npm run package
+
+      # Step 9: Create a release on GitHub based on the tag
+      - name: Create Release
+        id: create_release
+        uses: actions/create-release@v1
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        with:
+          tag_name: ${{ github.ref }}
+          release_name: Release ${{ github.ref }}
+          draft: false
+          prerelease: false
+
+      # Step 10: Upload the .vsix file to the release
+      - name: Upload .vsix file
+        uses: actions/upload-release-asset@v1
+        with:
+          upload_url: ${{ steps.create_release.outputs.upload_url }}
+          asset_path: ./mythicscribe-${{ github.ref }}.vsix
+          asset_name: mythicscribe-${{ github.ref }}.vsix
+          asset_content_type: application/vsix

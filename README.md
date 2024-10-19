@@ -18,12 +18,3 @@ Adds hover information and autocompletions for the following elements:
 This extension contributes the following settings:
 
 * `mythicscribe.alwaysEnabled`: When enabled, this extension will no longer check for a /MythicMobs/ folder to be uptream in order to parse the file.
-
-## Known Issues
-
-
-## Release Notes
-
-### 0.0.1
-
-Initial release of MythicScribe

@@ -309,7 +309,6 @@ export const conditionCompletionProvider = vscode.languages.registerCompletionIt
             // }
 
             const keys = yamlutils.getParentKeys(document, position.line);
-            console.log(keys);
             if (!['Conditions', 'TargetConditions', 'TriggerConditions'].includes(keys[0])) {
                 return undefined;
             }
