@@ -61,6 +61,11 @@ function isKey(document: vscode.TextDocument, lineIndex: number): boolean {
 
 }
 
+export function getKey(document: vscode.TextDocument, lineIndex: number): string {
+	const line = document.lineAt(lineIndex).text.trim();
+	return line.split(':')[0];
+}
+
 /**
  * Function to determine if the current line is inside a specific key in the YAML file
  * @param document - The TextDocument of the YAML file

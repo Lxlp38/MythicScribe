@@ -15,6 +15,7 @@ Check [Keep a Changelog](http://keepachangelog.com/) for recommendations on how 
   - `  - mechanic{}` --> `  - mechanic `
 - added `regexForMythicmobsFile` config, which allows you to define a custom regex to determine which files are MythicMobs ones based on their path matching the regex
 - added `regexForMetaskillFile` config, which allows you to define a custom regex to determine which files are Metaskill files based on their path matching the regex
+- hover support for Metaskill components
 
 ### Fixed
 - Inline Conditions showing their completions alongside mechanics

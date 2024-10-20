@@ -30,7 +30,7 @@ export const SkillFileCompletionProvider = vscode.languages.registerCompletionIt
                 return undefined;
             }
             else if(keys.length == 2){
-                if(SkillFileObjects[keys[0] as keyof typeof SkillFileObjects] == "list"){
+                if(SkillFileObjects[keys[0] as keyof typeof SkillFileObjects].type == "list"){
                     const completionItem = new vscode.CompletionItem("-", vscode.CompletionItemKind.Snippet);
                     completionItem.insertText = new vscode.SnippetString(indentation + "- $0");
                     completionItem.command = { command: 'editor.action.triggerSuggest', title: 'Re-trigger completions...' };
@@ -47,7 +47,7 @@ export const SkillFileCompletionProvider = vscode.languages.registerCompletionIt
             Object.entries(SkillFileObjects).forEach(([key, value]) => {
                 const completionItem = new vscode.CompletionItem(key, vscode.CompletionItemKind.File);
                 completionItem.kind = vscode.CompletionItemKind.File;
-                if(value == "list"){
+                if(value.type == "list"){
                     completionItem.insertText = new vscode.SnippetString(indentation + key + ":\n" + indentation + "- $0");
                 }
                 else {

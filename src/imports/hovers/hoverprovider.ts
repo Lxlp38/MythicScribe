@@ -1,5 +1,5 @@
 import * as vscode from 'vscode';
-import { ObjectType } from '../../objectInfos';
+import { ObjectType, SkillFileObjects } from '../../objectInfos';
 import * as yamlutils from '../utils/yamlutils';
 import { isEnabled } from '../utils/configutils';
 import { getCursorSkills, getCursorCondition } from '../utils/cursorutils';
@@ -12,9 +12,21 @@ export const hoverProvider = vscode.languages.registerHoverProvider('yaml', {
             return undefined;
         }
 
+
+
+
+        if (yamlutils.isKey(document, position.line) === true) {
+            const key = yamlutils.getKey(document, position.line);
+            if (Object.keys(SkillFileObjects).includes(key)){
+                const key_ = key as keyof typeof SkillFileObjects;
+                return getMinimalHover(key, SkillFileObjects[key_].description ,SkillFileObjects[key_].link);
+            }
+            return undefined;
+        }
+
         var obj, type = null;
         const keys = yamlutils.getParentKeys(document, position.line);
-    
+
         switch (keys[0]) {
             case 'Skills':
     
@@ -33,7 +45,6 @@ export const hoverProvider = vscode.languages.registerHoverProvider('yaml', {
                 }
     
                 return getHover(obj, type);
-    
         }
     
     
@@ -122,5 +133,14 @@ async function getHoverForAttribute(attribute: any): Promise<vscode.Hover> {
     hoverContent.isTrusted = true;
 
     // Return a new hover with the formatted content
+    return new vscode.Hover(hoverContent);
+}
+
+function getMinimalHover(title : string, description: string, link : string) : vscode.Hover {
+    const hoverContent = new vscode.MarkdownString(`
+## [${title}](${link})
+
+${description}`)
+    hoverContent.isTrusted = true;
     return new vscode.Hover(hoverContent);
 }

@@ -65,12 +65,44 @@ export const ConditionActions = {
 }
 
 export const SkillFileObjects = {
-	"Skills" : "list",
-	"Conditions": "list",
-	"TargetConditions": "list",
-	"TriggerConditions": "list",
-	"Cooldown": "float",
-	"CancelIfNoTargets": "bool",
-	"FailedConditionsSkill": "string",
-	"OnCooldownSkill": "string",
+	"Skills" : {
+		"type": "list",
+		"link": "https://git.lumine.io/mythiccraft/MythicMobs/-/wikis/Skills/Metaskills#skills",
+		"description": "The list of the mechanics that will be executed by the metaskill.",
+	},
+	"Conditions": {
+		"type": "list",
+		"link": "https://git.lumine.io/mythiccraft/MythicMobs/-/wikis/Skills/Metaskills#conditions",
+		"description": "The list of conditions that will evaluate the caster of the metaskill before execution.",
+	},
+	"TargetConditions": {
+		"type": "list",
+		"link": "https://git.lumine.io/mythiccraft/MythicMobs/-/wikis/Skills/Metaskills#targetconditions",
+		"description": "The list of conditions that will evaluate the target of the metaskill before execution",
+	},
+	"TriggerConditions": {
+		"type": "list",
+		"link": "https://git.lumine.io/mythiccraft/MythicMobs/-/wikis/Skills/Metaskills#triggerconditions",
+		"description": "The list of conditions that will evaluate the trigger of the metaskill before execution",
+	},
+	"Cooldown": {
+		"type": "float",
+		"link": "https://git.lumine.io/mythiccraft/MythicMobs/-/wikis/Skills/Metaskills#cooldown",
+		"description": "The cooldown of the metaskill (in seconds).",
+	},
+	"CancelIfNoTargets": {
+		"type": "bool",
+		"link": "https://git.lumine.io/mythiccraft/MythicMobs/-/wikis/Skills/Metaskills#cancelifnotargets",
+		"description": "Whether the metaskill should be cancelled if there are no targets.",
+	},
+	"FailedConditionsSkill": {
+		"type": "string",
+		"link": "https://git.lumine.io/mythiccraft/MythicMobs/-/wikis/Skills/Metaskills#failedconditionsskill",
+		"description": "The name of the metaskill to cast if the conditions fail.",
+	},
+	"OnCooldownSkill": {
+		"type": "string",
+		"link": "https://git.lumine.io/mythiccraft/MythicMobs/-/wikis/Skills/Metaskills#oncooldownskill",
+		"description": "The name of the metaskill to cast if the metaskill is on cooldown.",
+	},
 }
