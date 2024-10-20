@@ -4,17 +4,14 @@ import { mechanicsDataset, targetersDataset, conditionsDataset, ObjectType, Obje
 import { getAllAttributes, getMechanicDataByName } from '../utils/mechanicutils';
 import { getObjectLinkedToAttribute } from '../utils/cursorutils';
 import { isEnabled } from '../utils/configutils';
+import { isMetaskillFile } from '../utils/configutils';
 
 export const SkillFileCompletionProvider = vscode.languages.registerCompletionItemProvider(
     'yaml',
     {
         async provideCompletionItems(document: vscode.TextDocument, position: vscode.Position, token: vscode.CancellationToken, context: vscode.CompletionContext) {
 
-            if (isEnabled(document) === false) {
-                return undefined;
-            }
-            const documentPath = document.uri.path.toLowerCase();
-            if (!documentPath.includes('/skills/')) {
+            if (!isEnabled(document) || !isMetaskillFile(document)) {
                 return undefined;
             }
 

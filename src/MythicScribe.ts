@@ -12,7 +12,7 @@ import { SkillFileCompletionProvider } from './imports/completions/skillfileComp
 import { inlineMetaskillCompletionProvider } from './imports/completions/inlinemetaskillCompletionProvider';
 
 import { removeBracketsTextListener } from './imports/textchanges/bracketsremover';
-import { config } from './imports/utils/configutils';
+import { enableEmptyBracketsAutomaticRemoval } from './imports/utils/configutils';
 
 
 export function activate(context: vscode.ExtensionContext) {
@@ -35,7 +35,7 @@ export function activate(context: vscode.ExtensionContext) {
 	context.subscriptions.push(inlineMetaskillCompletionProvider);
 
 	// Text Changes
-	if(config.get('enableEmptyBracketsAutomaticRemoval')){
+	if(enableEmptyBracketsAutomaticRemoval()) {
 		context.subscriptions.push(removeBracketsTextListener);
 	}
 }

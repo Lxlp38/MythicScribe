@@ -19,5 +19,7 @@ MythicScribe is a VisualStudio Code extension that allows you to connect your My
 
 This extension contributes the following settings:
 
-* `MythicScribe.alwaysEnabled`: When enabled, this extension will no longer check for a /MythicMobs/ folder to be uptream in order to parse the file.
-* `MythicScribe.enableEmptyBracketsAutomaticRemoval`: Enable the removal of empty curly brackets `{}` by moving the cursor past them 
+* `MythicScribe.alwaysEnabled`: When enabled, this extension will no longer check for a /MythicMobs/ folder to be uptream in order to parse the file
+* `MythicScribe.enableEmptyBracketsAutomaticRemoval`: Enable the removal of empty curly brackets `{}` by moving the cursor past them
+* `MythicScribe.regexForMythicmobsFile`: determine which files are Mythicmobs ones based on a custom regex
+* `MythicScribe.regexForMetaskillFile`: determine which files are Metaskill ones based on a custom regex

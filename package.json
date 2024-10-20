@@ -6,7 +6,7 @@
     "url": "https://github.com/Lxlp38/MythicScribe"
   },
   "description": "Offers support for MythicMobs scripting in VSCode",
-  "version": "0.0.1",
+  "version": "0.0.2",
   "engines": {
     "vscode": "^1.94.0"
   },
@@ -31,7 +31,7 @@
         ]
       }
     ],
-    "completionItemProvider": [
+    "completionItemProviders": [
       {
         "language": "yaml",
         "triggerCharacters": [
@@ -58,7 +58,19 @@
           "title": "Enable Empty Brackets Automatic Removal",
           "type": "boolean",
           "default": true,
-          "description": "Enable the removal of empty curly brackets `{}` by moving the cursor past them. Changes applies on extension reload."
+          "description": "Enable the removal of empty curly brackets `{}` by moving the cursor past them. Changes apply on extension reload."
+        },
+        "MythicScribe.regexForMythicmobsFile": {
+          "title": "Regex for MythicMobs File",
+          "type": "string",
+          "default": "[Mm]ythic[Mm]obs",
+          "description": "The regex used against each document's file path: if it matches, the document will be considered as being a MythicMobs one, enabling this extension."
+        },
+        "MythicScribe.regexForMetaskillFile": {
+          "title": "Regex for MythicMobs Metaskills",
+          "type": "string",
+          "default": "[Ss]kills",
+          "description": "The regex used against each document's file path: if it matches, the document will be considered as being a Metaskills one, enabling Metaskill files functionalities."
         }
       }
     }
