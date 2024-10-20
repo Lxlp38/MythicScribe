@@ -12,10 +12,6 @@ export const conditionCompletionProvider = vscode.languages.registerCompletionIt
                 return undefined;
             }
 
-            // if (context.triggerCharacter === undefined) {
-            //     return undefined;
-            // }
-
             const keys = yamlutils.getParentKeys(document, position.line);
             if (!['Conditions', 'TargetConditions', 'TriggerConditions'].includes(keys[0])) {
                 return undefined;

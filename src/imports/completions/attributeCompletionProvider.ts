@@ -27,6 +27,13 @@ export const attributeCompletionProvider = vscode.languages.registerCompletionIt
                 return undefined;
             }
 
+            if (context.triggerCharacter === undefined) {
+                const specialSymbol = yamlutils.previousSpecialSymbol(document, position);
+                if (!["{", ";"].includes(specialSymbol)) {
+                    return undefined;
+                }    
+            }
+
 
             const keys = yamlutils.getParentKeys(document, position.line);
             const completionItems: vscode.CompletionItem[] = [];
@@ -61,8 +68,6 @@ export const attributeCompletionProvider = vscode.languages.registerCompletionIt
                 return null;
             }
 
-            console.log(mechanic);
-
             const attributes = getAllAttributes(mechanic, ObjectInfo[type].dataset);
             let index = 10000;
 
@@ -84,7 +89,7 @@ export const attributeCompletionProvider = vscode.languages.registerCompletionIt
                 completionItems.push(completionItem);
             });
 
-            return completionItems
+            return completionItems;
         }
     }, "{", ";"
 );

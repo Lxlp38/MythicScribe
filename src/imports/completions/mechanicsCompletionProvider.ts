@@ -8,11 +8,9 @@ export const mechanicCompletionProvider = vscode.languages.registerCompletionIte
     {
         async provideCompletionItems(document: vscode.TextDocument, position: vscode.Position, token: vscode.CancellationToken, context: vscode.CompletionContext) {
 
-
             if (isEnabled(document) === false) {
                 return undefined;
             }
-
 
             if(yamlutils.getParentKeys(document, position.line)[0] !== 'Skills'){
                 return undefined;
@@ -20,17 +18,24 @@ export const mechanicCompletionProvider = vscode.languages.registerCompletionIte
 
             let space = " ";
 
-            const charBefore = document.getText(new vscode.Range(position.translate(0, -2), position));
-            if (charBefore != '- ') {
+            const specialSymbol = yamlutils.previousSpecialSymbol(document, position);
+            if (specialSymbol !== "-") {
                 return undefined;
             }
+
 
             if (context.triggerKind === vscode.CompletionTriggerKind.TriggerCharacter && context.triggerCharacter === " ") {
                 space = "";
             }
 
             if (context.triggerCharacter === undefined) {
-                space = "";
+                const charBefore = document.getText(new vscode.Range(position.translate(0, -1), position));
+                if (charBefore == '-') {
+                    space = " ";
+                }
+                else {
+                    space = "";
+                }
             }
 
             const completionItems: vscode.CompletionItem[] = [];

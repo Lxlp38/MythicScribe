@@ -29,7 +29,6 @@ export const mechaniclineCompletionProvider = vscode.languages.registerCompletio
             }
 
             const completionItems: vscode.CompletionItem[] = [];
-            console.log(mechanicLine);
 
             const completionItem = new vscode.CompletionItem("?", vscode.CompletionItemKind.Function);
             completionItem.detail = "Add a condition to the mechanic line";

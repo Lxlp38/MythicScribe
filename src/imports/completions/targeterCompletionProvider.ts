@@ -23,8 +23,8 @@ export const targeterCompletionProvider = vscode.languages.registerCompletionIte
                 return undefined;
             }
 
-            const charBefore = document.getText(new vscode.Range(position.translate(0, -1), position));
-            if (charBefore != '@') {
+            const specialSymbol = yamlutils.previousSpecialSymbol(document, position);
+            if (specialSymbol != '@') {
                 return undefined;
             }
 

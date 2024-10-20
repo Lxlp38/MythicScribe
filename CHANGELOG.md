@@ -4,6 +4,13 @@ All notable changes to the "mythicscribe" extension will be documented in this f
 
 Check [Keep a Changelog](http://keepachangelog.com/) for recommendations on how to structure this file.
 
+
+## [Unreleased]
+
+### Fixed
+- Attribute autocompletions no longer stop default autocompletions from showing up when called
+- Mechanic autocompletions do pop up once default autocompletions are called after a `-` symbol
+
 ## [0.0.2]
 
 ### Added
