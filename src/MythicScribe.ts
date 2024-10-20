@@ -11,6 +11,8 @@ import { attributeCompletionProvider } from './imports/completions/attributeComp
 import { SkillFileCompletionProvider } from './imports/completions/skillfileCompletionProvider';
 import { inlineMetaskillCompletionProvider } from './imports/completions/inlinemetaskillCompletionProvider';
 
+import { mechaniclineCompletionProvider } from './imports/completions/mechaniclineCompletionProvider';
+
 import { removeBracketsTextListener } from './imports/textchanges/bracketsremover';
 import { enableEmptyBracketsAutomaticRemoval } from './imports/utils/configutils';
 
@@ -33,6 +35,7 @@ export function activate(context: vscode.ExtensionContext) {
 	context.subscriptions.push(SkillFileCompletionProvider);
 	
 	context.subscriptions.push(inlineMetaskillCompletionProvider);
+	context.subscriptions.push(mechaniclineCompletionProvider);
 
 	// Text Changes
 	if(enableEmptyBracketsAutomaticRemoval()) {

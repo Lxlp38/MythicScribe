@@ -106,4 +106,29 @@ export function getWordBeforePosition(document: vscode.TextDocument, position: v
 	return words.length > 0+offset ? words[words.length - 1+offset] : '';
 }
 
+
+export function getMechanicLine(document: vscode.TextDocument, lineIndex: number): Map<string, string> {
+	const mechanicMap = new Map<string, string>();
+	const line = document.lineAt(lineIndex).text.trim();
+	const matches = line.match(/- (\S*)(\s+@\S*)?(\s+~\S*)?(\s+\?~?!?\S*)*/);
+	if (matches) {
+		const mechanic = matches[1];
+		const targeter = matches[2];
+		const trigger = matches[3];
+		const conditions = matches[4];
+		mechanicMap.set('mechanic', mechanic);
+		if (targeter) {
+			mechanicMap.set('targeter', targeter.trim());
+		}
+		if (trigger) {
+			mechanicMap.set('trigger', trigger.trim());
+		}
+		if (conditions) {
+			mechanicMap.set('conditions', conditions.trim());
+		}
+		
+	}
+	return mechanicMap;
+}
+
 export { getUpstreamKey, getParentKeys, isKey, isInsideKey };

@@ -36,6 +36,9 @@ export function getObjectLinkedToAttribute(document: vscode.TextDocument, positi
 				return null;  // No object found before '{'
 			}
 		}
+		else if (char === '[' || char === ']') {
+			return null;
+		}
 	}
 
 	return null;  // No unbalanced opening brace found

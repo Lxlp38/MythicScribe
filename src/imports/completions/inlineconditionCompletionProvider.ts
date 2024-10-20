@@ -31,7 +31,7 @@ export const inlineConditionCompletionProvider = vscode.languages.registerComple
 
             const completionItems: vscode.CompletionItem[] = [];
 
-            switch (context.triggerCharacter) {
+            switch (charBefore0) {
                 case "?":
                     let charBefore = document.getText(new vscode.Range(position.translate(0, -2), position));
                     if (charBefore !== ' ?') {

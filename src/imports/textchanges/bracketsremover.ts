@@ -1,3 +1,4 @@
+import { exec } from 'child_process';
 import * as vscode from 'vscode';
 
 export const removeBracketsTextListener = vscode.window.onDidChangeTextEditorSelection(event => {    
@@ -14,6 +15,8 @@ export const removeBracketsTextListener = vscode.window.onDidChangeTextEditorSel
         editor.edit(editBuilder => {
             editBuilder.delete(rangeBeforeCursor);
             editBuilder.insert(position.translate(0, -2), ' ');
+        }).then(() => {
+            vscode.commands.executeCommand('editor.action.triggerSuggest');
         });
     }
 });

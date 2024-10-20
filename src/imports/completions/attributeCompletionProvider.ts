@@ -61,6 +61,7 @@ export const attributeCompletionProvider = vscode.languages.registerCompletionIt
                 return null;
             }
 
+            console.log(mechanic);
 
             const attributes = getAllAttributes(mechanic, ObjectInfo[type].dataset);
             let index = 10000;

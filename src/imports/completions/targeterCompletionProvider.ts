@@ -10,9 +10,9 @@ export const targeterCompletionProvider = vscode.languages.registerCompletionIte
     {
         async provideCompletionItems(document: vscode.TextDocument, position: vscode.Position, token: vscode.CancellationToken, context: vscode.CompletionContext) {
 
-            if(context.triggerCharacter === undefined){
-                return undefined;
-            }
+            // if(context.triggerCharacter === undefined){
+            //     return undefined;
+            // }
 
             if (isEnabled(document) === false) {
                 return undefined;
@@ -20,6 +20,11 @@ export const targeterCompletionProvider = vscode.languages.registerCompletionIte
 
             const keys = yamlutils.getParentKeys(document, position.line);
             if (keys[0] !== 'Skills') {
+                return undefined;
+            }
+
+            const charBefore = document.getText(new vscode.Range(position.translate(0, -1), position));
+            if (charBefore != '@') {
                 return undefined;
             }
 
