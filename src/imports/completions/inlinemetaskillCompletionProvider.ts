@@ -23,7 +23,6 @@ export const inlineMetaskillCompletionProvider = vscode.languages.registerComple
             
             const indent = 2 //document.lineAt(position.line).firstNonWhitespaceCharacterIndex + 0;
             const indentation = " ".repeat(indent);
-            console.log(indent);
 
 
             const completionItem = new vscode.CompletionItem("Inline Metaskill", vscode.CompletionItemKind.Function);

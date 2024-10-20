@@ -1,20 +1,23 @@
-# mythicscribe README
+# What is MythicScribe?
 
-MythicScribe allows you to connect your mythicmobs configuration directly with its documentation, providing hover texts with informations regarding the pointed object and autocompletions.
+MythicScribe is a VisualStudio Code extension that allows you to connect your MythicMobs configurations directly with its documentation, providing hover texts with informations regarding the pointed object and autocompletions for some of its syntax
 
 
 ## Features
 
-Adds hover information and autocompletions for the following elements:
+### Autocompletions
 
-- all MythicMobs mechanics
-- all MythicMobs targeters
-- all MythicMobs condition, both normal and inline
-- all MythicCrucible mechanics
+![Autocompletion Demo](demos/autocompletion-demo.gif)
+![Autocompletion Demo](demos/autocompletion2-demo.gif)
+
+### Hover Informations
+
+![Hover Demo](demos/hover-demo.gif)
 
 
 ## Extension Settings
 
 This extension contributes the following settings:
 
-* `mythicscribe.alwaysEnabled`: When enabled, this extension will no longer check for a /MythicMobs/ folder to be uptream in order to parse the file.
+* `MythicScribe.alwaysEnabled`: When enabled, this extension will no longer check for a /MythicMobs/ folder to be uptream in order to parse the file.
+* `MythicScribe.enableEmptyBracketsAutomaticRemoval`: Enable the removal of empty curly brackets `{}` by moving the cursor past them 
