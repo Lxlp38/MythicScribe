@@ -7,12 +7,12 @@ MythicScribe is a VisualStudio Code extension that allows you to connect your My
 
 ### Autocompletions
 
-![Autocompletion Demo](demos/autocompletion-demo.gif)
-![Autocompletion Demo](demos/autocompletion2-demo.gif)
+![Autocompletion Demo](https://raw.githubusercontent.com/Lxlp38/MythicScribe/refs/heads/master/demos/autocompletion-demo.gif)
+![Autocompletion Demo](https://raw.githubusercontent.com/Lxlp38/MythicScribe/refs/heads/master/demos/autocompletion2-demo.gif)
 
 ### Hover Informations
 
-![Hover Demo](demos/hover-demo.gif)
+![Hover Demo](https://raw.githubusercontent.com/Lxlp38/MythicScribe/refs/heads/master/demos/hover-demo.gif)
 
 
 ## Extension Settings

@@ -29,3 +29,11 @@ export function isMetaskillFile(document: vscode.TextDocument): boolean {
 export function enableEmptyBracketsAutomaticRemoval() {
     return vscode.workspace.getConfiguration('MythicScribe').get('enableEmptyBracketsAutomaticRemoval');
 }
+
+export function enableDashesSuggestions() {
+    return vscode.workspace.getConfiguration('MythicScribe').get('enableDashesSuggestions');
+}
+
+export function enableShortcuts() {
+    return vscode.workspace.getConfiguration('MythicScribe').get('enableShortcuts');
+}

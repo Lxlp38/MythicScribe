@@ -7,6 +7,24 @@ Check [Keep a Changelog](http://keepachangelog.com/) for recommendations on how 
 
 ## [Unreleased]
 
+### Added
+- added Shortcuts functionality
+- added [scope].[type].[name]= shortcut for setvariable
+  - scope can be
+    - c for caster
+    - t for target
+    - w for world
+    - g for global
+    - s for skill
+  - type can be
+    - i for Integer (if no .[type] is used, this is the default)
+    - f for Float
+    - d for Double
+    - s for String
+  - name is the name of the variable
+  - `MythicScribe.enableShortcuts` to disable
+- `MythicScribe.enableDashesSuggestions` config to determine if dashes should be suggested
+
 ### Fixed
 - Attribute autocompletions no longer stop default autocompletions from showing up when called
 - Mechanic autocompletions do pop up once default autocompletions are called after a `-` symbol

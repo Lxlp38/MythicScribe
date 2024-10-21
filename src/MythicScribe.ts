@@ -14,7 +14,8 @@ import { inlineMetaskillCompletionProvider } from './imports/completions/inlinem
 import { mechaniclineCompletionProvider } from './imports/completions/mechaniclineCompletionProvider';
 
 import { removeBracketsTextListener } from './imports/textchanges/bracketsremover';
-import { enableEmptyBracketsAutomaticRemoval } from './imports/utils/configutils';
+import { shortcutsProvider } from './imports/textchanges/shortcuts';
+import { enableEmptyBracketsAutomaticRemoval, enableShortcuts } from './imports/utils/configutils';
 
 
 export function activate(context: vscode.ExtensionContext) {
@@ -40,6 +41,10 @@ export function activate(context: vscode.ExtensionContext) {
 	// Text Changes
 	if(enableEmptyBracketsAutomaticRemoval()) {
 		context.subscriptions.push(removeBracketsTextListener);
+	}
+
+	if (enableShortcuts()) {
+		context.subscriptions.push(shortcutsProvider);
 	}
 }
 

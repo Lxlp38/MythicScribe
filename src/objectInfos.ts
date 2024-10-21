@@ -65,7 +65,7 @@ export const ConditionActions = {
 }
 
 export const SkillFileObjects = {
-	"Skills" : {
+	"Skills": {
 		"type": "list",
 		"link": "https://git.lumine.io/mythiccraft/MythicMobs/-/wikis/Skills/Metaskills#skills",
 		"description": "The list of the mechanics that will be executed by the metaskill.",

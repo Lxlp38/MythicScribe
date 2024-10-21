@@ -1,11 +1,18 @@
 {
   "name": "mythicscribe",
   "displayName": "MythicScribe",
+  "description": "Offers support for MythicMobs scripting in VSCode",
+  "license": "SEE LICENSE IN LICENSE",
+  "publisher": "Lxlp",
+  "author": {
+    "name": "Lxlp"
+  },
+  "pricing": "Free",
   "repository": {
     "type": "git",
     "url": "https://github.com/Lxlp38/MythicScribe"
   },
-  "description": "Offers support for MythicMobs scripting in VSCode",
+  "homepage": "https://github.com/Lxlp38/MythicScribe/blob/master/README.md",
   "version": "0.0.2",
   "engines": {
     "vscode": "^1.94.0"
@@ -54,12 +61,6 @@
           "default": false,
           "description": "Enable MythicScribe's functionalities in all files."
         },
-        "MythicScribe.enableEmptyBracketsAutomaticRemoval": {
-          "title": "Enable Empty Brackets Automatic Removal",
-          "type": "boolean",
-          "default": true,
-          "description": "Enable the removal of empty curly brackets `{}` by moving the cursor past them. Changes apply on extension reload."
-        },
         "MythicScribe.regexForMythicmobsFile": {
           "title": "Regex for MythicMobs File",
           "type": "string",
@@ -71,6 +72,24 @@
           "type": "string",
           "default": "[Ss]kills",
           "description": "The regex used against each document's file path: if it matches, the document will be considered as being a Metaskills one, enabling Metaskill files functionalities."
+        },
+        "MythicScribe.enableShortcuts": {
+          "title": "Enable Shortcuts",
+          "type": "boolean",
+          "default": "true",
+          "description": "Enable text shortcuts for MythicMobs files. Changes apply on extension restart."
+        },
+        "MythicScribe.enableEmptyBracketsAutomaticRemoval": {
+          "title": "Enable Empty Brackets Automatic Removal",
+          "type": "boolean",
+          "default": true,
+          "description": "Enable the removal of empty curly brackets `{}` by moving the cursor past them. Changes apply on extension restart."
+        },
+        "MythicScribe.enableDashesSuggestions": {
+          "title": "Enable Dashes Suggestions",
+          "type": "boolean",
+          "default": true,
+          "description": "Enable the suggestions for dashes `-` in MythicMobs files."
         }
       }
     }
