@@ -30,8 +30,8 @@ export function enableEmptyBracketsAutomaticRemoval() {
     return vscode.workspace.getConfiguration('MythicScribe').get('enableEmptyBracketsAutomaticRemoval');
 }
 
-export function enableDashesSuggestions() {
-    return vscode.workspace.getConfiguration('MythicScribe').get('enableDashesSuggestions');
+export function enableFileSpecificSuggestions() {
+    return vscode.workspace.getConfiguration('MythicScribe').get('enableFileSpecificSuggestions');
 }
 
 export function enableShortcuts() {

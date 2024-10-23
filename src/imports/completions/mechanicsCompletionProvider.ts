@@ -1,6 +1,6 @@
 import * as vscode from 'vscode';
 import * as yamlutils from '../utils/yamlutils';
-import { mechanicsDataset } from '../../objectInfos';
+import { keyAliases, mechanicsDataset } from '../../objectInfos';
 import { isEnabled } from '../utils/configutils';
 
 export const mechanicCompletionProvider = vscode.languages.registerCompletionItemProvider(
@@ -12,7 +12,7 @@ export const mechanicCompletionProvider = vscode.languages.registerCompletionIte
                 return undefined;
             }
 
-            if(yamlutils.getParentKeys(document, position.line)[0] !== 'Skills'){
+            if(!keyAliases["Skills"].includes(yamlutils.getParentKeys(document, position.line)[0])){
                 return undefined;
             }
 

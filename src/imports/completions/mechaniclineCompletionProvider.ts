@@ -2,6 +2,7 @@ import * as vscode from 'vscode';
 import * as yamlutils from '../utils/yamlutils';
 import { isEnabled, isMetaskillFile } from '../utils/configutils';
 import { getMechanicLine } from '../utils/yamlutils';
+import { keyAliases } from '../../objectInfos';
 
 export const mechaniclineCompletionProvider = vscode.languages.registerCompletionItemProvider(
     'yaml',
@@ -12,8 +13,13 @@ export const mechaniclineCompletionProvider = vscode.languages.registerCompletio
                 return undefined;
             }
 
+            const previusSpecialSymbol = yamlutils.previousSpecialSymbol(document, position);
+            if (["{", ";", "="].includes(previusSpecialSymbol)) {
+                return undefined;
+            }
+
             const keys = yamlutils.getParentKeys(document, position.line);
-            if (keys[0] !== 'Skills') {
+            if (!keyAliases["Skills"].includes(keys[0])) {
                 return undefined;
             }
 

@@ -1,6 +1,6 @@
 import * as vscode from 'vscode';
 import * as yamlutils from '../utils/yamlutils';
-import { mechanicsDataset, targetersDataset, conditionsDataset, ObjectType, ObjectInfo } from '../../objectInfos';
+import { mechanicsDataset, targetersDataset, conditionsDataset, ObjectType, ObjectInfo, keyAliases } from '../../objectInfos';
 import { getAllAttributes, getMechanicDataByName } from '../utils/mechanicutils';
 import { getObjectLinkedToAttribute } from '../utils/cursorutils';
 import { isEnabled } from '../utils/configutils';
@@ -55,7 +55,7 @@ export const attributeCompletionProvider = vscode.languages.registerCompletionIt
                 mechanic = getMechanicDataByName(object.replace("?", "").replace("!", "").replace("~", ""), conditionsDataset);
                 type = ObjectType.INLINECONDITION;
             }
-            else if (["Conditions", "TargetConditions", "TriggerConditions"].includes(keys[0])) {
+            else if (keyAliases["Conditions"].includes(keys[0])) {
                 mechanic = getMechanicDataByName(object, conditionsDataset);
                 type = ObjectType.CONDITION;
             }

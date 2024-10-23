@@ -1,6 +1,7 @@
-// The module 'vscode' contains the VS Code extensibility API
-// Import the module and reference it with the alias vscode in your code below
 import * as vscode from 'vscode';
+
+import { enableFileSpecificSuggestions, isEnabled } from './imports/utils/configutils';
+
 import { hoverProvider } from './imports/hovers/hoverprovider';
 
 import { inlineConditionCompletionProvider } from './imports/completions/inlineconditionCompletionProvider';
@@ -8,7 +9,7 @@ import { mechanicCompletionProvider } from './imports/completions/mechanicsCompl
 import { conditionCompletionProvider } from './imports/completions/conditionsCompletionProvider';
 import { targeterCompletionProvider } from './imports/completions/targeterCompletionProvider';
 import { attributeCompletionProvider } from './imports/completions/attributeCompletionProvider';
-import { SkillFileCompletionProvider } from './imports/completions/skillfileCompletionProvider';
+import { SkillFileCompletionProvider } from './imports/completions/metaskillfileCompletionProvider';
 import { inlineMetaskillCompletionProvider } from './imports/completions/inlinemetaskillCompletionProvider';
 
 import { mechaniclineCompletionProvider } from './imports/completions/mechaniclineCompletionProvider';
@@ -17,11 +18,13 @@ import { removeBracketsTextListener } from './imports/textchanges/bracketsremove
 import { shortcutsProvider } from './imports/textchanges/shortcuts';
 import { enableEmptyBracketsAutomaticRemoval, enableShortcuts } from './imports/utils/configutils';
 
+export let ctx: vscode.ExtensionContext;
 
 export function activate(context: vscode.ExtensionContext) {
 
 	console.log('MythicScribe is active');
 
+	ctx = context;
 
 	// Hovers	
 	context.subscriptions.push(hoverProvider);
@@ -33,13 +36,34 @@ export function activate(context: vscode.ExtensionContext) {
 	context.subscriptions.push(inlineConditionCompletionProvider);
 	context.subscriptions.push(conditionCompletionProvider);
 
-	context.subscriptions.push(SkillFileCompletionProvider);
-	
 	context.subscriptions.push(inlineMetaskillCompletionProvider);
+
 	context.subscriptions.push(mechaniclineCompletionProvider);
 
+	if (enableFileSpecificSuggestions()) {
+		const activeDocument = vscode.window.activeTextEditor?.document;
+		const acceptOnEnter = vscode.workspace.getConfiguration('editor').get('acceptSuggestionOnEnter');
+		if (
+			vscode.workspace.getConfiguration('MythicScribe').get("disableAcceptSuggestionOnEnter") &&
+			activeDocument && isEnabled(activeDocument) &&
+			acceptOnEnter !== "off") {
+			vscode.window.showInformationMessage('`Accept Completions on Enter` is enabled. Would you like to disable it?', 'Yes', 'No', "Don't ask again")
+				.then(selection => {
+					if (selection === 'Yes') {
+						vscode.workspace.getConfiguration('editor').update('acceptSuggestionOnEnter', 'off', vscode.ConfigurationTarget.Workspace);
+						context.subscriptions.push(SkillFileCompletionProvider);
+					}
+					else if (selection === "Don't ask again") {
+						vscode.workspace.getConfiguration('MythicScribe').update('disableAcceptSuggestionOnEnter', false, vscode.ConfigurationTarget.Workspace);
+					}
+				});
+		} else {
+			context.subscriptions.push(SkillFileCompletionProvider);
+		}
+	}
+
 	// Text Changes
-	if(enableEmptyBracketsAutomaticRemoval()) {
+	if (enableEmptyBracketsAutomaticRemoval()) {
 		context.subscriptions.push(removeBracketsTextListener);
 	}
 
@@ -48,5 +72,4 @@ export function activate(context: vscode.ExtensionContext) {
 	}
 }
 
-// This method is called when your extension is deactivated
 export function deactivate() { }

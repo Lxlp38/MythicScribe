@@ -1,6 +1,7 @@
 import * as vscode from 'vscode';
 import * as yamlutils from '../utils/yamlutils';
 import { isEnabled } from '../utils/configutils';
+import { keyAliases } from '../../objectInfos';
 
 export const inlineMetaskillCompletionProvider = vscode.languages.registerCompletionItemProvider(
     'yaml',
@@ -12,7 +13,7 @@ export const inlineMetaskillCompletionProvider = vscode.languages.registerComple
             }
 
             const keys = yamlutils.getParentKeys(document, position.line);
-            if (keys[0] !== 'Skills') {
+            if (!keyAliases["Skills"].includes(keys[0])) {
                 return undefined;
             }
 

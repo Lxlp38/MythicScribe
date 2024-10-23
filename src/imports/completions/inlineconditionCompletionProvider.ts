@@ -1,6 +1,6 @@
 import * as vscode from 'vscode';
 import * as yamlutils from '../utils/yamlutils';
-import { mechanicsDataset, targetersDataset, conditionsDataset, ObjectType, ObjectInfo, ConditionActions, SkillFileObjects } from '../../objectInfos';
+import { mechanicsDataset, targetersDataset, conditionsDataset, ObjectType, ObjectInfo, ConditionActions, SkillFileObjects, keyAliases } from '../../objectInfos';
 import { getAllAttributes, getMechanicDataByName } from '../utils/mechanicutils';
 import { getObjectLinkedToAttribute } from '../utils/cursorutils';
 import { isEnabled } from '../utils/configutils';
@@ -24,7 +24,7 @@ export const inlineConditionCompletionProvider = vscode.languages.registerComple
                 return undefined;
             }
             const keys = yamlutils.getParentKeys(document, position.line);
-            if (keys[0] !== 'Skills') {
+            if (!keyAliases["Skills"].includes(keys[0])) {
                 return undefined;
             }
 

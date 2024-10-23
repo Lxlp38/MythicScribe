@@ -1,6 +1,7 @@
 import * as vscode from 'vscode';
 import * as path from 'path';
 import * as fs from 'fs';
+import { ctx } from './MythicScribe';
 
 export enum ObjectType {
 	MECHANIC = 'Mechanic',
@@ -105,4 +106,9 @@ export const SkillFileObjects = {
 		"link": "https://git.lumine.io/mythiccraft/MythicMobs/-/wikis/Skills/Metaskills#oncooldownskill",
 		"description": "The name of the metaskill to cast if the metaskill is on cooldown.",
 	},
+}
+
+export const keyAliases = {
+	"Skills": ["Skills", "FurnitureSkills", "InitSkills", "QuitSkills", "LevelSkills", "CustomBlockSkills"],
+	"Conditions": ["Conditions", "TriggerConditions", "TargetConditions"]
 }

@@ -1,5 +1,5 @@
 import * as vscode from 'vscode';
-import { ObjectType, SkillFileObjects } from '../../objectInfos';
+import { keyAliases, ObjectType, SkillFileObjects } from '../../objectInfos';
 import * as yamlutils from '../utils/yamlutils';
 import { isEnabled } from '../utils/configutils';
 import { getCursorSkills, getCursorCondition } from '../utils/cursorutils';
@@ -19,7 +19,7 @@ export const hoverProvider = vscode.languages.registerHoverProvider('yaml', {
             const key = yamlutils.getKey(document, position.line);
             if (Object.keys(SkillFileObjects).includes(key)){
                 const key_ = key as keyof typeof SkillFileObjects;
-                return getMinimalHover(key, SkillFileObjects[key_].description ,SkillFileObjects[key_].link);
+                return getMinimalHover(key, SkillFileObjects[key_].description, SkillFileObjects[key_].link);
             }
             return undefined;
         }
@@ -27,26 +27,24 @@ export const hoverProvider = vscode.languages.registerHoverProvider('yaml', {
         var obj, type = null;
         const keys = yamlutils.getParentKeys(document, position.line);
 
-        switch (keys[0]) {
-            case 'Skills':
+        if (keyAliases["Skills"].includes(keys[0])) {
+            [obj, type] = getCursorSkills(document, position);
     
-                [obj, type] = getCursorSkills(document, position);
-    
-                if (!obj) {
-                    return null;
-                }
-    
-                return getHover(obj, type);
-            case "Conditions": case "TargetConditions": case "TriggerConditions":
-                [obj, type] = getCursorCondition(document, position, true);
-    
-                if (!obj) {
-                    return null;
-                }
-    
-                return getHover(obj, type);
+            if (!obj) {
+                return null;
+            }
+
+            return getHover(obj, type);
         }
+        else if (keyAliases["Conditions"].includes(keys[0])) {
+            [obj, type] = getCursorCondition(document, position, true);
     
+            if (!obj) {
+                return null;
+            }
+
+            return getHover(obj, type);
+        }    
     
         return null;
     }

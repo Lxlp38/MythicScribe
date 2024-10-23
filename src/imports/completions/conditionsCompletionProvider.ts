@@ -1,6 +1,6 @@
 import * as vscode from 'vscode';
 import * as yamlutils from '../utils/yamlutils';
-import { conditionsDataset, ConditionActions } from '../../objectInfos';
+import { conditionsDataset, ConditionActions, keyAliases } from '../../objectInfos';
 import { isEnabled } from '../utils/configutils';
 
 export const conditionCompletionProvider = vscode.languages.registerCompletionItemProvider(
@@ -13,7 +13,7 @@ export const conditionCompletionProvider = vscode.languages.registerCompletionIt
             }
 
             const keys = yamlutils.getParentKeys(document, position.line);
-            if (!['Conditions', 'TargetConditions', 'TriggerConditions'].includes(keys[0])) {
+            if (!keyAliases["Conditions"].includes(keys[0])) {
                 return undefined;
             }
 
