@@ -1,8 +1,6 @@
 import * as vscode from 'vscode';
 import * as yamlutils from '../utils/yamlutils';
-import { mechanicsDataset, targetersDataset, conditionsDataset, ObjectType, ObjectInfo, ConditionActions, SkillFileObjects } from '../../objectInfos';
-import { getAllAttributes, getMechanicDataByName } from '../utils/mechanicutils';
-import { getObjectLinkedToAttribute } from '../utils/cursorutils';
+import { targetersDataset } from '../../objectInfos';
 import { isEnabled } from '../utils/configutils';
 
 export const targeterCompletionProvider = vscode.languages.registerCompletionItemProvider(

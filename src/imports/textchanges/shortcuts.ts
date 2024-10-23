@@ -6,8 +6,9 @@ export const shortcutsProvider = vscode.workspace.onDidChangeTextDocument(event 
     if (!editor) return;
 
     const document = event.document;
-    const changes = event.contentChanges;
+    if (!isEnabled(document)) return;
 
+    const changes = event.contentChanges;
     if (changes.length === 0) return;
     const change = changes[0];
     if (change.text !== "=") return;

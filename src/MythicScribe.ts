@@ -9,10 +9,11 @@ import { mechanicCompletionProvider } from './imports/completions/mechanicsCompl
 import { conditionCompletionProvider } from './imports/completions/conditionsCompletionProvider';
 import { targeterCompletionProvider } from './imports/completions/targeterCompletionProvider';
 import { attributeCompletionProvider } from './imports/completions/attributeCompletionProvider';
-import { SkillFileCompletionProvider } from './imports/completions/metaskillfileCompletionProvider';
 import { inlineMetaskillCompletionProvider } from './imports/completions/inlinemetaskillCompletionProvider';
 
 import { mechaniclineCompletionProvider } from './imports/completions/mechaniclineCompletionProvider';
+
+import { SkillFileCompletionProvider } from './imports/completions/metaskillfileCompletionProvider';
 
 import { removeBracketsTextListener } from './imports/textchanges/bracketsremover';
 import { shortcutsProvider } from './imports/textchanges/shortcuts';

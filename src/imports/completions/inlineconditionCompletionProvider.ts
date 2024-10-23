@@ -1,8 +1,6 @@
 import * as vscode from 'vscode';
 import * as yamlutils from '../utils/yamlutils';
-import { mechanicsDataset, targetersDataset, conditionsDataset, ObjectType, ObjectInfo, ConditionActions, SkillFileObjects, keyAliases } from '../../objectInfos';
-import { getAllAttributes, getMechanicDataByName } from '../utils/mechanicutils';
-import { getObjectLinkedToAttribute } from '../utils/cursorutils';
+import { conditionsDataset, keyAliases } from '../../objectInfos';
 import { isEnabled } from '../utils/configutils';
 
 

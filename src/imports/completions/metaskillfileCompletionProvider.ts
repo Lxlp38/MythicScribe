@@ -1,6 +1,6 @@
 import * as vscode from 'vscode';
 import * as yamlutils from '../utils/yamlutils';
-import { mechanicsDataset, targetersDataset, conditionsDataset, ObjectType, ObjectInfo, ConditionActions, SkillFileObjects } from '../../objectInfos';
+import { SkillFileObjects } from '../../objectInfos';
 import { enableFileSpecificSuggestions, isEnabled } from '../utils/configutils';
 import { isMetaskillFile } from '../utils/configutils';
 
