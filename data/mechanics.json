@@ -1,5 +1,6 @@
 [
     {
+        
         "plugin": "MythicMobs",
         "class": "LeapMechanic",
         "extends": "SkillMechanic",
