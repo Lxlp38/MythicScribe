@@ -1,13 +1,21 @@
 {
   "name": "mythicscribe",
   "displayName": "MythicScribe",
+  "icon": "assets/icon.png",
   "description": "Offers support for MythicMobs scripting in VSCode",
-  "license": "SEE LICENSE IN LICENSE",
+  "license": "SEE LICENSE IN LICENSE.txt",
   "publisher": "Lxlp",
   "author": {
     "name": "Lxlp"
   },
   "pricing": "Free",
+  "keywords": [
+    "mythicmobs",
+    "mythic",
+    "modelengine",
+    "crucible",
+    "minecraft"
+  ],
   "repository": {
     "type": "git",
     "url": "https://github.com/Lxlp38/MythicScribe"
