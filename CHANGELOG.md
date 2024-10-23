@@ -32,6 +32,8 @@ Check [Keep a Changelog](http://keepachangelog.com/) for recommendations on how 
 - Mechanic autocompletions do pop up once default autocompletions are called after a `-` symbol
 - Some keys that should have allowed for mechanic completions and hovers (FurnitureSkills and the likes) now do, in fact, allow for mechanic completions and hovers
 - MechanicLine autocompletions (@, ~) popping up inside attributes when pressing space
+- Mechanics with a colon (:) inside the name not being recognized
+- Non-inheritable attributes being shown in attribute completions
 
 
 ## [0.0.2]

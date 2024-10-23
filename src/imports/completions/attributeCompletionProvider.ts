@@ -34,7 +34,6 @@ export const attributeCompletionProvider = vscode.languages.registerCompletionIt
                 }    
             }
 
-
             const keys = yamlutils.getParentKeys(document, position.line);
             const completionItems: vscode.CompletionItem[] = [];
             let mechanic = null;

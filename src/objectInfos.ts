@@ -11,13 +11,13 @@ export enum ObjectType {
 	INLINECONDITION = 'Inline Condition',
 }
 
-export const mechanicsDatasetPath = path.join(__dirname, '../data/MythicMobs_Mechanics_dataset.json');
+export const mechanicsDatasetPath = path.join(__dirname, '../data/mechanics.json');
 export const mechanicsDataset = JSON.parse(fs.readFileSync(mechanicsDatasetPath, 'utf8'));
 
-export const targetersDatasetPath = path.join(__dirname, '../data/MythicMobs_Targeters_dataset.json');
+export const targetersDatasetPath = path.join(__dirname, '../data/targeters.json');
 export const targetersDataset = JSON.parse(fs.readFileSync(targetersDatasetPath, 'utf8'));
 
-export const conditionsDatasetPath = path.join(__dirname, '../data/MythicMobs_Conditions_dataset.json');
+export const conditionsDatasetPath = path.join(__dirname, '../data/conditions.json');
 export const conditionsDataset = JSON.parse(fs.readFileSync(conditionsDatasetPath, 'utf8'));
 
 

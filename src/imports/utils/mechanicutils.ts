@@ -23,7 +23,14 @@ function getAllAttributes(mechanic: any, dataset = mechanicsDataset) {
 		if (!parentMechanic) {
 			return attributes;
 		}
-		attributes = attributes.concat(getAllAttributes(parentMechanic));
+		let parentMechanicAttributes = getAllAttributes(parentMechanic, dataset);
+		const parentMechanicInheritableAttributes = parentMechanic.inheritable_attributes;
+		if (parentMechanicInheritableAttributes) {
+			parentMechanicAttributes = parentMechanicAttributes.filter((attr: any) =>
+				parentMechanicInheritableAttributes.includes(attr.name[0].toLowerCase())
+			);
+		}
+		attributes = attributes.concat(parentMechanicAttributes);
 	}
 	return attributes;
 

@@ -134,7 +134,7 @@ export function getMechanicLine(document: vscode.TextDocument, lineIndex: number
 export function previousSpecialSymbol(document: vscode.TextDocument, position: vscode.Position): string {
 	const line = document.lineAt(position.line).text;
 	const text = line.substring(0, position.character);
-	const matches = text.match(/(\S)[\w\s]*$$/);
+	const matches = text.match(/(\S)[\w\s:]*$/);
 	if (matches) {
 		return matches[1];
 	}
