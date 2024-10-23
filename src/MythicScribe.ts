@@ -1,6 +1,6 @@
 import * as vscode from 'vscode';
 
-import { enableFileSpecificSuggestions, isEnabled } from './imports/utils/configutils';
+import * as config from './imports/utils/configutils';
 
 import { hoverProvider } from './imports/hovers/hoverprovider';
 
@@ -17,7 +17,7 @@ import { SkillFileCompletionProvider } from './imports/completions/metaskillfile
 
 import { removeBracketsTextListener } from './imports/textchanges/bracketsremover';
 import { shortcutsProvider } from './imports/textchanges/shortcuts';
-import { enableEmptyBracketsAutomaticRemoval, enableShortcuts } from './imports/utils/configutils';
+import { loadDatasets } from './objectInfos';
 
 export let ctx: vscode.ExtensionContext;
 
@@ -26,6 +26,14 @@ export function activate(context: vscode.ExtensionContext) {
 	console.log('MythicScribe is active');
 
 	ctx = context;
+
+	if (config.datasetSource() === 'GitHub'){
+		loadDatasets(context).then(() => {
+			console.log('Datasets loaded');
+		}).catch(err => {
+			console.error('Failed to load datasets', err);
+		});	
+	}
 
 	// Hovers	
 	context.subscriptions.push(hoverProvider);
@@ -41,12 +49,12 @@ export function activate(context: vscode.ExtensionContext) {
 
 	context.subscriptions.push(mechaniclineCompletionProvider);
 
-	if (enableFileSpecificSuggestions()) {
+	if (config.enableFileSpecificSuggestions()) {
 		const activeDocument = vscode.window.activeTextEditor?.document;
 		const acceptOnEnter = vscode.workspace.getConfiguration('editor').get('acceptSuggestionOnEnter');
 		if (
 			vscode.workspace.getConfiguration('MythicScribe').get("disableAcceptSuggestionOnEnter") &&
-			activeDocument && isEnabled(activeDocument) &&
+			activeDocument && config.isEnabled(activeDocument) &&
 			acceptOnEnter !== "off") {
 			vscode.window.showInformationMessage('`Accept Completions on Enter` is enabled. Would you like to disable it?', 'Yes', 'No', "Don't ask again")
 				.then(selection => {
@@ -64,11 +72,11 @@ export function activate(context: vscode.ExtensionContext) {
 	}
 
 	// Text Changes
-	if (enableEmptyBracketsAutomaticRemoval()) {
+	if (config.enableEmptyBracketsAutomaticRemoval()) {
 		context.subscriptions.push(removeBracketsTextListener);
 	}
 
-	if (enableShortcuts()) {
+	if (config.enableShortcuts()) {
 		context.subscriptions.push(shortcutsProvider);
 	}
 }

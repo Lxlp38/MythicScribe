@@ -1,8 +1,7 @@
 import * as vscode from 'vscode';
 import * as yamlutils from '../utils/yamlutils';
 import { SkillFileObjects } from '../../objectInfos';
-import { enableFileSpecificSuggestions, isEnabled } from '../utils/configutils';
-import { isMetaskillFile } from '../utils/configutils';
+import { enableFileSpecificSuggestions, isEnabled, isMetaskillFile } from '../utils/configutils';
 
 export const SkillFileCompletionProvider = vscode.languages.registerCompletionItemProvider(
     'yaml',

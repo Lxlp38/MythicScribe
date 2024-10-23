@@ -81,6 +81,19 @@
           "default": "[Ss]kills",
           "description": "The regex used against each document's file path: if it matches, the document will be considered as being a Metaskills one, enabling Metaskill files functionalities."
         },
+        "MythicScribe.regexForMobFile": {
+          "title": "Regex for MythicMobs Mobs",
+          "type": "string",
+          "default": "[Mm]obs",
+          "description": "The regex used against each document's file path: if it matches, the document will be considered as being a Mob one, enabling Mob files functionalities."
+        },
+        "MythicScribe.datasetSource": {
+          "title": "Dataset",
+          "type": "string",
+          "enum": ["GitHub", "Local"],
+          "default": "Local",
+          "description": "Select what dataset to use: `GitHub` fetches the latest datasets from the repository, while `Local` uses the native one that came bundled with the extension."
+        },
         "MythicScribe.enableShortcuts": {
           "title": "Enable Shortcuts",
           "type": "boolean",
@@ -97,13 +110,13 @@
           "title": "Enable File Specific Suggestions",
           "type": "boolean",
           "default": true,
-          "description": "Whether file specific suggestions (metaskill files, mob files) should be shown"
+          "description": "Whether file specific suggestions (metaskill files, mob files) should be shown. Changes apply on extension restart."
         },
         "MythicScribe.disableAcceptSuggestionOnEnter": {
           "title": "Reminder to Remove Accept Suggestion on Enter",
           "type": "boolean",
           "default": true,
-          "description": "Enable the reminder to disable the editor.acceptSuggestionOnEnter config."
+          "description": "Enable the reminder to disable the editor.acceptSuggestionOnEnter config. Changes apply on extension restart."
         }
       }
     }

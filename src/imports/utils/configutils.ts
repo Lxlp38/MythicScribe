@@ -37,3 +37,7 @@ export function enableFileSpecificSuggestions() {
 export function enableShortcuts() {
     return vscode.workspace.getConfiguration('MythicScribe').get('enableShortcuts');
 }
+
+export function datasetSource(){
+    return vscode.workspace.getConfiguration('MythicScribe').get('dataset');
+}

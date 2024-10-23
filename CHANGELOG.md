@@ -8,6 +8,7 @@ Check [Keep a Changelog](http://keepachangelog.com/) for recommendations on how 
 ## [Unreleased]
 
 ### Added
+- added functionality to automatically download new datasets from github. Can be configured via `MythicScribe.datasetSource`
 - added ModelEngine dataset
 - added Shortcuts functionality
 - added [scope].[type].[name]= shortcut for setvariable

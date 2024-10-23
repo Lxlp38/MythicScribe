@@ -30,6 +30,8 @@ This extension contributes the following settings:
 * `MythicScribe.alwaysEnabled`: When enabled, the extension will no longer do any check to see if a document is a MythicMobs one
 * `MythicScribe.regexForMythicmobsFile`: Determines which files are recognized as MythicMobs files based on a custom regex
 * `MythicScribe.regexForMetaskillFile`: Determines which files are recognized as Metaskills files based on a custom regex
+* `MythicScribe.regexForMobFile`: Determines which files are recognized as Mobs files based on a custom regex
+* `MythicScribe.datasetSource`: Which dataset to use. `GitHub` or `Local`
 * `MythicScribe.enableShortcuts`: Whether the Shortcuts feature should be active
 * `MythicScribe.enableEmptyBracketsAutomaticRemoval`: Enable the removal of empty curly brackets `{}` by moving the cursor past them
 * `MythicScribe.enableFileSpecificSuggestions`: Whether file specific suggestions (metaskill files, mob files) should be shown
