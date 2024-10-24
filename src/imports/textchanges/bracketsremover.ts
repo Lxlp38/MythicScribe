@@ -1,21 +1,45 @@
 import * as vscode from 'vscode';
+import { isEnabled } from '../utils/configutils';
 
-export const removeBracketsTextListener = vscode.window.onDidChangeTextEditorSelection(event => {    
-    const editor = vscode.window.activeTextEditor;
-    if (!editor) return;
+let lastexecutiontime = 0
 
-    const document = editor.document;
-    const position = editor.selection.active; 
+export function removeBracketsTextListener() {
 
-    const rangeBeforeCursor = new vscode.Range(position.translate(0, -2), position);
-    const textBeforeCursor = document.getText(rangeBeforeCursor);
+    const removeBracketsTextListener = vscode.window.onDidChangeTextEditorSelection(event => {    
+        const editor = vscode.window.activeTextEditor;
+        if (!editor) return;
+    
+        if (!editor.selection.isEmpty) {
+            return;
+        }
 
-    if (textBeforeCursor === '{}') {
-        editor.edit(editBuilder => {
-            editBuilder.delete(rangeBeforeCursor);
-            editBuilder.insert(position.translate(0, -2), ' ');
-        }).then(() => {
-            vscode.commands.executeCommand('editor.action.triggerSuggest');
-        });
-    }
-});
+        const now = Date.now();
+        if (now - lastexecutiontime < 500) {
+            return;
+        }
+        lastexecutiontime = now;
+
+        const document = editor.document;
+        const position = editor.selection.active; 
+    
+        const rangeBeforeCursor = new vscode.Range(position.translate(0, -2), position);
+        const textBeforeCursor = document.getText(rangeBeforeCursor);
+    
+        if (textBeforeCursor === '{}') {
+            const workspaceEdit = new vscode.WorkspaceEdit();
+            
+            workspaceEdit.delete(document.uri, rangeBeforeCursor);
+            workspaceEdit.insert(document.uri, position.translate(0, -2), ' ');
+
+            vscode.workspace.applyEdit(workspaceEdit).then(success => {
+                if (success) {
+                    vscode.commands.executeCommand('editor.action.triggerSuggest');
+            }});
+
+        }
+    });
+    
+    return removeBracketsTextListener;
+
+}
+

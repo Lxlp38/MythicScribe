@@ -1,34 +1,41 @@
 import * as vscode from 'vscode';
 import { isEnabled } from '../utils/configutils';
 
-export const shortcutsProvider = vscode.workspace.onDidChangeTextDocument(event => {
-    const editor = vscode.window.activeTextEditor;
-    if (!editor) return;
+export function shortcutsProvider() {
 
-    const document = event.document;
-    if (!isEnabled(document)) return;
-
-    const changes = event.contentChanges;
-    if (changes.length === 0) return;
-    const change = changes[0];
-    if (change.text !== "=") return;
-
-    const position = editor.selection.active.translate(0, 1);
-    const line = document.lineAt(position.line);
-    const textBeforeCursor = line.text.substring(0, position.character);
-
-    for (const key in mechanicShortcuts) {
-        const shortcut = mechanicShortcuts[key];
-        const match = textBeforeCursor.match(shortcut.regex);
-        if (match) {
-            const snippet = shortcut.function(match);
-            if (snippet) {
-                editor.insertSnippet(snippet, new vscode.Range(position.translate(0, -match[0].length), position));
+    const shortcutsProvider = vscode.workspace.onDidChangeTextDocument(event => {
+        const editor = vscode.window.activeTextEditor;
+        if (!editor) return;
+    
+        const document = event.document;
+        if (!isEnabled) return;
+    
+        const changes = event.contentChanges;
+        if (changes.length === 0) return;
+        const change = changes[0];
+        if (change.text !== "=") return;
+    
+        const position = editor.selection.active.translate(0, 1);
+        const line = document.lineAt(position.line);
+        const textBeforeCursor = line.text.substring(0, position.character);
+    
+        for (const key in mechanicShortcuts) {
+            const shortcut = mechanicShortcuts[key];
+            const match = textBeforeCursor.match(shortcut.regex);
+            if (match) {
+                const snippet = shortcut.function(match);
+                if (snippet) {
+                    editor.insertSnippet(snippet, new vscode.Range(position.translate(0, -match[0].length), position));
+                }
+                break;
             }
-            break;
         }
-    }
-});
+    });
+    
+    return shortcutsProvider;
+
+}
+
 
 
 

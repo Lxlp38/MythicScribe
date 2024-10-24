@@ -2,7 +2,7 @@
   "name": "mythicscribe",
   "displayName": "MythicScribe",
   "icon": "assets/icon.png",
-  "description": "Offers support for MythicMobs scripting in VSCode",
+  "description": "Offers support for MythicMobs scripting",
   "license": "SEE LICENSE IN LICENSE.txt",
   "publisher": "Lxlp",
   "author": {
@@ -21,7 +21,7 @@
     "url": "https://github.com/Lxlp38/MythicScribe"
   },
   "homepage": "https://github.com/Lxlp38/MythicScribe/blob/master/README.md",
-  "version": "0.1.0",
+  "version": "0.1.1",
   "engines": {
     "vscode": "^1.94.0"
   },

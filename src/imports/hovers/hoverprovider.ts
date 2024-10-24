@@ -4,51 +4,57 @@ import * as yamlutils from '../utils/yamlutils';
 import { isEnabled } from '../utils/configutils';
 import { getCursorSkills, getCursorCondition } from '../utils/cursorutils';
 
+export function hoverProvider(){
 
-export const hoverProvider = vscode.languages.registerHoverProvider('yaml', {
-    provideHover(document: vscode.TextDocument, position: vscode.Position) {
-
-        if (isEnabled(document) === false) {
-            return undefined;
-        }
-
-
-
-
-        if (yamlutils.isKey(document, position.line) === true) {
-            const key = yamlutils.getKey(document, position.line);
-            if (Object.keys(SkillFileObjects).includes(key)){
-                const key_ = key as keyof typeof SkillFileObjects;
-                return getMinimalHover(key, SkillFileObjects[key_].description, SkillFileObjects[key_].link);
-            }
-            return undefined;
-        }
-
-        var obj, type = null;
-        const keys = yamlutils.getParentKeys(document, position.line);
-
-        if (keyAliases["Skills"].includes(keys[0])) {
-            [obj, type] = getCursorSkills(document, position);
+    const hoverProvider = vscode.languages.registerHoverProvider('yaml', {
+        provideHover(document: vscode.TextDocument, position: vscode.Position) {
     
-            if (!obj) {
-                return null;
+            if (!isEnabled) {
+                return undefined;
             }
-
-            return getHover(obj, type);
+    
+    
+    
+    
+            if (yamlutils.isKey(document, position.line) === true) {
+                const key = yamlutils.getKey(document, position.line);
+                if (Object.keys(SkillFileObjects).includes(key)){
+                    const key_ = key as keyof typeof SkillFileObjects;
+                    return getMinimalHover(key, SkillFileObjects[key_].description, SkillFileObjects[key_].link);
+                }
+                return undefined;
+            }
+    
+            var obj, type = null;
+            const keys = yamlutils.getParentKeys(document, position.line);
+    
+            if (keyAliases["Skills"].includes(keys[0])) {
+                [obj, type] = getCursorSkills(document, position);
+        
+                if (!obj) {
+                    return null;
+                }
+    
+                return getHover(obj, type);
+            }
+            else if (keyAliases["Conditions"].includes(keys[0])) {
+                [obj, type] = getCursorCondition(document, position, true);
+        
+                if (!obj) {
+                    return null;
+                }
+    
+                return getHover(obj, type);
+            }    
+        
+            return null;
         }
-        else if (keyAliases["Conditions"].includes(keys[0])) {
-            [obj, type] = getCursorCondition(document, position, true);
-    
-            if (!obj) {
-                return null;
-            }
+    });
 
-            return getHover(obj, type);
-        }    
-    
-        return null;
-    }
-});
+    return hoverProvider;
+
+}
+
 
 
 
