@@ -47,7 +47,7 @@ interface MechanicShortcut {
 const mechanicShortcuts: { [key: string]: MechanicShortcut } = {
     "setvariable":
 	{
-		regex: /(?<=-\s)(c|t|w|g|s).(?:(i|f|d|s).)?([\w_-]*)=$/,
+		regex: /(?<=-\s)(c|t|w|g|s)\.(?:(i|f|d|s)\.)?([\w_-]*)=$/,
 		function: shortcutSetVariable
 	}
 }

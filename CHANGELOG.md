@@ -7,7 +7,7 @@
 - "automatic brackets removal" now has a 0.5 seconds cooldown, as to not stop undo operations
 
 ### Changed
-- changed how subscriptions (completions, hobers, text listeners etc.) are registered: now they are dynamic, being unloaded when a document is not valid (not a mythicmob one) and loaded when it is. This should improve performance and allow notifications to be shown at better timings
+- changed how subscriptions (completions, hovers, text listeners etc.) are registered: now they are dynamic, being unloaded when a document is not valid (not a mythicmob one) and loaded when it is. This should improve performance and allow notifications to be shown at better timings
 
 ## [0.1.0]
 
