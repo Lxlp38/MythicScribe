@@ -17,7 +17,10 @@ export function conditionCompletionProvider(){
                 if (charBefore[1] === "{") {
                     return undefined;
                 }
-    
+                
+                const lineBefore = document.getText(new vscode.Range(position.with({ character: 0 }), position));
+                const wordBefore = yamlutils.getWordBeforePosition(document, position);
+
                 let space = " ";
     
                 const completionItems: vscode.CompletionItem[] = [];
@@ -28,20 +31,19 @@ export function conditionCompletionProvider(){
                     addOperatorsToConditionLine(completionItems);
                     return completionItems;
                 }
-    
-                if (context.triggerKind === vscode.CompletionTriggerKind.TriggerCharacter && context.triggerCharacter === " ") {
-                    if (!["- ", "( ", "| ", "& "].includes(charBefore)) {
-                        if ([") ", "} "].includes(charBefore)) {
-    
-                            addOperatorsToConditionLine(completionItems);
-    
+
+                const condact = fetchConditionActions()
+                if (!["- ", "( ", "| ", "& "].includes(charBefore)) {
+                    if ([") ", "} "].includes(charBefore) || /(\w+({.*})?\s)$/.test(lineBefore)) {
+
+                        if(!condact.includes(wordBefore)) {
                             addConditionActionsToConditionLine(completionItems);
-    
-                            return completionItems;
                         }
-                        return undefined;
+                        addOperatorsToConditionLine(completionItems);
+
+                        return completionItems;
                     }
-                    space = "";
+                    return undefined;
                 }
                 if (context.triggerKind === vscode.CompletionTriggerKind.Invoke && context.triggerCharacter === undefined) {
                     space = "";
@@ -66,11 +68,13 @@ export function conditionCompletionProvider(){
                 }
     
     
+                //const condact = fetchConditionActions().join(",");             
                 ObjectInfo[ObjectType.CONDITION].dataset.forEach((item: any) => {
                     item.name.forEach((name: string) => {
                         const completionItem = new vscode.CompletionItem(name, vscode.CompletionItemKind.Function);
                         completionItem.detail = `${item.description}`;
                         completionItem.kind = vscode.CompletionItemKind.Function;
+                        //completionItem.insertText = new vscode.SnippetString(space + name + "{$1} ${2|" + condact + "|}");
                         completionItem.insertText = new vscode.SnippetString(space + name + "{$0}");
                         completionItem.command = { command: 'editor.action.triggerSuggest', title: 'Re-trigger completions...' };
                         completionItems.push(completionItem);
@@ -107,4 +111,9 @@ function addConditionActionsToConditionLine(completionItems : vscode.CompletionI
         completionItem.command = { command: 'editor.action.triggerSuggest', title: 'Re-trigger completions...' };
         completionItems.push(completionItem);
     });    
+}
+
+function fetchConditionActions() : string[] {
+    const condact = Object.keys(ConditionActions)
+    return condact;
 }

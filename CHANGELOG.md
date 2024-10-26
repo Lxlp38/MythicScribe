@@ -3,7 +3,8 @@
 ## [Unreleased]
 
 ## Changed
-- Updated the way the mechanics/targeters/conditions are fetched from the dataset on hover
+- Updated the way the mechanics/targeters/conditions are fetched from the dataset
+- Condition Actions suggestions have been improved
 
 ## Fixed
 - Small issue with the shortcuts regex
