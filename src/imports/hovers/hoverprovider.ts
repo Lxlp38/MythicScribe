@@ -1,5 +1,5 @@
 import * as vscode from 'vscode';
-import { keyAliases, ObjectType, SkillFileObjects } from '../../objectInfos';
+import { keyAliases, ObjectType, MetaskillFileObjects } from '../../objectInfos';
 import * as yamlutils from '../utils/yamlutils';
 import { isEnabled } from '../utils/configutils';
 import { getCursorSkills, getCursorCondition } from '../utils/cursorutils';
@@ -18,9 +18,9 @@ export function hoverProvider(){
     
             if (yamlutils.isKey(document, position.line) === true) {
                 const key = yamlutils.getKey(document, position.line);
-                if (Object.keys(SkillFileObjects).includes(key)){
-                    const key_ = key as keyof typeof SkillFileObjects;
-                    return getMinimalHover(key, SkillFileObjects[key_].description, SkillFileObjects[key_].link);
+                if (Object.keys(MetaskillFileObjects).includes(key)){
+                    const key_ = key as keyof typeof MetaskillFileObjects;
+                    return getMinimalHover(key, MetaskillFileObjects[key_].description, MetaskillFileObjects[key_].link);
                 }
                 return undefined;
             }

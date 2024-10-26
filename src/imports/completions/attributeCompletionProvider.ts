@@ -1,6 +1,6 @@
 import * as vscode from 'vscode';
 import * as yamlutils from '../utils/yamlutils';
-import { mechanicsDataset, targetersDataset, conditionsDataset, ObjectType, ObjectInfo, keyAliases } from '../../objectInfos';
+import { mechanicsDataset, targetersDataset, conditionsDataset, ObjectType, ObjectInfo, keyAliases, mechanicsDatasetMap, targetersDatasetMap, conditionsDatasetMap } from '../../objectInfos';
 import { getAllAttributes, getMechanicDataByName } from '../utils/mechanicutils';
 import { getObjectLinkedToAttribute } from '../utils/cursorutils';
 
@@ -40,22 +40,22 @@ export function attributeCompletionProvider(){
                     return null;
                 }
                 else if (object?.startsWith('@')) {
-                    mechanic = getMechanicDataByName(object.replace("@", ""), targetersDataset);
+                    mechanic = getMechanicDataByName(object.replace("@", ""), targetersDatasetMap);
                     type = ObjectType.TARGETER;
                 }
                 else if (object?.startsWith('~')) {
                     return null
                 }
                 else if (object?.startsWith('?')) {
-                    mechanic = getMechanicDataByName(object.replace("?", "").replace("!", "").replace("~", ""), conditionsDataset);
+                    mechanic = getMechanicDataByName(object.replace("?", "").replace("!", "").replace("~", ""), conditionsDatasetMap);
                     type = ObjectType.INLINECONDITION;
                 }
                 else if (keyAliases["Conditions"].includes(keys[0])) {
-                    mechanic = getMechanicDataByName(object, conditionsDataset);
+                    mechanic = getMechanicDataByName(object, conditionsDatasetMap);
                     type = ObjectType.CONDITION;
                 }
                 else {
-                    mechanic = getMechanicDataByName(object, mechanicsDataset);
+                    mechanic = getMechanicDataByName(object, mechanicsDatasetMap);
                     type = ObjectType.MECHANIC;
                 }
     

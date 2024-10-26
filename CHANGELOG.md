@@ -1,5 +1,15 @@
 # Changelog
 
+## [Unreleased]
+
+## Changed
+- Updated the way the mechanics/targeters/conditions are fetched from the dataset on hover
+
+## Fixed
+- Small issue with the shortcuts regex
+- GitHub dataset not being correctly loaded for hover informations
+
+
 ## [0.1.1]
 
 ### Fixed
@@ -8,6 +18,7 @@
 
 ### Changed
 - changed how subscriptions (completions, hovers, text listeners etc.) are registered: now they are dynamic, being unloaded when a document is not valid (not a mythicmob one) and loaded when it is. This should improve performance and allow notifications to be shown at better timings
+
 
 ## [0.1.0]
 

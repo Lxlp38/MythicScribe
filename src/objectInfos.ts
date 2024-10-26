@@ -13,6 +13,10 @@ export let mechanicsDataset = JSON.parse(fs.readFileSync(mechanicsDatasetPath, '
 export let targetersDataset = JSON.parse(fs.readFileSync(targetersDatasetPath, 'utf8'));
 export let conditionsDataset = JSON.parse(fs.readFileSync(conditionsDatasetPath, 'utf8'));
 
+export let mechanicsDatasetMap = new Map<string, any>();
+export let targetersDatasetMap = new Map<string, any>();
+export let conditionsDatasetMap = new Map<string, any>();
+
 // GitHub URL to fetch data from
 const GITHUB_BASE_URL = 'https://raw.githubusercontent.com/Lxlp38/MythicScribe/master/data/';
 const GITHUB_API_COMMITS_URL = 'https://api.github.com/repos/Lxlp38/MythicScribe/commits?path=data';
@@ -49,7 +53,7 @@ async function fetchJsonFromGithub(filename: string): Promise<any | null> {
 }
 
 // Function to load datasets, check globalState, and update if necessary
-export async function loadDatasets(context: vscode.ExtensionContext) {
+export async function loadGithubDatasets(context: vscode.ExtensionContext) {
     const globalState = context.globalState;
 
     // Fetch the latest commit hash from GitHub
@@ -85,7 +89,27 @@ export async function loadDatasets(context: vscode.ExtensionContext) {
     targetersDataset = globalState.get('targetersDataset') || loadLocalDataset(targetersDatasetPath);
     conditionsDataset = globalState.get('conditionsDataset') || loadLocalDataset(conditionsDatasetPath);
 
+	updateDatasetMaps();
+
     return { mechanicsDataset, targetersDataset, conditionsDataset };
+}
+
+export function updateDatasetMaps() {
+	mechanicsDatasetMap = new Map<string, any>();
+	targetersDatasetMap = new Map<string, any>();
+	conditionsDatasetMap = new Map<string, any>();
+	mapDataset(mechanicsDataset, mechanicsDatasetMap);
+	mapDataset(targetersDataset, targetersDatasetMap);
+	mapDataset(conditionsDataset, conditionsDatasetMap);
+	updateObjectInfo();
+}
+
+function mapDataset(dataset: any, map: Map<string, any>) {
+	for (const mechanic of dataset) {
+		for (const name of mechanic.name) {
+			map.set(name, mechanic);
+		}
+	}
 }
 
 function loadLocalDataset(datasetPath: string): any {
@@ -97,7 +121,7 @@ function loadLocalDataset(datasetPath: string): any {
     }
 }
 
-
+// Different types of objects that can be found in a configuration
 export enum ObjectType {
 	MECHANIC = 'Mechanic',
 	ATTRIBUTE = 'Attribute',
@@ -106,26 +130,44 @@ export enum ObjectType {
 	INLINECONDITION = 'Inline Condition',
 }
 
+function updateObjectInfo() {
+	ObjectInfo[ObjectType.MECHANIC].dataset = mechanicsDataset;
+	ObjectInfo[ObjectType.MECHANIC].datasetMap = mechanicsDatasetMap;
+
+	ObjectInfo[ObjectType.TARGETER].dataset = targetersDataset;
+	ObjectInfo[ObjectType.TARGETER].datasetMap = targetersDatasetMap;
+
+	ObjectInfo[ObjectType.CONDITION].dataset = conditionsDataset;
+	ObjectInfo[ObjectType.CONDITION].datasetMap = conditionsDatasetMap;
+
+	ObjectInfo[ObjectType.INLINECONDITION].dataset = conditionsDataset;
+	ObjectInfo[ObjectType.INLINECONDITION].datasetMap = conditionsDatasetMap;
+}
 
 export const ObjectInfo = {
 	[ObjectType.MECHANIC]: {
 		dataset: mechanicsDataset,
+		datasetMap: mechanicsDatasetMap,
 		regex: /(?<=\s- )[\w:]+(?=[\s{])/gm,
 	},
 	[ObjectType.ATTRIBUTE]: {
 		dataset: mechanicsDataset,
+		datasetMap: new Map<string, any>(),
 		regex: /(?<=[{;])\w+(?==)/gm,
 	},
 	[ObjectType.TARGETER]: {
 		dataset: targetersDataset,
+		datasetMap: targetersDatasetMap,
 		regex: /(?<=\s@)[\w:]+/gm,
 	},
 	[ObjectType.CONDITION]: {
 		dataset: conditionsDataset,
+		datasetMap: conditionsDatasetMap,
 		regex: /(?<=[\s\|\&][-\(\|\&\)] )[\w:]+/gm,
 	},
 	[ObjectType.INLINECONDITION]: {
 		dataset: conditionsDataset,
+		datasetMap: conditionsDatasetMap,
 		regex: /(?<=\s(\?)|(\?!)|(\?~)|(\?~!))[\w:]+/gm,
 	},
 }
@@ -151,7 +193,7 @@ export const ConditionActions = {
 	}
 }
 
-export const SkillFileObjects = {
+export const MetaskillFileObjects = {
 	"Skills": {
 		"type": "list",
 		"link": "https://git.lumine.io/mythiccraft/MythicMobs/-/wikis/Skills/Metaskills#skills",

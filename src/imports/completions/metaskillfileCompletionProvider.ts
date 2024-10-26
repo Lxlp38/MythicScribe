@@ -1,6 +1,6 @@
 import * as vscode from 'vscode';
 import * as yamlutils from '../utils/yamlutils';
-import { SkillFileObjects } from '../../objectInfos';
+import { MetaskillFileObjects } from '../../objectInfos';
 import { enableFileSpecificSuggestions, isEnabled, isMetaskillFile } from '../utils/configutils';
 
 export function metaskillFileCompletionProvider(){
@@ -27,7 +27,7 @@ export function metaskillFileCompletionProvider(){
                     return undefined;
                 }
                 else if(keys.length == 2){
-                    if(SkillFileObjects[keys[0] as keyof typeof SkillFileObjects].type == "list"){
+                    if(MetaskillFileObjects[keys[0] as keyof typeof MetaskillFileObjects].type == "list"){
                         const completionItem = new vscode.CompletionItem("-", vscode.CompletionItemKind.Snippet);
                         completionItem.insertText = new vscode.SnippetString(indentation + "- $0");
                         completionItem.command = { command: 'editor.action.triggerSuggest', title: 'Re-trigger completions...' };
@@ -41,7 +41,7 @@ export function metaskillFileCompletionProvider(){
                     indentation = indentation + "  ";
                 }
     
-                Object.entries(SkillFileObjects).forEach(([key, value]) => {
+                Object.entries(MetaskillFileObjects).forEach(([key, value]) => {
                     const completionItem = new vscode.CompletionItem(key, vscode.CompletionItemKind.File);
                     completionItem.kind = vscode.CompletionItemKind.File;
                     if(value.type == "list"){

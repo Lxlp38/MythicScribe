@@ -17,7 +17,7 @@ import { metaskillFileCompletionProvider } from './imports/completions/metaskill
 
 import { removeBracketsTextListener } from './imports/textchanges/bracketsremover';
 import { shortcutsProvider } from './imports/textchanges/shortcuts';
-import { loadDatasets } from './objectInfos';
+import { loadGithubDatasets, mechanicsDatasetMap, updateDatasetMaps } from './objectInfos';
 
 export let ctx: vscode.ExtensionContext;
 
@@ -31,11 +31,14 @@ export function activate(context: vscode.ExtensionContext) {
 	ctx = context;
 
 	if (config.datasetSource() === 'GitHub'){
-		loadDatasets(context).then(() => {
+		loadGithubDatasets(context).then(() => {
 			console.log('Datasets loaded');
 		}).catch(err => {
 			console.error('Failed to load datasets', err);
 		});	
+	}
+	else{
+		updateDatasetMaps();
 	}
 
 	// Config

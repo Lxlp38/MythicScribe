@@ -1,9 +1,10 @@
-import { mechanicsDataset } from '../../objectInfos';
+import { mechanicsDataset, mechanicsDatasetMap } from '../../objectInfos';
 
 
 // Utility to get mechanic data by name
-function getMechanicDataByName(name: string, dataset = mechanicsDataset) {
-	return dataset.find((mechanic: any) => mechanic.name.includes(name.toLowerCase()));
+function getMechanicDataByName(name: string, dataset: Map<string, any> = mechanicsDatasetMap) {
+	//return dataset.find((mechanic: any) => mechanic.name.includes(name.toLowerCase()));
+	return dataset.get(name.toLowerCase());
 }
 
 // Utility to get all mechanics that have a name that starts with a certain string
