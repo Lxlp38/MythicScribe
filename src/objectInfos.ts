@@ -152,9 +152,7 @@ function mapDataset(object: any) {
 		for (const name of mechanic.name) {
 			object.datasetMap.set(name, mechanic);
 		}
-		for (const className of mechanic.class) {
-			object.datasetClassMap.set(className, mechanic);
-		}
+		object.datasetClassMap.set(mechanic.class.toLowerCase(), mechanic);
 	}
 }
 

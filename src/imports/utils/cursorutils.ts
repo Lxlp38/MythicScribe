@@ -49,9 +49,9 @@ export function fetchCursorSkills(document: vscode.TextDocument, position: vscod
 	if (maybeMechanic) {
 		const mechanic = document.getText(maybeMechanic);
 		if (exact) {
-			return [getMechanicDataByName(mechanic, ObjectInfo[type].datasetMap), type];
+			return [getMechanicDataByName(mechanic, type), type];
 		}
-		return [getMechanicsByPrefix(mechanic, ObjectInfo[type].datasetMap), type];
+		return [getMechanicsByPrefix(mechanic, type), type];
 	}
 	return null;
 
@@ -81,18 +81,18 @@ export function getCursorSkills(document: vscode.TextDocument, position: vscode.
 			return null;
 		}
 		else if (object?.startsWith('@')) {
-			const targeter = getMechanicDataByName(object.replace("@", ""), ObjectInfo[ObjectType.TARGETER].datasetMap);
-			return [getAttributeDataByName(targeter, attribute, ObjectInfo[ObjectType.TARGETER].dataset), ObjectType.ATTRIBUTE];
+			const targeter = getMechanicDataByName(object.replace("@", ""), ObjectType.TARGETER);
+			return [getAttributeDataByName(targeter, attribute, ObjectType.TARGETER), ObjectType.ATTRIBUTE];
 		}
 		else if (object?.startsWith('~')) {
 			return null
 		}
 		else if (object?.startsWith('?')) {
-			const condition = getMechanicDataByName(object.replace("?", "").replace("!", "").replace("~", ""), ObjectInfo[ObjectType.CONDITION].datasetMap);
-			return [getAttributeDataByName(condition, attribute, ObjectInfo[ObjectType.CONDITION].dataset), ObjectType.ATTRIBUTE];
+			const condition = getMechanicDataByName(object.replace("?", "").replace("!", "").replace("~", ""), ObjectType.CONDITION);
+			return [getAttributeDataByName(condition, attribute, ObjectType.CONDITION), ObjectType.ATTRIBUTE];
 		}
-		const mechanic = getMechanicDataByName(object, ObjectInfo[ObjectType.MECHANIC].datasetMap);
-		return [getAttributeDataByName(mechanic, attribute, ObjectInfo[ObjectType.MECHANIC].dataset), ObjectType.ATTRIBUTE];
+		const mechanic = getMechanicDataByName(object, ObjectType.MECHANIC);
+		return [getAttributeDataByName(mechanic, attribute, ObjectType.MECHANIC), ObjectType.ATTRIBUTE];
 
 	}
 }
@@ -111,8 +111,8 @@ export function getCursorCondition(document: vscode.TextDocument, position: vsco
 		if (!object) {
 			return null;
 		}
-		const mechanic = getMechanicDataByName(object, ObjectInfo[ObjectType.CONDITION].datasetMap);
-		return [getAttributeDataByName(mechanic, attribute, ObjectInfo[ObjectType.CONDITION].dataset), ObjectType.ATTRIBUTE];
+		const mechanic = getMechanicDataByName(object, ObjectType.CONDITION);
+		return [getAttributeDataByName(mechanic, attribute, ObjectType.CONDITION), ObjectType.ATTRIBUTE];
 
 	}
 	return null;

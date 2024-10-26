@@ -40,22 +40,22 @@ export function attributeCompletionProvider(){
                     return null;
                 }
                 else if (object?.startsWith('@')) {
-                    mechanic = getMechanicDataByName(object.replace("@", ""), ObjectInfo[ObjectType.TARGETER].datasetMap);
+                    mechanic = getMechanicDataByName(object.replace("@", ""), ObjectType.TARGETER);
                     type = ObjectType.TARGETER;
                 }
                 else if (object?.startsWith('~')) {
                     return null
                 }
                 else if (object?.startsWith('?')) {
-                    mechanic = getMechanicDataByName(object.replace("?", "").replace("!", "").replace("~", ""), ObjectInfo[ObjectType.CONDITION].datasetMap);
+                    mechanic = getMechanicDataByName(object.replace("?", "").replace("!", "").replace("~", ""), ObjectType.CONDITION);
                     type = ObjectType.INLINECONDITION;
                 }
                 else if (keyAliases["Conditions"].includes(keys[0])) {
-                    mechanic = getMechanicDataByName(object, ObjectInfo[ObjectType.CONDITION].datasetMap);
+                    mechanic = getMechanicDataByName(object, ObjectType.CONDITION);
                     type = ObjectType.CONDITION;
                 }
                 else {
-                    mechanic = getMechanicDataByName(object, ObjectInfo[ObjectType.MECHANIC].datasetMap);
+                    mechanic = getMechanicDataByName(object, ObjectType.MECHANIC);
                     type = ObjectType.MECHANIC;
                 }
     
@@ -63,7 +63,7 @@ export function attributeCompletionProvider(){
                     return null;
                 }
     
-                const attributes = getAllAttributes(mechanic, ObjectInfo[type].dataset);
+                const attributes = getAllAttributes(mechanic, type);
                 let index = 10000;
     
                 attributes.forEach((attribute: any) => {
