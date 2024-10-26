@@ -13,9 +13,6 @@ export function inlineConditionCompletionProvider(){
     
     
                 let charBefore0 = document.getText(new vscode.Range(position.translate(0, -1), position));
-                if (charBefore0 === '{') {
-                    return undefined;
-                }
                 if (!["?", "!", "~"].includes(charBefore0)) {
                     return undefined;
                 }

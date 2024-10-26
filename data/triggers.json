@@ -1,0 +1,375 @@
+[
+    {
+        "plugin": "MythicMobs",
+        "class": "ATTACK",
+        "extends": null,
+        "implements": [],
+        "name": [
+            "onattack",
+            "onhit"
+        ],
+        "description": "Executes the skill when the mob attacks an entity.\n> The associated [@trigger](/Skills/Targeters/Trigger) is the entity that was attacked\n\n| [Implemented Placeholders](/Skills/Placeholders#variable-placeholders)     |\n|--------------------------------|\n| `<skill.var.damage-amount>`    |\n| `<skill.var.damage-type>`      |\n| `<skill.var.damage-cause>`     |",
+        "link": "https://git.lumine.io/mythiccraft/MythicMobs/-/wikis/Skills/Triggers/onAttack",
+        "attributes": []
+    },
+    {
+        "plugin": "MythicMobs",
+        "class": "BOW_HIT",
+        "extends": null,
+        "implements": [],
+        "name": [
+            "onbow_hit",
+            "onbowhit"
+        ],
+        "description": "Executes a skill when the mob's projectile hits an entity.\n\n> The associated [@trigger](/Skills/Targeters/Trigger) is the entity that has been hit\n\n| [Implemented Placeholders](/Skills/Placeholders#variable-placeholders)     |\n|--------------------------------|\n| `<skill.var.damage-amount>`    |\n| `<skill.var.damage-type>`      |\n| `<skill.var.damage-cause>`     |",
+        "link": "https://git.lumine.io/mythiccraft/MythicMobs/-/wikis/Skills/Triggers/onBowHit",
+        "attributes": []
+    },
+    {
+        "plugin": "MythicMobs",
+        "class": "BREED",
+        "extends": null,
+        "implements": [],
+        "name": [
+            "onbreed"
+        ],
+        "description": "Executes the skill when the mob breeds with another mob.\n\n> This trigger has [`@Father`](/Skills/Targeters/Father) and [`@Mother`](/Skills/Targeters/Mother) targeters.\n\n> The associated [@trigger](/Skills/Targeters/Trigger) is the player that made the caster breed",
+        "link": "https://git.lumine.io/mythiccraft/MythicMobs/-/wikis/Skills/Triggers/onBreed",
+        "attributes": []
+    },
+    {
+        "plugin": "MythicMobs",
+        "class": "BUCKET",
+        "extends": null,
+        "implements": [],
+        "name": [
+            "onusebucket",
+            "onmilk",
+            "onbucket",
+            "onmilked",
+            "onfillbucket",
+            "onbucketfill"
+        ],
+        "description": "Executes the skill when the cow is milked or when an entity is stored in a bucket (axolotl and the other bucketable ones).  \n> The associated [@trigger](/Skills/Targeters/Trigger) is the caster itself",
+        "link": "https://git.lumine.io/mythiccraft/MythicMobs/-/wikis/Skills/Triggers/onBucket",
+        "attributes": []
+    },
+    {
+        "plugin": "MythicMobs",
+        "class": "CHANGE_WORLD",
+        "extends": null,
+        "implements": [],
+        "name": [
+            "onworld_change",
+            "onchangeworld",
+            "onchange_world",
+            "onworldchange"
+        ],
+        "description": "Executes the skill when the caster changes world.",
+        "link": "https://git.lumine.io/mythiccraft/MythicMobs/-/wikis/Skills/Triggers/onChangeWorld",
+        "attributes": []
+    },
+    {
+        "plugin": "MythicMobs",
+        "class": "COMBAT",
+        "extends": null,
+        "implements": [],
+        "name": [
+            "oncombat"
+        ],
+        "description": "The default trigger if none was used.  \nWill execute when these events occurs:\n- The mob deals damage\n- The mob takes damage\n- The mob spawns\n- The mob dies",
+        "link": "https://git.lumine.io/mythiccraft/MythicMobs/-/wikis/Skills/Triggers/onCombat",
+        "attributes": []
+    },
+    {
+        "plugin": "MythicMobs",
+        "class": "CREEPER_CHARGE",
+        "extends": null,
+        "implements": [],
+        "name": [
+            "oncharged",
+            "oncreepercharge",
+            "oncharge",
+            "oncreeper_charge"
+        ],
+        "description": "Executes the skill when the casting creeper is charged.  \n\n> The associated [@trigger](/Skills/Targeters/Trigger) is the caster itself",
+        "link": "https://git.lumine.io/mythiccraft/MythicMobs/-/wikis/Skills/Triggers/onCreeperCharge",
+        "attributes": []
+    },
+    {
+        "plugin": "MythicMobs",
+        "class": "DAMAGED",
+        "extends": null,
+        "implements": [],
+        "name": [
+            "onhurt",
+            "ondamaged"
+        ],
+        "description": "Executes the skill when the mob takes damage.\n> The associated [@trigger](/Skills/Targeters/Trigger) is the entity that dealt the damage\n\n| [Implemented Placeholders](/Skills/Placeholders#variable-placeholders)     |\n|--------------------------------|\n| `<skill.var.damage-amount>`    |\n| `<skill.var.damage-type>`      |\n| `<skill.var.damage-cause>`     |",
+        "link": "https://git.lumine.io/mythiccraft/MythicMobs/-/wikis/Skills/Triggers/onDamaged",
+        "attributes": []
+    },
+    {
+        "plugin": "MythicMobs",
+        "class": "DEATH",
+        "extends": null,
+        "implements": [],
+        "name": [
+            "ondeath"
+        ],
+        "description": "Executes the skill when the mob dies.  \nIf the server is a Paper one, it is possible to cancel the death event as long as the cancelevent mechanic is synched. The health that the mob has after this is based on what is specified in the `ReviveHealth` Option.  \n> The associated [@trigger](/Skills/Targeters/Trigger) is the entity that killed the caster",
+        "link": "https://git.lumine.io/mythiccraft/MythicMobs/-/wikis/Skills/Triggers/onDeath",
+        "attributes": []
+    },
+    {
+        "plugin": "MythicMobs",
+        "class": "DESPAWNED",
+        "extends": null,
+        "implements": [],
+        "name": [
+            "ondespawned",
+            "ondespawn"
+        ],
+        "description": "Executes the skill when the mob despawns.\n> The associated [@trigger](/Skills/Targeters/Trigger) is the caster itself",
+        "link": "https://git.lumine.io/mythiccraft/MythicMobs/-/wikis/Skills/Triggers/onDespawn",
+        "attributes": []
+    },
+    {
+        "plugin": "MythicMobs",
+        "class": "DROPCOMBAT",
+        "extends": null,
+        "implements": [],
+        "name": [
+            "onleavecombat",
+            "oncombatdrop",
+            "ondropcombat"
+        ],
+        "description": "Executes the skill when the mob drops combat.\n\n> **REQUIRES [ThreatTables](/Mobs/ThreatTables) to be enabled**  \n\n> There is no associated [@trigger](/Skills/Targeters/Trigger)",
+        "link": "https://git.lumine.io/mythiccraft/MythicMobs/-/wikis/Skills/Triggers/onDropCombat",
+        "attributes": []
+    },
+    {
+        "plugin": "MythicMobs",
+        "class": "ENTERCOMBAT",
+        "extends": null,
+        "implements": [],
+        "name": [
+            "onentercombat"
+        ],
+        "description": "Executes the skill when the mob enters combat.\n\n> **REQUIRES [ThreatTables](/Mobs/ThreatTables) to be enabled**  \n\n> The associated [@trigger](/Skills/Targeters/Trigger) is the entity that made the caster enter combat",
+        "link": "https://git.lumine.io/mythiccraft/MythicMobs/-/wikis/Skills/Triggers/onEnterCombat",
+        "attributes": []
+    },
+    {
+        "plugin": "MythicMobs",
+        "class": "EXPLODE",
+        "extends": null,
+        "implements": [],
+        "name": [
+            "onexplode"
+        ],
+        "description": "Executes the skill when the mob explodes.  \n`mobGriefing` gamerule must be set to true for this to work.  \nGenerally, this trigger only works with creepers and TNTs since they are the only mobs to actually explode  \n> There is no associated [@trigger](/Skills/Targeters/Trigger)",
+        "link": "https://git.lumine.io/mythiccraft/MythicMobs/-/wikis/Skills/Triggers/onExplode",
+        "attributes": []
+    },
+    {
+        "plugin": "MythicMobs",
+        "class": "HEAR",
+        "extends": null,
+        "implements": [],
+        "name": [
+            "onhear",
+            "onvibration"
+        ],
+        "description": "Executes the skill when the mob hears a sound, [if this feature has been enabled](/Mobs/Mobs#hearing).  \nThe `<skill.var.volume>` [placeholder](/Skills/Placeholders#variable-placeholders) can be used in the triggered skill to return a float value between 1 and 15 representing the distance from the sound source\n\n> The associated [@trigger](/Skills/Targeters/Trigger) is the entity that generated the sound  \n\n> The associated [@origin](/Skills/Targeters/Origin) is the location where the sound was generated  \n\n| [Implemented Placeholders](/Skills/Placeholders#variable-placeholders)     |\n|--------------------------------|\n| `<skill.var.volume>`           |\n| `<skill.var.sound-type>`       |",
+        "link": "https://git.lumine.io/mythiccraft/MythicMobs/-/wikis/Skills/Triggers/onHear",
+        "attributes": []
+    },
+    {
+        "plugin": "MythicMobs",
+        "class": "INTERACT",
+        "extends": null,
+        "implements": [],
+        "name": [
+            "oninteract"
+        ],
+        "description": "Executes the skill when a player interacts with, or *right-clicks*, the mob.  \n> The associated [@trigger](/Skills/Targeters/Trigger) is the player that interacted with the caster",
+        "link": "https://git.lumine.io/mythiccraft/MythicMobs/-/wikis/Skills/Triggers/onInteract",
+        "attributes": []
+    },
+    {
+        "plugin": "MythicMobs",
+        "class": "KILLPLAYER",
+        "extends": null,
+        "implements": [],
+        "name": [
+            "onkillplayer",
+            "onplayerkill"
+        ],
+        "description": "Executes the skill when the mob kills a player.  \n> The associated [@trigger](/Skills/Targeters/Trigger) is the player that has been killed",
+        "link": "https://git.lumine.io/mythiccraft/MythicMobs/-/wikis/Skills/Triggers/onPlayerKill",
+        "attributes": []
+    },
+    {
+        "plugin": "MythicMobs",
+        "class": "LOAD",
+        "extends": null,
+        "implements": [],
+        "name": [
+            "onload"
+        ],
+        "description": "Executes the skill when the mob is loaded after a server restart.",
+        "link": "https://git.lumine.io/mythiccraft/MythicMobs/-/wikis/Skills/Triggers/onLoad",
+        "attributes": []
+    },
+    {
+        "plugin": "MythicMobs",
+        "class": "PRIME",
+        "extends": null,
+        "implements": [],
+        "name": [
+            "onprime"
+        ],
+        "description": "Executes the skill when the mob, must be a creeper, is primed (i.e. via the use of a flint and steel).  \n  \n> The associated [@trigger](/Skills/Targeters/Trigger) is the caster itself",
+        "link": "https://git.lumine.io/mythiccraft/MythicMobs/-/wikis/Skills/Triggers/onPrime",
+        "attributes": []
+    },
+    {
+        "plugin": "MythicMobs",
+        "class": "READY",
+        "extends": null,
+        "implements": [],
+        "name": [
+            "onready",
+            "onfirstspawn"
+        ],
+        "description": "Executes the skill when the mob is ready to spawn from a [spawner](/Spawners)",
+        "link": "https://git.lumine.io/mythiccraft/MythicMobs/-/wikis/Skills/Triggers/onReady",
+        "attributes": []
+    },
+    {
+        "plugin": "MythicMobs",
+        "class": "SHOOT",
+        "extends": null,
+        "implements": [],
+        "name": [
+            "onshootbow",
+            "onshoot",
+            "onbowshoot"
+        ],
+        "description": "Executes the skill when the mob shoots a projectile.  \nFor example, skeletons with bows will shoot arrows; ghasts, blazes, or ender dragon will shoot some type of fireball.  \n\n> The associated [@trigger](/Skills/Targeters/Trigger) is the caster\n\n| [Implemented Placeholders](/Skills/Placeholders#variable-placeholders)     |\n|--------------------------------|\n| `<skill.var.bow-tension>`      |",
+        "link": "https://git.lumine.io/mythiccraft/MythicMobs/-/wikis/Skills/Triggers/onShoot",
+        "attributes": []
+    },
+    {
+        "plugin": "MythicMobs",
+        "class": "SIGNAL",
+        "extends": null,
+        "implements": [],
+        "name": [
+            "onsignal"
+        ],
+        "description": "This Trigger has a special syntax: `~onSignal:<signal>`  \n\nExecutes the skill when the mob receives a signal from the [signal](/Skills/Mechanics/Signal) mechanic.  \nA signal must be alphanumeric.  \n\n> The associated [@trigger](/Skills/Targeters/Trigger) is the entity that sent the signal",
+        "link": "https://git.lumine.io/mythiccraft/MythicMobs/-/wikis/Skills/Triggers/onSignal",
+        "attributes": []
+    },
+    {
+        "plugin": "MythicMobs",
+        "class": "SKILL_HIT",
+        "extends": null,
+        "implements": [],
+        "name": [
+            "onskill_damage",
+            "onskilldamage",
+            "onskillhit"
+        ],
+        "description": "Executes the skill when the mob deals damage to other entities via a mechanic.  \n\n> The associated [@trigger](/Skills/Targeters/Trigger) is the entity that was damaged",
+        "link": "https://git.lumine.io/mythiccraft/MythicMobs/-/wikis/Skills/Triggers/onSkillDamage",
+        "attributes": []
+    },
+    {
+        "plugin": "MythicMobs",
+        "class": "SPAWN",
+        "extends": null,
+        "implements": [],
+        "name": [
+            "onspawn"
+        ],
+        "description": "Executes the skill when the mob spawns.  \n> There is no associated [@trigger](/Skills/Targeters/Trigger)",
+        "link": "https://git.lumine.io/mythiccraft/MythicMobs/-/wikis/Skills/Triggers/onSpawn",
+        "attributes": []
+    },
+    {
+        "plugin": "MythicMobs",
+        "class": "SPAWN_OR_LOAD",
+        "extends": null,
+        "implements": [],
+        "name": [
+            "onspawnorload"
+        ],
+        "description": "Executes the skill when either [~onSpawn](/Skills/Triggers/onSpawn) or [~onLoad](/Skills/Triggers/onLoad) would trigger.",
+        "link": "https://git.lumine.io/mythiccraft/MythicMobs/-/wikis/Skills/Triggers/onSpawnOrLoad",
+        "attributes": []
+    },
+    {
+        "plugin": "MythicMobs",
+        "class": "TAME",
+        "extends": null,
+        "implements": [],
+        "name": [
+            "ontame"
+        ],
+        "description": "Executes the skill when the player tames the mob.  \n\n> The associated [@trigger](/Skills/Targeters/Trigger) is the player that tamed the mob",
+        "link": "https://git.lumine.io/mythiccraft/MythicMobs/-/wikis/Skills/Triggers/onTame",
+        "attributes": []
+    },
+    {
+        "plugin": "MythicMobs",
+        "class": "TARGETCHANGE",
+        "extends": null,
+        "implements": [],
+        "name": [
+            "ontargetchange",
+            "onchangetarget"
+        ],
+        "description": "Executes the skill when the mob changes target.\n\n> **REQUIRES [ThreatTables](/Mobs/ThreatTables) to be enabled**",
+        "link": "https://git.lumine.io/mythiccraft/MythicMobs/-/wikis/Skills/Triggers/onChangeTarget",
+        "attributes": []
+    },
+    {
+        "plugin": "MythicMobs",
+        "class": "TELEPORT",
+        "extends": null,
+        "implements": [],
+        "name": [
+            "onteleport"
+        ],
+        "description": "Executes the skill when the mob teleports.  \n> There is no associated [@trigger](/Skills/Targeters/Trigger)",
+        "link": "https://git.lumine.io/mythiccraft/MythicMobs/-/wikis/Skills/Triggers/onTeleport",
+        "attributes": []
+    },
+    {
+        "plugin": "MythicMobs",
+        "class": "TIMER",
+        "extends": null,
+        "implements": [],
+        "name": [
+            "ontimer"
+        ],
+        "description": "This Trigger has a special syntax: `~onTimer:<ticks>`  \n\nExecutes the skill every *n<sup>th</sup>* ticks. Ticks can't be zero and 20 ticks is equal to 1 second.  \n\nThis trigger does not act relatively to the mob's spawn time, but to a global clock. So, for instance, if you have `~onTimer:1000`, its first execution could be in any moment between mob spawn and 1000 ticks from it depending on the value of the global clock.\n\n> Care must be taken when using this trigger as it can lead to server/client performance issues!\n>i.e. large amounts of particle effects can cause client lag, or can kick the client from the server\n\n> There is no associated [@trigger](/Skills/Targeters/Trigger).",
+        "link": "https://git.lumine.io/mythiccraft/MythicMobs/-/wikis/Skills/Triggers/onTimer",
+        "attributes": []
+    },
+    {
+        "plugin": "MythicMobs",
+        "class": "TRADE",
+        "extends": null,
+        "implements": [],
+        "name": [
+            "ontrade"
+        ],
+        "description": "Executes the skill when the villager trades with a player.  \n\n> The associated [@trigger](/Skills/Targeters/Trigger) is the player that traded with the villager",
+        "link": "https://git.lumine.io/mythiccraft/MythicMobs/-/wikis/Skills/Triggers/onTrade",
+        "attributes": []
+    }
+]

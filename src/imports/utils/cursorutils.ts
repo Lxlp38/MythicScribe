@@ -68,6 +68,11 @@ export function getCursorSkills(document: vscode.TextDocument, position: vscode.
 		return maybeTargeter;
 	}
 
+	const maybeTrigger = fetchCursorSkills(document, position, ObjectType.TRIGGER, exact);
+	if (maybeTrigger) {
+		return maybeTrigger;
+	}
+
 	const maybeInlineCondition = fetchCursorSkills(document, position, ObjectType.INLINECONDITION, exact);
 	if (maybeInlineCondition) {
 		return maybeInlineCondition;
@@ -85,7 +90,7 @@ export function getCursorSkills(document: vscode.TextDocument, position: vscode.
 			return [getAttributeDataByName(targeter, attribute, ObjectType.TARGETER), ObjectType.ATTRIBUTE];
 		}
 		else if (object?.startsWith('~')) {
-			return null
+			return null;
 		}
 		else if (object?.startsWith('?')) {
 			const condition = getMechanicDataByName(object.replace("?", "").replace("!", "").replace("~", ""), ObjectType.CONDITION);

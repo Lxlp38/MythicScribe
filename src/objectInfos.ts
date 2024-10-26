@@ -10,12 +10,14 @@ export enum ObjectType {
 	TARGETER = 'Targeter',
 	CONDITION = 'Condition',
 	INLINECONDITION = 'Inline Condition',
+	TRIGGER = 'Trigger',
 }
 
 // Define the paths to your local datasets
 const mechanicsDatasetPath = path.join(__dirname, '../data/mechanics.json');
 const targetersDatasetPath = path.join(__dirname, '../data/targeters.json');
 const conditionsDatasetPath = path.join(__dirname, '../data/conditions.json');
+const triggersDatasetPath = path.join(__dirname, '../data/triggers.json');
 
 export const ObjectInfo = {
 	[ObjectType.MECHANIC]: {
@@ -48,6 +50,12 @@ export const ObjectInfo = {
 		datasetClassMap: new Map<string, any>(),
 		regex: /(?<=\s(\?)|(\?!)|(\?~)|(\?~!))[\w:]+/gm,
 	},
+	[ObjectType.TRIGGER]: {
+		dataset: JSON.parse(fs.readFileSync(triggersDatasetPath, 'utf8')),
+		datasetMap: new Map<string, any>(),
+		datasetClassMap: new Map<string, any>(),
+		regex: /(?<=\s~)on[\w:]+/gm,
+	}
 }
 
 
@@ -102,6 +110,7 @@ export async function loadGithubDatasets(context: vscode.ExtensionContext) {
         const mechanicsData = await fetchJsonFromGithub('mechanics.json');
         const targetersData = await fetchJsonFromGithub('targeters.json');
         const conditionsData = await fetchJsonFromGithub('conditions.json');
+		const triggersData = await fetchJsonFromGithub('triggers.json');
 		console.log("Fetched datasets from GitHub");
 
         // Check if the data was successfully fetched
@@ -111,6 +120,7 @@ export async function loadGithubDatasets(context: vscode.ExtensionContext) {
             globalState.update('mechanicsDataset', mechanicsData);
             globalState.update('targetersDataset', targetersData);
             globalState.update('conditionsDataset', conditionsData);
+			globalState.update('triggersDataset', triggersData);
             globalState.update('latestCommitHash', latestCommitHash);
         } else {
             // Fallback to globalState or local datasets if fetch failed
@@ -122,6 +132,7 @@ export async function loadGithubDatasets(context: vscode.ExtensionContext) {
     ObjectInfo[ObjectType.MECHANIC].dataset = globalState.get('mechanicsDataset') || loadLocalDataset(mechanicsDatasetPath);
     ObjectInfo[ObjectType.TARGETER].dataset = globalState.get('targetersDataset') || loadLocalDataset(targetersDatasetPath);
     ObjectInfo[ObjectType.CONDITION].dataset = globalState.get('conditionsDataset') || loadLocalDataset(conditionsDatasetPath);
+	ObjectInfo[ObjectType.TRIGGER].dataset = globalState.get('triggersDataset') || loadLocalDataset(triggersDatasetPath);
 
 	updateDatasetMaps();
 
@@ -138,9 +149,13 @@ export function updateDatasetMaps() {
 	ObjectInfo[ObjectType.CONDITION].datasetMap = new Map<string, any>();
 	ObjectInfo[ObjectType.CONDITION].datasetClassMap = new Map<string, any>();
 
+	ObjectInfo[ObjectType.TRIGGER].datasetMap = new Map<string, any>();
+	ObjectInfo[ObjectType.TRIGGER].datasetClassMap = new Map<string, any>();
+
 	mapDataset(ObjectInfo[ObjectType.MECHANIC]);
 	mapDataset(ObjectInfo[ObjectType.TARGETER]);
 	mapDataset(ObjectInfo[ObjectType.CONDITION]);
+	mapDataset(ObjectInfo[ObjectType.TRIGGER]);
 
 	ObjectInfo[ObjectType.INLINECONDITION].dataset = ObjectInfo[ObjectType.CONDITION].dataset;
 	ObjectInfo[ObjectType.INLINECONDITION].datasetMap = ObjectInfo[ObjectType.CONDITION].datasetMap;

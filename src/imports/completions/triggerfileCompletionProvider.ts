@@ -3,8 +3,8 @@ import * as yamlutils from '../utils/yamlutils';
 import { keyAliases, ObjectInfo, ObjectType } from '../../objectInfos';
 
 
-export function targeterCompletionProvider(){
-    const targeterCompletionProvider = vscode.languages.registerCompletionItemProvider(
+export function triggerfileCompletionProvider(){
+    const triggerfileCompletionProvider = vscode.languages.registerCompletionItemProvider(
         'yaml',
         {
             async provideCompletionItems(document: vscode.TextDocument, position: vscode.Position, token: vscode.CancellationToken, context: vscode.CompletionContext) {
@@ -15,18 +15,18 @@ export function targeterCompletionProvider(){
                 }
     
                 const charBefore0 = document.getText(new vscode.Range(position.translate(0, -1), position));
-                if (charBefore0 != '@') {
+                if (charBefore0 != '~') {
                     return undefined;
                 }
-                    
+    
                 const completionItems: vscode.CompletionItem[] = [];
     
-                ObjectInfo[ObjectType.TARGETER].dataset.forEach((item: any) => {
+                ObjectInfo[ObjectType.TRIGGER].dataset.forEach((item: any) => {
                     item.name.forEach((name: string) => {
                         const completionItem = new vscode.CompletionItem(name, vscode.CompletionItemKind.Function);
                         completionItem.detail = `${item.description}`;
                         completionItem.kind = vscode.CompletionItemKind.Function;
-                        completionItem.insertText = new vscode.SnippetString(name + "{$0}");
+                        completionItem.insertText = new vscode.SnippetString(name + " $0");
                         completionItem.command = { command: 'editor.action.triggerSuggest', title: 'Re-trigger completions...' };
                         completionItems.push(completionItem);
                     });
@@ -34,8 +34,8 @@ export function targeterCompletionProvider(){
     
                 return completionItems;
             }
-        }, "@"
+        }, "~"
     );    
 
-    return targeterCompletionProvider;
+    return triggerfileCompletionProvider;
 }

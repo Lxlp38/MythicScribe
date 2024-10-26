@@ -72,19 +72,19 @@
         "MythicScribe.regexForMythicmobsFile": {
           "title": "Regex for MythicMobs File",
           "type": "string",
-          "default": "[Mm]ythic[Mm]obs",
+          "default": "[\\\\\\\/][Mm]ythic[Mm]obs[\\\\\\\/]",
           "description": "The regex used against each document's file path: if it matches, the document will be considered as being a MythicMobs one, enabling this extension."
         },
         "MythicScribe.regexForMetaskillFile": {
           "title": "Regex for MythicMobs Metaskills",
           "type": "string",
-          "default": "[Ss]kills",
+          "default": "[\\\\\\\/][Ss]kills[\\\\\\\/]",
           "description": "The regex used against each document's file path: if it matches, the document will be considered as being a Metaskills one, enabling Metaskill files functionalities."
         },
         "MythicScribe.regexForMobFile": {
           "title": "Regex for MythicMobs Mobs",
           "type": "string",
-          "default": "[Mm]obs",
+            "default": "[\\\\\\\/][Mm]obs[\\\\\\\/]",
           "description": "The regex used against each document's file path: if it matches, the document will be considered as being a Mob one, enabling Mob files functionalities."
         },
         "MythicScribe.datasetSource": {

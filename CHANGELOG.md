@@ -2,9 +2,13 @@
 
 ## [Unreleased]
 
+## Added
+- Triggers support
+
 ## Changed
 - Updated the way the mechanics/targeters/conditions are fetched from the dataset
 - Condition Actions suggestions have been improved
+- Default regexs for file specific features now check for the presence of a / or \ before and after the directory name
 
 ## Fixed
 - Small issue with the shortcuts regex

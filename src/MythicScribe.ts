@@ -18,11 +18,15 @@ import { metaskillFileCompletionProvider } from './imports/completions/metaskill
 import { removeBracketsTextListener } from './imports/textchanges/bracketsremover';
 import { shortcutsProvider } from './imports/textchanges/shortcuts';
 import { loadGithubDatasets, updateDatasetMaps } from './objectInfos';
+import { triggerfileCompletionProvider } from './imports/completions/triggerFileCompletionProvider';
 
 export let ctx: vscode.ExtensionContext;
 
+// Arrays to store all subscriptions
 const gloabsubscriptions: vscode.Disposable[] = [];
 const skillfilesubscriptions: vscode.Disposable[] = [];
+const triggerfilesubscriptions: vscode.Disposable[] = [];
+
 
 export function activate(context: vscode.ExtensionContext) {
 
@@ -52,6 +56,7 @@ export function activate(context: vscode.ExtensionContext) {
 export function deactivate() { }
 
 
+// Enable all basic subscriptions
 export function enableSubscriptions() {
 	console.log('Enabling subscriptions');
 
@@ -72,6 +77,7 @@ export function enableSubscriptions() {
 
 	// Text Changes
 	if (config.enableEmptyBracketsAutomaticRemoval()) {
+		console.log('Enabling empty brackets automatic removal');
 		toEnable.push(removeBracketsTextListener());
 	}
 
@@ -85,18 +91,22 @@ export function enableSubscriptions() {
 	});
 }
 
+// Disable all basic subscriptions
 export function disableSubscriptions() {
 	console.log('Disabling subscriptions');
 
 	gloabsubscriptions.forEach(subscription => {
 		subscription.dispose();
 	});
+	gloabsubscriptions.length = 0;
 
 	// File Specific
 	disableSkillfileSubscriptions();
+	disableTriggerFileSubscriptions();
 }
 
 
+// Enable all skillfile subscriptions
 let reminder_disableAcceptSuggestionOnEnter = true;
 export function enableSkillfileSubscriptions() {
 	const context = ctx;
@@ -130,8 +140,31 @@ export function enableSkillfileSubscriptions() {
 	});
 }
 
+// Disable all skillfile subscriptions
 export function disableSkillfileSubscriptions() {
 	skillfilesubscriptions.forEach(subscription => {
 		subscription.dispose();
 	});
+	skillfilesubscriptions.length = 0;
+}
+
+
+// Enable all triggerfile subscriptions
+export function enableTriggerFileSubscriptions() {
+	const context = ctx;
+	const toEnable = [
+		triggerfileCompletionProvider()
+	];
+
+	toEnable.forEach(subscription => {
+		context.subscriptions.push(subscription);
+		triggerfilesubscriptions.push(subscription);
+	});
+}
+// Disable all triggerfile subscriptions
+export function disableTriggerFileSubscriptions() {
+	triggerfilesubscriptions.forEach(subscription => {
+		subscription.dispose();
+	});
+	triggerfilesubscriptions.length = 0;
 }
