@@ -1,23 +1,23 @@
-import { mechanicsDataset, mechanicsDatasetMap } from '../../objectInfos';
+import { ObjectInfo, ObjectType } from '../../objectInfos';
 
 
 // Utility to get mechanic data by name
-function getMechanicDataByName(name: string, dataset: Map<string, any> = mechanicsDatasetMap) {
+function getMechanicDataByName(name: string, dataset: Map<string, any>) {
 	//return dataset.find((mechanic: any) => mechanic.name.includes(name.toLowerCase()));
 	return dataset.get(name.toLowerCase());
 }
 
 // Utility to get all mechanics that have a name that starts with a certain string
-function getMechanicsByPrefix(prefix: string, dataset = mechanicsDataset) {
+function getMechanicsByPrefix(prefix: string, dataset: any) {
 	return dataset.filter((mechanic: any) => mechanic.name.some((name: string) => name.startsWith(prefix.toLowerCase())));
 }
 
 // Utility to get mechanic data by class
-function getMechanicDataByClass(name: string, dataset = mechanicsDataset) {
+function getMechanicDataByClass(name: string, dataset: any) {
 	return dataset.find((mechanic: any) => mechanic.class === name);
 }
 
-function getAllAttributes(mechanic: any, dataset = mechanicsDataset) {
+function getAllAttributes(mechanic: any, dataset: any) {
 	let attributes = mechanic.attributes;
 	if (mechanic.extends) {
 		const parentMechanic = getMechanicDataByClass(mechanic.extends, dataset);
@@ -38,7 +38,7 @@ function getAllAttributes(mechanic: any, dataset = mechanicsDataset) {
 }
 
 // Utility to get attribute data by name
-function getAttributeDataByName(mechanic: any, attributeName: string, dataset: any = mechanicsDataset) {
+function getAttributeDataByName(mechanic: any, attributeName: string, dataset: any) {
 	var attribute = mechanic.attributes.find((attr: any) => attr.name.includes(attributeName.toLowerCase()));
 	if (!attribute && mechanic.extends) {
 		const parentMechanic = getMechanicDataByClass(mechanic.extends, dataset);

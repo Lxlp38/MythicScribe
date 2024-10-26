@@ -1,6 +1,6 @@
 import * as vscode from 'vscode';
 import * as yamlutils from '../utils/yamlutils';
-import { keyAliases, mechanicsDataset } from '../../objectInfos';
+import { keyAliases, ObjectInfo, ObjectType } from '../../objectInfos';
 
 
 export function mechanicCompletionProvider(){
@@ -45,7 +45,7 @@ export function mechanicCompletionProvider(){
                 const completionItems: vscode.CompletionItem[] = [];
     
     
-                mechanicsDataset.forEach((item: any) => {
+                ObjectInfo[ObjectType.MECHANIC].dataset.forEach((item: any) => {
                     item.name.forEach((name: string) => {
                         const completionItem = new vscode.CompletionItem(name, vscode.CompletionItemKind.Function);
                         completionItem.detail = `${item.description}`;

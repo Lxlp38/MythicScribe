@@ -1,6 +1,6 @@
 import * as vscode from 'vscode';
 import * as yamlutils from '../utils/yamlutils';
-import { targetersDataset } from '../../objectInfos';
+import { ObjectInfo, ObjectType } from '../../objectInfos';
 
 
 export function targeterCompletionProvider(){
@@ -25,7 +25,7 @@ export function targeterCompletionProvider(){
     
                 const completionItems: vscode.CompletionItem[] = [];
     
-                targetersDataset.forEach((item: any) => {
+                ObjectInfo[ObjectType.TARGETER].dataset.forEach((item: any) => {
                     item.name.forEach((name: string) => {
                         const completionItem = new vscode.CompletionItem(name, vscode.CompletionItemKind.Function);
                         completionItem.detail = `${item.description}`;

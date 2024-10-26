@@ -17,7 +17,7 @@ import { metaskillFileCompletionProvider } from './imports/completions/metaskill
 
 import { removeBracketsTextListener } from './imports/textchanges/bracketsremover';
 import { shortcutsProvider } from './imports/textchanges/shortcuts';
-import { loadGithubDatasets, mechanicsDatasetMap, updateDatasetMaps } from './objectInfos';
+import { loadGithubDatasets, updateDatasetMaps } from './objectInfos';
 
 export let ctx: vscode.ExtensionContext;
 

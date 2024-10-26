@@ -1,6 +1,6 @@
 import * as vscode from 'vscode';
 import * as yamlutils from '../utils/yamlutils';
-import { conditionsDataset, keyAliases } from '../../objectInfos';
+import { ObjectInfo, ObjectType, keyAliases } from '../../objectInfos';
 
 
 
@@ -63,7 +63,7 @@ export function inlineConditionCompletionProvider(){
     
     
     
-                conditionsDataset.forEach((item: any) => {
+                ObjectInfo[ObjectType.CONDITION].dataset.forEach((item: any) => {
                     item.name.forEach((name: string) => {
                         const completionItem = new vscode.CompletionItem(name, vscode.CompletionItemKind.Function);
                         completionItem.detail = `${item.description}`;

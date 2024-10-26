@@ -4,18 +4,52 @@ import * as fs from 'fs';
 import { ctx } from './MythicScribe';
 
 
+export enum ObjectType {
+	MECHANIC = 'Mechanic',
+	ATTRIBUTE = 'Attribute',
+	TARGETER = 'Targeter',
+	CONDITION = 'Condition',
+	INLINECONDITION = 'Inline Condition',
+}
+
 // Define the paths to your local datasets
-export const mechanicsDatasetPath = path.join(__dirname, '../data/mechanics.json');
-export const targetersDatasetPath = path.join(__dirname, '../data/targeters.json');
-export const conditionsDatasetPath = path.join(__dirname, '../data/conditions.json');
+const mechanicsDatasetPath = path.join(__dirname, '../data/mechanics.json');
+const targetersDatasetPath = path.join(__dirname, '../data/targeters.json');
+const conditionsDatasetPath = path.join(__dirname, '../data/conditions.json');
 
-export let mechanicsDataset = JSON.parse(fs.readFileSync(mechanicsDatasetPath, 'utf8'));
-export let targetersDataset = JSON.parse(fs.readFileSync(targetersDatasetPath, 'utf8'));
-export let conditionsDataset = JSON.parse(fs.readFileSync(conditionsDatasetPath, 'utf8'));
+export const ObjectInfo = {
+	[ObjectType.MECHANIC]: {
+		dataset: JSON.parse(fs.readFileSync(mechanicsDatasetPath, 'utf8')),
+		datasetMap: new Map<string, any>(),
+		datasetClassMap: new Map<string, any>(),
+		regex: /(?<=\s- )[\w:]+(?=[\s{])/gm,
+	},
+	[ObjectType.ATTRIBUTE]: {
+		dataset: null,
+		datasetMap: new Map<string, any>(),
+		datasetClassMap: new Map<string, any>(),
+		regex: /(?<=[{;])\w+(?==)/gm,
+	},
+	[ObjectType.TARGETER]: {
+		dataset: JSON.parse(fs.readFileSync(targetersDatasetPath, 'utf8')),
+		datasetMap: new Map<string, any>(),
+		datasetClassMap: new Map<string, any>(),
+		regex: /(?<=\s@)[\w:]+/gm,
+	},
+	[ObjectType.CONDITION]: {
+		dataset: JSON.parse(fs.readFileSync(conditionsDatasetPath, 'utf8')),
+		datasetMap: new Map<string, any>(),
+		datasetClassMap: new Map<string, any>(),
+		regex: /(?<=[\s\|\&][-\(\|\&\)] )[\w:]+/gm,
+	},
+	[ObjectType.INLINECONDITION]: {
+		dataset: JSON.parse(fs.readFileSync(conditionsDatasetPath, 'utf8')),
+		datasetMap: new Map<string, any>(),
+		datasetClassMap: new Map<string, any>(),
+		regex: /(?<=\s(\?)|(\?!)|(\?~)|(\?~!))[\w:]+/gm,
+	},
+}
 
-export let mechanicsDatasetMap = new Map<string, any>();
-export let targetersDatasetMap = new Map<string, any>();
-export let conditionsDatasetMap = new Map<string, any>();
 
 // GitHub URL to fetch data from
 const GITHUB_BASE_URL = 'https://raw.githubusercontent.com/Lxlp38/MythicScribe/master/data/';
@@ -85,29 +119,41 @@ export async function loadGithubDatasets(context: vscode.ExtensionContext) {
     }
 
     // Load datasets from globalState or fallback to local datasets if necessary
-    mechanicsDataset = globalState.get('mechanicsDataset') || loadLocalDataset(mechanicsDatasetPath);
-    targetersDataset = globalState.get('targetersDataset') || loadLocalDataset(targetersDatasetPath);
-    conditionsDataset = globalState.get('conditionsDataset') || loadLocalDataset(conditionsDatasetPath);
+    ObjectInfo[ObjectType.MECHANIC].dataset = globalState.get('mechanicsDataset') || loadLocalDataset(mechanicsDatasetPath);
+    ObjectInfo[ObjectType.TARGETER].dataset = globalState.get('targetersDataset') || loadLocalDataset(targetersDatasetPath);
+    ObjectInfo[ObjectType.CONDITION].dataset = globalState.get('conditionsDataset') || loadLocalDataset(conditionsDatasetPath);
 
 	updateDatasetMaps();
 
-    return { mechanicsDataset, targetersDataset, conditionsDataset };
+    return;
 }
 
 export function updateDatasetMaps() {
-	mechanicsDatasetMap = new Map<string, any>();
-	targetersDatasetMap = new Map<string, any>();
-	conditionsDatasetMap = new Map<string, any>();
-	mapDataset(mechanicsDataset, mechanicsDatasetMap);
-	mapDataset(targetersDataset, targetersDatasetMap);
-	mapDataset(conditionsDataset, conditionsDatasetMap);
-	updateObjectInfo();
+	ObjectInfo[ObjectType.MECHANIC].datasetMap = new Map<string, any>();
+	ObjectInfo[ObjectType.MECHANIC].datasetClassMap = new Map<string, any>();
+
+	ObjectInfo[ObjectType.TARGETER].datasetMap = new Map<string, any>();
+	ObjectInfo[ObjectType.TARGETER].datasetClassMap = new Map<string, any>();
+
+	ObjectInfo[ObjectType.CONDITION].datasetMap = new Map<string, any>();
+	ObjectInfo[ObjectType.CONDITION].datasetClassMap = new Map<string, any>();
+
+	mapDataset(ObjectInfo[ObjectType.MECHANIC]);
+	mapDataset(ObjectInfo[ObjectType.TARGETER]);
+	mapDataset(ObjectInfo[ObjectType.CONDITION]);
+
+	ObjectInfo[ObjectType.INLINECONDITION].dataset = ObjectInfo[ObjectType.CONDITION].dataset;
+	ObjectInfo[ObjectType.INLINECONDITION].datasetMap = ObjectInfo[ObjectType.CONDITION].datasetMap;
+	ObjectInfo[ObjectType.INLINECONDITION].datasetClassMap = ObjectInfo[ObjectType.CONDITION].datasetClassMap;
 }
 
-function mapDataset(dataset: any, map: Map<string, any>) {
-	for (const mechanic of dataset) {
+function mapDataset(object: any) {
+	for (const mechanic of object.dataset) {
 		for (const name of mechanic.name) {
-			map.set(name, mechanic);
+			object.datasetMap.set(name, mechanic);
+		}
+		for (const className of mechanic.class) {
+			object.datasetClassMap.set(className, mechanic);
 		}
 	}
 }
@@ -122,55 +168,6 @@ function loadLocalDataset(datasetPath: string): any {
 }
 
 // Different types of objects that can be found in a configuration
-export enum ObjectType {
-	MECHANIC = 'Mechanic',
-	ATTRIBUTE = 'Attribute',
-	TARGETER = 'Targeter',
-	CONDITION = 'Condition',
-	INLINECONDITION = 'Inline Condition',
-}
-
-function updateObjectInfo() {
-	ObjectInfo[ObjectType.MECHANIC].dataset = mechanicsDataset;
-	ObjectInfo[ObjectType.MECHANIC].datasetMap = mechanicsDatasetMap;
-
-	ObjectInfo[ObjectType.TARGETER].dataset = targetersDataset;
-	ObjectInfo[ObjectType.TARGETER].datasetMap = targetersDatasetMap;
-
-	ObjectInfo[ObjectType.CONDITION].dataset = conditionsDataset;
-	ObjectInfo[ObjectType.CONDITION].datasetMap = conditionsDatasetMap;
-
-	ObjectInfo[ObjectType.INLINECONDITION].dataset = conditionsDataset;
-	ObjectInfo[ObjectType.INLINECONDITION].datasetMap = conditionsDatasetMap;
-}
-
-export const ObjectInfo = {
-	[ObjectType.MECHANIC]: {
-		dataset: mechanicsDataset,
-		datasetMap: mechanicsDatasetMap,
-		regex: /(?<=\s- )[\w:]+(?=[\s{])/gm,
-	},
-	[ObjectType.ATTRIBUTE]: {
-		dataset: mechanicsDataset,
-		datasetMap: new Map<string, any>(),
-		regex: /(?<=[{;])\w+(?==)/gm,
-	},
-	[ObjectType.TARGETER]: {
-		dataset: targetersDataset,
-		datasetMap: targetersDatasetMap,
-		regex: /(?<=\s@)[\w:]+/gm,
-	},
-	[ObjectType.CONDITION]: {
-		dataset: conditionsDataset,
-		datasetMap: conditionsDatasetMap,
-		regex: /(?<=[\s\|\&][-\(\|\&\)] )[\w:]+/gm,
-	},
-	[ObjectType.INLINECONDITION]: {
-		dataset: conditionsDataset,
-		datasetMap: conditionsDatasetMap,
-		regex: /(?<=\s(\?)|(\?!)|(\?~)|(\?~!))[\w:]+/gm,
-	},
-}
 
 export const ConditionActions = {
 	"true": {
