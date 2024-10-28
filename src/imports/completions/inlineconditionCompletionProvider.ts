@@ -1,6 +1,7 @@
 import * as vscode from 'vscode';
 import * as yamlutils from '../utils/yamlutils';
 import { ObjectInfo, ObjectType, keyAliases } from '../../objectInfos';
+import { checkShouldComplete } from '../utils/completionhelper';
 
 
 
@@ -11,19 +12,18 @@ export function inlineConditionCompletionProvider(){
         {
             async provideCompletionItems(document: vscode.TextDocument, position: vscode.Position, token: vscode.CancellationToken, context: vscode.CompletionContext) {
     
-    
-                let charBefore0 = document.getText(new vscode.Range(position.translate(0, -1), position));
-                if (!["?", "!", "~"].includes(charBefore0)) {
-                    return undefined;
-                }
                 const keys = yamlutils.getParentKeys(document, position.line);
                 if (!keyAliases["Skills"].includes(keys[0])) {
                     return undefined;
                 }
-    
+
+                if (!checkShouldComplete(document, position, context, ["?", "!", "~"])) {
+                    return undefined;
+                }
     
                 const completionItems: vscode.CompletionItem[] = [];
-    
+
+                let charBefore0 = document.getText(new vscode.Range(position.translate(0, -1), position));    
                 switch (charBefore0) {
                     case "?":
                         let charBefore = document.getText(new vscode.Range(position.translate(0, -2), position));

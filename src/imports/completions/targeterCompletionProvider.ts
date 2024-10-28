@@ -1,6 +1,7 @@
 import * as vscode from 'vscode';
 import * as yamlutils from '../utils/yamlutils';
 import { keyAliases, ObjectInfo, ObjectType } from '../../objectInfos';
+import { checkShouldComplete } from '../utils/completionhelper';
 
 
 export function targeterCompletionProvider(){
@@ -13,9 +14,8 @@ export function targeterCompletionProvider(){
                 if (!keyAliases["Skills"].includes(keys[0])) {
                     return undefined;
                 }
-    
-                const charBefore0 = document.getText(new vscode.Range(position.translate(0, -1), position));
-                if (charBefore0 != '@') {
+
+                if (!checkShouldComplete(document, position, context, ["@"])) {
                     return undefined;
                 }
                     

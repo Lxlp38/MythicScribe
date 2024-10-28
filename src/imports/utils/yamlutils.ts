@@ -141,4 +141,14 @@ export function previousSpecialSymbol(document: vscode.TextDocument, position: v
 	return '';
 }
 
+export function previousSymbol(document: vscode.TextDocument, position: vscode.Position): string {
+	const line = document.lineAt(position.line).text;
+	const text = line.substring(0, position.character);
+	const matches = text.match(/([^\w:])[\w:]*$/);
+	if (matches) {
+		return matches[1];
+	}
+	return '';
+}
+
 export { getUpstreamKey, getParentKeys, isKey, isInsideKey };

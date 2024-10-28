@@ -1,16 +1,21 @@
 # Changelog
 
+## [Unreleased]
+
+## Fixed
+- triggers, targeters and inline conditions completions behaving inconsistently once invoked
+
 ## [0.2.0]
 
-## Added
+### Added
 - Triggers support
 
-## Changed
+### Changed
 - Updated the way the mechanics/targeters/conditions are fetched from the dataset
 - Condition Actions suggestions have been improved
 - Default regexs for file specific features now check for the presence of a / or \ before and after the directory name
 
-## Fixed
+### Fixed
 - Small issue with the shortcuts regex
 - GitHub dataset not being correctly loaded for hover informations
 
