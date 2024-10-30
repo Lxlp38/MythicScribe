@@ -48,7 +48,9 @@ export function conditionCompletionProvider(){
                 if (context.triggerKind === vscode.CompletionTriggerKind.Invoke && context.triggerCharacter === undefined) {
                     space = "";
                 }
-    
+                if (context.triggerKind === vscode.CompletionTriggerKind.TriggerCharacter && context.triggerCharacter === " ") {
+                    space = "";
+                }
     
     
                 const openBraceCompletion = new vscode.CompletionItem("(", vscode.CompletionItemKind.Function);
