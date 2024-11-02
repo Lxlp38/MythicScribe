@@ -4,6 +4,7 @@
 
 ## Added
 - `MythicScribe.attributeAliasUsedInCompletions` config, to set which attribute alias to use for completions. Defaults to `main`
+- `true`/`false` snippet for Boolean attributes
 
 ## Fixed
 - triggers, targeters and inline conditions completions behaving inconsistently once invoked

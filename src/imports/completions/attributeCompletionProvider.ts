@@ -82,11 +82,18 @@ export function attributeCompletionProvider() {
                             }
                         });
                     }
+
+                    const attributeType = attribute.type;
                     const completionItem = new vscode.CompletionItem(mainname, vscode.CompletionItemKind.Field);
                     completionItem.label = `${aliases.join(", ")}`;
                     completionItem.detail = `${attribute.description}`;
                     completionItem.kind = vscode.CompletionItemKind.Field;
-                    completionItem.insertText = new vscode.SnippetString(mainname + "=");
+                    if (attributeType === "Boolean") {
+                        completionItem.insertText = new vscode.SnippetString(mainname + "=" + "${1|true,false|}");
+                    }
+                    else {
+                        completionItem.insertText = new vscode.SnippetString(mainname + "=");
+                    }
                     completionItem.sortText = index.toString();
                     index++;
                     completionItems.push(completionItem);
