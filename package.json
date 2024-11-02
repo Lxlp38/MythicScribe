@@ -98,25 +98,32 @@
           "title": "Enable Shortcuts",
           "type": "boolean",
           "default": "true",
-          "description": "Enable text shortcuts for MythicMobs files. Changes apply on extension restart."
+          "description": "Enable text shortcuts for MythicMobs files."
         },
         "MythicScribe.enableEmptyBracketsAutomaticRemoval": {
           "title": "Enable Empty Brackets Automatic Removal",
           "type": "boolean",
           "default": true,
-          "description": "Enable the removal of empty curly brackets `{}` by moving the cursor past them. Changes apply on extension restart."
+          "description": "Enable the removal of empty curly brackets `{}` by moving the cursor past them."
         },
         "MythicScribe.enableFileSpecificSuggestions": {
           "title": "Enable File Specific Suggestions",
           "type": "boolean",
           "default": true,
-          "description": "Whether file specific suggestions (metaskill files, mob files) should be shown. Changes apply on extension restart."
+          "description": "Whether file specific suggestions (metaskill files, mob files) should be shown."
         },
         "MythicScribe.disableAcceptSuggestionOnEnter": {
           "title": "Reminder to Remove Accept Suggestion on Enter",
           "type": "boolean",
           "default": true,
-          "description": "Enable the reminder to disable the editor.acceptSuggestionOnEnter config. Changes apply on extension restart."
+          "description": "Enable the reminder to disable the editor.acceptSuggestionOnEnter config."
+        },
+        "MythicScribe.attributeAliasUsedInCompletions": {
+          "title": "Attribute Alias Used in Completions",
+          "type": "string",
+          "enum": ["main", "shorter"],
+          "default": "main",
+          "description": "Which attribute alias should be used in autocompletions."
         }
       }
     }

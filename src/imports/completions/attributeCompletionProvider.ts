@@ -5,12 +5,12 @@ import { getAllAttributes, getMechanicDataByName } from '../utils/mechanicutils'
 import { getObjectLinkedToAttribute } from '../utils/cursorutils';
 
 
-export function attributeCompletionProvider(){
+export function attributeCompletionProvider() {
     const attributeCompletionProvider = vscode.languages.registerCompletionItemProvider(
         'yaml',
         {
             async provideCompletionItems(document: vscode.TextDocument, position: vscode.Position, token: vscode.CancellationToken, context: vscode.CompletionContext) {
-    
+
                 const charBefore = document.getText(new vscode.Range(position.translate(0, -2), position));
                 if (charBefore === ";;" || charBefore === "{;") {
                     const edit = new vscode.WorkspaceEdit();
@@ -22,19 +22,19 @@ export function attributeCompletionProvider(){
                 else if (charBefore === "- ") {
                     return undefined;
                 }
-    
+
                 if (context.triggerCharacter === undefined) {
                     const specialSymbol = yamlutils.previousSpecialSymbol(document, position);
                     if (!["{", ";"].includes(specialSymbol)) {
                         return undefined;
-                    }    
+                    }
                 }
-    
+
                 const keys = yamlutils.getParentKeys(document, position.line);
                 const completionItems: vscode.CompletionItem[] = [];
                 let mechanic = null;
                 let type = ObjectType.MECHANIC;
-    
+
                 const object = getObjectLinkedToAttribute(document, position);
                 if (!object) {
                     return null;
@@ -58,22 +58,30 @@ export function attributeCompletionProvider(){
                     mechanic = getMechanicDataByName(object, ObjectType.MECHANIC);
                     type = ObjectType.MECHANIC;
                 }
-    
+
                 if (!mechanic) {
                     return null;
                 }
-    
+
                 const attributes = getAllAttributes(mechanic, type);
                 let index = 10000;
-    
+
+                const config = vscode.workspace.getConfiguration('MythicScribe');
+                const attributeAliasUsedInCompletions = config.get<string>('attributeAliasUsedInCompletions', "main");
+
                 attributes.forEach((attribute: any) => {
-                    let mainname = attribute.name.reduce((a: string, b: string) => a.length < b.length ? a : b);
-                    let aliases = [mainname];
-                    attribute.name.forEach((name: string) => {
-                        if (name !== mainname) {
-                            aliases.push(name);
-                        }
-                    });
+                    let mainname = attribute.name[0];
+                    let aliases = attribute.name;
+
+                    if (attributeAliasUsedInCompletions === "shorter") {
+                        mainname = attribute.name.reduce((a: string, b: string) => a.length < b.length ? a : b);
+                        aliases = [mainname];
+                        attribute.name.forEach((name: string) => {
+                            if (name !== mainname) {
+                                aliases.push(name);
+                            }
+                        });
+                    }
                     const completionItem = new vscode.CompletionItem(mainname, vscode.CompletionItemKind.Field);
                     completionItem.label = `${aliases.join(", ")}`;
                     completionItem.detail = `${attribute.description}`;
@@ -83,7 +91,7 @@ export function attributeCompletionProvider(){
                     index++;
                     completionItems.push(completionItem);
                 });
-    
+
                 return completionItems;
             }
         }, "{", ";"

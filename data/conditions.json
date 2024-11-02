@@ -3,9 +3,6 @@
         "plugin": "MythicMobs",
         "class": "AltitudeCondition",
         "extends": "SkillCondition",
-        "implements": [
-            "IEntityCondition"
-        ],
         "name": [
             "altitude",
             "heightfromsurface"
@@ -15,10 +12,10 @@
         "attributes": [
             {
                 "name": [
+                    "height",
                     "h",
                     "altitude",
-                    "a",
-                    "height"
+                    "a"
                 ],
                 "type": "String",
                 "description": "The height range to check",
@@ -41,9 +38,6 @@
         "plugin": "MythicMobs",
         "class": "BiomeCondition",
         "extends": "SkillCondition",
-        "implements": [
-            "ILocationCondition"
-        ],
         "name": [
             "biome"
         ],
@@ -62,8 +56,10 @@
             },
             {
                 "name": [
+                    "biome",
                     "b",
-                    "biome"
+                    "biome",
+                    "b"
                 ],
                 "type": "String",
                 "description": "A list of biomes to check",
@@ -76,9 +72,6 @@
         "plugin": "MythicMobs",
         "class": "BiomeTypeCondition",
         "extends": "SkillCondition",
-        "implements": [
-            "ILocationCondition"
-        ],
         "name": [
             "biometype",
             "biomecategory"
@@ -98,8 +91,8 @@
             },
             {
                 "name": [
-                    "t",
-                    "type"
+                    "type",
+                    "t"
                 ],
                 "type": "String",
                 "description": "A list of biomes to check",
@@ -112,27 +105,24 @@
         "plugin": "MythicMobs",
         "class": "BlockTypeCondition",
         "extends": "SkillCondition",
-        "implements": [
-            "ILocationCondition"
-        ],
         "name": [
+            "blocktype",
             "inblock",
-            "insideblock",
-            "blocktype"
+            "insideblock"
         ],
         "description": "This condition tests if material type present at the target location is the specified one.  \nValid for any [Bukkit material type](https://hub.spigotmc.org/javadocs/spigot/org/bukkit/Material.html).",
         "link": "https://git.lumine.io/mythiccraft/MythicMobs/-/wikis/Skills/Conditions/blocktype",
         "attributes": [
             {
                 "name": [
-                    "t",
-                    "m",
-                    "material",
-                    "block",
-                    "b",
                     "types",
+                    "type",
+                    "t",
+                    "material",
                     "mat",
-                    "type"
+                    "m",
+                    "block",
+                    "b"
                 ],
                 "type": "StringList",
                 "description": "A list of materials or MMOItem's block name to check",
@@ -145,9 +135,6 @@
         "plugin": "MythicMobs",
         "class": "BlockTypeInRadiusCondition",
         "extends": "SkillCondition",
-        "implements": [
-            "ILocationCondition"
-        ],
         "name": [
             "blocktypeinradius"
         ],
@@ -156,8 +143,8 @@
         "attributes": [
             {
                 "name": [
-                    "a",
-                    "amount"
+                    "amount",
+                    "a"
                 ],
                 "type": "PlaceholderString",
                 "description": "The amount of blocks to match",
@@ -176,12 +163,12 @@
             },
             {
                 "name": [
-                    "t",
-                    "m",
-                    "material",
                     "types",
+                    "type",
+                    "t",
+                    "material",
                     "mat",
-                    "type"
+                    "m"
                 ],
                 "type": "StringList",
                 "description": "A list of [materials] to check against",
@@ -194,9 +181,6 @@
         "plugin": "MythicMobs",
         "class": "BlockingCondition",
         "extends": "SkillCondition",
-        "implements": [
-            "IEntityCondition"
-        ],
         "name": [
             "blocking",
             "isblocking"
@@ -209,24 +193,21 @@
         "plugin": "MythicMobs",
         "class": "BoundingBoxesOverlapCondition",
         "extends": "SkillCondition",
-        "implements": [
-            "IEntityComparisonCondition"
-        ],
         "name": [
-            "bbsoverlap",
-            "boundingboxesoverlap"
+            "boundingboxesoverlap",
+            "bbsoverlap"
         ],
         "description": "Checks if the caster's BoundingBox overlaps with the target's",
         "link": "https://git.lumine.io/mythiccraft/MythicMobs/-/wikis/Skills/Conditions/BoundingBoxesOverlap",
         "attributes": [
             {
                 "name": [
-                    "f",
-                    "forward",
-                    "fo",
-                    "forwardoffset",
                     "shiftforward",
-                    "so"
+                    "so",
+                    "forwardoffset",
+                    "fo",
+                    "forward",
+                    "f"
                 ],
                 "type": "Double",
                 "description": "The forward offset of the caster's BoundingBox",
@@ -239,9 +220,6 @@
         "plugin": "MythicMobs",
         "class": "BowTensionCondition",
         "extends": "SkillCondition",
-        "implements": [
-            "ISkillMetaCondition"
-        ],
         "name": [
             "bowtension",
             "bowshoottension"
@@ -251,11 +229,11 @@
         "attributes": [
             {
                 "name": [
+                    "force",
+                    "f",
                     "value",
                     "v",
-                    "f",
-                    "val",
-                    "force"
+                    "val"
                 ],
                 "type": "PlaceholderString",
                 "description": "The value of the force/tension to check for. Accepts ranged float values, but only in a range from 0 to 1",
@@ -268,13 +246,10 @@
         "plugin": "MythicMobs",
         "class": "BurningCondition",
         "extends": "SkillCondition",
-        "implements": [
-            "IEntityCondition"
-        ],
         "name": [
             "burning",
-            "isonfire",
-            "isburning"
+            "isburning",
+            "isonfire"
         ],
         "description": "Checks if the target entity is burning",
         "link": "https://git.lumine.io/mythiccraft/MythicMobs/-/wikis/Skills/Conditions/burning",
@@ -284,10 +259,6 @@
         "plugin": "MythicMobs",
         "class": "ChanceCondition",
         "extends": "SkillCondition",
-        "implements": [
-            "ISkillMetaCondition",
-            "ISkillMetaComparisonCondition"
-        ],
         "name": [
             "chance"
         ],
@@ -310,9 +281,6 @@
         "plugin": "MythicMobs",
         "class": "ChildrenCondition",
         "extends": "SkillCondition",
-        "implements": [
-            "ICasterCondition"
-        ],
         "name": [
             "children"
         ],
@@ -321,8 +289,8 @@
         "attributes": [
             {
                 "name": [
-                    "a",
-                    "amount"
+                    "amount",
+                    "a"
                 ],
                 "type": "String",
                 "description": "The amount of children to check for. Can accept ranged values.",
@@ -335,9 +303,6 @@
         "plugin": "MythicMobs",
         "class": "ColorCondition",
         "extends": "SkillCondition",
-        "implements": [
-            "IEntityCondition"
-        ],
         "name": [
             "color",
             "clr"
@@ -347,9 +312,9 @@
         "attributes": [
             {
                 "name": [
-                    "c",
+                    "clr",
                     "color",
-                    "clr"
+                    "c"
                 ],
                 "type": "PlaceholderString",
                 "description": "the color to check for",
@@ -362,13 +327,10 @@
         "plugin": "MythicMobs",
         "class": "CreeperChargeCondition",
         "extends": "SkillCondition",
-        "implements": [
-            "IEntityCondition"
-        ],
         "name": [
+            "charged",
             "ischarged",
-            "creepercharged",
-            "charged"
+            "creepercharged"
         ],
         "description": "Checks if the target creeper is charged",
         "link": "https://git.lumine.io/mythiccraft/MythicMobs/-/wikis/Skills/Conditions/charged",
@@ -378,14 +340,11 @@
         "plugin": "MythicMobs",
         "class": "CrouchingCondition",
         "extends": "SkillCondition",
-        "implements": [
-            "IEntityCondition"
-        ],
         "name": [
             "crouching",
-            "issneaking",
             "sneaking",
-            "iscrouching"
+            "iscrouching",
+            "issneaking"
         ],
         "description": "This condition checks if the target player is crouching or not.",
         "link": "https://git.lumine.io/mythiccraft/MythicMobs/-/wikis/Skills/Conditions/crouching",
@@ -395,11 +354,6 @@
         "plugin": "MythicMobs",
         "class": "CuboidCondition",
         "extends": "SkillCondition",
-        "implements": [
-            "IEntityComparisonCondition",
-            "ILocationComparisonCondition",
-            "ILocationCondition"
-        ],
         "name": [
             "cuboid",
             "incuboid"
@@ -409,10 +363,10 @@
         "attributes": [
             {
                 "name": [
+                    "location1",
                     "loc1",
                     "l1",
-                    "a",
-                    "location1"
+                    "a"
                 ],
                 "type": "String",
                 "description": "x,y,z coordinates for the 1st point.",
@@ -421,10 +375,10 @@
             },
             {
                 "name": [
-                    "b",
+                    "location2",
                     "loc2",
                     "l2",
-                    "location2"
+                    "b"
                 ],
                 "type": "String",
                 "description": "x,y,z coordinates for the 2nd point.",
@@ -433,8 +387,8 @@
             },
             {
                 "name": [
-                    "r",
-                    "relative"
+                    "relative",
+                    "r"
                 ],
                 "type": "Boolean",
                 "description": "Whether or not the coordinates should be relative to the caster",
@@ -447,9 +401,6 @@
         "plugin": "MythicMobs",
         "class": "DamageAmountCondition",
         "extends": "SkillCondition",
-        "implements": [
-            "ISkillMetaCondition"
-        ],
         "name": [
             "damageamount"
         ],
@@ -458,9 +409,9 @@
         "attributes": [
             {
                 "name": [
+                    "damageamount",
                     "amount",
-                    "a",
-                    "damageamount"
+                    "a"
                 ],
                 "type": "PlaceholderString",
                 "description": "Range of damage to check for",
@@ -473,9 +424,6 @@
         "plugin": "MythicMobs",
         "class": "DamageCauseCondition",
         "extends": "SkillCondition",
-        "implements": [
-            "ISkillMetaCondition"
-        ],
         "name": [
             "damagecause"
         ],
@@ -499,12 +447,9 @@
         "plugin": "MythicMobs",
         "class": "DamageHasTagCondition",
         "extends": "SkillCondition",
-        "implements": [
-            "ISkillMetaCondition"
-        ],
         "name": [
-            "damagehastag",
-            "damagetag"
+            "damagetag",
+            "damagehastag"
         ],
         "description": "Checks whether the damage that caused the current skill tree has a specific tag",
         "link": "https://git.lumine.io/mythiccraft/MythicMobs/-/wikis/Skills/Conditions/damagetag",
@@ -521,12 +466,12 @@
             },
             {
                 "name": [
-                    "bool",
-                    "b",
                     "value",
+                    "val",
                     "v",
                     "boolean",
-                    "val"
+                    "bool",
+                    "b"
                 ],
                 "type": "Boolean",
                 "description": "If true, checks for the presence of the tag<br>If false, checks for its absence",
@@ -539,9 +484,6 @@
         "plugin": "MythicMobs",
         "class": "DawnCondition",
         "extends": "SkillCondition",
-        "implements": [
-            "ILocationCondition"
-        ],
         "name": [
             "dawn"
         ],
@@ -553,9 +495,6 @@
         "plugin": "MythicMobs",
         "class": "DayCondition",
         "extends": "SkillCondition",
-        "implements": [
-            "ILocationCondition"
-        ],
         "name": [
             "day"
         ],
@@ -567,22 +506,19 @@
         "plugin": "MythicMobs",
         "class": "DimensionCondition",
         "extends": "SkillCondition",
-        "implements": [
-            "ILocationCondition"
-        ],
         "name": [
-            "environment",
-            "dimension"
+            "dimension",
+            "environment"
         ],
         "description": "Checks if the target is within a certain dimension.  \nA list of valid dimensions can be found in the [Spigot Enviroment javadoc](https://hub.spigotmc.org/javadocs/bukkit/org/bukkit/World.Environment.html).",
         "link": "https://git.lumine.io/mythiccraft/MythicMobs/-/wikis/Skills/Conditions/dimension",
         "attributes": [
             {
                 "name": [
+                    "dimension",
                     "d",
                     "environment",
-                    "env",
-                    "dimension"
+                    "env"
                 ],
                 "type": "String",
                 "description": "A list of dimensions to check",
@@ -595,20 +531,17 @@
         "plugin": "MythicMobs",
         "class": "DirectionalVelocityCondition",
         "extends": "SkillCondition",
-        "implements": [
-            "IEntityCondition"
-        ],
         "name": [
-            "dvelocity",
-            "directionalvelocity"
+            "directionalvelocity",
+            "dvelocity"
         ],
         "description": "A condition that checks checks if the target has a velocity matching the given parameters.",
         "link": "https://git.lumine.io/mythiccraft/MythicMobs/-/wikis/Skills/Conditions/directionalvelocity",
         "attributes": [
             {
                 "name": [
-                    "rel",
-                    "relative"
+                    "relative",
+                    "rel"
                 ],
                 "type": "Boolean",
                 "description": "Whether the check should be relative to the entity's orientation and not to the world axis. If true, X is forward/backward and Z is side-to-side",
@@ -617,9 +550,9 @@
             },
             {
                 "name": [
-                    "s",
+                    "x",
                     "side",
-                    "x"
+                    "s"
                 ],
                 "type": "String",
                 "description": "The X velocity. Can be a range. Isn't checked by the condition if not set",
@@ -628,10 +561,10 @@
             },
             {
                 "name": [
-                    "abss",
-                    "as",
+                    "absx",
                     "ax",
-                    "absx"
+                    "abss",
+                    "as"
                 ],
                 "type": "Boolean",
                 "description": "Whether to use only the absolute values for the X velocity",
@@ -640,10 +573,10 @@
             },
             {
                 "name": [
-                    "down",
                     "y",
-                    "vertical",
                     "up",
+                    "down",
+                    "vertical",
                     "v"
                 ],
                 "type": "String",
@@ -664,8 +597,8 @@
             {
                 "name": [
                     "z",
-                    "f",
-                    "forward"
+                    "forward",
+                    "f"
                 ],
                 "type": "String",
                 "description": "The Z velocity. Can be a range. Isn't checked by the condition if not set",
@@ -676,8 +609,8 @@
                 "name": [
                     "absz",
                     "az",
-                    "af",
-                    "absf"
+                    "absf",
+                    "af"
                 ],
                 "type": "Boolean",
                 "description": "Whether to use only the absolute values for the Z velocity",
@@ -690,11 +623,6 @@
         "plugin": "MythicMobs",
         "class": "DistanceCondition",
         "extends": "SkillCondition",
-        "implements": [
-            "ISkillMetaComparisonCondition",
-            "IEntityComparisonCondition",
-            "ILocationComparisonCondition"
-        ],
         "name": [
             "distance"
         ],
@@ -717,9 +645,6 @@
         "plugin": "MythicMobs",
         "class": "DistanceFromLocationCondition",
         "extends": "SkillCondition",
-        "implements": [
-            "IEntityCondition"
-        ],
         "name": [
             "distancefromlocation"
         ],
@@ -779,9 +704,6 @@
         "plugin": "MythicMobs",
         "class": "DistanceFromPinCondition",
         "extends": "SkillCondition",
-        "implements": [
-            "IEntityCondition"
-        ],
         "name": [
             "distancefrompin"
         ],
@@ -790,8 +712,8 @@
         "attributes": [
             {
                 "name": [
-                    "p",
-                    "pin"
+                    "pin",
+                    "p"
                 ],
                 "type": "PlaceholderString",
                 "description": "The pin to check against",
@@ -814,9 +736,6 @@
         "plugin": "MythicMobs",
         "class": "DistanceFromSpawnCondition",
         "extends": "SkillCondition",
-        "implements": [
-            "ILocationCondition"
-        ],
         "name": [
             "distancefromspawn"
         ],
@@ -839,9 +758,6 @@
         "plugin": "MythicMobs",
         "class": "DistanceFromTrackedLocationCondition",
         "extends": "SkillCondition",
-        "implements": [
-            "ICasterCondition"
-        ],
         "name": [
             "distancefromtrackedlocation",
             "distancefromtl"
@@ -865,9 +781,6 @@
         "plugin": "MythicMobs",
         "class": "DuskCondition",
         "extends": "SkillCondition",
-        "implements": [
-            "ILocationCondition"
-        ],
         "name": [
             "dusk"
         ],
@@ -879,24 +792,21 @@
         "plugin": "MythicMobs",
         "class": "EnchantingExperienceCondition",
         "extends": "SkillCondition",
-        "implements": [
-            "IEntityCondition"
-        ],
         "name": [
-            "enchantexp",
-            "enchantingexp",
             "enchantingexperience",
-            "enchantexperience"
+            "enchantingexp",
+            "enchantexperience",
+            "enchantexp"
         ],
         "description": "Checks the experience points that the target player has.",
         "link": "https://git.lumine.io/mythiccraft/MythicMobs/-/wikis/Skills/Conditions/EnchantingExperience",
         "attributes": [
             {
                 "name": [
-                    "l",
-                    "level",
+                    "amount",
                     "a",
-                    "amount"
+                    "level",
+                    "l"
                 ],
                 "type": "String",
                 "description": "Checks against the experience points missing to reach the next level, in a range from 0 to 1. 0 is \"no progress\" and 1 is \"next level\". Accepts ranges.",
@@ -909,9 +819,6 @@
         "plugin": "MythicMobs",
         "class": "EnchantingLevelCondition",
         "extends": "SkillCondition",
-        "implements": [
-            "IEntityCondition"
-        ],
         "name": [
             "enchantinglevel"
         ],
@@ -920,8 +827,8 @@
         "attributes": [
             {
                 "name": [
-                    "l",
-                    "level"
+                    "level",
+                    "l"
                 ],
                 "type": "String",
                 "description": "Range of amount of experience level to check for",
@@ -934,13 +841,10 @@
         "plugin": "MythicMobs",
         "class": "EnderDragonAliveCondition",
         "extends": "SkillCondition",
-        "implements": [
-            "ILocationCondition"
-        ],
         "name": [
-            "dragonalive",
             "enderdragonalive",
-            "isdragonalive"
+            "isdragonalive",
+            "dragonalive"
         ],
         "description": "Checks if there is at least one EnderDragon alive in the world of the targeted location",
         "link": "https://git.lumine.io/mythiccraft/MythicMobs/-/wikis/Skills/Conditions/EnderDragonAlive",
@@ -950,9 +854,6 @@
         "plugin": "MythicMobs",
         "class": "EnderDragonPhaseCondition",
         "extends": "SkillCondition",
-        "implements": [
-            "IEntityCondition"
-        ],
         "name": [
             "enderdragonphase",
             "edragonphase"
@@ -962,8 +863,8 @@
         "attributes": [
             {
                 "name": [
-                    "p",
-                    "phase"
+                    "phase",
+                    "p"
                 ],
                 "type": "String",
                 "description": "A list of phases to match",
@@ -976,9 +877,6 @@
         "plugin": "MythicMobs",
         "class": "EntityItemIsSimilarCondition",
         "extends": "SkillCondition",
-        "implements": [
-            "IEntityCondition"
-        ],
         "name": [
             "entityitemissimilar"
         ],
@@ -987,12 +885,12 @@
         "attributes": [
             {
                 "name": [
-                    "m",
-                    "material",
-                    "mythicitem",
                     "item",
+                    "i",
+                    "material",
+                    "m",
                     "mm",
-                    "i"
+                    "mythicitem"
                 ],
                 "type": "String",
                 "description": "The item to check against",
@@ -1005,9 +903,6 @@
         "plugin": "MythicMobs",
         "class": "EntityItemTypeCondition",
         "extends": "SkillCondition",
-        "implements": [
-            "IEntityCondition"
-        ],
         "name": [
             "entityitemtype"
         ],
@@ -1016,12 +911,12 @@
         "attributes": [
             {
                 "name": [
-                    "t",
-                    "m",
                     "material",
-                    "types",
                     "mat",
-                    "type"
+                    "m",
+                    "type",
+                    "types",
+                    "t"
                 ],
                 "type": "String",
                 "description": "A list of items to match",
@@ -1034,9 +929,6 @@
         "plugin": "MythicMobs",
         "class": "EntityMaterialTypeCondition",
         "extends": "SkillCondition",
-        "implements": [
-            "IEntityCondition"
-        ],
         "name": [
             "entitymaterialtype"
         ],
@@ -1045,12 +937,12 @@
         "attributes": [
             {
                 "name": [
-                    "t",
-                    "m",
                     "material",
-                    "types",
                     "mat",
-                    "type"
+                    "m",
+                    "type",
+                    "types",
+                    "t"
                 ],
                 "type": "String",
                 "description": "A list of materials to match",
@@ -1063,9 +955,6 @@
         "plugin": "MythicMobs",
         "class": "EntityTypeCondition",
         "extends": "SkillCondition",
-        "implements": [
-            "IEntityCondition"
-        ],
         "name": [
             "entitytype",
             "mobtype"
@@ -1075,9 +964,9 @@
         "attributes": [
             {
                 "name": [
-                    "t",
                     "types",
-                    "type"
+                    "type",
+                    "t"
                 ],
                 "type": "String",
                 "description": "A list of entity types to match",
@@ -1090,9 +979,6 @@
         "plugin": "MythicMobs",
         "class": "FactionCondition",
         "extends": "SkillCondition",
-        "implements": [
-            "IEntityCondition"
-        ],
         "name": [
             "faction"
         ],
@@ -1115,12 +1001,9 @@
         "plugin": "MythicMobs",
         "class": "FactionSameCondition",
         "extends": "SkillCondition",
-        "implements": [
-            "IEntityComparisonCondition"
-        ],
         "name": [
-            "factionsame",
-            "samefaction"
+            "samefaction",
+            "factionsame"
         ],
         "description": "This conditions checks if the target entity is in the same faction as the caster.",
         "link": "https://git.lumine.io/mythiccraft/MythicMobs/-/wikis/Skills/Conditions/samefaction",
@@ -1130,20 +1013,17 @@
         "plugin": "MythicMobs",
         "class": "FallSpeedCondition",
         "extends": "SkillCondition",
-        "implements": [
-            "IEntityCondition"
-        ],
         "name": [
-            "fallingspeed",
-            "fallspeed"
+            "fallspeed",
+            "fallingspeed"
         ],
         "description": "If the fall speed of the target is within the given range",
         "link": "https://git.lumine.io/mythiccraft/MythicMobs/-/wikis/Skills/Conditions/fallspeed",
         "attributes": [
             {
                 "name": [
-                    "s",
-                    "speed"
+                    "speed",
+                    "s"
                 ],
                 "type": "String",
                 "description": "The velocity to match",
@@ -1156,10 +1036,6 @@
         "plugin": "MythicMobs",
         "class": "FieldOfViewCondition",
         "extends": "SkillCondition",
-        "implements": [
-            "IEntityComparisonCondition",
-            "IEntityLocationComparisonCondition"
-        ],
         "name": [
             "fieldofview",
             "infieldofview",
@@ -1170,8 +1046,8 @@
         "attributes": [
             {
                 "name": [
-                    "a",
-                    "angle"
+                    "angle",
+                    "a"
                 ],
                 "type": "Double",
                 "description": "The angle of the FOV to check in",
@@ -1194,24 +1070,21 @@
         "plugin": "MythicMobs",
         "class": "FoodCondition",
         "extends": "SkillCondition",
-        "implements": [
-            "IEntityCondition"
-        ],
         "name": [
-            "hunger",
             "foodlevel",
-            "hungerlevel",
-            "food"
+            "hunger",
+            "food",
+            "hungerlevel"
         ],
         "description": "Checks the food amount of the target",
         "link": "https://git.lumine.io/mythiccraft/MythicMobs/-/wikis/Skills/Conditions/FoodLevel",
         "attributes": [
             {
                 "name": [
-                    "food",
-                    "f",
+                    "amount",
                     "a",
-                    "amount"
+                    "food",
+                    "f"
                 ],
                 "type": "String",
                 "description": "Range of amount of food to check for",
@@ -1224,9 +1097,6 @@
         "plugin": "MythicMobs",
         "class": "FoodSaturationCondition",
         "extends": "SkillCondition",
-        "implements": [
-            "IEntityCondition"
-        ],
         "name": [
             "foodsaturation",
             "hungersaturation"
@@ -1236,12 +1106,12 @@
         "attributes": [
             {
                 "name": [
-                    "s",
-                    "f",
                     "amount",
-                    "saturation",
                     "a",
-                    "food"
+                    "food",
+                    "f",
+                    "saturation",
+                    "s"
                 ],
                 "type": "String",
                 "description": "Range of amount of food saturation to check for",
@@ -1254,9 +1124,6 @@
         "plugin": "MythicMobs",
         "class": "GamemodeCondition",
         "extends": "SkillCondition",
-        "implements": [
-            "IEntityCondition"
-        ],
         "name": [
             "gamemode",
             "gm"
@@ -1280,9 +1147,6 @@
         "plugin": "MythicMobs",
         "class": "GlidingCondition",
         "extends": "SkillCondition",
-        "implements": [
-            "IEntityCondition"
-        ],
         "name": [
             "gliding",
             "isgliding"
@@ -1295,9 +1159,6 @@
         "plugin": "MythicMobs",
         "class": "HasAICondition",
         "extends": "SkillCondition",
-        "implements": [
-            "IEntityCondition"
-        ],
         "name": [
             "hasai"
         ],
@@ -1309,29 +1170,25 @@
         "plugin": "MythicMobs",
         "class": "HasAuraCondition",
         "extends": "SkillCondition",
-        "implements": [
-            "IEntityCondition",
-            "ISkillMetaComparisonCondition"
-        ],
         "name": [
-            "hasdebuff",
             "hasaura",
-            "hasbuff"
+            "hasbuff",
+            "hasdebuff"
         ],
         "description": "Checks if the target entity has the given aura",
         "link": "https://git.lumine.io/mythiccraft/MythicMobs/-/wikis/Skills/Conditions/hasaura",
         "attributes": [
             {
                 "name": [
-                    "buff",
-                    "b",
-                    "debuff",
                     "aura",
-                    "n",
-                    "debuffname",
                     "auraname",
-                    "name",
-                    "buffname"
+                    "b",
+                    "buff",
+                    "buffname",
+                    "debuff",
+                    "debuffname",
+                    "n",
+                    "name"
                 ],
                 "type": "PlaceholderString",
                 "description": null,
@@ -1344,14 +1201,11 @@
         "plugin": "MythicMobs",
         "class": "HasAuraStacksCondition",
         "extends": "SkillCondition",
-        "implements": [
-            "IEntityCondition"
-        ],
         "name": [
-            "hasbuffstacks",
-            "aurastacks",
-            "hasdebuffstacks",
             "hasaurastacks",
+            "hasbuffstacks",
+            "hasdebuffstacks",
+            "aurastacks",
             "buffstacks",
             "debuffstacks"
         ],
@@ -1360,15 +1214,15 @@
         "attributes": [
             {
                 "name": [
-                    "buff",
-                    "b",
-                    "debuff",
                     "aura",
-                    "n",
-                    "debuffname",
                     "auraname",
-                    "name",
-                    "buffname"
+                    "b",
+                    "buff",
+                    "buffname",
+                    "debuff",
+                    "debuffname",
+                    "n",
+                    "name"
                 ],
                 "type": "String",
                 "description": null,
@@ -1391,9 +1245,6 @@
         "plugin": "MythicMobs",
         "class": "HasAuraTypeCondition",
         "extends": "SkillCondition",
-        "implements": [
-            "IEntityCondition"
-        ],
         "name": [
             "hasauratype",
             "hasbufftype",
@@ -1404,12 +1255,12 @@
         "attributes": [
             {
                 "name": [
-                    "t",
                     "auragroup",
-                    "g",
-                    "group",
                     "auratype",
-                    "type"
+                    "group",
+                    "type",
+                    "t",
+                    "g"
                 ],
                 "type": "String",
                 "description": "The aura type to check for",
@@ -1422,9 +1273,6 @@
         "plugin": "MythicMobs",
         "class": "HasCurrencyCondition",
         "extends": "SkillCondition",
-        "implements": [
-            "IEntityCondition"
-        ],
         "name": [
             "hascurrency",
             "hasmoney"
@@ -1434,8 +1282,8 @@
         "attributes": [
             {
                 "name": [
-                    "a",
-                    "amount"
+                    "amount",
+                    "a"
                 ],
                 "type": "String",
                 "description": "The amount of currency",
@@ -1448,9 +1296,6 @@
         "plugin": "MythicMobs",
         "class": "HasEnchantmentCondition",
         "extends": "SkillCondition",
-        "implements": [
-            "IEntityCondition"
-        ],
         "name": [
             "hasenchantment",
             "hasenchant"
@@ -1460,11 +1305,11 @@
         "attributes": [
             {
                 "name": [
+                    "type",
                     "enchantment",
-                    "t",
                     "ench",
                     "e",
-                    "type"
+                    "t"
                 ],
                 "type": "String",
                 "description": "The enchantment to test for",
@@ -1473,9 +1318,9 @@
             },
             {
                 "name": [
-                    "l",
                     "level",
-                    "lvl"
+                    "lvl",
+                    "l"
                 ],
                 "type": "String",
                 "description": "The level to test for",
@@ -1488,12 +1333,9 @@
         "plugin": "MythicMobs",
         "class": "HasGravityCondition",
         "extends": "SkillCondition",
-        "implements": [
-            "IEntityCondition"
-        ],
         "name": [
-            "gravity",
-            "hasgravity"
+            "hasgravity",
+            "gravity"
         ],
         "description": "If the target has gravity",
         "link": "https://git.lumine.io/mythiccraft/MythicMobs/-/wikis/Skills/Conditions/hasgravity",
@@ -1503,9 +1345,6 @@
         "plugin": "MythicMobs",
         "class": "HasInventorySpaceCondition",
         "extends": "SkillCondition",
-        "implements": [
-            "IEntityCondition"
-        ],
         "name": [
             "hasinventoryspace"
         ],
@@ -1517,10 +1356,6 @@
         "plugin": "MythicMobs",
         "class": "HasItemCondition",
         "extends": "SkillCondition",
-        "implements": [
-            "IEntityCondition",
-            "ILocationCondition"
-        ],
         "name": [
             "hasitem"
         ],
@@ -1529,12 +1364,12 @@
         "attributes": [
             {
                 "name": [
+                    "type",
                     "t",
-                    "m",
-                    "material",
                     "item",
                     "i",
-                    "type"
+                    "material",
+                    "m"
                 ],
                 "type": "String",
                 "description": "The item to check for",
@@ -1543,8 +1378,8 @@
             },
             {
                 "name": [
-                    "a",
-                    "amount"
+                    "amount",
+                    "a"
                 ],
                 "type": "String",
                 "description": "The amount to check for",
@@ -1557,9 +1392,6 @@
         "plugin": "MythicMobs",
         "class": "HasOffhandCondition",
         "extends": "SkillCondition",
-        "implements": [
-            "IEntityCondition"
-        ],
         "name": [
             "hasoffhand",
             "offhand"
@@ -1572,9 +1404,6 @@
         "plugin": "MythicMobs",
         "class": "HasOwnerCondition",
         "extends": "SkillCondition",
-        "implements": [
-            "IEntityCondition"
-        ],
         "name": [
             "hasowner"
         ],
@@ -1586,9 +1415,6 @@
         "plugin": "MythicMobs",
         "class": "HasParentCondition",
         "extends": "SkillCondition",
-        "implements": [
-            "IEntityCondition"
-        ],
         "name": [
             "hasparent"
         ],
@@ -1600,9 +1426,6 @@
         "plugin": "MythicMobs",
         "class": "HasPassengerCondition",
         "extends": "SkillCondition",
-        "implements": [
-            "IEntityCondition"
-        ],
         "name": [
             "haspassenger"
         ],
@@ -1614,9 +1437,6 @@
         "plugin": "MythicMobs",
         "class": "HasPermissionCondition",
         "extends": "SkillCondition",
-        "implements": [
-            "IEntityCondition"
-        ],
         "name": [
             "haspermission",
             "permission"
@@ -1626,8 +1446,8 @@
         "attributes": [
             {
                 "name": [
-                    "p",
-                    "permission"
+                    "permission",
+                    "p"
                 ],
                 "type": "PlaceholderString",
                 "description": "The permission to check for.",
@@ -1640,20 +1460,17 @@
         "plugin": "MythicMobs",
         "class": "HasPotionEffectCondition",
         "extends": "SkillCondition",
-        "implements": [
-            "IEntityCondition"
-        ],
         "name": [
-            "haspotion",
-            "haspotioneffect"
+            "haspotioneffect",
+            "haspotion"
         ],
         "description": "Tests if the target entity has a potion effect",
         "link": "https://git.lumine.io/mythiccraft/MythicMobs/-/wikis/Skills/Conditions/haspotioneffect",
         "attributes": [
             {
                 "name": [
-                    "t",
-                    "type"
+                    "type",
+                    "t"
                 ],
                 "type": "String",
                 "description": "The potion effect type",
@@ -1662,9 +1479,9 @@
             },
             {
                 "name": [
-                    "l",
                     "level",
-                    "lvl"
+                    "lvl",
+                    "l"
                 ],
                 "type": "String",
                 "description": "An optional level range to match",
@@ -1687,12 +1504,9 @@
         "plugin": "MythicMobs",
         "class": "HasTagCondition",
         "extends": "SkillCondition",
-        "implements": [
-            "IEntityCondition"
-        ],
         "name": [
-            "hasscoreboardtag",
-            "hastag"
+            "hastag",
+            "hasscoreboardtag"
         ],
         "description": "Tests if the target has a scoreboard tag",
         "link": "https://git.lumine.io/mythiccraft/MythicMobs/-/wikis/Skills/Conditions/hastag",
@@ -1713,10 +1527,6 @@
         "plugin": "MythicMobs",
         "class": "HealthCondition",
         "extends": "SkillCondition",
-        "implements": [
-            "IEntityCondition",
-            "ISkillMetaComparisonCondition"
-        ],
         "name": [
             "health",
             "hp"
@@ -1726,10 +1536,10 @@
         "attributes": [
             {
                 "name": [
-                    "h",
-                    "health",
+                    "amount",
                     "a",
-                    "amount"
+                    "health",
+                    "h"
                 ],
                 "type": "PlaceholderString",
                 "description": "The health range to check for",
@@ -1752,10 +1562,6 @@
         "plugin": "MythicMobs",
         "class": "HealthPercentCondition",
         "extends": "SkillCondition",
-        "implements": [
-            "IEntityCondition",
-            "ISkillMetaComparisonCondition"
-        ],
         "name": [
             "healthpercent",
             "hppercent"
@@ -1766,9 +1572,9 @@
             {
                 "name": [
                     "percent",
+                    "p",
                     "healthpercent",
-                    "hp",
-                    "p"
+                    "hp"
                 ],
                 "type": "PlaceholderString",
                 "description": "The health percentage or multiplier to check for (e.g., 50% or 0.5)",
@@ -1791,9 +1597,6 @@
         "plugin": "MythicMobs",
         "class": "HeightAboveCondition",
         "extends": "SkillCondition",
-        "implements": [
-            "ILocationCondition"
-        ],
         "name": [
             "heightabove"
         ],
@@ -1802,8 +1605,8 @@
         "attributes": [
             {
                 "name": [
-                    "h",
-                    "height"
+                    "height",
+                    "h"
                 ],
                 "type": "Integer",
                 "description": "The height they must be above",
@@ -1816,9 +1619,6 @@
         "plugin": "MythicMobs",
         "class": "HeightBelowCondition",
         "extends": "SkillCondition",
-        "implements": [
-            "ILocationCondition"
-        ],
         "name": [
             "heightbelow"
         ],
@@ -1827,8 +1627,8 @@
         "attributes": [
             {
                 "name": [
-                    "h",
-                    "height"
+                    "height",
+                    "h"
                 ],
                 "type": "Integer",
                 "description": "The height they must be below",
@@ -1841,9 +1641,6 @@
         "plugin": "MythicMobs",
         "class": "HeightCondition",
         "extends": "SkillCondition",
-        "implements": [
-            "ILocationCondition"
-        ],
         "name": [
             "height"
         ],
@@ -1852,8 +1649,8 @@
         "attributes": [
             {
                 "name": [
-                    "h",
-                    "height"
+                    "height",
+                    "h"
                 ],
                 "type": "String",
                 "description": "The range of the Y location of the target",
@@ -1866,9 +1663,6 @@
         "plugin": "MythicMobs",
         "class": "HoldingCondition",
         "extends": "SkillCondition",
-        "implements": [
-            "IEntityCondition"
-        ],
         "name": [
             "holding"
         ],
@@ -1877,12 +1671,12 @@
         "attributes": [
             {
                 "name": [
-                    "t",
-                    "m",
                     "material",
+                    "m",
                     "item",
                     "i",
-                    "type"
+                    "type",
+                    "t"
                 ],
                 "type": "String",
                 "description": "A material, MythicItem or MMOItems internal id to check for",
@@ -1895,10 +1689,8 @@
         "plugin": "MythicMobs",
         "class": "InClaimCondition",
         "extends": "SkillCondition",
-        "implements": [
-            "ILocationCondition"
-        ],
         "name": [
+            "inclaim",
             "inclaim"
         ],
         "description": "Checks if the target location is inside a supported Land Protection claim.  \n\nSupported Plugins:\n- GriefPrevention\n- Lands\n- CrashClaim",
@@ -1909,9 +1701,6 @@
         "plugin": "MythicMobs",
         "class": "InCombatCondition",
         "extends": "SkillCondition",
-        "implements": [
-            "IEntityCondition"
-        ],
         "name": [
             "incombat"
         ],
@@ -1923,9 +1712,6 @@
         "plugin": "MythicMobs",
         "class": "InPinRegionCondition",
         "extends": "SkillCondition",
-        "implements": [
-            "ILocationCondition"
-        ],
         "name": [
             "inpinregion"
         ],
@@ -1934,8 +1720,8 @@
         "attributes": [
             {
                 "name": [
-                    "p1",
-                    "pin1"
+                    "pin1",
+                    "p1"
                 ],
                 "type": "PlaceholderString",
                 "description": "The first [pin]",
@@ -1958,9 +1744,6 @@
         "plugin": "MythicMobs",
         "class": "InSurvivalModeCondition",
         "extends": "SkillCondition",
-        "implements": [
-            "IEntityCondition"
-        ],
         "name": [
             "isinsurvivalmode",
             "insurvivalmode"
@@ -1973,9 +1756,6 @@
         "plugin": "MythicMobs",
         "class": "InsideCondition",
         "extends": "SkillCondition",
-        "implements": [
-            "ILocationCondition"
-        ],
         "name": [
             "inside"
         ],
@@ -1987,9 +1767,6 @@
         "plugin": "MythicMobs",
         "class": "IsBabyCondition",
         "extends": "SkillCondition",
-        "implements": [
-            "IEntityCondition"
-        ],
         "name": [
             "isbaby"
         ],
@@ -2001,9 +1778,6 @@
         "plugin": "MythicMobs",
         "class": "IsCasterCondition",
         "extends": "SkillCondition",
-        "implements": [
-            "IEntityComparisonCondition"
-        ],
         "name": [
             "iscaster"
         ],
@@ -2015,12 +1789,9 @@
         "plugin": "MythicMobs",
         "class": "IsChildCondition",
         "extends": "SkillCondition",
-        "implements": [
-            "ISkillMetaComparisonCondition"
-        ],
         "name": [
-            "child",
-            "ischild"
+            "ischild",
+            "child"
         ],
         "description": "Checks if the target is a child of the caster of the skill",
         "link": "https://git.lumine.io/mythiccraft/MythicMobs/-/wikis/Skills/Conditions/ischild",
@@ -2030,12 +1801,9 @@
         "plugin": "MythicMobs",
         "class": "IsClimbingCondition",
         "extends": "SkillCondition",
-        "implements": [
-            "IEntityCondition"
-        ],
         "name": [
-            "climbing",
-            "isclimbing"
+            "isclimbing",
+            "climbing"
         ],
         "description": "Checks if the target entity is climbing. A player climbing a ladder or a spider climbing a wall both match the condition.",
         "link": "https://git.lumine.io/mythiccraft/MythicMobs/-/wikis/Skills/Conditions/isClimbing",
@@ -2045,9 +1813,6 @@
         "plugin": "MythicMobs",
         "class": "IsCreeperPrimedCondition",
         "extends": "SkillCondition",
-        "implements": [
-            "IEntityCondition"
-        ],
         "name": [
             "iscreeperprimed"
         ],
@@ -2059,9 +1824,6 @@
         "plugin": "ModelEngine",
         "class": "IsDrivingModelCondition",
         "extends": "SkillCondition",
-        "implements": [
-            "IEntityCondition"
-        ],
         "name": [
             "drivingmodel"
         ],
@@ -2073,12 +1835,9 @@
         "plugin": "MythicMobs",
         "class": "IsFlyingCondition",
         "extends": "SkillCondition",
-        "implements": [
-            "IEntityCondition"
-        ],
         "name": [
-            "flying",
-            "isflying"
+            "isflying",
+            "flying"
         ],
         "description": "Checks if the evaluated player is flying. Only really works for creative-type fly. To check if an entity is gliding via the use of an elytra, use the [Gliding condition](/skills/conditions/gliding).",
         "link": "https://git.lumine.io/mythiccraft/MythicMobs/-/wikis/Skills/Conditions/isflying",
@@ -2088,9 +1847,6 @@
         "plugin": "MythicMobs",
         "class": "IsFrozenCondition",
         "extends": "SkillCondition",
-        "implements": [
-            "IEntityCondition"
-        ],
         "name": [
             "isfrozen"
         ],
@@ -2102,9 +1858,6 @@
         "plugin": "MythicMobs",
         "class": "IsLeashedCondition",
         "extends": "SkillCondition",
-        "implements": [
-            "IEntityCondition"
-        ],
         "name": [
             "isleashed"
         ],
@@ -2116,9 +1869,6 @@
         "plugin": "MythicMobs",
         "class": "IsLivingCondition",
         "extends": "SkillCondition",
-        "implements": [
-            "IEntityCondition"
-        ],
         "name": [
             "isliving"
         ],
@@ -2130,9 +1880,6 @@
         "plugin": "MythicMobs",
         "class": "IsMonsterCondition",
         "extends": "SkillCondition",
-        "implements": [
-            "IEntityCondition"
-        ],
         "name": [
             "ismonster"
         ],
@@ -2144,9 +1891,6 @@
         "plugin": "MythicMobs",
         "class": "IsMythicMobCondition",
         "extends": "SkillCondition",
-        "implements": [
-            "IEntityCondition"
-        ],
         "name": [
             "ismythicmob",
             "ismm"
@@ -2159,9 +1903,6 @@
         "plugin": "MythicMobs",
         "class": "IsParentAliveCondition",
         "extends": "SkillCondition",
-        "implements": [
-            "IEntityCondition"
-        ],
         "name": [
             "isparentalive",
             "parentalive"
@@ -2174,12 +1915,9 @@
         "plugin": "MythicMobs",
         "class": "IsParentCondition",
         "extends": "SkillCondition",
-        "implements": [
-            "IEntityComparisonCondition"
-        ],
         "name": [
-            "isparent",
-            "parent"
+            "parent",
+            "isparent"
         ],
         "description": "Checks if the evaluated entity is the Parent of the caster of the skill",
         "link": "https://git.lumine.io/mythiccraft/MythicMobs/-/wikis/Skills/Conditions/IsParent",
@@ -2189,9 +1927,6 @@
         "plugin": "MythicMobs",
         "class": "IsPlayerCondition",
         "extends": "SkillCondition",
-        "implements": [
-            "IEntityCondition"
-        ],
         "name": [
             "isplayer"
         ],
@@ -2203,12 +1938,9 @@
         "plugin": "MythicMobs",
         "class": "IsRaiderPatrolLeaderCondition",
         "extends": "SkillCondition",
-        "implements": [
-            "IEntityCondition"
-        ],
         "name": [
-            "ispatrolleader",
-            "israiderpatrolleader"
+            "israiderpatrolleader",
+            "ispatrolleader"
         ],
         "description": "Checks if the target entity is the captain of a pillager group",
         "link": "https://git.lumine.io/mythiccraft/MythicMobs/-/wikis/Skills/Conditions/isRaiderPatrolLeader",
@@ -2218,9 +1950,6 @@
         "plugin": "ModelEngine",
         "class": "IsRidingModelCondition",
         "extends": "SkillCondition",
-        "implements": [
-            "IEntityCondition"
-        ],
         "name": [
             "ridingmodel"
         ],
@@ -2232,12 +1961,9 @@
         "plugin": "MythicMobs",
         "class": "IsSaddledCondition",
         "extends": "SkillCondition",
-        "implements": [
-            "IEntityCondition"
-        ],
         "name": [
-            "saddled",
-            "issaddled"
+            "issaddled",
+            "saddled"
         ],
         "description": "Checks if the target entity is saddled",
         "link": "https://git.lumine.io/mythiccraft/MythicMobs/-/wikis/Skills/Conditions/issaddled",
@@ -2247,9 +1973,6 @@
         "plugin": "MythicMobs",
         "class": "IsTamedCondition",
         "extends": "SkillCondition",
-        "implements": [
-            "IEntityCondition"
-        ],
         "name": [
             "istamed"
         ],
@@ -2261,9 +1984,6 @@
         "plugin": "MythicMobs",
         "class": "IsUsingSpyglassCondition",
         "extends": "SkillCondition",
-        "implements": [
-            "IEntityCondition"
-        ],
         "name": [
             "isusingspyglass",
             "isscoping"
@@ -2276,12 +1996,9 @@
         "plugin": "MythicMobs",
         "class": "ItemIsSimilarCondition",
         "extends": "SkillCondition",
-        "implements": [
-            "IEntityCondition"
-        ],
         "name": [
-            "issimilar",
             "itemissimilar",
+            "issimilar",
             "similarto"
         ],
         "description": "Checks if the target player's inventory slot holds an item that is similar to the specified one.  \nTo be more specific, their ItemStacks will be compared and the condition will return true if they match.",
@@ -2289,8 +2006,8 @@
         "attributes": [
             {
                 "name": [
-                    "s",
-                    "slot"
+                    "slot",
+                    "s"
                 ],
                 "type": "String",
                 "description": "The inventory slot to check for. Accepts 0 to 35, or equipment slots",
@@ -2299,12 +2016,12 @@
             },
             {
                 "name": [
-                    "m",
-                    "material",
-                    "mythicitem",
                     "item",
+                    "i",
+                    "material",
+                    "m",
                     "mm",
-                    "i"
+                    "mythicitem"
                 ],
                 "type": "String",
                 "description": "The item to check for",
@@ -2317,9 +2034,6 @@
         "plugin": "MythicMobs",
         "class": "ItemRechargingCondition",
         "extends": "SkillCondition",
-        "implements": [
-            "IEntityCondition"
-        ],
         "name": [
             "itemrecharging"
         ],
@@ -2331,10 +2045,6 @@
         "plugin": "MythicMobs",
         "class": "ItemTypeCondition",
         "extends": "SkillCondition",
-        "implements": [
-            "ISkillMetaCondition",
-            "IEntityCondition"
-        ],
         "name": [
             "itemtype"
         ],
@@ -2343,12 +2053,12 @@
         "attributes": [
             {
                 "name": [
-                    "t",
-                    "m",
-                    "material",
                     "types",
+                    "type",
+                    "t",
+                    "material",
                     "mat",
-                    "type"
+                    "m"
                 ],
                 "type": "StringList",
                 "description": "A list of [materials] to check against",
@@ -2361,9 +2071,6 @@
         "plugin": "MythicMobs",
         "class": "LastDamageCauseCondition",
         "extends": "SkillCondition",
-        "implements": [
-            "IEntityCondition"
-        ],
         "name": [
             "lastdamagecause"
         ],
@@ -2387,9 +2094,6 @@
         "plugin": "MythicMobs",
         "class": "LastSignalCondition",
         "extends": "SkillCondition",
-        "implements": [
-            "IEntityCondition"
-        ],
         "name": [
             "lastsignal"
         ],
@@ -2398,8 +2102,8 @@
         "attributes": [
             {
                 "name": [
-                    "s",
-                    "signal"
+                    "signal",
+                    "s"
                 ],
                 "type": "String",
                 "description": "The signal to match",
@@ -2412,10 +2116,6 @@
         "plugin": "MythicMobs",
         "class": "LevelCondition",
         "extends": "SkillCondition",
-        "implements": [
-            "ICasterCondition",
-            "IEntityCondition"
-        ],
         "name": [
             "level"
         ],
@@ -2424,8 +2124,8 @@
         "attributes": [
             {
                 "name": [
-                    "l",
-                    "level"
+                    "level",
+                    "l"
                 ],
                 "type": "String",
                 "description": "The level range to match",
@@ -2438,9 +2138,6 @@
         "plugin": "MythicMobs",
         "class": "LightLevelBlockCondition",
         "extends": "SkillCondition",
-        "implements": [
-            "ILocationCondition"
-        ],
         "name": [
             "lightlevelfromblocks",
             "blocklightlevel"
@@ -2450,8 +2147,8 @@
         "attributes": [
             {
                 "name": [
-                    "l",
-                    "level"
+                    "level",
+                    "l"
                 ],
                 "type": "String",
                 "description": "The light level range to match",
@@ -2464,9 +2161,6 @@
         "plugin": "MythicMobs",
         "class": "LightLevelCondition",
         "extends": "SkillCondition",
-        "implements": [
-            "ILocationCondition"
-        ],
         "name": [
             "lightlevel"
         ],
@@ -2475,8 +2169,8 @@
         "attributes": [
             {
                 "name": [
-                    "l",
-                    "level"
+                    "level",
+                    "l"
                 ],
                 "type": "String",
                 "description": "The level range to match",
@@ -2489,12 +2183,9 @@
         "plugin": "MythicMobs",
         "class": "LineOfSightCondition",
         "extends": "SkillCondition",
-        "implements": [
-            "IEntityComparisonCondition"
-        ],
         "name": [
-            "inlineofsight",
-            "lineofsight"
+            "lineofsight",
+            "inlineofsight"
         ],
         "description": "Tests if the target is within line of sight of the caster",
         "link": "https://git.lumine.io/mythiccraft/MythicMobs/-/wikis/Skills/Conditions/lineofsight",
@@ -2504,12 +2195,9 @@
         "plugin": "MythicMobs",
         "class": "LineOfSightFromOriginCondition",
         "extends": "SkillCondition",
-        "implements": [
-            "ISkillMetaComparisonCondition"
-        ],
         "name": [
-            "inlineofsightfromorigin",
-            "lineofsightfromorigin"
+            "lineofsightfromorigin",
+            "inlineofsightfromorigin"
         ],
         "description": "Tests if the target is within line of sight of the origin of the metaskill. In other words, it checks if the entity being compared can be seen, in any way or direction, from the origin of the metaskill.",
         "link": "https://git.lumine.io/mythiccraft/MythicMobs/-/wikis/Skills/Conditions/lineofsightfromorigin",
@@ -2519,9 +2207,6 @@
         "plugin": "MythicMobs",
         "class": "LivingInRadiusCondition",
         "extends": "SkillCondition",
-        "implements": [
-            "ISkillMetaCondition"
-        ],
         "name": [
             "livinginradius"
         ],
@@ -2530,8 +2215,8 @@
         "attributes": [
             {
                 "name": [
-                    "a",
-                    "amount"
+                    "amount",
+                    "a"
                 ],
                 "type": "String",
                 "description": "The amount to check for",
@@ -2554,9 +2239,6 @@
         "plugin": "MythicMobs",
         "class": "LocalDifficultyCondition",
         "extends": "SkillCondition",
-        "implements": [
-            "ILocationCondition"
-        ],
         "name": [
             "localdifficulty"
         ],
@@ -2565,8 +2247,8 @@
         "attributes": [
             {
                 "name": [
-                    "diff",
                     "difficulty",
+                    "diff",
                     "d"
                 ],
                 "type": "String",
@@ -2580,9 +2262,6 @@
         "plugin": "MythicMobs",
         "class": "LookingAtCondition",
         "extends": "SkillCondition",
-        "implements": [
-            "IEntityCondition"
-        ],
         "name": [
             "lookingat"
         ],
@@ -2591,12 +2270,12 @@
         "attributes": [
             {
                 "name": [
-                    "t",
                     "block",
                     "b",
-                    "e",
                     "entity",
-                    "type"
+                    "e",
+                    "type",
+                    "t"
                 ],
                 "type": "String",
                 "description": "The object to check against",
@@ -2609,9 +2288,6 @@
         "plugin": "MythicMobs",
         "class": "LunarPhaseCondition",
         "extends": "SkillCondition",
-        "implements": [
-            "ILocationCondition"
-        ],
         "name": [
             "lunarphase"
         ],
@@ -2620,9 +2296,9 @@
         "attributes": [
             {
                 "name": [
-                    "p",
                     "phases",
-                    "phase"
+                    "phase",
+                    "p"
                 ],
                 "type": "String",
                 "description": "the lunar phase/s you want to check for. Can be a list.",
@@ -2635,22 +2311,19 @@
         "plugin": "MythicMobs",
         "class": "MaterialCooldownCondition",
         "extends": "SkillCondition",
-        "implements": [
-            "IEntityCondition"
-        ],
         "name": [
+            "materialisoncooldown",
             "materialcooldown",
-            "matcooldown",
-            "materialisoncooldown"
+            "matcooldown"
         ],
         "description": "Checks if the target player's specified material is on cooldown.",
         "link": "https://git.lumine.io/mythiccraft/MythicMobs/-/wikis/Skills/Conditions/MaterialIsOnCooldown",
         "attributes": [
             {
                 "name": [
+                    "material",
                     "mat",
-                    "m",
-                    "material"
+                    "m"
                 ],
                 "type": "PlaceholderString",
                 "description": "The material to check for",
@@ -2663,9 +2336,6 @@
         "plugin": "MythicMobs",
         "class": "MobsInChunkCondition",
         "extends": "SkillCondition",
-        "implements": [
-            "ILocationCondition"
-        ],
         "name": [
             "mobsinchunk"
         ],
@@ -2674,8 +2344,8 @@
         "attributes": [
             {
                 "name": [
-                    "a",
-                    "amount"
+                    "amount",
+                    "a"
                 ],
                 "type": "String",
                 "description": "The number range to match",
@@ -2688,10 +2358,6 @@
         "plugin": "MythicMobs",
         "class": "MobsInRadiusCondition",
         "extends": "SkillCondition",
-        "implements": [
-            "ISkillMetaCondition",
-            "ILocationCondition"
-        ],
         "name": [
             "mobsinradius"
         ],
@@ -2700,8 +2366,8 @@
         "attributes": [
             {
                 "name": [
-                    "a",
-                    "amount"
+                    "amount",
+                    "a"
                 ],
                 "type": "String",
                 "description": "The range of mobs to check for. The caster is not counted",
@@ -2720,9 +2386,9 @@
             },
             {
                 "name": [
-                    "t",
                     "types",
-                    "type"
+                    "type",
+                    "t"
                 ],
                 "type": "String",
                 "description": "The types of mobs to check for",
@@ -2735,9 +2401,6 @@
         "plugin": "MythicMobs",
         "class": "MobsInWorldCondition",
         "extends": "SkillCondition",
-        "implements": [
-            "ILocationCondition"
-        ],
         "name": [
             "mobsinworld"
         ],
@@ -2746,8 +2409,8 @@
         "attributes": [
             {
                 "name": [
-                    "a",
-                    "amount"
+                    "amount",
+                    "a"
                 ],
                 "type": "String",
                 "description": "The number range to match",
@@ -2760,9 +2423,6 @@
         "plugin": "ModelEngine",
         "class": "ModelHasDriverCondition",
         "extends": "SkillCondition",
-        "implements": [
-            "IEntityCondition"
-        ],
         "name": [
             "modelhasdriver",
             "modeldriver"
@@ -2775,13 +2435,10 @@
         "plugin": "ModelEngine",
         "class": "ModelHasPassengerCondition",
         "extends": "SkillCondition",
-        "implements": [
-            "IEntityCondition"
-        ],
         "name": [
             "modelhaspassengers",
-            "modelpassengers",
             "modelhaspassenger",
+            "modelpassengers",
             "modelpassenger"
         ],
         "description": "Checks if the target modeled entity has passengers",
@@ -2789,10 +2446,10 @@
         "attributes": [
             {
                 "name": [
-                    "mid",
                     "m",
-                    "modelid",
-                    "model"
+                    "mid",
+                    "model",
+                    "modelid"
                 ],
                 "type": "PlaceholderString",
                 "description": "The id of the model of the modeled entity to check against",
@@ -2825,12 +2482,9 @@
         "plugin": "MythicMobs",
         "class": "MoistCondition",
         "extends": "SkillCondition",
-        "implements": [
-            "ILocationCondition"
-        ],
         "name": [
-            "moist",
-            "ismoist"
+            "ismoist",
+            "moist"
         ],
         "description": "Checks if the target block of farmland is hydrated.",
         "link": "https://git.lumine.io/mythiccraft/MythicMobs/-/wikis/Skills/Conditions/Moist",
@@ -2840,13 +2494,10 @@
         "plugin": "MythicMobs",
         "class": "MoistureCondition",
         "extends": "SkillCondition",
-        "implements": [
-            "ILocationCondition"
-        ],
         "name": [
             "moisturelevel",
-            "moistureness",
-            "moistness"
+            "moistness",
+            "moistureness"
         ],
         "description": "Checks if the target block of farmland has the specified level of hydratation.\n\n- `0` means that the farmland is not hydratated\n- `1-6` means that a once hydratated farmland is gradualy losing its hydratation after removing its access to water\n- `7` is for a fully hydratated farmland.",
         "link": "https://git.lumine.io/mythiccraft/MythicMobs/-/wikis/Skills/Conditions/moisturelevel",
@@ -2868,9 +2519,6 @@
         "plugin": "MythicMobs",
         "class": "MotionXCondition",
         "extends": "SkillCondition",
-        "implements": [
-            "IEntityCondition"
-        ],
         "name": [
             "motionx",
             "motx"
@@ -2894,9 +2542,6 @@
         "plugin": "MythicMobs",
         "class": "MotionYCondition",
         "extends": "SkillCondition",
-        "implements": [
-            "IEntityCondition"
-        ],
         "name": [
             "motiony",
             "moty"
@@ -2920,12 +2565,9 @@
         "plugin": "MythicMobs",
         "class": "MotionZCondition",
         "extends": "SkillCondition",
-        "implements": [
-            "IEntityCondition"
-        ],
         "name": [
-            "motz",
-            "motionz"
+            "motionz",
+            "motz"
         ],
         "description": "Checks the Z motion of the target entity against a range.",
         "link": "https://git.lumine.io/mythiccraft/MythicMobs/-/wikis/Skills/Conditions/motionz",
@@ -2946,9 +2588,6 @@
         "plugin": "MythicMobs",
         "class": "MountedCondition",
         "extends": "SkillCondition",
-        "implements": [
-            "IEntityCondition"
-        ],
         "name": [
             "mounted"
         ],
@@ -2960,9 +2599,6 @@
         "plugin": "MythicMobs",
         "class": "MovingCondition",
         "extends": "SkillCondition",
-        "implements": [
-            "IEntityCondition"
-        ],
         "name": [
             "moving",
             "ismoving"
@@ -2986,9 +2622,6 @@
         "plugin": "MythicMobs",
         "class": "MythicMobTypeCondition",
         "extends": "SkillCondition",
-        "implements": [
-            "IEntityCondition"
-        ],
         "name": [
             "mythicmobtype",
             "mmtype"
@@ -2998,9 +2631,9 @@
         "attributes": [
             {
                 "name": [
-                    "t",
                     "types",
-                    "type"
+                    "type",
+                    "t"
                 ],
                 "type": "String",
                 "description": "A list of MythicMob types to match",
@@ -3013,12 +2646,9 @@
         "plugin": "MythicMobs",
         "class": "MythicPackInstalledCondition",
         "extends": "SkillCondition",
-        "implements": [
-            "ICasterCondition"
-        ],
         "name": [
-            "pack",
             "mythicpack",
+            "pack",
             "haspack"
         ],
         "description": "Check if a [Pack](/wikis/Packs) with the specified id is present on the server.",
@@ -3027,9 +2657,9 @@
             {
                 "name": [
                     "pack",
-                    "packid",
+                    "p",
                     "id",
-                    "p"
+                    "packid"
                 ],
                 "type": "String",
                 "description": "The pack id to check for",
@@ -3042,13 +2672,10 @@
         "plugin": "MythicMobs",
         "class": "MythicPackVersionCondition",
         "extends": "SkillCondition",
-        "implements": [
-            "ICasterCondition"
-        ],
         "name": [
+            "packversion",
             "mythicpackversion",
-            "packversionis",
-            "packversion"
+            "packversionis"
         ],
         "description": "Check if a [Pack](/wikis/Packs) with the specified id is present on the server with the specified version.",
         "link": "https://git.lumine.io/mythiccraft/MythicMobs/-/wikis/Skills/Conditions/MythicPackVersion",
@@ -3056,9 +2683,9 @@
             {
                 "name": [
                     "pack",
-                    "packid",
+                    "p",
                     "id",
-                    "p"
+                    "packid"
                 ],
                 "type": "String",
                 "description": "The Pack id to check for",
@@ -3067,8 +2694,8 @@
             },
             {
                 "name": [
-                    "packv",
                     "packversion",
+                    "packv",
                     "version",
                     "v"
                 ],
@@ -3083,9 +2710,6 @@
         "plugin": "MythicMobs",
         "class": "MythicPackVersionGreaterThanCondition",
         "extends": "SkillCondition",
-        "implements": [
-            "ICasterCondition"
-        ],
         "name": [
             "packversiongreater",
             "mythicpackversiongreater",
@@ -3097,9 +2721,9 @@
             {
                 "name": [
                     "pack",
-                    "packid",
+                    "p",
                     "id",
-                    "p"
+                    "packid"
                 ],
                 "type": "String",
                 "description": "The Pack id to check for",
@@ -3108,8 +2732,8 @@
             },
             {
                 "name": [
-                    "packv",
                     "packversion",
+                    "packv",
                     "version",
                     "v"
                 ],
@@ -3124,10 +2748,6 @@
         "plugin": "MythicMobs",
         "class": "NameCondition",
         "extends": "SkillCondition",
-        "implements": [
-            "IEntityCondition",
-            "ISkillMetaComparisonCondition"
-        ],
         "name": [
             "name",
             "castername"
@@ -3151,12 +2771,9 @@
         "plugin": "MythicMobs",
         "class": "NearClaimCondition",
         "extends": "SkillCondition",
-        "implements": [
-            "ILocationCondition"
-        ],
         "name": [
-            "nearclaims",
-            "nearclaim"
+            "nearclaim",
+            "nearclaims"
         ],
         "description": "Checks if the target location is near any claims of any supported plugins.  \n\nSupported Plugins:\n\n- GriefPrevention\n- Lands\n- CrashClaim",
         "link": "https://git.lumine.io/mythiccraft/MythicMobs/-/wikis/Skills/Conditions/nearClaim",
@@ -3177,9 +2794,6 @@
         "plugin": "MythicMobs",
         "class": "NightCondition",
         "extends": "SkillCondition",
-        "implements": [
-            "ILocationCondition"
-        ],
         "name": [
             "night"
         ],
@@ -3191,9 +2805,6 @@
         "plugin": "MythicMobs",
         "class": "NotInRegionCondition",
         "extends": "SkillCondition",
-        "implements": [
-            "ILocationCondition"
-        ],
         "name": [
             "notinregion"
         ],
@@ -3202,10 +2813,10 @@
         "attributes": [
             {
                 "name": [
-                    "name",
-                    "n",
+                    "region",
                     "r",
-                    "region"
+                    "name",
+                    "n"
                 ],
                 "type": "String",
                 "description": "The region's name",
@@ -3218,10 +2829,6 @@
         "plugin": "MythicMobs",
         "class": "OffGCDCondition",
         "extends": "SkillCondition",
-        "implements": [
-            "ICasterCondition",
-            "IEntityCondition"
-        ],
         "name": [
             "offgcd"
         ],
@@ -3233,9 +2840,6 @@
         "plugin": "MythicMobs",
         "class": "OnBlockCondition",
         "extends": "SkillCondition",
-        "implements": [
-            "ILocationCondition"
-        ],
         "name": [
             "onblock"
         ],
@@ -3244,14 +2848,14 @@
         "attributes": [
             {
                 "name": [
-                    "t",
-                    "m",
-                    "material",
-                    "block",
-                    "b",
                     "types",
+                    "type",
+                    "t",
+                    "material",
                     "mat",
-                    "type"
+                    "m",
+                    "block",
+                    "b"
                 ],
                 "type": "StringList",
                 "description": "A list of materials. The condition will match if one is found",
@@ -3264,9 +2868,6 @@
         "plugin": "MythicMobs",
         "class": "OnGroundCondition",
         "extends": "SkillCondition",
-        "implements": [
-            "IEntityCondition"
-        ],
         "name": [
             "onground",
             "grounded"
@@ -3279,9 +2880,6 @@
         "plugin": "MythicMobs",
         "class": "OriginDistanceFromPinCondition",
         "extends": "SkillCondition",
-        "implements": [
-            "ISkillMetaCondition"
-        ],
         "name": [
             "origindistancefrompin"
         ],
@@ -3290,8 +2888,8 @@
         "attributes": [
             {
                 "name": [
-                    "p",
-                    "pin"
+                    "pin",
+                    "p"
                 ],
                 "type": "PlaceholderString",
                 "description": "The pin to check against",
@@ -3314,9 +2912,6 @@
         "plugin": "MythicMobs",
         "class": "OriginLocationCondition",
         "extends": "SkillCondition",
-        "implements": [
-            "ISkillMetaCondition"
-        ],
         "name": [
             "originlocation"
         ],
@@ -3335,10 +2930,10 @@
             },
             {
                 "name": [
-                    "l",
+                    "location",
                     "loc",
-                    "c",
-                    "location"
+                    "l",
+                    "c"
                 ],
                 "type": "String",
                 "description": "The location to match, written as `x,y,z`.",
@@ -3378,9 +2973,6 @@
         "plugin": "MythicMobs",
         "class": "OutsideCondition",
         "extends": "SkillCondition",
-        "implements": [
-            "ILocationCondition"
-        ],
         "name": [
             "outside"
         ],
@@ -3392,9 +2984,6 @@
         "plugin": "MythicMobs",
         "class": "OwnerCondition",
         "extends": "SkillCondition",
-        "implements": [
-            "IEntityComparisonCondition"
-        ],
         "name": [
             "owner"
         ],
@@ -3406,9 +2995,6 @@
         "plugin": "MythicMobs",
         "class": "OwnerIsOnlineCondition",
         "extends": "SkillCondition",
-        "implements": [
-            "IEntityCondition"
-        ],
         "name": [
             "ownerisonline"
         ],
@@ -3420,9 +3006,6 @@
         "plugin": "MythicMobs",
         "class": "PitchCondition",
         "extends": "SkillCondition",
-        "implements": [
-            "IEntityCondition"
-        ],
         "name": [
             "pitch"
         ],
@@ -3431,8 +3014,8 @@
         "attributes": [
             {
                 "name": [
-                    "p",
-                    "pitch"
+                    "pitch",
+                    "p"
                 ],
                 "type": "String",
                 "description": "The number range to match",
@@ -3445,9 +3028,6 @@
         "plugin": "MythicMobs",
         "class": "PlayerKillsCondition",
         "extends": "SkillCondition",
-        "implements": [
-            "IEntityCondition"
-        ],
         "name": [
             "playerkills"
         ],
@@ -3470,12 +3050,9 @@
         "plugin": "MythicMobs",
         "class": "PlayerNotWithinCondition",
         "extends": "SkillCondition",
-        "implements": [
-            "ILocationCondition"
-        ],
         "name": [
-            "playersnotwithin",
-            "playernotwithin"
+            "playernotwithin",
+            "playersnotwithin"
         ],
         "description": "Checks if any players are within a radius of the target.",
         "link": "https://git.lumine.io/mythiccraft/MythicMobs/-/wikis/Skills/Conditions/playernotwithin",
@@ -3496,12 +3073,9 @@
         "plugin": "MythicMobs",
         "class": "PlayerWithinCondition",
         "extends": "SkillCondition",
-        "implements": [
-            "ILocationCondition"
-        ],
         "name": [
-            "playerswithin",
-            "playerwithin"
+            "playerwithin",
+            "playerswithin"
         ],
         "description": "Checks if any players are within a radius of the target.",
         "link": "https://git.lumine.io/mythiccraft/MythicMobs/-/wikis/Skills/Conditions/playerwithin",
@@ -3522,21 +3096,18 @@
         "plugin": "MythicMobs",
         "class": "PlayersInRadiusCondition",
         "extends": "SkillCondition",
-        "implements": [
-            "ILocationCondition"
-        ],
         "name": [
-            "playerinradius",
+            "playersinradius",
             "pir",
-            "playersinradius"
+            "playerinradius"
         ],
         "description": "Checks how many players are in a radius.",
         "link": "https://git.lumine.io/mythiccraft/MythicMobs/-/wikis/Skills/Conditions/playersinradius",
         "attributes": [
             {
                 "name": [
-                    "a",
-                    "amount"
+                    "amount",
+                    "a"
                 ],
                 "type": "String",
                 "description": "The given range value to check",
@@ -3545,9 +3116,9 @@
             },
             {
                 "name": [
-                    "distance",
                     "radius",
                     "r",
+                    "distance",
                     "d"
                 ],
                 "type": "PlaceholderDouble",
@@ -3571,9 +3142,6 @@
         "plugin": "MythicMobs",
         "class": "PlayersInWorldCondition",
         "extends": "SkillCondition",
-        "implements": [
-            "ILocationCondition"
-        ],
         "name": [
             "playersinworld"
         ],
@@ -3582,8 +3150,8 @@
         "attributes": [
             {
                 "name": [
-                    "a",
-                    "amount"
+                    "amount",
+                    "a"
                 ],
                 "type": "String",
                 "description": "The number of players to check for. Can be a range",
@@ -3596,21 +3164,18 @@
         "plugin": "MythicMobs",
         "class": "PlayersOnlineCondition",
         "extends": "SkillCondition",
-        "implements": [
-            "ILocationCondition"
-        ],
         "name": [
-            "onlineplayers",
             "playersonline",
-            "onlineplayercount"
+            "onlineplayercount",
+            "onlineplayers"
         ],
         "description": "Matches the number of players online",
         "link": "https://git.lumine.io/mythiccraft/MythicMobs/-/wikis/Skills/Conditions/playersonline",
         "attributes": [
             {
                 "name": [
-                    "a",
-                    "amount"
+                    "amount",
+                    "a"
                 ],
                 "type": "String",
                 "description": "The number of players to check for. Can be a range",
@@ -3623,22 +3188,19 @@
         "plugin": "MythicMobs",
         "class": "PluginExistsCondition",
         "extends": "SkillCondition",
-        "implements": [
-            "ICasterCondition"
-        ],
         "name": [
-            "hasplugin",
             "plugin",
-            "pluginexists"
+            "pluginexists",
+            "hasplugin"
         ],
         "description": "Checks if the specified plugin is running on the server",
         "link": "https://git.lumine.io/mythiccraft/MythicMobs/-/wikis/Skills/Conditions/plugin",
         "attributes": [
             {
                 "name": [
+                    "plugin",
                     "p",
-                    "pl",
-                    "plugin"
+                    "pl"
                 ],
                 "type": "String",
                 "description": "The plugin to check for",
@@ -3651,13 +3213,10 @@
         "plugin": "MythicMobs",
         "class": "PremiumCondition",
         "extends": "SkillCondition",
-        "implements": [
-            "ICasterCondition"
-        ],
         "name": [
-            "iscool",
+            "premium",
             "ispremium",
-            "premium"
+            "iscool"
         ],
         "description": "Checks if MythicMobs Premium is running on the server",
         "link": "https://git.lumine.io/mythiccraft/MythicMobs/-/wikis/Skills/Conditions/premium",
@@ -3667,9 +3226,6 @@
         "plugin": "MythicMobs",
         "class": "RainingCondition",
         "extends": "SkillCondition",
-        "implements": [
-            "ILocationCondition"
-        ],
         "name": [
             "raining",
             "israining"
@@ -3682,22 +3238,19 @@
         "plugin": "MythicMobs",
         "class": "RegionCondition",
         "extends": "SkillCondition",
-        "implements": [
-            "ILocationCondition"
-        ],
         "name": [
-            "inregion",
-            "region"
+            "region",
+            "inregion"
         ],
         "description": "Checks if the target is within the given WorldGuard region.",
         "link": "https://git.lumine.io/mythiccraft/MythicMobs/-/wikis/Skills/Conditions/region",
         "attributes": [
             {
                 "name": [
-                    "name",
-                    "n",
+                    "region",
                     "r",
-                    "region"
+                    "name",
+                    "n"
                 ],
                 "type": "String",
                 "description": "The region to check",
@@ -3710,9 +3263,6 @@
         "plugin": "MythicMobs",
         "class": "ScoreCondition",
         "extends": "SkillCondition",
-        "implements": [
-            "IEntityCondition"
-        ],
         "name": [
             "score"
         ],
@@ -3721,9 +3271,9 @@
         "attributes": [
             {
                 "name": [
+                    "objective",
                     "obj",
-                    "o",
-                    "objective"
+                    "o"
                 ],
                 "type": "PlaceholderString",
                 "description": "The objective",
@@ -3732,9 +3282,9 @@
             },
             {
                 "name": [
+                    "entry",
                     "ent",
-                    "e",
-                    "entry"
+                    "e"
                 ],
                 "type": "PlaceholderString",
                 "description": "The entry",
@@ -3743,8 +3293,8 @@
             },
             {
                 "name": [
-                    "val",
                     "value",
+                    "val",
                     "v"
                 ],
                 "type": "PlaceholderString",
@@ -3758,21 +3308,18 @@
         "plugin": "MythicMobs",
         "class": "ScoreGlobalCondition",
         "extends": "SkillCondition",
-        "implements": [
-            "IEntityCondition"
-        ],
         "name": [
-            "scoreglobal",
-            "globalscore"
+            "globalscore",
+            "scoreglobal"
         ],
         "description": "Checks a global scoreboard value (the value associated with the fake player __GLOBAL__)",
         "link": "https://git.lumine.io/mythiccraft/MythicMobs/-/wikis/Skills/Conditions/globalscore",
         "attributes": [
             {
                 "name": [
+                    "objective",
                     "obj",
-                    "o",
-                    "objective"
+                    "o"
                 ],
                 "type": "PlaceholderString",
                 "description": "The objective",
@@ -3781,8 +3328,8 @@
             },
             {
                 "name": [
-                    "val",
                     "value",
+                    "val",
                     "v"
                 ],
                 "type": "PlaceholderDouble",
@@ -3796,22 +3343,19 @@
         "plugin": "MythicMobs",
         "class": "ServerNMSVersionCondition",
         "extends": "SkillCondition",
-        "implements": [
-            "ICasterCondition"
-        ],
         "name": [
+            "servernmsversion",
             "servernms",
-            "nmsversion",
-            "servernmsversion"
+            "nmsversion"
         ],
         "description": "Checks is the server is running a specific minecraft NMS version",
         "link": "https://git.lumine.io/mythiccraft/MythicMobs/-/wikis/Skills/Conditions/servernmsversion",
         "attributes": [
             {
                 "name": [
-                    "sv",
                     "version",
-                    "v"
+                    "v",
+                    "sv"
                 ],
                 "type": "String",
                 "description": "The version to check for",
@@ -3824,22 +3368,19 @@
         "plugin": "MythicMobs",
         "class": "ServerVersionCondition",
         "extends": "SkillCondition",
-        "implements": [
-            "ICasterCondition"
-        ],
         "name": [
+            "serverversion",
             "server",
-            "version",
-            "serverversion"
+            "version"
         ],
         "description": "Checks is the server is running a specific minecraft version",
         "link": "https://git.lumine.io/mythiccraft/MythicMobs/-/wikis/Skills/Conditions/serverversion",
         "attributes": [
             {
                 "name": [
-                    "sv",
                     "version",
-                    "v"
+                    "v",
+                    "sv"
                 ],
                 "type": "String",
                 "description": "The version to check for",
@@ -3852,20 +3393,17 @@
         "plugin": "MythicMobs",
         "class": "SizeCondition",
         "extends": "SkillCondition",
-        "implements": [
-            "IEntityCondition"
-        ],
         "name": [
-            "mobsize",
-            "size"
+            "size",
+            "mobsize"
         ],
         "description": "Checks the size of an entity that can have its size changed (Slimes, Magma_cubes, and Phantoms).",
         "link": "https://git.lumine.io/mythiccraft/MythicMobs/-/wikis/Skills/Conditions/mobsize",
         "attributes": [
             {
                 "name": [
-                    "s",
-                    "size"
+                    "size",
+                    "s"
                 ],
                 "type": "String",
                 "description": "The size range to check",
@@ -3878,9 +3416,6 @@
         "plugin": "MythicMobs",
         "class": "SkillCondition",
         "extends": null,
-        "implements": [
-            "ISkillCondition"
-        ],
         "name": [],
         "description": null,
         "link": "https://git.lumine.io/mythiccraft/MythicMobs/-/wikis/Skills/Conditions",
@@ -3897,8 +3432,8 @@
             },
             {
                 "name": [
-                    "onpass",
-                    "onpassskill"
+                    "onpassskill",
+                    "onpass"
                 ],
                 "type": "String",
                 "description": "The Metaskill to call if this condition does check",
@@ -3911,10 +3446,6 @@
         "plugin": "MythicMobs",
         "class": "SkillOnCooldownCondition",
         "extends": "SkillCondition",
-        "implements": [
-            "ICasterCondition",
-            "IEntityCondition"
-        ],
         "name": [
             "skilloncooldown"
         ],
@@ -3923,8 +3454,8 @@
         "attributes": [
             {
                 "name": [
-                    "s",
-                    "skill"
+                    "skill",
+                    "s"
                 ],
                 "type": "String",
                 "description": "The metaskill to check",
@@ -3937,9 +3468,6 @@
         "plugin": "MythicMobs",
         "class": "SpawnReasonCondition",
         "extends": "SkillCondition",
-        "implements": [
-            "IEntityCondition"
-        ],
         "name": [
             "spawnreason"
         ],
@@ -3962,12 +3490,9 @@
         "plugin": "MythicMobs",
         "class": "SprintingCondition",
         "extends": "SkillCondition",
-        "implements": [
-            "IEntityCondition"
-        ],
         "name": [
-            "issprinting",
-            "sprinting"
+            "sprinting",
+            "issprinting"
         ],
         "description": "Checks if the target **Player** is sprinting",
         "link": "https://git.lumine.io/mythiccraft/MythicMobs/-/wikis/Skills/Conditions/Sprinting",
@@ -3977,9 +3502,6 @@
         "plugin": "MythicMobs",
         "class": "StanceCondition",
         "extends": "SkillCondition",
-        "implements": [
-            "IEntityCondition"
-        ],
         "name": [
             "stance"
         ],
@@ -3998,8 +3520,8 @@
             },
             {
                 "name": [
-                    "str",
-                    "strict"
+                    "strict",
+                    "str"
                 ],
                 "type": "Boolean",
                 "description": "Whether to match exactly",
@@ -4012,24 +3534,20 @@
         "plugin": "MythicMobs",
         "class": "StringEmptyCondition",
         "extends": "SkillCondition",
-        "implements": [
-            "IEntityCondition",
-            "ISkillMetaCondition"
-        ],
         "name": [
-            "isempty",
-            "stringempty"
+            "stringempty",
+            "isempty"
         ],
         "description": "Checks if the provided string is empty",
         "link": "https://git.lumine.io/mythiccraft/MythicMobs/-/wikis/Skills/Conditions/StringEmpty",
         "attributes": [
             {
                 "name": [
-                    "s",
-                    "string",
                     "value",
+                    "val",
                     "v",
-                    "val"
+                    "string",
+                    "s"
                 ],
                 "type": "String",
                 "description": "The string to check",
@@ -4042,25 +3560,20 @@
         "plugin": "MythicMobs",
         "class": "StringEqualsCondition",
         "extends": "SkillCondition",
-        "implements": [
-            "IEntityCondition",
-            "ILocationCondition",
-            "ISkillMetaComparisonCondition"
-        ],
         "name": [
-            "stringeq",
-            "stringequals"
+            "stringequals",
+            "stringeq"
         ],
         "description": "Checks if value1 equals value2. Both values can use [variables](/Skills/Variables) and [placeholders](/Skills/Placeholders).",
         "link": "https://git.lumine.io/mythiccraft/MythicMobs/-/wikis/Skills/Conditions/stringequals",
         "attributes": [
             {
                 "name": [
-                    "s",
+                    "value1",
+                    "val1",
                     "v1",
                     "string",
-                    "val1",
-                    "value1"
+                    "s"
                 ],
                 "type": "String",
                 "description": "The first value",
@@ -4069,15 +3582,15 @@
             },
             {
                 "name": [
-                    "equals",
-                    "e",
+                    "value2",
+                    "val2",
                     "v2",
                     "value",
-                    "v",
-                    "eq",
-                    "val2",
                     "val",
-                    "value2"
+                    "v",
+                    "equals",
+                    "eq",
+                    "e"
                 ],
                 "type": "String",
                 "description": "The second value",
@@ -4090,10 +3603,6 @@
         "plugin": "MythicMobs",
         "class": "StringNotEmptyCondition",
         "extends": "SkillCondition",
-        "implements": [
-            "IEntityCondition",
-            "ISkillMetaCondition"
-        ],
         "name": [
             "stringnotempty",
             "notempty"
@@ -4103,11 +3612,11 @@
         "attributes": [
             {
                 "name": [
-                    "s",
-                    "string",
                     "value",
+                    "val",
                     "v",
-                    "val"
+                    "string",
+                    "s"
                 ],
                 "type": "String",
                 "description": "The string to check",
@@ -4120,9 +3629,6 @@
         "plugin": "MythicMobs",
         "class": "StructureCondition",
         "extends": "SkillCondition",
-        "implements": [
-            "ILocationCondition"
-        ],
         "name": [
             "structure"
         ],
@@ -4131,9 +3637,9 @@
         "attributes": [
             {
                 "name": [
-                    "s",
+                    "structures",
                     "structure",
-                    "structures"
+                    "s"
                 ],
                 "type": "String",
                 "description": "The structure to check for. Can be a list.",
@@ -4146,12 +3652,9 @@
         "plugin": "MythicMobs",
         "class": "SunnyCondition",
         "extends": "SkillCondition",
-        "implements": [
-            "ILocationCondition"
-        ],
         "name": [
-            "issunny",
-            "sunny"
+            "sunny",
+            "issunny"
         ],
         "description": "Checks if the weather is sunny in the target world.",
         "link": "https://git.lumine.io/mythiccraft/MythicMobs/-/wikis/Skills/Conditions/sunny",
@@ -4161,9 +3664,6 @@
         "plugin": "MythicMobs",
         "class": "TargetInLineOfSightCondition",
         "extends": "SkillCondition",
-        "implements": [
-            "IEntityCondition"
-        ],
         "name": [
             "targetinlineofsight"
         ],
@@ -4175,9 +3675,6 @@
         "plugin": "MythicMobs",
         "class": "TargetNotInLineOfSightCondition",
         "extends": "SkillCondition",
-        "implements": [
-            "IEntityCondition"
-        ],
         "name": [
             "targetnotinlineofsight"
         ],
@@ -4189,9 +3686,6 @@
         "plugin": "MythicMobs",
         "class": "TargetNotWithinCondition",
         "extends": "SkillCondition",
-        "implements": [
-            "IEntityCondition"
-        ],
         "name": [
             "targetnotwithin"
         ],
@@ -4214,9 +3708,6 @@
         "plugin": "MythicMobs",
         "class": "TargetWithinCondition",
         "extends": "SkillCondition",
-        "implements": [
-            "IEntityCondition"
-        ],
         "name": [
             "targetwithin"
         ],
@@ -4239,9 +3730,6 @@
         "plugin": "MythicMobs",
         "class": "TargetsCondition",
         "extends": "SkillCondition",
-        "implements": [
-            "ISkillMetaCondition"
-        ],
         "name": [
             "targets"
         ],
@@ -4250,8 +3738,8 @@
         "attributes": [
             {
                 "name": [
-                    "a",
-                    "amount"
+                    "amount",
+                    "a"
                 ],
                 "type": "String",
                 "description": "Range of how many targets to check for",
@@ -4264,14 +3752,11 @@
         "plugin": "MythicMobs",
         "class": "ThunderingCondition",
         "extends": "SkillCondition",
-        "implements": [
-            "ILocationCondition"
-        ],
         "name": [
-            "stormy",
             "thundering",
-            "isstormy",
-            "isthundering"
+            "stormy",
+            "isthundering",
+            "isstormy"
         ],
         "description": "Checks if it's thundering in the target world.",
         "link": "https://git.lumine.io/mythiccraft/MythicMobs/-/wikis/Skills/Conditions/thundering",
@@ -4281,9 +3766,6 @@
         "plugin": "MythicMobs",
         "class": "TriggerBlockTypeCondition",
         "extends": "SkillCondition",
-        "implements": [
-            "ISkillMetaCondition"
-        ],
         "name": [
             "triggerblocktype",
             "triggeringblocktype"
@@ -4293,12 +3775,12 @@
         "attributes": [
             {
                 "name": [
-                    "t",
-                    "m",
-                    "material",
                     "types",
+                    "type",
+                    "t",
+                    "material",
                     "mat",
-                    "type"
+                    "m"
                 ],
                 "type": "StringList",
                 "description": "A list of [materials] to check against",
@@ -4311,9 +3793,6 @@
         "plugin": "MythicMobs",
         "class": "TriggerItemTypeCondition",
         "extends": "SkillCondition",
-        "implements": [
-            "ISkillMetaCondition"
-        ],
         "name": [
             "triggeritemtype",
             "triggeringitemtype"
@@ -4323,15 +3802,15 @@
         "attributes": [
             {
                 "name": [
-                    "items",
-                    "t",
-                    "m",
-                    "material",
                     "types",
+                    "type",
+                    "t",
+                    "material",
                     "mat",
+                    "m",
+                    "items",
                     "item",
-                    "i",
-                    "type"
+                    "i"
                 ],
                 "type": "StringList",
                 "description": "A list of [materials] to check against",
@@ -4344,15 +3823,10 @@
         "plugin": "MythicMobs",
         "class": "VariableEqualsCondition",
         "extends": "VariableCondition",
-        "implements": [
-            "IEntityCondition",
-            "ILocationCondition",
-            "ISkillMetaCondition"
-        ],
         "name": [
-            "varequals",
             "variableequals",
             "variableeq",
+            "varequals",
             "vareq"
         ],
         "description": "A condition that checks the value of a [variable](/Skills/Variables).",
@@ -4360,8 +3834,8 @@
         "attributes": [
             {
                 "name": [
-                    "val",
                     "value",
+                    "val",
                     "v"
                 ],
                 "type": "String",
@@ -4371,12 +3845,12 @@
             },
             {
                 "name": [
-                    "var",
-                    "k",
-                    "key",
-                    "variable",
+                    "name",
                     "n",
-                    "name"
+                    "variable",
+                    "var",
+                    "key",
+                    "k"
                 ],
                 "type": null,
                 "description": "The name of the variable. Can optionally be prefixed with scope",
@@ -4399,15 +3873,10 @@
         "plugin": "MythicMobs",
         "class": "VariableInRangeCondition",
         "extends": "VariableCondition",
-        "implements": [
-            "IEntityCondition",
-            "ILocationCondition",
-            "ISkillMetaCondition"
-        ],
         "name": [
-            "varrange",
+            "variableinrange",
             "varinrange",
-            "variableinrange"
+            "varrange"
         ],
         "description": "Checks if the given numeric variable is within a certain range.",
         "link": "https://git.lumine.io/mythiccraft/MythicMobs/-/wikis/Skills/Conditions/variableinrange",
@@ -4415,10 +3884,10 @@
             {
                 "name": [
                     "value",
-                    "r",
-                    "v",
                     "val",
-                    "range"
+                    "v",
+                    "range",
+                    "r"
                 ],
                 "type": "PlaceholderString",
                 "description": "A number range to match",
@@ -4427,12 +3896,12 @@
             },
             {
                 "name": [
-                    "var",
-                    "k",
-                    "key",
-                    "variable",
+                    "name",
                     "n",
-                    "name"
+                    "variable",
+                    "var",
+                    "key",
+                    "k"
                 ],
                 "type": null,
                 "description": "Variable to match, optionally prefixed by a scope",
@@ -4455,14 +3924,9 @@
         "plugin": "MythicMobs",
         "class": "VariableIsSetCondition",
         "extends": "VariableCondition",
-        "implements": [
-            "IEntityCondition",
-            "ILocationCondition",
-            "ISkillMetaCondition"
-        ],
         "name": [
-            "varisset",
             "variableisset",
+            "varisset",
             "varset"
         ],
         "description": "Checks if the given [variable](/Skills/Variables) is set.",
@@ -4470,12 +3934,12 @@
         "attributes": [
             {
                 "name": [
-                    "var",
-                    "k",
-                    "key",
-                    "variable",
+                    "name",
                     "n",
-                    "name"
+                    "variable",
+                    "var",
+                    "key",
+                    "k"
                 ],
                 "type": null,
                 "description": "The name of the variable. Can optionally be prefixed with scope",
@@ -4498,9 +3962,6 @@
         "plugin": "MythicMobs",
         "class": "VehicleIsDeadCondition",
         "extends": "SkillCondition",
-        "implements": [
-            "IEntityComparisonCondition"
-        ],
         "name": [
             "vehicleisdead"
         ],
@@ -4512,9 +3973,6 @@
         "plugin": "MythicMobs",
         "class": "VelocityCondition",
         "extends": "SkillCondition",
-        "implements": [
-            "IEntityCondition"
-        ],
         "name": [
             "velocity"
         ],
@@ -4537,23 +3995,20 @@
         "plugin": "MythicMobs",
         "class": "WearingCondition",
         "extends": "SkillCondition",
-        "implements": [
-            "IEntityCondition"
-        ],
         "name": [
-            "iswielding",
-            "wielding",
+            "wearing",
             "iswearing",
-            "wearing"
+            "wielding",
+            "iswielding"
         ],
         "description": "This condition checks if the target entity is wearing the selected item.",
         "link": "https://git.lumine.io/mythiccraft/MythicMobs/-/wikis/Skills/Conditions/wearing",
         "attributes": [
             {
                 "name": [
-                    "s",
                     "armorslot",
-                    "slot"
+                    "slot",
+                    "s"
                 ],
                 "type": "String",
                 "description": "The item slot to check.",
@@ -4562,13 +4017,13 @@
             },
             {
                 "name": [
-                    "m",
                     "material",
-                    "mmitem",
                     "mat",
-                    "item",
+                    "m",
                     "mythicmobsitem",
-                    "mmi"
+                    "mmitem",
+                    "mmi",
+                    "item"
                 ],
                 "type": "String",
                 "description": "A material or MythicItem name to check for. Also supports MMOItems in the format mmoitems.TYPE.ID",
@@ -4581,9 +4036,6 @@
         "plugin": "MythicMobs",
         "class": "WorldCondition",
         "extends": "SkillCondition",
-        "implements": [
-            "ILocationCondition"
-        ],
         "name": [
             "world"
         ],
@@ -4606,9 +4058,6 @@
         "plugin": "MythicMobs",
         "class": "WorldTimeCondition",
         "extends": "SkillCondition",
-        "implements": [
-            "ILocationCondition"
-        ],
         "name": [
             "worldtime"
         ],
@@ -4617,8 +4066,8 @@
         "attributes": [
             {
                 "name": [
-                    "t",
-                    "time"
+                    "time",
+                    "t"
                 ],
                 "type": "PlaceholderString",
                 "description": "A range of time to check",
@@ -4631,10 +4080,6 @@
         "plugin": "MythicMobs",
         "class": "YDiffCondition",
         "extends": "SkillCondition",
-        "implements": [
-            "IEntityComparisonCondition",
-            "ILocationComparisonCondition"
-        ],
         "name": [
             "ydiff"
         ],
@@ -4658,9 +4103,6 @@
         "plugin": "MythicMobs",
         "class": "YawCondition",
         "extends": "SkillCondition",
-        "implements": [
-            "IEntityCondition"
-        ],
         "name": [
             "yaw"
         ],
@@ -4669,8 +4111,8 @@
         "attributes": [
             {
                 "name": [
-                    "y",
-                    "yaw"
+                    "yaw",
+                    "y"
                 ],
                 "type": "String",
                 "description": "The yaw to check for",

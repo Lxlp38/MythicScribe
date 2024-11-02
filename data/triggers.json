@@ -3,7 +3,6 @@
         "plugin": "MythicMobs",
         "class": "ATTACK",
         "extends": null,
-        "implements": [],
         "name": [
             "onattack",
             "onhit"
@@ -16,7 +15,6 @@
         "plugin": "MythicMobs",
         "class": "BOW_HIT",
         "extends": null,
-        "implements": [],
         "name": [
             "onbow_hit",
             "onbowhit"
@@ -29,7 +27,6 @@
         "plugin": "MythicMobs",
         "class": "BREED",
         "extends": null,
-        "implements": [],
         "name": [
             "onbreed"
         ],
@@ -41,14 +38,13 @@
         "plugin": "MythicMobs",
         "class": "BUCKET",
         "extends": null,
-        "implements": [],
         "name": [
-            "onusebucket",
-            "onmilk",
             "onbucket",
-            "onmilked",
+            "onusebucket",
             "onfillbucket",
-            "onbucketfill"
+            "onbucketfill",
+            "onmilk",
+            "onmilked"
         ],
         "description": "Executes the skill when the cow is milked or when an entity is stored in a bucket (axolotl and the other bucketable ones).  \n> The associated [@trigger](/Skills/Targeters/Trigger) is the caster itself",
         "link": "https://git.lumine.io/mythiccraft/MythicMobs/-/wikis/Skills/Triggers/onBucket",
@@ -58,11 +54,10 @@
         "plugin": "MythicMobs",
         "class": "CHANGE_WORLD",
         "extends": null,
-        "implements": [],
         "name": [
-            "onworld_change",
-            "onchangeworld",
             "onchange_world",
+            "onchangeworld",
+            "onworld_change",
             "onworldchange"
         ],
         "description": "Executes the skill when the caster changes world.",
@@ -73,7 +68,6 @@
         "plugin": "MythicMobs",
         "class": "COMBAT",
         "extends": null,
-        "implements": [],
         "name": [
             "oncombat"
         ],
@@ -85,12 +79,11 @@
         "plugin": "MythicMobs",
         "class": "CREEPER_CHARGE",
         "extends": null,
-        "implements": [],
         "name": [
-            "oncharged",
+            "oncreeper_charge",
             "oncreepercharge",
             "oncharge",
-            "oncreeper_charge"
+            "oncharged"
         ],
         "description": "Executes the skill when the casting creeper is charged.  \n\n> The associated [@trigger](/Skills/Targeters/Trigger) is the caster itself",
         "link": "https://git.lumine.io/mythiccraft/MythicMobs/-/wikis/Skills/Triggers/onCreeperCharge",
@@ -100,10 +93,9 @@
         "plugin": "MythicMobs",
         "class": "DAMAGED",
         "extends": null,
-        "implements": [],
         "name": [
-            "onhurt",
-            "ondamaged"
+            "ondamaged",
+            "onhurt"
         ],
         "description": "Executes the skill when the mob takes damage.\n> The associated [@trigger](/Skills/Targeters/Trigger) is the entity that dealt the damage\n\n| [Implemented Placeholders](/Skills/Placeholders#variable-placeholders)     |\n|--------------------------------|\n| `<skill.var.damage-amount>`    |\n| `<skill.var.damage-type>`      |\n| `<skill.var.damage-cause>`     |",
         "link": "https://git.lumine.io/mythiccraft/MythicMobs/-/wikis/Skills/Triggers/onDamaged",
@@ -113,7 +105,6 @@
         "plugin": "MythicMobs",
         "class": "DEATH",
         "extends": null,
-        "implements": [],
         "name": [
             "ondeath"
         ],
@@ -125,7 +116,6 @@
         "plugin": "MythicMobs",
         "class": "DESPAWNED",
         "extends": null,
-        "implements": [],
         "name": [
             "ondespawned",
             "ondespawn"
@@ -138,11 +128,10 @@
         "plugin": "MythicMobs",
         "class": "DROPCOMBAT",
         "extends": null,
-        "implements": [],
         "name": [
+            "ondropcombat",
             "onleavecombat",
-            "oncombatdrop",
-            "ondropcombat"
+            "oncombatdrop"
         ],
         "description": "Executes the skill when the mob drops combat.\n\n> **REQUIRES [ThreatTables](/Mobs/ThreatTables) to be enabled**  \n\n> There is no associated [@trigger](/Skills/Targeters/Trigger)",
         "link": "https://git.lumine.io/mythiccraft/MythicMobs/-/wikis/Skills/Triggers/onDropCombat",
@@ -152,7 +141,6 @@
         "plugin": "MythicMobs",
         "class": "ENTERCOMBAT",
         "extends": null,
-        "implements": [],
         "name": [
             "onentercombat"
         ],
@@ -164,7 +152,6 @@
         "plugin": "MythicMobs",
         "class": "EXPLODE",
         "extends": null,
-        "implements": [],
         "name": [
             "onexplode"
         ],
@@ -176,7 +163,6 @@
         "plugin": "MythicMobs",
         "class": "HEAR",
         "extends": null,
-        "implements": [],
         "name": [
             "onhear",
             "onvibration"
@@ -189,7 +175,6 @@
         "plugin": "MythicMobs",
         "class": "INTERACT",
         "extends": null,
-        "implements": [],
         "name": [
             "oninteract"
         ],
@@ -201,7 +186,6 @@
         "plugin": "MythicMobs",
         "class": "KILLPLAYER",
         "extends": null,
-        "implements": [],
         "name": [
             "onkillplayer",
             "onplayerkill"
@@ -214,7 +198,6 @@
         "plugin": "MythicMobs",
         "class": "LOAD",
         "extends": null,
-        "implements": [],
         "name": [
             "onload"
         ],
@@ -226,7 +209,6 @@
         "plugin": "MythicMobs",
         "class": "PRIME",
         "extends": null,
-        "implements": [],
         "name": [
             "onprime"
         ],
@@ -238,7 +220,6 @@
         "plugin": "MythicMobs",
         "class": "READY",
         "extends": null,
-        "implements": [],
         "name": [
             "onready",
             "onfirstspawn"
@@ -251,11 +232,10 @@
         "plugin": "MythicMobs",
         "class": "SHOOT",
         "extends": null,
-        "implements": [],
         "name": [
-            "onshootbow",
             "onshoot",
-            "onbowshoot"
+            "onbowshoot",
+            "onshootbow"
         ],
         "description": "Executes the skill when the mob shoots a projectile.  \nFor example, skeletons with bows will shoot arrows; ghasts, blazes, or ender dragon will shoot some type of fireball.  \n\n> The associated [@trigger](/Skills/Targeters/Trigger) is the caster\n\n| [Implemented Placeholders](/Skills/Placeholders#variable-placeholders)     |\n|--------------------------------|\n| `<skill.var.bow-tension>`      |",
         "link": "https://git.lumine.io/mythiccraft/MythicMobs/-/wikis/Skills/Triggers/onShoot",
@@ -265,7 +245,6 @@
         "plugin": "MythicMobs",
         "class": "SIGNAL",
         "extends": null,
-        "implements": [],
         "name": [
             "onsignal"
         ],
@@ -277,11 +256,10 @@
         "plugin": "MythicMobs",
         "class": "SKILL_HIT",
         "extends": null,
-        "implements": [],
         "name": [
+            "onskillhit",
             "onskill_damage",
-            "onskilldamage",
-            "onskillhit"
+            "onskilldamage"
         ],
         "description": "Executes the skill when the mob deals damage to other entities via a mechanic.  \n\n> The associated [@trigger](/Skills/Targeters/Trigger) is the entity that was damaged",
         "link": "https://git.lumine.io/mythiccraft/MythicMobs/-/wikis/Skills/Triggers/onSkillDamage",
@@ -291,7 +269,6 @@
         "plugin": "MythicMobs",
         "class": "SPAWN",
         "extends": null,
-        "implements": [],
         "name": [
             "onspawn"
         ],
@@ -303,7 +280,6 @@
         "plugin": "MythicMobs",
         "class": "SPAWN_OR_LOAD",
         "extends": null,
-        "implements": [],
         "name": [
             "onspawnorload"
         ],
@@ -315,7 +291,6 @@
         "plugin": "MythicMobs",
         "class": "TAME",
         "extends": null,
-        "implements": [],
         "name": [
             "ontame"
         ],
@@ -327,7 +302,6 @@
         "plugin": "MythicMobs",
         "class": "TARGETCHANGE",
         "extends": null,
-        "implements": [],
         "name": [
             "ontargetchange",
             "onchangetarget"
@@ -340,7 +314,6 @@
         "plugin": "MythicMobs",
         "class": "TELEPORT",
         "extends": null,
-        "implements": [],
         "name": [
             "onteleport"
         ],
@@ -352,7 +325,6 @@
         "plugin": "MythicMobs",
         "class": "TIMER",
         "extends": null,
-        "implements": [],
         "name": [
             "ontimer"
         ],
@@ -364,7 +336,6 @@
         "plugin": "MythicMobs",
         "class": "TRADE",
         "extends": null,
-        "implements": [],
         "name": [
             "ontrade"
         ],

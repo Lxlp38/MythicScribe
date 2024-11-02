@@ -3,41 +3,41 @@
         "plugin": "MythicMobs",
         "class": "BlockVeinTargeter",
         "extends": "ILocationSelector",
-        "implements": [],
         "name": [
+            "blockvein",
             "vein",
-            "bv",
-            "blockvein"
+            "bv"
         ],
         "description": "Target all adjancent blocks that match the blocktype, starting from the origin of the skill",
         "link": "https://git.lumine.io/mythiccraft/MythicMobs/-/wikis/Skills/Targeters/BlockVein",
         "attributes": [
             {
                 "name": [
-                    "blocks",
-                    "materials",
+                    "blocktypes",
+                    "blocktypes",
                     "bt",
                     "t",
                     "material",
+                    "materials",
+                    "m",
+                    "blocks",
                     "block",
-                    "blocktypes",
-                    "b",
-                    "m"
+                    "b"
                 ],
                 "type": "PlaceholderString",
-                "description": "Blocks to add to the vein. Can be a list.",
+                "description": "Blocks to add to the vein. Can be a list.<br>You can add a `*` at the front of the type to indicate that the one specified is not a block type, but a [block tag](https://minecraft.wiki/w/Tag#Block_tags_2) (example: `blocktype=*sculk_replaceable` )",
                 "link": "https://git.lumine.io/mythiccraft/MythicMobs/-/wikis/Skills/Targeters/BlockVein",
                 "default_value": "STONE"
             },
             {
                 "name": [
                     "limit",
+                    "l",
                     "max",
-                    "m",
-                    "l"
+                    "m"
                 ],
                 "type": "PlaceholderInteger",
-                "description": "Blocks to add to the vein. Can be a list.",
+                "description": "Blocks to add to the vein. Can be a list.<br>You can add a `*` at the front of the type to indicate that the one specified is not a block type, but a [block tag](https://minecraft.wiki/w/Tag#Block_tags_2) (example: `blocktype=*sculk_replaceable` )",
                 "link": "https://git.lumine.io/mythiccraft/MythicMobs/-/wikis/Skills/Targeters/BlockVein",
                 "default_value": "STONE"
             },
@@ -57,18 +57,17 @@
         "plugin": "MythicMobs",
         "class": "BlocksInChunkTargeter",
         "extends": "ILocationSelector",
-        "implements": [],
         "name": [
-            "bic",
-            "blocksinchunk"
+            "blocksinchunk",
+            "bic"
         ],
         "description": "Targets all blocks in a chunk relative to the inherited target(s)",
         "link": "https://git.lumine.io/mythiccraft/MythicMobs/-/wikis/Skills/Targeters/BlocksInChunk",
         "attributes": [
             {
                 "name": [
-                    "na",
-                    "noair"
+                    "noair",
+                    "na"
                 ],
                 "type": "Boolean",
                 "description": "Whether air should not be targeted",
@@ -101,7 +100,6 @@
         "plugin": "MythicMobs",
         "class": "BlocksInPinRegionTargeter",
         "extends": "ILocationSelector",
-        "implements": [],
         "name": [
             "blocksinpinregion"
         ],
@@ -110,8 +108,8 @@
         "attributes": [
             {
                 "name": [
-                    "p1",
-                    "pin1"
+                    "pin1",
+                    "p1"
                 ],
                 "type": "PlaceholderString",
                 "description": "The first [pin]",
@@ -134,7 +132,6 @@
         "plugin": "MythicMobs",
         "class": "BlocksInRadiusTargeter",
         "extends": "ILocationSelector",
-        "implements": [],
         "name": [
             "blocksinradius",
             "bir"
@@ -155,9 +152,9 @@
             {
                 "name": [
                     "radiusy",
-                    "yr",
+                    "ry",
                     "yradius",
-                    "ry"
+                    "yr"
                 ],
                 "type": "String",
                 "description": "The y component of the radius",
@@ -186,8 +183,8 @@
             },
             {
                 "name": [
-                    "na",
-                    "noair"
+                    "noair",
+                    "na"
                 ],
                 "type": "Boolean",
                 "description": "Whether air should not be targeted",
@@ -220,7 +217,6 @@
         "plugin": "MythicMobs",
         "class": "BlocksNearOriginTargeter",
         "extends": "ILocationSelector",
-        "implements": [],
         "name": [
             "blocksnearorigin",
             "bno"
@@ -241,9 +237,9 @@
             {
                 "name": [
                     "radiusy",
-                    "yr",
+                    "ry",
                     "yradius",
-                    "ry"
+                    "yr"
                 ],
                 "type": "PlaceholderDouble",
                 "description": "The y component of the radius",
@@ -272,8 +268,8 @@
             },
             {
                 "name": [
-                    "na",
-                    "noair"
+                    "noair",
+                    "na"
                 ],
                 "type": "Boolean",
                 "description": "Whether air should not be targeted",
@@ -296,7 +292,6 @@
         "plugin": "MythicMobs",
         "class": "CasterSpawnLocationTargeter",
         "extends": "ILocationSelector",
-        "implements": [],
         "name": [
             "casterspawnlocation",
             "casterspawn"
@@ -309,11 +304,10 @@
         "plugin": "MythicMobs",
         "class": "ChildrenTargeter",
         "extends": "IEntitySelector",
-        "implements": [],
         "name": [
-            "summons",
+            "children",
             "child",
-            "children"
+            "summons"
         ],
         "description": "Targets any child entities summoned by the caster.  \nWorks for player casters, if the [summon] mechanic was used and the `summonerIsOwner` attribute was set to `true`.",
         "link": "https://git.lumine.io/mythiccraft/MythicMobs/-/wikis/Skills/Targeters/Children",
@@ -323,10 +317,9 @@
         "plugin": "MythicMobs",
         "class": "ChunksInWERegionTargeter",
         "extends": "ILocationSelector",
-        "implements": [],
         "name": [
-            "chunksinwgregion",
-            "chunksinweregion"
+            "chunksinweregion",
+            "chunksinwgregion"
         ],
         "description": "Targets the 0,0 chunk corners of the chunks in a specified WorldGuard region",
         "link": "https://git.lumine.io/mythiccraft/MythicMobs/-/wikis/Skills/Targeters/ChunksInWERegion",
@@ -347,7 +340,6 @@
         "plugin": "MythicMobs",
         "class": "ConeTargeter",
         "extends": "ILocationSelector",
-        "implements": [],
         "name": [
             "cone"
         ],
@@ -356,8 +348,8 @@
         "attributes": [
             {
                 "name": [
-                    "a",
-                    "angle"
+                    "angle",
+                    "a"
                 ],
                 "type": "Double",
                 "description": "The angle of the cone",
@@ -396,8 +388,8 @@
             },
             {
                 "name": [
-                    "s",
-                    "slices"
+                    "slices",
+                    "s"
                 ],
                 "type": "Integer",
                 "description": "This defines how many layers or subdivisions (slices) the cone is divided into along its length (range).<br>More slices result in a finer resolution",
@@ -406,8 +398,8 @@
             },
             {
                 "name": [
-                    "rot",
-                    "rotation"
+                    "rotation",
+                    "rot"
                 ],
                 "type": "Double",
                 "description": "The rotation of the cone",
@@ -417,8 +409,8 @@
             {
                 "name": [
                     "yoffset",
-                    "y",
-                    "yo"
+                    "yo",
+                    "y"
                 ],
                 "type": "Double",
                 "description": "The y offset of the cone",
@@ -427,8 +419,8 @@
             },
             {
                 "name": [
-                    "e",
-                    "exact"
+                    "exact",
+                    "e"
                 ],
                 "type": "Boolean",
                 "description": "Whether to use a precise method to distribute points uniformly across the cone's surface instead of randomly generating them",
@@ -441,13 +433,12 @@
         "plugin": "MythicMobs",
         "class": "EntitiesInRadiusTargeter",
         "extends": "IEntitySelector",
-        "implements": [],
         "name": [
-            "allinradius",
             "entitiesinradius",
+            "livingentitiesinradius",
             "livinginradius",
-            "eir",
-            "livingentitiesinradius"
+            "allinradius",
+            "eir"
         ],
         "description": "Targets all entities in the given radius around the caster",
         "link": "https://git.lumine.io/mythiccraft/MythicMobs/-/wikis/Skills/Targeters/EntitiesInRadius",
@@ -479,10 +470,9 @@
         "plugin": "MythicMobs",
         "class": "EntitiesInRingNearOriginTargeter",
         "extends": "EntitiesInRingTargeter",
-        "implements": [],
         "name": [
-            "erno",
-            "entitiesinringnearorigin"
+            "entitiesinringnearorigin",
+            "erno"
         ],
         "description": "Targets all the entities in a ring near the [origin].  \nInherits all attributes from [EntitiesInRing]",
         "link": "https://git.lumine.io/mythiccraft/MythicMobs/-/wikis/Skills/Targeters/EntitiesInRingNearOrigin",
@@ -492,10 +482,9 @@
         "plugin": "MythicMobs",
         "class": "EntitiesInRingTargeter",
         "extends": "IEntitySelector",
-        "implements": [],
         "name": [
-            "eirr",
-            "entitiesinring"
+            "entitiesinring",
+            "eirr"
         ],
         "description": "Targets all entities in a ring around the caster.  \nThe targeted entities will be the ones at a distance from the caster between the minimum and the maximum range.",
         "link": "https://git.lumine.io/mythiccraft/MythicMobs/-/wikis/Skills/Targeters/EntitiesInRing",
@@ -526,7 +515,6 @@
         "plugin": "MythicMobs",
         "class": "EntitiesNearOriginTargeter",
         "extends": "EntitiesInRadiusTargeter",
-        "implements": [],
         "name": [
             "entitiesnearorigin",
             "nearorigin",
@@ -540,11 +528,10 @@
         "plugin": "MythicMobs",
         "class": "FatherTargeter",
         "extends": "IEntitySelector",
-        "implements": [],
         "name": [
             "father",
-            "daddy",
-            "dad"
+            "dad",
+            "daddy"
         ],
         "description": "Targets the father of the casting mob",
         "link": "https://git.lumine.io/mythiccraft/MythicMobs/-/wikis/Skills/Targeters/Father",
@@ -554,11 +541,10 @@
         "plugin": "MythicMobs",
         "class": "FloorOfTargetsTargeter",
         "extends": "ILocationSelector",
-        "implements": [],
         "name": [
-            "fot",
+            "flooroftargets",
             "floorsoftarget",
-            "flooroftargets"
+            "fot"
         ],
         "description": "Targets the first solid block below the inherited targets",
         "link": "https://git.lumine.io/mythiccraft/MythicMobs/-/wikis/Skills/Targeters/FloorOfTargets",
@@ -566,8 +552,8 @@
             {
                 "name": [
                     "tries",
-                    "max",
                     "t",
+                    "max",
                     "m"
                 ],
                 "type": "Integer",
@@ -581,7 +567,6 @@
         "plugin": "MythicMobs",
         "class": "ForwardTargeter",
         "extends": "ILocationSelector",
-        "implements": [],
         "name": [
             "forward"
         ],
@@ -590,10 +575,10 @@
         "attributes": [
             {
                 "name": [
-                    "a",
                     "forward",
                     "f",
-                    "amount"
+                    "amount",
+                    "a"
                 ],
                 "type": "PlaceholderDouble",
                 "description": "How distant should the targeted point be",
@@ -612,8 +597,8 @@
             },
             {
                 "name": [
-                    "uel",
-                    "useeyelocation"
+                    "useeyelocation",
+                    "uel"
                 ],
                 "type": "Boolean",
                 "description": "If the eye location should be used as the base of the targeter",
@@ -635,7 +620,6 @@
         "plugin": "MythicMobs",
         "class": "ForwardWallTargeter",
         "extends": "ILocationSelector",
-        "implements": [],
         "name": [
             "forwardwall"
         ],
@@ -644,10 +628,10 @@
         "attributes": [
             {
                 "name": [
-                    "a",
                     "forward",
                     "f",
-                    "amount"
+                    "amount",
+                    "a"
                 ],
                 "type": "Double",
                 "description": "How distant should the targeted point be (accept decimals)",
@@ -690,7 +674,6 @@
         "plugin": "MythicMobs",
         "class": "HighestBlockTargeter",
         "extends": "ILocationSelector",
-        "implements": [],
         "name": [
             "highestblock"
         ],
@@ -702,9 +685,6 @@
         "plugin": "MythicMobs",
         "class": "IEntitySelector",
         "extends": "SkillTargeter",
-        "implements": [
-            "IEntityTargeter"
-        ],
         "name": [],
         "description": null,
         "link": "https://git.lumine.io/mythiccraft/MythicMobs/-/wikis/Skills/Targeters#common-entity-targeters-attributes",
@@ -720,8 +700,8 @@
             },
             {
                 "name": [
-                    "sortby",
-                    "sort"
+                    "sort",
+                    "sortby"
                 ],
                 "type": "String",
                 "description": "How to sort the targeted entities/locations",
@@ -743,15 +723,6 @@
                 ],
                 "type": "String",
                 "description": "The entity types to not target",
-                "link": "https://git.lumine.io/mythiccraft/MythicMobs/-/wikis/Skills/Targeters#common-entity-targeters-attributes",
-                "default_value": ""
-            },
-            {
-                "name": [
-                    "ignoretype"
-                ],
-                "type": "String",
-                "description": "",
                 "link": "https://git.lumine.io/mythiccraft/MythicMobs/-/wikis/Skills/Targeters#common-entity-targeters-attributes",
                 "default_value": ""
             },
@@ -875,8 +846,8 @@
             },
             {
                 "name": [
-                    "useboundingbox",
-                    "bb"
+                    "bb",
+                    "useboundingbox"
                 ],
                 "type": "Boolean",
                 "description": "If the targeter is performing a distance check, this option allows it to check against the bounding box of the target instead of the center of its hitbox",
@@ -885,8 +856,8 @@
             },
             {
                 "name": [
-                    "unique",
-                    "u"
+                    "u",
+                    "unique"
                 ],
                 "type": "PlaceholderInteger",
                 "description": "The maximum number of times an entity can be targeted. Defaults to 1, disable with 0. This is mostly used for meg models with multiple hitboxes",
@@ -895,8 +866,8 @@
             },
             {
                 "name": [
-                    "nmb",
-                    "nomegbb"
+                    "nomegbb",
+                    "nmb"
                 ],
                 "type": "Boolean",
                 "description": "Whether MEG sub hitboxes should be filtered out",
@@ -909,18 +880,15 @@
         "plugin": "MythicMobs",
         "class": "ILocationSelector",
         "extends": "SkillTargeter",
-        "implements": [
-            "ILocationTargeter"
-        ],
         "name": [],
         "description": null,
         "link": "https://git.lumine.io/mythiccraft/MythicMobs/-/wikis/Skills/Targeters#common-location-targeters-attributes",
         "attributes": [
             {
                 "name": [
+                    "xoffset",
                     "xo",
-                    "x",
-                    "xoffset"
+                    "x"
                 ],
                 "type": "PlaceholderDouble",
                 "description": "Centers the offset on the x axis",
@@ -930,8 +898,8 @@
             {
                 "name": [
                     "yoffset",
-                    "y",
-                    "yo"
+                    "yo",
+                    "y"
                 ],
                 "type": "PlaceholderDouble",
                 "description": "Centers the offset on the y axis",
@@ -940,9 +908,9 @@
             },
             {
                 "name": [
+                    "zoffset",
                     "zo",
-                    "z",
-                    "zoffset"
+                    "z"
                 ],
                 "type": "PlaceholderDouble",
                 "description": "Centers the offset on the z axis",
@@ -972,9 +940,9 @@
             },
             {
                 "name": [
-                    "so",
+                    "sideoffset",
                     "soffset",
-                    "sideoffset"
+                    "so"
                 ],
                 "type": "PlaceholderDouble",
                 "description": "Centers left and right offset, based on the caster's viewing angle",
@@ -993,8 +961,8 @@
             },
             {
                 "name": [
-                    "roty",
-                    "rotatey"
+                    "rotatey",
+                    "roty"
                 ],
                 "type": "PlaceholderDouble",
                 "description": "Rotation on the y axis",
@@ -1003,8 +971,8 @@
             },
             {
                 "name": [
-                    "rotz",
-                    "rotatez"
+                    "rotatez",
+                    "rotz"
                 ],
                 "type": "PlaceholderDouble",
                 "description": "Rotation on the z axis",
@@ -1052,8 +1020,8 @@
             },
             {
                 "name": [
-                    "cyaw",
-                    "coordinateyaw"
+                    "coordinateyaw",
+                    "cyaw"
                 ],
                 "type": "PlaceholderFloat",
                 "description": "Sets the yaw value",
@@ -1072,23 +1040,23 @@
             },
             {
                 "name": [
+                    "blocktypes",
                     "blocktype",
-                    "bt",
-                    "blocktypes"
+                    "bt"
                 ],
                 "type": "PlaceholderString",
-                "description": "Only targets selected block types. Multiple blocks can be listed by separating them using a `,`<br>You can add a `#` at the front of the type to indicate that the block only needs to match part of the type, add `@` to indicate that the block only needs to match the start of the type",
+                "description": "Only targets selected block types. Multiple blocks can be listed by separating them using a `,`<br>You can add a `#` at the front of the type to indicate that the block only needs to match part of the type, add `@` to indicate that the block only needs to match the start of the type<br>You can add a `*` at the front of the type to indicate that the one specified is not a block type, but a [block tag](https://minecraft.wiki/w/Tag#Block_tags_2) (example: `blocktype=*sculk_replaceable`  )",
                 "link": "https://git.lumine.io/mythiccraft/MythicMobs/-/wikis/Skills/Targeters#common-location-targeters-attributes",
                 "default_value": ""
             },
             {
                 "name": [
-                    "bi",
                     "blockignores",
-                    "blockignore"
+                    "blockignore",
+                    "bi"
                 ],
                 "type": "PlaceholderString",
-                "description": "Excludes selected block types from the targeter. Multiple blocks can be listed by separating them using a `,`",
+                "description": "Excludes selected block types from the targeter. Multiple blocks can be listed by separating them using a `,`<br>Can use the special syntaxes specified in `blocktype`",
                 "link": "https://git.lumine.io/mythiccraft/MythicMobs/-/wikis/Skills/Targeters#common-location-targeters-attributes",
                 "default_value": ""
             },
@@ -1112,8 +1080,8 @@
             },
             {
                 "name": [
-                    "sortby",
-                    "sort"
+                    "sort",
+                    "sortby"
                 ],
                 "type": "String",
                 "description": "How to sort the targeted entities/locations",
@@ -1126,7 +1094,6 @@
         "plugin": "MythicMobs",
         "class": "InteractionLastAttackerTargeter",
         "extends": "IEntitySelector",
-        "implements": [],
         "name": [
             "interactionlastattacker",
             "lastattacker"
@@ -1139,10 +1106,9 @@
         "plugin": "MythicMobs",
         "class": "InteractionLastInteractTargeter",
         "extends": "IEntitySelector",
-        "implements": [],
         "name": [
-            "lastinteract",
-            "interactionlastinteract"
+            "interactionlastinteract",
+            "lastinteract"
         ],
         "description": "Targets the last entity that interacted with the caster, if the caster is of the `INTERACTION` [Type](/Mobs/Mobs#type).",
         "link": "https://git.lumine.io/mythiccraft/MythicMobs/-/wikis/Skills/Targeters/InteractionLastInteract",
@@ -1152,10 +1118,9 @@
         "plugin": "MythicMobs",
         "class": "ItemsInRadiusTargeter",
         "extends": "IEntitySelector",
-        "implements": [],
         "name": [
-            "iir",
-            "itemsinradius"
+            "itemsinradius",
+            "iir"
         ],
         "description": "Targets all items in a radius around the caster",
         "link": "https://git.lumine.io/mythiccraft/MythicMobs/-/wikis/Skills/Targeters/ItemsInRadius",
@@ -1176,10 +1141,9 @@
         "plugin": "MythicMobs",
         "class": "ItemsNearOriginTargeter",
         "extends": "IEntitySelector",
-        "implements": [],
         "name": [
-            "ino",
-            "itemsnearorigin"
+            "itemsnearorigin",
+            "ino"
         ],
         "description": "Targets all items in a radius around the origin of the metaskill",
         "link": "https://git.lumine.io/mythiccraft/MythicMobs/-/wikis/Skills/Targeters/ItemsNearOrigin",
@@ -1200,7 +1164,6 @@
         "plugin": "MythicMobs",
         "class": "LineTargeter",
         "extends": "ILocationSelector",
-        "implements": [],
         "name": [
             "line"
         ],
@@ -1219,8 +1182,8 @@
             },
             {
                 "name": [
-                    "fo",
-                    "fromorigin"
+                    "fromorigin",
+                    "fo"
                 ],
                 "type": "Boolean",
                 "description": "If the line should be drawn from the origin of the metaskill",
@@ -1233,21 +1196,20 @@
         "plugin": "MythicMobs",
         "class": "LivingInConeTargeter",
         "extends": "IEntitySelector",
-        "implements": [],
         "name": [
-            "eic",
             "livingincone",
+            "entitiesincone",
             "livingentitiesincone",
             "leic",
-            "entitiesincone"
+            "eic"
         ],
         "description": "Targets all living entities in cone with a specified angle, length and rotation relative to facing direction",
         "link": "https://git.lumine.io/mythiccraft/MythicMobs/-/wikis/Skills/Targeters/LivingInCone",
         "attributes": [
             {
                 "name": [
-                    "a",
-                    "angle"
+                    "angle",
+                    "a"
                 ],
                 "type": "PlaceholderDouble",
                 "description": "The angle of the cone",
@@ -1276,8 +1238,8 @@
             },
             {
                 "name": [
-                    "rot",
-                    "rotation"
+                    "rotation",
+                    "rot"
                 ],
                 "type": "PlaceholderDouble",
                 "description": "The rotation of the cone",
@@ -1286,8 +1248,8 @@
             },
             {
                 "name": [
-                    "pitch",
                     "usepitch",
+                    "pitch",
                     "p"
                 ],
                 "type": "Boolean",
@@ -1301,13 +1263,12 @@
         "plugin": "MythicMobs",
         "class": "LivingInLineTargeter",
         "extends": "IEntitySelector",
-        "implements": [],
         "name": [
-            "eil",
+            "livinginline",
             "entitiesinline",
             "livingentitiesinline",
             "leil",
-            "livinginline"
+            "eil"
         ],
         "description": "Targets any entities in a line between the inherited target and the casting mob",
         "link": "https://git.lumine.io/mythiccraft/MythicMobs/-/wikis/Skills/Targeters/LivingInLine",
@@ -1324,8 +1285,8 @@
             },
             {
                 "name": [
-                    "fo",
-                    "fromorigin"
+                    "fromorigin",
+                    "fo"
                 ],
                 "type": "Boolean",
                 "description": "If the line should be drawn from the origin of the metaskill",
@@ -1338,11 +1299,10 @@
         "plugin": "MythicMobs",
         "class": "LivingNearTargetLocationTargeter",
         "extends": "IEntitySelector",
-        "implements": [],
         "name": [
-            "entl",
-            "lntl",
             "livingneartargetlocation",
+            "lntl",
+            "entl",
             "ent"
         ],
         "description": "Targets all living entities near the inherited target",
@@ -1364,11 +1324,10 @@
         "plugin": "MythicMobs",
         "class": "LocationsOfTargetsTargeter",
         "extends": "ILocationSelector",
-        "implements": [],
         "name": [
-            "lot",
             "locationsoftargets",
-            "locationoftarget"
+            "locationoftarget",
+            "lot"
         ],
         "description": "Targets the location of the inherited targets",
         "link": "https://git.lumine.io/mythiccraft/MythicMobs/-/wikis/Skills/Targeters/LocationsOfTargets",
@@ -1378,9 +1337,6 @@
         "plugin": "ModelEngine",
         "class": "ModelDriverTargeter",
         "extends": "SkillTargeter",
-        "implements": [
-            "IEntityTargeter"
-        ],
         "name": [
             "modeldriver"
         ],
@@ -1392,9 +1348,6 @@
         "plugin": "ModelEngine",
         "class": "ModelPartTargeter",
         "extends": "SkillTargeter",
-        "implements": [
-            "ILocationTargeter"
-        ],
         "name": [
             "modelpart"
         ],
@@ -1403,10 +1356,10 @@
         "attributes": [
             {
                 "name": [
-                    "modelid",
-                    "mid",
                     "m",
-                    "model"
+                    "mid",
+                    "model",
+                    "modelid"
                 ],
                 "type": "PlaceholderString",
                 "description": "The id of the model of the modeled entity to check against",
@@ -1415,10 +1368,10 @@
             },
             {
                 "name": [
-                    "partid",
+                    "p",
                     "pid",
                     "part",
-                    "p"
+                    "partid"
                 ],
                 "type": "PlaceholderString",
                 "description": "The id of the bone whose location you wish to target",
@@ -1427,9 +1380,9 @@
             },
             {
                 "name": [
-                    "offset",
+                    "o",
                     "off",
-                    "o"
+                    "offset"
                 ],
                 "type": "PlaceholderString",
                 "description": "The type of the Offset. Can be `LOCAL`, `MODEL`, `GLOBAL`",
@@ -1438,11 +1391,11 @@
             },
             {
                 "name": [
-                    "coordinates",
-                    "c",
                     "location",
                     "loc",
-                    "l"
+                    "l",
+                    "coordinates",
+                    "c"
                 ],
                 "type": "String",
                 "description": "The offset on all three axis, in the `x,y,z` format. <br>If not set, the normal x, y and z attributes will be used instead.",
@@ -1478,10 +1431,10 @@
             },
             {
                 "name": [
-                    "exactmatch",
-                    "match",
                     "em",
-                    "exact"
+                    "exact",
+                    "match",
+                    "exactmatch"
                 ],
                 "type": "Boolean",
                 "description": "Does the part need to match the partid completely<br>If set to false, this will get the location of all bones whose id contains the specified one<br>*Example: pid=arm;em=false*<br>This will target **both** leftarm and rightarm",
@@ -1490,8 +1443,8 @@
             },
             {
                 "name": [
-                    "sc",
                     "s",
+                    "sc",
                     "scale"
                 ],
                 "type": "Boolean",
@@ -1505,9 +1458,6 @@
         "plugin": "ModelEngine",
         "class": "ModelPassengersTargeter",
         "extends": "SkillTargeter",
-        "implements": [
-            "IEntityTargeter"
-        ],
         "name": [
             "modelpassengers"
         ],
@@ -1516,10 +1466,10 @@
         "attributes": [
             {
                 "name": [
-                    "modelid",
-                    "mid",
                     "m",
-                    "model"
+                    "mid",
+                    "model",
+                    "modelid"
                 ],
                 "type": "PlaceholderString",
                 "description": "The id of the model of the modeled entity to check against",
@@ -1528,9 +1478,9 @@
             },
             {
                 "name": [
+                    "p",
                     "pbone",
-                    "seat",
-                    "p"
+                    "seat"
                 ],
                 "type": "PlaceholderString",
                 "description": "The name of the seat(s) to check for",
@@ -1543,11 +1493,10 @@
         "plugin": "MythicMobs",
         "class": "MotherTargeter",
         "extends": "IEntitySelector",
-        "implements": [],
         "name": [
             "mother",
-            "mom",
-            "mommy"
+            "mommy",
+            "mom"
         ],
         "description": "Targets the mother of the casting mob",
         "link": "https://git.lumine.io/mythiccraft/MythicMobs/-/wikis/Skills/Targeters/Mother",
@@ -1557,7 +1506,6 @@
         "plugin": "MythicMobs",
         "class": "MountTargeter",
         "extends": "IEntitySelector",
-        "implements": [],
         "name": [
             "mount"
         ],
@@ -1569,9 +1517,6 @@
         "plugin": "ModelEngine",
         "class": "MountedModelTargeter",
         "extends": "SkillTargeter",
-        "implements": [
-            "IEntityTargeter"
-        ],
         "name": [
             "mountedmodel"
         ],
@@ -1583,7 +1528,6 @@
         "plugin": "MythicMobs",
         "class": "NearestStructureTargeter",
         "extends": "ILocationSelector",
-        "implements": [],
         "name": [
             "neareststructure"
         ],
@@ -1592,8 +1536,8 @@
         "attributes": [
             {
                 "name": [
-                    "t",
-                    "type"
+                    "type",
+                    "t"
                 ],
                 "type": "String",
                 "description": "The type of the structure",
@@ -1612,8 +1556,8 @@
             },
             {
                 "name": [
-                    "u",
-                    "unexplored"
+                    "unexplored",
+                    "u"
                 ],
                 "type": "Boolean",
                 "description": "Whether the structure should be unexplored",
@@ -1626,10 +1570,9 @@
         "plugin": "MythicMobs",
         "class": "NotLivingNearOriginTargeter",
         "extends": "IEntitySelector",
-        "implements": [],
         "name": [
-            "nlno",
             "notlivingnearorigin",
+            "nlno",
             "nonlivingnearorigin"
         ],
         "description": "Targets all non living entities in a radius near the origin",
@@ -1651,7 +1594,6 @@
         "plugin": "MythicMobs",
         "class": "ObstructingBlockTargeter",
         "extends": "ILocationSelector",
-        "implements": [],
         "name": [
             "obstructingblock"
         ],
@@ -1663,10 +1605,9 @@
         "plugin": "MythicMobs",
         "class": "OriginTargeter",
         "extends": "ILocationSelector",
-        "implements": [],
         "name": [
-            "source",
-            "origin"
+            "origin",
+            "source"
         ],
         "description": "Targets the location of the \"origin\" or \"source\" of a meta-skill. While that is usually the casting mob, there are special cases where this is not true (such as with the Projectile Skill, where the \"origin\" is the location of the projectile)",
         "link": "https://git.lumine.io/mythiccraft/MythicMobs/-/wikis/Skills/Targeters/Origin",
@@ -1676,7 +1617,6 @@
         "plugin": "MythicMobs",
         "class": "OwnerTargeter",
         "extends": "IEntitySelector",
-        "implements": [],
         "name": [
             "owner"
         ],
@@ -1688,10 +1628,9 @@
         "plugin": "MythicMobs",
         "class": "ParentTargeter",
         "extends": "IEntitySelector",
-        "implements": [],
         "name": [
-            "summoner",
-            "parent"
+            "parent",
+            "summoner"
         ],
         "description": "Targets the Parent of the casting mob",
         "link": "https://git.lumine.io/mythiccraft/MythicMobs/-/wikis/Skills/Targeters/Parent",
@@ -1701,7 +1640,6 @@
         "plugin": "MythicMobs",
         "class": "PinTargeter",
         "extends": "ILocationSelector",
-        "implements": [],
         "name": [
             "pin"
         ],
@@ -1710,11 +1648,11 @@
         "attributes": [
             {
                 "name": [
+                    "name",
                     "n",
                     "pin",
-                    "key",
-                    "name",
                     "p",
+                    "key",
                     "k"
                 ],
                 "type": "PlaceholderString",
@@ -1738,7 +1676,6 @@
         "plugin": "MythicMobs",
         "class": "PlayerByNameTargeter",
         "extends": "IEntitySelector",
-        "implements": [],
         "name": [
             "playerbyname",
             "specificplayer"
@@ -1762,7 +1699,6 @@
         "plugin": "MythicMobs",
         "class": "PlayersInRadiusTargeter",
         "extends": "IEntitySelector",
-        "implements": [],
         "name": [
             "playersinradius",
             "pir"
@@ -1786,11 +1722,10 @@
         "plugin": "MythicMobs",
         "class": "PlayersNearTargetLocationsTargeter",
         "extends": "IEntitySelector",
-        "implements": [],
         "name": [
-            "pntl",
+            "playersneartargetlocations",
             "playersneartargetlocation",
-            "playersneartargetlocations"
+            "pntl"
         ],
         "description": "Targets all players near the inherited target locations",
         "link": "https://git.lumine.io/mythiccraft/MythicMobs/-/wikis/Skills/Targeters/PlayersNearTargetLocations",
@@ -1811,11 +1746,10 @@
         "plugin": "MythicMobs",
         "class": "PlayersOnServerTargeter",
         "extends": "IEntitySelector",
-        "implements": [],
         "name": [
             "playersonserver",
-            "everyone",
-            "server"
+            "server",
+            "everyone"
         ],
         "description": "Targets all players in the server",
         "link": "https://git.lumine.io/mythiccraft/MythicMobs/-/wikis/Skills/Targeters/PlayersOnServer",
@@ -1825,7 +1759,6 @@
         "plugin": "MythicMobs",
         "class": "ProjectileForwardTargeter",
         "extends": "ILocationSelector",
-        "implements": [],
         "name": [
             "projectileforward"
         ],
@@ -1834,10 +1767,10 @@
         "attributes": [
             {
                 "name": [
-                    "a",
                     "forward",
                     "f",
-                    "amount"
+                    "amount",
+                    "a"
                 ],
                 "type": "PlaceholderDouble",
                 "description": "How far ahead should the targeted point be",
@@ -1860,20 +1793,19 @@
         "plugin": "MythicMobs",
         "class": "RandomLocationsNearOriginTargeter",
         "extends": "ILocationSelector",
-        "implements": [],
         "name": [
             "randomlocationsnearorigin",
+            "rlo",
             "randomlocationsorigin",
-            "rlno",
-            "rlo"
+            "rlno"
         ],
         "description": "Targets random locations near the origin of the metaskill",
         "link": "https://git.lumine.io/mythiccraft/MythicMobs/-/wikis/Skills/Targeters/RandomLocationsNearOrigin",
         "attributes": [
             {
                 "name": [
-                    "a",
-                    "amount"
+                    "amount",
+                    "a"
                 ],
                 "type": "PlaceholderInteger",
                 "description": "The amount of points",
@@ -1882,10 +1814,10 @@
             },
             {
                 "name": [
-                    "maxradius",
-                    "maxr",
                     "radius",
-                    "r"
+                    "r",
+                    "maxradius",
+                    "maxr"
                 ],
                 "type": "Integer",
                 "description": "The radius in which target points will be generated",
@@ -1904,8 +1836,8 @@
             },
             {
                 "name": [
-                    "s",
-                    "spacing"
+                    "spacing",
+                    "s"
                 ],
                 "type": "Integer",
                 "description": "The minimum amount of space between selected targets",
@@ -1918,23 +1850,22 @@
         "plugin": "MythicMobs",
         "class": "RandomLocationsNearTargetsTargeter",
         "extends": "ILocationSelector",
-        "implements": [],
         "name": [
-            "randomlocationsneartargetlocations",
-            "rlnt",
+            "randomlocationsneartargets",
             "randomlocationsneartarget",
             "randomlocationsneartargetentities",
-            "rlntl",
-            "randomlocationsneartargets",
-            "rlnte"
+            "randomlocationsneartargetlocations",
+            "rlnt",
+            "rlnte",
+            "rlntl"
         ],
         "description": "Targets random locations near the inherited targets",
         "link": "https://git.lumine.io/mythiccraft/MythicMobs/-/wikis/Skills/Targeters/RandomLocationsNearTargets",
         "attributes": [
             {
                 "name": [
-                    "a",
-                    "amount"
+                    "amount",
+                    "a"
                 ],
                 "type": "PlaceholderInteger",
                 "description": "The amount of points",
@@ -1943,10 +1874,10 @@
             },
             {
                 "name": [
-                    "maxradius",
-                    "maxr",
                     "radius",
-                    "r"
+                    "r",
+                    "maxradius",
+                    "maxr"
                 ],
                 "type": "PlaceholderInteger",
                 "description": "The radius in which target points will be generated",
@@ -1965,8 +1896,8 @@
             },
             {
                 "name": [
-                    "s",
-                    "spacing"
+                    "spacing",
+                    "s"
                 ],
                 "type": "Integer",
                 "description": "The minimum amount of space between selected targets",
@@ -1979,19 +1910,18 @@
         "plugin": "MythicMobs",
         "class": "RandomLocationsTargeter",
         "extends": "ILocationSelector",
-        "implements": [],
         "name": [
-            "randomlocations",
             "randomlocationsnearcaster",
-            "rlnc"
+            "rlnc",
+            "randomlocations"
         ],
         "description": "Targets random locations near the caster",
         "link": "https://git.lumine.io/mythiccraft/MythicMobs/-/wikis/Skills/Targeters/RandomLocationsNearCaster",
         "attributes": [
             {
                 "name": [
-                    "a",
-                    "amount"
+                    "amount",
+                    "a"
                 ],
                 "type": "PlaceholderInteger",
                 "description": "The amount of points",
@@ -2000,10 +1930,10 @@
             },
             {
                 "name": [
-                    "maxradius",
-                    "maxr",
                     "radius",
-                    "r"
+                    "r",
+                    "maxradius",
+                    "maxr"
                 ],
                 "type": "Integer",
                 "description": "The radius in which target points will be generated",
@@ -2022,8 +1952,8 @@
             },
             {
                 "name": [
-                    "s",
-                    "spacing"
+                    "spacing",
+                    "s"
                 ],
                 "type": "Integer",
                 "description": "The minimum amount of space between selected targets",
@@ -2036,7 +1966,6 @@
         "plugin": "MythicMobs",
         "class": "RandomRingPointTargeter",
         "extends": "ILocationSelector",
-        "implements": [],
         "name": [
             "randomringpoint"
         ],
@@ -2045,8 +1974,8 @@
         "attributes": [
             {
                 "name": [
-                    "a",
-                    "amount"
+                    "amount",
+                    "a"
                 ],
                 "type": "String",
                 "description": "How many of the generated points should be targeted",
@@ -2075,9 +2004,9 @@
             },
             {
                 "name": [
+                    "rotationx",
                     "rotx",
-                    "rx",
-                    "rotationx"
+                    "rx"
                 ],
                 "type": "PlaceholderDouble",
                 "description": "The rotation on the x axis",
@@ -2086,9 +2015,9 @@
             },
             {
                 "name": [
+                    "rotationy",
                     "roty",
-                    "ry",
-                    "rotationy"
+                    "ry"
                 ],
                 "type": "PlaceholderDouble",
                 "description": "The rotation on the y axis",
@@ -2097,8 +2026,8 @@
             },
             {
                 "name": [
-                    "rotz",
                     "rotationz",
+                    "rotz",
                     "rz"
                 ],
                 "type": "PlaceholderDouble",
@@ -2108,9 +2037,9 @@
             },
             {
                 "name": [
+                    "offsetx",
                     "offx",
-                    "ox",
-                    "offsetx"
+                    "ox"
                 ],
                 "type": "PlaceholderDouble",
                 "description": "The offset on the x axis",
@@ -2120,8 +2049,8 @@
             {
                 "name": [
                     "offsety",
-                    "oy",
-                    "offy"
+                    "offy",
+                    "oy"
                 ],
                 "type": "PlaceholderDouble",
                 "description": "The offset on the y axis",
@@ -2130,9 +2059,9 @@
             },
             {
                 "name": [
+                    "offsetz",
                     "offz",
-                    "oz",
-                    "offsetz"
+                    "oz"
                 ],
                 "type": "PlaceholderDouble",
                 "description": "The offset on the z axis",
@@ -2145,10 +2074,9 @@
         "plugin": "MythicMobs",
         "class": "RectangleTargeter",
         "extends": "ILocationSelector",
-        "implements": [],
         "name": [
-            "cube",
             "rectangle",
+            "cube",
             "cuboid"
         ],
         "description": "Returns the # of points target locations that comprise a rectangle. Depending on the parameters, some elements of the rectangle can be modified, such as it being filled or not, if to target only its outline, its location and so on",
@@ -2210,10 +2138,10 @@
             },
             {
                 "name": [
-                    "density",
-                    "d",
                     "points",
-                    "p"
+                    "p",
+                    "density",
+                    "d"
                 ],
                 "type": "PlaceholderInteger",
                 "description": "Amount of points per cube 'line'",
@@ -2222,9 +2150,9 @@
             },
             {
                 "name": [
+                    "filled",
                     "fill",
-                    "f",
-                    "filled"
+                    "f"
                 ],
                 "type": "Boolean",
                 "description": "If the rectangle should be filled",
@@ -2233,11 +2161,11 @@
             },
             {
                 "name": [
-                    "e",
-                    "onlyoutline",
-                    "edge",
                     "onlyedge",
+                    "onlyoutline",
                     "outline",
+                    "edge",
+                    "e",
                     "o"
                 ],
                 "type": "Boolean",
@@ -2247,8 +2175,8 @@
             },
             {
                 "name": [
-                    "origin",
-                    "fromorigin"
+                    "fromorigin",
+                    "origin"
                 ],
                 "type": "Boolean",
                 "description": "If the rectangle should be drawn from the origin of the metaskill",
@@ -2257,8 +2185,8 @@
             },
             {
                 "name": [
-                    "r",
-                    "rotation"
+                    "rotation",
+                    "r"
                 ],
                 "type": "String",
                 "description": "The 3D rotation of the rectangle",
@@ -2271,7 +2199,6 @@
         "plugin": "MythicMobs",
         "class": "RegionTargeter",
         "extends": "SkillTargeter",
-        "implements": [],
         "name": [
             "region"
         ],
@@ -2311,10 +2238,9 @@
         "plugin": "MythicMobs",
         "class": "RingAroundOriginTargeter",
         "extends": "ILocationSelector",
-        "implements": [],
         "name": [
-            "ringorigin",
             "ringaroundorigin",
+            "ringorigin",
             "rao"
         ],
         "description": "Targets locations in a specified ring around the origin.\n\nRotations are in radians, such as 90 degrees of axis rotation being `1.57`.",
@@ -2342,9 +2268,9 @@
             },
             {
                 "name": [
+                    "rotationx",
                     "rotx",
-                    "rx",
-                    "rotationx"
+                    "rx"
                 ],
                 "type": "PlaceholderDouble",
                 "description": "The rotation of the ring on the x axis",
@@ -2353,9 +2279,9 @@
             },
             {
                 "name": [
+                    "rotationy",
                     "roty",
-                    "ry",
-                    "rotationy"
+                    "ry"
                 ],
                 "type": "PlaceholderDouble",
                 "description": "The rotation of the ring on the y axis",
@@ -2364,8 +2290,8 @@
             },
             {
                 "name": [
-                    "rotz",
                     "rotationz",
+                    "rotz",
                     "rz"
                 ],
                 "type": "PlaceholderDouble",
@@ -2375,9 +2301,9 @@
             },
             {
                 "name": [
+                    "offsetx",
                     "offx",
-                    "ox",
-                    "offsetx"
+                    "ox"
                 ],
                 "type": "PlaceholderDouble",
                 "description": "The offset of the ring on the x axis",
@@ -2387,8 +2313,8 @@
             {
                 "name": [
                     "offsety",
-                    "oy",
-                    "offy"
+                    "offy",
+                    "oy"
                 ],
                 "type": "PlaceholderDouble",
                 "description": "The offset of the ring on the y axis",
@@ -2397,9 +2323,9 @@
             },
             {
                 "name": [
+                    "offsetz",
                     "offz",
-                    "oz",
-                    "offsetz"
+                    "oz"
                 ],
                 "type": "PlaceholderDouble",
                 "description": "The offset of the ring on the z axis",
@@ -2412,7 +2338,6 @@
         "plugin": "MythicMobs",
         "class": "RingTargeter",
         "extends": "ILocationSelector",
-        "implements": [],
         "name": [
             "ring"
         ],
@@ -2441,9 +2366,9 @@
             },
             {
                 "name": [
+                    "rotationx",
                     "rotx",
-                    "rx",
-                    "rotationx"
+                    "rx"
                 ],
                 "type": "PlaceholderDouble",
                 "description": "The rotation of the ring on the x axis",
@@ -2452,9 +2377,9 @@
             },
             {
                 "name": [
+                    "rotationy",
                     "roty",
-                    "ry",
-                    "rotationy"
+                    "ry"
                 ],
                 "type": "PlaceholderDouble",
                 "description": "The rotation of the ring on the y axis",
@@ -2463,8 +2388,8 @@
             },
             {
                 "name": [
-                    "rotz",
                     "rotationz",
+                    "rotz",
                     "rz"
                 ],
                 "type": "PlaceholderDouble",
@@ -2474,9 +2399,9 @@
             },
             {
                 "name": [
+                    "offsetx",
                     "offx",
-                    "ox",
-                    "offsetx"
+                    "ox"
                 ],
                 "type": "PlaceholderDouble",
                 "description": "The offset of the ring on the x axis",
@@ -2486,8 +2411,8 @@
             {
                 "name": [
                     "offsety",
-                    "oy",
-                    "offy"
+                    "offy",
+                    "oy"
                 ],
                 "type": "PlaceholderDouble",
                 "description": "The offset of the ring on the y axis",
@@ -2496,9 +2421,9 @@
             },
             {
                 "name": [
+                    "offsetz",
                     "offz",
-                    "oz",
-                    "offsetz"
+                    "oz"
                 ],
                 "type": "PlaceholderDouble",
                 "description": "The offset of the ring on the z axis",
@@ -2520,12 +2445,11 @@
         "plugin": "MythicMobs",
         "class": "SelfEyeLocationTargeter",
         "extends": "ILocationSelector",
-        "implements": [],
         "name": [
-            "eyedirection",
-            "bosseyelocation",
             "selfeyelocation",
+            "eyedirection",
             "castereyelocation",
+            "bosseyelocation",
             "mobeyelocation"
         ],
         "description": "Targets the caster's eye location",
@@ -2536,11 +2460,10 @@
         "plugin": "MythicMobs",
         "class": "SelfLocationTargeter",
         "extends": "ILocationSelector",
-        "implements": [],
         "name": [
-            "bosslocation",
-            "casterlocation",
             "selflocation",
+            "casterlocation",
+            "bosslocation",
             "moblocation"
         ],
         "description": "Targets the caster's location",
@@ -2551,12 +2474,11 @@
         "plugin": "MythicMobs",
         "class": "SelfTargeter",
         "extends": "IEntitySelector",
-        "implements": [],
         "name": [
             "self",
+            "caster",
             "boss",
-            "mob",
-            "caster"
+            "mob"
         ],
         "description": "Targets the caster of the mechanic",
         "link": "https://git.lumine.io/mythiccraft/MythicMobs/-/wikis/Skills/Targeters/Self",
@@ -2566,12 +2488,11 @@
         "plugin": "MythicMobs",
         "class": "SiblingsTargeter",
         "extends": "IEntitySelector",
-        "implements": [],
         "name": [
-            "sibling",
             "siblings",
-            "sisters",
-            "brothers"
+            "sibling",
+            "brothers",
+            "sisters"
         ],
         "description": "Targets any mobs that share the same parent as the caster",
         "link": "https://git.lumine.io/mythiccraft/MythicMobs/-/wikis/Skills/Targeters/Siblings",
@@ -2581,16 +2502,15 @@
         "plugin": "MythicMobs",
         "class": "SkillTargeter",
         "extends": null,
-        "implements": [],
         "name": [],
         "description": null,
         "link": "https://git.lumine.io/mythiccraft/MythicMobs/-/wikis/Skills/Targeters#common-attributes",
         "attributes": [
             {
                 "name": [
-                    "cond",
                     "targetconditions",
                     "conditions",
+                    "cond",
                     "c"
                 ],
                 "type": "String",
@@ -2600,11 +2520,11 @@
             },
             {
                 "name": [
-                    "asparent",
-                    "fromparent",
                     "parent",
-                    "sudoparent",
-                    "ofparent"
+                    "asparent",
+                    "ofparent",
+                    "fromparent",
+                    "sudoparent"
                 ],
                 "type": "Boolean",
                 "description": "If this attribute is set to `true`, the targeter will be parsed as if it was the [Parent][] of the casting entity executing the mechanic",
@@ -2613,11 +2533,11 @@
             },
             {
                 "name": [
-                    "sudoowner",
-                    "fromowner",
+                    "owner",
                     "asowner",
                     "ofowner",
-                    "owner"
+                    "fromowner",
+                    "sudoowner"
                 ],
                 "type": "Boolean",
                 "description": "If this attribute is set to `true`, the targeter will be parsed as if it was the [Owner][] of the casting entity executing the mechanic",
@@ -2629,8 +2549,8 @@
                     "trigger",
                     "astrigger",
                     "oftrigger",
-                    "sudotrigger",
-                    "fromtrigger"
+                    "fromtrigger",
+                    "sudotrigger"
                 ],
                 "type": "Boolean",
                 "description": "If this attribute is set to `true`, the targeter will be parsed as if it was the [Trigger][] of the skilltree executing the mechanic",
@@ -2643,7 +2563,6 @@
         "plugin": "MythicMobs",
         "class": "SpawnLocationTargeter",
         "extends": "ILocationSelector",
-        "implements": [],
         "name": [
             "spawnlocation"
         ],
@@ -2655,7 +2574,6 @@
         "plugin": "MythicMobs",
         "class": "SpawnersTargeter",
         "extends": "ILocationSelector",
-        "implements": [],
         "name": [
             "spawners"
         ],
@@ -2665,8 +2583,8 @@
             {
                 "name": [
                     "spawners",
-                    "s",
-                    "spawner"
+                    "spawner",
+                    "s"
                 ],
                 "type": "String",
                 "description": "The names of the spawners. Can be either a simple name, a group (`g:groupname`) or contain wildcards (`Spawner*` to target *Spawner1*,*Spawner2*,*Spawner3*...)",
@@ -2679,7 +2597,6 @@
         "plugin": "MythicMobs",
         "class": "SphereTargeter",
         "extends": "ILocationSelector",
-        "implements": [],
         "name": [
             "sphere"
         ],
@@ -2718,8 +2635,8 @@
             },
             {
                 "name": [
-                    "e",
-                    "exact"
+                    "exact",
+                    "e"
                 ],
                 "type": "Boolean",
                 "description": "If the targeter should draw a perfect sphere",
@@ -2732,7 +2649,6 @@
         "plugin": "MythicMobs",
         "class": "TargetBlockTargeter",
         "extends": "ILocationSelector",
-        "implements": [],
         "name": [
             "targetblock"
         ],
@@ -2742,9 +2658,9 @@
             {
                 "name": [
                     "maxdistance",
-                    "d",
                     "max",
-                    "distance"
+                    "distance",
+                    "d"
                 ],
                 "type": "Integer",
                 "description": "The maximum distance to check for the block, if the caster is a player",
@@ -2753,8 +2669,8 @@
             },
             {
                 "name": [
-                    "it",
-                    "ignoretransparent"
+                    "ignoretransparent",
+                    "it"
                 ],
                 "type": "Boolean",
                 "description": "If transparent blocks should be ignored",
@@ -2767,7 +2683,6 @@
         "plugin": "MythicMobs",
         "class": "TargetLocationTargeter",
         "extends": "ILocationSelector",
-        "implements": [],
         "name": [
             "targetlocation",
             "targetloc",
@@ -2779,9 +2694,9 @@
             {
                 "name": [
                     "maxdistance",
-                    "d",
                     "max",
-                    "distance"
+                    "distance",
+                    "d"
                 ],
                 "type": "Integer",
                 "description": "The maximum distance to check for the location, if the caster is a player",
@@ -2790,8 +2705,8 @@
             },
             {
                 "name": [
-                    "it",
-                    "ignoretransparent"
+                    "ignoretransparent",
+                    "it"
                 ],
                 "type": "Boolean",
                 "description": "If transparent blocks should be ignored",
@@ -2804,7 +2719,6 @@
         "plugin": "MythicMobs",
         "class": "TargetTargeter",
         "extends": "IEntitySelector",
-        "implements": [],
         "name": [
             "target",
             "t"
@@ -2817,10 +2731,9 @@
         "plugin": "MythicMobs",
         "class": "TargetedLocationTargeter",
         "extends": "ILocationSelector",
-        "implements": [],
         "name": [
-            "targetedlocations",
             "targetedlocation",
+            "targetedlocations",
             "targetedloc"
         ],
         "description": "Targets the inherited targeted locations. Useful for [Targets Filtering](/Skills/Metaskills#targets-filtering) by using [Targeter Options](/Skills/Targeters#targeter-options).",
@@ -2831,10 +2744,9 @@
         "plugin": "MythicMobs",
         "class": "TargetedTargetTargeter",
         "extends": "IEntitySelector",
-        "implements": [],
         "name": [
-            "targeted",
-            "targetedtarget"
+            "targetedtarget",
+            "targeted"
         ],
         "description": "Targets the inherited targeted entities. Useful for [Targets Filtering](/Skills/Metaskills#targets-filtering) by using [Targeter Options](/Skills/Targeters#targeter-options).",
         "link": "https://git.lumine.io/mythiccraft/MythicMobs/-/wikis/Skills/Targeters/TargetedTarget",
@@ -2844,7 +2756,6 @@
         "plugin": "MythicMobs",
         "class": "ThreatTableRandomLocationTargeter",
         "extends": "ILocationSelector",
-        "implements": [],
         "name": [
             "randomthreattargetlocation",
             "rttl"
@@ -2857,7 +2768,6 @@
         "plugin": "MythicMobs",
         "class": "TrackedLocationTargeter",
         "extends": "ILocationSelector",
-        "implements": [],
         "name": [
             "trackedlocation"
         ],
@@ -2869,7 +2779,6 @@
         "plugin": "MythicMobs",
         "class": "TrackedPlayersTargeter",
         "extends": "IEntitySelector",
-        "implements": [],
         "name": [
             "trackedplayers",
             "tracked"
@@ -2882,7 +2791,6 @@
         "plugin": "MythicMobs",
         "class": "TriggerLocationTargeter",
         "extends": "ILocationSelector",
-        "implements": [],
         "name": [
             "triggerlocation"
         ],
@@ -2894,7 +2802,6 @@
         "plugin": "MythicMobs",
         "class": "TriggerTargeter",
         "extends": "IEntitySelector",
-        "implements": [],
         "name": [
             "trigger"
         ],
@@ -2906,18 +2813,17 @@
         "plugin": "MythicMobs",
         "class": "UniqueIdentifierTargeter",
         "extends": "IEntitySelector",
-        "implements": [],
         "name": [
-            "uuid",
-            "uniqueidentifier"
+            "uniqueidentifier",
+            "uuid"
         ],
         "description": "Targets a specific entity by their UUID. Can be a placeholder.",
         "link": "https://git.lumine.io/mythiccraft/MythicMobs/-/wikis/Skills/Targeters/UniqueIdentifier",
         "attributes": [
             {
                 "name": [
-                    "u",
-                    "uuid"
+                    "uuid",
+                    "u"
                 ],
                 "type": "PlaceholderString",
                 "description": "The uuid of the entity",
@@ -2930,22 +2836,21 @@
         "plugin": "MythicMobs",
         "class": "VariableLocationTargeter",
         "extends": "ILocationSelector",
-        "implements": [],
         "name": [
-            "varlocation",
-            "variablelocation"
+            "variablelocation",
+            "varlocation"
         ],
         "description": "Targets the location stored in the specified variable. One such variable can be set via the [SetVariableLocation](/skills/mechanics/setvariablelocation) mechanic.",
         "link": "https://git.lumine.io/mythiccraft/MythicMobs/-/wikis/Skills/Targeters/VariableLocation",
         "attributes": [
             {
                 "name": [
-                    "key",
-                    "var",
                     "name",
                     "n",
-                    "k",
-                    "variable"
+                    "variable",
+                    "var",
+                    "key",
+                    "k"
                 ],
                 "type": "String",
                 "description": "The name of the variable.",
@@ -2954,8 +2859,8 @@
             },
             {
                 "name": [
-                    "s",
-                    "scope"
+                    "scope",
+                    "s"
                 ],
                 "type": "String",
                 "description": "The scope of the variable. Can optionally be set in the name, using the scope.name syntax",
@@ -2968,7 +2873,6 @@
         "plugin": "MythicMobs",
         "class": "VehicleTargeter",
         "extends": "IEntitySelector",
-        "implements": [],
         "name": [
             "vehicle"
         ],

@@ -2,6 +2,9 @@
 
 ## [Unreleased]
 
+## Added
+- `MythicScribe.attributeAliasUsedInCompletions` config, to set which attribute alias to use for completions. Defaults to `main`
+
 ## Fixed
 - triggers, targeters and inline conditions completions behaving inconsistently once invoked
 - conditions completions insering an extra space before the condition name if triggered by inputting "-" manually
