@@ -47,6 +47,9 @@ export function metaskillFileCompletionProvider(){
                     if(value.type == "list"){
                         completionItem.insertText = new vscode.SnippetString(indentation + key + ":\n" + indentation + "- $0");
                     }
+                    else if (value.type == "bool") {
+                        completionItem.insertText = new vscode.SnippetString(indentation + key + ": ${1|true,false|}");
+                    }
                     else {
                         completionItem.insertText = new vscode.SnippetString(indentation + key + ": $0");
                     }
