@@ -1,0 +1,48 @@
+{
+    "caster": {
+        "names": [
+            "caster",
+            "self"
+        ],
+        "description": "The caster of the skill."
+    },
+    "nearby": {
+        "names": [
+            "nearby",
+            "nearbyplayers"
+        ],
+        "description": "All players in a big radius."
+    },
+    "nonSelfWorld": {
+        "names": [
+            "nonselfworld",
+            "nonself"
+        ],
+        "description": "All players in the world except the caster."
+    },
+    "target": {
+        "names": [
+            "target"
+        ],
+        "description": "The player that the skill is targeting."
+    },
+    "@": {
+        "names": [
+            "@"
+        ],
+        "description": "A custom targeter."
+    },
+    "tracked": {
+        "names": [
+            "tracked",
+            "trackedplayers"
+        ],
+        "description": "Players whose clients can render the caster."
+    },
+    "world": {
+        "names": [
+            "world"
+        ],
+        "description": "All players in the world."
+    }
+}

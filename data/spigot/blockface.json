@@ -1,0 +1,59 @@
+{
+    "DOWN": {
+        "Description": ""
+    },
+    "EAST": {
+        "Description": ""
+    },
+    "EAST_NORTH_EAST": {
+        "Description": ""
+    },
+    "EAST_SOUTH_EAST": {
+        "Description": ""
+    },
+    "NORTH": {
+        "Description": ""
+    },
+    "NORTH_EAST": {
+        "Description": ""
+    },
+    "NORTH_NORTH_EAST": {
+        "Description": ""
+    },
+    "NORTH_NORTH_WEST": {
+        "Description": ""
+    },
+    "NORTH_WEST": {
+        "Description": ""
+    },
+    "SELF": {
+        "Description": ""
+    },
+    "SOUTH": {
+        "Description": ""
+    },
+    "SOUTH_EAST": {
+        "Description": ""
+    },
+    "SOUTH_SOUTH_EAST": {
+        "Description": ""
+    },
+    "SOUTH_SOUTH_WEST": {
+        "Description": ""
+    },
+    "SOUTH_WEST": {
+        "Description": ""
+    },
+    "UP": {
+        "Description": ""
+    },
+    "WEST": {
+        "Description": ""
+    },
+    "WEST_NORTH_WEST": {
+        "Description": ""
+    },
+    "WEST_SOUTH_WEST": {
+        "Description": ""
+    }
+}

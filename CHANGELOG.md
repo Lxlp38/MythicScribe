@@ -5,10 +5,12 @@
 ## Added
 - `MythicScribe.attributeAliasUsedInCompletions` config, to set which attribute alias to use for completions. Defaults to `main`
 - `true`/`false` snippet for Boolean attributes and Metaskill Boolean Fields
+- A LOT of snippet completions for attributes whose value must be an element from an enum. Support will be added gradually over time
 
 ## Fixed
 - triggers, targeters and inline conditions completions behaving inconsistently once invoked
 - conditions completions insering an extra space before the condition name if triggered by inputting "-" manually
+
 
 ## [0.2.0]
 

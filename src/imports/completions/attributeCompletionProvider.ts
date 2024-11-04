@@ -1,6 +1,6 @@
 import * as vscode from 'vscode';
 import * as yamlutils from '../utils/yamlutils';
-import { ObjectType, ObjectInfo, keyAliases } from '../../objectInfos';
+import { ObjectType, keyAliases, EnumInfo, EnumType } from '../../objectInfos';
 import { getAllAttributes, getMechanicDataByName } from '../utils/mechanicutils';
 import { getObjectLinkedToAttribute } from '../utils/cursorutils';
 
@@ -84,12 +84,18 @@ export function attributeCompletionProvider() {
                     }
 
                     const attributeType = attribute.type;
+                    const attributeEnum = attribute.enum ? attribute.enum.toUpperCase() : null;
                     const completionItem = new vscode.CompletionItem(mainname, vscode.CompletionItemKind.Field);
                     completionItem.label = `${aliases.join(", ")}`;
                     completionItem.detail = `${attribute.description}`;
                     completionItem.kind = vscode.CompletionItemKind.Field;
+
+
                     if (attributeType === "Boolean") {
                         completionItem.insertText = new vscode.SnippetString(mainname + "=" + "${1|true,false|}");
+                    }
+                    else if (attributeEnum && Object.keys(EnumType).includes(attributeEnum)) {
+                        completionItem.insertText = new vscode.SnippetString(mainname + "=" + "${1|"+ EnumInfo[EnumType[attributeEnum as keyof typeof EnumType]].commalist +"|}");
                     }
                     else {
                         completionItem.insertText = new vscode.SnippetString(mainname + "=");

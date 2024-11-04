@@ -1,0 +1,50 @@
+{
+    "BLACK": {
+        "Description": "Represents black dye."
+    },
+    "BLUE": {
+        "Description": "Represents blue dye."
+    },
+    "BROWN": {
+        "Description": "Represents brown dye."
+    },
+    "CYAN": {
+        "Description": "Represents cyan dye."
+    },
+    "GRAY": {
+        "Description": "Represents gray dye."
+    },
+    "GREEN": {
+        "Description": "Represents green dye."
+    },
+    "LIGHT_BLUE": {
+        "Description": "Represents light blue dye."
+    },
+    "LIGHT_GRAY": {
+        "Description": "Represents light gray dye."
+    },
+    "LIME": {
+        "Description": "Represents lime dye."
+    },
+    "MAGENTA": {
+        "Description": "Represents magenta dye."
+    },
+    "ORANGE": {
+        "Description": "Represents orange dye."
+    },
+    "PINK": {
+        "Description": "Represents pink dye."
+    },
+    "PURPLE": {
+        "Description": "Represents purple dye."
+    },
+    "RED": {
+        "Description": "Represents red dye."
+    },
+    "WHITE": {
+        "Description": "Represents white dye."
+    },
+    "YELLOW": {
+        "Description": "Represents yellow dye."
+    }
+}

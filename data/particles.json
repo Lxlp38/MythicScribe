@@ -1,0 +1,202 @@
+{
+    "poof": null,
+    "explosion": null,
+    "explosion_emitter": null,
+    "firework": null,
+    "bubble": null,
+    "splash": null,
+    "fishing": null,
+    "underwater": null,
+    "suspended_depth": null,
+    "crit": null,
+    "enchanted_hit": null,
+    "smoke": null,
+    "large_smoke": null,
+    "effect": null,
+    "instant_effect": null,
+    "entity_effect": [
+        [
+            "color",
+            "c",
+            "The color of the particle",
+            "#FF0000"
+        ]
+    ],
+    "spell_mob_ambient": null,
+    "witch": null,
+    "dripping_water": null,
+    "dripping_lava": null,
+    "angry_villager": null,
+    "happy_villager": null,
+    "mycelium": null,
+    "note": null,
+    "portal": null,
+    "enchant": null,
+    "flame": null,
+    "lava": null,
+    "cloud": null,
+    "dust": [
+        [
+            "color",
+            "c",
+            "The color of the particle",
+            "#FF0000"
+        ],
+        [
+            "size",
+            "",
+            "The size of the particle",
+            "1"
+        ]
+    ],
+    "item_snowball": null,
+    "item_slime": null,
+    "heart": null,
+    "barrier": null,
+    "item": [
+        [
+            "material",
+            "m",
+            "The material the itemstack particle will be based on",
+            "STONE"
+        ]
+    ],
+    "block": [
+        [
+            "material",
+            "m",
+            "The material the blockdata particle will be based on",
+            "STONE"
+        ]
+    ],
+    "block_dust": null,
+    "rain": null,
+    "elder_guardian": null,
+    "dragon_breath": null,
+    "end_rod": null,
+    "damage_indicator": null,
+    "sweep_attack": null,
+    "falling_dust": [
+        [
+            "material",
+            "m",
+            "The material the blockdata particle will be based on",
+            "STONE"
+        ]
+    ],
+    "totem_of_undying": null,
+    "spit": null,
+    "squid_ink": null,
+    "bubble_pop": null,
+    "current_down": null,
+    "bubble_column_up": null,
+    "nautilus": null,
+    "dolphin": null,
+    "composter": null,
+    "falling_lava": null,
+    "falling_water": null,
+    "flash": null,
+    "landing_lava": null,
+    "sneeze": null,
+    "snowflake": null,
+    "campfire_cosy_smoke": null,
+    "campfire_signal_smoke": null,
+    "dripping_honey": null,
+    "falling_honey": null,
+    "falling_nectar": null,
+    "landing_honey": null,
+    "ash": null,
+    "white_ash": null,
+    "crimson_spore": null,
+    "soul_fire_flame": null,
+    "warped_spore": null,
+    "dripping_obsidian_tear": null,
+    "falling_obsidian_tear": null,
+    "landing_obsidian_tear": null,
+    "soul": null,
+    "dripping_dripstone_lava": null,
+    "dripping_dripstone_water": null,
+    "dust_color_transition": [
+        [
+            "color",
+            "c, color1, c1, fromcolor, fc",
+            "The color the particles starts as",
+            "#FF0000"
+        ],
+        [
+            "color2",
+            "c2, tocolor, tc",
+            "The color the particles transitions to",
+            "#0000FF"
+        ],
+        [
+            "size",
+            "",
+            "The size of the particle",
+            "1"
+        ]
+    ],
+    "electric_spark": null,
+    "falling_dripstone_lava": null,
+    "falling_dripstone_water": null,
+    "glow": null,
+    "glow_squid_ink": null,
+    "light": null,
+    "reverse_portal": null,
+    "scrape": null,
+    "small_flame": null,
+    "vibration": null,
+    "wax_off": null,
+    "wax_on": null,
+    "falling_spore_blossom": null,
+    "spore_blossom_air": null,
+    "block_marker": [
+        [
+            "material",
+            "m",
+            "The material the blockdata particle will be based on",
+            "STONE"
+        ]
+    ],
+    "sculk_soul": null,
+    "shriek": null,
+    "sculk_charge": [
+        [
+            "rotation",
+            "rot, r",
+            "The rotation of the particle",
+            "0"
+        ]
+    ],
+    "sculk_charge_pop": [
+        [
+            "rotation",
+            "rot, r",
+            "The rotation of the particle",
+            "0"
+        ]
+    ],
+    "sonic_boom": null,
+    "cherry_leaves": null,
+    "egg_crack": null,
+    "white_smoke": null,
+    "dust_plume": null,
+    "gust": null,
+    "gust_emitter_small": null,
+    "gust_emitter_large": null,
+    "small_gust": null,
+    "trial_spawner_detection": null,
+    "trial_spawner_detection_ominous": null,
+    "trial_omen": null,
+    "dust_pillar": [
+        [
+            "material",
+            "m",
+            "The material the blockdata particle will be based on",
+            "STONE"
+        ]
+    ],
+    "vault_connection": null,
+    "ominous_spawning": null,
+    "raid_omen": null
+}

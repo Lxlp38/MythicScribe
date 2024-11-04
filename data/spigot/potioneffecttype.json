@@ -1,0 +1,119 @@
+{
+    "ABSORPTION": {
+        "Description": "Increases the maximum health of an entity with health that cannot be\n regenerated, but is refilled every 30 seconds."
+    },
+    "BAD_OMEN": {
+        "Description": "Triggers an ominous event when the player enters a village or trial chambers.\n oof."
+    },
+    "BLINDNESS": {
+        "Description": "Blinds an entity."
+    },
+    "CONDUIT_POWER": {
+        "Description": "Effects granted by a nearby conduit."
+    },
+    "DARKNESS": {
+        "Description": "Causes the player's vision to dim occasionally."
+    },
+    "DOLPHINS_GRACE": {
+        "Description": "Increses underwater movement speed.\n Squee'ek uh'k kk'kkkk squeek eee'eek."
+    },
+    "FIRE_RESISTANCE": {
+        "Description": "Stops fire damage."
+    },
+    "GLOWING": {
+        "Description": "Outlines the entity so that it can be seen from afar."
+    },
+    "HASTE": {
+        "Description": "Increases dig speed."
+    },
+    "HEALTH_BOOST": {
+        "Description": "Increases the maximum health of an entity."
+    },
+    "HERO_OF_THE_VILLAGE": {
+        "Description": "Reduces the cost of villager trades.\n \\o/."
+    },
+    "HUNGER": {
+        "Description": "Increases hunger."
+    },
+    "INFESTED": {
+        "Description": "Chance of spawning silverfish when hurt."
+    },
+    "INSTANT_DAMAGE": {
+        "Description": "Hurts an entity."
+    },
+    "INSTANT_HEALTH": {
+        "Description": "Heals an entity."
+    },
+    "INVISIBILITY": {
+        "Description": "Grants invisibility."
+    },
+    "JUMP_BOOST": {
+        "Description": "Increases jump height."
+    },
+    "LEVITATION": {
+        "Description": "Causes the entity to float into the air."
+    },
+    "LUCK": {
+        "Description": "Loot table luck."
+    },
+    "MINING_FATIGUE": {
+        "Description": "Decreases dig speed."
+    },
+    "NAUSEA": {
+        "Description": "Warps vision on the client."
+    },
+    "NIGHT_VISION": {
+        "Description": "Allows an entity to see in the dark."
+    },
+    "OOZING": {
+        "Description": "Causes slimes to spawn upon death."
+    },
+    "POISON": {
+        "Description": "Deals damage to an entity over time."
+    },
+    "RAID_OMEN": {
+        "Description": "Triggers a raid when a player enters a village."
+    },
+    "REGENERATION": {
+        "Description": "Regenerates health."
+    },
+    "RESISTANCE": {
+        "Description": "Decreases damage dealt to an entity."
+    },
+    "SATURATION": {
+        "Description": "Increases the food level of an entity each tick."
+    },
+    "SLOWNESS": {
+        "Description": "Decreases movement speed."
+    },
+    "SLOW_FALLING": {
+        "Description": "Slows entity fall rate."
+    },
+    "SPEED": {
+        "Description": "Increases movement speed."
+    },
+    "STRENGTH": {
+        "Description": "Increases damage dealt."
+    },
+    "TRIAL_OMEN": {
+        "Description": "Causes trial spawners to become ominous."
+    },
+    "UNLUCK": {
+        "Description": "Loot table unluck."
+    },
+    "WATER_BREATHING": {
+        "Description": "Allows breathing underwater."
+    },
+    "WEAKNESS": {
+        "Description": "Decreases damage dealt by an entity."
+    },
+    "WEAVING": {
+        "Description": "Creates cobwebs upon death."
+    },
+    "WIND_CHARGED": {
+        "Description": "Emits a wind burst upon death."
+    },
+    "WITHER": {
+        "Description": "Deals damage to an entity over time and gives the health to the\n shooter."
+    }
+}

@@ -25,6 +25,7 @@
                     "b"
                 ],
                 "type": "PlaceholderString",
+                "enum": null,
                 "description": "Blocks to add to the vein. Can be a list.<br>You can add a `*` at the front of the type to indicate that the one specified is not a block type, but a [block tag](https://minecraft.wiki/w/Tag#Block_tags_2) (example: `blocktype=*sculk_replaceable` )",
                 "link": "https://git.lumine.io/mythiccraft/MythicMobs/-/wikis/Skills/Targeters/BlockVein",
                 "default_value": "STONE"
@@ -37,6 +38,7 @@
                     "m"
                 ],
                 "type": "PlaceholderInteger",
+                "enum": null,
                 "description": "Blocks to add to the vein. Can be a list.<br>You can add a `*` at the front of the type to indicate that the one specified is not a block type, but a [block tag](https://minecraft.wiki/w/Tag#Block_tags_2) (example: `blocktype=*sculk_replaceable` )",
                 "link": "https://git.lumine.io/mythiccraft/MythicMobs/-/wikis/Skills/Targeters/BlockVein",
                 "default_value": "STONE"
@@ -47,6 +49,7 @@
                     "match"
                 ],
                 "type": "Boolean",
+                "enum": null,
                 "description": "Should the targeted blocks match the one at the origin of the metaskill",
                 "link": "https://git.lumine.io/mythiccraft/MythicMobs/-/wikis/Skills/Targeters/BlockVein",
                 "default_value": "true"
@@ -70,6 +73,7 @@
                     "na"
                 ],
                 "type": "Boolean",
+                "enum": null,
                 "description": "Whether air should not be targeted",
                 "link": "https://git.lumine.io/mythiccraft/MythicMobs/-/wikis/Skills/Targeters/BlocksInChunk",
                 "default_value": "true"
@@ -80,6 +84,7 @@
                     "oa"
                 ],
                 "type": "Boolean",
+                "enum": null,
                 "description": "Whether only air should be targeted",
                 "link": "https://git.lumine.io/mythiccraft/MythicMobs/-/wikis/Skills/Targeters/BlocksInChunk",
                 "default_value": "false"
@@ -90,6 +95,7 @@
                     "no"
                 ],
                 "type": "Boolean",
+                "enum": null,
                 "description": "Whether the targeter should also target the origin",
                 "link": "https://git.lumine.io/mythiccraft/MythicMobs/-/wikis/Skills/Targeters/BlocksInChunk",
                 "default_value": "false"
@@ -112,6 +118,7 @@
                     "p1"
                 ],
                 "type": "PlaceholderString",
+                "enum": null,
                 "description": "The first [pin]",
                 "link": "https://git.lumine.io/mythiccraft/MythicMobs/-/wikis/Skills/Targeters/BlocksInPinRegion",
                 "default_value": ""
@@ -122,6 +129,7 @@
                     "p2"
                 ],
                 "type": "PlaceholderString",
+                "enum": null,
                 "description": "The second [pin]",
                 "link": "https://git.lumine.io/mythiccraft/MythicMobs/-/wikis/Skills/Targeters/BlocksInPinRegion",
                 "default_value": ""
@@ -145,6 +153,7 @@
                     "r"
                 ],
                 "type": "String",
+                "enum": null,
                 "description": "The radius of the targeter",
                 "link": "https://git.lumine.io/mythiccraft/MythicMobs/-/wikis/Skills/Targeters/BlocksInRadius",
                 "default_value": "2"
@@ -157,6 +166,7 @@
                     "yr"
                 ],
                 "type": "String",
+                "enum": null,
                 "description": "The y component of the radius",
                 "link": "https://git.lumine.io/mythiccraft/MythicMobs/-/wikis/Skills/Targeters/BlocksInRadius",
                 "default_value": "radius"
@@ -167,6 +177,7 @@
                     "n"
                 ],
                 "type": "Double",
+                "enum": null,
                 "description": "The randomness of the targeter",
                 "link": "https://git.lumine.io/mythiccraft/MythicMobs/-/wikis/Skills/Targeters/BlocksInRadius",
                 "default_value": "0"
@@ -177,6 +188,7 @@
                     "s"
                 ],
                 "type": "String",
+                "enum": null,
                 "description": "The shape of the selected blocks. Can be `SPHERE`, `CUBE`",
                 "link": "https://git.lumine.io/mythiccraft/MythicMobs/-/wikis/Skills/Targeters/BlocksInRadius",
                 "default_value": "SPHERE"
@@ -187,6 +199,7 @@
                     "na"
                 ],
                 "type": "Boolean",
+                "enum": null,
                 "description": "Whether air should not be targeted",
                 "link": "https://git.lumine.io/mythiccraft/MythicMobs/-/wikis/Skills/Targeters/BlocksInRadius",
                 "default_value": "true"
@@ -197,6 +210,7 @@
                     "oa"
                 ],
                 "type": "Boolean",
+                "enum": null,
                 "description": "Whether only air should be targeted",
                 "link": "https://git.lumine.io/mythiccraft/MythicMobs/-/wikis/Skills/Targeters/BlocksInRadius",
                 "default_value": "false"
@@ -207,6 +221,7 @@
                     "no"
                 ],
                 "type": "Boolean",
+                "enum": null,
                 "description": "Whether the targeter should target the origin",
                 "link": "https://git.lumine.io/mythiccraft/MythicMobs/-/wikis/Skills/Targeters/BlocksInRadius",
                 "default_value": "false"
@@ -230,6 +245,7 @@
                     "r"
                 ],
                 "type": "String",
+                "enum": null,
                 "description": "The radius of the targeter",
                 "link": "https://git.lumine.io/mythiccraft/MythicMobs/-/wikis/Skills/Targeters/BlocksNearOrigin",
                 "default_value": "2"
@@ -242,6 +258,7 @@
                     "yr"
                 ],
                 "type": "PlaceholderDouble",
+                "enum": null,
                 "description": "The y component of the radius",
                 "link": "https://git.lumine.io/mythiccraft/MythicMobs/-/wikis/Skills/Targeters/BlocksNearOrigin",
                 "default_value": "radius"
@@ -252,6 +269,7 @@
                     "n"
                 ],
                 "type": "Double",
+                "enum": null,
                 "description": "The randomness of the targeter",
                 "link": "https://git.lumine.io/mythiccraft/MythicMobs/-/wikis/Skills/Targeters/BlocksNearOrigin",
                 "default_value": "0"
@@ -262,6 +280,7 @@
                     "s"
                 ],
                 "type": "String",
+                "enum": null,
                 "description": "The shape of the selected blocks. Can be `SPHERE`, `CUBE`",
                 "link": "https://git.lumine.io/mythiccraft/MythicMobs/-/wikis/Skills/Targeters/BlocksNearOrigin",
                 "default_value": "SPHERE"
@@ -272,6 +291,7 @@
                     "na"
                 ],
                 "type": "Boolean",
+                "enum": null,
                 "description": "Whether air should not be targeted",
                 "link": "https://git.lumine.io/mythiccraft/MythicMobs/-/wikis/Skills/Targeters/BlocksNearOrigin",
                 "default_value": "true"
@@ -282,6 +302,7 @@
                     "oa"
                 ],
                 "type": "Boolean",
+                "enum": null,
                 "description": "Whether only air should be targeted",
                 "link": "https://git.lumine.io/mythiccraft/MythicMobs/-/wikis/Skills/Targeters/BlocksNearOrigin",
                 "default_value": "false"
@@ -330,6 +351,7 @@
                     "r"
                 ],
                 "type": "PlaceholderString",
+                "enum": null,
                 "description": "The name of the region",
                 "link": "https://git.lumine.io/mythiccraft/MythicMobs/-/wikis/Skills/Targeters/ChunksInWERegion",
                 "default_value": ""
@@ -352,6 +374,7 @@
                     "a"
                 ],
                 "type": "Double",
+                "enum": null,
                 "description": "The angle of the cone",
                 "link": "https://git.lumine.io/mythiccraft/MythicMobs/-/wikis/Skills/Targeters/Cone",
                 "default_value": "90"
@@ -362,6 +385,7 @@
                     "r"
                 ],
                 "type": "Double",
+                "enum": null,
                 "description": "The length of the cone",
                 "link": "https://git.lumine.io/mythiccraft/MythicMobs/-/wikis/Skills/Targeters/Cone",
                 "default_value": "16"
@@ -372,6 +396,7 @@
                     "p"
                 ],
                 "type": "Integer",
+                "enum": null,
                 "description": "The number of points that will be targeted inside the cone",
                 "link": "https://git.lumine.io/mythiccraft/MythicMobs/-/wikis/Skills/Targeters/Cone",
                 "default_value": "angle\\*range\\*0.1"
@@ -382,6 +407,7 @@
                     "mp"
                 ],
                 "type": "Integer",
+                "enum": null,
                 "description": "The minimum number of points to be generated for each slice",
                 "link": "https://git.lumine.io/mythiccraft/MythicMobs/-/wikis/Skills/Targeters/Cone",
                 "default_value": "1"
@@ -392,6 +418,7 @@
                     "s"
                 ],
                 "type": "Integer",
+                "enum": null,
                 "description": "This defines how many layers or subdivisions (slices) the cone is divided into along its length (range).<br>More slices result in a finer resolution",
                 "link": "https://git.lumine.io/mythiccraft/MythicMobs/-/wikis/Skills/Targeters/Cone",
                 "default_value": "floor(`range`)"
@@ -402,6 +429,7 @@
                     "rot"
                 ],
                 "type": "Double",
+                "enum": null,
                 "description": "The rotation of the cone",
                 "link": "https://git.lumine.io/mythiccraft/MythicMobs/-/wikis/Skills/Targeters/Cone",
                 "default_value": "0"
@@ -413,6 +441,7 @@
                     "y"
                 ],
                 "type": "Double",
+                "enum": null,
                 "description": "The y offset of the cone",
                 "link": "https://git.lumine.io/mythiccraft/MythicMobs/-/wikis/Skills/Targeters/Cone",
                 "default_value": "0"
@@ -423,11 +452,24 @@
                     "e"
                 ],
                 "type": "Boolean",
+                "enum": null,
                 "description": "Whether to use a precise method to distribute points uniformly across the cone's surface instead of randomly generating them",
                 "link": "https://git.lumine.io/mythiccraft/MythicMobs/-/wikis/Skills/Targeters/Cone",
                 "default_value": "false"
             }
         ]
+    },
+    {
+        "plugin": "MythicMobs",
+        "class": "ConsoleTargeter",
+        "extends": "SkillTargeter",
+        "name": [
+            "console",
+            "none"
+        ],
+        "description": "Provides no target.  \nUseful for mechanics with no target input",
+        "link": "https://git.lumine.io/mythiccraft/MythicMobs/-/wikis/Skills/Targeters/None",
+        "attributes": []
     },
     {
         "plugin": "MythicMobs",
@@ -449,6 +491,7 @@
                     "r"
                 ],
                 "type": "String",
+                "enum": null,
                 "description": "The radius of the targeter",
                 "link": "https://git.lumine.io/mythiccraft/MythicMobs/-/wikis/Skills/Targeters/EntitiesInRadius",
                 "default_value": "5"
@@ -460,6 +503,7 @@
                     "l"
                 ],
                 "type": "Boolean",
+                "enum": null,
                 "description": "Whether the targeter should target only living entities",
                 "link": "https://git.lumine.io/mythiccraft/MythicMobs/-/wikis/Skills/Targeters/EntitiesInRadius",
                 "default_value": "true"
@@ -495,6 +539,7 @@
                     "minrange"
                 ],
                 "type": "PlaceholderDouble",
+                "enum": null,
                 "description": "The minimum range of the ring",
                 "link": "https://git.lumine.io/mythiccraft/MythicMobs/-/wikis/Skills/Targeters/EntitiesInRing",
                 "default_value": "5"
@@ -505,6 +550,7 @@
                     "maxrange"
                 ],
                 "type": "PlaceholderDouble",
+                "enum": null,
                 "description": "The maximum range of the ring",
                 "link": "https://git.lumine.io/mythiccraft/MythicMobs/-/wikis/Skills/Targeters/EntitiesInRing",
                 "default_value": "10"
@@ -557,6 +603,7 @@
                     "m"
                 ],
                 "type": "Integer",
+                "enum": null,
                 "description": "The maximum number of attempts the targeter will make to fetch the targets",
                 "link": "https://git.lumine.io/mythiccraft/MythicMobs/-/wikis/Skills/Targeters/FloorOfTargets",
                 "default_value": "3"
@@ -581,6 +628,7 @@
                     "a"
                 ],
                 "type": "PlaceholderDouble",
+                "enum": null,
                 "description": "How distant should the targeted point be",
                 "link": "https://git.lumine.io/mythiccraft/MythicMobs/-/wikis/Skills/Targeters/Forward",
                 "default_value": "5"
@@ -591,6 +639,7 @@
                     "rot"
                 ],
                 "type": "PlaceholderFloat",
+                "enum": null,
                 "description": "The rotation, around the caster, of the target location",
                 "link": "https://git.lumine.io/mythiccraft/MythicMobs/-/wikis/Skills/Targeters/Forward",
                 "default_value": "0"
@@ -601,6 +650,7 @@
                     "uel"
                 ],
                 "type": "Boolean",
+                "enum": null,
                 "description": "If the eye location should be used as the base of the targeter",
                 "link": "https://git.lumine.io/mythiccraft/MythicMobs/-/wikis/Skills/Targeters/Forward",
                 "default_value": "false"
@@ -610,6 +660,7 @@
                     "lockpitch"
                 ],
                 "type": "Boolean",
+                "enum": null,
                 "description": "If the location should be targeted as if the caster has a pitch of 0",
                 "link": "https://git.lumine.io/mythiccraft/MythicMobs/-/wikis/Skills/Targeters/Forward",
                 "default_value": "false"
@@ -634,6 +685,7 @@
                     "a"
                 ],
                 "type": "Double",
+                "enum": null,
                 "description": "How distant should the targeted point be (accept decimals)",
                 "link": "https://git.lumine.io/mythiccraft/MythicMobs/-/wikis/Skills/Targeters/ForwardWall",
                 "default_value": "5.0"
@@ -644,6 +696,7 @@
                     "y"
                 ],
                 "type": "Double",
+                "enum": null,
                 "description": "The y offset of the plane (accept decimals)",
                 "link": "https://git.lumine.io/mythiccraft/MythicMobs/-/wikis/Skills/Targeters/ForwardWall",
                 "default_value": "0.0"
@@ -654,6 +707,7 @@
                     "h"
                 ],
                 "type": "Integer",
+                "enum": null,
                 "description": "The height of the plane (whole numbers only)",
                 "link": "https://git.lumine.io/mythiccraft/MythicMobs/-/wikis/Skills/Targeters/ForwardWall",
                 "default_value": "2"
@@ -664,6 +718,7 @@
                     "w"
                 ],
                 "type": "Integer",
+                "enum": null,
                 "description": "The width of the plane (whole numbers only)",
                 "link": "https://git.lumine.io/mythiccraft/MythicMobs/-/wikis/Skills/Targeters/ForwardWall",
                 "default_value": "3"
@@ -694,6 +749,7 @@
                     "limit"
                 ],
                 "type": "PlaceholderInteger",
+                "enum": null,
                 "description": "The limit to the targeted entities/locations after the sort is applied",
                 "link": "https://git.lumine.io/mythiccraft/MythicMobs/-/wikis/Skills/Targeters#common-entity-targeters-attributes",
                 "default_value": ""
@@ -704,6 +760,7 @@
                     "sortby"
                 ],
                 "type": "String",
+                "enum": null,
                 "description": "How to sort the targeted entities/locations",
                 "link": "https://git.lumine.io/mythiccraft/MythicMobs/-/wikis/Skills/Targeters#common-entity-targeters-attributes",
                 "default_value": ""
@@ -713,6 +770,7 @@
                     "target"
                 ],
                 "type": "String",
+                "enum": null,
                 "description": "The entity types to target",
                 "link": "https://git.lumine.io/mythiccraft/MythicMobs/-/wikis/Skills/Targeters#common-entity-targeters-attributes",
                 "default_value": ""
@@ -722,6 +780,7 @@
                     "ignore"
                 ],
                 "type": "String",
+                "enum": null,
                 "description": "The entity types to not target",
                 "link": "https://git.lumine.io/mythiccraft/MythicMobs/-/wikis/Skills/Targeters#common-entity-targeters-attributes",
                 "default_value": ""
@@ -731,6 +790,7 @@
                     "targetself"
                 ],
                 "type": "Boolean",
+                "enum": null,
                 "description": "Whether to target the caster of the mechanic",
                 "link": "https://git.lumine.io/mythiccraft/MythicMobs/-/wikis/Skills/Targeters#common-entity-targeters-attributes",
                 "default_value": ""
@@ -740,6 +800,7 @@
                     "targetplayers"
                 ],
                 "type": "Boolean",
+                "enum": null,
                 "description": "Whether to target players",
                 "link": "https://git.lumine.io/mythiccraft/MythicMobs/-/wikis/Skills/Targeters#common-entity-targeters-attributes",
                 "default_value": ""
@@ -749,6 +810,7 @@
                     "targetcreative"
                 ],
                 "type": "Boolean",
+                "enum": null,
                 "description": "Whether to target players in creative mode",
                 "link": "https://git.lumine.io/mythiccraft/MythicMobs/-/wikis/Skills/Targeters#common-entity-targeters-attributes",
                 "default_value": ""
@@ -758,6 +820,7 @@
                     "targetspectator"
                 ],
                 "type": "Boolean",
+                "enum": null,
                 "description": "Whether to target players in spectator mode",
                 "link": "https://git.lumine.io/mythiccraft/MythicMobs/-/wikis/Skills/Targeters#common-entity-targeters-attributes",
                 "default_value": ""
@@ -767,6 +830,7 @@
                     "targetarmorstands"
                 ],
                 "type": "Boolean",
+                "enum": null,
                 "description": "Whether to target armor stands",
                 "link": "https://git.lumine.io/mythiccraft/MythicMobs/-/wikis/Skills/Targeters#common-entity-targeters-attributes",
                 "default_value": ""
@@ -776,6 +840,7 @@
                     "targetmarkers"
                 ],
                 "type": "Boolean",
+                "enum": null,
                 "description": "Whether to target markers",
                 "link": "https://git.lumine.io/mythiccraft/MythicMobs/-/wikis/Skills/Targeters#common-entity-targeters-attributes",
                 "default_value": ""
@@ -785,6 +850,7 @@
                     "targetnpcs"
                 ],
                 "type": "Boolean",
+                "enum": null,
                 "description": "Whether to target Citizens NPCs",
                 "link": "https://git.lumine.io/mythiccraft/MythicMobs/-/wikis/Skills/Targeters#common-entity-targeters-attributes",
                 "default_value": ""
@@ -794,6 +860,7 @@
                     "targetanimals"
                 ],
                 "type": "Boolean",
+                "enum": null,
                 "description": "Whether to target animals",
                 "link": "https://git.lumine.io/mythiccraft/MythicMobs/-/wikis/Skills/Targeters#common-entity-targeters-attributes",
                 "default_value": ""
@@ -803,6 +870,7 @@
                     "targetcreatures"
                 ],
                 "type": "Boolean",
+                "enum": null,
                 "description": "Whether to target creatures",
                 "link": "https://git.lumine.io/mythiccraft/MythicMobs/-/wikis/Skills/Targeters#common-entity-targeters-attributes",
                 "default_value": ""
@@ -812,6 +880,7 @@
                     "targetsamefaction"
                 ],
                 "type": "Boolean",
+                "enum": null,
                 "description": "Whether to target entities of the same faction",
                 "link": "https://git.lumine.io/mythiccraft/MythicMobs/-/wikis/Skills/Targeters#common-entity-targeters-attributes",
                 "default_value": ""
@@ -821,6 +890,7 @@
                     "targetowner"
                 ],
                 "type": "Boolean",
+                "enum": null,
                 "description": "Whether to target the caster's owner",
                 "link": "https://git.lumine.io/mythiccraft/MythicMobs/-/wikis/Skills/Targeters#common-entity-targeters-attributes",
                 "default_value": ""
@@ -831,6 +901,7 @@
                     "targetnonmythic"
                 ],
                 "type": "Boolean",
+                "enum": null,
                 "description": "Whether to target non-Mythic entities",
                 "link": "https://git.lumine.io/mythiccraft/MythicMobs/-/wikis/Skills/Targeters#common-entity-targeters-attributes",
                 "default_value": ""
@@ -840,6 +911,7 @@
                     "targetvillagers"
                 ],
                 "type": "Boolean",
+                "enum": null,
                 "description": "Whether to target villagers",
                 "link": "https://git.lumine.io/mythiccraft/MythicMobs/-/wikis/Skills/Targeters#common-entity-targeters-attributes",
                 "default_value": ""
@@ -850,6 +922,7 @@
                     "useboundingbox"
                 ],
                 "type": "Boolean",
+                "enum": null,
                 "description": "If the targeter is performing a distance check, this option allows it to check against the bounding box of the target instead of the center of its hitbox",
                 "link": "https://git.lumine.io/mythiccraft/MythicMobs/-/wikis/Skills/Targeters#common-entity-targeters-attributes",
                 "default_value": ""
@@ -860,6 +933,7 @@
                     "unique"
                 ],
                 "type": "PlaceholderInteger",
+                "enum": null,
                 "description": "The maximum number of times an entity can be targeted. Defaults to 1, disable with 0. This is mostly used for meg models with multiple hitboxes",
                 "link": "https://git.lumine.io/mythiccraft/MythicMobs/-/wikis/Skills/Targeters#common-entity-targeters-attributes",
                 "default_value": ""
@@ -870,6 +944,7 @@
                     "nmb"
                 ],
                 "type": "Boolean",
+                "enum": null,
                 "description": "Whether MEG sub hitboxes should be filtered out",
                 "link": "https://git.lumine.io/mythiccraft/MythicMobs/-/wikis/Skills/Targeters#common-entity-targeters-attributes",
                 "default_value": ""
@@ -891,6 +966,7 @@
                     "x"
                 ],
                 "type": "PlaceholderDouble",
+                "enum": null,
                 "description": "Centers the offset on the x axis",
                 "link": "https://git.lumine.io/mythiccraft/MythicMobs/-/wikis/Skills/Targeters#common-location-targeters-attributes",
                 "default_value": ""
@@ -902,6 +978,7 @@
                     "y"
                 ],
                 "type": "PlaceholderDouble",
+                "enum": null,
                 "description": "Centers the offset on the y axis",
                 "link": "https://git.lumine.io/mythiccraft/MythicMobs/-/wikis/Skills/Targeters#common-location-targeters-attributes",
                 "default_value": ""
@@ -913,6 +990,7 @@
                     "z"
                 ],
                 "type": "PlaceholderDouble",
+                "enum": null,
                 "description": "Centers the offset on the z axis",
                 "link": "https://git.lumine.io/mythiccraft/MythicMobs/-/wikis/Skills/Targeters#common-location-targeters-attributes",
                 "default_value": ""
@@ -923,6 +1001,7 @@
                     "centered"
                 ],
                 "type": "Boolean",
+                "enum": null,
                 "description": "Boolean value. If set to true, the center of the block at the target location will be targeted, instead of the target location itself",
                 "link": "https://git.lumine.io/mythiccraft/MythicMobs/-/wikis/Skills/Targeters#common-location-targeters-attributes",
                 "default_value": ""
@@ -934,6 +1013,7 @@
                     "fo"
                 ],
                 "type": "PlaceholderDouble",
+                "enum": null,
                 "description": "Centers forward and backward offset, based on the caster's viewing angle",
                 "link": "https://git.lumine.io/mythiccraft/MythicMobs/-/wikis/Skills/Targeters#common-location-targeters-attributes",
                 "default_value": ""
@@ -945,6 +1025,7 @@
                     "so"
                 ],
                 "type": "PlaceholderDouble",
+                "enum": null,
                 "description": "Centers left and right offset, based on the caster's viewing angle",
                 "link": "https://git.lumine.io/mythiccraft/MythicMobs/-/wikis/Skills/Targeters#common-location-targeters-attributes",
                 "default_value": ""
@@ -955,6 +1036,7 @@
                     "rotx"
                 ],
                 "type": "PlaceholderDouble",
+                "enum": null,
                 "description": "Rotation on the x axis",
                 "link": "https://git.lumine.io/mythiccraft/MythicMobs/-/wikis/Skills/Targeters#common-location-targeters-attributes",
                 "default_value": ""
@@ -965,6 +1047,7 @@
                     "roty"
                 ],
                 "type": "PlaceholderDouble",
+                "enum": null,
                 "description": "Rotation on the y axis",
                 "link": "https://git.lumine.io/mythiccraft/MythicMobs/-/wikis/Skills/Targeters#common-location-targeters-attributes",
                 "default_value": ""
@@ -975,6 +1058,7 @@
                     "rotz"
                 ],
                 "type": "PlaceholderDouble",
+                "enum": null,
                 "description": "Rotation on the z axis",
                 "link": "https://git.lumine.io/mythiccraft/MythicMobs/-/wikis/Skills/Targeters#common-location-targeters-attributes",
                 "default_value": ""
@@ -984,6 +1068,7 @@
                     "length"
                 ],
                 "type": "PlaceholderDouble",
+                "enum": null,
                 "description": "Multiplied the direction vector by the specified value",
                 "link": "https://git.lumine.io/mythiccraft/MythicMobs/-/wikis/Skills/Targeters#common-location-targeters-attributes",
                 "default_value": ""
@@ -994,6 +1079,7 @@
                     "cx"
                 ],
                 "type": "PlaceholderDouble",
+                "enum": null,
                 "description": "Sets the x axis coordinate",
                 "link": "https://git.lumine.io/mythiccraft/MythicMobs/-/wikis/Skills/Targeters#common-location-targeters-attributes",
                 "default_value": ""
@@ -1004,6 +1090,7 @@
                     "cy"
                 ],
                 "type": "PlaceholderDouble",
+                "enum": null,
                 "description": "Sets the y axis coordinate",
                 "link": "https://git.lumine.io/mythiccraft/MythicMobs/-/wikis/Skills/Targeters#common-location-targeters-attributes",
                 "default_value": ""
@@ -1014,6 +1101,7 @@
                     "cz"
                 ],
                 "type": "PlaceholderDouble",
+                "enum": null,
                 "description": "Sets the z axis coordinate",
                 "link": "https://git.lumine.io/mythiccraft/MythicMobs/-/wikis/Skills/Targeters#common-location-targeters-attributes",
                 "default_value": ""
@@ -1024,6 +1112,7 @@
                     "cyaw"
                 ],
                 "type": "PlaceholderFloat",
+                "enum": null,
                 "description": "Sets the yaw value",
                 "link": "https://git.lumine.io/mythiccraft/MythicMobs/-/wikis/Skills/Targeters#common-location-targeters-attributes",
                 "default_value": ""
@@ -1034,6 +1123,7 @@
                     "cpitch"
                 ],
                 "type": "PlaceholderFloat",
+                "enum": null,
                 "description": "Sets the pitch value",
                 "link": "https://git.lumine.io/mythiccraft/MythicMobs/-/wikis/Skills/Targeters#common-location-targeters-attributes",
                 "default_value": ""
@@ -1045,6 +1135,7 @@
                     "bt"
                 ],
                 "type": "PlaceholderString",
+                "enum": null,
                 "description": "Only targets selected block types. Multiple blocks can be listed by separating them using a `,`<br>You can add a `#` at the front of the type to indicate that the block only needs to match part of the type, add `@` to indicate that the block only needs to match the start of the type<br>You can add a `*` at the front of the type to indicate that the one specified is not a block type, but a [block tag](https://minecraft.wiki/w/Tag#Block_tags_2) (example: `blocktype=*sculk_replaceable`  )",
                 "link": "https://git.lumine.io/mythiccraft/MythicMobs/-/wikis/Skills/Targeters#common-location-targeters-attributes",
                 "default_value": ""
@@ -1056,6 +1147,7 @@
                     "bi"
                 ],
                 "type": "PlaceholderString",
+                "enum": null,
                 "description": "Excludes selected block types from the targeter. Multiple blocks can be listed by separating them using a `,`<br>Can use the special syntaxes specified in `blocktype`",
                 "link": "https://git.lumine.io/mythiccraft/MythicMobs/-/wikis/Skills/Targeters#common-location-targeters-attributes",
                 "default_value": ""
@@ -1065,6 +1157,7 @@
                     "faulty"
                 ],
                 "type": "Boolean",
+                "enum": null,
                 "description": "Whether the mechanic should use the old vector formula. Defaults to true",
                 "link": "https://git.lumine.io/mythiccraft/MythicMobs/-/wikis/Skills/Targeters#common-location-targeters-attributes",
                 "default_value": ""
@@ -1074,6 +1167,7 @@
                     "limit"
                 ],
                 "type": "Integer",
+                "enum": null,
                 "description": "The limit to the targeted entities/locations after the sort is applied",
                 "link": "https://git.lumine.io/mythiccraft/MythicMobs/-/wikis/Skills/Targeters#common-location-targeters-attributes",
                 "default_value": ""
@@ -1084,6 +1178,7 @@
                     "sortby"
                 ],
                 "type": "String",
+                "enum": null,
                 "description": "How to sort the targeted entities/locations",
                 "link": "https://git.lumine.io/mythiccraft/MythicMobs/-/wikis/Skills/Targeters#common-location-targeters-attributes",
                 "default_value": ""
@@ -1131,6 +1226,7 @@
                     "r"
                 ],
                 "type": "Double",
+                "enum": null,
                 "description": "The radius of the targeter",
                 "link": "https://git.lumine.io/mythiccraft/MythicMobs/-/wikis/Skills/Targeters/ItemsInRadius",
                 "default_value": "5"
@@ -1154,6 +1250,7 @@
                     "r"
                 ],
                 "type": "Double",
+                "enum": null,
                 "description": "The radius of the targeter",
                 "link": "https://git.lumine.io/mythiccraft/MythicMobs/-/wikis/Skills/Targeters/ItemsNearOrigin",
                 "default_value": "5"
@@ -1176,6 +1273,7 @@
                     "r"
                 ],
                 "type": "Float",
+                "enum": null,
                 "description": "The distance between each point in the line",
                 "link": "https://git.lumine.io/mythiccraft/MythicMobs/-/wikis/Skills/Targeters/Line",
                 "default_value": "1"
@@ -1186,6 +1284,7 @@
                     "fo"
                 ],
                 "type": "Boolean",
+                "enum": null,
                 "description": "If the line should be drawn from the origin of the metaskill",
                 "link": "https://git.lumine.io/mythiccraft/MythicMobs/-/wikis/Skills/Targeters/Line",
                 "default_value": "false"
@@ -1212,6 +1311,7 @@
                     "a"
                 ],
                 "type": "PlaceholderDouble",
+                "enum": null,
                 "description": "The angle of the cone",
                 "link": "https://git.lumine.io/mythiccraft/MythicMobs/-/wikis/Skills/Targeters/LivingInCone",
                 "default_value": "90"
@@ -1222,6 +1322,7 @@
                     "r"
                 ],
                 "type": "PlaceholderDouble",
+                "enum": null,
                 "description": "The length of the cone",
                 "link": "https://git.lumine.io/mythiccraft/MythicMobs/-/wikis/Skills/Targeters/LivingInCone",
                 "default_value": "16"
@@ -1232,6 +1333,7 @@
                     "yo"
                 ],
                 "type": "PlaceholderDouble",
+                "enum": null,
                 "description": "The y offset to be added to the generated cone's location",
                 "link": "https://git.lumine.io/mythiccraft/MythicMobs/-/wikis/Skills/Targeters/LivingInCone",
                 "default_value": "0"
@@ -1242,6 +1344,7 @@
                     "rot"
                 ],
                 "type": "PlaceholderDouble",
+                "enum": null,
                 "description": "The rotation of the cone",
                 "link": "https://git.lumine.io/mythiccraft/MythicMobs/-/wikis/Skills/Targeters/LivingInCone",
                 "default_value": "0"
@@ -1253,6 +1356,7 @@
                     "p"
                 ],
                 "type": "Boolean",
+                "enum": null,
                 "description": "Whether to generate the cone also depending on the caster's pitch",
                 "link": "https://git.lumine.io/mythiccraft/MythicMobs/-/wikis/Skills/Targeters/LivingInCone",
                 "default_value": "false"
@@ -1279,6 +1383,7 @@
                     "r"
                 ],
                 "type": "Float",
+                "enum": null,
                 "description": "The distance between each point in the line and the radius around each point where entities will be targeted",
                 "link": "https://git.lumine.io/mythiccraft/MythicMobs/-/wikis/Skills/Targeters/LivingInLine",
                 "default_value": "1"
@@ -1289,6 +1394,7 @@
                     "fo"
                 ],
                 "type": "Boolean",
+                "enum": null,
                 "description": "If the line should be drawn from the origin of the metaskill",
                 "link": "https://git.lumine.io/mythiccraft/MythicMobs/-/wikis/Skills/Targeters/LivingInLine",
                 "default_value": "false"
@@ -1297,10 +1403,26 @@
     },
     {
         "plugin": "MythicMobs",
+        "class": "LivingInWorldTargeter",
+        "extends": "IEntitySelector",
+        "name": [
+            "livinginworld",
+            "entitiesinworld",
+            "livingentitiesinworld",
+            "allinworld",
+            "eiw"
+        ],
+        "description": "Targets all living entities in the caster's world",
+        "link": "https://git.lumine.io/mythiccraft/MythicMobs/-/wikis/Skills/Targeters/LivingInWorld",
+        "attributes": []
+    },
+    {
+        "plugin": "MythicMobs",
         "class": "LivingNearTargetLocationTargeter",
         "extends": "IEntitySelector",
         "name": [
             "livingneartargetlocation",
+            "livingentitiesneartargetlocation",
             "lntl",
             "entl",
             "ent"
@@ -1314,9 +1436,98 @@
                     "r"
                 ],
                 "type": "Double",
+                "enum": null,
                 "description": "The radius of the targeter",
                 "link": "https://git.lumine.io/mythiccraft/MythicMobs/-/wikis/Skills/Targeters/LivingNearTargetLocation",
                 "default_value": "5"
+            }
+        ]
+    },
+    {
+        "plugin": "MythicMobs",
+        "class": "LocationTargeter",
+        "extends": "ILocationSelector",
+        "name": [
+            "location",
+            "loc",
+            "l"
+        ],
+        "description": "Targets the specified coordinates in a world",
+        "link": "https://git.lumine.io/mythiccraft/MythicMobs/-/wikis/Skills/Targeters/Location",
+        "attributes": [
+            {
+                "name": [
+                    "location",
+                    "loc",
+                    "l",
+                    "c"
+                ],
+                "type": "String",
+                "enum": null,
+                "description": "The full location, in the `x,y,z,yaw,pitch` format",
+                "link": "https://git.lumine.io/mythiccraft/MythicMobs/-/wikis/Skills/Targeters/Location",
+                "default_value": ""
+            },
+            {
+                "name": [
+                    "x"
+                ],
+                "type": "PlaceholderDouble",
+                "enum": null,
+                "description": "If `location` is not set, it's the x coordinate of the target location",
+                "link": "https://git.lumine.io/mythiccraft/MythicMobs/-/wikis/Skills/Targeters/Location",
+                "default_value": "0"
+            },
+            {
+                "name": [
+                    "y"
+                ],
+                "type": "PlaceholderDouble",
+                "enum": null,
+                "description": "If `location` is not set, it's the y coordinate of the target location",
+                "link": "https://git.lumine.io/mythiccraft/MythicMobs/-/wikis/Skills/Targeters/Location",
+                "default_value": "0"
+            },
+            {
+                "name": [
+                    "z"
+                ],
+                "type": "PlaceholderDouble",
+                "enum": null,
+                "description": "If `location` is not set, it's the z coordinate of the target location",
+                "link": "https://git.lumine.io/mythiccraft/MythicMobs/-/wikis/Skills/Targeters/Location",
+                "default_value": "0"
+            },
+            {
+                "name": [
+                    "yaw"
+                ],
+                "type": "PlaceholderDouble",
+                "enum": null,
+                "description": "If `location` is not set, it's the yaw of the target location",
+                "link": "https://git.lumine.io/mythiccraft/MythicMobs/-/wikis/Skills/Targeters/Location",
+                "default_value": "0"
+            },
+            {
+                "name": [
+                    "pitch"
+                ],
+                "type": "PlaceholderDouble",
+                "enum": null,
+                "description": "If `location` is not set, it's the pitch of the target location",
+                "link": "https://git.lumine.io/mythiccraft/MythicMobs/-/wikis/Skills/Targeters/Location",
+                "default_value": "0"
+            },
+            {
+                "name": [
+                    "world",
+                    "w"
+                ],
+                "type": "PlaceholderString",
+                "enum": null,
+                "description": "The world to target. If not set, it will target the caster's world",
+                "link": "https://git.lumine.io/mythiccraft/MythicMobs/-/wikis/Skills/Targeters/Location",
+                "default_value": ""
             }
         ]
     },
@@ -1332,6 +1543,79 @@
         "description": "Targets the location of the inherited targets",
         "link": "https://git.lumine.io/mythiccraft/MythicMobs/-/wikis/Skills/Targeters/LocationsOfTargets",
         "attributes": []
+    },
+    {
+        "plugin": "MythicMobs",
+        "class": "MobsInRadiusTargeter",
+        "extends": "IEntitySelector",
+        "name": [
+            "mobsinradius",
+            "mobs",
+            "mir"
+        ],
+        "description": "Targets all MythicMobs or vanilla overrides of the given type(s) in a radius around the caster",
+        "link": "https://git.lumine.io/mythiccraft/MythicMobs/-/wikis/Skills/Targeters/MobsInRadius",
+        "attributes": [
+            {
+                "name": [
+                    "radius",
+                    "r"
+                ],
+                "type": "Double",
+                "enum": null,
+                "description": "The radius of the targeter",
+                "link": "https://git.lumine.io/mythiccraft/MythicMobs/-/wikis/Skills/Targeters/MobsInRadius",
+                "default_value": "5"
+            },
+            {
+                "name": [
+                    "types",
+                    "type",
+                    "t"
+                ],
+                "type": "String",
+                "enum": null,
+                "description": "The type(s) of the target MythicMobs. Can be a list",
+                "link": "https://git.lumine.io/mythiccraft/MythicMobs/-/wikis/Skills/Targeters/MobsInRadius",
+                "default_value": ""
+            }
+        ]
+    },
+    {
+        "plugin": "MythicMobs",
+        "class": "MobsNearOriginTargeter",
+        "extends": "IEntitySelector",
+        "name": [
+            "mobsnearorigin",
+            "mobssnearsource"
+        ],
+        "description": "Targets all MythicMobs or vanilla overrides of the given type(s) in a radius around the origin",
+        "link": "https://git.lumine.io/mythiccraft/MythicMobs/-/wikis/Skills/Targeters/MobsNearOrigin",
+        "attributes": [
+            {
+                "name": [
+                    "radius",
+                    "r"
+                ],
+                "type": "Double",
+                "enum": null,
+                "description": "The radius of the targeter",
+                "link": "https://git.lumine.io/mythiccraft/MythicMobs/-/wikis/Skills/Targeters/MobsNearOrigin",
+                "default_value": "5"
+            },
+            {
+                "name": [
+                    "types",
+                    "type",
+                    "t"
+                ],
+                "type": "String",
+                "enum": null,
+                "description": "The type(s) of the target MythicMobs. Can be a list",
+                "link": "https://git.lumine.io/mythiccraft/MythicMobs/-/wikis/Skills/Targeters/MobsNearOrigin",
+                "default_value": ""
+            }
+        ]
     },
     {
         "plugin": "ModelEngine",
@@ -1362,6 +1646,7 @@
                     "modelid"
                 ],
                 "type": "PlaceholderString",
+                "enum": null,
                 "description": "The id of the model of the modeled entity to check against",
                 "link": "https://git.lumine.io/mythiccraft/model-engine-4/-/wikis/Skills/Targeters/ModelPart",
                 "default_value": ""
@@ -1374,6 +1659,7 @@
                     "partid"
                 ],
                 "type": "PlaceholderString",
+                "enum": null,
                 "description": "The id of the bone whose location you wish to target",
                 "link": "https://git.lumine.io/mythiccraft/model-engine-4/-/wikis/Skills/Targeters/ModelPart",
                 "default_value": ""
@@ -1385,6 +1671,7 @@
                     "offset"
                 ],
                 "type": "PlaceholderString",
+                "enum": null,
                 "description": "The type of the Offset. Can be `LOCAL`, `MODEL`, `GLOBAL`",
                 "link": "https://git.lumine.io/mythiccraft/model-engine-4/-/wikis/Skills/Targeters/ModelPart",
                 "default_value": "LOCAL"
@@ -1398,6 +1685,7 @@
                     "c"
                 ],
                 "type": "String",
+                "enum": null,
                 "description": "The offset on all three axis, in the `x,y,z` format. <br>If not set, the normal x, y and z attributes will be used instead.",
                 "link": "https://git.lumine.io/mythiccraft/model-engine-4/-/wikis/Skills/Targeters/ModelPart",
                 "default_value": ""
@@ -1407,6 +1695,7 @@
                     "x"
                 ],
                 "type": "PlaceholderDouble",
+                "enum": null,
                 "description": "The offset in the X axis",
                 "link": "https://git.lumine.io/mythiccraft/model-engine-4/-/wikis/Skills/Targeters/ModelPart",
                 "default_value": "0"
@@ -1416,6 +1705,7 @@
                     "y"
                 ],
                 "type": "PlaceholderDouble",
+                "enum": null,
                 "description": "The offset in the Y axis",
                 "link": "https://git.lumine.io/mythiccraft/model-engine-4/-/wikis/Skills/Targeters/ModelPart",
                 "default_value": "0"
@@ -1425,6 +1715,7 @@
                     "z"
                 ],
                 "type": "PlaceholderDouble",
+                "enum": null,
                 "description": "The offset in the Z axis",
                 "link": "https://git.lumine.io/mythiccraft/model-engine-4/-/wikis/Skills/Targeters/ModelPart",
                 "default_value": "0"
@@ -1437,6 +1728,7 @@
                     "exactmatch"
                 ],
                 "type": "Boolean",
+                "enum": null,
                 "description": "Does the part need to match the partid completely<br>If set to false, this will get the location of all bones whose id contains the specified one<br>*Example: pid=arm;em=false*<br>This will target **both** leftarm and rightarm",
                 "link": "https://git.lumine.io/mythiccraft/model-engine-4/-/wikis/Skills/Targeters/ModelPart",
                 "default_value": "true"
@@ -1448,6 +1740,7 @@
                     "scale"
                 ],
                 "type": "Boolean",
+                "enum": null,
                 "description": "If the offset should scale with the model's scale. This works by multiplying the offset by the value of the model's scale",
                 "link": "https://git.lumine.io/mythiccraft/model-engine-4/-/wikis/Skills/Targeters/ModelPart",
                 "default_value": "true"
@@ -1472,6 +1765,7 @@
                     "modelid"
                 ],
                 "type": "PlaceholderString",
+                "enum": null,
                 "description": "The id of the model of the modeled entity to check against",
                 "link": "https://git.lumine.io/mythiccraft/model-engine-4/-/wikis/Skills/Targeters/ModelPassengers",
                 "default_value": ""
@@ -1483,6 +1777,7 @@
                     "seat"
                 ],
                 "type": "PlaceholderString",
+                "enum": null,
                 "description": "The name of the seat(s) to check for",
                 "link": "https://git.lumine.io/mythiccraft/model-engine-4/-/wikis/Skills/Targeters/ModelPassengers",
                 "default_value": ""
@@ -1526,6 +1821,29 @@
     },
     {
         "plugin": "MythicMobs",
+        "class": "NearestPlayerTargeter",
+        "extends": "IEntitySelector",
+        "name": [
+            "nearestplayer"
+        ],
+        "description": "Targets the nearest player in a radius",
+        "link": "https://git.lumine.io/mythiccraft/MythicMobs/-/wikis/Skills/Targeters/NearestPlayer",
+        "attributes": [
+            {
+                "name": [
+                    "radius",
+                    "r"
+                ],
+                "type": "Double",
+                "enum": null,
+                "description": "The radius of the targeter",
+                "link": "https://git.lumine.io/mythiccraft/MythicMobs/-/wikis/Skills/Targeters/NearestPlayer",
+                "default_value": "5"
+            }
+        ]
+    },
+    {
+        "plugin": "MythicMobs",
         "class": "NearestStructureTargeter",
         "extends": "ILocationSelector",
         "name": [
@@ -1540,6 +1858,7 @@
                     "t"
                 ],
                 "type": "String",
+                "enum": null,
                 "description": "The type of the structure",
                 "link": "https://git.lumine.io/mythiccraft/MythicMobs/-/wikis/Skills/Targeters/NearestStructure",
                 "default_value": "STRONGHOLD"
@@ -1550,6 +1869,7 @@
                     "r"
                 ],
                 "type": "Integer",
+                "enum": null,
                 "description": "The radius of the targeter",
                 "link": "https://git.lumine.io/mythiccraft/MythicMobs/-/wikis/Skills/Targeters/NearestStructure",
                 "default_value": "5000"
@@ -1560,6 +1880,7 @@
                     "u"
                 ],
                 "type": "Boolean",
+                "enum": null,
                 "description": "Whether the structure should be unexplored",
                 "link": "https://git.lumine.io/mythiccraft/MythicMobs/-/wikis/Skills/Targeters/NearestStructure",
                 "default_value": "false"
@@ -1584,6 +1905,7 @@
                     "r"
                 ],
                 "type": "PlaceholderDouble",
+                "enum": null,
                 "description": "The radius of the targeter",
                 "link": "https://git.lumine.io/mythiccraft/MythicMobs/-/wikis/Skills/Targeters/NotLivingNearOrigin",
                 "default_value": "5"
@@ -1638,6 +1960,18 @@
     },
     {
         "plugin": "MythicMobs",
+        "class": "PassengerTargeter",
+        "extends": "IEntitySelector",
+        "name": [
+            "passenger",
+            "rider"
+        ],
+        "description": "Targets the rider of the casting mob",
+        "link": "https://git.lumine.io/mythiccraft/MythicMobs/-/wikis/Skills/Targeters/Passenger",
+        "attributes": []
+    },
+    {
+        "plugin": "MythicMobs",
         "class": "PinTargeter",
         "extends": "ILocationSelector",
         "name": [
@@ -1656,6 +1990,7 @@
                     "k"
                 ],
                 "type": "PlaceholderString",
+                "enum": null,
                 "description": "The name of the [pin] to target",
                 "link": "https://git.lumine.io/mythiccraft/MythicMobs/-/wikis/Skills/Targeters/Pin",
                 "default_value": ""
@@ -1666,6 +2001,7 @@
                     "r"
                 ],
                 "type": "Boolean",
+                "enum": null,
                 "description": "Whether to select a single and random location, if the specified pin is a Multi-Pin",
                 "link": "https://git.lumine.io/mythiccraft/MythicMobs/-/wikis/Skills/Targeters/Pin",
                 "default_value": "false"
@@ -1689,9 +2025,47 @@
                     "n"
                 ],
                 "type": "PlaceholderString",
+                "enum": null,
                 "description": "The name of the player",
                 "link": "https://git.lumine.io/mythiccraft/MythicMobs/-/wikis/Skills/Targeters/PlayerByName",
                 "default_value": "CarsonJF"
+            }
+        ]
+    },
+    {
+        "plugin": "MythicMobs",
+        "class": "PlayerLocationsInRadiusTargeter",
+        "extends": "ILocationSelector",
+        "name": [
+            "playerlocationsinradius",
+            "locationradius",
+            "plir",
+            "plr"
+        ],
+        "description": "Targets the locations of all players in a given radius around the caster",
+        "link": "https://git.lumine.io/mythiccraft/MythicMobs/-/wikis/Skills/Targeters/PlayerLocationsInRadius",
+        "attributes": [
+            {
+                "name": [
+                    "radius",
+                    "r"
+                ],
+                "type": "Double",
+                "enum": null,
+                "description": "The radius of the targeter",
+                "link": "https://git.lumine.io/mythiccraft/MythicMobs/-/wikis/Skills/Targeters/PlayerLocationsInRadius",
+                "default_value": "5"
+            },
+            {
+                "name": [
+                    "yoffset",
+                    "y"
+                ],
+                "type": "Double",
+                "enum": null,
+                "description": "The y offset of the targeted locations",
+                "link": "https://git.lumine.io/mythiccraft/MythicMobs/-/wikis/Skills/Targeters/PlayerLocationsInRadius",
+                "default_value": "0"
             }
         ]
     },
@@ -1712,8 +2086,80 @@
                     "r"
                 ],
                 "type": "String",
+                "enum": null,
                 "description": "The radius of the targeter",
                 "link": "https://git.lumine.io/mythiccraft/MythicMobs/-/wikis/Skills/Targeters/PlayersInRadius",
+                "default_value": "5"
+            }
+        ]
+    },
+    {
+        "plugin": "MythicMobs",
+        "class": "PlayersInRingTargeter",
+        "extends": "IEntitySelector",
+        "name": [
+            "playersinring",
+            "pring"
+        ],
+        "description": "Targets all players in a ring around the caster.  \nThe targeted players will be the ones at a distance from the caster between the minimum and the maximum range.",
+        "link": "https://git.lumine.io/mythiccraft/MythicMobs/-/wikis/Skills/Targeters/PlayersInRing",
+        "attributes": [
+            {
+                "name": [
+                    "min",
+                    "minrange"
+                ],
+                "type": "PlaceholderDouble",
+                "enum": null,
+                "description": "The minimum range of the ring",
+                "link": "https://git.lumine.io/mythiccraft/MythicMobs/-/wikis/Skills/Targeters/PlayersInRing",
+                "default_value": "5"
+            },
+            {
+                "name": [
+                    "max",
+                    "maxrange"
+                ],
+                "type": "PlaceholderDouble",
+                "enum": null,
+                "description": "The maximum range of the ring",
+                "link": "https://git.lumine.io/mythiccraft/MythicMobs/-/wikis/Skills/Targeters/PlayersInRing",
+                "default_value": "10"
+            }
+        ]
+    },
+    {
+        "plugin": "MythicMobs",
+        "class": "PlayersInWorldTargeter",
+        "extends": "IEntitySelector",
+        "name": [
+            "playersinworld",
+            "world"
+        ],
+        "description": "Targets all players in the caster's world",
+        "link": "https://git.lumine.io/mythiccraft/MythicMobs/-/wikis/Skills/Targeters/PlayersInWorld",
+        "attributes": []
+    },
+    {
+        "plugin": "MythicMobs",
+        "class": "PlayersNearOriginTargeter",
+        "extends": "IEntitySelector",
+        "name": [
+            "playersnearorigin",
+            "playersnearsource"
+        ],
+        "description": "Targets all players in the given radius around the origin of the metaskill.",
+        "link": "https://git.lumine.io/mythiccraft/MythicMobs/-/wikis/Skills/Targeters/PlayersNearOrigin",
+        "attributes": [
+            {
+                "name": [
+                    "radius",
+                    "r"
+                ],
+                "type": "Double",
+                "enum": null,
+                "description": "The radius of the targeter",
+                "link": "https://git.lumine.io/mythiccraft/MythicMobs/-/wikis/Skills/Targeters/PlayersNearOrigin",
                 "default_value": "5"
             }
         ]
@@ -1736,6 +2182,7 @@
                     "r"
                 ],
                 "type": "Double",
+                "enum": null,
                 "description": "The radius of the targeter",
                 "link": "https://git.lumine.io/mythiccraft/MythicMobs/-/wikis/Skills/Targeters/PlayersNearTargetLocations",
                 "default_value": "5"
@@ -1773,6 +2220,7 @@
                     "a"
                 ],
                 "type": "PlaceholderDouble",
+                "enum": null,
                 "description": "How far ahead should the targeted point be",
                 "link": "https://git.lumine.io/mythiccraft/MythicMobs/-/wikis/Skills/Targeters/ProjectileForward",
                 "default_value": "1"
@@ -1783,6 +2231,7 @@
                     "rot"
                 ],
                 "type": "PlaceholderFloat",
+                "enum": null,
                 "description": "The rotation, around the projectile, of the target location",
                 "link": "https://git.lumine.io/mythiccraft/MythicMobs/-/wikis/Skills/Targeters/ProjectileForward",
                 "default_value": "0"
@@ -1808,6 +2257,7 @@
                     "a"
                 ],
                 "type": "PlaceholderInteger",
+                "enum": null,
                 "description": "The amount of points",
                 "link": "https://git.lumine.io/mythiccraft/MythicMobs/-/wikis/Skills/Targeters/RandomLocationsNearOrigin",
                 "default_value": "5"
@@ -1820,6 +2270,7 @@
                     "maxr"
                 ],
                 "type": "Integer",
+                "enum": null,
                 "description": "The radius in which target points will be generated",
                 "link": "https://git.lumine.io/mythiccraft/MythicMobs/-/wikis/Skills/Targeters/RandomLocationsNearOrigin",
                 "default_value": "5"
@@ -1830,6 +2281,7 @@
                     "minr"
                 ],
                 "type": "Integer",
+                "enum": null,
                 "description": "The minimum radius in which target points will be generated",
                 "link": "https://git.lumine.io/mythiccraft/MythicMobs/-/wikis/Skills/Targeters/RandomLocationsNearOrigin",
                 "default_value": "0"
@@ -1840,6 +2292,7 @@
                     "s"
                 ],
                 "type": "Integer",
+                "enum": null,
                 "description": "The minimum amount of space between selected targets",
                 "link": "https://git.lumine.io/mythiccraft/MythicMobs/-/wikis/Skills/Targeters/RandomLocationsNearOrigin",
                 "default_value": "0"
@@ -1868,6 +2321,7 @@
                     "a"
                 ],
                 "type": "PlaceholderInteger",
+                "enum": null,
                 "description": "The amount of points",
                 "link": "https://git.lumine.io/mythiccraft/MythicMobs/-/wikis/Skills/Targeters/RandomLocationsNearTargets",
                 "default_value": "5"
@@ -1880,6 +2334,7 @@
                     "maxr"
                 ],
                 "type": "PlaceholderInteger",
+                "enum": null,
                 "description": "The radius in which target points will be generated",
                 "link": "https://git.lumine.io/mythiccraft/MythicMobs/-/wikis/Skills/Targeters/RandomLocationsNearTargets",
                 "default_value": "5"
@@ -1890,6 +2345,7 @@
                     "minr"
                 ],
                 "type": "PlaceholderInteger",
+                "enum": null,
                 "description": "The minimum radius in which target points will be generated",
                 "link": "https://git.lumine.io/mythiccraft/MythicMobs/-/wikis/Skills/Targeters/RandomLocationsNearTargets",
                 "default_value": "0"
@@ -1900,6 +2356,7 @@
                     "s"
                 ],
                 "type": "Integer",
+                "enum": null,
                 "description": "The minimum amount of space between selected targets",
                 "link": "https://git.lumine.io/mythiccraft/MythicMobs/-/wikis/Skills/Targeters/RandomLocationsNearTargets",
                 "default_value": "0"
@@ -1924,6 +2381,7 @@
                     "a"
                 ],
                 "type": "PlaceholderInteger",
+                "enum": null,
                 "description": "The amount of points",
                 "link": "https://git.lumine.io/mythiccraft/MythicMobs/-/wikis/Skills/Targeters/RandomLocationsNearCaster",
                 "default_value": "5"
@@ -1936,6 +2394,7 @@
                     "maxr"
                 ],
                 "type": "Integer",
+                "enum": null,
                 "description": "The radius in which target points will be generated",
                 "link": "https://git.lumine.io/mythiccraft/MythicMobs/-/wikis/Skills/Targeters/RandomLocationsNearCaster",
                 "default_value": "5"
@@ -1946,6 +2405,7 @@
                     "minr"
                 ],
                 "type": "Integer",
+                "enum": null,
                 "description": "The minimum radius in which target points will be generated",
                 "link": "https://git.lumine.io/mythiccraft/MythicMobs/-/wikis/Skills/Targeters/RandomLocationsNearCaster",
                 "default_value": "0"
@@ -1956,6 +2416,7 @@
                     "s"
                 ],
                 "type": "Integer",
+                "enum": null,
                 "description": "The minimum amount of space between selected targets",
                 "link": "https://git.lumine.io/mythiccraft/MythicMobs/-/wikis/Skills/Targeters/RandomLocationsNearCaster",
                 "default_value": "0"
@@ -1978,6 +2439,7 @@
                     "a"
                 ],
                 "type": "String",
+                "enum": null,
                 "description": "How many of the generated points should be targeted",
                 "link": "https://git.lumine.io/mythiccraft/MythicMobs/-/wikis/Skills/Targeters/RandomRingPoint",
                 "default_value": "1"
@@ -1988,6 +2450,7 @@
                     "r"
                 ],
                 "type": "String",
+                "enum": null,
                 "description": "The radius of the ring",
                 "link": "https://git.lumine.io/mythiccraft/MythicMobs/-/wikis/Skills/Targeters/RandomRingPoint",
                 "default_value": "5"
@@ -1998,6 +2461,7 @@
                     "p"
                 ],
                 "type": "String",
+                "enum": null,
                 "description": "The number of points to generate",
                 "link": "https://git.lumine.io/mythiccraft/MythicMobs/-/wikis/Skills/Targeters/RandomRingPoint",
                 "default_value": "10"
@@ -2009,6 +2473,7 @@
                     "rx"
                 ],
                 "type": "PlaceholderDouble",
+                "enum": null,
                 "description": "The rotation on the x axis",
                 "link": "https://git.lumine.io/mythiccraft/MythicMobs/-/wikis/Skills/Targeters/RandomRingPoint",
                 "default_value": "0"
@@ -2020,6 +2485,7 @@
                     "ry"
                 ],
                 "type": "PlaceholderDouble",
+                "enum": null,
                 "description": "The rotation on the y axis",
                 "link": "https://git.lumine.io/mythiccraft/MythicMobs/-/wikis/Skills/Targeters/RandomRingPoint",
                 "default_value": "0"
@@ -2031,6 +2497,7 @@
                     "rz"
                 ],
                 "type": "PlaceholderDouble",
+                "enum": null,
                 "description": "The rotation on the z axis",
                 "link": "https://git.lumine.io/mythiccraft/MythicMobs/-/wikis/Skills/Targeters/RandomRingPoint",
                 "default_value": "0"
@@ -2042,6 +2509,7 @@
                     "ox"
                 ],
                 "type": "PlaceholderDouble",
+                "enum": null,
                 "description": "The offset on the x axis",
                 "link": "https://git.lumine.io/mythiccraft/MythicMobs/-/wikis/Skills/Targeters/RandomRingPoint",
                 "default_value": "0"
@@ -2053,6 +2521,7 @@
                     "oy"
                 ],
                 "type": "PlaceholderDouble",
+                "enum": null,
                 "description": "The offset on the y axis",
                 "link": "https://git.lumine.io/mythiccraft/MythicMobs/-/wikis/Skills/Targeters/RandomRingPoint",
                 "default_value": "0"
@@ -2064,6 +2533,7 @@
                     "oz"
                 ],
                 "type": "PlaceholderDouble",
+                "enum": null,
                 "description": "The offset on the z axis",
                 "link": "https://git.lumine.io/mythiccraft/MythicMobs/-/wikis/Skills/Targeters/RandomRingPoint",
                 "default_value": "0"
@@ -2087,6 +2557,7 @@
                     "x"
                 ],
                 "type": "PlaceholderDouble",
+                "enum": null,
                 "description": "The size of the rectangle on the **x** axis",
                 "link": "https://git.lumine.io/mythiccraft/MythicMobs/-/wikis/Skills/Targeters/Rectangle",
                 "default_value": "1"
@@ -2096,6 +2567,7 @@
                     "y"
                 ],
                 "type": "PlaceholderDouble",
+                "enum": null,
                 "description": "The size of the rectangle on the **y** axis",
                 "link": "https://git.lumine.io/mythiccraft/MythicMobs/-/wikis/Skills/Targeters/Rectangle",
                 "default_value": "1"
@@ -2105,6 +2577,7 @@
                     "z"
                 ],
                 "type": "PlaceholderDouble",
+                "enum": null,
                 "description": "The size of the rectangle on the **z** axis",
                 "link": "https://git.lumine.io/mythiccraft/MythicMobs/-/wikis/Skills/Targeters/Rectangle",
                 "default_value": "1"
@@ -2114,6 +2587,7 @@
                     "xoffset"
                 ],
                 "type": "PlaceholderDouble",
+                "enum": null,
                 "description": "The offset of the rectangle on the **x** axis",
                 "link": "https://git.lumine.io/mythiccraft/MythicMobs/-/wikis/Skills/Targeters/Rectangle",
                 "default_value": "0"
@@ -2123,6 +2597,7 @@
                     "yoffset"
                 ],
                 "type": "PlaceholderDouble",
+                "enum": null,
                 "description": "The offset of the rectangle on the **y** axis",
                 "link": "https://git.lumine.io/mythiccraft/MythicMobs/-/wikis/Skills/Targeters/Rectangle",
                 "default_value": "0"
@@ -2132,6 +2607,7 @@
                     "zoffset"
                 ],
                 "type": "PlaceholderDouble",
+                "enum": null,
                 "description": "The offset of the rectangle on the **z** axis",
                 "link": "https://git.lumine.io/mythiccraft/MythicMobs/-/wikis/Skills/Targeters/Rectangle",
                 "default_value": "0"
@@ -2144,6 +2620,7 @@
                     "d"
                 ],
                 "type": "PlaceholderInteger",
+                "enum": null,
                 "description": "Amount of points per cube 'line'",
                 "link": "https://git.lumine.io/mythiccraft/MythicMobs/-/wikis/Skills/Targeters/Rectangle",
                 "default_value": "10"
@@ -2155,6 +2632,7 @@
                     "f"
                 ],
                 "type": "Boolean",
+                "enum": null,
                 "description": "If the rectangle should be filled",
                 "link": "https://git.lumine.io/mythiccraft/MythicMobs/-/wikis/Skills/Targeters/Rectangle",
                 "default_value": "false"
@@ -2169,6 +2647,7 @@
                     "o"
                 ],
                 "type": "Boolean",
+                "enum": null,
                 "description": "If only the outline should be drawn",
                 "link": "https://git.lumine.io/mythiccraft/MythicMobs/-/wikis/Skills/Targeters/Rectangle",
                 "default_value": "false"
@@ -2179,6 +2658,7 @@
                     "origin"
                 ],
                 "type": "Boolean",
+                "enum": null,
                 "description": "If the rectangle should be drawn from the origin of the metaskill",
                 "link": "https://git.lumine.io/mythiccraft/MythicMobs/-/wikis/Skills/Targeters/Rectangle",
                 "default_value": "false"
@@ -2189,6 +2669,7 @@
                     "r"
                 ],
                 "type": "String",
+                "enum": null,
                 "description": "The 3D rotation of the rectangle",
                 "link": "https://git.lumine.io/mythiccraft/MythicMobs/-/wikis/Skills/Targeters/Rectangle",
                 "default_value": "0,0,0"
@@ -2210,6 +2691,7 @@
                     "min"
                 ],
                 "type": "PlaceholderString",
+                "enum": null,
                 "description": "The location of the first point",
                 "link": "https://git.lumine.io/mythiccraft/MythicMobs/-/wikis/Skills/Targeters/Region",
                 "default_value": "0,0,0"
@@ -2219,6 +2701,7 @@
                     "max"
                 ],
                 "type": "PlaceholderString",
+                "enum": null,
                 "description": "The location of the second point",
                 "link": "https://git.lumine.io/mythiccraft/MythicMobs/-/wikis/Skills/Targeters/Region",
                 "default_value": "0,0,0"
@@ -2228,6 +2711,7 @@
                     "world"
                 ],
                 "type": "PlaceholderString",
+                "enum": null,
                 "description": "The world the region is in",
                 "link": "https://git.lumine.io/mythiccraft/MythicMobs/-/wikis/Skills/Targeters/Region",
                 "default_value": "`<caster.l.w>`"
@@ -2252,6 +2736,7 @@
                     "r"
                 ],
                 "type": "String",
+                "enum": null,
                 "description": "The radius of the targeter",
                 "link": "https://git.lumine.io/mythiccraft/MythicMobs/-/wikis/Skills/Targeters/RingAroundOrigin",
                 "default_value": "5"
@@ -2262,6 +2747,7 @@
                     "p"
                 ],
                 "type": "String",
+                "enum": null,
                 "description": "The points that make up the ring",
                 "link": "https://git.lumine.io/mythiccraft/MythicMobs/-/wikis/Skills/Targeters/RingAroundOrigin",
                 "default_value": "10"
@@ -2273,6 +2759,7 @@
                     "rx"
                 ],
                 "type": "PlaceholderDouble",
+                "enum": null,
                 "description": "The rotation of the ring on the x axis",
                 "link": "https://git.lumine.io/mythiccraft/MythicMobs/-/wikis/Skills/Targeters/RingAroundOrigin",
                 "default_value": "0"
@@ -2284,6 +2771,7 @@
                     "ry"
                 ],
                 "type": "PlaceholderDouble",
+                "enum": null,
                 "description": "The rotation of the ring on the y axis",
                 "link": "https://git.lumine.io/mythiccraft/MythicMobs/-/wikis/Skills/Targeters/RingAroundOrigin",
                 "default_value": "0"
@@ -2295,6 +2783,7 @@
                     "rz"
                 ],
                 "type": "PlaceholderDouble",
+                "enum": null,
                 "description": "The rotation of the ring on the z axis",
                 "link": "https://git.lumine.io/mythiccraft/MythicMobs/-/wikis/Skills/Targeters/RingAroundOrigin",
                 "default_value": "0"
@@ -2306,6 +2795,7 @@
                     "ox"
                 ],
                 "type": "PlaceholderDouble",
+                "enum": null,
                 "description": "The offset of the ring on the x axis",
                 "link": "https://git.lumine.io/mythiccraft/MythicMobs/-/wikis/Skills/Targeters/RingAroundOrigin",
                 "default_value": "0"
@@ -2317,6 +2807,7 @@
                     "oy"
                 ],
                 "type": "PlaceholderDouble",
+                "enum": null,
                 "description": "The offset of the ring on the y axis",
                 "link": "https://git.lumine.io/mythiccraft/MythicMobs/-/wikis/Skills/Targeters/RingAroundOrigin",
                 "default_value": "0"
@@ -2328,6 +2819,7 @@
                     "oz"
                 ],
                 "type": "PlaceholderDouble",
+                "enum": null,
                 "description": "The offset of the ring on the z axis",
                 "link": "https://git.lumine.io/mythiccraft/MythicMobs/-/wikis/Skills/Targeters/RingAroundOrigin",
                 "default_value": "0"
@@ -2350,6 +2842,7 @@
                     "r"
                 ],
                 "type": "String",
+                "enum": null,
                 "description": "The radius of the targeter",
                 "link": "https://git.lumine.io/mythiccraft/MythicMobs/-/wikis/Skills/Targeters/Ring",
                 "default_value": "5"
@@ -2360,6 +2853,7 @@
                     "p"
                 ],
                 "type": "String",
+                "enum": null,
                 "description": "The points that make up the ring",
                 "link": "https://git.lumine.io/mythiccraft/MythicMobs/-/wikis/Skills/Targeters/Ring",
                 "default_value": "10"
@@ -2371,6 +2865,7 @@
                     "rx"
                 ],
                 "type": "PlaceholderDouble",
+                "enum": null,
                 "description": "The rotation of the ring on the x axis",
                 "link": "https://git.lumine.io/mythiccraft/MythicMobs/-/wikis/Skills/Targeters/Ring",
                 "default_value": "0"
@@ -2382,6 +2877,7 @@
                     "ry"
                 ],
                 "type": "PlaceholderDouble",
+                "enum": null,
                 "description": "The rotation of the ring on the y axis",
                 "link": "https://git.lumine.io/mythiccraft/MythicMobs/-/wikis/Skills/Targeters/Ring",
                 "default_value": "0"
@@ -2393,6 +2889,7 @@
                     "rz"
                 ],
                 "type": "PlaceholderDouble",
+                "enum": null,
                 "description": "The rotation of the ring on the z axis",
                 "link": "https://git.lumine.io/mythiccraft/MythicMobs/-/wikis/Skills/Targeters/Ring",
                 "default_value": "0"
@@ -2404,6 +2901,7 @@
                     "ox"
                 ],
                 "type": "PlaceholderDouble",
+                "enum": null,
                 "description": "The offset of the ring on the x axis",
                 "link": "https://git.lumine.io/mythiccraft/MythicMobs/-/wikis/Skills/Targeters/Ring",
                 "default_value": "0"
@@ -2415,6 +2913,7 @@
                     "oy"
                 ],
                 "type": "PlaceholderDouble",
+                "enum": null,
                 "description": "The offset of the ring on the y axis",
                 "link": "https://git.lumine.io/mythiccraft/MythicMobs/-/wikis/Skills/Targeters/Ring",
                 "default_value": "0"
@@ -2426,6 +2925,7 @@
                     "oz"
                 ],
                 "type": "PlaceholderDouble",
+                "enum": null,
                 "description": "The offset of the ring on the z axis",
                 "link": "https://git.lumine.io/mythiccraft/MythicMobs/-/wikis/Skills/Targeters/Ring",
                 "default_value": "0"
@@ -2435,6 +2935,7 @@
                     "relative"
                 ],
                 "type": "Boolean",
+                "enum": null,
                 "description": "Whether the Ring's orientation should be relative to the caster's",
                 "link": "https://git.lumine.io/mythiccraft/MythicMobs/-/wikis/Skills/Targeters/Ring",
                 "default_value": "false"
@@ -2514,6 +3015,7 @@
                     "c"
                 ],
                 "type": "String",
+                "enum": null,
                 "description": "[Inline Target Conditions](/Skills/Inline-Conditions#targetconditions)",
                 "link": "https://git.lumine.io/mythiccraft/MythicMobs/-/wikis/Skills/Targeters#common-attributes",
                 "default_value": ""
@@ -2527,6 +3029,7 @@
                     "sudoparent"
                 ],
                 "type": "Boolean",
+                "enum": null,
                 "description": "If this attribute is set to `true`, the targeter will be parsed as if it was the [Parent][] of the casting entity executing the mechanic",
                 "link": "https://git.lumine.io/mythiccraft/MythicMobs/-/wikis/Skills/Targeters#common-attributes",
                 "default_value": ""
@@ -2540,6 +3043,7 @@
                     "sudoowner"
                 ],
                 "type": "Boolean",
+                "enum": null,
                 "description": "If this attribute is set to `true`, the targeter will be parsed as if it was the [Owner][] of the casting entity executing the mechanic",
                 "link": "https://git.lumine.io/mythiccraft/MythicMobs/-/wikis/Skills/Targeters#common-attributes",
                 "default_value": ""
@@ -2553,6 +3057,7 @@
                     "sudotrigger"
                 ],
                 "type": "Boolean",
+                "enum": null,
                 "description": "If this attribute is set to `true`, the targeter will be parsed as if it was the [Trigger][] of the skilltree executing the mechanic",
                 "link": "https://git.lumine.io/mythiccraft/MythicMobs/-/wikis/Skills/Targeters#common-attributes",
                 "default_value": ""
@@ -2587,6 +3092,7 @@
                     "s"
                 ],
                 "type": "String",
+                "enum": null,
                 "description": "The names of the spawners. Can be either a simple name, a group (`g:groupname`) or contain wildcards (`Spawner*` to target *Spawner1*,*Spawner2*,*Spawner3*...)",
                 "link": "https://git.lumine.io/mythiccraft/MythicMobs/-/wikis/Skills/Targeters/Spawners",
                 "default_value": ""
@@ -2609,6 +3115,7 @@
                     "r"
                 ],
                 "type": "PlaceholderDouble",
+                "enum": null,
                 "description": "The radius of the targeter",
                 "link": "https://git.lumine.io/mythiccraft/MythicMobs/-/wikis/Skills/Targeters/Sphere",
                 "default_value": "5"
@@ -2619,6 +3126,7 @@
                     "p"
                 ],
                 "type": "PlaceholderInteger",
+                "enum": null,
                 "description": "The amount of points",
                 "link": "https://git.lumine.io/mythiccraft/MythicMobs/-/wikis/Skills/Targeters/Sphere",
                 "default_value": "10"
@@ -2629,6 +3137,7 @@
                     "y"
                 ],
                 "type": "PlaceholderDouble",
+                "enum": null,
                 "description": "The offset of the targets on the y axis",
                 "link": "https://git.lumine.io/mythiccraft/MythicMobs/-/wikis/Skills/Targeters/Sphere",
                 "default_value": "0"
@@ -2639,6 +3148,7 @@
                     "e"
                 ],
                 "type": "Boolean",
+                "enum": null,
                 "description": "If the targeter should draw a perfect sphere",
                 "link": "https://git.lumine.io/mythiccraft/MythicMobs/-/wikis/Skills/Targeters/Sphere",
                 "default_value": "false"
@@ -2663,6 +3173,7 @@
                     "d"
                 ],
                 "type": "Integer",
+                "enum": null,
                 "description": "The maximum distance to check for the block, if the caster is a player",
                 "link": "https://git.lumine.io/mythiccraft/MythicMobs/-/wikis/Skills/Targeters/TargetBlock",
                 "default_value": "64"
@@ -2673,6 +3184,7 @@
                     "it"
                 ],
                 "type": "Boolean",
+                "enum": null,
                 "description": "If transparent blocks should be ignored",
                 "link": "https://git.lumine.io/mythiccraft/MythicMobs/-/wikis/Skills/Targeters/TargetBlock",
                 "default_value": "true"
@@ -2699,6 +3211,7 @@
                     "d"
                 ],
                 "type": "Integer",
+                "enum": null,
                 "description": "The maximum distance to check for the location, if the caster is a player",
                 "link": "https://git.lumine.io/mythiccraft/MythicMobs/-/wikis/Skills/Targeters/TargetLocation",
                 "default_value": "64"
@@ -2709,6 +3222,7 @@
                     "it"
                 ],
                 "type": "Boolean",
+                "enum": null,
                 "description": "If transparent blocks should be ignored",
                 "link": "https://git.lumine.io/mythiccraft/MythicMobs/-/wikis/Skills/Targeters/TargetLocation",
                 "default_value": "true"
@@ -2754,6 +3268,19 @@
     },
     {
         "plugin": "MythicMobs",
+        "class": "ThreatTablePlayersTargeter",
+        "extends": "IEntitySelector",
+        "name": [
+            "threattableplayers",
+            "playersinthreattable",
+            "ttp"
+        ],
+        "description": "Targets all the players on the casting mob's [Threat Table](/Mobs/ThreatTables)",
+        "link": "https://git.lumine.io/mythiccraft/MythicMobs/-/wikis/Skills/Targeters/ThreatTablePlayers",
+        "attributes": []
+    },
+    {
+        "plugin": "MythicMobs",
         "class": "ThreatTableRandomLocationTargeter",
         "extends": "ILocationSelector",
         "name": [
@@ -2762,6 +3289,32 @@
         ],
         "description": "Targets the location of a random entity on the casting mob's [Threat Table](/Mobs/ThreatTables)",
         "link": "https://git.lumine.io/mythiccraft/MythicMobs/-/wikis/Skills/Targeters/RandomThreatTargetLocation",
+        "attributes": []
+    },
+    {
+        "plugin": "MythicMobs",
+        "class": "ThreatTableRandomTargeter",
+        "extends": "IEntitySelector",
+        "name": [
+            "threattablerandomtarget",
+            "randomthreattarget",
+            "rtt"
+        ],
+        "description": "Targets a random entity on the casting mob's [Threat Table](/Mobs/ThreatTables)",
+        "link": "https://git.lumine.io/mythiccraft/MythicMobs/-/wikis/Skills/Targeters/RandomThreatTarget",
+        "attributes": []
+    },
+    {
+        "plugin": "MythicMobs",
+        "class": "ThreatTableTargeter",
+        "extends": "IEntitySelector",
+        "name": [
+            "threattable",
+            "threattargets",
+            "tt"
+        ],
+        "description": "Targets every entity on the casting mob's [Threat Table](/Mobs/ThreatTables)",
+        "link": "https://git.lumine.io/mythiccraft/MythicMobs/-/wikis/Skills/Targeters/ThreatTable",
         "attributes": []
     },
     {
@@ -2826,6 +3379,7 @@
                     "u"
                 ],
                 "type": "PlaceholderString",
+                "enum": null,
                 "description": "The uuid of the entity",
                 "link": "https://git.lumine.io/mythiccraft/MythicMobs/-/wikis/Skills/Targeters/UniqueIdentifier",
                 "default_value": "0"
@@ -2853,6 +3407,7 @@
                     "k"
                 ],
                 "type": "String",
+                "enum": null,
                 "description": "The name of the variable.",
                 "link": "https://git.lumine.io/mythiccraft/MythicMobs/-/wikis/Skills/Targeters/VariableLocation",
                 "default_value": ""
@@ -2863,6 +3418,7 @@
                     "s"
                 ],
                 "type": "String",
+                "enum": null,
                 "description": "The scope of the variable. Can optionally be set in the name, using the scope.name syntax",
                 "link": "https://git.lumine.io/mythiccraft/MythicMobs/-/wikis/Skills/Targeters/VariableLocation",
                 "default_value": ""
@@ -2878,6 +3434,17 @@
         ],
         "description": "Targets the caster's vehicle",
         "link": "https://git.lumine.io/mythiccraft/MythicMobs/-/wikis/Skills/Targeters/Vehicle",
+        "attributes": []
+    },
+    {
+        "plugin": "MythicMobs",
+        "class": "WolfOwnerTargeter",
+        "extends": "IEntitySelector",
+        "name": [
+            "wolfowner"
+        ],
+        "description": "Targets the vanilla owner of the caster, if the caster is a wolf",
+        "link": "https://git.lumine.io/mythiccraft/MythicMobs/-/wikis/Skills/Targeters/WolfOwner",
         "attributes": []
     }
 ]

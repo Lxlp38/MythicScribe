@@ -1,0 +1,20 @@
+{
+    "END": {
+        "Description": "The end of the respawn sequence."
+    },
+    "NONE": {
+        "Description": "No respawn is in progress."
+    },
+    "PREPARING_TO_SUMMON_PILLARS": {
+        "Description": "The crystal beams remain directed upwards."
+    },
+    "START": {
+        "Description": "The crystal beams are directed upwards into the sky."
+    },
+    "SUMMONING_DRAGON": {
+        "Description": "All crystals (including those from the pillars) are aimed towards the\n sky."
+    },
+    "SUMMONING_PILLARS": {
+        "Description": "The crystal beams are directed from pillar to pillar, regenerating\n their crystals if necessary."
+    }
+}

@@ -11,7 +11,11 @@ export enum ObjectType {
 	CONDITION = 'Condition',
 	INLINECONDITION = 'Inline Condition',
 	TRIGGER = 'Trigger',
+	
+
+
 }
+
 
 // Define the paths to your local datasets
 const mechanicsDatasetPath = path.join(__dirname, '../data/mechanics.json');
@@ -19,7 +23,7 @@ const targetersDatasetPath = path.join(__dirname, '../data/targeters.json');
 const conditionsDatasetPath = path.join(__dirname, '../data/conditions.json');
 const triggersDatasetPath = path.join(__dirname, '../data/triggers.json');
 
-export const ObjectInfo = {
+export const ObjectInfo: { [key in ObjectType]: { dataset: any; datasetMap: Map<string, any>; datasetClassMap: Map<string, any>, regex: RegExp } } = {
 	[ObjectType.MECHANIC]: {
 		dataset: JSON.parse(fs.readFileSync(mechanicsDatasetPath, 'utf8')),
 		datasetMap: new Map<string, any>(),
@@ -56,6 +60,115 @@ export const ObjectInfo = {
 		datasetClassMap: new Map<string, any>(),
 		regex: /(?<=\s~)on[\w:]+/gm,
 	}
+}
+
+export enum EnumType {
+	// Enums
+
+	SOUND = 'Sound',
+
+	AUDIENCE = 'Audience',
+	EQUIPSLOT = 'Equip Slot',
+	PARTICLE = 'Particle',
+	STATMODIFIER = 'Stat Modifier',
+
+	SPIGOTATTRIBUTE = 'Spigot Attribute',
+	SPIGOTATTRIBUTEOPERATION = 'Spigot Attribute Operation',
+	BARCOLOR = 'Bar Color',
+	BARSTYLE = 'Bar Style',
+	DAMAGECAUSE = 'Damage Cause',
+	DYE = 'Dye',
+	MATERIAL = 'Material',
+	BLOCKFACE = 'Block Face',
+	ENDERDRAGONPHASE = 'Ender Dragon Phase',
+	DRAGONBATTLERESPAWNPHASE = 'Dragon Battle Respawn Phase',
+	POTIONEFFECTTYPE = 'Potion Effect Type',
+
+}
+
+
+export const EnumInfo: { [key in EnumType]: { dataset: any; commalist: string } } = {
+
+	[EnumType.SOUND]: {
+		dataset: JSON.parse(fs.readFileSync(path.join(__dirname, '../data/minecraft/sounds.json'), 'utf8')),
+		commalist: "",
+	},
+
+	[EnumType.AUDIENCE]: {
+		dataset: JSON.parse(fs.readFileSync(path.join(__dirname, '../data/audiences.json'), 'utf8')),
+		commalist: "",
+	},
+
+	[EnumType.EQUIPSLOT]: {
+		dataset: JSON.parse(fs.readFileSync(path.join(__dirname, '../data/equipslot.json'), 'utf8')),
+		commalist: "",
+	},
+
+	[EnumType.PARTICLE]: {
+		dataset: JSON.parse(fs.readFileSync(path.join(__dirname, '../data/particles.json'), 'utf8')),
+		commalist: "",
+	},
+
+	[EnumType.STATMODIFIER]: {
+		dataset: JSON.parse(fs.readFileSync(path.join(__dirname, '../data/statsmodifiers.json'), 'utf8')),
+		commalist: "",
+	},
+
+	[EnumType.SPIGOTATTRIBUTE]: {
+		dataset: JSON.parse(fs.readFileSync(path.join(__dirname, '../data/spigot/attributes.json'), 'utf8')),
+		commalist: ""
+	},
+
+	[EnumType.SPIGOTATTRIBUTEOPERATION]: {
+		dataset: JSON.parse(fs.readFileSync(path.join(__dirname, '../data/spigot/attributesoperations.json'), 'utf8')),
+		commalist: ""
+	},
+
+	[EnumType.BARCOLOR]: {
+		dataset: JSON.parse(fs.readFileSync(path.join(__dirname, '../data/spigot/barcolor.json'), 'utf8')),
+		commalist: ""
+	},
+
+	[EnumType.BARSTYLE]: {
+		dataset: JSON.parse(fs.readFileSync(path.join(__dirname, '../data/spigot/barstyle.json'), 'utf8')),
+		commalist: ""
+	},
+
+	[EnumType.DAMAGECAUSE]: {
+		dataset: JSON.parse(fs.readFileSync(path.join(__dirname, '../data/spigot/damagecause.json'), 'utf8')),
+		commalist: ""
+	},
+
+	[EnumType.DYE]: {
+		dataset: JSON.parse(fs.readFileSync(path.join(__dirname, '../data/spigot/dye.json'), 'utf8')),
+		commalist: ""
+	},
+
+	[EnumType.MATERIAL]: {
+		dataset: JSON.parse(fs.readFileSync(path.join(__dirname, '../data/spigot/material.json'), 'utf8')),
+		commalist: ""
+	},
+
+	[EnumType.BLOCKFACE]: {
+		dataset: JSON.parse(fs.readFileSync(path.join(__dirname, '../data/spigot/blockface.json'), 'utf8')),
+		commalist: ""
+	},
+	
+	[EnumType.ENDERDRAGONPHASE]: {
+		dataset: JSON.parse(fs.readFileSync(path.join(__dirname, '../data/spigot/enderdragonphase.json'), 'utf8')),
+		commalist: ""
+	},
+	
+	[EnumType.DRAGONBATTLERESPAWNPHASE]: {
+		dataset: JSON.parse(fs.readFileSync(path.join(__dirname, '../data/spigot/dragonbattlerespawnphase.json'), 'utf8')),
+		commalist: ""
+	},
+
+	[EnumType.POTIONEFFECTTYPE]: {
+		dataset: JSON.parse(fs.readFileSync(path.join(__dirname, '../data/spigot/potioneffecttype.json'), 'utf8')),
+		commalist: ""
+	},
+
 }
 
 
@@ -111,6 +224,26 @@ export async function loadGithubDatasets(context: vscode.ExtensionContext) {
         const targetersData = await fetchJsonFromGithub('targeters.json');
         const conditionsData = await fetchJsonFromGithub('conditions.json');
 		const triggersData = await fetchJsonFromGithub('triggers.json');
+
+		const soundsData = await fetchJsonFromGithub('minecraft/sounds.json');
+
+		const audiencesData = await fetchJsonFromGithub('audiences.json');
+		const equipslotData = await fetchJsonFromGithub('equipslot.json');
+		const particlesData = await fetchJsonFromGithub('particles.json');
+		const statsmodifiersData = await fetchJsonFromGithub('statsmodifiers.json');
+
+		const attributesData = await fetchJsonFromGithub('spigot/attributes.json');
+		const attrinutesOperationsData = await fetchJsonFromGithub('spigot/attributesoperations.json');
+		const barcolorData = await fetchJsonFromGithub('spigot/barcolor.json');
+		const barstyleData = await fetchJsonFromGithub('spigot/barstyle.json');
+		const damagecauseData = await fetchJsonFromGithub('spigot/damagecause.json');
+		const dyeData = await fetchJsonFromGithub('spigot/dye.json');
+		const materialData = await fetchJsonFromGithub('spigot/material.json');
+		const blockfaceData = await fetchJsonFromGithub('spigot/blockface.json');
+		const enderdragonphaseData = await fetchJsonFromGithub('spigot/enderdragonphase.json');
+		const dragonbattlerespawnphaseData = await fetchJsonFromGithub('spigot/dragonbattlerespawnphase.json');
+		const potioneffecttypeData = await fetchJsonFromGithub('spigot/potioneffecttype.json');
+		
 		console.log("Fetched datasets from GitHub");
 
         // Check if the data was successfully fetched
@@ -121,6 +254,26 @@ export async function loadGithubDatasets(context: vscode.ExtensionContext) {
             globalState.update('targetersDataset', targetersData);
             globalState.update('conditionsDataset', conditionsData);
 			globalState.update('triggersDataset', triggersData);
+
+			globalState.update('soundsDataset', soundsData);
+
+			globalState.update('audiencesDataset', audiencesData);
+			globalState.update('equipslotDataset', equipslotData);
+			globalState.update('particlesDataset', particlesData);
+			globalState.update('statsmodifiersDataset', statsmodifiersData);
+
+			globalState.update('attributesDataset', attributesData);
+			globalState.update('attributesOperationsDataset', attrinutesOperationsData);
+			globalState.update('barcolorDataset', barcolorData);
+			globalState.update('barstyleDataset', barstyleData);
+			globalState.update('damagecauseDataset', damagecauseData);
+			globalState.update('dyeDataset', dyeData);
+			globalState.update('materialDataset', materialData);
+			globalState.update('blockfaceDataset', blockfaceData);
+			globalState.update('enderdragonphaseDataset', enderdragonphaseData);
+			globalState.update('dragonbattlerespawnphaseDataset', dragonbattlerespawnphaseData);
+			globalState.update('potioneffecttypeDataset', potioneffecttypeData);
+
             globalState.update('latestCommitHash', latestCommitHash);
         } else {
             // Fallback to globalState or local datasets if fetch failed
@@ -134,12 +287,37 @@ export async function loadGithubDatasets(context: vscode.ExtensionContext) {
     ObjectInfo[ObjectType.CONDITION].dataset = globalState.get('conditionsDataset') || loadLocalDataset(conditionsDatasetPath);
 	ObjectInfo[ObjectType.TRIGGER].dataset = globalState.get('triggersDataset') || loadLocalDataset(triggersDatasetPath);
 
-	updateDatasetMaps();
+	EnumInfo[EnumType.SOUND].dataset = globalState.get('soundsDataset') || loadLocalDataset(path.join(__dirname, '../data/minecraft/sounds.json'));
 
+	EnumInfo[EnumType.AUDIENCE].dataset = globalState.get('audiencesDataset') || loadLocalDataset(path.join(__dirname, '../data/audiences.json'));
+	EnumInfo[EnumType.EQUIPSLOT].dataset = globalState.get('equipslotDataset') || loadLocalDataset(path.join(__dirname, '../data/equipslot.json'));
+	EnumInfo[EnumType.PARTICLE].dataset = globalState.get('particlesDataset') || loadLocalDataset(path.join(__dirname, '../data/particles.json'));
+	EnumInfo[EnumType.STATMODIFIER].dataset = globalState.get('statsmodifiersDataset') || loadLocalDataset(path.join(__dirname, '../data/statsmodifiers.json'));
+
+	EnumInfo[EnumType.SPIGOTATTRIBUTE].dataset = globalState.get('attributesDataset') || loadLocalDataset(path.join(__dirname, '../data/spigot/attributes.json'));
+	EnumInfo[EnumType.SPIGOTATTRIBUTEOPERATION].dataset = globalState.get('attributesOperationsDataset') || loadLocalDataset(path.join(__dirname, '../data/spigot/attributesoperations.json'));
+	EnumInfo[EnumType.BARCOLOR].dataset = globalState.get('barcolorDataset') || loadLocalDataset(path.join(__dirname, '../data/spigot/barcolor.json'));
+	EnumInfo[EnumType.BARSTYLE].dataset = globalState.get('barstyleDataset') || loadLocalDataset(path.join(__dirname, '../data/spigot/barstyle.json'));
+	EnumInfo[EnumType.DAMAGECAUSE].dataset = globalState.get('damagecauseDataset') || loadLocalDataset(path.join(__dirname, '../data/spigot/damagecause.json'));
+	EnumInfo[EnumType.DYE].dataset = globalState.get('dyeDataset') || loadLocalDataset(path.join(__dirname, '../data/spigot/dye.json'));
+	EnumInfo[EnumType.MATERIAL].dataset = globalState.get('materialDataset') || loadLocalDataset(path.join(__dirname, '../data/spigot/material.json'));
+	EnumInfo[EnumType.BLOCKFACE].dataset = globalState.get('blockfaceDataset') || loadLocalDataset(path.join(__dirname, '../data/spigot/blockface.json'));
+	EnumInfo[EnumType.ENDERDRAGONPHASE].dataset = globalState.get('enderdragonphaseDataset') || loadLocalDataset(path.join(__dirname, '../data/spigot/enderdragonphase.json'));
+	EnumInfo[EnumType.DRAGONBATTLERESPAWNPHASE].dataset = globalState.get('dragonbattlerespawnphaseDataset') || loadLocalDataset(path.join(__dirname, '../data/spigot/dragonbattlerespawnphase.json'));
+	EnumInfo[EnumType.POTIONEFFECTTYPE].dataset = globalState.get('potioneffecttypeDataset') || loadLocalDataset(path.join(__dirname, '../data/spigot/potioneffecttype.json'));
+
+	// Update the maps
+	updateDatasets();
     return;
 }
 
-export function updateDatasetMaps() {
+export function updateDatasets(){
+	updateDatasetMaps();
+	updateDatasetEnums();
+
+}
+
+function updateDatasetMaps() {
 	ObjectInfo[ObjectType.MECHANIC].datasetMap = new Map<string, any>();
 	ObjectInfo[ObjectType.MECHANIC].datasetClassMap = new Map<string, any>();
 
@@ -160,6 +338,16 @@ export function updateDatasetMaps() {
 	ObjectInfo[ObjectType.INLINECONDITION].dataset = ObjectInfo[ObjectType.CONDITION].dataset;
 	ObjectInfo[ObjectType.INLINECONDITION].datasetMap = ObjectInfo[ObjectType.CONDITION].datasetMap;
 	ObjectInfo[ObjectType.INLINECONDITION].datasetClassMap = ObjectInfo[ObjectType.CONDITION].datasetClassMap;
+}
+
+function updateDatasetEnums() {
+	for (const key in EnumInfo) {
+		const list: string[] = [];
+		for (const item of Object.keys(EnumInfo[key as EnumType].dataset)) {
+			list.push(item);
+		}
+		EnumInfo[key as EnumType].commalist = list.join(",");
+	}
 }
 
 function mapDataset(object: any) {
