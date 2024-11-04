@@ -5,7 +5,7 @@ let lastexecutiontime = 0
 
 export function removeBracketsTextListener() {
 
-    const removeBracketsTextListener = vscode.window.onDidChangeTextEditorSelection(event => {    
+    const removeBracketsTextListener = vscode.window.onDidChangeTextEditorSelection(_event => {    
         const editor = vscode.window.activeTextEditor;
         if (!editor) return;
     

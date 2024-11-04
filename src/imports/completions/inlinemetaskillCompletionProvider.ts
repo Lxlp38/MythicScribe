@@ -8,7 +8,7 @@ export function inlineMetaskillCompletionProvider(){
     const inlineMetaskillCompletionProvider = vscode.languages.registerCompletionItemProvider(
         'yaml',
         {
-            async provideCompletionItems(document: vscode.TextDocument, position: vscode.Position, token: vscode.CancellationToken, context: vscode.CompletionContext) {
+            async provideCompletionItems(document: vscode.TextDocument, position: vscode.Position) {
     
                 const keys = yamlutils.getParentKeys(document, position.line);
                 if (!keyAliases["Skills"].includes(keys[0])) {

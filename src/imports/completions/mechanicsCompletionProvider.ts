@@ -7,7 +7,7 @@ export function mechanicCompletionProvider(){
     const mechanicCompletionProvider = vscode.languages.registerCompletionItemProvider(
         'yaml',
         {
-            async provideCompletionItems(document: vscode.TextDocument, position: vscode.Position, token: vscode.CancellationToken, context: vscode.CompletionContext) {
+            async provideCompletionItems(document: vscode.TextDocument, position: vscode.Position, _token: vscode.CancellationToken, context: vscode.CompletionContext) {
     
                 if(!keyAliases["Skills"].includes(yamlutils.getParentKeys(document, position.line)[0])){
                     return undefined;

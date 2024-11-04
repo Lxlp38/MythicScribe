@@ -1,9 +1,7 @@
 import * as vscode from 'vscode';
 import * as path from 'path';
 import * as fs from 'fs';
-import { ctx } from './MythicScribe';
 import * as config from './imports/utils/configutils';
-
 
 export enum ObjectType {
 	MECHANIC = 'Mechanic',
@@ -13,56 +11,112 @@ export enum ObjectType {
 	INLINECONDITION = 'Inline Condition',
 	TRIGGER = 'Trigger',
 
-
-
 }
 
 
-// Define the paths to your local datasets
-const mechanicsDatasetPath = path.join(__dirname, '../data/mechanics.json');
-const targetersDatasetPath = path.join(__dirname, '../data/targeters.json');
-const conditionsDatasetPath = path.join(__dirname, '../data/conditions.json');
-const triggersDatasetPath = path.join(__dirname, '../data/triggers.json');
+interface Attribute {
+	name: string[];
+	type: string;
+	enum: string | null;
+	list: boolean;
+	description: string;
+	link: string;
+	default_value: string;
+}
 
-export const ObjectInfo: { [key in ObjectType]: { dataset: any; datasetMap: Map<string, any>; datasetClassMap: Map<string, any>, regex: RegExp } } = {
+export interface Mechanic {
+	plugin: string;
+	class: string;
+	extends: string;
+	name: string[];
+	description: string;
+	link: string;
+	attributes: Attribute[];
+	inheritable_attributes: string[];
+}
+
+export type MechanicDataset = Mechanic[];
+
+export interface ObjectInfo {
+	dataset: MechanicDataset;
+	datasetMap: Map<string, Mechanic>;
+	datasetClassMap: Map<string, Mechanic>;
+	regex: RegExp;
+}
+
+/**
+ * A mapping of `ObjectType` to its corresponding information including dataset, dataset maps, and regex patterns.
+ * 
+ * @typeParam ObjectType - The type of the object.
+ * @property {MechanicDataset} dataset - An array to hold the dataset of the object type.
+ * @property {Map<string, Mechanic>} datasetMap - A map to hold the dataset with string keys and Mechanic values.
+ * @property {Map<string, Mechanic>} datasetClassMap - A map to hold the dataset classes with string keys and Mechanic values.
+ * @property {RegExp} regex - A regular expression to match specific patterns for the object type.
+ */
+export const ObjectInfo: { [key in ObjectType]: ObjectInfo } = {
 	[ObjectType.MECHANIC]: {
-		dataset: JSON.parse(fs.readFileSync(mechanicsDatasetPath, 'utf8')),
-		datasetMap: new Map<string, any>(),
-		datasetClassMap: new Map<string, any>(),
+		dataset: [],
+		datasetMap: new Map<string, Mechanic>(),
+		datasetClassMap: new Map<string, Mechanic>(),
 		regex: /(?<=\s- )[\w:]+(?=[\s{])/gm,
 	},
 	[ObjectType.ATTRIBUTE]: {
-		dataset: null,
-		datasetMap: new Map<string, any>(),
-		datasetClassMap: new Map<string, any>(),
+		dataset: [],
+		datasetMap: new Map<string, Mechanic>(),
+		datasetClassMap: new Map<string, Mechanic>(),
 		regex: /(?<=[{;])\w+(?==)/gm,
 	},
 	[ObjectType.TARGETER]: {
-		dataset: JSON.parse(fs.readFileSync(targetersDatasetPath, 'utf8')),
-		datasetMap: new Map<string, any>(),
-		datasetClassMap: new Map<string, any>(),
+		dataset: [],
+		datasetMap: new Map<string, Mechanic>(),
+		datasetClassMap: new Map<string, Mechanic>(),
 		regex: /(?<=\s@)[\w:]+/gm,
 	},
 	[ObjectType.CONDITION]: {
-		dataset: JSON.parse(fs.readFileSync(conditionsDatasetPath, 'utf8')),
-		datasetMap: new Map<string, any>(),
-		datasetClassMap: new Map<string, any>(),
+		dataset: [],
+		datasetMap: new Map<string, Mechanic>(),
+		datasetClassMap: new Map<string, Mechanic>(),
 		regex: /(?<=[\s\|\&][-\(\|\&\)] )[\w:]+/gm,
 	},
 	[ObjectType.INLINECONDITION]: {
-		dataset: JSON.parse(fs.readFileSync(conditionsDatasetPath, 'utf8')),
-		datasetMap: new Map<string, any>(),
-		datasetClassMap: new Map<string, any>(),
+		dataset: [],
+		datasetMap: new Map<string, Mechanic>(),
+		datasetClassMap: new Map<string, Mechanic>(),
 		regex: /(?<=\s(\?)|(\?!)|(\?~)|(\?~!))[\w:]+/gm,
 	},
 	[ObjectType.TRIGGER]: {
-		dataset: JSON.parse(fs.readFileSync(triggersDatasetPath, 'utf8')),
-		datasetMap: new Map<string, any>(),
-		datasetClassMap: new Map<string, any>(),
+		dataset: [],
+		datasetMap: new Map<string, Mechanic>(),
+		datasetClassMap: new Map<string, Mechanic>(),
 		regex: /(?<=\s~)on[\w:]+/gm,
 	}
 }
 
+/**
+ * Enum representing various types used in the MythicScribe application.
+ * 
+ * @enum {string}
+ * @property {string} SOUND - Represents a sound type.
+ * @property {string} AUDIENCE - Represents an audience type.
+ * @property {string} EQUIPSLOT - Represents an equipment slot type.
+ * @property {string} PARTICLE - Represents a particle type.
+ * @property {string} STATMODIFIER - Represents a stat modifier type.
+ * @property {string} SPIGOTATTRIBUTE - Represents a Spigot attribute type.
+ * @property {string} SPIGOTATTRIBUTEOPERATION - Represents a Spigot attribute operation type.
+ * @property {string} BARCOLOR - Represents a bar color type.
+ * @property {string} BARSTYLE - Represents a bar style type.
+ * @property {string} DAMAGECAUSE - Represents a damage cause type.
+ * @property {string} DYE - Represents a dye type.
+ * @property {string} MATERIAL - Represents a material type.
+ * @property {string} BLOCKFACE - Represents a block face type.
+ * @property {string} ENDERDRAGONPHASE - Represents an Ender Dragon phase type.
+ * @property {string} DRAGONBATTLERESPAWNPHASE - Represents a Dragon Battle respawn phase type.
+ * @property {string} POTIONEFFECTTYPE - Represents a potion effect type.
+ * @property {string} WORLDENVIRONMENT - Represents a world environment type.
+ * @property {string} ENTITYTYPE - Represents an entity type.
+ * @property {string} GAMEMODE - Represents a game mode type.
+ * @property {string} SPAWNREASON - Represents a spawn reason type.
+ */
 export enum EnumType {
 	// Enums
 
@@ -92,7 +146,26 @@ export enum EnumType {
 }
 
 
-export const EnumInfo: { [key in EnumType]: { path: any; dataset: any; commalist: string } } = {
+interface EnumInfo {
+	[key: string]: EnumInfoValue;
+}
+
+interface EnumInfoValue {
+	path: string;
+	dataset: EnumInfoValueDataset;
+	commalist: string;
+}
+
+export interface EnumInfoValueDataset {
+	[key: string]: EnumInfovalueDatasetValue;
+}
+
+export interface EnumInfovalueDatasetValue {
+	Description?: string;
+	name?: string[];
+}
+
+export const EnumInfo = {
 
 	[EnumType.SOUND]: {
 		path: "minecraft/sounds.json",
@@ -217,240 +290,206 @@ export const EnumInfo: { [key in EnumType]: { path: any; dataset: any; commalist
 }
 
 
-// GitHub URL to fetch data from
-const GITHUB_BASE_URL = 'https://raw.githubusercontent.com/Lxlp38/MythicScribe/master/data/';
-const GITHUB_API_COMMITS_URL = 'https://api.github.com/repos/Lxlp38/MythicScribe/commits?path=data';
 
-// Function to fetch the latest commit hash from GitHub
-async function fetchLatestCommitHash(): Promise<string | null> {
-	try {
-		const response = await fetch(GITHUB_API_COMMITS_URL);
-		const data = await response.json();
-		if (Array.isArray(data) && data.length > 0 && typeof data[0].sha === 'string') {
-			return data[0].sha;
-		} else {
-			throw new Error("Unexpected data format");
-		}
-	} catch (error) {
-		console.error("Error fetching commit hash:", error);
-		return null;
-	}
-}
-
-// Function to fetch the JSON data from GitHub
-async function fetchJsonFromGithub(filename: string): Promise<any | null> {
-	try {
-		const response = await fetch(`${GITHUB_BASE_URL}${filename}`);
-		if (response.ok) {
-			return await response.json();
-		} else {
-			throw new Error(`Failed to fetch ${filename} from GitHub`);
-		}
-	} catch (error) {
-		console.error(error);
-		return null;
-	}
-}
-
-// Function to load datasets, check globalState, and update if necessary
-export async function loadGithubDatasets(context: vscode.ExtensionContext) {
-	const globalState = context.globalState;
-
-	if (config.datasetSource() === 'GitHub') {
-		// Fetch the latest commit hash from GitHub
-		const latestCommitHash = await fetchLatestCommitHash();
-
-		// Retrieve the commit hash from globalState
-		const savedCommitHash = globalState.get<string>('latestCommitHash');
-
-		// Check if we need to update the datasets (globalState is empty or outdated)
-		if (!savedCommitHash || latestCommitHash !== savedCommitHash) {
-			// Try to fetch all datasets from GitHub
-			const mechanicsData = await fetchJsonFromGithub('mechanics.json');
-			const targetersData = await fetchJsonFromGithub('targeters.json');
-			const conditionsData = await fetchJsonFromGithub('conditions.json');
-			const triggersData = await fetchJsonFromGithub('triggers.json');
-
-			const enummap: Map<EnumType, any> = new Map<EnumType, any>();
-			for (const key of Object.keys(EnumType) as Array<keyof typeof EnumType>) {
-				const enumData = await fetchJsonFromGithub(EnumInfo[EnumType[key]].path);
-				enummap.set(EnumType[key], enumData);
-			}
-
-			console.log("Fetched datasets from GitHub");
-
-			// Check if the data was successfully fetched
-			if (mechanicsData && targetersData && conditionsData) {
-				// Save datasets to globalState
-				console.log("Updating globalState with fetched datasets");
-				globalState.update('mechanicsDataset', mechanicsData);
-				globalState.update('targetersDataset', targetersData);
-				globalState.update('conditionsDataset', conditionsData);
-				globalState.update('triggersDataset', triggersData);
-
-				for (const [key, value] of enummap) {
-					globalState.update(EnumInfo[key].path, value);
-				}
-
-				globalState.update('latestCommitHash', latestCommitHash);
-			} else {
-				// Fallback to globalState or local datasets if fetch failed
-				console.warn("No connection with GitHub could be enstablished. Using globalState or local datasets as a fallback");
-			}
-		}
-
-		// Load datasets from globalState or fallback to local datasets if necessary
-		ObjectInfo[ObjectType.MECHANIC].dataset = globalState.get('mechanicsDataset') || loadLocalDataset(mechanicsDatasetPath);
-		ObjectInfo[ObjectType.TARGETER].dataset = globalState.get('targetersDataset') || loadLocalDataset(targetersDatasetPath);
-		ObjectInfo[ObjectType.CONDITION].dataset = globalState.get('conditionsDataset') || loadLocalDataset(conditionsDatasetPath);
-		ObjectInfo[ObjectType.TRIGGER].dataset = globalState.get('triggersDataset') || loadLocalDataset(triggersDatasetPath);
-
-		for (const key of Object.keys(EnumType) as Array<keyof typeof EnumType>) {
-			EnumInfo[EnumType[key]].dataset = globalState.get(EnumInfo[EnumType[key]].path) || loadLocalDataset(path.join(__dirname, '../data/', EnumInfo[EnumType[key]].path));
-		}	
-
-	} else {
-		// Load datasets from local files
-		ObjectInfo[ObjectType.MECHANIC].dataset = loadLocalDataset(mechanicsDatasetPath);
-		ObjectInfo[ObjectType.TARGETER].dataset = loadLocalDataset(targetersDatasetPath);
-		ObjectInfo[ObjectType.CONDITION].dataset = loadLocalDataset(conditionsDatasetPath);
-		ObjectInfo[ObjectType.TRIGGER].dataset = loadLocalDataset(triggersDatasetPath);
-	
-		for (const key of Object.keys(EnumType) as Array<keyof typeof EnumType>) {
-			EnumInfo[EnumType[key]].dataset = loadLocalDataset(path.join(__dirname, '../data/', EnumInfo[EnumType[key]].path));
-		}
-	
-	}
-
-	// Update the maps
-	updateDatasets();
-	return;
-}
-
-export function updateDatasets() {
-	updateDatasetMaps();
-	updateDatasetEnums();
-
-}
-
-function updateDatasetMaps() {
-
-	ObjectInfo[ObjectType.MECHANIC].datasetMap = new Map<string, any>();
-	ObjectInfo[ObjectType.MECHANIC].datasetClassMap = new Map<string, any>();
-
-	ObjectInfo[ObjectType.TARGETER].datasetMap = new Map<string, any>();
-	ObjectInfo[ObjectType.TARGETER].datasetClassMap = new Map<string, any>();
-
-	ObjectInfo[ObjectType.CONDITION].datasetMap = new Map<string, any>();
-	ObjectInfo[ObjectType.CONDITION].datasetClassMap = new Map<string, any>();
-
-	ObjectInfo[ObjectType.TRIGGER].datasetMap = new Map<string, any>();
-	ObjectInfo[ObjectType.TRIGGER].datasetClassMap = new Map<string, any>();
-
-	mapDataset(ObjectInfo[ObjectType.MECHANIC]);
-	mapDataset(ObjectInfo[ObjectType.TARGETER]);
-	mapDataset(ObjectInfo[ObjectType.CONDITION]);
-	mapDataset(ObjectInfo[ObjectType.TRIGGER]);
-
-	ObjectInfo[ObjectType.INLINECONDITION].dataset = ObjectInfo[ObjectType.CONDITION].dataset;
-	ObjectInfo[ObjectType.INLINECONDITION].datasetMap = ObjectInfo[ObjectType.CONDITION].datasetMap;
-	ObjectInfo[ObjectType.INLINECONDITION].datasetClassMap = ObjectInfo[ObjectType.CONDITION].datasetClassMap;
-}
-
-function updateDatasetEnums() {
-
-	for (const key in EnumInfo) {
-		const list: string[] = [];
-		for (const item of Object.keys(EnumInfo[key as EnumType].dataset)) {
-			list.push(item);
-		}
-		EnumInfo[key as EnumType].commalist = list.join(",");
-	}
-}
-
-function mapDataset(object: any) {
-	for (const mechanic of object.dataset) {
-		for (const name of mechanic.name) {
-			object.datasetMap.set(name, mechanic);
-		}
-		object.datasetClassMap.set(mechanic.class.toLowerCase(), mechanic);
-	}
-}
-
-function loadLocalDataset(datasetPath: string): any {
-	try {
-		return JSON.parse(fs.readFileSync(datasetPath, 'utf8'));
-	} catch (error) {
-		console.error(`Error reading local dataset: ${datasetPath}`, error);
-		return null;
-	}
-}
 
 // Different types of objects that can be found in a configuration
 
-export const ConditionActions = {
-	"true": {
-		"type": "check",
-	},
-	"false": {
-		"type": "check",
-	},
-	"cast": {
-		"type": "metaskill",
-	},
-	"castinstead": {
-		"type": "metaskill",
-	},
-	"orElseCast": {
-		"type": "metaskill",
-	},
-	"power": {
-		"type": "float",
-	}
+enum ConditionTypes {
+	CHECK = "check",
+	METASKILL = "metaskill",
+	FLOAT = "float",
 }
 
-export const MetaskillFileObjects = {
+export const ConditionActions: { [key: string]: ConditionTypes } = {
+	"true": ConditionTypes.CHECK,
+	"false": ConditionTypes.CHECK,
+	"cast": ConditionTypes.METASKILL,
+	"castinstead": ConditionTypes.METASKILL,
+	"orElseCast": ConditionTypes.METASKILL,
+	"power": ConditionTypes.FLOAT
+}
+
+
+
+
+
+export enum FileObjectTypes {
+	BOOLEAN = 'boolean',
+	STRING = 'string',
+	INTEGER = 'integer',
+	FLOAT = 'float',
+	LIST = 'list',
+	KEY = 'key',
+	BARCOLOR = 'barcolor',
+	BARSTYLE = 'barstyle',
+	KEY_DATASET = 'key_dataset',
+}
+
+interface FileObjectMap {
+	[key: string]: FileObject;
+}
+
+interface FileObject {
+	type: FileObjectTypes;
+	link: string;
+	description: string;
+	keys?: { [key: string]: FileObjectKey };
+	dataset?: EnumType;
+}
+
+interface FileObjectKey {
+	type: FileObjectTypes;
+}
+
+
+export const MetaskillFileObjects: FileObjectMap = {
 	"Skills": {
-		"type": "list",
+		"type": FileObjectTypes.LIST,
 		"link": "https://git.lumine.io/mythiccraft/MythicMobs/-/wikis/Skills/Metaskills#skills",
 		"description": "The list of the mechanics that will be executed by the metaskill.",
 	},
 	"Conditions": {
-		"type": "list",
+		"type": FileObjectTypes.LIST,
 		"link": "https://git.lumine.io/mythiccraft/MythicMobs/-/wikis/Skills/Metaskills#conditions",
 		"description": "The list of conditions that will evaluate the caster of the metaskill before execution.",
 	},
 	"TargetConditions": {
-		"type": "list",
+		"type": FileObjectTypes.LIST,
 		"link": "https://git.lumine.io/mythiccraft/MythicMobs/-/wikis/Skills/Metaskills#targetconditions",
 		"description": "The list of conditions that will evaluate the target of the metaskill before execution",
 	},
 	"TriggerConditions": {
-		"type": "list",
+		"type": FileObjectTypes.LIST,
 		"link": "https://git.lumine.io/mythiccraft/MythicMobs/-/wikis/Skills/Metaskills#triggerconditions",
 		"description": "The list of conditions that will evaluate the trigger of the metaskill before execution",
 	},
 	"Cooldown": {
-		"type": "float",
+		"type": FileObjectTypes.FLOAT,
 		"link": "https://git.lumine.io/mythiccraft/MythicMobs/-/wikis/Skills/Metaskills#cooldown",
 		"description": "The cooldown of the metaskill (in seconds).",
 	},
 	"CancelIfNoTargets": {
-		"type": "bool",
+		"type": FileObjectTypes.BOOLEAN,
 		"link": "https://git.lumine.io/mythiccraft/MythicMobs/-/wikis/Skills/Metaskills#cancelifnotargets",
 		"description": "Whether the metaskill should be cancelled if there are no targets.",
 	},
 	"FailedConditionsSkill": {
-		"type": "string",
+		"type": FileObjectTypes.STRING,
 		"link": "https://git.lumine.io/mythiccraft/MythicMobs/-/wikis/Skills/Metaskills#failedconditionsskill",
 		"description": "The name of the metaskill to cast if the conditions fail.",
 	},
 	"OnCooldownSkill": {
-		"type": "string",
+		"type": FileObjectTypes.STRING,
 		"link": "https://git.lumine.io/mythiccraft/MythicMobs/-/wikis/Skills/Metaskills#oncooldownskill",
 		"description": "The name of the metaskill to cast if the metaskill is on cooldown.",
 	},
 }
+
+export const MobFileObject: FileObjectMap = {
+	"Type": {
+		"type": FileObjectTypes.STRING,
+		"link": "https://git.lumine.io/mythiccraft/MythicMobs/-/wikis/Mobs/Mobs#type",
+		"description": "The type of the mob.",
+	},
+	"Template": {
+		"type": FileObjectTypes.STRING,
+		"link": "https://git.lumine.io/mythiccraft/MythicMobs/-/wikis/Mobs/Templates",
+		"description": "The templates for the mob.",
+	},
+	"Display": {
+		"type": FileObjectTypes.STRING,
+		"link": "https://git.lumine.io/mythiccraft/MythicMobs/-/wikis/Mobs/Mobs#display",
+		"description": "The display name of the mob.",
+	},
+	"Health": {
+		"type": FileObjectTypes.FLOAT,
+		"link": "https://git.lumine.io/mythiccraft/MythicMobs/-/wikis/Mobs/Mobs#health",
+		"description": "The health of the mob.",
+	},
+	"Damage": {
+		"type": FileObjectTypes.FLOAT,
+		"link": "https://git.lumine.io/mythiccraft/MythicMobs/-/wikis/Mobs/Mobs#damage",
+		"description": "The damage of the mob.",
+	},
+	"Armor": {
+		"type": FileObjectTypes.FLOAT,
+		"link": "https://git.lumine.io/mythiccraft/MythicMobs/-/wikis/Mobs/Mobs#armor",
+		"description": "The armor points of the mob.",
+	},
+	"HealthBar": {
+		"type": FileObjectTypes.KEY,
+		"keys": {
+			"Enabled": {
+				"type": FileObjectTypes.BOOLEAN,
+			},
+			"Offset": {
+				"type": FileObjectTypes.FLOAT,
+			}
+		},
+		"link": "https://git.lumine.io/mythiccraft/MythicMobs/-/wikis/Mobs/Mobs#healthbar",
+		"description": "The health bar of the mob.",
+	},
+	"BossBar": {
+		"type": FileObjectTypes.KEY,
+		"keys": {
+			"Enabled": {
+				"type": FileObjectTypes.BOOLEAN,
+			},
+			"Title": {
+				"type": FileObjectTypes.STRING,
+			},
+			"Range": {
+				"type": FileObjectTypes.FLOAT,
+			},
+			"Color": {
+				"type": FileObjectTypes.BARCOLOR,
+			},
+			"Style": {
+				"type": FileObjectTypes.BARSTYLE,
+			},
+			"CreateFog": {
+				"type": FileObjectTypes.BOOLEAN,
+			},
+			"DarkenSky": {
+				"type": FileObjectTypes.BOOLEAN,
+			},
+			"PlayMusic": {
+				"type": FileObjectTypes.BOOLEAN,
+			}
+		},
+		"link": "https://git.lumine.io/mythiccraft/MythicMobs/-/wikis/Mobs/Mobs#bossbar",
+		"description": "The boss bar of the mob.",
+	},
+	"Faction": {
+		"type": FileObjectTypes.STRING,
+		"link": "https://git.lumine.io/mythiccraft/MythicMobs/-/wikis/Mobs/Mobs#faction",
+		"description": "The faction of the mob.",
+	},
+	"Mount": {
+		"type": FileObjectTypes.STRING,
+		"link": "https://git.lumine.io/mythiccraft/MythicMobs/-/wikis/Mobs/Mobs#mount",
+		"description": "The mount of the mob.",
+	},
+	"Options": {
+		"type": FileObjectTypes.KEY_DATASET,
+		"link": "https://git.lumine.io/mythiccraft/MythicMobs/-/wikis/Mobs/Options",
+		"description": "The options of the mob.",
+	},
+	"Modules": {
+		"type": FileObjectTypes.KEY,
+		"keys": {
+			"ThreatTable": {
+				"type": FileObjectTypes.BOOLEAN,
+			},
+			"ImmunityTable": {
+				"type": FileObjectTypes.FLOAT,
+			},
+		},
+		"link": "https://git.lumine.io/mythiccraft/MythicMobs/-/wikis/Mobs/Mobs#modules",
+		"description": "The modules of the mob.",
+	},
+}
+
 
 export const keyAliases = {
 	"Skills": ["Skills", "FurnitureSkills", "InitSkills", "QuitSkills", "LevelSkills", "CustomBlockSkills"],

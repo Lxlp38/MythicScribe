@@ -30,7 +30,7 @@
 
 ## Fixed
 - triggers, targeters and inline conditions completions behaving inconsistently once invoked
-- conditions completions insering an extra space before the condition name if triggered by inputting "-" manually
+- conditions completions inserting an extra space before the condition name if triggered by inputting "-" manually
 
 
 ## [0.2.0]

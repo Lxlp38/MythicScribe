@@ -5,13 +5,13 @@ import { checkShouldComplete } from '../utils/completionhelper';
 
 
 
-export function inlineConditionCompletionProvider(){
+export function inlineConditionCompletionProvider() {
 
     const inlineConditionCompletionProvider = vscode.languages.registerCompletionItemProvider(
         'yaml',
         {
-            async provideCompletionItems(document: vscode.TextDocument, position: vscode.Position, token: vscode.CancellationToken, context: vscode.CompletionContext) {
-    
+            async provideCompletionItems(document: vscode.TextDocument, position: vscode.Position, _token: vscode.CancellationToken, context: vscode.CompletionContext) {
+
                 const keys = yamlutils.getParentKeys(document, position.line);
                 if (!keyAliases["Skills"].includes(keys[0])) {
                     return undefined;
@@ -20,46 +20,52 @@ export function inlineConditionCompletionProvider(){
                 if (!checkShouldComplete(document, position, context, ["?", "!", "~"])) {
                     return undefined;
                 }
-    
+
                 const completionItems: vscode.CompletionItem[] = [];
 
-                let charBefore0 = document.getText(new vscode.Range(position.translate(0, -1), position));    
+                const charBefore0 = document.getText(new vscode.Range(position.translate(0, -1), position));
                 switch (charBefore0) {
                     case "?":
-                        let charBefore = document.getText(new vscode.Range(position.translate(0, -2), position));
-                        if (charBefore !== ' ?') {
-                            return undefined;
+                        {
+                            const charBefore1 = document.getText(new vscode.Range(position.translate(0, -2), position));
+                            if (charBefore1 !== ' ?') {
+                                return undefined;
+                            }
+
+                            ["~", "~!", "!"].forEach((item: string) => {
+                                let completionItem = new vscode.CompletionItem(item, vscode.CompletionItemKind.Function);
+                                completionItem.kind = vscode.CompletionItemKind.Function;
+                                completionItem.command = { command: 'editor.action.triggerSuggest', title: 'Re-trigger completions...' };
+                                completionItem.sortText = "0";
+                                completionItems.push(completionItem);
+                            });
+                            break;
                         }
-    
-                        ["~", "~!", "!"].forEach((item: string) => {
-                            let completionItem = new vscode.CompletionItem(item, vscode.CompletionItemKind.Function);
+                    case "~":
+                        {
+                            const charBefore2 = document.getText(new vscode.Range(position.translate(0, -3), position));
+                            if (charBefore2 !== " ?~") {
+                                return undefined;
+                            }
+                            const completionItem = new vscode.CompletionItem("!", vscode.CompletionItemKind.Function);
                             completionItem.kind = vscode.CompletionItemKind.Function;
                             completionItem.command = { command: 'editor.action.triggerSuggest', title: 'Re-trigger completions...' };
                             completionItem.sortText = "0";
                             completionItems.push(completionItem);
-                        });
-                        break;
-                    case "~":
-                        let charBefore2 = document.getText(new vscode.Range(position.translate(0, -3), position));
-                        if (charBefore2 !== " ?~") {
-                            return undefined;
+                            break;
                         }
-                        let completionItem = new vscode.CompletionItem("!", vscode.CompletionItemKind.Function);
-                        completionItem.kind = vscode.CompletionItemKind.Function;
-                        completionItem.command = { command: 'editor.action.triggerSuggest', title: 'Re-trigger completions...' };
-                        completionItem.sortText = "0";
-                        completionItems.push(completionItem);
-                        break;
                     case "!":
-                        let charBefore3 = document.getText(new vscode.Range(position.translate(0, -3), position));
-                        if (charBefore3 !== " ?!" && charBefore3 !== "?~!") {
-                            return undefined;
+                        {
+                            const charBefore3 = document.getText(new vscode.Range(position.translate(0, -3), position));
+                            if (charBefore3 !== " ?!" && charBefore3 !== "?~!") {
+                                return undefined;
+                            }
+                            break;
                         }
-                        break;
                 }
-    
-    
-    
+
+
+
                 ObjectInfo[ObjectType.CONDITION].dataset.forEach((item: any) => {
                     item.name.forEach((name: string) => {
                         const completionItem = new vscode.CompletionItem(name, vscode.CompletionItemKind.Function);
@@ -70,7 +76,7 @@ export function inlineConditionCompletionProvider(){
                         completionItems.push(completionItem);
                     });
                 });
-    
+
                 return completionItems;
             }
         }, "?", "!", "~"

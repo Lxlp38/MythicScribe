@@ -10,7 +10,7 @@ export function attributeCompletionProvider() {
     const attributeCompletionProvider = vscode.languages.registerCompletionItemProvider(
         'yaml',
         {
-            async provideCompletionItems(document: vscode.TextDocument, position: vscode.Position, token: vscode.CancellationToken, context: vscode.CompletionContext) {
+            async provideCompletionItems(document: vscode.TextDocument, position: vscode.Position, _token: vscode.CancellationToken, context: vscode.CompletionContext) {
 
                 if (!checkShouldComplete(document, position, context, ["{", ";"])) {
                     return undefined;

@@ -25,7 +25,7 @@ export function hoverProvider(){
                 return undefined;
             }
     
-            var obj, type = null;
+            let  obj, type = null;
             const keys = yamlutils.getParentKeys(document, position.line);
     
             if (keyAliases["Skills"].includes(keys[0])) {
@@ -70,7 +70,7 @@ async function getHover(mechanic: any, type: ObjectType): Promise<vscode.Hover |
     
 
     // Start building the hover content for the mechanic
-    let hoverContent = new vscode.MarkdownString(`
+    const hoverContent = new vscode.MarkdownString(`
 ### [${type}](${mechanic.link})
 [\`${mechanicNames}\`](${mechanic.link})
 

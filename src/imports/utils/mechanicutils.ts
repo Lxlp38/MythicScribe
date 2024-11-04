@@ -40,7 +40,7 @@ function getAllAttributes(mechanic: any, type: ObjectType) {
 
 // Utility to get attribute data by name
 function getAttributeDataByName(mechanic: any, attributeName: string, type: ObjectType) {
-	var attribute = mechanic.attributes.find((attr: any) => attr.name.includes(attributeName.toLowerCase()));
+	const attribute = mechanic.attributes.find((attr: any) => attr.name.includes(attributeName.toLowerCase()));
 	if (!attribute && mechanic.extends) {
 		const parentMechanic = getMechanicDataByClass(mechanic.extends, type);
 		return getInheritedAttributeDataByName(parentMechanic, attributeName, type);
@@ -49,15 +49,15 @@ function getAttributeDataByName(mechanic: any, attributeName: string, type: Obje
 }
 function getInheritedAttributeDataByName(mechanic: any, attributeName: string, type: ObjectType) {
 
-	var attribute = null;
+	let attribute = null;
 
 	if (mechanic.inheritable_attributes) {
 		if (mechanic.inheritable_attributes.includes(attributeName.toLowerCase())) {
-			var attribute = mechanic.attributes.find((attr: any) => attr.name.includes(attributeName.toLowerCase()));
+			attribute = mechanic.attributes.find((attr: any) => attr.name.includes(attributeName.toLowerCase()));
 		}
 	}
 	else {
-		var attribute = mechanic.attributes.find((attr: any) => attr.name.includes(attributeName.toLowerCase()));
+		attribute = mechanic.attributes.find((attr: any) => attr.name.includes(attributeName.toLowerCase()));
 	}
 
 	if (!attribute && mechanic.extends) {

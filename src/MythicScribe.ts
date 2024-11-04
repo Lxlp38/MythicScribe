@@ -13,12 +13,12 @@ import { inlineMetaskillCompletionProvider } from './imports/completions/inlinem
 
 import { mechaniclineCompletionProvider } from './imports/completions/mechaniclineCompletionProvider';
 
-import { metaskillFileCompletionProvider } from './imports/completions/metaskillfileCompletionProvider';
+import { metaskillFileCompletionProvider } from './imports/completions/filecompletions/metaskillfileCompletionProvider';
 
 import { removeBracketsTextListener } from './imports/textchanges/bracketsremover';
 import { shortcutsProvider } from './imports/textchanges/shortcuts';
-import { loadGithubDatasets, updateDatasets } from './objectInfos';
-import { triggerfileCompletionProvider } from './imports/completions/triggerfileCompletionProvider';
+import { loadDatasets } from './datasets';
+import { triggerfileCompletionProvider } from './imports/completions/filecompletions/triggerfileCompletionProvider';
 
 export let ctx: vscode.ExtensionContext;
 
@@ -34,7 +34,7 @@ export function activate(context: vscode.ExtensionContext) {
 
 	ctx = context;
 
-	loadGithubDatasets(context)
+	loadDatasets(context)
 
 	// Config
 	context.subscriptions.push(config.extensionEnabler);

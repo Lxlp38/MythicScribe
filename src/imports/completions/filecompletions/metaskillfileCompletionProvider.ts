@@ -1,13 +1,13 @@
 import * as vscode from 'vscode';
-import * as yamlutils from '../utils/yamlutils';
-import { MetaskillFileObjects } from '../../objectInfos';
-import { enableFileSpecificSuggestions, isEnabled, isMetaskillFile } from '../utils/configutils';
+import * as yamlutils from '../../utils/yamlutils';
+import { FileObjectTypes, MetaskillFileObjects } from '../../../objectInfos';
+import { enableFileSpecificSuggestions, isEnabled, isMetaskillFile } from '../../utils/configutils';
 
 export function metaskillFileCompletionProvider(){
     const SkillFileCompletionProvider = vscode.languages.registerCompletionItemProvider(
         'yaml',
         {
-            async provideCompletionItems(document: vscode.TextDocument, position: vscode.Position, token: vscode.CancellationToken, context: vscode.CompletionContext) {
+            async provideCompletionItems(document: vscode.TextDocument, position: vscode.Position) {
     
                 if (enableFileSpecificSuggestions() === false) {
                     return undefined;
@@ -44,10 +44,10 @@ export function metaskillFileCompletionProvider(){
                 Object.entries(MetaskillFileObjects).forEach(([key, value]) => {
                     const completionItem = new vscode.CompletionItem(key, vscode.CompletionItemKind.File);
                     completionItem.kind = vscode.CompletionItemKind.File;
-                    if(value.type == "list"){
+                    if(value.type == FileObjectTypes.LIST){
                         completionItem.insertText = new vscode.SnippetString(indentation + key + ":\n" + indentation + "- $0");
                     }
-                    else if (value.type == "bool") {
+                    else if (value.type == FileObjectTypes.BOOLEAN) {
                         completionItem.insertText = new vscode.SnippetString(indentation + key + ": ${1|true,false|}");
                     }
                     else {

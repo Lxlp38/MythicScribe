@@ -10,7 +10,7 @@ export function mechaniclineCompletionProvider(){
     const mechaniclineCompletionProvider = vscode.languages.registerCompletionItemProvider(
         'yaml',
         {
-            async provideCompletionItems(document: vscode.TextDocument, position: vscode.Position, token: vscode.CancellationToken, context: vscode.CompletionContext) {
+            async provideCompletionItems(document: vscode.TextDocument, position: vscode.Position) {
     
                 const previusSpecialSymbol = yamlutils.previousSpecialSymbol(document, position);
                 if (["{", ";", "="].includes(previusSpecialSymbol)) {

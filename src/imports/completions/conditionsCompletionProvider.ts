@@ -1,12 +1,12 @@
 import * as vscode from 'vscode';
 import * as yamlutils from '../utils/yamlutils';
-import { ConditionActions, keyAliases, ObjectInfo, ObjectType } from '../../objectInfos';
+import { ConditionActions, keyAliases, Mechanic, ObjectInfo, ObjectType } from '../../objectInfos';
 
 export function conditionCompletionProvider(){
     const conditionCompletionProvider = vscode.languages.registerCompletionItemProvider(
         'yaml',
         {
-            async provideCompletionItems(document: vscode.TextDocument, position: vscode.Position, token: vscode.CancellationToken, context: vscode.CompletionContext) {
+            async provideCompletionItems(document: vscode.TextDocument, position: vscode.Position, _token: vscode.CancellationToken, context: vscode.CompletionContext) {
     
                 const keys = yamlutils.getParentKeys(document, position.line);
                 if (!keyAliases["Conditions"].includes(keys[0])) {
@@ -71,7 +71,7 @@ export function conditionCompletionProvider(){
     
     
                 //const condact = fetchConditionActions().join(",");             
-                ObjectInfo[ObjectType.CONDITION].dataset.forEach((item: any) => {
+                ObjectInfo[ObjectType.CONDITION].dataset.forEach((item: Mechanic) => {
                     item.name.forEach((name: string) => {
                         const completionItem = new vscode.CompletionItem(name, vscode.CompletionItemKind.Function);
                         completionItem.detail = `${item.description}`;
@@ -107,7 +107,7 @@ function addOperatorsToConditionLine(completionItems : vscode.CompletionItem[]) 
 
 function addConditionActionsToConditionLine(completionItems : vscode.CompletionItem[]) {
     Object.keys(ConditionActions).forEach((key: string) => {
-        let completionItem = new vscode.CompletionItem(key, vscode.CompletionItemKind.Function);
+        const completionItem = new vscode.CompletionItem(key, vscode.CompletionItemKind.Function);
         completionItem.kind = vscode.CompletionItemKind.Function;
         completionItem.insertText = new vscode.SnippetString(key + " $0");
         completionItem.command = { command: 'editor.action.triggerSuggest', title: 'Re-trigger completions...' };
