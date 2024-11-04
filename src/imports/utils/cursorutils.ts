@@ -87,6 +87,9 @@ export function getCursorSkills(document: vscode.TextDocument, position: vscode.
 		}
 		else if (object?.startsWith('@')) {
 			const targeter = getMechanicDataByName(object.replace("@", ""), ObjectType.TARGETER);
+			if (!targeter) {
+				return null;
+			}
 			return [getAttributeDataByName(targeter, attribute, ObjectType.TARGETER), ObjectType.ATTRIBUTE];
 		}
 		else if (object?.startsWith('~')) {
@@ -94,9 +97,15 @@ export function getCursorSkills(document: vscode.TextDocument, position: vscode.
 		}
 		else if (object?.startsWith('?')) {
 			const condition = getMechanicDataByName(object.replace("?", "").replace("!", "").replace("~", ""), ObjectType.CONDITION);
+			if (!condition) {
+				return null;
+			}
 			return [getAttributeDataByName(condition, attribute, ObjectType.CONDITION), ObjectType.ATTRIBUTE];
 		}
 		const mechanic = getMechanicDataByName(object, ObjectType.MECHANIC);
+		if (!mechanic) {
+			return null;
+		}
 		return [getAttributeDataByName(mechanic, attribute, ObjectType.MECHANIC), ObjectType.ATTRIBUTE];
 
 	}
@@ -117,6 +126,9 @@ export function getCursorCondition(document: vscode.TextDocument, position: vsco
 			return null;
 		}
 		const mechanic = getMechanicDataByName(object, ObjectType.CONDITION);
+		if (!mechanic) {
+			return null;
+		}
 		return [getAttributeDataByName(mechanic, attribute, ObjectType.CONDITION), ObjectType.ATTRIBUTE];
 
 	}

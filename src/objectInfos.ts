@@ -14,7 +14,7 @@ export enum ObjectType {
 }
 
 
-interface Attribute {
+export interface Attribute {
 	name: string[];
 	type: string;
 	enum: string | null;

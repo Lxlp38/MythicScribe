@@ -35,7 +35,7 @@ async function fetchLatestCommitHash(): Promise<string | null> {
 }
 
 // Function to fetch the JSON data from GitHub
-async function fetchJsonFromGithub(filename: string): Promise<any | null> {
+async function fetchJsonFromGithub(filename: string): Promise<MechanicDataset | EnumInfoValueDataset | unknown | null> {
 	try {
 		const response = await fetch(`${GITHUB_BASE_URL}${filename}`);
 		if (response.ok) {
@@ -95,7 +95,9 @@ async function checkGithubDatasets(context: vscode.ExtensionContext) {
 		const enummap: Map<EnumType, EnumInfovalueDatasetValue> = new Map<EnumType, EnumInfovalueDatasetValue>();
 		for (const key of Object.keys(EnumType) as Array<keyof typeof EnumType>) {
 			const enumData = await fetchJsonFromGithub(EnumInfo[EnumType[key]].path);
-			enummap.set(EnumType[key], enumData);
+            if (enumData){
+                enummap.set(EnumType[key], enumData);
+            }
 		}
 
 		console.log("Fetched datasets from GitHub");
