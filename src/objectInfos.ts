@@ -2,6 +2,7 @@ import * as vscode from 'vscode';
 import * as path from 'path';
 import * as fs from 'fs';
 import { ctx } from './MythicScribe';
+import * as config from './imports/utils/configutils';
 
 
 export enum ObjectType {
@@ -11,7 +12,7 @@ export enum ObjectType {
 	CONDITION = 'Condition',
 	INLINECONDITION = 'Inline Condition',
 	TRIGGER = 'Trigger',
-	
+
 
 
 }
@@ -83,91 +84,135 @@ export enum EnumType {
 	ENDERDRAGONPHASE = 'Ender Dragon Phase',
 	DRAGONBATTLERESPAWNPHASE = 'Dragon Battle Respawn Phase',
 	POTIONEFFECTTYPE = 'Potion Effect Type',
+	WORLDENVIRONMENT = 'World Environment',
+	ENTITYTYPE = 'Entity Type',
+	GAMEMODE = 'Game Mode',
+	SPAWNREASON = 'Spawn Reason',
 
 }
 
 
-export const EnumInfo: { [key in EnumType]: { dataset: any; commalist: string } } = {
+export const EnumInfo: { [key in EnumType]: { path: any; dataset: any; commalist: string } } = {
 
 	[EnumType.SOUND]: {
-		dataset: JSON.parse(fs.readFileSync(path.join(__dirname, '../data/minecraft/sounds.json'), 'utf8')),
+		path: "minecraft/sounds.json",
+		dataset: {},
 		commalist: "",
 	},
 
 	[EnumType.AUDIENCE]: {
-		dataset: JSON.parse(fs.readFileSync(path.join(__dirname, '../data/audiences.json'), 'utf8')),
+		path: "audiences.json",
+		dataset: {},
 		commalist: "",
 	},
 
 	[EnumType.EQUIPSLOT]: {
-		dataset: JSON.parse(fs.readFileSync(path.join(__dirname, '../data/equipslot.json'), 'utf8')),
+		path: "equipslot.json",
+		dataset: {},
 		commalist: "",
 	},
 
 	[EnumType.PARTICLE]: {
-		dataset: JSON.parse(fs.readFileSync(path.join(__dirname, '../data/particles.json'), 'utf8')),
+		path: "particles.json",
+		dataset: {},
 		commalist: "",
 	},
 
 	[EnumType.STATMODIFIER]: {
-		dataset: JSON.parse(fs.readFileSync(path.join(__dirname, '../data/statsmodifiers.json'), 'utf8')),
+		path: "statsmodifiers.json",
+		dataset: {},
 		commalist: "",
 	},
 
 	[EnumType.SPIGOTATTRIBUTE]: {
-		dataset: JSON.parse(fs.readFileSync(path.join(__dirname, '../data/spigot/attributes.json'), 'utf8')),
+		path: "spigot/attributes.json",
+		dataset: {},
 		commalist: ""
 	},
 
 	[EnumType.SPIGOTATTRIBUTEOPERATION]: {
-		dataset: JSON.parse(fs.readFileSync(path.join(__dirname, '../data/spigot/attributesoperations.json'), 'utf8')),
+		path: "spigot/attributesoperations.json",
+		dataset: {},
 		commalist: ""
 	},
 
 	[EnumType.BARCOLOR]: {
-		dataset: JSON.parse(fs.readFileSync(path.join(__dirname, '../data/spigot/barcolor.json'), 'utf8')),
+		path: "spigot/barcolor.json",
+		dataset: {},
 		commalist: ""
 	},
 
 	[EnumType.BARSTYLE]: {
-		dataset: JSON.parse(fs.readFileSync(path.join(__dirname, '../data/spigot/barstyle.json'), 'utf8')),
+		path: "spigot/barstyle.json",
+		dataset: {},
 		commalist: ""
 	},
 
 	[EnumType.DAMAGECAUSE]: {
-		dataset: JSON.parse(fs.readFileSync(path.join(__dirname, '../data/spigot/damagecause.json'), 'utf8')),
+		path: "spigot/damagecause.json",
+		dataset: {},
 		commalist: ""
 	},
 
 	[EnumType.DYE]: {
-		dataset: JSON.parse(fs.readFileSync(path.join(__dirname, '../data/spigot/dye.json'), 'utf8')),
+		path: "spigot/dye.json",
+		dataset: {},
 		commalist: ""
 	},
 
 	[EnumType.MATERIAL]: {
-		dataset: JSON.parse(fs.readFileSync(path.join(__dirname, '../data/spigot/material.json'), 'utf8')),
+		path: "spigot/material.json",
+		dataset: {},
 		commalist: ""
 	},
 
 	[EnumType.BLOCKFACE]: {
-		dataset: JSON.parse(fs.readFileSync(path.join(__dirname, '../data/spigot/blockface.json'), 'utf8')),
+		path: "spigot/blockface.json",
+		dataset: {},
 		commalist: ""
 	},
-	
+
 	[EnumType.ENDERDRAGONPHASE]: {
-		dataset: JSON.parse(fs.readFileSync(path.join(__dirname, '../data/spigot/enderdragonphase.json'), 'utf8')),
+		path: "spigot/enderdragonphase.json",
+		dataset: {},
 		commalist: ""
 	},
-	
+
 	[EnumType.DRAGONBATTLERESPAWNPHASE]: {
-		dataset: JSON.parse(fs.readFileSync(path.join(__dirname, '../data/spigot/dragonbattlerespawnphase.json'), 'utf8')),
+		path: "spigot/dragonbattlerespawnphase.json",
+		dataset: {},
 		commalist: ""
 	},
 
 	[EnumType.POTIONEFFECTTYPE]: {
-		dataset: JSON.parse(fs.readFileSync(path.join(__dirname, '../data/spigot/potioneffecttype.json'), 'utf8')),
+		path: "spigot/potioneffecttype.json",
+		dataset: {},
 		commalist: ""
 	},
+
+	[EnumType.WORLDENVIRONMENT]: {
+		path: "spigot/worldenvironment.json",
+		dataset: {},
+		commalist: ""
+	},
+
+	[EnumType.ENTITYTYPE]: {
+		path: "spigot/entitytype.json",
+		dataset: {},
+		commalist: ""
+	},
+
+	[EnumType.GAMEMODE]: {
+		path: "spigot/gamemode.json",
+		dataset: {},
+		commalist: ""
+	},
+
+	[EnumType.SPAWNREASON]: {
+		path: "spigot/spawnreason.json",
+		dataset: {},
+		commalist: ""
+	}
 
 }
 
@@ -178,146 +223,118 @@ const GITHUB_API_COMMITS_URL = 'https://api.github.com/repos/Lxlp38/MythicScribe
 
 // Function to fetch the latest commit hash from GitHub
 async function fetchLatestCommitHash(): Promise<string | null> {
-    try {
-        const response = await fetch(GITHUB_API_COMMITS_URL);
-        const data = await response.json();
+	try {
+		const response = await fetch(GITHUB_API_COMMITS_URL);
+		const data = await response.json();
 		if (Array.isArray(data) && data.length > 0 && typeof data[0].sha === 'string') {
 			return data[0].sha;
 		} else {
 			throw new Error("Unexpected data format");
 		}
-    } catch (error) {
-        console.error("Error fetching commit hash:", error);
-        return null;
-    }
+	} catch (error) {
+		console.error("Error fetching commit hash:", error);
+		return null;
+	}
 }
 
 // Function to fetch the JSON data from GitHub
 async function fetchJsonFromGithub(filename: string): Promise<any | null> {
-    try {
-        const response = await fetch(`${GITHUB_BASE_URL}${filename}`);
-        if (response.ok) {
-            return await response.json();
-        } else {
-            throw new Error(`Failed to fetch ${filename} from GitHub`);
-        }
-    } catch (error) {
-        console.error(error);
-        return null;
-    }
+	try {
+		const response = await fetch(`${GITHUB_BASE_URL}${filename}`);
+		if (response.ok) {
+			return await response.json();
+		} else {
+			throw new Error(`Failed to fetch ${filename} from GitHub`);
+		}
+	} catch (error) {
+		console.error(error);
+		return null;
+	}
 }
 
 // Function to load datasets, check globalState, and update if necessary
 export async function loadGithubDatasets(context: vscode.ExtensionContext) {
-    const globalState = context.globalState;
+	const globalState = context.globalState;
 
-    // Fetch the latest commit hash from GitHub
-    const latestCommitHash = await fetchLatestCommitHash();
+	if (config.datasetSource() === 'GitHub') {
+		// Fetch the latest commit hash from GitHub
+		const latestCommitHash = await fetchLatestCommitHash();
 
-    // Retrieve the commit hash from globalState
-    const savedCommitHash = globalState.get<string>('latestCommitHash');
+		// Retrieve the commit hash from globalState
+		const savedCommitHash = globalState.get<string>('latestCommitHash');
 
-    // Check if we need to update the datasets (globalState is empty or outdated)
-    if (!savedCommitHash || latestCommitHash !== savedCommitHash) {
-        // Try to fetch all datasets from GitHub
-        const mechanicsData = await fetchJsonFromGithub('mechanics.json');
-        const targetersData = await fetchJsonFromGithub('targeters.json');
-        const conditionsData = await fetchJsonFromGithub('conditions.json');
-		const triggersData = await fetchJsonFromGithub('triggers.json');
+		// Check if we need to update the datasets (globalState is empty or outdated)
+		if (!savedCommitHash || latestCommitHash !== savedCommitHash) {
+			// Try to fetch all datasets from GitHub
+			const mechanicsData = await fetchJsonFromGithub('mechanics.json');
+			const targetersData = await fetchJsonFromGithub('targeters.json');
+			const conditionsData = await fetchJsonFromGithub('conditions.json');
+			const triggersData = await fetchJsonFromGithub('triggers.json');
 
-		const soundsData = await fetchJsonFromGithub('minecraft/sounds.json');
+			const enummap: Map<EnumType, any> = new Map<EnumType, any>();
+			for (const key of Object.keys(EnumType) as Array<keyof typeof EnumType>) {
+				const enumData = await fetchJsonFromGithub(EnumInfo[EnumType[key]].path);
+				enummap.set(EnumType[key], enumData);
+			}
 
-		const audiencesData = await fetchJsonFromGithub('audiences.json');
-		const equipslotData = await fetchJsonFromGithub('equipslot.json');
-		const particlesData = await fetchJsonFromGithub('particles.json');
-		const statsmodifiersData = await fetchJsonFromGithub('statsmodifiers.json');
+			console.log("Fetched datasets from GitHub");
 
-		const attributesData = await fetchJsonFromGithub('spigot/attributes.json');
-		const attrinutesOperationsData = await fetchJsonFromGithub('spigot/attributesoperations.json');
-		const barcolorData = await fetchJsonFromGithub('spigot/barcolor.json');
-		const barstyleData = await fetchJsonFromGithub('spigot/barstyle.json');
-		const damagecauseData = await fetchJsonFromGithub('spigot/damagecause.json');
-		const dyeData = await fetchJsonFromGithub('spigot/dye.json');
-		const materialData = await fetchJsonFromGithub('spigot/material.json');
-		const blockfaceData = await fetchJsonFromGithub('spigot/blockface.json');
-		const enderdragonphaseData = await fetchJsonFromGithub('spigot/enderdragonphase.json');
-		const dragonbattlerespawnphaseData = await fetchJsonFromGithub('spigot/dragonbattlerespawnphase.json');
-		const potioneffecttypeData = await fetchJsonFromGithub('spigot/potioneffecttype.json');
-		
-		console.log("Fetched datasets from GitHub");
+			// Check if the data was successfully fetched
+			if (mechanicsData && targetersData && conditionsData) {
+				// Save datasets to globalState
+				console.log("Updating globalState with fetched datasets");
+				globalState.update('mechanicsDataset', mechanicsData);
+				globalState.update('targetersDataset', targetersData);
+				globalState.update('conditionsDataset', conditionsData);
+				globalState.update('triggersDataset', triggersData);
 
-        // Check if the data was successfully fetched
-        if (mechanicsData && targetersData && conditionsData) {
-            // Save datasets to globalState
-			console.log("Updating globalState with fetched datasets");
-            globalState.update('mechanicsDataset', mechanicsData);
-            globalState.update('targetersDataset', targetersData);
-            globalState.update('conditionsDataset', conditionsData);
-			globalState.update('triggersDataset', triggersData);
+				for (const [key, value] of enummap) {
+					globalState.update(EnumInfo[key].path, value);
+				}
 
-			globalState.update('soundsDataset', soundsData);
+				globalState.update('latestCommitHash', latestCommitHash);
+			} else {
+				// Fallback to globalState or local datasets if fetch failed
+				console.warn("No connection with GitHub could be enstablished. Using globalState or local datasets as a fallback");
+			}
+		}
 
-			globalState.update('audiencesDataset', audiencesData);
-			globalState.update('equipslotDataset', equipslotData);
-			globalState.update('particlesDataset', particlesData);
-			globalState.update('statsmodifiersDataset', statsmodifiersData);
+		// Load datasets from globalState or fallback to local datasets if necessary
+		ObjectInfo[ObjectType.MECHANIC].dataset = globalState.get('mechanicsDataset') || loadLocalDataset(mechanicsDatasetPath);
+		ObjectInfo[ObjectType.TARGETER].dataset = globalState.get('targetersDataset') || loadLocalDataset(targetersDatasetPath);
+		ObjectInfo[ObjectType.CONDITION].dataset = globalState.get('conditionsDataset') || loadLocalDataset(conditionsDatasetPath);
+		ObjectInfo[ObjectType.TRIGGER].dataset = globalState.get('triggersDataset') || loadLocalDataset(triggersDatasetPath);
 
-			globalState.update('attributesDataset', attributesData);
-			globalState.update('attributesOperationsDataset', attrinutesOperationsData);
-			globalState.update('barcolorDataset', barcolorData);
-			globalState.update('barstyleDataset', barstyleData);
-			globalState.update('damagecauseDataset', damagecauseData);
-			globalState.update('dyeDataset', dyeData);
-			globalState.update('materialDataset', materialData);
-			globalState.update('blockfaceDataset', blockfaceData);
-			globalState.update('enderdragonphaseDataset', enderdragonphaseData);
-			globalState.update('dragonbattlerespawnphaseDataset', dragonbattlerespawnphaseData);
-			globalState.update('potioneffecttypeDataset', potioneffecttypeData);
+		for (const key of Object.keys(EnumType) as Array<keyof typeof EnumType>) {
+			EnumInfo[EnumType[key]].dataset = globalState.get(EnumInfo[EnumType[key]].path) || loadLocalDataset(path.join(__dirname, '../data/', EnumInfo[EnumType[key]].path));
+		}	
 
-            globalState.update('latestCommitHash', latestCommitHash);
-        } else {
-            // Fallback to globalState or local datasets if fetch failed
-            console.warn("No connection with GitHub could be enstablished. Using globalState or local datasets as a fallback");
-        }
-    }
-
-    // Load datasets from globalState or fallback to local datasets if necessary
-    ObjectInfo[ObjectType.MECHANIC].dataset = globalState.get('mechanicsDataset') || loadLocalDataset(mechanicsDatasetPath);
-    ObjectInfo[ObjectType.TARGETER].dataset = globalState.get('targetersDataset') || loadLocalDataset(targetersDatasetPath);
-    ObjectInfo[ObjectType.CONDITION].dataset = globalState.get('conditionsDataset') || loadLocalDataset(conditionsDatasetPath);
-	ObjectInfo[ObjectType.TRIGGER].dataset = globalState.get('triggersDataset') || loadLocalDataset(triggersDatasetPath);
-
-	EnumInfo[EnumType.SOUND].dataset = globalState.get('soundsDataset') || loadLocalDataset(path.join(__dirname, '../data/minecraft/sounds.json'));
-
-	EnumInfo[EnumType.AUDIENCE].dataset = globalState.get('audiencesDataset') || loadLocalDataset(path.join(__dirname, '../data/audiences.json'));
-	EnumInfo[EnumType.EQUIPSLOT].dataset = globalState.get('equipslotDataset') || loadLocalDataset(path.join(__dirname, '../data/equipslot.json'));
-	EnumInfo[EnumType.PARTICLE].dataset = globalState.get('particlesDataset') || loadLocalDataset(path.join(__dirname, '../data/particles.json'));
-	EnumInfo[EnumType.STATMODIFIER].dataset = globalState.get('statsmodifiersDataset') || loadLocalDataset(path.join(__dirname, '../data/statsmodifiers.json'));
-
-	EnumInfo[EnumType.SPIGOTATTRIBUTE].dataset = globalState.get('attributesDataset') || loadLocalDataset(path.join(__dirname, '../data/spigot/attributes.json'));
-	EnumInfo[EnumType.SPIGOTATTRIBUTEOPERATION].dataset = globalState.get('attributesOperationsDataset') || loadLocalDataset(path.join(__dirname, '../data/spigot/attributesoperations.json'));
-	EnumInfo[EnumType.BARCOLOR].dataset = globalState.get('barcolorDataset') || loadLocalDataset(path.join(__dirname, '../data/spigot/barcolor.json'));
-	EnumInfo[EnumType.BARSTYLE].dataset = globalState.get('barstyleDataset') || loadLocalDataset(path.join(__dirname, '../data/spigot/barstyle.json'));
-	EnumInfo[EnumType.DAMAGECAUSE].dataset = globalState.get('damagecauseDataset') || loadLocalDataset(path.join(__dirname, '../data/spigot/damagecause.json'));
-	EnumInfo[EnumType.DYE].dataset = globalState.get('dyeDataset') || loadLocalDataset(path.join(__dirname, '../data/spigot/dye.json'));
-	EnumInfo[EnumType.MATERIAL].dataset = globalState.get('materialDataset') || loadLocalDataset(path.join(__dirname, '../data/spigot/material.json'));
-	EnumInfo[EnumType.BLOCKFACE].dataset = globalState.get('blockfaceDataset') || loadLocalDataset(path.join(__dirname, '../data/spigot/blockface.json'));
-	EnumInfo[EnumType.ENDERDRAGONPHASE].dataset = globalState.get('enderdragonphaseDataset') || loadLocalDataset(path.join(__dirname, '../data/spigot/enderdragonphase.json'));
-	EnumInfo[EnumType.DRAGONBATTLERESPAWNPHASE].dataset = globalState.get('dragonbattlerespawnphaseDataset') || loadLocalDataset(path.join(__dirname, '../data/spigot/dragonbattlerespawnphase.json'));
-	EnumInfo[EnumType.POTIONEFFECTTYPE].dataset = globalState.get('potioneffecttypeDataset') || loadLocalDataset(path.join(__dirname, '../data/spigot/potioneffecttype.json'));
+	} else {
+		// Load datasets from local files
+		ObjectInfo[ObjectType.MECHANIC].dataset = loadLocalDataset(mechanicsDatasetPath);
+		ObjectInfo[ObjectType.TARGETER].dataset = loadLocalDataset(targetersDatasetPath);
+		ObjectInfo[ObjectType.CONDITION].dataset = loadLocalDataset(conditionsDatasetPath);
+		ObjectInfo[ObjectType.TRIGGER].dataset = loadLocalDataset(triggersDatasetPath);
+	
+		for (const key of Object.keys(EnumType) as Array<keyof typeof EnumType>) {
+			EnumInfo[EnumType[key]].dataset = loadLocalDataset(path.join(__dirname, '../data/', EnumInfo[EnumType[key]].path));
+		}
+	
+	}
 
 	// Update the maps
 	updateDatasets();
-    return;
+	return;
 }
 
-export function updateDatasets(){
+export function updateDatasets() {
 	updateDatasetMaps();
 	updateDatasetEnums();
 
 }
 
 function updateDatasetMaps() {
+
 	ObjectInfo[ObjectType.MECHANIC].datasetMap = new Map<string, any>();
 	ObjectInfo[ObjectType.MECHANIC].datasetClassMap = new Map<string, any>();
 
@@ -341,6 +358,7 @@ function updateDatasetMaps() {
 }
 
 function updateDatasetEnums() {
+
 	for (const key in EnumInfo) {
 		const list: string[] = [];
 		for (const item of Object.keys(EnumInfo[key as EnumType].dataset)) {
@@ -360,12 +378,12 @@ function mapDataset(object: any) {
 }
 
 function loadLocalDataset(datasetPath: string): any {
-    try {
-        return JSON.parse(fs.readFileSync(datasetPath, 'utf8'));
-    } catch (error) {
-        console.error(`Error reading local dataset: ${datasetPath}`, error);
-        return null;
-    }
+	try {
+		return JSON.parse(fs.readFileSync(datasetPath, 'utf8'));
+	} catch (error) {
+		console.error(`Error reading local dataset: ${datasetPath}`, error);
+		return null;
+	}
 }
 
 // Different types of objects that can be found in a configuration

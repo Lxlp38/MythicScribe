@@ -8,7 +8,7 @@ import { inlineConditionCompletionProvider } from './imports/completions/inlinec
 import { mechanicCompletionProvider } from './imports/completions/mechanicsCompletionProvider';
 import { conditionCompletionProvider } from './imports/completions/conditionsCompletionProvider';
 import { targeterCompletionProvider } from './imports/completions/targeterCompletionProvider';
-import { attributeCompletionProvider } from './imports/completions/attributeCompletionProvider';
+import { attributeCompletionProvider, attributeValueCompletionProvider } from './imports/completions/attributeCompletionProvider';
 import { inlineMetaskillCompletionProvider } from './imports/completions/inlinemetaskillCompletionProvider';
 
 import { mechaniclineCompletionProvider } from './imports/completions/mechaniclineCompletionProvider';
@@ -34,16 +34,7 @@ export function activate(context: vscode.ExtensionContext) {
 
 	ctx = context;
 
-	if (config.datasetSource() === 'GitHub'){
-		loadGithubDatasets(context).then(() => {
-			console.log('Datasets loaded');
-		}).catch(err => {
-			console.error('Failed to load datasets', err);
-		});	
-	}
-	else{
-		updateDatasets();
-	}
+	loadGithubDatasets(context)
 
 	// Config
 	context.subscriptions.push(config.extensionEnabler);
@@ -64,6 +55,7 @@ export function enableSubscriptions() {
 
 	const toEnable = [
 		attributeCompletionProvider(),
+		attributeValueCompletionProvider(),
 		conditionCompletionProvider(),
 		inlineConditionCompletionProvider(),
 		inlineMetaskillCompletionProvider(),

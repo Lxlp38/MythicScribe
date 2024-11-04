@@ -1,11 +1,32 @@
 # Changelog
 
-## [Unreleased]
+## [0.3.0]
 
 ## Added
 - `MythicScribe.attributeAliasUsedInCompletions` config, to set which attribute alias to use for completions. Defaults to `main`
 - `true`/`false` snippet for Boolean attributes and Metaskill Boolean Fields
-- A LOT of snippet completions for attributes whose value must be an element from an enum. Support will be added gradually over time
+- A LOT of snippet completions for attributes whose value must be an element from an enum. As of now the support is only partial, and it will be added gradually over time.
+- New datasets for completions:
+  - audiences
+  - equipslot
+  - particles
+  - statmodifiers
+  - spigot attributes
+  - spigot attributes operations
+  - barcolor
+  - barstyle
+  - blockface
+  - damagecause
+  - dragonbattlerespawnphase
+  - dye
+  - enderdragonphase
+  - entitytype
+  - gamemode
+  - material
+  - potioneffecttype
+  - spawnreason
+  - worldenviroment
+  - sounds
 
 ## Fixed
 - triggers, targeters and inline conditions completions behaving inconsistently once invoked

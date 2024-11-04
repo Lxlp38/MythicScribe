@@ -1,0 +1,128 @@
+{
+    "BEEHIVE": {
+        "Description": "When a bee is released from a beehive/bee nest"
+    },
+    "BREEDING": {
+        "Description": "When an entity breeds to create a child, this also include Shulker and Allay"
+    },
+    "BUILD_IRONGOLEM": {
+        "Description": "When an iron golem is spawned by being built"
+    },
+    "BUILD_SNOWMAN": {
+        "Description": "When a snowman is spawned by being built"
+    },
+    "BUILD_WITHER": {
+        "Description": "When a wither boss is spawned by being built"
+    },
+    "CHUNK_GEN": {
+        "Description": "Deprecated.\nno longer called, chunks are generated with entities\n already existing."
+    },
+    "COMMAND": {
+        "Description": "When a creature is spawned by the \"/summon\" command"
+    },
+    "CURED": {
+        "Description": "When a villager is cured from infection"
+    },
+    "CUSTOM": {
+        "Description": "When a creature is spawned by plugins"
+    },
+    "DEFAULT": {
+        "Description": "When an entity is missing a SpawnReason"
+    },
+    "DISPENSE_EGG": {
+        "Description": "When a creature is spawned by a dispenser dispensing an egg"
+    },
+    "DROWNED": {
+        "Description": "When a creature is spawned by another entity drowning"
+    },
+    "DUPLICATION": {
+        "Description": "When an Allay duplicate itself"
+    },
+    "EGG": {
+        "Description": "When a creature spawns from an egg"
+    },
+    "ENCHANTMENT": {
+        "Description": "When a creature is spawned by an enchantment"
+    },
+    "ENDER_PEARL": {
+        "Description": "When an entity is spawned as a result of ender pearl usage"
+    },
+    "EXPLOSION": {
+        "Description": "When eg an effect cloud is spawned as a result of a creeper exploding"
+    },
+    "FROZEN": {
+        "Description": "When an entity is shaking in Powder Snow and a new entity spawns."
+    },
+    "INFECTION": {
+        "Description": "When a zombie infects a villager"
+    },
+    "JOCKEY": {
+        "Description": "When an entity spawns as a jockey of another entity (mostly spider\n jockeys)"
+    },
+    "LIGHTNING": {
+        "Description": "When a creature spawns because of a lightning strike"
+    },
+    "METAMORPHOSIS": {
+        "Description": "When a tadpole converts to a frog"
+    },
+    "MOUNT": {
+        "Description": "When an entity spawns as a mount of another entity (mostly chicken\n jockeys)"
+    },
+    "NATURAL": {
+        "Description": "When something spawns from natural means"
+    },
+    "NETHER_PORTAL": {
+        "Description": "When a creature is spawned by nether portal"
+    },
+    "OCELOT_BABY": {
+        "Description": "When an ocelot has a baby spawned along with them"
+    },
+    "PATROL": {
+        "Description": "When an entity is spawned as part of a patrol"
+    },
+    "PIGLIN_ZOMBIFIED": {
+        "Description": "When a piglin is converted to a zombified piglin."
+    },
+    "POTION_EFFECT": {
+        "Description": "When a creature is spawned by a potion effect, for example:\n PotionType.OOZING, PotionType.INFESTED"
+    },
+    "RAID": {
+        "Description": "When an entity is spawned as part of a raid"
+    },
+    "REINFORCEMENTS": {
+        "Description": "When an entity calls for reinforcements"
+    },
+    "SHEARED": {
+        "Description": "When an cow is spawned by shearing a mushroom cow"
+    },
+    "SHOULDER_ENTITY": {
+        "Description": "When an entity is spawned as a result of the entity it is being\n perched on jumping or being damaged"
+    },
+    "SILVERFISH_BLOCK": {
+        "Description": "When a silverfish spawns from a block"
+    },
+    "SLIME_SPLIT": {
+        "Description": "When a slime splits"
+    },
+    "SPAWNER": {
+        "Description": "When a creature spawns from a spawner"
+    },
+    "SPAWNER_EGG": {
+        "Description": "When a creature spawns from a Spawner Egg"
+    },
+    "SPELL": {
+        "Description": "When an entity is created by a cast spell."
+    },
+    "TRAP": {
+        "Description": "When an entity spawns as a trap for players approaching"
+    },
+    "TRIAL_SPAWNER": {
+        "Description": "When a creature spawns from a trial spawner"
+    },
+    "VILLAGE_DEFENSE": {
+        "Description": "When an iron golem is spawned to defend a village"
+    },
+    "VILLAGE_INVASION": {
+        "Description": "When a zombie is spawned to invade a village"
+    }
+}

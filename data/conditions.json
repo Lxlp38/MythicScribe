@@ -19,6 +19,7 @@
                 ],
                 "type": "String",
                 "enum": null,
+                "list": false,
                 "description": "The height range to check",
                 "link": "https://git.lumine.io/mythiccraft/MythicMobs/-/wikis/Skills/Conditions/altitude",
                 "default_value": ""
@@ -30,6 +31,7 @@
                 ],
                 "type": "Double",
                 "enum": null,
+                "list": false,
                 "description": "Limits the maximum height this condition can checks for",
                 "link": "https://git.lumine.io/mythiccraft/MythicMobs/-/wikis/Skills/Conditions/altitude",
                 "default_value": "30"
@@ -53,6 +55,7 @@
                 ],
                 "type": "Boolean",
                 "enum": null,
+                "list": false,
                 "description": "Whether to match the biome exactly",
                 "link": "https://git.lumine.io/mythiccraft/MythicMobs/-/wikis/Skills/Conditions/biome",
                 "default_value": "true"
@@ -66,6 +69,7 @@
                 ],
                 "type": "String",
                 "enum": null,
+                "list": false,
                 "description": "A list of biomes to check",
                 "link": "https://git.lumine.io/mythiccraft/MythicMobs/-/wikis/Skills/Conditions/biome",
                 "default_value": "minecraft:plains"
@@ -90,6 +94,7 @@
                 ],
                 "type": "Boolean",
                 "enum": null,
+                "list": false,
                 "description": "Whether to match the type exactly",
                 "link": "https://git.lumine.io/mythiccraft/MythicMobs/-/wikis/Skills/Conditions/biometype",
                 "default_value": "true"
@@ -101,6 +106,7 @@
                 ],
                 "type": "String",
                 "enum": null,
+                "list": false,
                 "description": "A list of biomes to check",
                 "link": "https://git.lumine.io/mythiccraft/MythicMobs/-/wikis/Skills/Conditions/biometype",
                 "default_value": "ocean"
@@ -131,7 +137,8 @@
                     "b"
                 ],
                 "type": "StringList",
-                "enum": null,
+                "enum": "Material",
+                "list": true,
                 "description": "A list of materials or MMOItem's block name to check",
                 "link": "https://git.lumine.io/mythiccraft/MythicMobs/-/wikis/Skills/Conditions/blocktype",
                 "default_value": "DIRT"
@@ -155,6 +162,7 @@
                 ],
                 "type": "PlaceholderString",
                 "enum": null,
+                "list": false,
                 "description": "The amount of blocks to match",
                 "link": "https://git.lumine.io/mythiccraft/MythicMobs/-/wikis/Skills/Conditions/BlockTypeInRadius",
                 "default_value": ">0"
@@ -166,6 +174,7 @@
                 ],
                 "type": "PlaceholderInteger",
                 "enum": null,
+                "list": false,
                 "description": "The radius",
                 "link": "https://git.lumine.io/mythiccraft/MythicMobs/-/wikis/Skills/Conditions/BlockTypeInRadius",
                 "default_value": "8"
@@ -180,7 +189,8 @@
                     "m"
                 ],
                 "type": "StringList",
-                "enum": null,
+                "enum": "Material",
+                "list": true,
                 "description": "A list of [materials] to check against",
                 "link": "https://git.lumine.io/mythiccraft/MythicMobs/-/wikis/Skills/Conditions/BlockTypeInRadius",
                 "default_value": "DIRT"
@@ -221,6 +231,7 @@
                 ],
                 "type": "Double",
                 "enum": null,
+                "list": false,
                 "description": "The forward offset of the caster's BoundingBox",
                 "link": "https://git.lumine.io/mythiccraft/MythicMobs/-/wikis/Skills/Conditions/BoundingBoxesOverlap",
                 "default_value": "0.0"
@@ -248,6 +259,7 @@
                 ],
                 "type": "PlaceholderString",
                 "enum": null,
+                "list": false,
                 "description": "The value of the force/tension to check for. Accepts ranged float values, but only in a range from 0 to 1",
                 "link": "https://git.lumine.io/mythiccraft/MythicMobs/-/wikis/Skills/Conditions/bowtension",
                 "default_value": ">0"
@@ -284,6 +296,7 @@
                 ],
                 "type": "PlaceholderDouble",
                 "enum": null,
+                "list": false,
                 "description": "The floating value which denotes the chance. It can range between 0 and 1, with 0 being a 0% chance and 1 being a 100% chance",
                 "link": "https://git.lumine.io/mythiccraft/MythicMobs/-/wikis/Skills/Conditions/chance",
                 "default_value": "0.5"
@@ -307,6 +320,7 @@
                 ],
                 "type": "String",
                 "enum": null,
+                "list": false,
                 "description": "The amount of children to check for. Can accept ranged values.",
                 "link": "https://git.lumine.io/mythiccraft/MythicMobs/-/wikis/Skills/Conditions/children",
                 "default_value": "1"
@@ -332,6 +346,7 @@
                 ],
                 "type": "PlaceholderString",
                 "enum": null,
+                "list": false,
                 "description": "the color to check for",
                 "link": "https://git.lumine.io/mythiccraft/MythicMobs/-/wikis/Skills/Conditions/color",
                 "default_value": "WHITE"
@@ -385,6 +400,7 @@
                 ],
                 "type": "String",
                 "enum": null,
+                "list": false,
                 "description": "x,y,z coordinates for the 1st point.",
                 "link": "https://git.lumine.io/mythiccraft/MythicMobs/-/wikis/Skills/Conditions/cuboid",
                 "default_value": ""
@@ -398,6 +414,7 @@
                 ],
                 "type": "String",
                 "enum": null,
+                "list": false,
                 "description": "x,y,z coordinates for the 2nd point.",
                 "link": "https://git.lumine.io/mythiccraft/MythicMobs/-/wikis/Skills/Conditions/cuboid",
                 "default_value": ""
@@ -409,6 +426,7 @@
                 ],
                 "type": "Boolean",
                 "enum": null,
+                "list": false,
                 "description": "Whether or not the coordinates should be relative to the caster",
                 "link": "https://git.lumine.io/mythiccraft/MythicMobs/-/wikis/Skills/Conditions/cuboid",
                 "default_value": "false"
@@ -433,6 +451,7 @@
                 ],
                 "type": "PlaceholderString",
                 "enum": null,
+                "list": false,
                 "description": "Range of damage to check for",
                 "link": "https://git.lumine.io/mythiccraft/MythicMobs/-/wikis/Skills/Conditions/DamageAmount",
                 "default_value": ">0"
@@ -456,7 +475,8 @@
                     "c"
                 ],
                 "type": "PlaceholderString",
-                "enum": null,
+                "enum": "DamageCause",
+                "list": false,
                 "description": "The damage cause to match",
                 "link": "https://git.lumine.io/mythiccraft/MythicMobs/-/wikis/Skills/Conditions/DamageCause",
                 "default_value": "ENTITY_ATTACK"
@@ -481,6 +501,7 @@
                 ],
                 "type": "PlaceholderString",
                 "enum": null,
+                "list": false,
                 "description": "The tag to check against",
                 "link": "https://git.lumine.io/mythiccraft/MythicMobs/-/wikis/Skills/Conditions/damagetag",
                 "default_value": ""
@@ -496,6 +517,7 @@
                 ],
                 "type": "Boolean",
                 "enum": null,
+                "list": false,
                 "description": "If true, checks for the presence of the tag<br>If false, checks for its absence",
                 "link": "https://git.lumine.io/mythiccraft/MythicMobs/-/wikis/Skills/Conditions/damagetag",
                 "default_value": "true"
@@ -543,7 +565,8 @@
                     "env"
                 ],
                 "type": "String",
-                "enum": null,
+                "enum": "WorldEnviroment",
+                "list": true,
                 "description": "A list of dimensions to check",
                 "link": "https://git.lumine.io/mythiccraft/MythicMobs/-/wikis/Skills/Conditions/dimension",
                 "default_value": "THE_END"
@@ -568,6 +591,7 @@
                 ],
                 "type": "Boolean",
                 "enum": null,
+                "list": false,
                 "description": "Whether the check should be relative to the entity's orientation and not to the world axis. If true, X is forward/backward and Z is side-to-side",
                 "link": "https://git.lumine.io/mythiccraft/MythicMobs/-/wikis/Skills/Conditions/directionalvelocity",
                 "default_value": "false"
@@ -580,6 +604,7 @@
                 ],
                 "type": "String",
                 "enum": null,
+                "list": false,
                 "description": "The X velocity. Can be a range. Isn't checked by the condition if not set",
                 "link": "https://git.lumine.io/mythiccraft/MythicMobs/-/wikis/Skills/Conditions/directionalvelocity",
                 "default_value": ""
@@ -593,6 +618,7 @@
                 ],
                 "type": "Boolean",
                 "enum": null,
+                "list": false,
                 "description": "Whether to use only the absolute values for the X velocity",
                 "link": "https://git.lumine.io/mythiccraft/MythicMobs/-/wikis/Skills/Conditions/directionalvelocity",
                 "default_value": "`relative`'s value"
@@ -607,6 +633,7 @@
                 ],
                 "type": "String",
                 "enum": null,
+                "list": false,
                 "description": "The Y velocity. Can be a range. Isn't checked by the condition if not set",
                 "link": "https://git.lumine.io/mythiccraft/MythicMobs/-/wikis/Skills/Conditions/directionalvelocity",
                 "default_value": ""
@@ -618,6 +645,7 @@
                 ],
                 "type": "Boolean",
                 "enum": null,
+                "list": false,
                 "description": "Whether to use only the absolute values for the Y velocity",
                 "link": "https://git.lumine.io/mythiccraft/MythicMobs/-/wikis/Skills/Conditions/directionalvelocity",
                 "default_value": "false"
@@ -630,6 +658,7 @@
                 ],
                 "type": "String",
                 "enum": null,
+                "list": false,
                 "description": "The Z velocity. Can be a range. Isn't checked by the condition if not set",
                 "link": "https://git.lumine.io/mythiccraft/MythicMobs/-/wikis/Skills/Conditions/directionalvelocity",
                 "default_value": ""
@@ -643,6 +672,7 @@
                 ],
                 "type": "Boolean",
                 "enum": null,
+                "list": false,
                 "description": "Whether to use only the absolute values for the Z velocity",
                 "link": "https://git.lumine.io/mythiccraft/MythicMobs/-/wikis/Skills/Conditions/directionalvelocity",
                 "default_value": "false"
@@ -666,6 +696,7 @@
                 ],
                 "type": "PlaceholderString",
                 "enum": null,
+                "list": false,
                 "description": "The distance to match",
                 "link": "https://git.lumine.io/mythiccraft/MythicMobs/-/wikis/Skills/Conditions/distance",
                 "default_value": ""
@@ -688,6 +719,7 @@
                 ],
                 "type": "PlaceholderDouble",
                 "enum": null,
+                "list": false,
                 "description": "The x component of the location",
                 "link": "https://git.lumine.io/mythiccraft/MythicMobs/-/wikis/Skills/Conditions/DistanceFromLocation",
                 "default_value": "0"
@@ -698,6 +730,7 @@
                 ],
                 "type": "PlaceholderDouble",
                 "enum": null,
+                "list": false,
                 "description": "The y component of the location",
                 "link": "https://git.lumine.io/mythiccraft/MythicMobs/-/wikis/Skills/Conditions/DistanceFromLocation",
                 "default_value": "0"
@@ -708,6 +741,7 @@
                 ],
                 "type": "PlaceholderDouble",
                 "enum": null,
+                "list": false,
                 "description": "The z component of the location",
                 "link": "https://git.lumine.io/mythiccraft/MythicMobs/-/wikis/Skills/Conditions/DistanceFromLocation",
                 "default_value": "0"
@@ -719,6 +753,7 @@
                 ],
                 "type": "PlaceholderString",
                 "enum": null,
+                "list": false,
                 "description": "The world of the location. Defaults to the world of the target",
                 "link": "https://git.lumine.io/mythiccraft/MythicMobs/-/wikis/Skills/Conditions/DistanceFromLocation",
                 "default_value": ""
@@ -730,6 +765,7 @@
                 ],
                 "type": "String",
                 "enum": null,
+                "list": false,
                 "description": "The distance from the specified location to check against",
                 "link": "https://git.lumine.io/mythiccraft/MythicMobs/-/wikis/Skills/Conditions/DistanceFromLocation",
                 "default_value": ""
@@ -753,6 +789,7 @@
                 ],
                 "type": "PlaceholderString",
                 "enum": null,
+                "list": false,
                 "description": "The pin to check against",
                 "link": "https://git.lumine.io/mythiccraft/MythicMobs/-/wikis/Skills/Conditions/DistanceFromPin",
                 "default_value": ""
@@ -764,6 +801,7 @@
                 ],
                 "type": "String",
                 "enum": null,
+                "list": false,
                 "description": "The distance to check against. Can be a range.",
                 "link": "https://git.lumine.io/mythiccraft/MythicMobs/-/wikis/Skills/Conditions/DistanceFromPin",
                 "default_value": ""
@@ -787,6 +825,7 @@
                 ],
                 "type": "PlaceholderString",
                 "enum": null,
+                "list": false,
                 "description": "The distance to match",
                 "link": "https://git.lumine.io/mythiccraft/MythicMobs/-/wikis/Skills/Conditions/distancefromspawn",
                 "default_value": ""
@@ -811,6 +850,7 @@
                 ],
                 "type": "String",
                 "enum": null,
+                "list": false,
                 "description": "The values to check for. Can be a range.",
                 "link": "https://git.lumine.io/mythiccraft/MythicMobs/-/wikis/Skills/Conditions/distancefromtrackedlocation",
                 "default_value": ""
@@ -850,6 +890,7 @@
                 ],
                 "type": "String",
                 "enum": null,
+                "list": false,
                 "description": "Checks against the experience points missing to reach the next level, in a range from 0 to 1. 0 is \"no progress\" and 1 is \"next level\". Accepts ranges.",
                 "link": "https://git.lumine.io/mythiccraft/MythicMobs/-/wikis/Skills/Conditions/EnchantingExperience",
                 "default_value": "0"
@@ -873,6 +914,7 @@
                 ],
                 "type": "String",
                 "enum": null,
+                "list": false,
                 "description": "Range of amount of experience level to check for",
                 "link": "https://git.lumine.io/mythiccraft/MythicMobs/-/wikis/Skills/Conditions/enchantingLevel",
                 "default_value": "0"
@@ -910,6 +952,7 @@
                 ],
                 "type": "String",
                 "enum": null,
+                "list": false,
                 "description": "A list of phases to match",
                 "link": "https://git.lumine.io/mythiccraft/MythicMobs/-/wikis/Skills/Conditions/EnderDragonPhase",
                 "default_value": ""
@@ -937,6 +980,7 @@
                 ],
                 "type": "String",
                 "enum": null,
+                "list": false,
                 "description": "The item to check against",
                 "link": "https://git.lumine.io/mythiccraft/MythicMobs/-/wikis/Skills/Conditions/EntityItemIsSimilar",
                 "default_value": "DIRT"
@@ -964,6 +1008,7 @@
                 ],
                 "type": "String",
                 "enum": null,
+                "list": false,
                 "description": "A list of items to match",
                 "link": "https://git.lumine.io/mythiccraft/MythicMobs/-/wikis/Skills/Conditions/EntityItemType",
                 "default_value": ""
@@ -990,7 +1035,8 @@
                     "t"
                 ],
                 "type": "String",
-                "enum": null,
+                "enum": "Material",
+                "list": true,
                 "description": "A list of materials to match",
                 "link": "https://git.lumine.io/mythiccraft/MythicMobs/-/wikis/Skills/Conditions/EntityMaterialType",
                 "default_value": ""
@@ -1015,7 +1061,8 @@
                     "t"
                 ],
                 "type": "String",
-                "enum": null,
+                "enum": "EntityType",
+                "list": true,
                 "description": "A list of entity types to match",
                 "link": "https://git.lumine.io/mythiccraft/MythicMobs/-/wikis/Skills/Conditions/EntityType",
                 "default_value": ""
@@ -1039,6 +1086,7 @@
                 ],
                 "type": "PlaceholderString",
                 "enum": null,
+                "list": false,
                 "description": "The faction to check for",
                 "link": "https://git.lumine.io/mythiccraft/MythicMobs/-/wikis/Skills/Conditions/faction",
                 "default_value": ""
@@ -1075,6 +1123,7 @@
                 ],
                 "type": "String",
                 "enum": null,
+                "list": false,
                 "description": "The velocity to match",
                 "link": "https://git.lumine.io/mythiccraft/MythicMobs/-/wikis/Skills/Conditions/fallspeed",
                 "default_value": ""
@@ -1100,6 +1149,7 @@
                 ],
                 "type": "Double",
                 "enum": null,
+                "list": false,
                 "description": "The angle of the FOV to check in",
                 "link": "https://git.lumine.io/mythiccraft/MythicMobs/-/wikis/Skills/Conditions/fieldofview",
                 "default_value": "90"
@@ -1111,6 +1161,7 @@
                 ],
                 "type": "Double",
                 "enum": null,
+                "list": false,
                 "description": "Rotates the FOV to check in",
                 "link": "https://git.lumine.io/mythiccraft/MythicMobs/-/wikis/Skills/Conditions/fieldofview",
                 "default_value": "0"
@@ -1139,6 +1190,7 @@
                 ],
                 "type": "String",
                 "enum": null,
+                "list": false,
                 "description": "Range of amount of food to check for",
                 "link": "https://git.lumine.io/mythiccraft/MythicMobs/-/wikis/Skills/Conditions/FoodLevel",
                 "default_value": "0"
@@ -1167,6 +1219,7 @@
                 ],
                 "type": "String",
                 "enum": null,
+                "list": false,
                 "description": "Range of amount of food saturation to check for",
                 "link": "https://git.lumine.io/mythiccraft/MythicMobs/-/wikis/Skills/Conditions/FoodSaturation",
                 "default_value": "0"
@@ -1190,7 +1243,8 @@
                     "m"
                 ],
                 "type": "String",
-                "enum": null,
+                "enum": "Gamemode",
+                "list": false,
                 "description": "The gamemode to match",
                 "link": "https://git.lumine.io/mythiccraft/MythicMobs/-/wikis/Skills/Conditions/Gamemode",
                 "default_value": "SURVIVAL"
@@ -1246,6 +1300,7 @@
                 ],
                 "type": "PlaceholderString",
                 "enum": null,
+                "list": false,
                 "description": null,
                 "link": "https://git.lumine.io/mythiccraft/MythicMobs/-/wikis/Skills/Conditions/hasaura",
                 "default_value": null
@@ -1281,6 +1336,7 @@
                 ],
                 "type": "String",
                 "enum": null,
+                "list": false,
                 "description": null,
                 "link": "https://git.lumine.io/mythiccraft/MythicMobs/-/wikis/Skills/Conditions/hasaurastacks",
                 "default_value": null
@@ -1292,6 +1348,7 @@
                 ],
                 "type": "String",
                 "enum": null,
+                "list": false,
                 "description": "The number/range of stacks to check for",
                 "link": "https://git.lumine.io/mythiccraft/MythicMobs/-/wikis/Skills/Conditions/hasaurastacks",
                 "default_value": "1"
@@ -1321,6 +1378,7 @@
                 ],
                 "type": "String",
                 "enum": null,
+                "list": false,
                 "description": "The aura type to check for",
                 "link": "https://git.lumine.io/mythiccraft/MythicMobs/-/wikis/Skills/Conditions/HasAuraType",
                 "default_value": ""
@@ -1345,6 +1403,7 @@
                 ],
                 "type": "String",
                 "enum": null,
+                "list": false,
                 "description": "The amount of currency",
                 "link": "https://git.lumine.io/mythiccraft/MythicMobs/-/wikis/Skills/Conditions/hascurrency",
                 "default_value": ""
@@ -1372,6 +1431,7 @@
                 ],
                 "type": "String",
                 "enum": null,
+                "list": false,
                 "description": "The enchantment to test for",
                 "link": "https://git.lumine.io/mythiccraft/MythicMobs/-/wikis/Skills/Conditions/HasEnchantment",
                 "default_value": "ANY"
@@ -1384,6 +1444,7 @@
                 ],
                 "type": "String",
                 "enum": null,
+                "list": false,
                 "description": "The level to test for",
                 "link": "https://git.lumine.io/mythiccraft/MythicMobs/-/wikis/Skills/Conditions/HasEnchantment",
                 "default_value": ">0"
@@ -1434,6 +1495,7 @@
                 ],
                 "type": "String",
                 "enum": null,
+                "list": false,
                 "description": "The item to check for",
                 "link": "https://git.lumine.io/mythiccraft/MythicMobs/-/wikis/Skills/Conditions/hasItem",
                 "default_value": "DIRT"
@@ -1445,6 +1507,7 @@
                 ],
                 "type": "String",
                 "enum": null,
+                "list": false,
                 "description": "The amount to check for",
                 "link": "https://git.lumine.io/mythiccraft/MythicMobs/-/wikis/Skills/Conditions/hasItem",
                 "default_value": ">0"
@@ -1514,6 +1577,7 @@
                 ],
                 "type": "PlaceholderString",
                 "enum": null,
+                "list": false,
                 "description": "The permission to check for.",
                 "link": "https://git.lumine.io/mythiccraft/MythicMobs/-/wikis/Skills/Conditions/haspermission",
                 "default_value": ""
@@ -1537,7 +1601,8 @@
                     "t"
                 ],
                 "type": "String",
-                "enum": null,
+                "enum": "PotionEffectType",
+                "list": false,
                 "description": "The potion effect type",
                 "link": "https://git.lumine.io/mythiccraft/MythicMobs/-/wikis/Skills/Conditions/haspotioneffect",
                 "default_value": "ANY"
@@ -1550,6 +1615,7 @@
                 ],
                 "type": "String",
                 "enum": null,
+                "list": false,
                 "description": "An optional level range to match",
                 "link": "https://git.lumine.io/mythiccraft/MythicMobs/-/wikis/Skills/Conditions/haspotioneffect",
                 "default_value": ""
@@ -1561,6 +1627,7 @@
                 ],
                 "type": "String",
                 "enum": null,
+                "list": false,
                 "description": "An optional duration range to match",
                 "link": "https://git.lumine.io/mythiccraft/MythicMobs/-/wikis/Skills/Conditions/haspotioneffect",
                 "default_value": ""
@@ -1585,6 +1652,7 @@
                 ],
                 "type": "PlaceholderString",
                 "enum": null,
+                "list": false,
                 "description": "The tag to check for",
                 "link": "https://git.lumine.io/mythiccraft/MythicMobs/-/wikis/Skills/Conditions/hastag",
                 "default_value": ""
@@ -1611,6 +1679,7 @@
                 ],
                 "type": "PlaceholderString",
                 "enum": null,
+                "list": false,
                 "description": "The health range to check for",
                 "link": "https://git.lumine.io/mythiccraft/MythicMobs/-/wikis/Skills/Conditions/health",
                 "default_value": "0"
@@ -1622,6 +1691,7 @@
                 ],
                 "type": "Boolean",
                 "enum": null,
+                "list": false,
                 "description": "Whether any absorption-related health should be factor into the calculation",
                 "link": "https://git.lumine.io/mythiccraft/MythicMobs/-/wikis/Skills/Conditions/health",
                 "default_value": "false"
@@ -1648,6 +1718,7 @@
                 ],
                 "type": "PlaceholderString",
                 "enum": null,
+                "list": false,
                 "description": "The health percentage or multiplier to check for (e.g., 50% or 0.5)",
                 "link": "https://git.lumine.io/mythiccraft/MythicMobs/-/wikis/Skills/Conditions/HealthPercent",
                 "default_value": "0"
@@ -1659,6 +1730,7 @@
                 ],
                 "type": "Boolean",
                 "enum": null,
+                "list": false,
                 "description": "Whether any absorption-related health should be factor into the calculation",
                 "link": "https://git.lumine.io/mythiccraft/MythicMobs/-/wikis/Skills/Conditions/HealthPercent",
                 "default_value": "false"
@@ -1682,6 +1754,7 @@
                 ],
                 "type": "Integer",
                 "enum": null,
+                "list": false,
                 "description": "The height they must be above",
                 "link": "https://git.lumine.io/mythiccraft/MythicMobs/-/wikis/Skills/Conditions/heightabove",
                 "default_value": ""
@@ -1705,6 +1778,7 @@
                 ],
                 "type": "Integer",
                 "enum": null,
+                "list": false,
                 "description": "The height they must be below",
                 "link": "https://git.lumine.io/mythiccraft/MythicMobs/-/wikis/Skills/Conditions/heightbelow",
                 "default_value": ""
@@ -1728,6 +1802,7 @@
                 ],
                 "type": "String",
                 "enum": null,
+                "list": false,
                 "description": "The range of the Y location of the target",
                 "link": "https://git.lumine.io/mythiccraft/MythicMobs/-/wikis/Skills/Conditions/height",
                 "default_value": ""
@@ -1755,6 +1830,7 @@
                 ],
                 "type": "String",
                 "enum": null,
+                "list": false,
                 "description": "A material, MythicItem or MMOItems internal id to check for",
                 "link": "https://git.lumine.io/mythiccraft/MythicMobs/-/wikis/Skills/Conditions/holding",
                 "default_value": ""
@@ -1801,6 +1877,7 @@
                 ],
                 "type": "PlaceholderString",
                 "enum": null,
+                "list": false,
                 "description": "The first [pin]",
                 "link": "https://git.lumine.io/mythiccraft/MythicMobs/-/wikis/Skills/Conditions/InPinRegion",
                 "default_value": ""
@@ -1812,6 +1889,7 @@
                 ],
                 "type": "PlaceholderString",
                 "enum": null,
+                "list": false,
                 "description": "The second [pin]",
                 "link": "https://git.lumine.io/mythiccraft/MythicMobs/-/wikis/Skills/Conditions/InPinRegion",
                 "default_value": ""
@@ -2101,6 +2179,7 @@
                 ],
                 "type": "String",
                 "enum": null,
+                "list": false,
                 "description": "The inventory slot to check for. Accepts 0 to 35, or equipment slots",
                 "link": "https://git.lumine.io/mythiccraft/MythicMobs/-/wikis/Skills/Conditions/itemissimilar",
                 "default_value": "HAND"
@@ -2116,6 +2195,7 @@
                 ],
                 "type": "String",
                 "enum": null,
+                "list": false,
                 "description": "The item to check for",
                 "link": "https://git.lumine.io/mythiccraft/MythicMobs/-/wikis/Skills/Conditions/itemissimilar",
                 "default_value": "DIRT"
@@ -2154,6 +2234,7 @@
                 ],
                 "type": "StringList",
                 "enum": null,
+                "list": false,
                 "description": "A list of [materials] to check against",
                 "link": "https://git.lumine.io/mythiccraft/MythicMobs/-/wikis/Skills/Conditions/ItemType",
                 "default_value": "DIRT"
@@ -2178,6 +2259,7 @@
                 ],
                 "type": "String",
                 "enum": null,
+                "list": false,
                 "description": "The damage cause to match",
                 "link": "https://git.lumine.io/mythiccraft/MythicMobs/-/wikis/Skills/Conditions/lastdamagecause",
                 "default_value": "ENTITY_ATTACK"
@@ -2201,6 +2283,7 @@
                 ],
                 "type": "String",
                 "enum": null,
+                "list": false,
                 "description": "The signal to match",
                 "link": "https://git.lumine.io/mythiccraft/MythicMobs/-/wikis/Skills/Conditions/lastsignal",
                 "default_value": "DEFAULT"
@@ -2224,6 +2307,7 @@
                 ],
                 "type": "String",
                 "enum": null,
+                "list": false,
                 "description": "The level range to match",
                 "link": "https://git.lumine.io/mythiccraft/MythicMobs/-/wikis/Skills/Conditions/level",
                 "default_value": ""
@@ -2248,6 +2332,7 @@
                 ],
                 "type": "String",
                 "enum": null,
+                "list": false,
                 "description": "The light level range to match",
                 "link": "https://git.lumine.io/mythiccraft/MythicMobs/-/wikis/Skills/Conditions/lightlevelfromblocks",
                 "default_value": "0"
@@ -2271,6 +2356,7 @@
                 ],
                 "type": "String",
                 "enum": null,
+                "list": false,
                 "description": "The level range to match",
                 "link": "https://git.lumine.io/mythiccraft/MythicMobs/-/wikis/Skills/Conditions/lightlevel",
                 "default_value": "0"
@@ -2318,6 +2404,7 @@
                 ],
                 "type": "String",
                 "enum": null,
+                "list": false,
                 "description": "The amount to check for",
                 "link": "https://git.lumine.io/mythiccraft/MythicMobs/-/wikis/Skills/Conditions/LivingInRadius",
                 "default_value": "1"
@@ -2329,6 +2416,7 @@
                 ],
                 "type": "PlaceholderDouble",
                 "enum": null,
+                "list": false,
                 "description": "The radius of the search",
                 "link": "https://git.lumine.io/mythiccraft/MythicMobs/-/wikis/Skills/Conditions/LivingInRadius",
                 "default_value": "5"
@@ -2353,6 +2441,7 @@
                 ],
                 "type": "String",
                 "enum": null,
+                "list": false,
                 "description": "The difficulty range to check",
                 "link": "https://git.lumine.io/mythiccraft/MythicMobs/-/wikis/Skills/Conditions/localdifficulty",
                 "default_value": ""
@@ -2380,6 +2469,7 @@
                 ],
                 "type": "String",
                 "enum": null,
+                "list": false,
                 "description": "The object to check against",
                 "link": "https://git.lumine.io/mythiccraft/MythicMobs/-/wikis/Skills/Conditions/LookingAt",
                 "default_value": ""
@@ -2404,6 +2494,7 @@
                 ],
                 "type": "String",
                 "enum": null,
+                "list": false,
                 "description": "the lunar phase/s you want to check for. Can be a list.",
                 "link": "https://git.lumine.io/mythiccraft/MythicMobs/-/wikis/Skills/Conditions/lunarphase",
                 "default_value": "0"
@@ -2429,7 +2520,8 @@
                     "m"
                 ],
                 "type": "PlaceholderString",
-                "enum": null,
+                "enum": "Material",
+                "list": false,
                 "description": "The material to check for",
                 "link": "https://git.lumine.io/mythiccraft/MythicMobs/-/wikis/Skills/Conditions/MaterialIsOnCooldown",
                 "default_value": "enderpearl"
@@ -2453,6 +2545,7 @@
                 ],
                 "type": "String",
                 "enum": null,
+                "list": false,
                 "description": "The number range to match",
                 "link": "https://git.lumine.io/mythiccraft/MythicMobs/-/wikis/Skills/Conditions/mobsinchunk",
                 "default_value": "0"
@@ -2476,6 +2569,7 @@
                 ],
                 "type": "String",
                 "enum": null,
+                "list": false,
                 "description": "The range of mobs to check for. The caster is not counted",
                 "link": "https://git.lumine.io/mythiccraft/MythicMobs/-/wikis/Skills/Conditions/mobsinradius",
                 "default_value": "1"
@@ -2487,6 +2581,7 @@
                 ],
                 "type": "PlaceholderDouble",
                 "enum": null,
+                "list": false,
                 "description": "The radius to check",
                 "link": "https://git.lumine.io/mythiccraft/MythicMobs/-/wikis/Skills/Conditions/mobsinradius",
                 "default_value": "5"
@@ -2499,6 +2594,7 @@
                 ],
                 "type": "String",
                 "enum": null,
+                "list": false,
                 "description": "The types of mobs to check for",
                 "link": "https://git.lumine.io/mythiccraft/MythicMobs/-/wikis/Skills/Conditions/mobsinradius",
                 "default_value": ""
@@ -2522,6 +2618,7 @@
                 ],
                 "type": "String",
                 "enum": null,
+                "list": false,
                 "description": "The number range to match",
                 "link": "https://git.lumine.io/mythiccraft/MythicMobs/-/wikis/Skills/Conditions/mobsinworld",
                 "default_value": "0"
@@ -2562,6 +2659,7 @@
                 ],
                 "type": "PlaceholderString",
                 "enum": null,
+                "list": false,
                 "description": "The id of the model of the modeled entity to check against",
                 "link": "https://git.lumine.io/mythiccraft/model-engine-4/-/wikis/Skills/Conditions/ModelHasPassengers",
                 "default_value": ""
@@ -2574,6 +2672,7 @@
                 ],
                 "type": "PlaceholderString",
                 "enum": null,
+                "list": false,
                 "description": "The name of the seat(s) to check for",
                 "link": "https://git.lumine.io/mythiccraft/model-engine-4/-/wikis/Skills/Conditions/ModelHasPassengers",
                 "default_value": ""
@@ -2584,6 +2683,7 @@
                 ],
                 "type": "String",
                 "enum": null,
+                "list": false,
                 "description": "The mode of the search. Can be either `AND` or `OR`",
                 "link": "https://git.lumine.io/mythiccraft/model-engine-4/-/wikis/Skills/Conditions/ModelHasPassengers",
                 "default_value": "AND"
@@ -2622,6 +2722,7 @@
                 ],
                 "type": "PlaceholderInteger",
                 "enum": null,
+                "list": false,
                 "description": "The level of hydratation to check for",
                 "link": "https://git.lumine.io/mythiccraft/MythicMobs/-/wikis/Skills/Conditions/moisturelevel",
                 "default_value": ""
@@ -2646,6 +2747,7 @@
                 ],
                 "type": "String",
                 "enum": null,
+                "list": false,
                 "description": "The velocity to check for",
                 "link": "https://git.lumine.io/mythiccraft/MythicMobs/-/wikis/Skills/Conditions/motionx",
                 "default_value": ""
@@ -2670,6 +2772,7 @@
                 ],
                 "type": "String",
                 "enum": null,
+                "list": false,
                 "description": "The velocity to check for",
                 "link": "https://git.lumine.io/mythiccraft/MythicMobs/-/wikis/Skills/Conditions/motiony",
                 "default_value": ""
@@ -2694,6 +2797,7 @@
                 ],
                 "type": "String",
                 "enum": null,
+                "list": false,
                 "description": "The velocity to check for",
                 "link": "https://git.lumine.io/mythiccraft/MythicMobs/-/wikis/Skills/Conditions/motionz",
                 "default_value": ""
@@ -2729,6 +2833,7 @@
                 ],
                 "type": "Boolean",
                 "enum": null,
+                "list": false,
                 "description": "If the check should be exact or approximated",
                 "link": "https://git.lumine.io/mythiccraft/MythicMobs/-/wikis/Skills/Conditions/moving",
                 "default_value": "true"
@@ -2754,6 +2859,7 @@
                 ],
                 "type": "String",
                 "enum": null,
+                "list": false,
                 "description": "A list of MythicMob types to match",
                 "link": "https://git.lumine.io/mythiccraft/MythicMobs/-/wikis/Skills/Conditions/mythicmobtype",
                 "default_value": ""
@@ -2781,6 +2887,7 @@
                 ],
                 "type": "String",
                 "enum": null,
+                "list": false,
                 "description": "The pack id to check for",
                 "link": "https://git.lumine.io/mythiccraft/MythicMobs/-/wikis/Skills/Conditions/mythicpack",
                 "default_value": ""
@@ -2808,6 +2915,7 @@
                 ],
                 "type": "String",
                 "enum": null,
+                "list": false,
                 "description": "The Pack id to check for",
                 "link": "https://git.lumine.io/mythiccraft/MythicMobs/-/wikis/Skills/Conditions/MythicPackVersion",
                 "default_value": ""
@@ -2821,6 +2929,7 @@
                 ],
                 "type": "String",
                 "enum": null,
+                "list": false,
                 "description": "The version to check for",
                 "link": "https://git.lumine.io/mythiccraft/MythicMobs/-/wikis/Skills/Conditions/MythicPackVersion",
                 "default_value": ""
@@ -2848,6 +2957,7 @@
                 ],
                 "type": "String",
                 "enum": null,
+                "list": false,
                 "description": "The Pack id to check for",
                 "link": "https://git.lumine.io/mythiccraft/MythicMobs/-/wikis/Skills/Conditions/MythicPackVersionGreater",
                 "default_value": ""
@@ -2861,6 +2971,7 @@
                 ],
                 "type": "String",
                 "enum": null,
+                "list": false,
                 "description": "The version to check for",
                 "link": "https://git.lumine.io/mythiccraft/MythicMobs/-/wikis/Skills/Conditions/MythicPackVersionGreater",
                 "default_value": ""
@@ -2885,6 +2996,7 @@
                 ],
                 "type": "PlaceholderString",
                 "enum": null,
+                "list": false,
                 "description": "The name to check against",
                 "link": "https://git.lumine.io/mythiccraft/MythicMobs/-/wikis/Skills/Conditions/name",
                 "default_value": "Ashijin"
@@ -2909,6 +3021,7 @@
                 ],
                 "type": "Integer",
                 "enum": null,
+                "list": false,
                 "description": "The given range to check",
                 "link": "https://git.lumine.io/mythiccraft/MythicMobs/-/wikis/Skills/Conditions/nearClaim",
                 "default_value": "16"
@@ -2945,6 +3058,7 @@
                 ],
                 "type": "String",
                 "enum": null,
+                "list": false,
                 "description": "The region's name",
                 "link": "https://git.lumine.io/mythiccraft/MythicMobs/-/wikis/Skills/Conditions/notinregion",
                 "default_value": ""
@@ -2985,6 +3099,7 @@
                 ],
                 "type": "StringList",
                 "enum": null,
+                "list": false,
                 "description": "A list of materials. The condition will match if one is found",
                 "link": "https://git.lumine.io/mythiccraft/MythicMobs/-/wikis/Skills/Conditions/onblock",
                 "default_value": "STONE"
@@ -3020,6 +3135,7 @@
                 ],
                 "type": "PlaceholderString",
                 "enum": null,
+                "list": false,
                 "description": "The pin to check against",
                 "link": "https://git.lumine.io/mythiccraft/MythicMobs/-/wikis/Skills/Conditions/OriginDistanceFromPin",
                 "default_value": ""
@@ -3031,6 +3147,7 @@
                 ],
                 "type": "String",
                 "enum": null,
+                "list": false,
                 "description": "The distance to check against. Can be a range.",
                 "link": "https://git.lumine.io/mythiccraft/MythicMobs/-/wikis/Skills/Conditions/OriginDistanceFromPin",
                 "default_value": ""
@@ -3054,6 +3171,7 @@
                 ],
                 "type": "Boolean",
                 "enum": null,
+                "list": false,
                 "description": "Whether to match the location exactly",
                 "link": "https://git.lumine.io/mythiccraft/MythicMobs/-/wikis/Skills/Conditions/OriginLocation",
                 "default_value": "false"
@@ -3067,6 +3185,7 @@
                 ],
                 "type": "String",
                 "enum": null,
+                "list": false,
                 "description": "The location to match, written as `x,y,z`.",
                 "link": "https://git.lumine.io/mythiccraft/MythicMobs/-/wikis/Skills/Conditions/OriginLocation",
                 "default_value": ""
@@ -3077,6 +3196,7 @@
                 ],
                 "type": "PlaceholderDouble",
                 "enum": null,
+                "list": false,
                 "description": "The x coordinate of the location, ignored if the location attribute is set",
                 "link": "https://git.lumine.io/mythiccraft/MythicMobs/-/wikis/Skills/Conditions/OriginLocation",
                 "default_value": "0"
@@ -3087,6 +3207,7 @@
                 ],
                 "type": "PlaceholderDouble",
                 "enum": null,
+                "list": false,
                 "description": "The y coordinate of the location, ignored if the location attribute is set",
                 "link": "https://git.lumine.io/mythiccraft/MythicMobs/-/wikis/Skills/Conditions/OriginLocation",
                 "default_value": "0"
@@ -3097,6 +3218,7 @@
                 ],
                 "type": "PlaceholderDouble",
                 "enum": null,
+                "list": false,
                 "description": "The z coordinate of the location, ignored if the location attribute is set",
                 "link": "https://git.lumine.io/mythiccraft/MythicMobs/-/wikis/Skills/Conditions/OriginLocation",
                 "default_value": "0"
@@ -3153,6 +3275,7 @@
                 ],
                 "type": "String",
                 "enum": null,
+                "list": false,
                 "description": "The number range to match",
                 "link": "https://git.lumine.io/mythiccraft/MythicMobs/-/wikis/Skills/Conditions/pitch",
                 "default_value": ""
@@ -3176,6 +3299,7 @@
                 ],
                 "type": "String",
                 "enum": null,
+                "list": false,
                 "description": "The number range to match",
                 "link": "https://git.lumine.io/mythiccraft/MythicMobs/-/wikis/Skills/Conditions/playerkills",
                 "default_value": "0"
@@ -3200,6 +3324,7 @@
                 ],
                 "type": "String",
                 "enum": null,
+                "list": false,
                 "description": "The radius to check in",
                 "link": "https://git.lumine.io/mythiccraft/MythicMobs/-/wikis/Skills/Conditions/playernotwithin",
                 "default_value": "0"
@@ -3224,6 +3349,7 @@
                 ],
                 "type": "String",
                 "enum": null,
+                "list": false,
                 "description": "The radius to check in",
                 "link": "https://git.lumine.io/mythiccraft/MythicMobs/-/wikis/Skills/Conditions/playerwithin",
                 "default_value": "0"
@@ -3249,6 +3375,7 @@
                 ],
                 "type": "String",
                 "enum": null,
+                "list": false,
                 "description": "The given range value to check",
                 "link": "https://git.lumine.io/mythiccraft/MythicMobs/-/wikis/Skills/Conditions/playersinradius",
                 "default_value": ">0"
@@ -3262,6 +3389,7 @@
                 ],
                 "type": "PlaceholderDouble",
                 "enum": null,
+                "list": false,
                 "description": "The given radius to check",
                 "link": "https://git.lumine.io/mythiccraft/MythicMobs/-/wikis/Skills/Conditions/playersinradius",
                 "default_value": "32"
@@ -3273,6 +3401,7 @@
                 ],
                 "type": "Boolean",
                 "enum": null,
+                "list": false,
                 "description": "Whether players in spectator mode should be ignored",
                 "link": "https://git.lumine.io/mythiccraft/MythicMobs/-/wikis/Skills/Conditions/playersinradius",
                 "default_value": "true"
@@ -3296,6 +3425,7 @@
                 ],
                 "type": "String",
                 "enum": null,
+                "list": false,
                 "description": "The number of players to check for. Can be a range",
                 "link": "https://git.lumine.io/mythiccraft/MythicMobs/-/wikis/Skills/Conditions/playersinworld",
                 "default_value": "0"
@@ -3321,6 +3451,7 @@
                 ],
                 "type": "String",
                 "enum": null,
+                "list": false,
                 "description": "The number of players to check for. Can be a range",
                 "link": "https://git.lumine.io/mythiccraft/MythicMobs/-/wikis/Skills/Conditions/playersonline",
                 "default_value": "0"
@@ -3347,6 +3478,7 @@
                 ],
                 "type": "String",
                 "enum": null,
+                "list": false,
                 "description": "The plugin to check for",
                 "link": "https://git.lumine.io/mythiccraft/MythicMobs/-/wikis/Skills/Conditions/plugin",
                 "default_value": "MythicMobs"
@@ -3398,6 +3530,7 @@
                 ],
                 "type": "String",
                 "enum": null,
+                "list": false,
                 "description": "The region to check",
                 "link": "https://git.lumine.io/mythiccraft/MythicMobs/-/wikis/Skills/Conditions/region",
                 "default_value": ""
@@ -3422,6 +3555,7 @@
                 ],
                 "type": "PlaceholderString",
                 "enum": null,
+                "list": false,
                 "description": "The objective",
                 "link": "https://git.lumine.io/mythiccraft/MythicMobs/-/wikis/Skills/Conditions/score",
                 "default_value": ""
@@ -3434,6 +3568,7 @@
                 ],
                 "type": "PlaceholderString",
                 "enum": null,
+                "list": false,
                 "description": "The entry",
                 "link": "https://git.lumine.io/mythiccraft/MythicMobs/-/wikis/Skills/Conditions/score",
                 "default_value": ""
@@ -3446,6 +3581,7 @@
                 ],
                 "type": "PlaceholderString",
                 "enum": null,
+                "list": false,
                 "description": "The value to match",
                 "link": "https://git.lumine.io/mythiccraft/MythicMobs/-/wikis/Skills/Conditions/score",
                 "default_value": ""
@@ -3471,6 +3607,7 @@
                 ],
                 "type": "PlaceholderString",
                 "enum": null,
+                "list": false,
                 "description": "The objective",
                 "link": "https://git.lumine.io/mythiccraft/MythicMobs/-/wikis/Skills/Conditions/globalscore",
                 "default_value": ""
@@ -3483,6 +3620,7 @@
                 ],
                 "type": "PlaceholderDouble",
                 "enum": null,
+                "list": false,
                 "description": "The value to match",
                 "link": "https://git.lumine.io/mythiccraft/MythicMobs/-/wikis/Skills/Conditions/globalscore",
                 "default_value": ""
@@ -3509,6 +3647,7 @@
                 ],
                 "type": "String",
                 "enum": null,
+                "list": false,
                 "description": "The version to check for",
                 "link": "https://git.lumine.io/mythiccraft/MythicMobs/-/wikis/Skills/Conditions/servernmsversion",
                 "default_value": "v1_19_R1_2"
@@ -3535,6 +3674,7 @@
                 ],
                 "type": "String",
                 "enum": null,
+                "list": false,
                 "description": "The version to check for",
                 "link": "https://git.lumine.io/mythiccraft/MythicMobs/-/wikis/Skills/Conditions/serverversion",
                 "default_value": "1.19.3"
@@ -3559,6 +3699,7 @@
                 ],
                 "type": "String",
                 "enum": null,
+                "list": false,
                 "description": "The size range to check",
                 "link": "https://git.lumine.io/mythiccraft/MythicMobs/-/wikis/Skills/Conditions/mobsize",
                 "default_value": ""
@@ -3580,6 +3721,7 @@
                 ],
                 "type": "String",
                 "enum": null,
+                "list": false,
                 "description": "The Metaskill to call if this condition does not check",
                 "link": "https://git.lumine.io/mythiccraft/MythicMobs/-/wikis/Skills/Conditions",
                 "default_value": ""
@@ -3591,6 +3733,7 @@
                 ],
                 "type": "String",
                 "enum": null,
+                "list": false,
                 "description": "The Metaskill to call if this condition does check",
                 "link": "https://git.lumine.io/mythiccraft/MythicMobs/-/wikis/Skills/Conditions",
                 "default_value": ""
@@ -3614,6 +3757,7 @@
                 ],
                 "type": "String",
                 "enum": null,
+                "list": false,
                 "description": "The metaskill to check",
                 "link": "https://git.lumine.io/mythiccraft/MythicMobs/-/wikis/Skills/Conditions/skilloncooldown",
                 "default_value": ""
@@ -3636,7 +3780,8 @@
                     "r"
                 ],
                 "type": "String",
-                "enum": null,
+                "enum": "SpawnReason",
+                "list": false,
                 "description": "The reason to check for. Can be any of the [Bukkit][] ones",
                 "link": "https://git.lumine.io/mythiccraft/MythicMobs/-/wikis/Skills/Conditions/SpawnReason",
                 "default_value": ""
@@ -3672,6 +3817,7 @@
                 ],
                 "type": "String",
                 "enum": null,
+                "list": false,
                 "description": "The stance to match",
                 "link": "https://git.lumine.io/mythiccraft/MythicMobs/-/wikis/Skills/Conditions/stance",
                 "default_value": "DEFAULT"
@@ -3683,6 +3829,7 @@
                 ],
                 "type": "Boolean",
                 "enum": null,
+                "list": false,
                 "description": "Whether to match exactly",
                 "link": "https://git.lumine.io/mythiccraft/MythicMobs/-/wikis/Skills/Conditions/stance",
                 "default_value": "false"
@@ -3710,6 +3857,7 @@
                 ],
                 "type": "String",
                 "enum": null,
+                "list": false,
                 "description": "The string to check",
                 "link": "https://git.lumine.io/mythiccraft/MythicMobs/-/wikis/Skills/Conditions/StringEmpty",
                 "default_value": ""
@@ -3737,6 +3885,7 @@
                 ],
                 "type": "String",
                 "enum": null,
+                "list": false,
                 "description": "The first value",
                 "link": "https://git.lumine.io/mythiccraft/MythicMobs/-/wikis/Skills/Conditions/stringequals",
                 "default_value": ""
@@ -3755,6 +3904,7 @@
                 ],
                 "type": "String",
                 "enum": null,
+                "list": false,
                 "description": "The second value",
                 "link": "https://git.lumine.io/mythiccraft/MythicMobs/-/wikis/Skills/Conditions/stringequals",
                 "default_value": ""
@@ -3782,6 +3932,7 @@
                 ],
                 "type": "String",
                 "enum": null,
+                "list": false,
                 "description": "The string to check",
                 "link": "https://git.lumine.io/mythiccraft/MythicMobs/-/wikis/Skills/Conditions/StringNotEmpty",
                 "default_value": ""
@@ -3806,6 +3957,7 @@
                 ],
                 "type": "String",
                 "enum": null,
+                "list": false,
                 "description": "The structure to check for. Can be a list.",
                 "link": "https://git.lumine.io/mythiccraft/MythicMobs/-/wikis/Skills/Conditions/structure",
                 "default_value": "village"
@@ -3863,6 +4015,7 @@
                 ],
                 "type": "String",
                 "enum": null,
+                "list": false,
                 "description": "Distance to check",
                 "link": "https://git.lumine.io/mythiccraft/MythicMobs/-/wikis/Skills/Conditions/targetnotwithin",
                 "default_value": "0"
@@ -3886,6 +4039,7 @@
                 ],
                 "type": "String",
                 "enum": null,
+                "list": false,
                 "description": "Distance to check",
                 "link": "https://git.lumine.io/mythiccraft/MythicMobs/-/wikis/Skills/Conditions/targetwithin",
                 "default_value": "0"
@@ -3909,6 +4063,7 @@
                 ],
                 "type": "String",
                 "enum": null,
+                "list": false,
                 "description": "Range of how many targets to check for",
                 "link": "https://git.lumine.io/mythiccraft/MythicMobs/-/wikis/Skills/Conditions/targets",
                 "default_value": ">0"
@@ -3950,7 +4105,8 @@
                     "m"
                 ],
                 "type": "StringList",
-                "enum": null,
+                "enum": "Material",
+                "list": false,
                 "description": "A list of [materials] to check against",
                 "link": "https://git.lumine.io/mythiccraft/MythicMobs/-/wikis/Skills/Conditions/TriggerBlockType",
                 "default_value": "DIRT"
@@ -3981,7 +4137,8 @@
                     "i"
                 ],
                 "type": "StringList",
-                "enum": null,
+                "enum": "Material",
+                "list": true,
                 "description": "A list of [materials] to check against",
                 "link": "https://git.lumine.io/mythiccraft/MythicMobs/-/wikis/Skills/Conditions/TriggerItemType",
                 "default_value": "DIRT"
@@ -4009,6 +4166,7 @@
                 ],
                 "type": "String",
                 "enum": null,
+                "list": false,
                 "description": "The value that the variable must equal to return true. Must be applicable for type or the mechanic will fail. Should be surrounded in double-quotes if using spaces. Value can also include placeholders, even from PlaceholderAPI.",
                 "link": "https://git.lumine.io/mythiccraft/MythicMobs/-/wikis/Skills/Conditions/variableequals",
                 "default_value": ""
@@ -4024,6 +4182,7 @@
                 ],
                 "type": null,
                 "enum": null,
+                "list": false,
                 "description": "The name of the variable. Can optionally be prefixed with scope",
                 "link": "https://git.lumine.io/mythiccraft/MythicMobs/-/wikis/Skills/Conditions/variableequals",
                 "default_value": ""
@@ -4035,6 +4194,7 @@
                 ],
                 "type": null,
                 "enum": null,
+                "list": false,
                 "description": "The [scope](/Skills/Variables#variable-scopes) of the variable, e.g. where the variable is located",
                 "link": "https://git.lumine.io/mythiccraft/MythicMobs/-/wikis/Skills/Conditions/variableequals",
                 "default_value": ""
@@ -4063,6 +4223,7 @@
                 ],
                 "type": "PlaceholderString",
                 "enum": null,
+                "list": false,
                 "description": "A number range to match",
                 "link": "https://git.lumine.io/mythiccraft/MythicMobs/-/wikis/Skills/Conditions/variableinrange",
                 "default_value": ""
@@ -4078,6 +4239,7 @@
                 ],
                 "type": null,
                 "enum": null,
+                "list": false,
                 "description": "Variable to match, optionally prefixed by a scope",
                 "link": "https://git.lumine.io/mythiccraft/MythicMobs/-/wikis/Skills/Conditions/variableinrange",
                 "default_value": ""
@@ -4089,6 +4251,7 @@
                 ],
                 "type": null,
                 "enum": null,
+                "list": false,
                 "description": "The [scope](/Skills/Variables#variable-scopes) of the variable, e.g. where the variable is located",
                 "link": "https://git.lumine.io/mythiccraft/MythicMobs/-/wikis/Skills/Conditions/variableinrange",
                 "default_value": ""
@@ -4118,6 +4281,7 @@
                 ],
                 "type": null,
                 "enum": null,
+                "list": false,
                 "description": "The name of the variable. Can optionally be prefixed with scope",
                 "link": "https://git.lumine.io/mythiccraft/MythicMobs/-/wikis/Skills/Conditions/variableisset",
                 "default_value": ""
@@ -4129,6 +4293,7 @@
                 ],
                 "type": null,
                 "enum": null,
+                "list": false,
                 "description": "The [scope](/Skills/Variables#variable-scopes) of the variable, e.g. where the variable is located",
                 "link": "https://git.lumine.io/mythiccraft/MythicMobs/-/wikis/Skills/Conditions/variableisset",
                 "default_value": ""
@@ -4163,6 +4328,7 @@
                 ],
                 "type": "String",
                 "enum": null,
+                "list": false,
                 "description": "The velocity to check for",
                 "link": "https://git.lumine.io/mythiccraft/MythicMobs/-/wikis/Skills/Conditions/Velocity",
                 "default_value": ""
@@ -4189,7 +4355,8 @@
                     "s"
                 ],
                 "type": "String",
-                "enum": null,
+                "enum": "EquipSlot",
+                "list": false,
                 "description": "The item slot to check.",
                 "link": "https://git.lumine.io/mythiccraft/MythicMobs/-/wikis/Skills/Conditions/wearing",
                 "default_value": "HEAD"
@@ -4206,6 +4373,7 @@
                 ],
                 "type": "String",
                 "enum": null,
+                "list": false,
                 "description": "A material or MythicItem name to check for. Also supports MMOItems in the format mmoitems.TYPE.ID",
                 "link": "https://git.lumine.io/mythiccraft/MythicMobs/-/wikis/Skills/Conditions/wearing",
                 "default_value": "DIRT"
@@ -4229,6 +4397,7 @@
                 ],
                 "type": "String",
                 "enum": null,
+                "list": false,
                 "description": "A list of worlds you wish to check for",
                 "link": "https://git.lumine.io/mythiccraft/MythicMobs/-/wikis/Skills/Conditions/world",
                 "default_value": "tutorial_world"
@@ -4252,6 +4421,7 @@
                 ],
                 "type": "PlaceholderString",
                 "enum": null,
+                "list": false,
                 "description": "A range of time to check",
                 "link": "https://git.lumine.io/mythiccraft/MythicMobs/-/wikis/Skills/Conditions/worldtime",
                 "default_value": "0"
@@ -4276,6 +4446,7 @@
                 ],
                 "type": "String",
                 "enum": null,
+                "list": false,
                 "description": "The y difference to check",
                 "link": "https://git.lumine.io/mythiccraft/MythicMobs/-/wikis/Skills/Conditions/ydiff",
                 "default_value": ""
@@ -4299,6 +4470,7 @@
                 ],
                 "type": "String",
                 "enum": null,
+                "list": false,
                 "description": "The yaw to check for",
                 "link": "https://git.lumine.io/mythiccraft/MythicMobs/-/wikis/Skills/Conditions/yaw",
                 "default_value": "0"
@@ -4310,6 +4482,7 @@
                 ],
                 "type": "Boolean",
                 "enum": null,
+                "list": false,
                 "description": "Whether to clamp yaw to a value in a 0-360 range",
                 "link": "https://git.lumine.io/mythiccraft/MythicMobs/-/wikis/Skills/Conditions/yaw",
                 "default_value": "true"

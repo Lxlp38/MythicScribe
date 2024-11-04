@@ -1,8 +1,9 @@
 import * as vscode from 'vscode';
 import * as yamlutils from '../utils/yamlutils';
-import { ObjectType, keyAliases, EnumInfo, EnumType } from '../../objectInfos';
+import { ObjectType, keyAliases, EnumInfo, EnumType, ObjectInfo } from '../../objectInfos';
 import { getAllAttributes, getMechanicDataByName } from '../utils/mechanicutils';
 import { getObjectLinkedToAttribute } from '../utils/cursorutils';
+import { checkShouldComplete } from '../utils/completionhelper';
 
 
 export function attributeCompletionProvider() {
@@ -10,6 +11,10 @@ export function attributeCompletionProvider() {
         'yaml',
         {
             async provideCompletionItems(document: vscode.TextDocument, position: vscode.Position, token: vscode.CancellationToken, context: vscode.CompletionContext) {
+
+                if (!checkShouldComplete(document, position, context, ["{", ";"])) {
+                    return undefined;
+                }
 
                 const charBefore = document.getText(new vscode.Range(position.translate(0, -2), position));
                 if (charBefore === ";;" || charBefore === "{;") {
@@ -22,14 +27,7 @@ export function attributeCompletionProvider() {
                 else if (charBefore === "- ") {
                     return undefined;
                 }
-
-                if (context.triggerCharacter === undefined) {
-                    const specialSymbol = yamlutils.previousSpecialSymbol(document, position);
-                    if (!["{", ";"].includes(specialSymbol)) {
-                        return undefined;
-                    }
-                }
-
+                
                 const keys = yamlutils.getParentKeys(document, position.line);
                 const completionItems: vscode.CompletionItem[] = [];
                 let mechanic = null;
@@ -112,3 +110,91 @@ export function attributeCompletionProvider() {
     return attributeCompletionProvider;
 }
 
+
+export function attributeValueCompletionProvider() {
+    const attributeValueCompletionProvider = vscode.languages.registerCompletionItemProvider(
+        'yaml',
+        {
+            async provideCompletionItems(document: vscode.TextDocument, position: vscode.Position, token: vscode.CancellationToken, context: vscode.CompletionContext) {
+
+                if (!checkShouldComplete(document, position, context, ["=", ","])) {
+                    return undefined;
+                }
+
+                const keys = yamlutils.getParentKeys(document, position.line);
+                const completionItems: vscode.CompletionItem[] = [];
+                let mechanic = null;
+                let type = ObjectType.MECHANIC;
+
+                const object = getObjectLinkedToAttribute(document, position);
+                if (!object) {
+                    return null;
+                }
+                else if (object?.startsWith('@')) {
+                    mechanic = getMechanicDataByName(object.replace("@", ""), ObjectType.TARGETER);
+                    type = ObjectType.TARGETER;
+                }
+                else if (object?.startsWith('~')) {
+                    return null
+                }
+                else if (object?.startsWith('?')) {
+                    mechanic = getMechanicDataByName(object.replace("?", "").replace("!", "").replace("~", ""), ObjectType.CONDITION);
+                    type = ObjectType.INLINECONDITION;
+                }
+                else if (keyAliases["Conditions"].includes(keys[0])) {
+                    mechanic = getMechanicDataByName(object, ObjectType.CONDITION);
+                    type = ObjectType.CONDITION;
+                }
+                else {
+                    mechanic = getMechanicDataByName(object, ObjectType.MECHANIC);
+                    type = ObjectType.MECHANIC;
+                }
+
+                if (!mechanic) {
+                    return null;
+                }
+
+
+                const attribute = document.getText(new vscode.Range(new vscode.Position(position.line, 0), position)).match(ObjectInfo[ObjectType.ATTRIBUTE].regex)?.pop();
+
+                if (!attribute) {
+                    return null;
+                }
+
+                const attributeInfo = getAllAttributes(mechanic, type).find((attr: { name: string[]; }) => attr.name.includes(attribute));
+
+                if (!attributeInfo) {
+                    return null;
+                }
+
+                const charBefore0 = document.getText(new vscode.Range(position.translate(0, -1), position));
+
+                const attributeType = attributeInfo.type;
+                const attributeEnum = attributeInfo.enum ? attributeInfo.enum.toUpperCase() : null;
+                const attributeList = attributeInfo.list;
+
+                if (charBefore0 === ",") {
+                    if (!attributeList) {
+                        return undefined;
+                    }
+                }
+
+                if (attributeType === "Boolean") {
+                    completionItems.push(new vscode.CompletionItem("true", vscode.CompletionItemKind.Value));
+                    completionItems.push(new vscode.CompletionItem("false", vscode.CompletionItemKind.Value));
+                }
+                else if (attributeEnum && Object.keys(EnumType).includes(attributeEnum)) {
+                    EnumInfo[EnumType[attributeEnum as keyof typeof EnumType]].commalist.split(",").forEach((value: string) => {
+                        completionItems.push(new vscode.CompletionItem(value, vscode.CompletionItemKind.Value));
+                    });
+                }
+                else {
+                    return undefined;
+                }
+
+                return completionItems;
+            }
+        }, "=", ","
+    );
+    return attributeValueCompletionProvider;
+}

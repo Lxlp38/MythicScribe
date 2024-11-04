@@ -1,0 +1,455 @@
+{
+    "ACACIA_BOAT": {
+        "Description": ""
+    },
+    "ACACIA_CHEST_BOAT": {
+        "Description": ""
+    },
+    "ALLAY": {
+        "Description": ""
+    },
+    "AREA_EFFECT_CLOUD": {
+        "Description": ""
+    },
+    "ARMADILLO": {
+        "Description": ""
+    },
+    "ARMOR_STAND": {
+        "Description": "Mechanical entity with an inventory for placing weapons / armor into."
+    },
+    "ARROW": {
+        "Description": "An arrow projectile; may get stuck in the ground."
+    },
+    "AXOLOTL": {
+        "Description": ""
+    },
+    "BAMBOO_CHEST_RAFT": {
+        "Description": ""
+    },
+    "BAMBOO_RAFT": {
+        "Description": ""
+    },
+    "BAT": {
+        "Description": ""
+    },
+    "BEE": {
+        "Description": ""
+    },
+    "BIRCH_BOAT": {
+        "Description": ""
+    },
+    "BIRCH_CHEST_BOAT": {
+        "Description": ""
+    },
+    "BLAZE": {
+        "Description": ""
+    },
+    "BLOCK_DISPLAY": {
+        "Description": ""
+    },
+    "BOGGED": {
+        "Description": ""
+    },
+    "BREEZE": {
+        "Description": ""
+    },
+    "BREEZE_WIND_CHARGE": {
+        "Description": ""
+    },
+    "CAMEL": {
+        "Description": ""
+    },
+    "CAT": {
+        "Description": ""
+    },
+    "CAVE_SPIDER": {
+        "Description": ""
+    },
+    "CHERRY_BOAT": {
+        "Description": ""
+    },
+    "CHERRY_CHEST_BOAT": {
+        "Description": ""
+    },
+    "CHEST_MINECART": {
+        "Description": ""
+    },
+    "CHICKEN": {
+        "Description": ""
+    },
+    "COD": {
+        "Description": ""
+    },
+    "COMMAND_BLOCK_MINECART": {
+        "Description": ""
+    },
+    "COW": {
+        "Description": ""
+    },
+    "CREAKING": {
+        "Description": ""
+    },
+    "CREAKING_TRANSIENT": {
+        "Description": ""
+    },
+    "CREEPER": {
+        "Description": ""
+    },
+    "DARK_OAK_BOAT": {
+        "Description": ""
+    },
+    "DARK_OAK_CHEST_BOAT": {
+        "Description": ""
+    },
+    "DOLPHIN": {
+        "Description": ""
+    },
+    "DONKEY": {
+        "Description": ""
+    },
+    "DRAGON_FIREBALL": {
+        "Description": "Like FIREBALL but with added effects."
+    },
+    "DROWNED": {
+        "Description": ""
+    },
+    "EGG": {
+        "Description": "A flying chicken egg."
+    },
+    "ELDER_GUARDIAN": {
+        "Description": ""
+    },
+    "ENDERMAN": {
+        "Description": ""
+    },
+    "ENDERMITE": {
+        "Description": ""
+    },
+    "ENDER_DRAGON": {
+        "Description": ""
+    },
+    "ENDER_PEARL": {
+        "Description": "A flying ender pearl."
+    },
+    "END_CRYSTAL": {
+        "Description": ""
+    },
+    "EVOKER": {
+        "Description": ""
+    },
+    "EVOKER_FANGS": {
+        "Description": ""
+    },
+    "EXPERIENCE_BOTTLE": {
+        "Description": "A flying experience bottle."
+    },
+    "EXPERIENCE_ORB": {
+        "Description": "An experience orb."
+    },
+    "EYE_OF_ENDER": {
+        "Description": "An ender eye signal."
+    },
+    "FALLING_BLOCK": {
+        "Description": "A block that is going to or is about to fall."
+    },
+    "FIREBALL": {
+        "Description": "A flying large fireball, as thrown by a Ghast for example."
+    },
+    "FIREWORK_ROCKET": {
+        "Description": "Internal representation of a Firework once it has been launched."
+    },
+    "FISHING_BOBBER": {
+        "Description": "A fishing line and bobber."
+    },
+    "FOX": {
+        "Description": ""
+    },
+    "FROG": {
+        "Description": ""
+    },
+    "FURNACE_MINECART": {
+        "Description": ""
+    },
+    "GHAST": {
+        "Description": ""
+    },
+    "GIANT": {
+        "Description": ""
+    },
+    "GLOW_ITEM_FRAME": {
+        "Description": ""
+    },
+    "GLOW_SQUID": {
+        "Description": ""
+    },
+    "GOAT": {
+        "Description": ""
+    },
+    "GUARDIAN": {
+        "Description": ""
+    },
+    "HOGLIN": {
+        "Description": ""
+    },
+    "HOPPER_MINECART": {
+        "Description": ""
+    },
+    "HORSE": {
+        "Description": ""
+    },
+    "HUSK": {
+        "Description": ""
+    },
+    "ILLUSIONER": {
+        "Description": ""
+    },
+    "INTERACTION": {
+        "Description": ""
+    },
+    "IRON_GOLEM": {
+        "Description": ""
+    },
+    "ITEM": {
+        "Description": "An item resting on the ground."
+    },
+    "ITEM_DISPLAY": {
+        "Description": ""
+    },
+    "ITEM_FRAME": {
+        "Description": "An item frame on a wall."
+    },
+    "JUNGLE_BOAT": {
+        "Description": ""
+    },
+    "JUNGLE_CHEST_BOAT": {
+        "Description": ""
+    },
+    "LEASH_KNOT": {
+        "Description": "A leash attached to a fencepost."
+    },
+    "LIGHTNING_BOLT": {
+        "Description": "A bolt of lightning."
+    },
+    "LLAMA": {
+        "Description": ""
+    },
+    "LLAMA_SPIT": {
+        "Description": ""
+    },
+    "MAGMA_CUBE": {
+        "Description": ""
+    },
+    "MANGROVE_BOAT": {
+        "Description": ""
+    },
+    "MANGROVE_CHEST_BOAT": {
+        "Description": ""
+    },
+    "MARKER": {
+        "Description": ""
+    },
+    "MINECART": {
+        "Description": ""
+    },
+    "MOOSHROOM": {
+        "Description": ""
+    },
+    "MULE": {
+        "Description": ""
+    },
+    "OAK_BOAT": {
+        "Description": ""
+    },
+    "OAK_CHEST_BOAT": {
+        "Description": ""
+    },
+    "OCELOT": {
+        "Description": ""
+    },
+    "OMINOUS_ITEM_SPAWNER": {
+        "Description": ""
+    },
+    "PAINTING": {
+        "Description": "A painting on a wall."
+    },
+    "PALE_OAK_BOAT": {
+        "Description": ""
+    },
+    "PALE_OAK_CHEST_BOAT": {
+        "Description": ""
+    },
+    "PANDA": {
+        "Description": ""
+    },
+    "PARROT": {
+        "Description": ""
+    },
+    "PHANTOM": {
+        "Description": ""
+    },
+    "PIG": {
+        "Description": ""
+    },
+    "PIGLIN": {
+        "Description": ""
+    },
+    "PIGLIN_BRUTE": {
+        "Description": ""
+    },
+    "PILLAGER": {
+        "Description": ""
+    },
+    "PLAYER": {
+        "Description": ""
+    },
+    "POLAR_BEAR": {
+        "Description": ""
+    },
+    "POTION": {
+        "Description": "A flying splash potion."
+    },
+    "PUFFERFISH": {
+        "Description": ""
+    },
+    "RABBIT": {
+        "Description": ""
+    },
+    "RAVAGER": {
+        "Description": ""
+    },
+    "SALMON": {
+        "Description": ""
+    },
+    "SHEEP": {
+        "Description": ""
+    },
+    "SHULKER": {
+        "Description": ""
+    },
+    "SHULKER_BULLET": {
+        "Description": "Bullet fired by SHULKER."
+    },
+    "SILVERFISH": {
+        "Description": ""
+    },
+    "SKELETON": {
+        "Description": ""
+    },
+    "SKELETON_HORSE": {
+        "Description": ""
+    },
+    "SLIME": {
+        "Description": ""
+    },
+    "SMALL_FIREBALL": {
+        "Description": "A flying small fireball, such as thrown by a Blaze or player."
+    },
+    "SNIFFER": {
+        "Description": ""
+    },
+    "SNOWBALL": {
+        "Description": "A flying snowball."
+    },
+    "SNOW_GOLEM": {
+        "Description": ""
+    },
+    "SPAWNER_MINECART": {
+        "Description": ""
+    },
+    "SPECTRAL_ARROW": {
+        "Description": "Like ARROW but causes the PotionEffectType.GLOWING effect on all team members."
+    },
+    "SPIDER": {
+        "Description": ""
+    },
+    "SPRUCE_BOAT": {
+        "Description": ""
+    },
+    "SPRUCE_CHEST_BOAT": {
+        "Description": ""
+    },
+    "SQUID": {
+        "Description": ""
+    },
+    "STRAY": {
+        "Description": ""
+    },
+    "STRIDER": {
+        "Description": ""
+    },
+    "TADPOLE": {
+        "Description": ""
+    },
+    "TEXT_DISPLAY": {
+        "Description": ""
+    },
+    "TNT": {
+        "Description": "Primed TNT that is about to explode."
+    },
+    "TNT_MINECART": {
+        "Description": ""
+    },
+    "TRADER_LLAMA": {
+        "Description": ""
+    },
+    "TRIDENT": {
+        "Description": ""
+    },
+    "TROPICAL_FISH": {
+        "Description": ""
+    },
+    "TURTLE": {
+        "Description": ""
+    },
+    "UNKNOWN": {
+        "Description": "An unknown entity without an Entity Class"
+    },
+    "VEX": {
+        "Description": ""
+    },
+    "VILLAGER": {
+        "Description": ""
+    },
+    "VINDICATOR": {
+        "Description": ""
+    },
+    "WANDERING_TRADER": {
+        "Description": ""
+    },
+    "WARDEN": {
+        "Description": ""
+    },
+    "WIND_CHARGE": {
+        "Description": ""
+    },
+    "WITCH": {
+        "Description": ""
+    },
+    "WITHER": {
+        "Description": ""
+    },
+    "WITHER_SKELETON": {
+        "Description": ""
+    },
+    "WITHER_SKULL": {
+        "Description": "A flying wither skull projectile."
+    },
+    "WOLF": {
+        "Description": ""
+    },
+    "ZOGLIN": {
+        "Description": ""
+    },
+    "ZOMBIE": {
+        "Description": ""
+    },
+    "ZOMBIE_HORSE": {
+        "Description": ""
+    },
+    "ZOMBIE_VILLAGER": {
+        "Description": ""
+    },
+    "ZOMBIFIED_PIGLIN": {
+        "Description": ""
+    }
+}

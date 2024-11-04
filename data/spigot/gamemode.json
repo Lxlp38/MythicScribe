@@ -1,0 +1,14 @@
+{
+    "ADVENTURE": {
+        "Description": "Adventure mode cannot break blocks without the correct tools."
+    },
+    "CREATIVE": {
+        "Description": "Creative mode may fly, build instantly, become invulnerable and create\n free items."
+    },
+    "SPECTATOR": {
+        "Description": "Spectator mode cannot interact with the world in anyway and is\n invisible to normal players."
+    },
+    "SURVIVAL": {
+        "Description": "Survival mode is the \"normal\" gameplay type, with no special features."
+    }
+}
