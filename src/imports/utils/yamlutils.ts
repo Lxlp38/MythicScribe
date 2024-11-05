@@ -1,4 +1,3 @@
-import { off } from 'process';
 import * as vscode from 'vscode';
 
 function getUpstreamKey(document: vscode.TextDocument, lineIndex: number): string {
@@ -38,7 +37,7 @@ function getParentKeys(document: vscode.TextDocument, lineIndex: number): string
  * @param line - A line of YAML text
  * @returns The number of leading spaces (indentation level)
  */
-function getIndentation(line: string): number {
+export function getIndentation(line: string): number {
     return line.length - line.trimStart().length;
 }
 

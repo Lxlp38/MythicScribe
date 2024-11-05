@@ -1,7 +1,7 @@
 import * as vscode from 'vscode';
 import * as yamlutils from './yamlutils';
 import { previousSymbol } from './yamlutils';
-import { FileObject, FileObjectMap, FileObjectTypes, Mechanic, MechanicDataset, ObjectType } from '../../objectInfos';
+import { FileObject, FileObjectMap, FileObjectTypes, Mechanic, MechanicDataset } from '../../objectInfos';
 
 
 export function checkShouldComplete(document: vscode.TextDocument, position: vscode.Position, context: vscode.CompletionContext, symbol: string[]): boolean {
@@ -45,15 +45,20 @@ export function addMechanicCompletions(target: MechanicDataset, completionItems:
 
 export function fileCompletions(document: vscode.TextDocument, position: vscode.Position, objectmap: FileObjectMap): vscode.CompletionItem[] | undefined {
     const keys = yamlutils.getParentKeys(document, position.line).reverse();
-    console.log(keys);
 
     if (keys.length == 0) {
         return undefined;
     }
-    const indentation = "  ".repeat(keys.length);
 
-    const keyobjects: FileObjectMap | FileObject | null = fileCompletionFindNodesOnLevel(objectmap, keys.slice(1));
-    console.log(keyobjects);
+    const result = fileCompletionFindNodesOnLevel(objectmap, keys.slice(1), 1);
+    if (!result) {
+        return undefined;
+    }
+    const defaultindentation = vscode.window.activeTextEditor ? vscode.window.activeTextEditor.options.tabSize as number : 2;
+    const [keyobjects, level] = result;
+    const thislineindentation = yamlutils.getIndentation(document.lineAt(position.line).text);
+    const indentation = " ".repeat((level-thislineindentation/2) * defaultindentation);
+
 
     if (!keyobjects) {
         return undefined;
@@ -68,12 +73,10 @@ export function fileCompletions(document: vscode.TextDocument, position: vscode.
 
 }
 
-function fileCompletionFindNodesOnLevel(objectmap: FileObjectMap, keys: string[]): FileObjectMap | FileObject | null {
+function fileCompletionFindNodesOnLevel(objectmap: FileObjectMap, keys: string[], level: number): [FileObjectMap | FileObject, number] | null {
     if (keys.length == 0) {
-        return objectmap;
+        return [objectmap, level];
     }
-
-    console.log(keys);
 
     const key = keys[0];
 
@@ -81,9 +84,12 @@ function fileCompletionFindNodesOnLevel(objectmap: FileObjectMap, keys: string[]
 
     if (selectedObject) {
         if (selectedObject.keys) {
-            return fileCompletionFindNodesOnLevel(selectedObject.keys, keys.slice(1));
+            return fileCompletionFindNodesOnLevel(selectedObject.keys, keys.slice(1), level+1);
         }
-        return selectedObject;
+        if (selectedObject.type  === FileObjectTypes.KEY_LIST) {
+            return [selectedObject, level+1];
+        }
+        return [selectedObject, level];
     }
 
     return null;
@@ -120,13 +126,13 @@ function fileCompletionForFileObject(object: FileObject, indentation: string): v
 
     if (object.type === FileObjectTypes.LIST) {
         const completionItem = new vscode.CompletionItem("-", vscode.CompletionItemKind.Snippet);
-        completionItem.insertText = new vscode.SnippetString(indentation.slice(4) + "- $0");
+        completionItem.insertText = new vscode.SnippetString(indentation + "- $0");
         completionItem.command = { command: 'editor.action.triggerSuggest', title: 'Re-trigger completions...' };
         completionItems.push(completionItem);
     }
     else if (object.type === FileObjectTypes.KEY_LIST) {
         const completionItem = new vscode.CompletionItem("New Key", vscode.CompletionItemKind.Snippet);
-        completionItem.insertText = new vscode.SnippetString(indentation.slice(2) + "$1: $2");
+        completionItem.insertText = new vscode.SnippetString(indentation + "$1: $2");
         completionItem.command = { command: 'editor.action.triggerSuggest', title: 'Re-trigger completions...' };
         completionItems.push(completionItem);
     }

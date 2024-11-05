@@ -1,6 +1,6 @@
 import * as vscode from 'vscode';
 import * as yamlutils from '../utils/yamlutils';
-import { ConditionActions, keyAliases, Mechanic, ObjectInfo, ObjectType } from '../../objectInfos';
+import { ConditionActions, keyAliases, ObjectInfo, ObjectType } from '../../objectInfos';
 import { addMechanicCompletions } from '../utils/completionhelper';
 
 export function conditionCompletionProvider(){

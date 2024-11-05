@@ -1,5 +1,4 @@
 import * as vscode from 'vscode';
-import { isEnabled } from '../utils/configutils';
 
 let lastexecutiontime = 0
 
