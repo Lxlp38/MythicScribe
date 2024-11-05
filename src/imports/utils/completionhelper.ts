@@ -84,12 +84,16 @@ function fileCompletionFindNodesOnLevel(objectmap: FileObjectMap, keys: string[]
 
     if (selectedObject) {
         if (selectedObject.keys) {
-            return fileCompletionFindNodesOnLevel(selectedObject.keys, keys.slice(1), level+1);
+            const result = fileCompletionFindNodesOnLevel(selectedObject.keys, keys.slice(1), level+1)
+            return result;
         }
-        if (selectedObject.type  === FileObjectTypes.KEY_LIST) {
+        if (selectedObject.type === FileObjectTypes.KEY_LIST) {
             return [selectedObject, level+1];
         }
-        return [selectedObject, level];
+        if (selectedObject.type  === FileObjectTypes.LIST) {
+            return [selectedObject, level];
+        }
+        return [objectmap, level];
     }
 
     return null;
@@ -106,6 +110,9 @@ function fileCompletionForFileObjectMap(objectMap: FileObjectMap, indentation: s
         }
         else if (value.type == FileObjectTypes.BOOLEAN) {
             completionItem.insertText = new vscode.SnippetString(indentation + key + ": ${1|true,false|}");
+        }
+        else if (value.type == FileObjectTypes.KEY) {
+            completionItem.insertText = new vscode.SnippetString(indentation + key + ":\n" + indentation + "  $1");
         }
         else if (value.type == FileObjectTypes.KEY_LIST) {
             completionItem.insertText = new vscode.SnippetString(indentation + key + ":\n" + indentation + "  $1: $2");

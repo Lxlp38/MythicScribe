@@ -10,7 +10,6 @@ export enum ObjectType {
 	CONDITION = 'Condition',
 	INLINECONDITION = 'Inline Condition',
 	TRIGGER = 'Trigger',
-
 }
 
 
