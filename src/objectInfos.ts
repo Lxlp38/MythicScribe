@@ -320,25 +320,22 @@ export enum FileObjectTypes {
 	FLOAT = 'float',
 	LIST = 'list',
 	KEY = 'key',
+	KEY_DATASET = 'key_dataset',
+	KEY_LIST = 'key_list',
 	BARCOLOR = 'barcolor',
 	BARSTYLE = 'barstyle',
-	KEY_DATASET = 'key_dataset',
 }
 
-interface FileObjectMap {
+export interface FileObjectMap {
 	[key: string]: FileObject;
 }
 
-interface FileObject {
+export interface FileObject {
 	type: FileObjectTypes;
-	link: string;
-	description: string;
-	keys?: { [key: string]: FileObjectKey };
+	link?: string;
+	description?: string;
+	keys?: FileObjectMap;
 	dataset?: EnumType;
-}
-
-interface FileObjectKey {
-	type: FileObjectTypes;
 }
 
 
@@ -385,7 +382,7 @@ export const MetaskillFileObjects: FileObjectMap = {
 	},
 }
 
-export const MobFileObject: FileObjectMap = {
+export const MobFileObjects: FileObjectMap = {
 	"Type": {
 		"type": FileObjectTypes.STRING,
 		"link": "https://git.lumine.io/mythiccraft/MythicMobs/-/wikis/Mobs/Mobs#type",
@@ -471,7 +468,7 @@ export const MobFileObject: FileObjectMap = {
 		"description": "The mount of the mob.",
 	},
 	"Options": {
-		"type": FileObjectTypes.KEY_DATASET,
+		"type": FileObjectTypes.KEY_LIST,
 		"link": "https://git.lumine.io/mythiccraft/MythicMobs/-/wikis/Mobs/Options",
 		"description": "The options of the mob.",
 	},
@@ -488,6 +485,111 @@ export const MobFileObject: FileObjectMap = {
 		"link": "https://git.lumine.io/mythiccraft/MythicMobs/-/wikis/Mobs/Mobs#modules",
 		"description": "The modules of the mob.",
 	},
+	"AIGoalSelectors": {
+		type: FileObjectTypes.LIST,
+		link: "https://git.lumine.io/mythiccraft/MythicMobs/-/wikis/Mobs/AIGoalSelectors",
+		description: "The AI goal selectors of the mob.",
+	},
+	"AITargetSelectors": {
+		type: FileObjectTypes.LIST,
+		link: "https://git.lumine.io/mythiccraft/MythicMobs/-/wikis/Mobs/AITargetSelectors",
+		description: "The AI target selectors of the mob.",
+	},
+	"Drops": {
+		type: FileObjectTypes.LIST,
+		link: "https://git.lumine.io/mythiccraft/MythicMobs/-/wikis/Mobs/Drops",
+		description: "The drops of the mob.",
+	},
+	"DamageModifiers": {
+		type: FileObjectTypes.LIST,
+		link: "https://git.lumine.io/mythiccraft/MythicMobs/-/wikis/Mobs/DamageModifiers",
+		description: "The damage modifiers of the mob.",
+	},
+	"Equipment": {
+		type: FileObjectTypes.LIST,
+		link: "https://git.lumine.io/mythiccraft/MythicMobs/-/wikis/Mobs/Equipment",
+		description: "The equipment of the mob.",
+	},
+	"KillMessages": {
+		type: FileObjectTypes.LIST,
+		link: "https://git.lumine.io/mythiccraft/MythicMobs/-/wikis/Mobs/KillMessages",
+		description: "The kill messages of the mob.",
+	},
+	"LevelModifiers": {
+		type: FileObjectTypes.KEY,
+		link: "https://git.lumine.io/mythiccraft/MythicMobs/-/wikis/Mobs/LevelModifiers",
+		description: "The level modifiers of the mob.",
+		keys: {
+			"Health": {
+				type: FileObjectTypes.FLOAT,
+			},
+			"Damage": {
+				type: FileObjectTypes.FLOAT,
+			},
+			"Armor": {
+				type: FileObjectTypes.FLOAT,
+			},
+			"KnockbackResistance": {
+				type: FileObjectTypes.FLOAT,
+			},
+			"Power": {
+				type: FileObjectTypes.FLOAT,
+			},
+			"MovementSpeed": {
+				type: FileObjectTypes.FLOAT,
+			}
+		}
+	},
+	"Disguise": {
+		type: FileObjectTypes.STRING,
+		link: "https://git.lumine.io/mythiccraft/MythicMobs/-/wikis/Mobs/Disguise",
+		description: "The disguise of the mob.",
+	},
+	"Skills": {
+		type: FileObjectTypes.LIST,
+		link: "https://git.lumine.io/mythiccraft/MythicMobs/-/wikis/Mobs/Skills",
+		description: "The skills of the mob.",
+	},
+	"Nameplate": {
+		type: FileObjectTypes.KEY,
+		link: "https://git.lumine.io/mythiccraft/MythicMobs/-/wikis/Mobs/Nameplate",
+		description: "The nameplate of the mob.",
+		keys: {
+			"Enabled": {
+				type: FileObjectTypes.BOOLEAN,
+			},
+			"Offset": {
+				type: FileObjectTypes.FLOAT,
+			},
+			"Scale": {
+				type: FileObjectTypes.FLOAT,
+			},
+			"Mounted": {
+				type: FileObjectTypes.BOOLEAN,
+			},
+		}
+	},
+	"Hearing": {
+		type: FileObjectTypes.KEY,
+		link: "https://git.lumine.io/mythiccraft/MythicMobs/-/wikis/Mobs/Hearing",
+		description: "The hearing of the mob.",
+		keys: {
+			"Enabled": {
+				type: FileObjectTypes.BOOLEAN,
+			},
+		}
+	},
+	"Variables": {
+		type: FileObjectTypes.KEY_LIST,
+		link: "https://git.lumine.io/mythiccraft/MythicMobs/-/wikis/Mobs/Variables",
+		description: "The variables of the mob.",
+	},
+	"Trades": {
+		type: FileObjectTypes.KEY_LIST,
+		link: "https://git.lumine.io/mythiccraft/MythicMobs/-/wikis/Mobs/Trades",
+		description: "The trades of the mob.",
+	},
+
 }
 
 

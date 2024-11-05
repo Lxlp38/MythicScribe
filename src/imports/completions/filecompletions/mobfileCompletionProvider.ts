@@ -1,11 +1,10 @@
 import * as vscode from 'vscode';
-import * as yamlutils from '../../utils/yamlutils';
-import { FileObjectTypes, MetaskillFileObjects } from '../../../objectInfos';
-import { enableFileSpecificSuggestions, isEnabled, isMetaskillFile } from '../../utils/configutils';
+import { MobFileObjects } from '../../../objectInfos';
+import { enableFileSpecificSuggestions } from '../../utils/configutils';
 import { fileCompletions } from '../../utils/completionhelper';
 
-export function metaskillFileCompletionProvider(){
-    const SkillFileCompletionProvider = vscode.languages.registerCompletionItemProvider(
+export function mobFileCompletionProvider(){
+    const MobFileCompletionProvider = vscode.languages.registerCompletionItemProvider(
         'yaml',
         {
             async provideCompletionItems(document: vscode.TextDocument, position: vscode.Position) {
@@ -19,12 +18,12 @@ export function metaskillFileCompletionProvider(){
                 }
 
                 
-                return fileCompletions(document, position, MetaskillFileObjects);
+                return fileCompletions(document, position, MobFileObjects);
             }
         }, "\n"
     );
     
-    return SkillFileCompletionProvider;
+    return MobFileCompletionProvider;
 
 }
 

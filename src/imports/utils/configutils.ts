@@ -1,5 +1,5 @@
 import * as vscode from 'vscode';
-import { enableSubscriptions, disableSubscriptions, enableSkillfileSubscriptions, disableSkillfileSubscriptions, enableTriggerFileSubscriptions, disableTriggerFileSubscriptions } from '../../MythicScribe';
+import { enableSubscriptions, disableSubscriptions, enableSkillfileSubscriptions, disableSkillfileSubscriptions, enableTriggerFileSubscriptions, disableTriggerFileSubscriptions, enableMobfileSubscriptions, disableMobfileSubscriptions } from '../../MythicScribe';
 
 
 function resetFileChecks() {
@@ -54,6 +54,12 @@ export function updateEnabled(document: vscode.TextDocument) {
     if (isMobFile != checkMobFile(document)) {
         isMobFile = checkMobFile(document);
         console.log('updateMobFile', isMobFile);
+        if (isMobFile) {
+            enableMobfileSubscriptions();
+        }
+        else {
+            disableMobfileSubscriptions();
+        }
     }
 
     // Check if the file is a trigger file

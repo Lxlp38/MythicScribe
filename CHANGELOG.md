@@ -1,5 +1,11 @@
 # Changelog
 
+## [1.0.0]
+
+## Added
+- Mob file support for completions and hovers
+
+
 ## [0.3.0]
 
 ## Added

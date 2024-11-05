@@ -1,7 +1,7 @@
 import * as vscode from 'vscode';
-import { keyAliases, ObjectType, MetaskillFileObjects, Mechanic, Attribute } from '../../objectInfos';
+import { keyAliases, ObjectType, MetaskillFileObjects, Mechanic, Attribute, FileObjectMap, MobFileObjects } from '../../objectInfos';
 import * as yamlutils from '../utils/yamlutils';
-import { isEnabled } from '../utils/configutils';
+import { isEnabled, isMetaskillFile, isMobFile } from '../utils/configutils';
 import { getCursorSkills, getCursorCondition } from '../utils/cursorutils';
 
 export function hoverProvider(){
@@ -13,14 +13,13 @@ export function hoverProvider(){
                 return undefined;
             }
     
-    
-    
-    
             if (yamlutils.isKey(document, position.line) === true) {
                 const key = yamlutils.getKey(document, position.line);
-                if (Object.keys(MetaskillFileObjects).includes(key)){
-                    const key_ = key as keyof typeof MetaskillFileObjects;
-                    return getMinimalHover(key, MetaskillFileObjects[key_].description, MetaskillFileObjects[key_].link);
+                if (isMetaskillFile){
+                    return getHoverForFileElement(key, MetaskillFileObjects);
+                }
+                else if (isMobFile){
+                    return getHoverForFileElement(key, MobFileObjects);
                 }
                 return undefined;
             }
@@ -141,11 +140,21 @@ async function getHoverForAttribute(attribute: Attribute): Promise<vscode.Hover>
     return new vscode.Hover(hoverContent);
 }
 
-function getMinimalHover(title : string, description: string, link : string) : vscode.Hover {
+function getMinimalHover(title : string, description: string | undefined, link : string | undefined) : vscode.Hover {
     const hoverContent = new vscode.MarkdownString(`
 ## [${title}](${link})
 
 ${description}`)
     hoverContent.isTrusted = true;
     return new vscode.Hover(hoverContent);
+}
+
+
+
+function getHoverForFileElement(key: string, type: FileObjectMap){
+    if (Object.keys(type).includes(key)){
+        const key_ = key as keyof typeof type;
+        return getMinimalHover(key, type[key_].description, type[key_].link);
+    }    
+
 }

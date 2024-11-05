@@ -19,11 +19,13 @@ import { removeBracketsTextListener } from './imports/textchanges/bracketsremove
 import { shortcutsProvider } from './imports/textchanges/shortcuts';
 import { loadDatasets } from './datasets';
 import { triggerfileCompletionProvider } from './imports/completions/filecompletions/triggerfileCompletionProvider';
+import { mobFileCompletionProvider } from './imports/completions/filecompletions/mobfileCompletionProvider';
 
 export let ctx: vscode.ExtensionContext;
 
 // Arrays to store all subscriptions
 const gloabsubscriptions: vscode.Disposable[] = [];
+const mobfilesubscriptions: vscode.Disposable[] = [];
 const skillfilesubscriptions: vscode.Disposable[] = [];
 const triggerfilesubscriptions: vscode.Disposable[] = [];
 
@@ -94,8 +96,38 @@ export function disableSubscriptions() {
 
 	// File Specific
 	disableSkillfileSubscriptions();
+	disableMobfileSubscriptions();
 	disableTriggerFileSubscriptions();
 }
+
+
+
+
+
+
+export function enableMobfileSubscriptions() {
+	const context = ctx;
+	const toEnable = [];
+
+	if (config.enableFileSpecificSuggestions()) {
+		toEnable.push(mobFileCompletionProvider());
+	}
+
+	toEnable.forEach(subscription => {
+		context.subscriptions.push(subscription);
+		mobfilesubscriptions.push(subscription);
+	});
+}
+
+export function disableMobfileSubscriptions() {
+	mobfilesubscriptions.forEach(subscription => {
+		subscription.dispose();
+	});
+	mobfilesubscriptions.length = 0;
+}
+
+
+
 
 
 // Enable all skillfile subscriptions
@@ -139,6 +171,9 @@ export function disableSkillfileSubscriptions() {
 	});
 	skillfilesubscriptions.length = 0;
 }
+
+
+
 
 
 // Enable all triggerfile subscriptions
