@@ -1,6 +1,6 @@
 import * as vscode from 'vscode';
 import * as yamlutils from '../utils/yamlutils';
-import { keyAliases, ObjectInfo, ObjectType } from '../../objectInfos';
+import { keyAliases, Mechanic, ObjectInfo, ObjectType } from '../../objectInfos';
 import { checkShouldComplete } from '../utils/completionhelper';
 
 
@@ -21,7 +21,7 @@ export function targeterCompletionProvider(){
                     
                 const completionItems: vscode.CompletionItem[] = [];
     
-                ObjectInfo[ObjectType.TARGETER].dataset.forEach((item: any) => {
+                ObjectInfo[ObjectType.TARGETER].dataset.forEach((item: Mechanic) => {
                     item.name.forEach((name: string) => {
                         const completionItem = new vscode.CompletionItem(name, vscode.CompletionItemKind.Function);
                         completionItem.detail = `${item.description}`;

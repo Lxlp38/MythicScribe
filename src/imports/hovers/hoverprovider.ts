@@ -1,5 +1,5 @@
 import * as vscode from 'vscode';
-import { keyAliases, ObjectType, MetaskillFileObjects } from '../../objectInfos';
+import { keyAliases, ObjectType, MetaskillFileObjects, Mechanic, Attribute } from '../../objectInfos';
 import * as yamlutils from '../utils/yamlutils';
 import { isEnabled } from '../utils/configutils';
 import { getCursorSkills, getCursorCondition } from '../utils/cursorutils';
@@ -34,6 +34,9 @@ export function hoverProvider(){
                 if (!obj) {
                     return null;
                 }
+                if (type == ObjectType.ATTRIBUTE) {
+                    return getHoverForAttribute(obj);
+                } 
     
                 return getHover(obj, type);
             }
@@ -43,7 +46,10 @@ export function hoverProvider(){
                 if (!obj) {
                     return null;
                 }
-    
+                if (type == ObjectType.ATTRIBUTE) {
+                    return getHoverForAttribute(obj);
+                } 
+
                 return getHover(obj, type);
             }    
         
@@ -58,12 +64,7 @@ export function hoverProvider(){
 
 
 
-async function getHover(mechanic: any, type: ObjectType): Promise<vscode.Hover | undefined> {
-    if (type == ObjectType.ATTRIBUTE) {
-        return getHoverForAttribute(mechanic);
-    }
-
-
+async function getHover(mechanic: Mechanic, type: ObjectType): Promise<vscode.Hover | undefined> {
 
     // Combine the mechanic names into a comma-separated string for the mechanic's names
     const mechanicNames = mechanic.name.join(', ');
@@ -92,7 +93,7 @@ ${mechanic.description}
 `);
 
         // Add each attribute to the table
-        mechanic.attributes.forEach((attribute: any) => {
+        mechanic.attributes.forEach((attribute: Attribute) => {
 
             const attributeName = attribute.name[0]; // First element as the primary name
             const attributeAliases = attribute.name.slice(1).join(', ') || ''; // Remaining names as aliases
@@ -119,7 +120,7 @@ ${mechanic.description}
  * @param attribute - The attribute object containing name, type, description, and link
  * @returns A new Hover object with Markdown content
  */
-async function getHoverForAttribute(attribute: any): Promise<vscode.Hover> {
+async function getHoverForAttribute(attribute: Attribute): Promise<vscode.Hover> {
     // Combine the names into a comma-separated string
     const attributeNames = attribute.name.join(', ');
 

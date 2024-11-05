@@ -1,6 +1,6 @@
 import * as vscode from 'vscode';
 import * as yamlutils from '../utils/yamlutils';
-import { ObjectType, keyAliases, EnumInfo, EnumType, ObjectInfo } from '../../objectInfos';
+import { ObjectType, keyAliases, EnumInfo, EnumType, ObjectInfo, Attribute } from '../../objectInfos';
 import { getAllAttributes, getMechanicDataByName } from '../utils/mechanicutils';
 import { getObjectLinkedToAttribute } from '../utils/cursorutils';
 import { checkShouldComplete } from '../utils/completionhelper';
@@ -67,7 +67,7 @@ export function attributeCompletionProvider() {
                 const config = vscode.workspace.getConfiguration('MythicScribe');
                 const attributeAliasUsedInCompletions = config.get<string>('attributeAliasUsedInCompletions', "main");
 
-                attributes.forEach((attribute: any) => {
+                attributes.forEach((attribute: Attribute) => {
                     let mainname = attribute.name[0];
                     let aliases = attribute.name;
 
@@ -130,14 +130,12 @@ export function attributeValueCompletionProvider() {
                 if (!object) {
                     return null;
                 }
-                else if (object?.startsWith('@')) {
+                
+                if (object.startsWith('@')) {
                     mechanic = getMechanicDataByName(object.replace("@", ""), ObjectType.TARGETER);
                     type = ObjectType.TARGETER;
                 }
-                else if (object?.startsWith('~')) {
-                    return null
-                }
-                else if (object?.startsWith('?')) {
+                else if (object.startsWith('?')) {
                     mechanic = getMechanicDataByName(object.replace("?", "").replace("!", "").replace("~", ""), ObjectType.CONDITION);
                     type = ObjectType.INLINECONDITION;
                 }
