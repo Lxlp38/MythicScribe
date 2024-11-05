@@ -2,18 +2,24 @@
 <div align="center"><h1>MythicScribe</h1></div>
 
 <div align="center">
-    <img alt="GitHub Release" src="https://img.shields.io/github/v/release/Lxlp38/MythicScribe">
+    <a href="https://github.com/Lxlp38/MythicScribe/releases">
+      <img alt="GitHub Release" src="https://img.shields.io/github/v/release/Lxlp38/MythicScribe">
+    </a>
     <a href="https://www.codefactor.io/repository/github/lxlp38/mythicscribe/overview/master">
       <img src="https://www.codefactor.io/repository/github/lxlp38/mythicscribe/badge/master" alt="CodeFactor" />
     </a>
     <a href="https://github.com/Lxlp38/MythicScribe/blob/main/LICENSE.txt">
-        <img alt="GitHub License" src="https://img.shields.io/github/license/Lxlp38/MythicScribe">
+      <img alt="GitHub License" src="https://img.shields.io/github/license/Lxlp38/MythicScribe">
     </a>
 </div>
 
 <div align="center">
-  <img alt="Visual Studio Marketplace Installs" src="https://img.shields.io/visual-studio-marketplace/i/Lxlp.mythicscribe">
-  <img alt="GitHub commit activity" src="https://img.shields.io/github/commit-activity/t/Lxlp38/MythicScribe">
+  <a href="https://marketplace.visualstudio.com/items?itemName=Lxlp.mythicscribe">
+    <img alt="Visual Studio Marketplace Installs" src="https://img.shields.io/visual-studio-marketplace/i/Lxlp.mythicscribe">
+  </a>
+  <a href="https://github.com/Lxlp38/MythicScribe/commits/master/">
+    <img alt="GitHub commit activity" src="https://img.shields.io/github/commit-activity/t/Lxlp38/MythicScribe">
+  </a>
 </div>
 
 <div align="center">

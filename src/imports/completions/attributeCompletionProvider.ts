@@ -1,6 +1,6 @@
 import * as vscode from 'vscode';
 import * as yamlutils from '../utils/yamlutils';
-import { ObjectType, keyAliases, EnumInfo, EnumType, ObjectInfo, Attribute, Mechanic } from '../../objectInfos';
+import { ObjectType, keyAliases, EnumInfo, EnumType, ObjectInfo, Attribute, Mechanic, EnumDatasetValue } from '../../objectInfos';
 import { getAllAttributes, getMechanicDataByName } from '../utils/mechanicutils';
 import { getObjectLinkedToAttribute } from '../utils/cursorutils';
 import { checkShouldComplete } from '../utils/completionhelper';
@@ -137,8 +137,13 @@ export function attributeValueCompletionProvider() {
                     completionItems.push(new vscode.CompletionItem("false", vscode.CompletionItemKind.Value));
                 }
                 else if (attributeEnum && Object.keys(EnumType).includes(attributeEnum)) {
-                    EnumInfo[EnumType[attributeEnum as keyof typeof EnumType]].commalist.split(",").forEach((value: string) => {
-                        completionItems.push(new vscode.CompletionItem(value, vscode.CompletionItemKind.Value));
+                    Object.entries(EnumInfo[EnumType[attributeEnum as keyof typeof EnumType]].dataset).forEach(([key, value]: [string, unknown]) => {
+                        const completionItem = new vscode.CompletionItem(key, vscode.CompletionItemKind.Value);
+                        if ((value as EnumDatasetValue).Description) {
+                            const completionItem = new vscode.CompletionItem(key, vscode.CompletionItemKind.Value);
+                            completionItem.detail = `${(value as EnumDatasetValue).Description}`;
+                            completionItems.push(completionItem);
+                        }
                     });
                 }
                 else {

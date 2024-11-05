@@ -1,7 +1,7 @@
 import * as vscode from 'vscode';
 import { ctx } from './MythicScribe';
 import * as config from './imports/utils/configutils';
-import { EnumInfo, EnumInfoValueDataset, EnumInfovalueDatasetValue, EnumType, Mechanic, MechanicDataset, ObjectInfo, ObjectType } from './objectInfos';
+import { EnumInfo, EnumDataset, EnumDatasetValue, EnumType, Mechanic, MechanicDataset, ObjectInfo, ObjectType } from './objectInfos';
 import path from 'path';
 import * as fs from 'fs';
 
@@ -35,7 +35,7 @@ async function fetchLatestCommitHash(): Promise<string | null> {
 }
 
 // Function to fetch the JSON data from GitHub
-async function fetchJsonFromGithub(filename: string): Promise<MechanicDataset | EnumInfoValueDataset | unknown | null> {
+async function fetchJsonFromGithub(filename: string): Promise<MechanicDataset | EnumDataset | unknown | null> {
 	try {
 		const response = await fetch(`${GITHUB_BASE_URL}${filename}`);
 		if (response.ok) {
@@ -92,7 +92,7 @@ async function checkGithubDatasets(context: vscode.ExtensionContext) {
 		const conditionsData = await fetchJsonFromGithub('conditions.json');
 		const triggersData = await fetchJsonFromGithub('triggers.json');
 
-		const enummap: Map<EnumType, EnumInfovalueDatasetValue> = new Map<EnumType, EnumInfovalueDatasetValue>();
+		const enummap: Map<EnumType, EnumDatasetValue> = new Map<EnumType, EnumDatasetValue>();
 		for (const key of Object.keys(EnumType) as Array<keyof typeof EnumType>) {
 			const enumData = await fetchJsonFromGithub(EnumInfo[EnumType[key]].path);
             if (enumData){
@@ -202,7 +202,7 @@ function loadLocalMechanicDataset(datasetPath: string): MechanicDataset {
 	}
 }
 
-function loadLocalEnumDataset(datasetPath: string): EnumInfoValueDataset {
+function loadLocalEnumDataset(datasetPath: string): EnumDataset {
 	try {
 		return JSON.parse(fs.readFileSync(datasetPath, 'utf8'));
 	} catch (error) {

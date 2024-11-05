@@ -147,20 +147,20 @@ export enum EnumType {
 
 
 interface EnumInfo {
-	[key: string]: EnumInfoValue;
+	[key: string]: EnumDetail ;
 }
 
-interface EnumInfoValue {
+interface EnumDetail  {
 	path: string;
-	dataset: EnumInfoValueDataset;
+	dataset: EnumDataset;
 	commalist: string;
 }
 
-export interface EnumInfoValueDataset {
-	[key: string]: EnumInfovalueDatasetValue;
+export interface EnumDataset {
+	[key: string]: EnumDatasetValue;
 }
 
-export interface EnumInfovalueDatasetValue {
+export interface EnumDatasetValue {
 	Description?: string;
 	name?: string[];
 }
