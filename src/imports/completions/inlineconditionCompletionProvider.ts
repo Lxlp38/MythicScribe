@@ -1,7 +1,7 @@
 import * as vscode from 'vscode';
 import * as yamlutils from '../utils/yamlutils';
 import { Mechanic, ObjectInfo, ObjectType, keyAliases } from '../../objectInfos';
-import { checkShouldComplete } from '../utils/completionhelper';
+import { addMechanicCompletions, checkShouldComplete } from '../utils/completionhelper';
 
 
 
@@ -64,18 +64,7 @@ export function inlineConditionCompletionProvider() {
                         }
                 }
 
-
-
-                ObjectInfo[ObjectType.CONDITION].dataset.forEach((item: Mechanic) => {
-                    item.name.forEach((name: string) => {
-                        const completionItem = new vscode.CompletionItem(name, vscode.CompletionItemKind.Function);
-                        completionItem.detail = `${item.description}`;
-                        completionItem.kind = vscode.CompletionItemKind.Function;
-                        completionItem.insertText = new vscode.SnippetString(name + "{$0}");
-                        completionItem.command = { command: 'editor.action.triggerSuggest', title: 'Re-trigger completions...' };
-                        completionItems.push(completionItem);
-                    });
-                });
+                addMechanicCompletions(ObjectInfo[ObjectType.CONDITION].dataset, completionItems);
 
                 return completionItems;
             }

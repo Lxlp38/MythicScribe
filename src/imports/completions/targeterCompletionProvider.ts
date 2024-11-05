@@ -1,7 +1,7 @@
 import * as vscode from 'vscode';
 import * as yamlutils from '../utils/yamlutils';
 import { keyAliases, Mechanic, ObjectInfo, ObjectType } from '../../objectInfos';
-import { checkShouldComplete } from '../utils/completionhelper';
+import { addMechanicCompletions, checkShouldComplete } from '../utils/completionhelper';
 
 
 export function targeterCompletionProvider(){
@@ -21,17 +21,9 @@ export function targeterCompletionProvider(){
                     
                 const completionItems: vscode.CompletionItem[] = [];
     
-                ObjectInfo[ObjectType.TARGETER].dataset.forEach((item: Mechanic) => {
-                    item.name.forEach((name: string) => {
-                        const completionItem = new vscode.CompletionItem(name, vscode.CompletionItemKind.Function);
-                        completionItem.detail = `${item.description}`;
-                        completionItem.kind = vscode.CompletionItemKind.Function;
-                        completionItem.insertText = new vscode.SnippetString(name + "{$0}");
-                        completionItem.command = { command: 'editor.action.triggerSuggest', title: 'Re-trigger completions...' };
-                        completionItems.push(completionItem);
-                    });
-                });
-    
+
+                addMechanicCompletions(ObjectInfo[ObjectType.TARGETER].dataset, completionItems);
+                    
                 return completionItems;
             }
         }, "@"

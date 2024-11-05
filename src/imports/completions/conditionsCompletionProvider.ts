@@ -1,6 +1,7 @@
 import * as vscode from 'vscode';
 import * as yamlutils from '../utils/yamlutils';
 import { ConditionActions, keyAliases, Mechanic, ObjectInfo, ObjectType } from '../../objectInfos';
+import { addMechanicCompletions } from '../utils/completionhelper';
 
 export function conditionCompletionProvider(){
     const conditionCompletionProvider = vscode.languages.registerCompletionItemProvider(
@@ -70,18 +71,7 @@ export function conditionCompletionProvider(){
                 }
     
     
-                //const condact = fetchConditionActions().join(",");             
-                ObjectInfo[ObjectType.CONDITION].dataset.forEach((item: Mechanic) => {
-                    item.name.forEach((name: string) => {
-                        const completionItem = new vscode.CompletionItem(name, vscode.CompletionItemKind.Function);
-                        completionItem.detail = `${item.description}`;
-                        completionItem.kind = vscode.CompletionItemKind.Function;
-                        //completionItem.insertText = new vscode.SnippetString(space + name + "{$1} ${2|" + condact + "|}");
-                        completionItem.insertText = new vscode.SnippetString(space + name + "{$0}");
-                        completionItem.command = { command: 'editor.action.triggerSuggest', title: 'Re-trigger completions...' };
-                        completionItems.push(completionItem);
-                    });
-                });
+                addMechanicCompletions(ObjectInfo[ObjectType.CONDITION].dataset, completionItems);
     
                 return completionItems;
             }

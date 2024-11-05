@@ -1,6 +1,6 @@
 import * as vscode from 'vscode';
 import * as yamlutils from '../utils/yamlutils';
-import { ObjectType, keyAliases, EnumInfo, EnumType, ObjectInfo, Attribute } from '../../objectInfos';
+import { ObjectType, keyAliases, EnumInfo, EnumType, ObjectInfo, Attribute, Mechanic } from '../../objectInfos';
 import { getAllAttributes, getMechanicDataByName } from '../utils/mechanicutils';
 import { getObjectLinkedToAttribute } from '../utils/cursorutils';
 import { checkShouldComplete } from '../utils/completionhelper';
@@ -29,43 +29,20 @@ export function attributeCompletionProvider() {
                 }
                 
                 const keys = yamlutils.getParentKeys(document, position.line);
-                const completionItems: vscode.CompletionItem[] = [];
-                let mechanic = null;
-                let type = ObjectType.MECHANIC;
-
-                const object = getObjectLinkedToAttribute(document, position);
-                if (!object) {
+                
+                const result = searchForLinkedObject(document, position, keys);
+                if (!result) {
                     return null;
                 }
-                else if (object?.startsWith('@')) {
-                    mechanic = getMechanicDataByName(object.replace("@", ""), ObjectType.TARGETER);
-                    type = ObjectType.TARGETER;
-                }
-                else if (object?.startsWith('~')) {
-                    return null
-                }
-                else if (object?.startsWith('?')) {
-                    mechanic = getMechanicDataByName(object.replace("?", "").replace("!", "").replace("~", ""), ObjectType.CONDITION);
-                    type = ObjectType.INLINECONDITION;
-                }
-                else if (keyAliases["Conditions"].includes(keys[0])) {
-                    mechanic = getMechanicDataByName(object, ObjectType.CONDITION);
-                    type = ObjectType.CONDITION;
-                }
-                else {
-                    mechanic = getMechanicDataByName(object, ObjectType.MECHANIC);
-                    type = ObjectType.MECHANIC;
-                }
-
-                if (!mechanic) {
-                    return null;
-                }
+                const [mechanic, type] = result;
 
                 const attributes = getAllAttributes(mechanic, type);
                 let index = 10000;
 
                 const config = vscode.workspace.getConfiguration('MythicScribe');
                 const attributeAliasUsedInCompletions = config.get<string>('attributeAliasUsedInCompletions', "main");
+
+                const completionItems: vscode.CompletionItem[] = [];
 
                 attributes.forEach((attribute: Attribute) => {
                     let mainname = attribute.name[0];
@@ -123,34 +100,12 @@ export function attributeValueCompletionProvider() {
 
                 const keys = yamlutils.getParentKeys(document, position.line);
                 const completionItems: vscode.CompletionItem[] = [];
-                let mechanic = null;
-                let type = ObjectType.MECHANIC;
 
-                const object = getObjectLinkedToAttribute(document, position);
-                if (!object) {
+                const result = searchForLinkedObject(document, position, keys);
+                if (!result) {
                     return null;
                 }
-                
-                if (object.startsWith('@')) {
-                    mechanic = getMechanicDataByName(object.replace("@", ""), ObjectType.TARGETER);
-                    type = ObjectType.TARGETER;
-                }
-                else if (object.startsWith('?')) {
-                    mechanic = getMechanicDataByName(object.replace("?", "").replace("!", "").replace("~", ""), ObjectType.CONDITION);
-                    type = ObjectType.INLINECONDITION;
-                }
-                else if (keyAliases["Conditions"].includes(keys[0])) {
-                    mechanic = getMechanicDataByName(object, ObjectType.CONDITION);
-                    type = ObjectType.CONDITION;
-                }
-                else {
-                    mechanic = getMechanicDataByName(object, ObjectType.MECHANIC);
-                    type = ObjectType.MECHANIC;
-                }
-
-                if (!mechanic) {
-                    return null;
-                }
+                const [mechanic, type] = result;
 
 
                 const attribute = document.getText(new vscode.Range(new vscode.Position(position.line, 0), position)).match(ObjectInfo[ObjectType.ATTRIBUTE].regex)?.pop();
@@ -195,4 +150,37 @@ export function attributeValueCompletionProvider() {
         }, "=", ","
     );
     return attributeValueCompletionProvider;
+}
+
+function searchForLinkedObject(document: vscode.TextDocument, position: vscode.Position, keys: string[]) : [Mechanic, ObjectType] | null {
+
+    let mechanic, type = null;
+
+    const object = getObjectLinkedToAttribute(document, position);
+    if (!object) {
+        return null;
+    }
+    if (object.startsWith('@')) {
+        mechanic = getMechanicDataByName(object.replace("@", ""), ObjectType.TARGETER);
+        type = ObjectType.TARGETER;
+    }
+    else if (object.startsWith('?')) {
+        mechanic = getMechanicDataByName(object.replace("?", "").replace("!", "").replace("~", ""), ObjectType.CONDITION);
+        type = ObjectType.INLINECONDITION;
+    }
+    else if (keyAliases["Conditions"].includes(keys[0])) {
+        mechanic = getMechanicDataByName(object, ObjectType.CONDITION);
+        type = ObjectType.CONDITION;
+    }
+    else {
+        mechanic = getMechanicDataByName(object, ObjectType.MECHANIC);
+        type = ObjectType.MECHANIC;
+    }
+    if (!mechanic) {
+        return null;
+    }
+
+    return [mechanic, type];
+
+
 }
