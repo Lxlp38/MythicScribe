@@ -1,5 +1,13 @@
 # Changelog
 
+## [Unreleased]
+
+## Fixed
+- Error with nameids matching that made onTimer and onSignal become nameids
+- Error with syntax highlighting for comments
+- Error with hovers providing the wrong information on certain occasions
+
+
 ## [1.0.0]
 
 ## Added

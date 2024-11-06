@@ -1,34 +1,29 @@
 import * as vscode from 'vscode';
-import { keyAliases, ObjectType, MetaskillFileObjects, Mechanic, Attribute, FileObjectMap, MobFileObjects, ItemFileObjects } from '../../objectInfos';
+import { keyAliases, ObjectType, MetaskillFileObjects, Mechanic, Attribute, FileObjectMap, MobFileObjects, ItemFileObjects, FileObjectTypes } from '../../objectInfos';
 import * as yamlutils from '../utils/yamlutils';
-import { isEnabled, isItemFile, isMetaskillFile, isMobFile } from '../utils/configutils';
+import { isItemFile, isMetaskillFile, isMobFile } from '../utils/configutils';
 import { getCursorSkills, getCursorCondition } from '../utils/cursorutils';
 
 export function hoverProvider(){
 
     const hoverProvider = vscode.languages.registerHoverProvider('mythicscript', {
         provideHover(document: vscode.TextDocument, position: vscode.Position) {
-    
-            if (!isEnabled) {
-                return undefined;
-            }
-    
+        
+            const keys = yamlutils.getParentKeys(document, position);
+
             if (yamlutils.isKey(document, position.line) === true) {
+                const fileobject = isMetaskillFile ? MetaskillFileObjects : isMobFile ? MobFileObjects : isItemFile ? ItemFileObjects : undefined;
+                if (!fileobject) return undefined;
+
                 const key = yamlutils.getKey(document, position.line);
-                if (isMetaskillFile){
-                    return getHoverForFileElement(key, MetaskillFileObjects);
-                }
-                else if (isMobFile){
-                    return getHoverForFileElement(key, MobFileObjects);
-                }
-                else if (isItemFile){
-                    return getHoverForFileElement(key, ItemFileObjects);
-                }
-                return undefined;
+                keys.reverse();
+                keys.push(key)
+
+                return getHoverForFileElement(keys.slice(1), fileobject, undefined, undefined);
+
             }
     
             let  obj, type = null;
-            const keys = yamlutils.getParentKeys(document, position);
     
             if (keyAliases["Skills"].includes(keys[0])) {
                 [obj, type] = getCursorSkills(document, position);
@@ -147,17 +142,26 @@ function getMinimalHover(title : string, description: string | undefined, link :
     const hoverContent = new vscode.MarkdownString(`
 ## [${title}](${link})
 
-${description}`)
+${description ? description : "No description provided."}`)
     hoverContent.isTrusted = true;
     return new vscode.Hover(hoverContent);
 }
 
 
 
-function getHoverForFileElement(key: string, type: FileObjectMap){
-    if (Object.keys(type).includes(key)){
-        const key_ = key as keyof typeof type;
-        return getMinimalHover(key, type[key_].description, type[key_].link);
-    }    
-
+function getHoverForFileElement(keys: string[], type: FileObjectMap, link: string | undefined, description: string | undefined) : vscode.Hover | undefined {
+    const key = keys[0];
+    keys = keys.slice(1);
+    const object = type[key];
+    if (!object) {
+        return undefined;
+    }
+    if (keys.length === 0) {
+        return getMinimalHover(key, object.description, object.link ? object.link : link);
+    }
+    if(object.type === FileObjectTypes.KEY && object.keys){
+        const newobject = object.keys;
+        console.log(object);
+        return getHoverForFileElement(keys, newobject, object.link, object.description);
+    }
 }

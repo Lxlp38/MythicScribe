@@ -215,7 +215,7 @@
             "patterns": [
                 {
                     "name": "comment.line.number-sign.mythicscript",
-                    "match": "#.*"
+                    "match": "(^|\\s)#(?![0-9A-Fa-f]{6}\\b).*"
                 },
                 {
                     "name": "comment.line.number-sign.mythicscript",

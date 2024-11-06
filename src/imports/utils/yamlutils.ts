@@ -21,7 +21,7 @@ function getParentKeys(document: vscode.TextDocument, position: vscode.Position)
 
     for (let i = lineIndex; i >= 0; i--) {
         const line = document.lineAt(i).text.trim();
-        if (line.match(/^[^:]+:/)) {
+        if (line.match(/^\s*[^:\s]+:/)) {
             const lineIndent = getIndentation(document.lineAt(i).text);  // Get the indentation of this line
             
             // If the line has a lower (less) indentation, it is a parent
@@ -54,7 +54,7 @@ function isKey(document: vscode.TextDocument, lineIndex: number): boolean {
 
 	const line = document.lineAt(lineIndex).text.trim();
 	// If we are inside a key, we're not inside the Skills section
-	if (line.match(/^[\w_-]+:/)) {
+	if (line.match(/^\s*[^:\s]+:/)) {
 		return true;
 	}
 

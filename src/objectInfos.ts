@@ -343,151 +343,151 @@ export interface FileObject {
 
 export const MetaskillFileObjects: FileObjectMap = {
 	"Skills": {
-		"type": FileObjectTypes.LIST,
-		"link": "https://git.lumine.io/mythiccraft/MythicMobs/-/wikis/Skills/Metaskills#skills",
-		"description": "The list of the mechanics that will be executed by the metaskill.",
+		type: FileObjectTypes.LIST,
+		link: "https://git.lumine.io/mythiccraft/MythicMobs/-/wikis/Skills/Metaskills#skills",
+		description: "The list of the mechanics that will be executed by the metaskill.",
 	},
 	"Conditions": {
-		"type": FileObjectTypes.LIST,
-		"link": "https://git.lumine.io/mythiccraft/MythicMobs/-/wikis/Skills/Metaskills#conditions",
-		"description": "The list of conditions that will evaluate the caster of the metaskill before execution.",
+		type: FileObjectTypes.LIST,
+		link: "https://git.lumine.io/mythiccraft/MythicMobs/-/wikis/Skills/Metaskills#conditions",
+		description: "The list of conditions that will evaluate the caster of the metaskill before execution.",
 	},
 	"TargetConditions": {
-		"type": FileObjectTypes.LIST,
-		"link": "https://git.lumine.io/mythiccraft/MythicMobs/-/wikis/Skills/Metaskills#targetconditions",
-		"description": "The list of conditions that will evaluate the target of the metaskill before execution",
+		type: FileObjectTypes.LIST,
+		link: "https://git.lumine.io/mythiccraft/MythicMobs/-/wikis/Skills/Metaskills#targetconditions",
+		description: "The list of conditions that will evaluate the target of the metaskill before execution",
 	},
 	"TriggerConditions": {
-		"type": FileObjectTypes.LIST,
-		"link": "https://git.lumine.io/mythiccraft/MythicMobs/-/wikis/Skills/Metaskills#triggerconditions",
-		"description": "The list of conditions that will evaluate the trigger of the metaskill before execution",
+		type: FileObjectTypes.LIST,
+		link: "https://git.lumine.io/mythiccraft/MythicMobs/-/wikis/Skills/Metaskills#triggerconditions",
+		description: "The list of conditions that will evaluate the trigger of the metaskill before execution",
 	},
 	"Cooldown": {
-		"type": FileObjectTypes.FLOAT,
-		"link": "https://git.lumine.io/mythiccraft/MythicMobs/-/wikis/Skills/Metaskills#cooldown",
-		"description": "The cooldown of the metaskill (in seconds).",
+		type: FileObjectTypes.FLOAT,
+		link: "https://git.lumine.io/mythiccraft/MythicMobs/-/wikis/Skills/Metaskills#cooldown",
+		description: "The cooldown of the metaskill (in seconds).",
 	},
 	"CancelIfNoTargets": {
-		"type": FileObjectTypes.BOOLEAN,
-		"link": "https://git.lumine.io/mythiccraft/MythicMobs/-/wikis/Skills/Metaskills#cancelifnotargets",
-		"description": "Whether the metaskill should be cancelled if there are no targets.",
+		type: FileObjectTypes.BOOLEAN,
+		link: "https://git.lumine.io/mythiccraft/MythicMobs/-/wikis/Skills/Metaskills#cancelifnotargets",
+		description: "Whether the metaskill should be cancelled if there are no targets.",
 	},
 	"FailedConditionsSkill": {
-		"type": FileObjectTypes.STRING,
-		"link": "https://git.lumine.io/mythiccraft/MythicMobs/-/wikis/Skills/Metaskills#failedconditionsskill",
-		"description": "The name of the metaskill to cast if the conditions fail.",
+		type: FileObjectTypes.STRING,
+		link: "https://git.lumine.io/mythiccraft/MythicMobs/-/wikis/Skills/Metaskills#failedconditionsskill",
+		description: "The name of the metaskill to cast if the conditions fail.",
 	},
 	"OnCooldownSkill": {
-		"type": FileObjectTypes.STRING,
-		"link": "https://git.lumine.io/mythiccraft/MythicMobs/-/wikis/Skills/Metaskills#oncooldownskill",
-		"description": "The name of the metaskill to cast if the metaskill is on cooldown.",
+		type: FileObjectTypes.STRING,
+		link: "https://git.lumine.io/mythiccraft/MythicMobs/-/wikis/Skills/Metaskills#oncooldownskill",
+		description: "The name of the metaskill to cast if the metaskill is on cooldown.",
 	},
 }
 
 export const MobFileObjects: FileObjectMap = {
 	"Type": {
-		"type": FileObjectTypes.STRING,
-		"link": "https://git.lumine.io/mythiccraft/MythicMobs/-/wikis/Mobs/Mobs#type",
-		"description": "The Entity Type of the mob.",
+		type: FileObjectTypes.STRING,
+		link: "https://git.lumine.io/mythiccraft/MythicMobs/-/wikis/Mobs/Mobs#type",
+		description: "The Entity Type of the mob.",
 	},
 	"Template": {
-		"type": FileObjectTypes.STRING,
-		"link": "https://git.lumine.io/mythiccraft/MythicMobs/-/wikis/Mobs/Templates",
-		"description": "The templates for the mob.",
+		type: FileObjectTypes.STRING,
+		link: "https://git.lumine.io/mythiccraft/MythicMobs/-/wikis/Mobs/Templates",
+		description: "The templates for the mob.",
 	},
 	"Display": {
-		"type": FileObjectTypes.STRING,
-		"link": "https://git.lumine.io/mythiccraft/MythicMobs/-/wikis/Mobs/Mobs#display",
-		"description": "The display name of the mob.",
+		type: FileObjectTypes.STRING,
+		link: "https://git.lumine.io/mythiccraft/MythicMobs/-/wikis/Mobs/Mobs#display",
+		description: "The display name of the mob.",
 	},
 	"Health": {
-		"type": FileObjectTypes.FLOAT,
-		"link": "https://git.lumine.io/mythiccraft/MythicMobs/-/wikis/Mobs/Mobs#health",
-		"description": "The health of the mob.",
+		type: FileObjectTypes.FLOAT,
+		link: "https://git.lumine.io/mythiccraft/MythicMobs/-/wikis/Mobs/Mobs#health",
+		description: "The health of the mob.",
 	},
 	"Damage": {
-		"type": FileObjectTypes.FLOAT,
-		"link": "https://git.lumine.io/mythiccraft/MythicMobs/-/wikis/Mobs/Mobs#damage",
-		"description": "The damage of the mob.",
+		type: FileObjectTypes.FLOAT,
+		link: "https://git.lumine.io/mythiccraft/MythicMobs/-/wikis/Mobs/Mobs#damage",
+		description: "The damage of the mob.",
 	},
 	"Armor": {
-		"type": FileObjectTypes.FLOAT,
-		"link": "https://git.lumine.io/mythiccraft/MythicMobs/-/wikis/Mobs/Mobs#armor",
-		"description": "The armor points of the mob.",
+		type: FileObjectTypes.FLOAT,
+		link: "https://git.lumine.io/mythiccraft/MythicMobs/-/wikis/Mobs/Mobs#armor",
+		description: "The armor points of the mob.",
 	},
 	"HealthBar": {
-		"type": FileObjectTypes.KEY,
+		type: FileObjectTypes.KEY,
 		"keys": {
 			"Enabled": {
-				"type": FileObjectTypes.BOOLEAN,
+				type: FileObjectTypes.BOOLEAN,
 			},
 			"Offset": {
-				"type": FileObjectTypes.FLOAT,
+				type: FileObjectTypes.FLOAT,
 			}
 		},
-		"link": "https://git.lumine.io/mythiccraft/MythicMobs/-/wikis/Mobs/Mobs#healthbar",
-		"description": "The health bar of the mob.",
+		link: "https://git.lumine.io/mythiccraft/MythicMobs/-/wikis/Mobs/Mobs#healthbar",
+		description: "The health bar of the mob.",
 	},
 	"BossBar": {
-		"type": FileObjectTypes.KEY,
+		type: FileObjectTypes.KEY,
 		"keys": {
 			"Enabled": {
-				"type": FileObjectTypes.BOOLEAN,
+				type: FileObjectTypes.BOOLEAN,
 			},
 			"Title": {
-				"type": FileObjectTypes.STRING,
+				type: FileObjectTypes.STRING,
 			},
 			"Range": {
-				"type": FileObjectTypes.FLOAT,
+				type: FileObjectTypes.FLOAT,
 			},
 			"Color": {
-				"type": FileObjectTypes.KEY_DATASET,
+				type: FileObjectTypes.KEY_DATASET,
 				"dataset": EnumType.BARCOLOR,
 			},
 			"Style": {
-				"type": FileObjectTypes.KEY_DATASET,
+				type: FileObjectTypes.KEY_DATASET,
 				"dataset": EnumType.BARSTYLE,
 			},
 			"CreateFog": {
-				"type": FileObjectTypes.BOOLEAN,
+				type: FileObjectTypes.BOOLEAN,
 			},
 			"DarkenSky": {
-				"type": FileObjectTypes.BOOLEAN,
+				type: FileObjectTypes.BOOLEAN,
 			},
 			"PlayMusic": {
-				"type": FileObjectTypes.BOOLEAN,
+				type: FileObjectTypes.BOOLEAN,
 			}
 		},
-		"link": "https://git.lumine.io/mythiccraft/MythicMobs/-/wikis/Mobs/Mobs#bossbar",
-		"description": "The boss bar of the mob.",
+		link: "https://git.lumine.io/mythiccraft/MythicMobs/-/wikis/Mobs/Mobs#bossbar",
+		description: "The boss bar of the mob.",
 	},
 	"Faction": {
-		"type": FileObjectTypes.STRING,
-		"link": "https://git.lumine.io/mythiccraft/MythicMobs/-/wikis/Mobs/Mobs#faction",
-		"description": "The faction of the mob.",
+		type: FileObjectTypes.STRING,
+		link: "https://git.lumine.io/mythiccraft/MythicMobs/-/wikis/Mobs/Mobs#faction",
+		description: "The faction of the mob.",
 	},
 	"Mount": {
-		"type": FileObjectTypes.STRING,
-		"link": "https://git.lumine.io/mythiccraft/MythicMobs/-/wikis/Mobs/Mobs#mount",
-		"description": "The mount of the mob.",
+		type: FileObjectTypes.STRING,
+		link: "https://git.lumine.io/mythiccraft/MythicMobs/-/wikis/Mobs/Mobs#mount",
+		description: "The mount of the mob.",
 	},
 	"Options": {
-		"type": FileObjectTypes.KEY_LIST,
-		"link": "https://git.lumine.io/mythiccraft/MythicMobs/-/wikis/Mobs/Options",
-		"description": "The options of the mob.",
+		type: FileObjectTypes.KEY_LIST,
+		link: "https://git.lumine.io/mythiccraft/MythicMobs/-/wikis/Mobs/Options",
+		description: "The options of the mob.",
 	},
 	"Modules": {
-		"type": FileObjectTypes.KEY,
+		type: FileObjectTypes.KEY,
 		"keys": {
 			"ThreatTable": {
-				"type": FileObjectTypes.BOOLEAN,
+				type: FileObjectTypes.BOOLEAN,
 			},
 			"ImmunityTable": {
-				"type": FileObjectTypes.FLOAT,
+				type: FileObjectTypes.FLOAT,
 			},
 		},
-		"link": "https://git.lumine.io/mythiccraft/MythicMobs/-/wikis/Mobs/Mobs#modules",
-		"description": "The modules of the mob.",
+		link: "https://git.lumine.io/mythiccraft/MythicMobs/-/wikis/Mobs/Mobs#modules",
+		description: "The modules of the mob.",
 	},
 	"AIGoalSelectors": {
 		type: FileObjectTypes.LIST,
