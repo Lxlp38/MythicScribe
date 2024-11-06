@@ -1,17 +1,21 @@
 import * as vscode from 'vscode';
-import { enableSubscriptions, disableSubscriptions, enableSkillfileSubscriptions, disableSkillfileSubscriptions, enableTriggerFileSubscriptions, disableTriggerFileSubscriptions, enableMobfileSubscriptions, disableMobfileSubscriptions } from '../../MythicScribe';
+import { enableSubscriptions, disableSubscriptions, enableSkillfileSubscriptions, disableSkillfileSubscriptions, enableTriggerFileSubscriptions, disableTriggerFileSubscriptions, enableMobfileSubscriptions, disableMobfileSubscriptions, enableItemFileSubscriptions, disableItemFileSubscriptions } from '../../MythicScribe';
 
 
 function resetFileChecks() {
     isEnabled = false;
     isMetaskillFile = false;
     isMobFile = false;
+    isItemFile = false;
     isTriggerFile = false;
 }
 export let isEnabled = false;
 export let isMetaskillFile = false;
 export let isMobFile = false;
+export let isItemFile = false;
 export let isTriggerFile = false;
+
+
 
 export const extensionEnabler = vscode.window.onDidChangeActiveTextEditor(editor => {
     if (!editor) {
@@ -21,8 +25,20 @@ export const extensionEnabler = vscode.window.onDidChangeActiveTextEditor(editor
     updateEnabled(document);
 });
 
+export async function checkIfMythicScriptFile(document: vscode.TextDocument) {
+    if (document.languageId != 'yaml') return;
+    if (checkEnabled(document)){
+        vscode.languages.setTextDocumentLanguage(document, 'mythicscript');
+    }
+}
+
 // Updates the enabled features
 export function updateEnabled(document: vscode.TextDocument) {
+
+    if (enableMythicScriptSyntax()) {
+        checkIfMythicScriptFile(document);
+    };
+
     if (isEnabled != checkEnabled(document)) {
         isEnabled = checkEnabled(document);
         console.log('updateEnabled', isEnabled);
@@ -62,8 +78,21 @@ export function updateEnabled(document: vscode.TextDocument) {
         }
     }
 
+    // Check if the file is an item file
+    if (isItemFile != checkItemFile(document)) {
+        isItemFile = checkItemFile(document);
+        console.log('updateItemFile', isItemFile);
+        if (isItemFile) {
+            enableItemFileSubscriptions();
+        }
+        else {
+            disableItemFileSubscriptions();
+        }
+    }
+
+
     // Check if the file is a trigger file
-    const newisTriggerFile = isMobFile;
+    const newisTriggerFile = isMobFile || isItemFile;
     if (isTriggerFile != newisTriggerFile) {
         isTriggerFile = newisTriggerFile;
         console.log('updateTriggerFile', isTriggerFile);
@@ -83,36 +112,32 @@ export function isAlwaysEnabled() {
     return vscode.workspace.getConfiguration('MythicScribe').get('alwaysEnabled');
 }
 
+function checkFile(document: vscode.TextDocument, regex: string | undefined): boolean {
+    const path = document.uri.fsPath;
+    if (regex && new RegExp(regex).test(path)) {
+        return true;
+    }
+    return false;
+}
 export function checkEnabled(document: vscode.TextDocument): boolean {
     if (isAlwaysEnabled()) {
         return true;
     }
     const regex: string | undefined = vscode.workspace.getConfiguration('MythicScribe').get<string>('regexForMythicmobsFile');
-    const path = document.uri.fsPath;
-    if (regex && new RegExp(regex).test(path)) {
-        return true;
-    }
-    return false;
+    return checkFile(document, regex);
 }
-
 export function checkMetaskillFile(document: vscode.TextDocument): boolean {
     const regex: string | undefined = vscode.workspace.getConfiguration('MythicScribe').get<string>('regexForMetaskillFile');
-    const path = document.uri.fsPath;
-    if (regex && new RegExp(regex).test(path)) {
-        return true;
-    }
-    return false;
+    return checkFile(document, regex);
 }
-
 export function checkMobFile(document: vscode.TextDocument): boolean {
     const regex: string | undefined = vscode.workspace.getConfiguration('MythicScribe').get<string>('regexForMobFile');
-    const path = document.uri.fsPath;
-    if (regex && new RegExp(regex).test(path)) {
-        return true;
-    }
-    return false;
+    return checkFile(document, regex);
 }
-
+export function checkItemFile(document: vscode.TextDocument): boolean {
+    const regex: string | undefined = vscode.workspace.getConfiguration('MythicScribe').get<string>('regexForItemFile');
+    return checkFile(document, regex);
+}
 
 
 export function enableEmptyBracketsAutomaticRemoval() {
@@ -129,4 +154,8 @@ export function enableShortcuts() {
 
 export function datasetSource() {
     return vscode.workspace.getConfiguration('MythicScribe').get('dataset');
+}
+
+export function enableMythicScriptSyntax() {
+    return vscode.workspace.getConfiguration('MythicScribe').get('enableMythicScriptSyntax');
 }

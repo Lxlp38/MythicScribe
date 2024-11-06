@@ -9,9 +9,11 @@ function getUpstreamKey(document: vscode.TextDocument, lineIndex: number): strin
 	}
 	return '';
 }
-function getParentKeys(document: vscode.TextDocument, lineIndex: number): string[] {
+function getParentKeys(document: vscode.TextDocument, position: vscode.Position): string[] {
     const keys: string[] = [];
-    let currentIndent = getIndentation(document.lineAt(lineIndex).text);  // Get the indentation of the current line
+    const lineIndex = position.line
+	
+	let currentIndent = getIndentation(document.lineAt(lineIndex).text);  // Get the indentation of the current line
 
 	if (!isKey(document, lineIndex)) {
 		currentIndent += 1;
@@ -19,7 +21,7 @@ function getParentKeys(document: vscode.TextDocument, lineIndex: number): string
 
     for (let i = lineIndex; i >= 0; i--) {
         const line = document.lineAt(i).text.trim();
-        if (line.match(/^[A-Za-z0-9_]+:/)) {
+        if (line.match(/^[^:]+:/)) {
             const lineIndent = getIndentation(document.lineAt(i).text);  // Get the indentation of this line
             
             // If the line has a lower (less) indentation, it is a parent
@@ -52,7 +54,7 @@ function isKey(document: vscode.TextDocument, lineIndex: number): boolean {
 
 	const line = document.lineAt(lineIndex).text.trim();
 	// If we are inside a key, we're not inside the Skills section
-	if (line.match(/^[A-Za-z0-9_]+:/)) {
+	if (line.match(/^[\w_-]+:/)) {
 		return true;
 	}
 

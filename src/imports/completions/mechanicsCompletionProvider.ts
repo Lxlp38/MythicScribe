@@ -5,11 +5,11 @@ import { keyAliases, Mechanic, ObjectInfo, ObjectType } from '../../objectInfos'
 
 export function mechanicCompletionProvider(){
     const mechanicCompletionProvider = vscode.languages.registerCompletionItemProvider(
-        'yaml',
+        'mythicscript',
         {
             async provideCompletionItems(document: vscode.TextDocument, position: vscode.Position, _token: vscode.CancellationToken, context: vscode.CompletionContext) {
     
-                if(!keyAliases["Skills"].includes(yamlutils.getParentKeys(document, position.line)[0])){
+                if(!keyAliases["Skills"].includes(yamlutils.getParentKeys(document, position)[0])){
                     return undefined;
                 }
     

@@ -13,13 +13,15 @@ import { inlineMetaskillCompletionProvider } from './imports/completions/inlinem
 
 import { mechaniclineCompletionProvider } from './imports/completions/mechaniclineCompletionProvider';
 
-import { metaskillFileCompletionProvider } from './imports/completions/filecompletions/metaskillfileCompletionProvider';
 
 import { removeBracketsTextListener } from './imports/textchanges/bracketsremover';
 import { shortcutsProvider } from './imports/textchanges/shortcuts';
 import { loadDatasets } from './datasets';
+
+import { metaskillFileCompletionProvider } from './imports/completions/filecompletions/metaskillfileCompletionProvider';
 import { triggerfileCompletionProvider } from './imports/completions/filecompletions/triggerfileCompletionProvider';
 import { mobFileCompletionProvider } from './imports/completions/filecompletions/mobfileCompletionProvider';
+import { itemFileCompletionProvider } from './imports/completions/filecompletions/itemfileCompletionProvider';
 
 export let ctx: vscode.ExtensionContext;
 
@@ -27,8 +29,8 @@ export let ctx: vscode.ExtensionContext;
 const gloabsubscriptions: vscode.Disposable[] = [];
 const mobfilesubscriptions: vscode.Disposable[] = [];
 const skillfilesubscriptions: vscode.Disposable[] = [];
+const itemfilesubscriptions: vscode.Disposable[] = [];
 const triggerfilesubscriptions: vscode.Disposable[] = [];
-
 
 export function activate(context: vscode.ExtensionContext) {
 
@@ -44,9 +46,21 @@ export function activate(context: vscode.ExtensionContext) {
 		config.updateEnabled(vscode.window.activeTextEditor.document);
 	}
 
+	if (config.enableMythicScriptSyntax()) {
+		// Check all files in the workspace to see if they are MythicScript files
+		vscode.workspace.findFiles('**/*.{yml,yaml}').then(files => {
+			files.forEach(async fileUri => {
+				await vscode.workspace.openTextDocument(fileUri).then(async document => {
+					await config.checkIfMythicScriptFile(document);
+				});
+			});
+		});
+	}
 }
 
-export function deactivate() { }
+export function deactivate() {
+	console.log('MythicScribe is deactive');
+}
 
 
 // Enable all basic subscriptions
@@ -54,6 +68,8 @@ export function enableSubscriptions() {
 	console.log('Enabling subscriptions');
 
 	const context = ctx;
+
+	vscode.workspace.getConfiguration().update('workbench.colorTheme', 'MythicScript Theme', vscode.ConfigurationTarget.Workspace);
 
 	const toEnable = [
 		attributeCompletionProvider(),
@@ -97,6 +113,7 @@ export function disableSubscriptions() {
 	// File Specific
 	disableSkillfileSubscriptions();
 	disableMobfileSubscriptions();
+	disableItemFileSubscriptions();
 	disableTriggerFileSubscriptions();
 }
 
@@ -173,6 +190,27 @@ export function disableSkillfileSubscriptions() {
 }
 
 
+
+export function enableItemFileSubscriptions() {
+	const context = ctx;
+	const toEnable = [];
+
+	if (config.enableFileSpecificSuggestions()) {
+		toEnable.push(itemFileCompletionProvider());
+	}
+
+	toEnable.forEach(subscription => {
+		context.subscriptions.push(subscription);
+		itemfilesubscriptions.push(subscription);
+	});
+}
+
+export function disableItemFileSubscriptions() {
+	itemfilesubscriptions.forEach(subscription => {
+		subscription.dispose();
+	});
+	itemfilesubscriptions.length = 0;
+}
 
 
 

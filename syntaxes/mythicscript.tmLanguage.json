@@ -1,0 +1,237 @@
+{
+    "$schema": "https://raw.githubusercontent.com/martinring/tmlanguage/master/tmlanguage.json",
+    "scopeName": "source.mythicscript",
+    "name": "MythicScript",
+    "patterns": [
+        {
+            "include": "#comment"
+        },
+        {
+            "include": "#mechanics"
+        },
+        {
+            "include": "#inlineCondition"
+        },
+        {
+            "include": "#triggers"
+        },
+        {
+            "include": "#targeters"
+        },
+        {
+            "include": "#nameids"
+        },
+        {
+            "include": "#keywords"
+        },
+        {
+            "include": "#number"
+        },
+        {
+            "include": "#boolean"
+        },
+        {
+            "include": "#strings"
+        },
+        {
+            "include": "#symbols"
+        },
+        {
+            "include": "#papi-placeholder"
+        },
+        {
+            "include": "#placeholder"
+        },
+        {
+            "include": "#attribute"
+        },
+        {
+            "include": "#attributeValues"
+        }
+    ],
+    "repository": {
+        "keywords": {
+            "patterns": [
+                {
+                    "name": "storage.modifier.mythicscript",
+                    "match": "\\b[\\w]+\\b(?=:)"
+                }
+            ]
+        },
+        "strings": {
+            "patterns": [
+                {
+                    "name": "string.quoted.double.mythicscript",
+                    "begin": "\"",
+                    "end": "\"",
+                    "patterns": [
+                        {
+                            "include": "#placeholder"
+                        },
+                        {
+                            "name": "constant.character.escape.mythicscript",
+                            "match": "\\\\."
+                        }
+                    ]
+                },
+                {
+                    "name": "string.quoted.single.mythicscript",
+                    "begin": "'",
+                    "end": "'",
+                    "patterns": [
+                        {
+                            "include": "#placeholder"
+                        }
+                    ]
+                },
+                {
+                    "name": "string.unquoted.mythicscript",
+                    "patterns": [
+                        {
+                            "include": "#placeholder"
+                        },
+                        {
+                            "name": "string.unquoted.mythicscript",
+                            "match": "(?<=: )\\w*\\b"
+                        }
+                    ]
+                }
+            ]
+        },
+        "number": {
+            "patterns": [
+                {
+                    "name": "constant.numeric.mythicscript",
+                    "match": "\\b-?\\d+(.\\d+)?\\b"
+                }
+            ]
+        },
+        "boolean": {
+            "patterns": [
+                {
+                    "name": "constant.language.mythicscript",
+                    "match": "\\b(true|false)\\b"
+                }
+            ]
+        },
+        "nameids": {
+            "patterns": [
+                {
+                    "name": "entity.name.type.class.mythicscript",
+                    "match": "^([\\w_\\-\\d]+)(?=:)"
+                }
+            ]
+        },
+        "attribute": {
+            "patterns": [
+                {
+                    "name": "variable.parameter.mythicscript",
+                    "match": "(?<=[{;\\s])\\w+(?==)"
+                }
+            ]
+        },
+        "symbols": {
+            "patterns": [
+                {
+                    "name": "keyword.control.mythicscript",
+                    "match": "[=;@~?!:,\\-+\\/\\*]"
+                }
+            ]
+        },
+        "placeholder": {
+            "patterns": [
+                {
+                    "begin": "<[a-zA-Z]",
+                    "end": ">",
+                    "name": "support.class.mythicscript",
+                    "patterns": [
+                        {
+                            "include": "#symbols"
+                        },
+                        {
+                            "name": "support.class.mythicscript.inner",
+                            "match": "[^<>]*([;}\n]|<[a-zA-Z][^<>]*([;}\n>]|<[a-zA-Z][^<>]*>))"
+                        }
+                    ]
+                }
+            ]
+        },
+        "mechanics": {
+            "patterns": [
+                {
+                    "name": "constant.character.escape.mythicscript",
+                    "match": "(?<=- )([\\w:]+)(?=[{ \\n])"
+                }
+            ]
+        },
+        "targeters": {
+            "patterns": [
+                {
+                    "name": "constant.character.escape.mythicscript",
+                    "match": "(?<=@)\\w+\\b"
+                }
+            ]
+        },
+        "triggers": {
+            "patterns": [
+                {
+                    "name": "constant.character.escape.mythicscript",
+                    "match": "(?<=~)[\\w]+"
+                }
+            ]
+        },
+        "attributeValues": {
+            "patterns": [
+                {
+                    "include": "#placeholder"
+                },
+                {
+                    "name": "string.unquoted.mythicscript",
+                    "match": "(?<=[=,])[^\\[\\n]+?(?=[\\n\\[,;\\}])"
+                }
+            ]
+        },
+        "inlineCondition": {
+            "patterns": [
+                {
+                    "name": "storage.type.function",
+                    "match": "(?<=\\?)\\w+"
+                },
+                {
+                    "name": "storage.type.function",
+                    "match": "(?<=\\?!)[\\w]+"
+                },
+                {
+                    "name": "storage.type.function",
+                    "match": "(?<=\\?\\~)[\\w]+"
+                },
+                {
+                    "name": "storage.type.function",
+                    "match": "(?<=\\?\\~\\!)[\\w]+"
+                }
+            ]
+        },
+        "comment": {
+            "patterns": [
+                {
+                    "name": "comment.line.number-sign.mythicscript",
+                    "match": "#.*"
+                },
+                {
+                    "name": "comment.line.number-sign.mythicscript",
+                    "match": "<#>.*"
+                }
+            ]
+        },
+        "papi-placeholder": {
+            "patterns": [
+                {
+                    "include": "#placeholder",
+                    "begin": "%",
+                    "end": "%",
+                    "name": "support.class.mythicscript"
+                }
+            ]
+        }
+    }
+}

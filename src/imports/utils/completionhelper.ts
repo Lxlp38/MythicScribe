@@ -1,7 +1,7 @@
 import * as vscode from 'vscode';
 import * as yamlutils from './yamlutils';
 import { previousSymbol } from './yamlutils';
-import { FileObject, FileObjectMap, FileObjectTypes, Mechanic, MechanicDataset } from '../../objectInfos';
+import { EnumInfo, FileObject, FileObjectMap, FileObjectTypes, Mechanic, MechanicDataset } from '../../objectInfos';
 
 
 export function checkShouldComplete(document: vscode.TextDocument, position: vscode.Position, context: vscode.CompletionContext, symbol: string[]): boolean {
@@ -44,7 +44,7 @@ export function addMechanicCompletions(target: MechanicDataset, completionItems:
 
 
 export function fileCompletions(document: vscode.TextDocument, position: vscode.Position, objectmap: FileObjectMap): vscode.CompletionItem[] | undefined {
-    const keys = yamlutils.getParentKeys(document, position.line).reverse();
+    const keys = yamlutils.getParentKeys(document, position).reverse();
 
     if (keys.length == 0) {
         return undefined;
@@ -117,6 +117,10 @@ function fileCompletionForFileObjectMap(objectMap: FileObjectMap, indentation: s
         else if (value.type == FileObjectTypes.KEY_LIST) {
             completionItem.insertText = new vscode.SnippetString(indentation + key + ":\n" + indentation + "  $1: $2");
         }
+        else if (value.type === FileObjectTypes.KEY_DATASET) {
+            const dataset = value.dataset ? EnumInfo[value.dataset].commalist : [];
+            completionItem.insertText = new vscode.SnippetString(indentation + key + ": ${1|" + dataset + "|}");
+        }    
         else {
             completionItem.insertText = new vscode.SnippetString(indentation + key + ": $0");
         }

@@ -5,7 +5,7 @@ import { fileCompletions } from '../../utils/completionhelper';
 
 export function mobFileCompletionProvider(){
     const MobFileCompletionProvider = vscode.languages.registerCompletionItemProvider(
-        'yaml',
+        'mythicscript',
         {
             async provideCompletionItems(document: vscode.TextDocument, position: vscode.Position) {
     
@@ -17,7 +17,6 @@ export function mobFileCompletionProvider(){
                     return undefined;
                 }
 
-                
                 return fileCompletions(document, position, MobFileObjects);
             }
         }, "\n"

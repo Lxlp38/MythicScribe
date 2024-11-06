@@ -1,12 +1,12 @@
 import * as vscode from 'vscode';
-import { keyAliases, ObjectType, MetaskillFileObjects, Mechanic, Attribute, FileObjectMap, MobFileObjects } from '../../objectInfos';
+import { keyAliases, ObjectType, MetaskillFileObjects, Mechanic, Attribute, FileObjectMap, MobFileObjects, ItemFileObjects } from '../../objectInfos';
 import * as yamlutils from '../utils/yamlutils';
-import { isEnabled, isMetaskillFile, isMobFile } from '../utils/configutils';
+import { isEnabled, isItemFile, isMetaskillFile, isMobFile } from '../utils/configutils';
 import { getCursorSkills, getCursorCondition } from '../utils/cursorutils';
 
 export function hoverProvider(){
 
-    const hoverProvider = vscode.languages.registerHoverProvider('yaml', {
+    const hoverProvider = vscode.languages.registerHoverProvider('mythicscript', {
         provideHover(document: vscode.TextDocument, position: vscode.Position) {
     
             if (!isEnabled) {
@@ -21,11 +21,14 @@ export function hoverProvider(){
                 else if (isMobFile){
                     return getHoverForFileElement(key, MobFileObjects);
                 }
+                else if (isItemFile){
+                    return getHoverForFileElement(key, ItemFileObjects);
+                }
                 return undefined;
             }
     
             let  obj, type = null;
-            const keys = yamlutils.getParentKeys(document, position.line);
+            const keys = yamlutils.getParentKeys(document, position);
     
             if (keyAliases["Skills"].includes(keys[0])) {
                 [obj, type] = getCursorSkills(document, position);

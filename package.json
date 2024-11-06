@@ -35,27 +35,39 @@
   "contributes": {
     "languages": [
       {
-        "id": "yaml",
-        "extensions": [
-          ".yaml",
-          ".yml"
-        ],
-        "aliases": [
-          "YAML",
-          "yaml"
-        ]
+        "id": "mythicscript",
+        "configuration": "./language-configuration.json",
+        "aliases": ["MythicScript"],
+        "displayName": "MythicScript",
+        "icon": {
+          "light": "./assets/icon128x128.png",
+          "dark": "./assets/icon128x128.png"
+        }
+      }
+    ],
+    "grammars": [
+      {
+        "language": "mythicscript",
+        "scopeName": "source.mythicscript",
+        "path": "./syntaxes/mythicscript.tmLanguage.json",
+        "injectTo": ["source.yaml"]
       }
     ],
     "completionItemProviders": [
       {
-        "language": "yaml",
+        "language": "mythicscript",
         "triggerCharacters": [
           " ",
           "@",
           "?",
+          "!",
+          "~",
           "{",
           ";",
-          "-"
+          "-",
+          "(",
+          ")",
+          "\n"
         ]
       }
     ],
@@ -68,6 +80,12 @@
           "type": "boolean",
           "default": false,
           "description": "Enable MythicScribe's functionalities in all files."
+        },
+        "MythicScribe.enableMythicScriptSyntax": {
+          "title": "Enable MythicScript Syntax",
+          "type": "boolean",
+          "default": true,
+          "description": "Whether the extension should automatically convert the document types from yaml to MythicScript if it's recognized as a MythicMobs file. This does not change the file or its extension in any way, while also enabling mythic-specific syntax highlighting."
         },
         "MythicScribe.regexForMythicmobsFile": {
           "title": "Regex for MythicMobs File",
@@ -84,13 +102,22 @@
         "MythicScribe.regexForMobFile": {
           "title": "Regex for MythicMobs Mobs",
           "type": "string",
-            "default": "[\\\\\\\/][Mm]obs[\\\\\\\/]",
+          "default": "[\\\\\\\/][Mm]obs[\\\\\\\/]",
           "description": "The regex used against each document's file path: if it matches, the document will be considered as being a Mob one, enabling Mob files functionalities."
+        },
+        "MythicScribe.regexForItemFile": {
+          "title": "Regex for MythicMobs Items",
+          "type": "string",
+          "default": "[\\\\\\\/][Ii]tems[\\\\\\\/]",
+          "description": "The regex used against each document's file path: if it matches, the document will be considered as being an Item one, enabling Item files functionalities."
         },
         "MythicScribe.datasetSource": {
           "title": "Dataset",
           "type": "string",
-          "enum": ["GitHub", "Local"],
+          "enum": [
+            "GitHub",
+            "Local"
+          ],
           "default": "Local",
           "description": "Select what dataset to use: `GitHub` fetches the latest datasets from the repository, while `Local` uses the native one that came bundled with the extension."
         },
@@ -121,7 +148,10 @@
         "MythicScribe.attributeAliasUsedInCompletions": {
           "title": "Attribute Alias Used in Completions",
           "type": "string",
-          "enum": ["main", "shorter"],
+          "enum": [
+            "main",
+            "shorter"
+          ],
           "default": "main",
           "description": "Which attribute alias should be used in autocompletions."
         }

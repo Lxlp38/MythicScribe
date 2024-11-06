@@ -3,7 +3,12 @@
 ## [1.0.0]
 
 ## Added
+- MythicScript file types and syntax highlighting
+  - `MythicScribe.enableMythicScriptSyntax` config to determine whether the extension should automatically convert the document types from yaml to MythicScript if it's recognized as a MythicMobs file. This does not change the file or its extension in any way, while also enabling mythic-specific syntax highlighting
+
 - Mob file support for completions and hovers
+- Item file support for completions and hovers
+  - `MythicScribe.regexForItemFile`: Determines which files are recognized as Items files based on a custom regex
 
 
 ## [0.3.0]

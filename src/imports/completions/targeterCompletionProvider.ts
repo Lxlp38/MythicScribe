@@ -6,11 +6,11 @@ import { addMechanicCompletions, checkShouldComplete } from '../utils/completion
 
 export function targeterCompletionProvider(){
     const targeterCompletionProvider = vscode.languages.registerCompletionItemProvider(
-        'yaml',
+        'mythicscript',
         {
             async provideCompletionItems(document: vscode.TextDocument, position: vscode.Position, _token: vscode.CancellationToken, context: vscode.CompletionContext) {
         
-                const keys = yamlutils.getParentKeys(document, position.line);
+                const keys = yamlutils.getParentKeys(document, position);
                 if (!keyAliases["Skills"].includes(keys[0])) {
                     return undefined;
                 }

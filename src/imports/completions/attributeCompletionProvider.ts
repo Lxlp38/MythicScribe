@@ -8,7 +8,7 @@ import { checkShouldComplete } from '../utils/completionhelper';
 
 export function attributeCompletionProvider() {
     const attributeCompletionProvider = vscode.languages.registerCompletionItemProvider(
-        'yaml',
+        'mythicscript',
         {
             async provideCompletionItems(document: vscode.TextDocument, position: vscode.Position, _token: vscode.CancellationToken, context: vscode.CompletionContext) {
 
@@ -28,7 +28,7 @@ export function attributeCompletionProvider() {
                     return undefined;
                 }
                 
-                const keys = yamlutils.getParentKeys(document, position.line);
+                const keys = yamlutils.getParentKeys(document, position);
                 
                 const result = searchForLinkedObject(document, position, keys);
                 if (!result) {
@@ -98,7 +98,7 @@ export function attributeValueCompletionProvider() {
                     return undefined;
                 }
 
-                const keys = yamlutils.getParentKeys(document, position.line);
+                const keys = yamlutils.getParentKeys(document, position);
                 const completionItems: vscode.CompletionItem[] = [];
 
                 const result = searchForLinkedObject(document, position, keys);

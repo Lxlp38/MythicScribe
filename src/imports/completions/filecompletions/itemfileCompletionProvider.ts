@@ -1,10 +1,10 @@
 import * as vscode from 'vscode';
-import { MetaskillFileObjects } from '../../../objectInfos';
+import { ItemFileObjects } from '../../../objectInfos';
 import { enableFileSpecificSuggestions } from '../../utils/configutils';
 import { fileCompletions } from '../../utils/completionhelper';
 
-export function metaskillFileCompletionProvider(){
-    const SkillFileCompletionProvider = vscode.languages.registerCompletionItemProvider(
+export function itemFileCompletionProvider(){
+    const ItemFileCompletionProvider = vscode.languages.registerCompletionItemProvider(
         'mythicscript',
         {
             async provideCompletionItems(document: vscode.TextDocument, position: vscode.Position) {
@@ -16,13 +16,13 @@ export function metaskillFileCompletionProvider(){
                 if (!/^\s*$/.test(document.lineAt(position.line).text)) {
                     return undefined;
                 }
-                
-                return fileCompletions(document, position, MetaskillFileObjects);
+
+                return fileCompletions(document, position, ItemFileObjects);
             }
         }, "\n"
     );
     
-    return SkillFileCompletionProvider;
+    return ItemFileCompletionProvider;
 
 }
 

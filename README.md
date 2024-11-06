@@ -1,6 +1,7 @@
 <div align="center"><img src="./assets/icon.png" height=120></div>
 <div align="center"><h1>MythicScribe</h1></div>
 
+
 <div align="center">
     <a href="https://github.com/Lxlp38/MythicScribe/releases">
       <img alt="GitHub Release" src="https://img.shields.io/github/v/release/Lxlp38/MythicScribe">
@@ -14,12 +15,12 @@
 </div>
 
 <div align="center">
-  <a href="https://marketplace.visualstudio.com/items?itemName=Lxlp.mythicscribe">
-    <img alt="Visual Studio Marketplace Installs" src="https://img.shields.io/visual-studio-marketplace/i/Lxlp.mythicscribe">
-  </a>
-  <a href="https://github.com/Lxlp38/MythicScribe/commits/master/">
-    <img alt="GitHub commit activity" src="https://img.shields.io/github/commit-activity/t/Lxlp38/MythicScribe">
-  </a>
+    <a href="https://marketplace.visualstudio.com/items?itemName=Lxlp.mythicscribe">
+      <img alt="Visual Studio Marketplace" src="https://vsmarketplacebadges.dev/version-short/Lxlp.mythicscribe.png">
+    </a>
+    <a href="https://discord.gg/UgcPG5ADDe">
+        <img src="https://discordapp.com/api/guilds/1303771917022658591/widget.png?style=shield" alt="Discord Link"/>
+    </a>
 </div>
 
 <div align="center">
@@ -56,6 +57,8 @@ This extension contributes the following settings:
 * `MythicScribe.regexForMythicmobsFile`: Determines which files are recognized as MythicMobs files based on a custom regex
 * `MythicScribe.regexForMetaskillFile`: Determines which files are recognized as Metaskills files based on a custom regex
 * `MythicScribe.regexForMobFile`: Determines which files are recognized as Mobs files based on a custom regex
+* `MythicScribe.regexForItemFile`: Determines which files are recognized as Items files based on a custom regex
+* `MythicScribe.enableMythicScriptSyntax`: Whether the extension should automatically convert the document types from yaml to MythicScript if it's recognized as a MythicMobs file. This does not change the file or its extension in any way, while also enabling mythic-specific syntax highlighting
 * `MythicScribe.datasetSource`: Which dataset to use. `GitHub` or `Local`
 * `MythicScribe.enableShortcuts`: Whether the Shortcuts feature should be active
 * `MythicScribe.enableEmptyBracketsAutomaticRemoval`: Enable the removal of empty curly brackets `{}` by moving the cursor past them
@@ -70,3 +73,4 @@ This extension contributes the following settings:
 
 # Credits and Acknowledgements
 - [@maecy](https://twitter.com/maecy_official?s=21&t=ZBZ5BDKcoa6LYFwgd690_A), for creating and providing this extension's ⭐awesome⭐ icon and the [Stellius Team](https://stellius.net/) in general for the collaboration!
+- [Amy](discordapp.com/users/958391444840775720), for setting up the discord server and managing it
