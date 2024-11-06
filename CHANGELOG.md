@@ -1,6 +1,6 @@
 # Changelog
 
-## [Unreleased]
+## [1.0.1]
 
 ## Fixed
 - Error with nameids matching that made onTimer and onSignal become nameids

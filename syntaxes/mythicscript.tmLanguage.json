@@ -37,9 +37,6 @@
             "include": "#symbols"
         },
         {
-            "include": "#papi-placeholder"
-        },
-        {
             "include": "#placeholder"
         },
         {
