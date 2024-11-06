@@ -37,7 +37,7 @@ export function updateEnabled(document: vscode.TextDocument) {
 
     if (enableMythicScriptSyntax()) {
         checkIfMythicScriptFile(document);
-    };
+    }
 
     if (isEnabled != checkEnabled(document)) {
         isEnabled = checkEnabled(document);

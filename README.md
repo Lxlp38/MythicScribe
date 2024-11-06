@@ -73,4 +73,4 @@ This extension contributes the following settings:
 
 # Credits and Acknowledgements
 - [@maecy](https://twitter.com/maecy_official?s=21&t=ZBZ5BDKcoa6LYFwgd690_A), for creating and providing this extension's ⭐awesome⭐ icon and the [Stellius Team](https://stellius.net/) in general for the collaboration!
-- [Amy](discordapp.com/users/958391444840775720), for setting up the discord server and managing it
+- [Amy](https://discordapp.com/users/958391444840775720), for setting up the discord server and managing it

@@ -388,7 +388,7 @@ export const MobFileObjects: FileObjectMap = {
 	"Type": {
 		"type": FileObjectTypes.STRING,
 		"link": "https://git.lumine.io/mythiccraft/MythicMobs/-/wikis/Mobs/Mobs#type",
-		"description": "The type of the mob.",
+		"description": "The Entity Type of the mob.",
 	},
 	"Template": {
 		"type": FileObjectTypes.STRING,
