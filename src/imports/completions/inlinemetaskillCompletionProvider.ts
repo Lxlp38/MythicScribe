@@ -20,7 +20,7 @@ export function inlineMetaskillCompletionProvider(){
                     return undefined;
                 }
                 
-                const indent = 2 //document.lineAt(position.line).firstNonWhitespaceCharacterIndex + 0;
+                const indent = vscode.window.activeTextEditor ? vscode.window.activeTextEditor.options.tabSize as number : 2;
                 const indentation = " ".repeat(indent);
     
     

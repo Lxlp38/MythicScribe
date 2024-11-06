@@ -19,7 +19,7 @@ export function hoverProvider(){
                 keys.reverse();
                 keys.push(key)
 
-                return getHoverForFileElement(keys.slice(1), fileobject, undefined, undefined);
+                return getHoverForFileElement(keys.slice(1), fileobject, undefined);
 
             }
     
@@ -149,7 +149,7 @@ ${description ? description : "No description provided."}`)
 
 
 
-function getHoverForFileElement(keys: string[], type: FileObjectMap, link: string | undefined, description: string | undefined) : vscode.Hover | undefined {
+function getHoverForFileElement(keys: string[], type: FileObjectMap, link: string | undefined) : vscode.Hover | undefined {
     const key = keys[0];
     keys = keys.slice(1);
     const object = type[key];
@@ -162,6 +162,6 @@ function getHoverForFileElement(keys: string[], type: FileObjectMap, link: strin
     if(object.type === FileObjectTypes.KEY && object.keys){
         const newobject = object.keys;
         console.log(object);
-        return getHoverForFileElement(keys, newobject, object.link, object.description);
+        return getHoverForFileElement(keys, newobject, object.link);
     }
 }
