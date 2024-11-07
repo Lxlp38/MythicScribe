@@ -21,6 +21,6 @@ export function itemFileCompletionProvider(){
                 return fileCompletions(document, position, ItemFileObjects);
             }
         }, "\n"
-    )
+    );
 }
 

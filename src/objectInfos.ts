@@ -89,7 +89,7 @@ export const ObjectInfo: { [key in ObjectType]: ObjectInfo } = {
 		datasetClassMap: new Map<string, Mechanic>(),
 		regex: /(?<=\s~)on[\w:]+/gm,
 	}
-}
+};
 
 export enum EnumType {
 	// Enums
@@ -261,7 +261,7 @@ export const EnumInfo = {
 		commalist: ""
 	}
 
-}
+};
 
 
 
@@ -302,4 +302,4 @@ export interface FileObject {
 export const keyAliases = {
 	"Skills": ["Skills", "FurnitureSkills", "InitSkills", "QuitSkills", "LevelSkills", "CustomBlockSkills"],
 	"Conditions": ["Conditions", "TriggerConditions", "TargetConditions"]
-}
+};

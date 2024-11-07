@@ -16,11 +16,11 @@ export function hoverProvider(){
 
             if (yamlutils.isKey(document, position.line) === true) {
                 const fileobject = isMetaskillFile ? MetaskillFileObjects : isMobFile ? MobFileObjects : isItemFile ? ItemFileObjects : undefined;
-                if (!fileobject) return undefined;
+                if (!fileobject) {return undefined;}
 
                 const key = yamlutils.getKey(document, position.line);
                 keys.reverse();
-                keys.push(key)
+                keys.push(key);
 
                 return getHoverForFileElement(keys.slice(1), fileobject, undefined);
 
@@ -142,7 +142,7 @@ function getMinimalHover(title : string, description: string | undefined, link :
     const hoverContent = new vscode.MarkdownString(`
 ## [${title}](${link})
 
-${description ? description : "No description provided."}`)
+${description ? description : "No description provided."}`);
     hoverContent.isTrusted = true;
     return new vscode.Hover(hoverContent);
 }

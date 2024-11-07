@@ -83,7 +83,7 @@ export function attributeCompletionProvider() {
                 return completionItems;
             }
         }, "{", ";"
-    )
+    );
 }
 
 

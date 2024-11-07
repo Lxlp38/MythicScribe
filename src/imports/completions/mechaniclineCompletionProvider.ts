@@ -62,9 +62,9 @@ export function mechaniclineCompletionProvider(){
                     completionItems.push(completionItem);
                 }
     
-                return completionItems
+                return completionItems;
                 
             }
         }, " "
-    )
+    );
 }

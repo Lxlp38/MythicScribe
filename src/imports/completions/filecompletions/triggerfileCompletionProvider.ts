@@ -34,5 +34,5 @@ export function triggerfileCompletionProvider() {
                 return completionItems;
             }
         }, "~"
-    )
+    );
 }

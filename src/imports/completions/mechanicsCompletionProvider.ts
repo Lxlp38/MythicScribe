@@ -65,5 +65,5 @@ export function mechanicCompletionProvider(){
     
             }
         }, "-", " "
-    )    
+    );    
 }

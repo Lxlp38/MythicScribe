@@ -1,6 +1,6 @@
 import * as vscode from 'vscode';
 
-let lastexecutiontime = 0
+let lastexecutiontime = 0;
 
 export function removeBracketsTextListener() {
 
@@ -10,7 +10,7 @@ export function removeBracketsTextListener() {
         }
 
         const editor = vscode.window.activeTextEditor;
-        if (!editor) return;
+        if (!editor) {return;}
     
         if (!editor.selection.isEmpty) {
             return;

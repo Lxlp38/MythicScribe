@@ -21,6 +21,6 @@ export function metaskillFileCompletionProvider(){
                 return fileCompletions(document, position, MetaskillFileObjects);
             }
         }, "\n"
-    )
+    );
 }
 
