@@ -9,7 +9,7 @@ function getUpstreamKey(document: vscode.TextDocument, lineIndex: number): strin
 	}
 	return '';
 }
-function getParentKeys(document: vscode.TextDocument, position: vscode.Position): string[] {
+function getParentKeys(document: vscode.TextDocument, position: vscode.Position, getLineKey: boolean = false): string[] {
     const keys: string[] = [];
     const lineIndex = position.line
 	
@@ -17,6 +17,9 @@ function getParentKeys(document: vscode.TextDocument, position: vscode.Position)
 
 	if (!isKey(document, lineIndex)) {
 		currentIndent += 1;
+	}
+	else if (getLineKey) {
+		keys.push(getKey(document, lineIndex));
 	}
 
     for (let i = lineIndex; i >= 0; i--) {

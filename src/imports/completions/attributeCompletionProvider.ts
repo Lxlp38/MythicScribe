@@ -7,7 +7,7 @@ import { checkShouldComplete } from '../utils/completionhelper';
 
 
 export function attributeCompletionProvider() {
-    const attributeCompletionProvider = vscode.languages.registerCompletionItemProvider(
+    return vscode.languages.registerCompletionItemProvider(
         'mythicscript',
         {
             async provideCompletionItems(document: vscode.TextDocument, position: vscode.Position, _token: vscode.CancellationToken, context: vscode.CompletionContext) {
@@ -83,8 +83,7 @@ export function attributeCompletionProvider() {
                 return completionItems;
             }
         }, "{", ";"
-    );
-    return attributeCompletionProvider;
+    )
 }
 
 
@@ -139,9 +138,9 @@ export function attributeValueCompletionProvider() {
                 else if (attributeEnum && Object.keys(EnumType).includes(attributeEnum)) {
                     Object.entries(EnumInfo[EnumType[attributeEnum as keyof typeof EnumType]].dataset).forEach(([key, value]: [string, unknown]) => {
                         const completionItem = new vscode.CompletionItem(key, vscode.CompletionItemKind.Value);
-                        if ((value as EnumDatasetValue).Description) {
+                        if ((value as EnumDatasetValue).description) {
                             const completionItem = new vscode.CompletionItem(key, vscode.CompletionItemKind.Value);
-                            completionItem.detail = `${(value as EnumDatasetValue).Description}`;
+                            completionItem.detail = `${(value as EnumDatasetValue).description}`;
                             completionItems.push(completionItem);
                         }
                     });

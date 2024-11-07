@@ -443,7 +443,7 @@
                     "attribute",
                     "attr"
                 ],
-                "type": "Enum",
+                "type": "String",
                 "enum": "SpigotAttribute",
                 "list": false,
                 "description": "The [attribute][] to set",

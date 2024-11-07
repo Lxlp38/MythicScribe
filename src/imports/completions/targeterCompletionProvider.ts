@@ -5,7 +5,7 @@ import { addMechanicCompletions, checkShouldComplete } from '../utils/completion
 
 
 export function targeterCompletionProvider(){
-    const targeterCompletionProvider = vscode.languages.registerCompletionItemProvider(
+    return vscode.languages.registerCompletionItemProvider(
         'mythicscript',
         {
             async provideCompletionItems(document: vscode.TextDocument, position: vscode.Position, _token: vscode.CancellationToken, context: vscode.CompletionContext) {
@@ -27,7 +27,5 @@ export function targeterCompletionProvider(){
                 return completionItems;
             }
         }, "@"
-    );    
-
-    return targeterCompletionProvider;
+    )
 }

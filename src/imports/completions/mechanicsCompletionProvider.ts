@@ -4,7 +4,7 @@ import { keyAliases, Mechanic, ObjectInfo, ObjectType } from '../../objectInfos'
 
 
 export function mechanicCompletionProvider(){
-    const mechanicCompletionProvider = vscode.languages.registerCompletionItemProvider(
+    return vscode.languages.registerCompletionItemProvider(
         'mythicscript',
         {
             async provideCompletionItems(document: vscode.TextDocument, position: vscode.Position, _token: vscode.CancellationToken, context: vscode.CompletionContext) {
@@ -65,8 +65,5 @@ export function mechanicCompletionProvider(){
     
             }
         }, "-", " "
-    );
-
-    return mechanicCompletionProvider;
-    
+    )    
 }

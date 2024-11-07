@@ -1,101 +1,101 @@
 {
     "BLOCK_EXPLOSION": {
-        "Description": "Damage caused by being in the area when a block explodes."
+        "description": "Damage caused by being in the area when a block explodes."
     },
     "CAMPFIRE": {
-        "Description": "Damage caused when an entity steps on Material.CAMPFIRE or Material.SOUL_CAMPFIRE."
+        "description": "Damage caused when an entity steps on Material.CAMPFIRE or Material.SOUL_CAMPFIRE."
     },
     "CONTACT": {
-        "Description": "Damage caused when an entity contacts a block such as a Cactus,\n Dripstone (Stalagmite) or Berry Bush."
+        "description": "Damage caused when an entity contacts a block such as a Cactus,\n Dripstone (Stalagmite) or Berry Bush."
     },
     "CRAMMING": {
-        "Description": "Damage caused when an entity is colliding with too many entities due\n to the maxEntityCramming game rule."
+        "description": "Damage caused when an entity is colliding with too many entities due\n to the maxEntityCramming game rule."
     },
     "CUSTOM": {
-        "Description": "Custom damage."
+        "description": "Custom damage."
     },
     "DRAGON_BREATH": {
-        "Description": "Damage caused by a dragon breathing fire."
+        "description": "Damage caused by a dragon breathing fire."
     },
     "DROWNING": {
-        "Description": "Damage caused by running out of air while in water"
+        "description": "Damage caused by running out of air while in water"
     },
     "DRYOUT": {
-        "Description": "Damage caused when an entity that should be in water is not."
+        "description": "Damage caused when an entity that should be in water is not."
     },
     "ENTITY_ATTACK": {
-        "Description": "Damage caused when an entity attacks another entity."
+        "description": "Damage caused when an entity attacks another entity."
     },
     "ENTITY_EXPLOSION": {
-        "Description": "Damage caused by being in the area when an entity, such as a\n Creeper, explodes."
+        "description": "Damage caused by being in the area when an entity, such as a\n Creeper, explodes."
     },
     "ENTITY_SWEEP_ATTACK": {
-        "Description": "Damage caused when an entity attacks another entity in a sweep attack."
+        "description": "Damage caused when an entity attacks another entity in a sweep attack."
     },
     "FALL": {
-        "Description": "Damage caused when an entity falls a distance greater than 3 blocks"
+        "description": "Damage caused when an entity falls a distance greater than 3 blocks"
     },
     "FALLING_BLOCK": {
-        "Description": "Damage caused by being hit by a falling block which deals damage"
+        "description": "Damage caused by being hit by a falling block which deals damage"
     },
     "FIRE": {
-        "Description": "Damage caused by direct exposure to fire"
+        "description": "Damage caused by direct exposure to fire"
     },
     "FIRE_TICK": {
-        "Description": "Damage caused due to burns caused by fire"
+        "description": "Damage caused due to burns caused by fire"
     },
     "FLY_INTO_WALL": {
-        "Description": "Damage caused when an entity runs into a wall."
+        "description": "Damage caused when an entity runs into a wall."
     },
     "FREEZE": {
-        "Description": "Damage caused from freezing."
+        "description": "Damage caused from freezing."
     },
     "HOT_FLOOR": {
-        "Description": "Damage caused when an entity steps on Material.MAGMA_BLOCK."
+        "description": "Damage caused when an entity steps on Material.MAGMA_BLOCK."
     },
     "KILL": {
-        "Description": "Damage caused by /kill command"
+        "description": "Damage caused by /kill command"
     },
     "LAVA": {
-        "Description": "Damage caused by direct exposure to lava"
+        "description": "Damage caused by direct exposure to lava"
     },
     "LIGHTNING": {
-        "Description": "Damage caused by being struck by lightning"
+        "description": "Damage caused by being struck by lightning"
     },
     "MAGIC": {
-        "Description": "Damage caused by being hit by a damage potion or spell"
+        "description": "Damage caused by being hit by a damage potion or spell"
     },
     "MELTING": {
-        "Description": "Damage caused due to a snowman melting"
+        "description": "Damage caused due to a snowman melting"
     },
     "POISON": {
-        "Description": "Damage caused due to an ongoing poison effect"
+        "description": "Damage caused due to an ongoing poison effect"
     },
     "PROJECTILE": {
-        "Description": "Damage caused when attacked by a projectile."
+        "description": "Damage caused when attacked by a projectile."
     },
     "SONIC_BOOM": {
-        "Description": "Damage caused by the Sonic Boom attack from Warden"
+        "description": "Damage caused by the Sonic Boom attack from Warden"
     },
     "STARVATION": {
-        "Description": "Damage caused by starving due to having an empty hunger bar"
+        "description": "Damage caused by starving due to having an empty hunger bar"
     },
     "SUFFOCATION": {
-        "Description": "Damage caused by being put in a block"
+        "description": "Damage caused by being put in a block"
     },
     "SUICIDE": {
-        "Description": "Damage caused by committing suicide."
+        "description": "Damage caused by committing suicide."
     },
     "THORNS": {
-        "Description": "Damage caused in retaliation to another attack by the Thorns\n enchantment."
+        "description": "Damage caused in retaliation to another attack by the Thorns\n enchantment."
     },
     "VOID": {
-        "Description": "Damage caused by falling into the void"
+        "description": "Damage caused by falling into the void"
     },
     "WITHER": {
-        "Description": "Damage caused by Wither potion effect"
+        "description": "Damage caused by Wither potion effect"
     },
     "WORLD_BORDER": {
-        "Description": "Damage caused by the World Border"
+        "description": "Damage caused by the World Border"
     }
 }

@@ -1,45 +1,67 @@
 {
-    "HEAD":
-    [
-        "HEAD",
-        "4",
-        "HELMET",
-        "HELM",
-        "HAT"
-    ],
+    "HEAD": {
+        "names": [
+            "HEAD",
+            "4",
+            "HELMET",
+            "HELM",
+            "HAT"
+        ],
+        "description": "Head slot"
+    },
     "CHEST":
-    [
-        "CHEST",
-        "3",
-        "CHESTPIECE",
-        "CHESTPLATE",
-        "BODY"
-    ],
+    {
+        "names":
+        [
+            "CHEST",
+            "3",
+            "CHESTPIECE",
+            "CHESTPLATE",
+            "BODY"
+        ],
+        "description": "Chest slot"
+    },
     "LEGS":
-    [
-        "LEGS",
-        "2",
-        "LEGGINGS",
-        "PANTS"
-    ],
+    {
+        "names":
+        [
+            "LEGS",
+            "2",
+            "LEGGINGS",
+            "PANTS"
+        ],
+        "description": "Legs slot"
+    },
     "FEET":
-    [
-        "FEET",
-        "1",
-        "BOOTS",
-        "SHOES"
-    ],
+    {
+        "names":
+        [
+            "FEET",
+            "1",
+            "BOOTS",
+            "SHOES"
+        ],
+        "description": "Feet slot"
+    },
     "HAND":
-    [
-        "HAND",
-        "0",
-        "MAINHAND",
-        "WEAPON"
-    ],
+    {
+        "names":
+        [
+            "HAND",
+            "0",
+            "MAINHAND",
+            "WEAPON"
+        ],
+        "description": "Main hand slot"
+    },
     "OFFHAND":
-    [
-        "OFFHAND",
-        "5",
-        "SHIELD"
-    ]
+    {
+        "names":
+        [
+            "OFFHAND",
+            "5",
+            "SHIELD"
+        ],
+        "description": "Off hand slot"
+    }
 }

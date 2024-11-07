@@ -4,7 +4,7 @@ let lastexecutiontime = 0
 
 export function removeBracketsTextListener() {
 
-    const removeBracketsTextListener = vscode.window.onDidChangeTextEditorSelection(event => {    
+    return vscode.window.onDidChangeTextEditorSelection(event => {    
         if (event.kind !== vscode.TextEditorSelectionChangeKind.Keyboard) {
             return;
         }
@@ -42,7 +42,5 @@ export function removeBracketsTextListener() {
         }
     });
     
-    return removeBracketsTextListener;
-
 }
 

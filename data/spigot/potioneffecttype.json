@@ -1,119 +1,119 @@
 {
     "ABSORPTION": {
-        "Description": "Increases the maximum health of an entity with health that cannot be\n regenerated, but is refilled every 30 seconds."
+        "description": "Increases the maximum health of an entity with health that cannot be\n regenerated, but is refilled every 30 seconds."
     },
     "BAD_OMEN": {
-        "Description": "Triggers an ominous event when the player enters a village or trial chambers.\n oof."
+        "description": "Triggers an ominous event when the player enters a village or trial chambers.\n oof."
     },
     "BLINDNESS": {
-        "Description": "Blinds an entity."
+        "description": "Blinds an entity."
     },
     "CONDUIT_POWER": {
-        "Description": "Effects granted by a nearby conduit."
+        "description": "Effects granted by a nearby conduit."
     },
     "DARKNESS": {
-        "Description": "Causes the player's vision to dim occasionally."
+        "description": "Causes the player's vision to dim occasionally."
     },
     "DOLPHINS_GRACE": {
-        "Description": "Increses underwater movement speed.\n Squee'ek uh'k kk'kkkk squeek eee'eek."
+        "description": "Increses underwater movement speed.\n Squee'ek uh'k kk'kkkk squeek eee'eek."
     },
     "FIRE_RESISTANCE": {
-        "Description": "Stops fire damage."
+        "description": "Stops fire damage."
     },
     "GLOWING": {
-        "Description": "Outlines the entity so that it can be seen from afar."
+        "description": "Outlines the entity so that it can be seen from afar."
     },
     "HASTE": {
-        "Description": "Increases dig speed."
+        "description": "Increases dig speed."
     },
     "HEALTH_BOOST": {
-        "Description": "Increases the maximum health of an entity."
+        "description": "Increases the maximum health of an entity."
     },
     "HERO_OF_THE_VILLAGE": {
-        "Description": "Reduces the cost of villager trades.\n \\o/."
+        "description": "Reduces the cost of villager trades.\n \\o/."
     },
     "HUNGER": {
-        "Description": "Increases hunger."
+        "description": "Increases hunger."
     },
     "INFESTED": {
-        "Description": "Chance of spawning silverfish when hurt."
+        "description": "Chance of spawning silverfish when hurt."
     },
     "INSTANT_DAMAGE": {
-        "Description": "Hurts an entity."
+        "description": "Hurts an entity."
     },
     "INSTANT_HEALTH": {
-        "Description": "Heals an entity."
+        "description": "Heals an entity."
     },
     "INVISIBILITY": {
-        "Description": "Grants invisibility."
+        "description": "Grants invisibility."
     },
     "JUMP_BOOST": {
-        "Description": "Increases jump height."
+        "description": "Increases jump height."
     },
     "LEVITATION": {
-        "Description": "Causes the entity to float into the air."
+        "description": "Causes the entity to float into the air."
     },
     "LUCK": {
-        "Description": "Loot table luck."
+        "description": "Loot table luck."
     },
     "MINING_FATIGUE": {
-        "Description": "Decreases dig speed."
+        "description": "Decreases dig speed."
     },
     "NAUSEA": {
-        "Description": "Warps vision on the client."
+        "description": "Warps vision on the client."
     },
     "NIGHT_VISION": {
-        "Description": "Allows an entity to see in the dark."
+        "description": "Allows an entity to see in the dark."
     },
     "OOZING": {
-        "Description": "Causes slimes to spawn upon death."
+        "description": "Causes slimes to spawn upon death."
     },
     "POISON": {
-        "Description": "Deals damage to an entity over time."
+        "description": "Deals damage to an entity over time."
     },
     "RAID_OMEN": {
-        "Description": "Triggers a raid when a player enters a village."
+        "description": "Triggers a raid when a player enters a village."
     },
     "REGENERATION": {
-        "Description": "Regenerates health."
+        "description": "Regenerates health."
     },
     "RESISTANCE": {
-        "Description": "Decreases damage dealt to an entity."
+        "description": "Decreases damage dealt to an entity."
     },
     "SATURATION": {
-        "Description": "Increases the food level of an entity each tick."
+        "description": "Increases the food level of an entity each tick."
     },
     "SLOWNESS": {
-        "Description": "Decreases movement speed."
+        "description": "Decreases movement speed."
     },
     "SLOW_FALLING": {
-        "Description": "Slows entity fall rate."
+        "description": "Slows entity fall rate."
     },
     "SPEED": {
-        "Description": "Increases movement speed."
+        "description": "Increases movement speed."
     },
     "STRENGTH": {
-        "Description": "Increases damage dealt."
+        "description": "Increases damage dealt."
     },
     "TRIAL_OMEN": {
-        "Description": "Causes trial spawners to become ominous."
+        "description": "Causes trial spawners to become ominous."
     },
     "UNLUCK": {
-        "Description": "Loot table unluck."
+        "description": "Loot table unluck."
     },
     "WATER_BREATHING": {
-        "Description": "Allows breathing underwater."
+        "description": "Allows breathing underwater."
     },
     "WEAKNESS": {
-        "Description": "Decreases damage dealt by an entity."
+        "description": "Decreases damage dealt by an entity."
     },
     "WEAVING": {
-        "Description": "Creates cobwebs upon death."
+        "description": "Creates cobwebs upon death."
     },
     "WIND_CHARGED": {
-        "Description": "Emits a wind burst upon death."
+        "description": "Emits a wind burst upon death."
     },
     "WITHER": {
-        "Description": "Deals damage to an entity over time and gives the health to the\n shooter."
+        "description": "Deals damage to an entity over time and gives the health to the\n shooter."
     }
 }

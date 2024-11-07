@@ -1,7 +1,7 @@
 import * as vscode from 'vscode';
 import * as yamlutils from './yamlutils';
 import { previousSymbol } from './yamlutils';
-import { EnumInfo, FileObject, FileObjectMap, FileObjectTypes, Mechanic, MechanicDataset } from '../../objectInfos';
+import { EnumDatasetValue, EnumInfo, FileObject, FileObjectMap, FileObjectTypes, Mechanic, MechanicDataset } from '../../objectInfos';
 
 
 export function checkShouldComplete(document: vscode.TextDocument, position: vscode.Position, context: vscode.CompletionContext, symbol: string[]): boolean {
@@ -58,7 +58,6 @@ export function fileCompletions(document: vscode.TextDocument, position: vscode.
     const [keyobjects, level] = result;
     const thislineindentation = yamlutils.getIndentation(document.lineAt(position.line).text);
     const indentation = " ".repeat((level-thislineindentation/2) * defaultindentation);
-
 
     if (!keyobjects) {
         return undefined;
@@ -117,7 +116,7 @@ function fileCompletionForFileObjectMap(objectMap: FileObjectMap, indentation: s
         else if (value.type == FileObjectTypes.KEY_LIST) {
             completionItem.insertText = new vscode.SnippetString(indentation + key + ":\n" + indentation + "  $1: $2");
         }
-        else if (value.type === FileObjectTypes.KEY_DATASET) {
+        else if (value.type === FileObjectTypes.ENUM) {
             const dataset = value.dataset ? EnumInfo[value.dataset].commalist : [];
             completionItem.insertText = new vscode.SnippetString(indentation + key + ": ${1|" + dataset + "|}");
         }    
@@ -150,4 +149,31 @@ function fileCompletionForFileObject(object: FileObject, indentation: string): v
 
 
     return completionItems;
+}
+
+export async function getKeyObjectCompletions(keys: string[], type: FileObjectMap) : Promise<vscode.CompletionItem[] | undefined> {
+    const key = keys[0];
+    keys = keys.slice(1);
+    const object = type[key];
+    if (!object) {
+        return undefined;
+    }
+    if (keys.length === 0) {
+        if (object.type === FileObjectTypes.ENUM && object.dataset) {
+            const dataset = EnumInfo[object.dataset].dataset as Record<string, EnumDatasetValue>;
+            const completionItems: vscode.CompletionItem[] = [];
+            Object.entries(dataset).forEach(([item, value]) => {
+                const completionItem = new vscode.CompletionItem(item, vscode.CompletionItemKind.EnumMember);
+                completionItem.kind = vscode.CompletionItemKind.EnumMember;
+                completionItem.detail = value.description;
+                completionItem.insertText = new vscode.SnippetString(item);
+                completionItems.push(completionItem);
+            });
+            return completionItems;
+        }
+    }
+    if(object.type === FileObjectTypes.KEY && object.keys){
+        const newobject = object.keys;
+        return getKeyObjectCompletions(keys, newobject);
+    }
 }

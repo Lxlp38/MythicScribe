@@ -1,98 +1,98 @@
 {
     "ARMOR": {
-        "Description": "Armor bonus of an Entity."
+        "description": "Armor bonus of an Entity."
     },
     "ARMOR_TOUGHNESS": {
-        "Description": "Armor durability bonus of an Entity."
+        "description": "Armor durability bonus of an Entity."
     },
     "ATTACK_DAMAGE": {
-        "Description": "Attack damage of an Entity."
+        "description": "Attack damage of an Entity."
     },
     "ATTACK_KNOCKBACK": {
-        "Description": "Attack knockback of an Entity."
+        "description": "Attack knockback of an Entity."
     },
     "ATTACK_SPEED": {
-        "Description": "Attack speed of an Entity."
+        "description": "Attack speed of an Entity."
     },
     "BLOCK_BREAK_SPEED": {
-        "Description": "Block break speed of a Player."
+        "description": "Block break speed of a Player."
     },
     "BLOCK_INTERACTION_RANGE": {
-        "Description": "The block reach distance of a Player."
+        "description": "The block reach distance of a Player."
     },
     "BURNING_TIME": {
-        "Description": "How long an entity remains burning after ingition."
+        "description": "How long an entity remains burning after ingition."
     },
     "ENTITY_INTERACTION_RANGE": {
-        "Description": "The entity reach distance of a Player."
+        "description": "The entity reach distance of a Player."
     },
     "EXPLOSION_KNOCKBACK_RESISTANCE": {
-        "Description": "Resistance to knockback from explosions."
+        "description": "Resistance to knockback from explosions."
     },
     "FALL_DAMAGE_MULTIPLIER": {
-        "Description": "The fall damage multiplier of an Entity."
+        "description": "The fall damage multiplier of an Entity."
     },
     "FLYING_SPEED": {
-        "Description": "Flying speed of an Entity."
+        "description": "Flying speed of an Entity."
     },
     "FOLLOW_RANGE": {
-        "Description": "Range at which an Entity will follow others."
+        "description": "Range at which an Entity will follow others."
     },
     "GRAVITY": {
-        "Description": "The gravity applied to an Entity."
+        "description": "The gravity applied to an Entity."
     },
     "JUMP_STRENGTH": {
-        "Description": "Strength with which an Entity will jump."
+        "description": "Strength with which an Entity will jump."
     },
     "KNOCKBACK_RESISTANCE": {
-        "Description": "Resistance of an Entity to knockback."
+        "description": "Resistance of an Entity to knockback."
     },
     "LUCK": {
-        "Description": "Luck bonus of an Entity."
+        "description": "Luck bonus of an Entity."
     },
     "MAX_ABSORPTION": {
-        "Description": "Maximum absorption of an Entity."
+        "description": "Maximum absorption of an Entity."
     },
     "MAX_HEALTH": {
-        "Description": "Maximum health of an Entity."
+        "description": "Maximum health of an Entity."
     },
     "MINING_EFFICIENCY": {
-        "Description": "Mining speed for correct tools."
+        "description": "Mining speed for correct tools."
     },
     "MOVEMENT_EFFICIENCY": {
-        "Description": "Movement speed through difficult terrain."
+        "description": "Movement speed through difficult terrain."
     },
     "MOVEMENT_SPEED": {
-        "Description": "Movement speed of an Entity."
+        "description": "Movement speed of an Entity."
     },
     "OXYGEN_BONUS": {
-        "Description": "Oxygen use underwater."
+        "description": "Oxygen use underwater."
     },
     "SAFE_FALL_DISTANCE": {
-        "Description": "The distance which an Entity can fall without damage."
+        "description": "The distance which an Entity can fall without damage."
     },
     "SCALE": {
-        "Description": "The relative scale of an Entity."
+        "description": "The relative scale of an Entity."
     },
     "SNEAKING_SPEED": {
-        "Description": "Sneaking speed."
+        "description": "Sneaking speed."
     },
     "SPAWN_REINFORCEMENTS": {
-        "Description": "Chance of a zombie to spawn reinforcements."
+        "description": "Chance of a zombie to spawn reinforcements."
     },
     "STEP_HEIGHT": {
-        "Description": "The height which an Entity can walk over."
+        "description": "The height which an Entity can walk over."
     },
     "SUBMERGED_MINING_SPEED": {
-        "Description": "Underwater mining speed."
+        "description": "Underwater mining speed."
     },
     "SWEEPING_DAMAGE_RATIO": {
-        "Description": "Sweeping damage."
+        "description": "Sweeping damage."
     },
     "TEMPT_RANGE": {
-        "Description": "Range at which mobs will be tempted by items."
+        "description": "Range at which mobs will be tempted by items."
     },
     "WATER_MOVEMENT_EFFICIENCY": {
-        "Description": "Movement speed through water."
+        "description": "Movement speed through water."
     }
 }

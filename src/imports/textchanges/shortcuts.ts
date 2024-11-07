@@ -3,7 +3,7 @@ import { isEnabled } from '../utils/configutils';
 
 export function shortcutsProvider() {
 
-    const shortcutsProvider = vscode.workspace.onDidChangeTextDocument(event => {
+    return vscode.workspace.onDidChangeTextDocument(event => {
         const editor = vscode.window.activeTextEditor;
         if (!editor) return;
     
@@ -31,9 +31,6 @@ export function shortcutsProvider() {
             }
         }
     });
-    
-    return shortcutsProvider;
-
 }
 
 

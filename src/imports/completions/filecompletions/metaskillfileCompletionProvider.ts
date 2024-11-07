@@ -1,18 +1,19 @@
 import * as vscode from 'vscode';
-import { MetaskillFileObjects } from '../../../objectInfos';
-import { enableFileSpecificSuggestions } from '../../utils/configutils';
-import { fileCompletions } from '../../utils/completionhelper';
+import { MetaskillFileObjects } from '../../../schemas/metaskillFileObjects';
+import { fileCompletions, getKeyObjectCompletions } from '../../utils/completionhelper';
+import { getParentKeys, isKey } from '../../utils/yamlutils';
 
 export function metaskillFileCompletionProvider(){
-    const SkillFileCompletionProvider = vscode.languages.registerCompletionItemProvider(
+    return vscode.languages.registerCompletionItemProvider(
         'mythicscript',
         {
-            async provideCompletionItems(document: vscode.TextDocument, position: vscode.Position) {
+            async provideCompletionItems(document: vscode.TextDocument, position: vscode.Position, _token: vscode.CancellationToken, context: vscode.CompletionContext) {
     
-                if (enableFileSpecificSuggestions() === false) {
-                    return undefined;
+                if (context.triggerKind === vscode.CompletionTriggerKind.Invoke && isKey(document, position.line)) {
+                    const keys = getParentKeys(document, position, true).reverse();
+                    return getKeyObjectCompletions(keys.slice(1), MetaskillFileObjects);
                 }
-    
+
                 if (!/^\s*$/.test(document.lineAt(position.line).text)) {
                     return undefined;
                 }
@@ -20,9 +21,6 @@ export function metaskillFileCompletionProvider(){
                 return fileCompletions(document, position, MetaskillFileObjects);
             }
         }, "\n"
-    );
-    
-    return SkillFileCompletionProvider;
-
+    )
 }
 

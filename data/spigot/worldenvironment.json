@@ -1,14 +1,14 @@
 {
     "CUSTOM": {
-        "Description": "Represents a custom dimension"
+        "description": "Represents a custom dimension"
     },
     "NETHER": {
-        "Description": "Represents a nether based map (\"hell\")"
+        "description": "Represents a nether based map (\"hell\")"
     },
     "NORMAL": {
-        "Description": "Represents the \"normal\"/\"surface world\" map"
+        "description": "Represents the \"normal\"/\"surface world\" map"
     },
     "THE_END": {
-        "Description": "Represents the \"end\" map"
+        "description": "Represents the \"end\" map"
     }
 }

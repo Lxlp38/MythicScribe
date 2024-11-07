@@ -1,8 +1,14 @@
 # Changelog
 
+## [Unreleased]
+
+### Added
+- Autocompletions on invocations for file enums (For instance, now an Item File's Id will complete as a list of material also when pression ctrl + space)
+
+
 ## [1.0.1]
 
-## Fixed
+### Fixed
 - Error with nameids matching that made onTimer and onSignal become nameids
 - Error with syntax highlighting for comments
 - Error with hovers providing the wrong information on certain occasions
@@ -10,7 +16,7 @@
 
 ## [1.0.0]
 
-## Added
+### Added
 - MythicScript file types and syntax highlighting
   - `MythicScribe.enableMythicScriptSyntax` config to determine whether the extension should automatically convert the document types from yaml to MythicScript if it's recognized as a MythicMobs file. This does not change the file or its extension in any way, while also enabling mythic-specific syntax highlighting
 
@@ -21,7 +27,7 @@
 
 ## [0.3.0]
 
-## Added
+### Added
 - `MythicScribe.attributeAliasUsedInCompletions` config, to set which attribute alias to use for completions. Defaults to `main`
 - `true`/`false` snippet for Boolean attributes and Metaskill Boolean Fields
 - A LOT of snippet completions for attributes whose value must be an element from an enum. As of now the support is only partial, and it will be added gradually over time.

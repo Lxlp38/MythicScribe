@@ -1,35 +1,35 @@
 {
     "BREATH_ATTACK": {
-        "Description": "The dragon will attack with dragon breath at its current location."
+        "description": "The dragon will attack with dragon breath at its current location."
     },
     "CHARGE_PLAYER": {
-        "Description": "The dragon will charge a player."
+        "description": "The dragon will charge a player."
     },
     "CIRCLING": {
-        "Description": "The dragon will circle outside the ring of pillars if ender\n crystals remain or inside the ring if not."
+        "description": "The dragon will circle outside the ring of pillars if ender\n crystals remain or inside the ring if not."
     },
     "DYING": {
-        "Description": "The dragon will fly to the vicinity of the portal and die."
+        "description": "The dragon will fly to the vicinity of the portal and die."
     },
     "FLY_TO_PORTAL": {
-        "Description": "The dragon will fly towards the empty portal (approaching\n from the other side, if applicable)."
+        "description": "The dragon will fly towards the empty portal (approaching\n from the other side, if applicable)."
     },
     "HOVER": {
-        "Description": "The dragon will hover at its current location, not performing any actions."
+        "description": "The dragon will hover at its current location, not performing any actions."
     },
     "LAND_ON_PORTAL": {
-        "Description": "The dragon will land on on the portal."
+        "description": "The dragon will land on on the portal."
     },
     "LEAVE_PORTAL": {
-        "Description": "The dragon will leave the portal."
+        "description": "The dragon will leave the portal."
     },
     "ROAR_BEFORE_ATTACK": {
-        "Description": "The dragon will roar before performing a breath attack."
+        "description": "The dragon will roar before performing a breath attack."
     },
     "SEARCH_FOR_BREATH_ATTACK_TARGET": {
-        "Description": "The dragon will search for a player to attack with dragon breath."
+        "description": "The dragon will search for a player to attack with dragon breath."
     },
     "STRAFING": {
-        "Description": "The dragon will fly towards a targeted player and shoot a\n fireball when within 64 blocks."
+        "description": "The dragon will fly towards a targeted player and shoot a\n fireball when within 64 blocks."
     }
 }

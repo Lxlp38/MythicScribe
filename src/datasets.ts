@@ -1,5 +1,4 @@
 import * as vscode from 'vscode';
-import { ctx } from './MythicScribe';
 import * as config from './imports/utils/configutils';
 import { EnumInfo, EnumDataset, EnumDatasetValue, EnumType, Mechanic, MechanicDataset, ObjectInfo, ObjectType } from './objectInfos';
 import path from 'path';

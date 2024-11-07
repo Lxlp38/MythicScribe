@@ -1,10 +1,11 @@
 import * as vscode from 'vscode';
 import * as yamlutils from '../utils/yamlutils';
-import { ConditionActions, keyAliases, ObjectInfo, ObjectType } from '../../objectInfos';
+import { keyAliases, ObjectInfo, ObjectType } from '../../objectInfos';
+import { ConditionActions } from '../../schemas/conditionActions';
 import { addMechanicCompletions } from '../utils/completionhelper';
 
 export function conditionCompletionProvider(){
-    const conditionCompletionProvider = vscode.languages.registerCompletionItemProvider(
+    return vscode.languages.registerCompletionItemProvider(
         'mythicscript',
         {
             async provideCompletionItems(document: vscode.TextDocument, position: vscode.Position, _token: vscode.CancellationToken, context: vscode.CompletionContext) {
@@ -76,8 +77,7 @@ export function conditionCompletionProvider(){
                 return completionItems;
             }
         }, "-", " ", "(", "|", "&", ")"
-    );
-    return conditionCompletionProvider;
+    )
 } 
 
 

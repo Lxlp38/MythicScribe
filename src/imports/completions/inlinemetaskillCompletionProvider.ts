@@ -5,7 +5,7 @@ import { keyAliases } from '../../objectInfos';
 
 export function inlineMetaskillCompletionProvider(){
 
-    const inlineMetaskillCompletionProvider = vscode.languages.registerCompletionItemProvider(
+    return vscode.languages.registerCompletionItemProvider(
         'mythicscript',
         {
             async provideCompletionItems(document: vscode.TextDocument, position: vscode.Position) {
@@ -33,8 +33,5 @@ export function inlineMetaskillCompletionProvider(){
                 return [completionItem];
             }
         }, "["
-    );
-    
-    return inlineMetaskillCompletionProvider;
-
+    )
 }

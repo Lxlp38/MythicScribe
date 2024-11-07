@@ -1,59 +1,59 @@
 {
     "DOWN": {
-        "Description": ""
+        "description": ""
     },
     "EAST": {
-        "Description": ""
+        "description": ""
     },
     "EAST_NORTH_EAST": {
-        "Description": ""
+        "description": ""
     },
     "EAST_SOUTH_EAST": {
-        "Description": ""
+        "description": ""
     },
     "NORTH": {
-        "Description": ""
+        "description": ""
     },
     "NORTH_EAST": {
-        "Description": ""
+        "description": ""
     },
     "NORTH_NORTH_EAST": {
-        "Description": ""
+        "description": ""
     },
     "NORTH_NORTH_WEST": {
-        "Description": ""
+        "description": ""
     },
     "NORTH_WEST": {
-        "Description": ""
+        "description": ""
     },
     "SELF": {
-        "Description": ""
+        "description": ""
     },
     "SOUTH": {
-        "Description": ""
+        "description": ""
     },
     "SOUTH_EAST": {
-        "Description": ""
+        "description": ""
     },
     "SOUTH_SOUTH_EAST": {
-        "Description": ""
+        "description": ""
     },
     "SOUTH_SOUTH_WEST": {
-        "Description": ""
+        "description": ""
     },
     "SOUTH_WEST": {
-        "Description": ""
+        "description": ""
     },
     "UP": {
-        "Description": ""
+        "description": ""
     },
     "WEST": {
-        "Description": ""
+        "description": ""
     },
     "WEST_NORTH_WEST": {
-        "Description": ""
+        "description": ""
     },
     "WEST_SOUTH_WEST": {
-        "Description": ""
+        "description": ""
     }
 }

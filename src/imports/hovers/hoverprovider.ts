@@ -1,12 +1,15 @@
 import * as vscode from 'vscode';
-import { keyAliases, ObjectType, MetaskillFileObjects, Mechanic, Attribute, FileObjectMap, MobFileObjects, ItemFileObjects, FileObjectTypes } from '../../objectInfos';
+import { keyAliases, ObjectType, Mechanic, Attribute, FileObjectMap, FileObjectTypes } from '../../objectInfos';
+import { ItemFileObjects } from '../../schemas/itemfileObjects';
+import { MobFileObjects } from '../../schemas/mobFileObjects';
+import { MetaskillFileObjects } from '../../schemas/metaskillFileObjects';
 import * as yamlutils from '../utils/yamlutils';
 import { isItemFile, isMetaskillFile, isMobFile } from '../utils/configutils';
 import { getCursorSkills, getCursorCondition } from '../utils/cursorutils';
 
 export function hoverProvider(){
 
-    const hoverProvider = vscode.languages.registerHoverProvider('mythicscript', {
+    return vscode.languages.registerHoverProvider('mythicscript', {
         provideHover(document: vscode.TextDocument, position: vscode.Position) {
         
             const keys = yamlutils.getParentKeys(document, position);
@@ -53,9 +56,6 @@ export function hoverProvider(){
             return null;
         }
     });
-
-    return hoverProvider;
-
 }
 
 
@@ -146,7 +146,6 @@ ${description ? description : "No description provided."}`)
     hoverContent.isTrusted = true;
     return new vscode.Hover(hoverContent);
 }
-
 
 
 function getHoverForFileElement(keys: string[], type: FileObjectMap, link: string | undefined) : vscode.Hover | undefined {

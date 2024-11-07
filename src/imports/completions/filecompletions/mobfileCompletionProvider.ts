@@ -1,18 +1,19 @@
 import * as vscode from 'vscode';
-import { MobFileObjects } from '../../../objectInfos';
-import { enableFileSpecificSuggestions } from '../../utils/configutils';
-import { fileCompletions } from '../../utils/completionhelper';
+import { MobFileObjects } from '../../../schemas/mobFileObjects';
+import { fileCompletions, getKeyObjectCompletions } from '../../utils/completionhelper';
+import { getParentKeys, isKey } from '../../utils/yamlutils';
 
-export function mobFileCompletionProvider(){
-    const MobFileCompletionProvider = vscode.languages.registerCompletionItemProvider(
+export function mobFileCompletionProvider() {
+    return vscode.languages.registerCompletionItemProvider(
         'mythicscript',
         {
-            async provideCompletionItems(document: vscode.TextDocument, position: vscode.Position) {
-    
-                if (enableFileSpecificSuggestions() === false) {
-                    return undefined;
+            async provideCompletionItems(document: vscode.TextDocument, position: vscode.Position, _token: vscode.CancellationToken, context: vscode.CompletionContext) {
+
+                if (context.triggerKind === vscode.CompletionTriggerKind.Invoke && isKey(document, position.line)) {
+                    const keys = getParentKeys(document, position, true).reverse();
+                    return getKeyObjectCompletions(keys.slice(1), MobFileObjects);
                 }
-    
+
                 if (!/^\s*$/.test(document.lineAt(position.line).text)) {
                     return undefined;
                 }
@@ -20,9 +21,6 @@ export function mobFileCompletionProvider(){
                 return fileCompletions(document, position, MobFileObjects);
             }
         }, "\n"
-    );
-    
-    return MobFileCompletionProvider;
-
+    )
 }
 

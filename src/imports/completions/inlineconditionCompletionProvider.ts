@@ -7,7 +7,7 @@ import { addMechanicCompletions, checkShouldComplete } from '../utils/completion
 
 export function inlineConditionCompletionProvider() {
 
-    const inlineConditionCompletionProvider = vscode.languages.registerCompletionItemProvider(
+    return vscode.languages.registerCompletionItemProvider(
         'mythicscript',
         {
             async provideCompletionItems(document: vscode.TextDocument, position: vscode.Position, _token: vscode.CancellationToken, context: vscode.CompletionContext) {
@@ -69,6 +69,5 @@ export function inlineConditionCompletionProvider() {
                 return completionItems;
             }
         }, "?", "!", "~"
-    );
-    return inlineConditionCompletionProvider;
+    )
 }

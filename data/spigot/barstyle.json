@@ -1,17 +1,17 @@
 {
     "SEGMENTED_10": {
-        "Description": "Splits the boss bar into 10 segments"
+        "description": "Splits the boss bar into 10 segments"
     },
     "SEGMENTED_12": {
-        "Description": "Splits the boss bar into 12 segments"
+        "description": "Splits the boss bar into 12 segments"
     },
     "SEGMENTED_20": {
-        "Description": "Splits the boss bar into 20 segments"
+        "description": "Splits the boss bar into 20 segments"
     },
     "SEGMENTED_6": {
-        "Description": "Splits the boss bar into 6 segments"
+        "description": "Splits the boss bar into 6 segments"
     },
     "SOLID": {
-        "Description": "Makes the boss bar solid (no segments)"
+        "description": "Makes the boss bar solid (no segments)"
     }
 }
