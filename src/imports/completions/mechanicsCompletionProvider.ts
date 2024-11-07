@@ -34,7 +34,7 @@ export function mechanicCompletionProvider(){
     
                 if (context.triggerCharacter === undefined) {
                     const charBefore = document.getText(new vscode.Range(position.translate(0, -1), position));
-                    if (charBefore == '-') {
+                    if (charBefore === '-') {
                         space = " ";
                     }
                     else {
@@ -50,7 +50,7 @@ export function mechanicCompletionProvider(){
                         const completionItem = new vscode.CompletionItem(name, vscode.CompletionItemKind.Function);
                         completionItem.detail = `${item.description}`;
                         completionItem.kind = vscode.CompletionItemKind.Function;
-                        if (!item.attributes && item.extends != "SkillMechanic") {
+                        if (!item.attributes && item.extends !== "SkillMechanic") {
                             completionItem.insertText = new vscode.SnippetString(space + name);
                         }
                         else {

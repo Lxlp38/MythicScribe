@@ -46,7 +46,7 @@ export function addMechanicCompletions(target: MechanicDataset, completionItems:
 export function fileCompletions(document: vscode.TextDocument, position: vscode.Position, objectmap: FileObjectMap): vscode.CompletionItem[] | undefined {
     const keys = yamlutils.getParentKeys(document, position).reverse();
 
-    if (keys.length == 0) {
+    if (keys.length === 0) {
         return undefined;
     }
 
@@ -73,7 +73,7 @@ export function fileCompletions(document: vscode.TextDocument, position: vscode.
 }
 
 function fileCompletionFindNodesOnLevel(objectmap: FileObjectMap, keys: string[], level: number): [FileObjectMap | FileObject, number] | null {
-    if (keys.length == 0) {
+    if (keys.length === 0) {
         return [objectmap, level];
     }
 
@@ -104,16 +104,16 @@ function fileCompletionForFileObjectMap(objectMap: FileObjectMap, indentation: s
     Object.entries(objectMap).forEach(([key, value]) => {
         const completionItem = new vscode.CompletionItem(key, vscode.CompletionItemKind.File);
         completionItem.kind = vscode.CompletionItemKind.File;
-        if (value.type == FileObjectTypes.LIST) {
+        if (value.type === FileObjectTypes.LIST) {
             completionItem.insertText = new vscode.SnippetString(indentation + key + ":\n" + indentation + "- $0");
         }
-        else if (value.type == FileObjectTypes.BOOLEAN) {
+        else if (value.type === FileObjectTypes.BOOLEAN) {
             completionItem.insertText = new vscode.SnippetString(indentation + key + ": ${1|true,false|}");
         }
-        else if (value.type == FileObjectTypes.KEY) {
+        else if (value.type === FileObjectTypes.KEY) {
             completionItem.insertText = new vscode.SnippetString(indentation + key + ":\n" + indentation + "  $1");
         }
-        else if (value.type == FileObjectTypes.KEY_LIST) {
+        else if (value.type === FileObjectTypes.KEY_LIST) {
             completionItem.insertText = new vscode.SnippetString(indentation + key + ":\n" + indentation + "  $1: $2");
         }
         else if (value.type === FileObjectTypes.ENUM) {

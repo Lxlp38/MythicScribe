@@ -34,7 +34,7 @@ export function hoverProvider(){
                 if (!obj) {
                     return null;
                 }
-                if (type == ObjectType.ATTRIBUTE) {
+                if (type === ObjectType.ATTRIBUTE) {
                     return getHoverForAttribute(obj);
                 } 
     
@@ -46,7 +46,7 @@ export function hoverProvider(){
                 if (!obj) {
                     return null;
                 }
-                if (type == ObjectType.ATTRIBUTE) {
+                if (type === ObjectType.ATTRIBUTE) {
                     return getHoverForAttribute(obj);
                 } 
 
