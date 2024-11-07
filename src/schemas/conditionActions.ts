@@ -11,5 +11,5 @@ export const ConditionActions: { [key: string]: ConditionTypes } = {
 	"castinstead": ConditionTypes.METASKILL,
 	"orElseCast": ConditionTypes.METASKILL,
 	"power": ConditionTypes.FLOAT
-}
+};
 

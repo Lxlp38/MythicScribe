@@ -11,7 +11,7 @@ function getUpstreamKey(document: vscode.TextDocument, lineIndex: number): strin
 }
 function getParentKeys(document: vscode.TextDocument, position: vscode.Position, getLineKey: boolean = false): string[] {
     const keys: string[] = [];
-    const lineIndex = position.line
+    const lineIndex = position.line;
 	
 	let currentIndent = getIndentation(document.lineAt(lineIndex).text);  // Get the indentation of the current line
 
@@ -61,7 +61,7 @@ function isKey(document: vscode.TextDocument, lineIndex: number): boolean {
 		return true;
 	}
 
-	return false
+	return false;
 
 }
 

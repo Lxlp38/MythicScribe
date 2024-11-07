@@ -69,5 +69,5 @@ export function inlineConditionCompletionProvider() {
                 return completionItems;
             }
         }, "?", "!", "~"
-    )
+    );
 }

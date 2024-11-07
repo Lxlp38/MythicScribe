@@ -20,7 +20,7 @@ export function checkShouldComplete(document: vscode.TextDocument, position: vsc
     if (symbol.includes(charBefore0)) {
         return true;
     }
-    return false
+    return false;
 
 }
 
@@ -83,7 +83,7 @@ function fileCompletionFindNodesOnLevel(objectmap: FileObjectMap, keys: string[]
 
     if (selectedObject) {
         if (selectedObject.keys) {
-            const result = fileCompletionFindNodesOnLevel(selectedObject.keys, keys.slice(1), level+1)
+            const result = fileCompletionFindNodesOnLevel(selectedObject.keys, keys.slice(1), level+1);
             return result;
         }
         if (selectedObject.type === FileObjectTypes.KEY_LIST) {

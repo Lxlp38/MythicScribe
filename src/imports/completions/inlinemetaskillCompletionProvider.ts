@@ -33,5 +33,5 @@ export function inlineMetaskillCompletionProvider(){
                 return [completionItem];
             }
         }, "["
-    )
+    );
 }

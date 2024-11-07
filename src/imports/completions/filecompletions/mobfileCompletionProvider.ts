@@ -21,6 +21,6 @@ export function mobFileCompletionProvider() {
                 return fileCompletions(document, position, MobFileObjects);
             }
         }, "\n"
-    )
+    );
 }
 

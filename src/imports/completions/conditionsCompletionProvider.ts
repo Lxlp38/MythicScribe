@@ -26,7 +26,7 @@ export function conditionCompletionProvider(){
                 let space = " ";
     
                 const completionItems: vscode.CompletionItem[] = [];
-                let conditionAction = null
+                let conditionAction = null;
                 const lastIsConditionAction = Object.keys(ConditionActions).includes(yamlutils.getWordBeforePosition(document, position));
                 if (lastIsConditionAction) {
                     conditionAction = yamlutils.getWordBeforePosition(document, position);
@@ -34,7 +34,7 @@ export function conditionCompletionProvider(){
                     return completionItems;
                 }
 
-                const condact = fetchConditionActions()
+                const condact = fetchConditionActions();
                 if (!["- ", "( ", "| ", "& "].includes(charBefore)) {
                     if ([") ", "} "].includes(charBefore) || /(\w+({.*})?\s)$/.test(lineBefore)) {
 
@@ -77,7 +77,7 @@ export function conditionCompletionProvider(){
                 return completionItems;
             }
         }, "-", " ", "(", "|", "&", ")"
-    )
+    );
 } 
 
 
@@ -106,6 +106,6 @@ function addConditionActionsToConditionLine(completionItems : vscode.CompletionI
 }
 
 function fetchConditionActions() : string[] {
-    const condact = Object.keys(ConditionActions)
+    const condact = Object.keys(ConditionActions);
     return condact;
 }
