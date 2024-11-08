@@ -65,7 +65,7 @@ export async function loadDatasets(context: vscode.ExtensionContext) {
 function getVersionSpecificDatasetPath(specificpath: string): string {
 	if (specificpath.includes('/')) {
 		const version = config.minecraftVersion();
-		return path.join(__dirname, '../data/versions/', version as string , specificpath)
+		return path.join(__dirname, '../data/versions/', version as string , specificpath);
 	}
 	return path.join(__dirname, '../data/', specificpath);
 }
