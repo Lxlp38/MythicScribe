@@ -26,7 +26,7 @@ export const extensionEnabler = vscode.window.onDidChangeActiveTextEditor(editor
 });
 
 export async function checkIfMythicScriptFile(document: vscode.TextDocument) {
-    if (document.languageId != 'yaml') return;
+    if (document.languageId !== 'yaml') return;
     if (checkEnabled(document)){
         vscode.languages.setTextDocumentLanguage(document, 'mythicscript');
     }

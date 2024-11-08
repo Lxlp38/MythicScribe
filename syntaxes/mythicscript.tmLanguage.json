@@ -183,8 +183,12 @@
                     "include": "#placeholder"
                 },
                 {
+                    "name": "constant.character.escape.mythicscript",
+                    "match": "(?<==)([\\w:]+)(?={)"
+                },
+                {
                     "name": "string.unquoted.mythicscript",
-                    "match": "(?<=[=,])[^\\[\\n]+?(?=[\\n\\[,;\\}])"
+                    "match": "(?<=[=,])[^\\[\\n]+?(?=[\\n\\[,;\\{\\}])"
                 }
             ]
         },

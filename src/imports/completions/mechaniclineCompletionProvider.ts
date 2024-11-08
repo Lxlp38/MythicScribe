@@ -23,7 +23,7 @@ export function mechaniclineCompletionProvider(){
                 }
     
                 const charBefore = document.getText(new vscode.Range(position.translate(0, -1), position));
-                if (charBefore != ' ') {
+                if (charBefore !== ' ') {
                     return undefined;
                 }
     

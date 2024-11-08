@@ -5,6 +5,8 @@
 ### Added
 - Autocompletions on invocations for file enums (For instance, now an Item File's Id will complete as a list of material also when pression ctrl + space)
 
+### Fixed
+- Curly brackets autoclosing too late inside attribute values
 
 ## [1.0.1]
 
