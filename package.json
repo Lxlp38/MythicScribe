@@ -33,6 +33,13 @@
   ],
   "main": "./out/MythicScribe.js",
   "contributes": {
+    "configurationDefaults": {
+      "[mythicscript]": {
+        "editor.defaultFormatter": "Lxlp.mythicscribe",
+        "editor.tabSize": 2,
+        "editor.insertSpaces": true
+      }
+    },
     "languages": [
       {
         "id": "mythicscript",

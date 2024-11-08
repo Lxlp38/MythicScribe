@@ -38,7 +38,7 @@ export function activate(context: vscode.ExtensionContext) {
 
 	ctx = context;
 
-	loadDatasets(context)
+	loadDatasets(context);
 
 	// Config
 	context.subscriptions.push(config.extensionEnabler);
@@ -81,7 +81,7 @@ export function enableSubscriptions() {
 		mechanicCompletionProvider(),
 		targeterCompletionProvider(),
 		hoverProvider(),
-	]
+	];
 
 	// Completions	
 
