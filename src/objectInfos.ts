@@ -12,7 +12,6 @@ export enum ObjectType {
 	TRIGGER = 'Trigger',
 }
 
-
 export interface Attribute {
 	name: string[];
 	type: string;
@@ -178,7 +177,7 @@ export const EnumInfo = {
 	},
 
 	[EnumType.SPIGOTATTRIBUTEOPERATION]: {
-		path: "spigot/attributesoperations.json",
+		path: "attributesoperations.json",
 		dataset: {},
 		commalist: ""
 	},

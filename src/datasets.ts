@@ -62,6 +62,14 @@ export async function loadDatasets(context: vscode.ExtensionContext) {
 	return;
 }
 
+function getVersionSpecificDatasetPath(specificpath: string): string {
+	if (specificpath.includes('/')) {
+		const version = config.minecraftVersion();
+		return path.join(__dirname, '../data/versions/', version as string , specificpath)
+	}
+	return path.join(__dirname, '../data/', specificpath);
+}
+
 function loadLocalDatasets() {
 	// Load datasets from local files
 	ObjectInfo[ObjectType.MECHANIC].dataset = loadLocalMechanicDataset(mechanicsDatasetPath);
@@ -69,8 +77,10 @@ function loadLocalDatasets() {
 	ObjectInfo[ObjectType.CONDITION].dataset = loadLocalMechanicDataset(conditionsDatasetPath);
 	ObjectInfo[ObjectType.TRIGGER].dataset = loadLocalMechanicDataset(triggersDatasetPath);
 
+
+
 	for (const key of Object.keys(EnumType) as Array<keyof typeof EnumType>) {
-		EnumInfo[EnumType[key]].dataset = loadLocalEnumDataset(path.join(__dirname, '../data/', EnumInfo[EnumType[key]].path));
+		EnumInfo[EnumType[key]].dataset = loadLocalEnumDataset(getVersionSpecificDatasetPath(EnumInfo[EnumType[key]].path));
 	}
 }
 
@@ -136,7 +146,7 @@ function loadGithubDatasets(context: vscode.ExtensionContext) {
 	ObjectInfo[ObjectType.TRIGGER].dataset = globalState.get('triggersDataset') || loadLocalMechanicDataset(triggersDatasetPath);
 
 	for (const key of Object.keys(EnumType) as Array<keyof typeof EnumType>) {
-		EnumInfo[EnumType[key]].dataset = globalState.get(EnumInfo[EnumType[key]].path) || loadLocalEnumDataset(path.join(__dirname, '../data/', EnumInfo[EnumType[key]].path));
+		EnumInfo[EnumType[key]].dataset = globalState.get(EnumInfo[EnumType[key]].path) || loadLocalEnumDataset(getVersionSpecificDatasetPath(EnumInfo[EnumType[key]].path));
 	}
 
 }
@@ -145,7 +155,6 @@ function loadGithubDatasets(context: vscode.ExtensionContext) {
 export function updateDatasets() {
 	updateDatasetMaps();
 	updateDatasetEnums();
-
 }
 
 function updateDatasetMaps() {

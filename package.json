@@ -94,6 +94,20 @@
           "default": true,
           "description": "Whether the extension should automatically convert the document types from yaml to MythicScript if it's recognized as a MythicMobs file. This does not change the file or its extension in any way, while also enabling mythic-specific syntax highlighting."
         },
+        "MythicScribe.minecraftVersion": {
+          "title": "Minecraft Version",
+          "type": "string",
+          "enum": [
+            "latest",
+            "1.21.1",
+            "1.20.4",
+            "1.20.2",
+            "1.20.1",
+            "1.19.4"
+          ],
+          "default": "latest",
+          "description": "The version of Minecraft that the extension should use for autocompletions."
+        },
         "MythicScribe.regexForMythicmobsFile": {
           "title": "Regex for MythicMobs File",
           "type": "string",

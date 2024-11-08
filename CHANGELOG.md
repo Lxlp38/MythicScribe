@@ -3,8 +3,17 @@
 ## [Unreleased]
 
 ### Added
-- Autocompletions on invocations for file enums (For instance, now an Item File's Id will complete as a list of material also when pression ctrl + space)
+- Autocompletions on invocations for file enums (For instance, now an Item File's Id will complete as a list of materials also when pression ctrl + space)
 - DamageCause completion for DamageModifiers
+- Config to set which datasets to use, based on minecraft version (apply to spigot ones and sounds)
+  - `MythicScribe.minecraftVersion` is the config
+- Datasets for minecraft versions
+  - latest
+  - 1.19.4
+  - 1.20.1
+  - 1.20.2
+  - 1.20.4
+  - 1.21.1
 
 ### Changed
 - Default setting for mythicscript language regarding editor.tabSize (now 2) and editor.insertSpaces (now true)

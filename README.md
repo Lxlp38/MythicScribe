@@ -60,6 +60,7 @@ This extension contributes the following settings:
 * `MythicScribe.regexForItemFile`: Determines which files are recognized as Items files based on a custom regex
 * `MythicScribe.enableMythicScriptSyntax`: Whether the extension should automatically convert the document types from yaml to MythicScript if it's recognized as a MythicMobs file. This does not change the file or its extension in any way, while also enabling mythic-specific syntax highlighting
 * `MythicScribe.datasetSource`: Which dataset to use. `GitHub` or `Local`
+* `MythicScribe.minecraftVersion`: Specify the minecraft version whose datasets to use 
 * `MythicScribe.enableShortcuts`: Whether the Shortcuts feature should be active
 * `MythicScribe.enableEmptyBracketsAutomaticRemoval`: Enable the removal of empty curly brackets `{}` by moving the cursor past them
 * `MythicScribe.enableFileSpecificSuggestions`: Whether file specific suggestions (metaskill files, mob files) should be shown

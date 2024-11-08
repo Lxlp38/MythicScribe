@@ -1,0 +1,4379 @@
+{
+    "ACACIA_BOAT": {
+        "description": ""
+    },
+    "ACACIA_BUTTON": {
+        "description": "BlockData: Switch"
+    },
+    "ACACIA_CHEST_BOAT": {
+        "description": ""
+    },
+    "ACACIA_DOOR": {
+        "description": "BlockData: Door"
+    },
+    "ACACIA_FENCE": {
+        "description": "BlockData: Fence"
+    },
+    "ACACIA_FENCE_GATE": {
+        "description": "BlockData: Gate"
+    },
+    "ACACIA_HANGING_SIGN": {
+        "description": "BlockData: HangingSign"
+    },
+    "ACACIA_LEAVES": {
+        "description": "BlockData: Leaves"
+    },
+    "ACACIA_LOG": {
+        "description": "BlockData: Orientable"
+    },
+    "ACACIA_PLANKS": {
+        "description": ""
+    },
+    "ACACIA_PRESSURE_PLATE": {
+        "description": "BlockData: Powerable"
+    },
+    "ACACIA_SAPLING": {
+        "description": "BlockData: Sapling"
+    },
+    "ACACIA_SIGN": {
+        "description": "BlockData: Sign"
+    },
+    "ACACIA_SLAB": {
+        "description": "BlockData: Slab"
+    },
+    "ACACIA_STAIRS": {
+        "description": "BlockData: Stairs"
+    },
+    "ACACIA_TRAPDOOR": {
+        "description": "BlockData: TrapDoor"
+    },
+    "ACACIA_WALL_HANGING_SIGN": {
+        "description": "BlockData: WallHangingSign"
+    },
+    "ACACIA_WALL_SIGN": {
+        "description": "BlockData: WallSign"
+    },
+    "ACACIA_WOOD": {
+        "description": "BlockData: Orientable"
+    },
+    "ACTIVATOR_RAIL": {
+        "description": "BlockData: RedstoneRail"
+    },
+    "AIR": {
+        "description": ""
+    },
+    "ALLAY_SPAWN_EGG": {
+        "description": ""
+    },
+    "ALLIUM": {
+        "description": ""
+    },
+    "AMETHYST_BLOCK": {
+        "description": ""
+    },
+    "AMETHYST_CLUSTER": {
+        "description": "BlockData: AmethystCluster"
+    },
+    "AMETHYST_SHARD": {
+        "description": ""
+    },
+    "ANCIENT_DEBRIS": {
+        "description": ""
+    },
+    "ANDESITE": {
+        "description": ""
+    },
+    "ANDESITE_SLAB": {
+        "description": "BlockData: Slab"
+    },
+    "ANDESITE_STAIRS": {
+        "description": "BlockData: Stairs"
+    },
+    "ANDESITE_WALL": {
+        "description": "BlockData: Wall"
+    },
+    "ANGLER_POTTERY_SHERD": {
+        "description": ""
+    },
+    "ANVIL": {
+        "description": "BlockData: Directional"
+    },
+    "APPLE": {
+        "description": ""
+    },
+    "ARCHER_POTTERY_SHERD": {
+        "description": ""
+    },
+    "ARMOR_STAND": {
+        "description": ""
+    },
+    "ARMS_UP_POTTERY_SHERD": {
+        "description": ""
+    },
+    "ARROW": {
+        "description": ""
+    },
+    "ATTACHED_MELON_STEM": {
+        "description": "BlockData: Directional"
+    },
+    "ATTACHED_PUMPKIN_STEM": {
+        "description": "BlockData: Directional"
+    },
+    "AXOLOTL_BUCKET": {
+        "description": ""
+    },
+    "AXOLOTL_SPAWN_EGG": {
+        "description": ""
+    },
+    "AZALEA": {
+        "description": ""
+    },
+    "AZALEA_LEAVES": {
+        "description": "BlockData: Leaves"
+    },
+    "AZURE_BLUET": {
+        "description": ""
+    },
+    "BAKED_POTATO": {
+        "description": ""
+    },
+    "BAMBOO": {
+        "description": "BlockData: Bamboo"
+    },
+    "BAMBOO_BLOCK": {
+        "description": "BlockData: Orientable"
+    },
+    "BAMBOO_BUTTON": {
+        "description": "BlockData: Switch"
+    },
+    "BAMBOO_CHEST_RAFT": {
+        "description": ""
+    },
+    "BAMBOO_DOOR": {
+        "description": "BlockData: Door"
+    },
+    "BAMBOO_FENCE": {
+        "description": "BlockData: Fence"
+    },
+    "BAMBOO_FENCE_GATE": {
+        "description": "BlockData: Gate"
+    },
+    "BAMBOO_HANGING_SIGN": {
+        "description": "BlockData: HangingSign"
+    },
+    "BAMBOO_MOSAIC": {
+        "description": ""
+    },
+    "BAMBOO_MOSAIC_SLAB": {
+        "description": "BlockData: Slab"
+    },
+    "BAMBOO_MOSAIC_STAIRS": {
+        "description": "BlockData: Stairs"
+    },
+    "BAMBOO_PLANKS": {
+        "description": ""
+    },
+    "BAMBOO_PRESSURE_PLATE": {
+        "description": "BlockData: Powerable"
+    },
+    "BAMBOO_RAFT": {
+        "description": ""
+    },
+    "BAMBOO_SAPLING": {
+        "description": ""
+    },
+    "BAMBOO_SIGN": {
+        "description": "BlockData: Sign"
+    },
+    "BAMBOO_SLAB": {
+        "description": "BlockData: Slab"
+    },
+    "BAMBOO_STAIRS": {
+        "description": "BlockData: Stairs"
+    },
+    "BAMBOO_TRAPDOOR": {
+        "description": "BlockData: TrapDoor"
+    },
+    "BAMBOO_WALL_HANGING_SIGN": {
+        "description": "BlockData: WallHangingSign"
+    },
+    "BAMBOO_WALL_SIGN": {
+        "description": "BlockData: WallSign"
+    },
+    "BARREL": {
+        "description": "BlockData: Barrel"
+    },
+    "BARRIER": {
+        "description": "BlockData: Waterlogged"
+    },
+    "BASALT": {
+        "description": "BlockData: Orientable"
+    },
+    "BAT_SPAWN_EGG": {
+        "description": ""
+    },
+    "BEACON": {
+        "description": ""
+    },
+    "BEDROCK": {
+        "description": ""
+    },
+    "BEEF": {
+        "description": ""
+    },
+    "BEEHIVE": {
+        "description": "BlockData: Beehive"
+    },
+    "BEETROOT": {
+        "description": ""
+    },
+    "BEETROOTS": {
+        "description": "BlockData: Ageable"
+    },
+    "BEETROOT_SEEDS": {
+        "description": ""
+    },
+    "BEETROOT_SOUP": {
+        "description": ""
+    },
+    "BEE_NEST": {
+        "description": "BlockData: Beehive"
+    },
+    "BEE_SPAWN_EGG": {
+        "description": ""
+    },
+    "BELL": {
+        "description": "BlockData: Bell"
+    },
+    "BIG_DRIPLEAF": {
+        "description": "BlockData: BigDripleaf"
+    },
+    "BIG_DRIPLEAF_STEM": {
+        "description": "BlockData: Dripleaf"
+    },
+    "BIRCH_BOAT": {
+        "description": ""
+    },
+    "BIRCH_BUTTON": {
+        "description": "BlockData: Switch"
+    },
+    "BIRCH_CHEST_BOAT": {
+        "description": ""
+    },
+    "BIRCH_DOOR": {
+        "description": "BlockData: Door"
+    },
+    "BIRCH_FENCE": {
+        "description": "BlockData: Fence"
+    },
+    "BIRCH_FENCE_GATE": {
+        "description": "BlockData: Gate"
+    },
+    "BIRCH_HANGING_SIGN": {
+        "description": "BlockData: HangingSign"
+    },
+    "BIRCH_LEAVES": {
+        "description": "BlockData: Leaves"
+    },
+    "BIRCH_LOG": {
+        "description": "BlockData: Orientable"
+    },
+    "BIRCH_PLANKS": {
+        "description": ""
+    },
+    "BIRCH_PRESSURE_PLATE": {
+        "description": "BlockData: Powerable"
+    },
+    "BIRCH_SAPLING": {
+        "description": "BlockData: Sapling"
+    },
+    "BIRCH_SIGN": {
+        "description": "BlockData: Sign"
+    },
+    "BIRCH_SLAB": {
+        "description": "BlockData: Slab"
+    },
+    "BIRCH_STAIRS": {
+        "description": "BlockData: Stairs"
+    },
+    "BIRCH_TRAPDOOR": {
+        "description": "BlockData: TrapDoor"
+    },
+    "BIRCH_WALL_HANGING_SIGN": {
+        "description": "BlockData: WallHangingSign"
+    },
+    "BIRCH_WALL_SIGN": {
+        "description": "BlockData: WallSign"
+    },
+    "BIRCH_WOOD": {
+        "description": "BlockData: Orientable"
+    },
+    "BLACKSTONE": {
+        "description": ""
+    },
+    "BLACKSTONE_SLAB": {
+        "description": "BlockData: Slab"
+    },
+    "BLACKSTONE_STAIRS": {
+        "description": "BlockData: Stairs"
+    },
+    "BLACKSTONE_WALL": {
+        "description": "BlockData: Wall"
+    },
+    "BLACK_BANNER": {
+        "description": "BlockData: Rotatable"
+    },
+    "BLACK_BED": {
+        "description": "BlockData: Bed"
+    },
+    "BLACK_CANDLE": {
+        "description": "BlockData: Candle"
+    },
+    "BLACK_CANDLE_CAKE": {
+        "description": "BlockData: Lightable"
+    },
+    "BLACK_CARPET": {
+        "description": ""
+    },
+    "BLACK_CONCRETE": {
+        "description": ""
+    },
+    "BLACK_CONCRETE_POWDER": {
+        "description": ""
+    },
+    "BLACK_DYE": {
+        "description": ""
+    },
+    "BLACK_GLAZED_TERRACOTTA": {
+        "description": "BlockData: Directional"
+    },
+    "BLACK_SHULKER_BOX": {
+        "description": "BlockData: Directional"
+    },
+    "BLACK_STAINED_GLASS": {
+        "description": ""
+    },
+    "BLACK_STAINED_GLASS_PANE": {
+        "description": "BlockData: GlassPane"
+    },
+    "BLACK_TERRACOTTA": {
+        "description": ""
+    },
+    "BLACK_WALL_BANNER": {
+        "description": "BlockData: Directional"
+    },
+    "BLACK_WOOL": {
+        "description": ""
+    },
+    "BLADE_POTTERY_SHERD": {
+        "description": ""
+    },
+    "BLAST_FURNACE": {
+        "description": "BlockData: Furnace"
+    },
+    "BLAZE_POWDER": {
+        "description": ""
+    },
+    "BLAZE_ROD": {
+        "description": ""
+    },
+    "BLAZE_SPAWN_EGG": {
+        "description": ""
+    },
+    "BLUE_BANNER": {
+        "description": "BlockData: Rotatable"
+    },
+    "BLUE_BED": {
+        "description": "BlockData: Bed"
+    },
+    "BLUE_CANDLE": {
+        "description": "BlockData: Candle"
+    },
+    "BLUE_CANDLE_CAKE": {
+        "description": "BlockData: Lightable"
+    },
+    "BLUE_CARPET": {
+        "description": ""
+    },
+    "BLUE_CONCRETE": {
+        "description": ""
+    },
+    "BLUE_CONCRETE_POWDER": {
+        "description": ""
+    },
+    "BLUE_DYE": {
+        "description": ""
+    },
+    "BLUE_GLAZED_TERRACOTTA": {
+        "description": "BlockData: Directional"
+    },
+    "BLUE_ICE": {
+        "description": ""
+    },
+    "BLUE_ORCHID": {
+        "description": ""
+    },
+    "BLUE_SHULKER_BOX": {
+        "description": "BlockData: Directional"
+    },
+    "BLUE_STAINED_GLASS": {
+        "description": ""
+    },
+    "BLUE_STAINED_GLASS_PANE": {
+        "description": "BlockData: GlassPane"
+    },
+    "BLUE_TERRACOTTA": {
+        "description": ""
+    },
+    "BLUE_WALL_BANNER": {
+        "description": "BlockData: Directional"
+    },
+    "BLUE_WOOL": {
+        "description": ""
+    },
+    "BONE": {
+        "description": ""
+    },
+    "BONE_BLOCK": {
+        "description": "BlockData: Orientable"
+    },
+    "BONE_MEAL": {
+        "description": ""
+    },
+    "BOOK": {
+        "description": ""
+    },
+    "BOOKSHELF": {
+        "description": ""
+    },
+    "BOW": {
+        "description": ""
+    },
+    "BOWL": {
+        "description": ""
+    },
+    "BRAIN_CORAL": {
+        "description": "BlockData: Waterlogged"
+    },
+    "BRAIN_CORAL_BLOCK": {
+        "description": ""
+    },
+    "BRAIN_CORAL_FAN": {
+        "description": "BlockData: Waterlogged"
+    },
+    "BRAIN_CORAL_WALL_FAN": {
+        "description": "BlockData: CoralWallFan"
+    },
+    "BREAD": {
+        "description": ""
+    },
+    "BREEZE_SPAWN_EGG": {
+        "description": ""
+    },
+    "BREWER_POTTERY_SHERD": {
+        "description": ""
+    },
+    "BREWING_STAND": {
+        "description": "BlockData: BrewingStand"
+    },
+    "BRICK": {
+        "description": ""
+    },
+    "BRICKS": {
+        "description": ""
+    },
+    "BRICK_SLAB": {
+        "description": "BlockData: Slab"
+    },
+    "BRICK_STAIRS": {
+        "description": "BlockData: Stairs"
+    },
+    "BRICK_WALL": {
+        "description": "BlockData: Wall"
+    },
+    "BROWN_BANNER": {
+        "description": "BlockData: Rotatable"
+    },
+    "BROWN_BED": {
+        "description": "BlockData: Bed"
+    },
+    "BROWN_CANDLE": {
+        "description": "BlockData: Candle"
+    },
+    "BROWN_CANDLE_CAKE": {
+        "description": "BlockData: Lightable"
+    },
+    "BROWN_CARPET": {
+        "description": ""
+    },
+    "BROWN_CONCRETE": {
+        "description": ""
+    },
+    "BROWN_CONCRETE_POWDER": {
+        "description": ""
+    },
+    "BROWN_DYE": {
+        "description": ""
+    },
+    "BROWN_GLAZED_TERRACOTTA": {
+        "description": "BlockData: Directional"
+    },
+    "BROWN_MUSHROOM": {
+        "description": ""
+    },
+    "BROWN_MUSHROOM_BLOCK": {
+        "description": "BlockData: MultipleFacing"
+    },
+    "BROWN_SHULKER_BOX": {
+        "description": "BlockData: Directional"
+    },
+    "BROWN_STAINED_GLASS": {
+        "description": ""
+    },
+    "BROWN_STAINED_GLASS_PANE": {
+        "description": "BlockData: GlassPane"
+    },
+    "BROWN_TERRACOTTA": {
+        "description": ""
+    },
+    "BROWN_WALL_BANNER": {
+        "description": "BlockData: Directional"
+    },
+    "BROWN_WOOL": {
+        "description": ""
+    },
+    "BRUSH": {
+        "description": ""
+    },
+    "BUBBLE_COLUMN": {
+        "description": "BlockData: BubbleColumn"
+    },
+    "BUBBLE_CORAL": {
+        "description": "BlockData: Waterlogged"
+    },
+    "BUBBLE_CORAL_BLOCK": {
+        "description": ""
+    },
+    "BUBBLE_CORAL_FAN": {
+        "description": "BlockData: Waterlogged"
+    },
+    "BUBBLE_CORAL_WALL_FAN": {
+        "description": "BlockData: CoralWallFan"
+    },
+    "BUCKET": {
+        "description": ""
+    },
+    "BUDDING_AMETHYST": {
+        "description": ""
+    },
+    "BUNDLE": {
+        "description": ""
+    },
+    "BURN_POTTERY_SHERD": {
+        "description": ""
+    },
+    "CACTUS": {
+        "description": "BlockData: Ageable"
+    },
+    "CAKE": {
+        "description": "BlockData: Cake"
+    },
+    "CALCITE": {
+        "description": ""
+    },
+    "CALIBRATED_SCULK_SENSOR": {
+        "description": "BlockData: CalibratedSculkSensor"
+    },
+    "CAMEL_SPAWN_EGG": {
+        "description": ""
+    },
+    "CAMPFIRE": {
+        "description": "BlockData: Campfire"
+    },
+    "CANDLE": {
+        "description": "BlockData: Candle"
+    },
+    "CANDLE_CAKE": {
+        "description": "BlockData: Lightable"
+    },
+    "CARROT": {
+        "description": ""
+    },
+    "CARROTS": {
+        "description": "BlockData: Ageable"
+    },
+    "CARROT_ON_A_STICK": {
+        "description": ""
+    },
+    "CARTOGRAPHY_TABLE": {
+        "description": ""
+    },
+    "CARVED_PUMPKIN": {
+        "description": "BlockData: Directional"
+    },
+    "CAT_SPAWN_EGG": {
+        "description": ""
+    },
+    "CAULDRON": {
+        "description": ""
+    },
+    "CAVE_AIR": {
+        "description": ""
+    },
+    "CAVE_SPIDER_SPAWN_EGG": {
+        "description": ""
+    },
+    "CAVE_VINES": {
+        "description": "BlockData: CaveVines"
+    },
+    "CAVE_VINES_PLANT": {
+        "description": "BlockData: CaveVinesPlant"
+    },
+    "CHAIN": {
+        "description": "BlockData: Chain"
+    },
+    "CHAINMAIL_BOOTS": {
+        "description": ""
+    },
+    "CHAINMAIL_CHESTPLATE": {
+        "description": ""
+    },
+    "CHAINMAIL_HELMET": {
+        "description": ""
+    },
+    "CHAINMAIL_LEGGINGS": {
+        "description": ""
+    },
+    "CHAIN_COMMAND_BLOCK": {
+        "description": "BlockData: CommandBlock"
+    },
+    "CHARCOAL": {
+        "description": ""
+    },
+    "CHERRY_BOAT": {
+        "description": ""
+    },
+    "CHERRY_BUTTON": {
+        "description": "BlockData: Switch"
+    },
+    "CHERRY_CHEST_BOAT": {
+        "description": ""
+    },
+    "CHERRY_DOOR": {
+        "description": "BlockData: Door"
+    },
+    "CHERRY_FENCE": {
+        "description": "BlockData: Fence"
+    },
+    "CHERRY_FENCE_GATE": {
+        "description": "BlockData: Gate"
+    },
+    "CHERRY_HANGING_SIGN": {
+        "description": "BlockData: HangingSign"
+    },
+    "CHERRY_LEAVES": {
+        "description": "BlockData: Leaves"
+    },
+    "CHERRY_LOG": {
+        "description": "BlockData: Orientable"
+    },
+    "CHERRY_PLANKS": {
+        "description": ""
+    },
+    "CHERRY_PRESSURE_PLATE": {
+        "description": "BlockData: Powerable"
+    },
+    "CHERRY_SAPLING": {
+        "description": "BlockData: Sapling"
+    },
+    "CHERRY_SIGN": {
+        "description": "BlockData: Sign"
+    },
+    "CHERRY_SLAB": {
+        "description": "BlockData: Slab"
+    },
+    "CHERRY_STAIRS": {
+        "description": "BlockData: Stairs"
+    },
+    "CHERRY_TRAPDOOR": {
+        "description": "BlockData: TrapDoor"
+    },
+    "CHERRY_WALL_HANGING_SIGN": {
+        "description": "BlockData: WallHangingSign"
+    },
+    "CHERRY_WALL_SIGN": {
+        "description": "BlockData: WallSign"
+    },
+    "CHERRY_WOOD": {
+        "description": "BlockData: Orientable"
+    },
+    "CHEST": {
+        "description": "BlockData: Chest"
+    },
+    "CHEST_MINECART": {
+        "description": ""
+    },
+    "CHICKEN": {
+        "description": ""
+    },
+    "CHICKEN_SPAWN_EGG": {
+        "description": ""
+    },
+    "CHIPPED_ANVIL": {
+        "description": "BlockData: Directional"
+    },
+    "CHISELED_BOOKSHELF": {
+        "description": "BlockData: ChiseledBookshelf"
+    },
+    "CHISELED_COPPER": {
+        "description": ""
+    },
+    "CHISELED_DEEPSLATE": {
+        "description": ""
+    },
+    "CHISELED_NETHER_BRICKS": {
+        "description": ""
+    },
+    "CHISELED_POLISHED_BLACKSTONE": {
+        "description": ""
+    },
+    "CHISELED_QUARTZ_BLOCK": {
+        "description": ""
+    },
+    "CHISELED_RED_SANDSTONE": {
+        "description": ""
+    },
+    "CHISELED_SANDSTONE": {
+        "description": ""
+    },
+    "CHISELED_STONE_BRICKS": {
+        "description": ""
+    },
+    "CHISELED_TUFF": {
+        "description": ""
+    },
+    "CHISELED_TUFF_BRICKS": {
+        "description": ""
+    },
+    "CHORUS_FLOWER": {
+        "description": "BlockData: Ageable"
+    },
+    "CHORUS_FRUIT": {
+        "description": ""
+    },
+    "CHORUS_PLANT": {
+        "description": "BlockData: MultipleFacing"
+    },
+    "CLAY": {
+        "description": ""
+    },
+    "CLAY_BALL": {
+        "description": ""
+    },
+    "CLOCK": {
+        "description": ""
+    },
+    "COAL": {
+        "description": ""
+    },
+    "COAL_BLOCK": {
+        "description": ""
+    },
+    "COAL_ORE": {
+        "description": ""
+    },
+    "COARSE_DIRT": {
+        "description": ""
+    },
+    "COAST_ARMOR_TRIM_SMITHING_TEMPLATE": {
+        "description": ""
+    },
+    "COBBLED_DEEPSLATE": {
+        "description": ""
+    },
+    "COBBLED_DEEPSLATE_SLAB": {
+        "description": "BlockData: Slab"
+    },
+    "COBBLED_DEEPSLATE_STAIRS": {
+        "description": "BlockData: Stairs"
+    },
+    "COBBLED_DEEPSLATE_WALL": {
+        "description": "BlockData: Wall"
+    },
+    "COBBLESTONE": {
+        "description": ""
+    },
+    "COBBLESTONE_SLAB": {
+        "description": "BlockData: Slab"
+    },
+    "COBBLESTONE_STAIRS": {
+        "description": "BlockData: Stairs"
+    },
+    "COBBLESTONE_WALL": {
+        "description": "BlockData: Wall"
+    },
+    "COBWEB": {
+        "description": ""
+    },
+    "COCOA": {
+        "description": "BlockData: Cocoa"
+    },
+    "COCOA_BEANS": {
+        "description": ""
+    },
+    "COD": {
+        "description": ""
+    },
+    "COD_BUCKET": {
+        "description": ""
+    },
+    "COD_SPAWN_EGG": {
+        "description": ""
+    },
+    "COMMAND_BLOCK": {
+        "description": "BlockData: CommandBlock"
+    },
+    "COMMAND_BLOCK_MINECART": {
+        "description": ""
+    },
+    "COMPARATOR": {
+        "description": "BlockData: Comparator"
+    },
+    "COMPASS": {
+        "description": ""
+    },
+    "COMPOSTER": {
+        "description": "BlockData: Levelled"
+    },
+    "CONDUIT": {
+        "description": "BlockData: Waterlogged"
+    },
+    "COOKED_BEEF": {
+        "description": ""
+    },
+    "COOKED_CHICKEN": {
+        "description": ""
+    },
+    "COOKED_COD": {
+        "description": ""
+    },
+    "COOKED_MUTTON": {
+        "description": ""
+    },
+    "COOKED_PORKCHOP": {
+        "description": ""
+    },
+    "COOKED_RABBIT": {
+        "description": ""
+    },
+    "COOKED_SALMON": {
+        "description": ""
+    },
+    "COOKIE": {
+        "description": ""
+    },
+    "COPPER_BLOCK": {
+        "description": ""
+    },
+    "COPPER_BULB": {
+        "description": "BlockData: CopperBulb"
+    },
+    "COPPER_DOOR": {
+        "description": "BlockData: Door"
+    },
+    "COPPER_GRATE": {
+        "description": "BlockData: Waterlogged"
+    },
+    "COPPER_INGOT": {
+        "description": ""
+    },
+    "COPPER_ORE": {
+        "description": ""
+    },
+    "COPPER_TRAPDOOR": {
+        "description": "BlockData: TrapDoor"
+    },
+    "CORNFLOWER": {
+        "description": ""
+    },
+    "COW_SPAWN_EGG": {
+        "description": ""
+    },
+    "CRACKED_DEEPSLATE_BRICKS": {
+        "description": ""
+    },
+    "CRACKED_DEEPSLATE_TILES": {
+        "description": ""
+    },
+    "CRACKED_NETHER_BRICKS": {
+        "description": ""
+    },
+    "CRACKED_POLISHED_BLACKSTONE_BRICKS": {
+        "description": ""
+    },
+    "CRACKED_STONE_BRICKS": {
+        "description": ""
+    },
+    "CRAFTER": {
+        "description": "BlockData: Crafter"
+    },
+    "CRAFTING_TABLE": {
+        "description": ""
+    },
+    "CREEPER_BANNER_PATTERN": {
+        "description": ""
+    },
+    "CREEPER_HEAD": {
+        "description": "BlockData: Rotatable"
+    },
+    "CREEPER_SPAWN_EGG": {
+        "description": ""
+    },
+    "CREEPER_WALL_HEAD": {
+        "description": "BlockData: Directional"
+    },
+    "CRIMSON_BUTTON": {
+        "description": "BlockData: Switch"
+    },
+    "CRIMSON_DOOR": {
+        "description": "BlockData: Door"
+    },
+    "CRIMSON_FENCE": {
+        "description": "BlockData: Fence"
+    },
+    "CRIMSON_FENCE_GATE": {
+        "description": "BlockData: Gate"
+    },
+    "CRIMSON_FUNGUS": {
+        "description": ""
+    },
+    "CRIMSON_HANGING_SIGN": {
+        "description": "BlockData: HangingSign"
+    },
+    "CRIMSON_HYPHAE": {
+        "description": "BlockData: Orientable"
+    },
+    "CRIMSON_NYLIUM": {
+        "description": ""
+    },
+    "CRIMSON_PLANKS": {
+        "description": ""
+    },
+    "CRIMSON_PRESSURE_PLATE": {
+        "description": "BlockData: Powerable"
+    },
+    "CRIMSON_ROOTS": {
+        "description": ""
+    },
+    "CRIMSON_SIGN": {
+        "description": "BlockData: Sign"
+    },
+    "CRIMSON_SLAB": {
+        "description": "BlockData: Slab"
+    },
+    "CRIMSON_STAIRS": {
+        "description": "BlockData: Stairs"
+    },
+    "CRIMSON_STEM": {
+        "description": "BlockData: Orientable"
+    },
+    "CRIMSON_TRAPDOOR": {
+        "description": "BlockData: TrapDoor"
+    },
+    "CRIMSON_WALL_HANGING_SIGN": {
+        "description": "BlockData: WallHangingSign"
+    },
+    "CRIMSON_WALL_SIGN": {
+        "description": "BlockData: WallSign"
+    },
+    "CROSSBOW": {
+        "description": ""
+    },
+    "CRYING_OBSIDIAN": {
+        "description": ""
+    },
+    "CUT_COPPER": {
+        "description": ""
+    },
+    "CUT_COPPER_SLAB": {
+        "description": "BlockData: Slab"
+    },
+    "CUT_COPPER_STAIRS": {
+        "description": "BlockData: Stairs"
+    },
+    "CUT_RED_SANDSTONE": {
+        "description": ""
+    },
+    "CUT_RED_SANDSTONE_SLAB": {
+        "description": "BlockData: Slab"
+    },
+    "CUT_SANDSTONE": {
+        "description": ""
+    },
+    "CUT_SANDSTONE_SLAB": {
+        "description": "BlockData: Slab"
+    },
+    "CYAN_BANNER": {
+        "description": "BlockData: Rotatable"
+    },
+    "CYAN_BED": {
+        "description": "BlockData: Bed"
+    },
+    "CYAN_CANDLE": {
+        "description": "BlockData: Candle"
+    },
+    "CYAN_CANDLE_CAKE": {
+        "description": "BlockData: Lightable"
+    },
+    "CYAN_CARPET": {
+        "description": ""
+    },
+    "CYAN_CONCRETE": {
+        "description": ""
+    },
+    "CYAN_CONCRETE_POWDER": {
+        "description": ""
+    },
+    "CYAN_DYE": {
+        "description": ""
+    },
+    "CYAN_GLAZED_TERRACOTTA": {
+        "description": "BlockData: Directional"
+    },
+    "CYAN_SHULKER_BOX": {
+        "description": "BlockData: Directional"
+    },
+    "CYAN_STAINED_GLASS": {
+        "description": ""
+    },
+    "CYAN_STAINED_GLASS_PANE": {
+        "description": "BlockData: GlassPane"
+    },
+    "CYAN_TERRACOTTA": {
+        "description": ""
+    },
+    "CYAN_WALL_BANNER": {
+        "description": "BlockData: Directional"
+    },
+    "CYAN_WOOL": {
+        "description": ""
+    },
+    "DAMAGED_ANVIL": {
+        "description": "BlockData: Directional"
+    },
+    "DANDELION": {
+        "description": ""
+    },
+    "DANGER_POTTERY_SHERD": {
+        "description": ""
+    },
+    "DARK_OAK_BOAT": {
+        "description": ""
+    },
+    "DARK_OAK_BUTTON": {
+        "description": "BlockData: Switch"
+    },
+    "DARK_OAK_CHEST_BOAT": {
+        "description": ""
+    },
+    "DARK_OAK_DOOR": {
+        "description": "BlockData: Door"
+    },
+    "DARK_OAK_FENCE": {
+        "description": "BlockData: Fence"
+    },
+    "DARK_OAK_FENCE_GATE": {
+        "description": "BlockData: Gate"
+    },
+    "DARK_OAK_HANGING_SIGN": {
+        "description": "BlockData: HangingSign"
+    },
+    "DARK_OAK_LEAVES": {
+        "description": "BlockData: Leaves"
+    },
+    "DARK_OAK_LOG": {
+        "description": "BlockData: Orientable"
+    },
+    "DARK_OAK_PLANKS": {
+        "description": ""
+    },
+    "DARK_OAK_PRESSURE_PLATE": {
+        "description": "BlockData: Powerable"
+    },
+    "DARK_OAK_SAPLING": {
+        "description": "BlockData: Sapling"
+    },
+    "DARK_OAK_SIGN": {
+        "description": "BlockData: Sign"
+    },
+    "DARK_OAK_SLAB": {
+        "description": "BlockData: Slab"
+    },
+    "DARK_OAK_STAIRS": {
+        "description": "BlockData: Stairs"
+    },
+    "DARK_OAK_TRAPDOOR": {
+        "description": "BlockData: TrapDoor"
+    },
+    "DARK_OAK_WALL_HANGING_SIGN": {
+        "description": "BlockData: WallHangingSign"
+    },
+    "DARK_OAK_WALL_SIGN": {
+        "description": "BlockData: WallSign"
+    },
+    "DARK_OAK_WOOD": {
+        "description": "BlockData: Orientable"
+    },
+    "DARK_PRISMARINE": {
+        "description": ""
+    },
+    "DARK_PRISMARINE_SLAB": {
+        "description": "BlockData: Slab"
+    },
+    "DARK_PRISMARINE_STAIRS": {
+        "description": "BlockData: Stairs"
+    },
+    "DAYLIGHT_DETECTOR": {
+        "description": "BlockData: DaylightDetector"
+    },
+    "DEAD_BRAIN_CORAL": {
+        "description": "BlockData: Waterlogged"
+    },
+    "DEAD_BRAIN_CORAL_BLOCK": {
+        "description": ""
+    },
+    "DEAD_BRAIN_CORAL_FAN": {
+        "description": "BlockData: Waterlogged"
+    },
+    "DEAD_BRAIN_CORAL_WALL_FAN": {
+        "description": "BlockData: CoralWallFan"
+    },
+    "DEAD_BUBBLE_CORAL": {
+        "description": "BlockData: Waterlogged"
+    },
+    "DEAD_BUBBLE_CORAL_BLOCK": {
+        "description": ""
+    },
+    "DEAD_BUBBLE_CORAL_FAN": {
+        "description": "BlockData: Waterlogged"
+    },
+    "DEAD_BUBBLE_CORAL_WALL_FAN": {
+        "description": "BlockData: CoralWallFan"
+    },
+    "DEAD_BUSH": {
+        "description": ""
+    },
+    "DEAD_FIRE_CORAL": {
+        "description": "BlockData: Waterlogged"
+    },
+    "DEAD_FIRE_CORAL_BLOCK": {
+        "description": ""
+    },
+    "DEAD_FIRE_CORAL_FAN": {
+        "description": "BlockData: Waterlogged"
+    },
+    "DEAD_FIRE_CORAL_WALL_FAN": {
+        "description": "BlockData: CoralWallFan"
+    },
+    "DEAD_HORN_CORAL": {
+        "description": "BlockData: Waterlogged"
+    },
+    "DEAD_HORN_CORAL_BLOCK": {
+        "description": ""
+    },
+    "DEAD_HORN_CORAL_FAN": {
+        "description": "BlockData: Waterlogged"
+    },
+    "DEAD_HORN_CORAL_WALL_FAN": {
+        "description": "BlockData: CoralWallFan"
+    },
+    "DEAD_TUBE_CORAL": {
+        "description": "BlockData: Waterlogged"
+    },
+    "DEAD_TUBE_CORAL_BLOCK": {
+        "description": ""
+    },
+    "DEAD_TUBE_CORAL_FAN": {
+        "description": "BlockData: Waterlogged"
+    },
+    "DEAD_TUBE_CORAL_WALL_FAN": {
+        "description": "BlockData: CoralWallFan"
+    },
+    "DEBUG_STICK": {
+        "description": ""
+    },
+    "DECORATED_POT": {
+        "description": "BlockData: DecoratedPot"
+    },
+    "DEEPSLATE": {
+        "description": "BlockData: Orientable"
+    },
+    "DEEPSLATE_BRICKS": {
+        "description": ""
+    },
+    "DEEPSLATE_BRICK_SLAB": {
+        "description": "BlockData: Slab"
+    },
+    "DEEPSLATE_BRICK_STAIRS": {
+        "description": "BlockData: Stairs"
+    },
+    "DEEPSLATE_BRICK_WALL": {
+        "description": "BlockData: Wall"
+    },
+    "DEEPSLATE_COAL_ORE": {
+        "description": ""
+    },
+    "DEEPSLATE_COPPER_ORE": {
+        "description": ""
+    },
+    "DEEPSLATE_DIAMOND_ORE": {
+        "description": ""
+    },
+    "DEEPSLATE_EMERALD_ORE": {
+        "description": ""
+    },
+    "DEEPSLATE_GOLD_ORE": {
+        "description": ""
+    },
+    "DEEPSLATE_IRON_ORE": {
+        "description": ""
+    },
+    "DEEPSLATE_LAPIS_ORE": {
+        "description": ""
+    },
+    "DEEPSLATE_REDSTONE_ORE": {
+        "description": "BlockData: Lightable"
+    },
+    "DEEPSLATE_TILES": {
+        "description": ""
+    },
+    "DEEPSLATE_TILE_SLAB": {
+        "description": "BlockData: Slab"
+    },
+    "DEEPSLATE_TILE_STAIRS": {
+        "description": "BlockData: Stairs"
+    },
+    "DEEPSLATE_TILE_WALL": {
+        "description": "BlockData: Wall"
+    },
+    "DETECTOR_RAIL": {
+        "description": "BlockData: RedstoneRail"
+    },
+    "DIAMOND": {
+        "description": ""
+    },
+    "DIAMOND_AXE": {
+        "description": ""
+    },
+    "DIAMOND_BLOCK": {
+        "description": ""
+    },
+    "DIAMOND_BOOTS": {
+        "description": ""
+    },
+    "DIAMOND_CHESTPLATE": {
+        "description": ""
+    },
+    "DIAMOND_HELMET": {
+        "description": ""
+    },
+    "DIAMOND_HOE": {
+        "description": ""
+    },
+    "DIAMOND_HORSE_ARMOR": {
+        "description": ""
+    },
+    "DIAMOND_LEGGINGS": {
+        "description": ""
+    },
+    "DIAMOND_ORE": {
+        "description": ""
+    },
+    "DIAMOND_PICKAXE": {
+        "description": ""
+    },
+    "DIAMOND_SHOVEL": {
+        "description": ""
+    },
+    "DIAMOND_SWORD": {
+        "description": ""
+    },
+    "DIORITE": {
+        "description": ""
+    },
+    "DIORITE_SLAB": {
+        "description": "BlockData: Slab"
+    },
+    "DIORITE_STAIRS": {
+        "description": "BlockData: Stairs"
+    },
+    "DIORITE_WALL": {
+        "description": "BlockData: Wall"
+    },
+    "DIRT": {
+        "description": ""
+    },
+    "DIRT_PATH": {
+        "description": ""
+    },
+    "DISC_FRAGMENT_5": {
+        "description": ""
+    },
+    "DISPENSER": {
+        "description": "BlockData: Dispenser"
+    },
+    "DOLPHIN_SPAWN_EGG": {
+        "description": ""
+    },
+    "DONKEY_SPAWN_EGG": {
+        "description": ""
+    },
+    "DRAGON_BREATH": {
+        "description": ""
+    },
+    "DRAGON_EGG": {
+        "description": ""
+    },
+    "DRAGON_HEAD": {
+        "description": "BlockData: Rotatable"
+    },
+    "DRAGON_WALL_HEAD": {
+        "description": "BlockData: Directional"
+    },
+    "DRIED_KELP": {
+        "description": ""
+    },
+    "DRIED_KELP_BLOCK": {
+        "description": ""
+    },
+    "DRIPSTONE_BLOCK": {
+        "description": ""
+    },
+    "DROPPER": {
+        "description": "BlockData: Dispenser"
+    },
+    "DROWNED_SPAWN_EGG": {
+        "description": ""
+    },
+    "DUNE_ARMOR_TRIM_SMITHING_TEMPLATE": {
+        "description": ""
+    },
+    "ECHO_SHARD": {
+        "description": ""
+    },
+    "EGG": {
+        "description": ""
+    },
+    "ELDER_GUARDIAN_SPAWN_EGG": {
+        "description": ""
+    },
+    "ELYTRA": {
+        "description": ""
+    },
+    "EMERALD": {
+        "description": ""
+    },
+    "EMERALD_BLOCK": {
+        "description": ""
+    },
+    "EMERALD_ORE": {
+        "description": ""
+    },
+    "ENCHANTED_BOOK": {
+        "description": ""
+    },
+    "ENCHANTED_GOLDEN_APPLE": {
+        "description": ""
+    },
+    "ENCHANTING_TABLE": {
+        "description": ""
+    },
+    "ENDERMAN_SPAWN_EGG": {
+        "description": ""
+    },
+    "ENDERMITE_SPAWN_EGG": {
+        "description": ""
+    },
+    "ENDER_CHEST": {
+        "description": "BlockData: EnderChest"
+    },
+    "ENDER_DRAGON_SPAWN_EGG": {
+        "description": ""
+    },
+    "ENDER_EYE": {
+        "description": ""
+    },
+    "ENDER_PEARL": {
+        "description": ""
+    },
+    "END_CRYSTAL": {
+        "description": ""
+    },
+    "END_GATEWAY": {
+        "description": ""
+    },
+    "END_PORTAL": {
+        "description": ""
+    },
+    "END_PORTAL_FRAME": {
+        "description": "BlockData: EndPortalFrame"
+    },
+    "END_ROD": {
+        "description": "BlockData: Directional"
+    },
+    "END_STONE": {
+        "description": ""
+    },
+    "END_STONE_BRICKS": {
+        "description": ""
+    },
+    "END_STONE_BRICK_SLAB": {
+        "description": "BlockData: Slab"
+    },
+    "END_STONE_BRICK_STAIRS": {
+        "description": "BlockData: Stairs"
+    },
+    "END_STONE_BRICK_WALL": {
+        "description": "BlockData: Wall"
+    },
+    "EVOKER_SPAWN_EGG": {
+        "description": ""
+    },
+    "EXPERIENCE_BOTTLE": {
+        "description": ""
+    },
+    "EXPLORER_POTTERY_SHERD": {
+        "description": ""
+    },
+    "EXPOSED_CHISELED_COPPER": {
+        "description": ""
+    },
+    "EXPOSED_COPPER": {
+        "description": ""
+    },
+    "EXPOSED_COPPER_BULB": {
+        "description": "BlockData: CopperBulb"
+    },
+    "EXPOSED_COPPER_DOOR": {
+        "description": "BlockData: Door"
+    },
+    "EXPOSED_COPPER_GRATE": {
+        "description": "BlockData: Waterlogged"
+    },
+    "EXPOSED_COPPER_TRAPDOOR": {
+        "description": "BlockData: TrapDoor"
+    },
+    "EXPOSED_CUT_COPPER": {
+        "description": ""
+    },
+    "EXPOSED_CUT_COPPER_SLAB": {
+        "description": "BlockData: Slab"
+    },
+    "EXPOSED_CUT_COPPER_STAIRS": {
+        "description": "BlockData: Stairs"
+    },
+    "EYE_ARMOR_TRIM_SMITHING_TEMPLATE": {
+        "description": ""
+    },
+    "FARMLAND": {
+        "description": "BlockData: Farmland"
+    },
+    "FEATHER": {
+        "description": ""
+    },
+    "FERMENTED_SPIDER_EYE": {
+        "description": ""
+    },
+    "FERN": {
+        "description": ""
+    },
+    "FILLED_MAP": {
+        "description": ""
+    },
+    "FIRE": {
+        "description": "BlockData: Fire"
+    },
+    "FIREWORK_ROCKET": {
+        "description": ""
+    },
+    "FIREWORK_STAR": {
+        "description": ""
+    },
+    "FIRE_CHARGE": {
+        "description": ""
+    },
+    "FIRE_CORAL": {
+        "description": "BlockData: Waterlogged"
+    },
+    "FIRE_CORAL_BLOCK": {
+        "description": ""
+    },
+    "FIRE_CORAL_FAN": {
+        "description": "BlockData: Waterlogged"
+    },
+    "FIRE_CORAL_WALL_FAN": {
+        "description": "BlockData: CoralWallFan"
+    },
+    "FISHING_ROD": {
+        "description": ""
+    },
+    "FLETCHING_TABLE": {
+        "description": ""
+    },
+    "FLINT": {
+        "description": ""
+    },
+    "FLINT_AND_STEEL": {
+        "description": ""
+    },
+    "FLOWERING_AZALEA": {
+        "description": ""
+    },
+    "FLOWERING_AZALEA_LEAVES": {
+        "description": "BlockData: Leaves"
+    },
+    "FLOWER_BANNER_PATTERN": {
+        "description": ""
+    },
+    "FLOWER_POT": {
+        "description": ""
+    },
+    "FOX_SPAWN_EGG": {
+        "description": ""
+    },
+    "FRIEND_POTTERY_SHERD": {
+        "description": ""
+    },
+    "FROGSPAWN": {
+        "description": ""
+    },
+    "FROG_SPAWN_EGG": {
+        "description": ""
+    },
+    "FROSTED_ICE": {
+        "description": "BlockData: Ageable"
+    },
+    "FURNACE": {
+        "description": "BlockData: Furnace"
+    },
+    "FURNACE_MINECART": {
+        "description": ""
+    },
+    "GHAST_SPAWN_EGG": {
+        "description": ""
+    },
+    "GHAST_TEAR": {
+        "description": ""
+    },
+    "GILDED_BLACKSTONE": {
+        "description": ""
+    },
+    "GLASS": {
+        "description": ""
+    },
+    "GLASS_BOTTLE": {
+        "description": ""
+    },
+    "GLASS_PANE": {
+        "description": "BlockData: Fence"
+    },
+    "GLISTERING_MELON_SLICE": {
+        "description": ""
+    },
+    "GLOBE_BANNER_PATTERN": {
+        "description": ""
+    },
+    "GLOWSTONE": {
+        "description": ""
+    },
+    "GLOWSTONE_DUST": {
+        "description": ""
+    },
+    "GLOW_BERRIES": {
+        "description": ""
+    },
+    "GLOW_INK_SAC": {
+        "description": ""
+    },
+    "GLOW_ITEM_FRAME": {
+        "description": ""
+    },
+    "GLOW_LICHEN": {
+        "description": "BlockData: GlowLichen"
+    },
+    "GLOW_SQUID_SPAWN_EGG": {
+        "description": ""
+    },
+    "GOAT_HORN": {
+        "description": ""
+    },
+    "GOAT_SPAWN_EGG": {
+        "description": ""
+    },
+    "GOLDEN_APPLE": {
+        "description": ""
+    },
+    "GOLDEN_AXE": {
+        "description": ""
+    },
+    "GOLDEN_BOOTS": {
+        "description": ""
+    },
+    "GOLDEN_CARROT": {
+        "description": ""
+    },
+    "GOLDEN_CHESTPLATE": {
+        "description": ""
+    },
+    "GOLDEN_HELMET": {
+        "description": ""
+    },
+    "GOLDEN_HOE": {
+        "description": ""
+    },
+    "GOLDEN_HORSE_ARMOR": {
+        "description": ""
+    },
+    "GOLDEN_LEGGINGS": {
+        "description": ""
+    },
+    "GOLDEN_PICKAXE": {
+        "description": ""
+    },
+    "GOLDEN_SHOVEL": {
+        "description": ""
+    },
+    "GOLDEN_SWORD": {
+        "description": ""
+    },
+    "GOLD_BLOCK": {
+        "description": ""
+    },
+    "GOLD_INGOT": {
+        "description": ""
+    },
+    "GOLD_NUGGET": {
+        "description": ""
+    },
+    "GOLD_ORE": {
+        "description": ""
+    },
+    "GRANITE": {
+        "description": ""
+    },
+    "GRANITE_SLAB": {
+        "description": "BlockData: Slab"
+    },
+    "GRANITE_STAIRS": {
+        "description": "BlockData: Stairs"
+    },
+    "GRANITE_WALL": {
+        "description": "BlockData: Wall"
+    },
+    "GRASS_BLOCK": {
+        "description": "BlockData: Snowable"
+    },
+    "GRAVEL": {
+        "description": ""
+    },
+    "GRAY_BANNER": {
+        "description": "BlockData: Rotatable"
+    },
+    "GRAY_BED": {
+        "description": "BlockData: Bed"
+    },
+    "GRAY_CANDLE": {
+        "description": "BlockData: Candle"
+    },
+    "GRAY_CANDLE_CAKE": {
+        "description": "BlockData: Lightable"
+    },
+    "GRAY_CARPET": {
+        "description": ""
+    },
+    "GRAY_CONCRETE": {
+        "description": ""
+    },
+    "GRAY_CONCRETE_POWDER": {
+        "description": ""
+    },
+    "GRAY_DYE": {
+        "description": ""
+    },
+    "GRAY_GLAZED_TERRACOTTA": {
+        "description": "BlockData: Directional"
+    },
+    "GRAY_SHULKER_BOX": {
+        "description": "BlockData: Directional"
+    },
+    "GRAY_STAINED_GLASS": {
+        "description": ""
+    },
+    "GRAY_STAINED_GLASS_PANE": {
+        "description": "BlockData: GlassPane"
+    },
+    "GRAY_TERRACOTTA": {
+        "description": ""
+    },
+    "GRAY_WALL_BANNER": {
+        "description": "BlockData: Directional"
+    },
+    "GRAY_WOOL": {
+        "description": ""
+    },
+    "GREEN_BANNER": {
+        "description": "BlockData: Rotatable"
+    },
+    "GREEN_BED": {
+        "description": "BlockData: Bed"
+    },
+    "GREEN_CANDLE": {
+        "description": "BlockData: Candle"
+    },
+    "GREEN_CANDLE_CAKE": {
+        "description": "BlockData: Lightable"
+    },
+    "GREEN_CARPET": {
+        "description": ""
+    },
+    "GREEN_CONCRETE": {
+        "description": ""
+    },
+    "GREEN_CONCRETE_POWDER": {
+        "description": ""
+    },
+    "GREEN_DYE": {
+        "description": ""
+    },
+    "GREEN_GLAZED_TERRACOTTA": {
+        "description": "BlockData: Directional"
+    },
+    "GREEN_SHULKER_BOX": {
+        "description": "BlockData: Directional"
+    },
+    "GREEN_STAINED_GLASS": {
+        "description": ""
+    },
+    "GREEN_STAINED_GLASS_PANE": {
+        "description": "BlockData: GlassPane"
+    },
+    "GREEN_TERRACOTTA": {
+        "description": ""
+    },
+    "GREEN_WALL_BANNER": {
+        "description": "BlockData: Directional"
+    },
+    "GREEN_WOOL": {
+        "description": ""
+    },
+    "GRINDSTONE": {
+        "description": "BlockData: Grindstone"
+    },
+    "GUARDIAN_SPAWN_EGG": {
+        "description": ""
+    },
+    "GUNPOWDER": {
+        "description": ""
+    },
+    "HANGING_ROOTS": {
+        "description": "BlockData: Waterlogged"
+    },
+    "HAY_BLOCK": {
+        "description": "BlockData: Orientable"
+    },
+    "HEARTBREAK_POTTERY_SHERD": {
+        "description": ""
+    },
+    "HEART_OF_THE_SEA": {
+        "description": ""
+    },
+    "HEART_POTTERY_SHERD": {
+        "description": ""
+    },
+    "HEAVY_WEIGHTED_PRESSURE_PLATE": {
+        "description": "BlockData: AnaloguePowerable"
+    },
+    "HOGLIN_SPAWN_EGG": {
+        "description": ""
+    },
+    "HONEYCOMB": {
+        "description": ""
+    },
+    "HONEYCOMB_BLOCK": {
+        "description": ""
+    },
+    "HONEY_BLOCK": {
+        "description": ""
+    },
+    "HONEY_BOTTLE": {
+        "description": ""
+    },
+    "HOPPER": {
+        "description": "BlockData: Hopper"
+    },
+    "HOPPER_MINECART": {
+        "description": ""
+    },
+    "HORN_CORAL": {
+        "description": "BlockData: Waterlogged"
+    },
+    "HORN_CORAL_BLOCK": {
+        "description": ""
+    },
+    "HORN_CORAL_FAN": {
+        "description": "BlockData: Waterlogged"
+    },
+    "HORN_CORAL_WALL_FAN": {
+        "description": "BlockData: CoralWallFan"
+    },
+    "HORSE_SPAWN_EGG": {
+        "description": ""
+    },
+    "HOST_ARMOR_TRIM_SMITHING_TEMPLATE": {
+        "description": ""
+    },
+    "HOWL_POTTERY_SHERD": {
+        "description": ""
+    },
+    "HUSK_SPAWN_EGG": {
+        "description": ""
+    },
+    "ICE": {
+        "description": ""
+    },
+    "INFESTED_CHISELED_STONE_BRICKS": {
+        "description": ""
+    },
+    "INFESTED_COBBLESTONE": {
+        "description": ""
+    },
+    "INFESTED_CRACKED_STONE_BRICKS": {
+        "description": ""
+    },
+    "INFESTED_DEEPSLATE": {
+        "description": "BlockData: Orientable"
+    },
+    "INFESTED_MOSSY_STONE_BRICKS": {
+        "description": ""
+    },
+    "INFESTED_STONE": {
+        "description": ""
+    },
+    "INFESTED_STONE_BRICKS": {
+        "description": ""
+    },
+    "INK_SAC": {
+        "description": ""
+    },
+    "IRON_AXE": {
+        "description": ""
+    },
+    "IRON_BARS": {
+        "description": "BlockData: Fence"
+    },
+    "IRON_BLOCK": {
+        "description": ""
+    },
+    "IRON_BOOTS": {
+        "description": ""
+    },
+    "IRON_CHESTPLATE": {
+        "description": ""
+    },
+    "IRON_DOOR": {
+        "description": "BlockData: Door"
+    },
+    "IRON_GOLEM_SPAWN_EGG": {
+        "description": ""
+    },
+    "IRON_HELMET": {
+        "description": ""
+    },
+    "IRON_HOE": {
+        "description": ""
+    },
+    "IRON_HORSE_ARMOR": {
+        "description": ""
+    },
+    "IRON_INGOT": {
+        "description": ""
+    },
+    "IRON_LEGGINGS": {
+        "description": ""
+    },
+    "IRON_NUGGET": {
+        "description": ""
+    },
+    "IRON_ORE": {
+        "description": ""
+    },
+    "IRON_PICKAXE": {
+        "description": ""
+    },
+    "IRON_SHOVEL": {
+        "description": ""
+    },
+    "IRON_SWORD": {
+        "description": ""
+    },
+    "IRON_TRAPDOOR": {
+        "description": "BlockData: TrapDoor"
+    },
+    "ITEM_FRAME": {
+        "description": ""
+    },
+    "JACK_O_LANTERN": {
+        "description": "BlockData: Directional"
+    },
+    "JIGSAW": {
+        "description": "BlockData: Jigsaw"
+    },
+    "JUKEBOX": {
+        "description": "BlockData: Jukebox"
+    },
+    "JUNGLE_BOAT": {
+        "description": ""
+    },
+    "JUNGLE_BUTTON": {
+        "description": "BlockData: Switch"
+    },
+    "JUNGLE_CHEST_BOAT": {
+        "description": ""
+    },
+    "JUNGLE_DOOR": {
+        "description": "BlockData: Door"
+    },
+    "JUNGLE_FENCE": {
+        "description": "BlockData: Fence"
+    },
+    "JUNGLE_FENCE_GATE": {
+        "description": "BlockData: Gate"
+    },
+    "JUNGLE_HANGING_SIGN": {
+        "description": "BlockData: HangingSign"
+    },
+    "JUNGLE_LEAVES": {
+        "description": "BlockData: Leaves"
+    },
+    "JUNGLE_LOG": {
+        "description": "BlockData: Orientable"
+    },
+    "JUNGLE_PLANKS": {
+        "description": ""
+    },
+    "JUNGLE_PRESSURE_PLATE": {
+        "description": "BlockData: Powerable"
+    },
+    "JUNGLE_SAPLING": {
+        "description": "BlockData: Sapling"
+    },
+    "JUNGLE_SIGN": {
+        "description": "BlockData: Sign"
+    },
+    "JUNGLE_SLAB": {
+        "description": "BlockData: Slab"
+    },
+    "JUNGLE_STAIRS": {
+        "description": "BlockData: Stairs"
+    },
+    "JUNGLE_TRAPDOOR": {
+        "description": "BlockData: TrapDoor"
+    },
+    "JUNGLE_WALL_HANGING_SIGN": {
+        "description": "BlockData: WallHangingSign"
+    },
+    "JUNGLE_WALL_SIGN": {
+        "description": "BlockData: WallSign"
+    },
+    "JUNGLE_WOOD": {
+        "description": "BlockData: Orientable"
+    },
+    "KELP": {
+        "description": "BlockData: Ageable"
+    },
+    "KELP_PLANT": {
+        "description": ""
+    },
+    "KNOWLEDGE_BOOK": {
+        "description": ""
+    },
+    "LADDER": {
+        "description": "BlockData: Ladder"
+    },
+    "LANTERN": {
+        "description": "BlockData: Lantern"
+    },
+    "LAPIS_BLOCK": {
+        "description": ""
+    },
+    "LAPIS_LAZULI": {
+        "description": ""
+    },
+    "LAPIS_ORE": {
+        "description": ""
+    },
+    "LARGE_AMETHYST_BUD": {
+        "description": "BlockData: AmethystCluster"
+    },
+    "LARGE_FERN": {
+        "description": "BlockData: Bisected"
+    },
+    "LAVA": {
+        "description": "BlockData: Levelled"
+    },
+    "LAVA_BUCKET": {
+        "description": ""
+    },
+    "LAVA_CAULDRON": {
+        "description": ""
+    },
+    "LEAD": {
+        "description": ""
+    },
+    "LEATHER": {
+        "description": ""
+    },
+    "LEATHER_BOOTS": {
+        "description": ""
+    },
+    "LEATHER_CHESTPLATE": {
+        "description": ""
+    },
+    "LEATHER_HELMET": {
+        "description": ""
+    },
+    "LEATHER_HORSE_ARMOR": {
+        "description": ""
+    },
+    "LEATHER_LEGGINGS": {
+        "description": ""
+    },
+    "LECTERN": {
+        "description": "BlockData: Lectern"
+    },
+    "LEVER": {
+        "description": "BlockData: Switch"
+    },
+    "LIGHT": {
+        "description": "BlockData: Light"
+    },
+    "LIGHTNING_ROD": {
+        "description": "BlockData: LightningRod"
+    },
+    "LIGHT_BLUE_BANNER": {
+        "description": "BlockData: Rotatable"
+    },
+    "LIGHT_BLUE_BED": {
+        "description": "BlockData: Bed"
+    },
+    "LIGHT_BLUE_CANDLE": {
+        "description": "BlockData: Candle"
+    },
+    "LIGHT_BLUE_CANDLE_CAKE": {
+        "description": "BlockData: Lightable"
+    },
+    "LIGHT_BLUE_CARPET": {
+        "description": ""
+    },
+    "LIGHT_BLUE_CONCRETE": {
+        "description": ""
+    },
+    "LIGHT_BLUE_CONCRETE_POWDER": {
+        "description": ""
+    },
+    "LIGHT_BLUE_DYE": {
+        "description": ""
+    },
+    "LIGHT_BLUE_GLAZED_TERRACOTTA": {
+        "description": "BlockData: Directional"
+    },
+    "LIGHT_BLUE_SHULKER_BOX": {
+        "description": "BlockData: Directional"
+    },
+    "LIGHT_BLUE_STAINED_GLASS": {
+        "description": ""
+    },
+    "LIGHT_BLUE_STAINED_GLASS_PANE": {
+        "description": "BlockData: GlassPane"
+    },
+    "LIGHT_BLUE_TERRACOTTA": {
+        "description": ""
+    },
+    "LIGHT_BLUE_WALL_BANNER": {
+        "description": "BlockData: Directional"
+    },
+    "LIGHT_BLUE_WOOL": {
+        "description": ""
+    },
+    "LIGHT_GRAY_BANNER": {
+        "description": "BlockData: Rotatable"
+    },
+    "LIGHT_GRAY_BED": {
+        "description": "BlockData: Bed"
+    },
+    "LIGHT_GRAY_CANDLE": {
+        "description": "BlockData: Candle"
+    },
+    "LIGHT_GRAY_CANDLE_CAKE": {
+        "description": "BlockData: Lightable"
+    },
+    "LIGHT_GRAY_CARPET": {
+        "description": ""
+    },
+    "LIGHT_GRAY_CONCRETE": {
+        "description": ""
+    },
+    "LIGHT_GRAY_CONCRETE_POWDER": {
+        "description": ""
+    },
+    "LIGHT_GRAY_DYE": {
+        "description": ""
+    },
+    "LIGHT_GRAY_GLAZED_TERRACOTTA": {
+        "description": "BlockData: Directional"
+    },
+    "LIGHT_GRAY_SHULKER_BOX": {
+        "description": "BlockData: Directional"
+    },
+    "LIGHT_GRAY_STAINED_GLASS": {
+        "description": ""
+    },
+    "LIGHT_GRAY_STAINED_GLASS_PANE": {
+        "description": "BlockData: GlassPane"
+    },
+    "LIGHT_GRAY_TERRACOTTA": {
+        "description": ""
+    },
+    "LIGHT_GRAY_WALL_BANNER": {
+        "description": "BlockData: Directional"
+    },
+    "LIGHT_GRAY_WOOL": {
+        "description": ""
+    },
+    "LIGHT_WEIGHTED_PRESSURE_PLATE": {
+        "description": "BlockData: AnaloguePowerable"
+    },
+    "LILAC": {
+        "description": "BlockData: Bisected"
+    },
+    "LILY_OF_THE_VALLEY": {
+        "description": ""
+    },
+    "LILY_PAD": {
+        "description": ""
+    },
+    "LIME_BANNER": {
+        "description": "BlockData: Rotatable"
+    },
+    "LIME_BED": {
+        "description": "BlockData: Bed"
+    },
+    "LIME_CANDLE": {
+        "description": "BlockData: Candle"
+    },
+    "LIME_CANDLE_CAKE": {
+        "description": "BlockData: Lightable"
+    },
+    "LIME_CARPET": {
+        "description": ""
+    },
+    "LIME_CONCRETE": {
+        "description": ""
+    },
+    "LIME_CONCRETE_POWDER": {
+        "description": ""
+    },
+    "LIME_DYE": {
+        "description": ""
+    },
+    "LIME_GLAZED_TERRACOTTA": {
+        "description": "BlockData: Directional"
+    },
+    "LIME_SHULKER_BOX": {
+        "description": "BlockData: Directional"
+    },
+    "LIME_STAINED_GLASS": {
+        "description": ""
+    },
+    "LIME_STAINED_GLASS_PANE": {
+        "description": "BlockData: GlassPane"
+    },
+    "LIME_TERRACOTTA": {
+        "description": ""
+    },
+    "LIME_WALL_BANNER": {
+        "description": "BlockData: Directional"
+    },
+    "LIME_WOOL": {
+        "description": ""
+    },
+    "LINGERING_POTION": {
+        "description": ""
+    },
+    "LLAMA_SPAWN_EGG": {
+        "description": ""
+    },
+    "LODESTONE": {
+        "description": ""
+    },
+    "LOOM": {
+        "description": "BlockData: Directional"
+    },
+    "MAGENTA_BANNER": {
+        "description": "BlockData: Rotatable"
+    },
+    "MAGENTA_BED": {
+        "description": "BlockData: Bed"
+    },
+    "MAGENTA_CANDLE": {
+        "description": "BlockData: Candle"
+    },
+    "MAGENTA_CANDLE_CAKE": {
+        "description": "BlockData: Lightable"
+    },
+    "MAGENTA_CARPET": {
+        "description": ""
+    },
+    "MAGENTA_CONCRETE": {
+        "description": ""
+    },
+    "MAGENTA_CONCRETE_POWDER": {
+        "description": ""
+    },
+    "MAGENTA_DYE": {
+        "description": ""
+    },
+    "MAGENTA_GLAZED_TERRACOTTA": {
+        "description": "BlockData: Directional"
+    },
+    "MAGENTA_SHULKER_BOX": {
+        "description": "BlockData: Directional"
+    },
+    "MAGENTA_STAINED_GLASS": {
+        "description": ""
+    },
+    "MAGENTA_STAINED_GLASS_PANE": {
+        "description": "BlockData: GlassPane"
+    },
+    "MAGENTA_TERRACOTTA": {
+        "description": ""
+    },
+    "MAGENTA_WALL_BANNER": {
+        "description": "BlockData: Directional"
+    },
+    "MAGENTA_WOOL": {
+        "description": ""
+    },
+    "MAGMA_BLOCK": {
+        "description": ""
+    },
+    "MAGMA_CREAM": {
+        "description": ""
+    },
+    "MAGMA_CUBE_SPAWN_EGG": {
+        "description": ""
+    },
+    "MANGROVE_BOAT": {
+        "description": ""
+    },
+    "MANGROVE_BUTTON": {
+        "description": "BlockData: Switch"
+    },
+    "MANGROVE_CHEST_BOAT": {
+        "description": ""
+    },
+    "MANGROVE_DOOR": {
+        "description": "BlockData: Door"
+    },
+    "MANGROVE_FENCE": {
+        "description": "BlockData: Fence"
+    },
+    "MANGROVE_FENCE_GATE": {
+        "description": "BlockData: Gate"
+    },
+    "MANGROVE_HANGING_SIGN": {
+        "description": "BlockData: HangingSign"
+    },
+    "MANGROVE_LEAVES": {
+        "description": "BlockData: Leaves"
+    },
+    "MANGROVE_LOG": {
+        "description": "BlockData: Orientable"
+    },
+    "MANGROVE_PLANKS": {
+        "description": ""
+    },
+    "MANGROVE_PRESSURE_PLATE": {
+        "description": "BlockData: Powerable"
+    },
+    "MANGROVE_PROPAGULE": {
+        "description": "BlockData: MangrovePropagule"
+    },
+    "MANGROVE_ROOTS": {
+        "description": "BlockData: Waterlogged"
+    },
+    "MANGROVE_SIGN": {
+        "description": "BlockData: Sign"
+    },
+    "MANGROVE_SLAB": {
+        "description": "BlockData: Slab"
+    },
+    "MANGROVE_STAIRS": {
+        "description": "BlockData: Stairs"
+    },
+    "MANGROVE_TRAPDOOR": {
+        "description": "BlockData: TrapDoor"
+    },
+    "MANGROVE_WALL_HANGING_SIGN": {
+        "description": "BlockData: WallHangingSign"
+    },
+    "MANGROVE_WALL_SIGN": {
+        "description": "BlockData: WallSign"
+    },
+    "MANGROVE_WOOD": {
+        "description": "BlockData: Orientable"
+    },
+    "MAP": {
+        "description": ""
+    },
+    "MEDIUM_AMETHYST_BUD": {
+        "description": "BlockData: AmethystCluster"
+    },
+    "MELON": {
+        "description": ""
+    },
+    "MELON_SEEDS": {
+        "description": ""
+    },
+    "MELON_SLICE": {
+        "description": ""
+    },
+    "MELON_STEM": {
+        "description": "BlockData: Ageable"
+    },
+    "MILK_BUCKET": {
+        "description": ""
+    },
+    "MINECART": {
+        "description": ""
+    },
+    "MINER_POTTERY_SHERD": {
+        "description": ""
+    },
+    "MOJANG_BANNER_PATTERN": {
+        "description": ""
+    },
+    "MOOSHROOM_SPAWN_EGG": {
+        "description": ""
+    },
+    "MOSSY_COBBLESTONE": {
+        "description": ""
+    },
+    "MOSSY_COBBLESTONE_SLAB": {
+        "description": "BlockData: Slab"
+    },
+    "MOSSY_COBBLESTONE_STAIRS": {
+        "description": "BlockData: Stairs"
+    },
+    "MOSSY_COBBLESTONE_WALL": {
+        "description": "BlockData: Wall"
+    },
+    "MOSSY_STONE_BRICKS": {
+        "description": ""
+    },
+    "MOSSY_STONE_BRICK_SLAB": {
+        "description": "BlockData: Slab"
+    },
+    "MOSSY_STONE_BRICK_STAIRS": {
+        "description": "BlockData: Stairs"
+    },
+    "MOSSY_STONE_BRICK_WALL": {
+        "description": "BlockData: Wall"
+    },
+    "MOSS_BLOCK": {
+        "description": ""
+    },
+    "MOSS_CARPET": {
+        "description": ""
+    },
+    "MOURNER_POTTERY_SHERD": {
+        "description": ""
+    },
+    "MOVING_PISTON": {
+        "description": "BlockData: TechnicalPiston"
+    },
+    "MUD": {
+        "description": ""
+    },
+    "MUDDY_MANGROVE_ROOTS": {
+        "description": "BlockData: Orientable"
+    },
+    "MUD_BRICKS": {
+        "description": ""
+    },
+    "MUD_BRICK_SLAB": {
+        "description": "BlockData: Slab"
+    },
+    "MUD_BRICK_STAIRS": {
+        "description": "BlockData: Stairs"
+    },
+    "MUD_BRICK_WALL": {
+        "description": "BlockData: Wall"
+    },
+    "MULE_SPAWN_EGG": {
+        "description": ""
+    },
+    "MUSHROOM_STEM": {
+        "description": "BlockData: MultipleFacing"
+    },
+    "MUSHROOM_STEW": {
+        "description": ""
+    },
+    "MUSIC_DISC_11": {
+        "description": ""
+    },
+    "MUSIC_DISC_13": {
+        "description": ""
+    },
+    "MUSIC_DISC_5": {
+        "description": ""
+    },
+    "MUSIC_DISC_BLOCKS": {
+        "description": ""
+    },
+    "MUSIC_DISC_CAT": {
+        "description": ""
+    },
+    "MUSIC_DISC_CHIRP": {
+        "description": ""
+    },
+    "MUSIC_DISC_FAR": {
+        "description": ""
+    },
+    "MUSIC_DISC_MALL": {
+        "description": ""
+    },
+    "MUSIC_DISC_MELLOHI": {
+        "description": ""
+    },
+    "MUSIC_DISC_OTHERSIDE": {
+        "description": ""
+    },
+    "MUSIC_DISC_PIGSTEP": {
+        "description": ""
+    },
+    "MUSIC_DISC_RELIC": {
+        "description": ""
+    },
+    "MUSIC_DISC_STAL": {
+        "description": ""
+    },
+    "MUSIC_DISC_STRAD": {
+        "description": ""
+    },
+    "MUSIC_DISC_WAIT": {
+        "description": ""
+    },
+    "MUSIC_DISC_WARD": {
+        "description": ""
+    },
+    "MUTTON": {
+        "description": ""
+    },
+    "MYCELIUM": {
+        "description": "BlockData: Snowable"
+    },
+    "NAME_TAG": {
+        "description": ""
+    },
+    "NAUTILUS_SHELL": {
+        "description": ""
+    },
+    "NETHERITE_AXE": {
+        "description": ""
+    },
+    "NETHERITE_BLOCK": {
+        "description": ""
+    },
+    "NETHERITE_BOOTS": {
+        "description": ""
+    },
+    "NETHERITE_CHESTPLATE": {
+        "description": ""
+    },
+    "NETHERITE_HELMET": {
+        "description": ""
+    },
+    "NETHERITE_HOE": {
+        "description": ""
+    },
+    "NETHERITE_INGOT": {
+        "description": ""
+    },
+    "NETHERITE_LEGGINGS": {
+        "description": ""
+    },
+    "NETHERITE_PICKAXE": {
+        "description": ""
+    },
+    "NETHERITE_SCRAP": {
+        "description": ""
+    },
+    "NETHERITE_SHOVEL": {
+        "description": ""
+    },
+    "NETHERITE_SWORD": {
+        "description": ""
+    },
+    "NETHERITE_UPGRADE_SMITHING_TEMPLATE": {
+        "description": ""
+    },
+    "NETHERRACK": {
+        "description": ""
+    },
+    "NETHER_BRICK": {
+        "description": ""
+    },
+    "NETHER_BRICKS": {
+        "description": ""
+    },
+    "NETHER_BRICK_FENCE": {
+        "description": "BlockData: Fence"
+    },
+    "NETHER_BRICK_SLAB": {
+        "description": "BlockData: Slab"
+    },
+    "NETHER_BRICK_STAIRS": {
+        "description": "BlockData: Stairs"
+    },
+    "NETHER_BRICK_WALL": {
+        "description": "BlockData: Wall"
+    },
+    "NETHER_GOLD_ORE": {
+        "description": ""
+    },
+    "NETHER_PORTAL": {
+        "description": "BlockData: Orientable"
+    },
+    "NETHER_QUARTZ_ORE": {
+        "description": ""
+    },
+    "NETHER_SPROUTS": {
+        "description": ""
+    },
+    "NETHER_STAR": {
+        "description": ""
+    },
+    "NETHER_WART": {
+        "description": "BlockData: Ageable"
+    },
+    "NETHER_WART_BLOCK": {
+        "description": ""
+    },
+    "NOTE_BLOCK": {
+        "description": "BlockData: NoteBlock"
+    },
+    "OAK_BOAT": {
+        "description": ""
+    },
+    "OAK_BUTTON": {
+        "description": "BlockData: Switch"
+    },
+    "OAK_CHEST_BOAT": {
+        "description": ""
+    },
+    "OAK_DOOR": {
+        "description": "BlockData: Door"
+    },
+    "OAK_FENCE": {
+        "description": "BlockData: Fence"
+    },
+    "OAK_FENCE_GATE": {
+        "description": "BlockData: Gate"
+    },
+    "OAK_HANGING_SIGN": {
+        "description": "BlockData: HangingSign"
+    },
+    "OAK_LEAVES": {
+        "description": "BlockData: Leaves"
+    },
+    "OAK_LOG": {
+        "description": "BlockData: Orientable"
+    },
+    "OAK_PLANKS": {
+        "description": ""
+    },
+    "OAK_PRESSURE_PLATE": {
+        "description": "BlockData: Powerable"
+    },
+    "OAK_SAPLING": {
+        "description": "BlockData: Sapling"
+    },
+    "OAK_SIGN": {
+        "description": "BlockData: Sign"
+    },
+    "OAK_SLAB": {
+        "description": "BlockData: Slab"
+    },
+    "OAK_STAIRS": {
+        "description": "BlockData: Stairs"
+    },
+    "OAK_TRAPDOOR": {
+        "description": "BlockData: TrapDoor"
+    },
+    "OAK_WALL_HANGING_SIGN": {
+        "description": "BlockData: WallHangingSign"
+    },
+    "OAK_WALL_SIGN": {
+        "description": "BlockData: WallSign"
+    },
+    "OAK_WOOD": {
+        "description": "BlockData: Orientable"
+    },
+    "OBSERVER": {
+        "description": "BlockData: Observer"
+    },
+    "OBSIDIAN": {
+        "description": ""
+    },
+    "OCELOT_SPAWN_EGG": {
+        "description": ""
+    },
+    "OCHRE_FROGLIGHT": {
+        "description": "BlockData: Orientable"
+    },
+    "ORANGE_BANNER": {
+        "description": "BlockData: Rotatable"
+    },
+    "ORANGE_BED": {
+        "description": "BlockData: Bed"
+    },
+    "ORANGE_CANDLE": {
+        "description": "BlockData: Candle"
+    },
+    "ORANGE_CANDLE_CAKE": {
+        "description": "BlockData: Lightable"
+    },
+    "ORANGE_CARPET": {
+        "description": ""
+    },
+    "ORANGE_CONCRETE": {
+        "description": ""
+    },
+    "ORANGE_CONCRETE_POWDER": {
+        "description": ""
+    },
+    "ORANGE_DYE": {
+        "description": ""
+    },
+    "ORANGE_GLAZED_TERRACOTTA": {
+        "description": "BlockData: Directional"
+    },
+    "ORANGE_SHULKER_BOX": {
+        "description": "BlockData: Directional"
+    },
+    "ORANGE_STAINED_GLASS": {
+        "description": ""
+    },
+    "ORANGE_STAINED_GLASS_PANE": {
+        "description": "BlockData: GlassPane"
+    },
+    "ORANGE_TERRACOTTA": {
+        "description": ""
+    },
+    "ORANGE_TULIP": {
+        "description": ""
+    },
+    "ORANGE_WALL_BANNER": {
+        "description": "BlockData: Directional"
+    },
+    "ORANGE_WOOL": {
+        "description": ""
+    },
+    "OXEYE_DAISY": {
+        "description": ""
+    },
+    "OXIDIZED_CHISELED_COPPER": {
+        "description": ""
+    },
+    "OXIDIZED_COPPER": {
+        "description": ""
+    },
+    "OXIDIZED_COPPER_BULB": {
+        "description": "BlockData: CopperBulb"
+    },
+    "OXIDIZED_COPPER_DOOR": {
+        "description": "BlockData: Door"
+    },
+    "OXIDIZED_COPPER_GRATE": {
+        "description": "BlockData: Waterlogged"
+    },
+    "OXIDIZED_COPPER_TRAPDOOR": {
+        "description": "BlockData: TrapDoor"
+    },
+    "OXIDIZED_CUT_COPPER": {
+        "description": ""
+    },
+    "OXIDIZED_CUT_COPPER_SLAB": {
+        "description": "BlockData: Slab"
+    },
+    "OXIDIZED_CUT_COPPER_STAIRS": {
+        "description": "BlockData: Stairs"
+    },
+    "PACKED_ICE": {
+        "description": ""
+    },
+    "PACKED_MUD": {
+        "description": ""
+    },
+    "PAINTING": {
+        "description": ""
+    },
+    "PANDA_SPAWN_EGG": {
+        "description": ""
+    },
+    "PAPER": {
+        "description": ""
+    },
+    "PARROT_SPAWN_EGG": {
+        "description": ""
+    },
+    "PEARLESCENT_FROGLIGHT": {
+        "description": "BlockData: Orientable"
+    },
+    "PEONY": {
+        "description": "BlockData: Bisected"
+    },
+    "PETRIFIED_OAK_SLAB": {
+        "description": "BlockData: Slab"
+    },
+    "PHANTOM_MEMBRANE": {
+        "description": ""
+    },
+    "PHANTOM_SPAWN_EGG": {
+        "description": ""
+    },
+    "PIGLIN_BANNER_PATTERN": {
+        "description": ""
+    },
+    "PIGLIN_BRUTE_SPAWN_EGG": {
+        "description": ""
+    },
+    "PIGLIN_HEAD": {
+        "description": "BlockData: Rotatable"
+    },
+    "PIGLIN_SPAWN_EGG": {
+        "description": ""
+    },
+    "PIGLIN_WALL_HEAD": {
+        "description": "BlockData: Directional"
+    },
+    "PIG_SPAWN_EGG": {
+        "description": ""
+    },
+    "PILLAGER_SPAWN_EGG": {
+        "description": ""
+    },
+    "PINK_BANNER": {
+        "description": "BlockData: Rotatable"
+    },
+    "PINK_BED": {
+        "description": "BlockData: Bed"
+    },
+    "PINK_CANDLE": {
+        "description": "BlockData: Candle"
+    },
+    "PINK_CANDLE_CAKE": {
+        "description": "BlockData: Lightable"
+    },
+    "PINK_CARPET": {
+        "description": ""
+    },
+    "PINK_CONCRETE": {
+        "description": ""
+    },
+    "PINK_CONCRETE_POWDER": {
+        "description": ""
+    },
+    "PINK_DYE": {
+        "description": ""
+    },
+    "PINK_GLAZED_TERRACOTTA": {
+        "description": "BlockData: Directional"
+    },
+    "PINK_PETALS": {
+        "description": "BlockData: PinkPetals"
+    },
+    "PINK_SHULKER_BOX": {
+        "description": "BlockData: Directional"
+    },
+    "PINK_STAINED_GLASS": {
+        "description": ""
+    },
+    "PINK_STAINED_GLASS_PANE": {
+        "description": "BlockData: GlassPane"
+    },
+    "PINK_TERRACOTTA": {
+        "description": ""
+    },
+    "PINK_TULIP": {
+        "description": ""
+    },
+    "PINK_WALL_BANNER": {
+        "description": "BlockData: Directional"
+    },
+    "PINK_WOOL": {
+        "description": ""
+    },
+    "PISTON": {
+        "description": "BlockData: Piston"
+    },
+    "PISTON_HEAD": {
+        "description": "BlockData: PistonHead"
+    },
+    "PITCHER_CROP": {
+        "description": "BlockData: PitcherCrop"
+    },
+    "PITCHER_PLANT": {
+        "description": "BlockData: Bisected"
+    },
+    "PITCHER_POD": {
+        "description": ""
+    },
+    "PLAYER_HEAD": {
+        "description": "BlockData: Rotatable"
+    },
+    "PLAYER_WALL_HEAD": {
+        "description": "BlockData: Directional"
+    },
+    "PLENTY_POTTERY_SHERD": {
+        "description": ""
+    },
+    "PODZOL": {
+        "description": "BlockData: Snowable"
+    },
+    "POINTED_DRIPSTONE": {
+        "description": "BlockData: PointedDripstone"
+    },
+    "POISONOUS_POTATO": {
+        "description": ""
+    },
+    "POLAR_BEAR_SPAWN_EGG": {
+        "description": ""
+    },
+    "POLISHED_ANDESITE": {
+        "description": ""
+    },
+    "POLISHED_ANDESITE_SLAB": {
+        "description": "BlockData: Slab"
+    },
+    "POLISHED_ANDESITE_STAIRS": {
+        "description": "BlockData: Stairs"
+    },
+    "POLISHED_BASALT": {
+        "description": "BlockData: Orientable"
+    },
+    "POLISHED_BLACKSTONE": {
+        "description": ""
+    },
+    "POLISHED_BLACKSTONE_BRICKS": {
+        "description": ""
+    },
+    "POLISHED_BLACKSTONE_BRICK_SLAB": {
+        "description": "BlockData: Slab"
+    },
+    "POLISHED_BLACKSTONE_BRICK_STAIRS": {
+        "description": "BlockData: Stairs"
+    },
+    "POLISHED_BLACKSTONE_BRICK_WALL": {
+        "description": "BlockData: Wall"
+    },
+    "POLISHED_BLACKSTONE_BUTTON": {
+        "description": "BlockData: Switch"
+    },
+    "POLISHED_BLACKSTONE_PRESSURE_PLATE": {
+        "description": "BlockData: Powerable"
+    },
+    "POLISHED_BLACKSTONE_SLAB": {
+        "description": "BlockData: Slab"
+    },
+    "POLISHED_BLACKSTONE_STAIRS": {
+        "description": "BlockData: Stairs"
+    },
+    "POLISHED_BLACKSTONE_WALL": {
+        "description": "BlockData: Wall"
+    },
+    "POLISHED_DEEPSLATE": {
+        "description": ""
+    },
+    "POLISHED_DEEPSLATE_SLAB": {
+        "description": "BlockData: Slab"
+    },
+    "POLISHED_DEEPSLATE_STAIRS": {
+        "description": "BlockData: Stairs"
+    },
+    "POLISHED_DEEPSLATE_WALL": {
+        "description": "BlockData: Wall"
+    },
+    "POLISHED_DIORITE": {
+        "description": ""
+    },
+    "POLISHED_DIORITE_SLAB": {
+        "description": "BlockData: Slab"
+    },
+    "POLISHED_DIORITE_STAIRS": {
+        "description": "BlockData: Stairs"
+    },
+    "POLISHED_GRANITE": {
+        "description": ""
+    },
+    "POLISHED_GRANITE_SLAB": {
+        "description": "BlockData: Slab"
+    },
+    "POLISHED_GRANITE_STAIRS": {
+        "description": "BlockData: Stairs"
+    },
+    "POLISHED_TUFF": {
+        "description": ""
+    },
+    "POLISHED_TUFF_SLAB": {
+        "description": "BlockData: Slab"
+    },
+    "POLISHED_TUFF_STAIRS": {
+        "description": "BlockData: Stairs"
+    },
+    "POLISHED_TUFF_WALL": {
+        "description": "BlockData: Wall"
+    },
+    "POPPED_CHORUS_FRUIT": {
+        "description": ""
+    },
+    "POPPY": {
+        "description": ""
+    },
+    "PORKCHOP": {
+        "description": ""
+    },
+    "POTATO": {
+        "description": ""
+    },
+    "POTATOES": {
+        "description": "BlockData: Ageable"
+    },
+    "POTION": {
+        "description": ""
+    },
+    "POTTED_ACACIA_SAPLING": {
+        "description": ""
+    },
+    "POTTED_ALLIUM": {
+        "description": ""
+    },
+    "POTTED_AZALEA_BUSH": {
+        "description": ""
+    },
+    "POTTED_AZURE_BLUET": {
+        "description": ""
+    },
+    "POTTED_BAMBOO": {
+        "description": ""
+    },
+    "POTTED_BIRCH_SAPLING": {
+        "description": ""
+    },
+    "POTTED_BLUE_ORCHID": {
+        "description": ""
+    },
+    "POTTED_BROWN_MUSHROOM": {
+        "description": ""
+    },
+    "POTTED_CACTUS": {
+        "description": ""
+    },
+    "POTTED_CHERRY_SAPLING": {
+        "description": ""
+    },
+    "POTTED_CORNFLOWER": {
+        "description": ""
+    },
+    "POTTED_CRIMSON_FUNGUS": {
+        "description": ""
+    },
+    "POTTED_CRIMSON_ROOTS": {
+        "description": ""
+    },
+    "POTTED_DANDELION": {
+        "description": ""
+    },
+    "POTTED_DARK_OAK_SAPLING": {
+        "description": ""
+    },
+    "POTTED_DEAD_BUSH": {
+        "description": ""
+    },
+    "POTTED_FERN": {
+        "description": ""
+    },
+    "POTTED_FLOWERING_AZALEA_BUSH": {
+        "description": ""
+    },
+    "POTTED_JUNGLE_SAPLING": {
+        "description": ""
+    },
+    "POTTED_LILY_OF_THE_VALLEY": {
+        "description": ""
+    },
+    "POTTED_MANGROVE_PROPAGULE": {
+        "description": ""
+    },
+    "POTTED_OAK_SAPLING": {
+        "description": ""
+    },
+    "POTTED_ORANGE_TULIP": {
+        "description": ""
+    },
+    "POTTED_OXEYE_DAISY": {
+        "description": ""
+    },
+    "POTTED_PINK_TULIP": {
+        "description": ""
+    },
+    "POTTED_POPPY": {
+        "description": ""
+    },
+    "POTTED_RED_MUSHROOM": {
+        "description": ""
+    },
+    "POTTED_RED_TULIP": {
+        "description": ""
+    },
+    "POTTED_SPRUCE_SAPLING": {
+        "description": ""
+    },
+    "POTTED_TORCHFLOWER": {
+        "description": ""
+    },
+    "POTTED_WARPED_FUNGUS": {
+        "description": ""
+    },
+    "POTTED_WARPED_ROOTS": {
+        "description": ""
+    },
+    "POTTED_WHITE_TULIP": {
+        "description": ""
+    },
+    "POTTED_WITHER_ROSE": {
+        "description": ""
+    },
+    "POWDER_SNOW": {
+        "description": ""
+    },
+    "POWDER_SNOW_BUCKET": {
+        "description": ""
+    },
+    "POWDER_SNOW_CAULDRON": {
+        "description": "BlockData: Levelled"
+    },
+    "POWERED_RAIL": {
+        "description": "BlockData: RedstoneRail"
+    },
+    "PRISMARINE": {
+        "description": ""
+    },
+    "PRISMARINE_BRICKS": {
+        "description": ""
+    },
+    "PRISMARINE_BRICK_SLAB": {
+        "description": "BlockData: Slab"
+    },
+    "PRISMARINE_BRICK_STAIRS": {
+        "description": "BlockData: Stairs"
+    },
+    "PRISMARINE_CRYSTALS": {
+        "description": ""
+    },
+    "PRISMARINE_SHARD": {
+        "description": ""
+    },
+    "PRISMARINE_SLAB": {
+        "description": "BlockData: Slab"
+    },
+    "PRISMARINE_STAIRS": {
+        "description": "BlockData: Stairs"
+    },
+    "PRISMARINE_WALL": {
+        "description": "BlockData: Wall"
+    },
+    "PRIZE_POTTERY_SHERD": {
+        "description": ""
+    },
+    "PUFFERFISH": {
+        "description": ""
+    },
+    "PUFFERFISH_BUCKET": {
+        "description": ""
+    },
+    "PUFFERFISH_SPAWN_EGG": {
+        "description": ""
+    },
+    "PUMPKIN": {
+        "description": ""
+    },
+    "PUMPKIN_PIE": {
+        "description": ""
+    },
+    "PUMPKIN_SEEDS": {
+        "description": ""
+    },
+    "PUMPKIN_STEM": {
+        "description": "BlockData: Ageable"
+    },
+    "PURPLE_BANNER": {
+        "description": "BlockData: Rotatable"
+    },
+    "PURPLE_BED": {
+        "description": "BlockData: Bed"
+    },
+    "PURPLE_CANDLE": {
+        "description": "BlockData: Candle"
+    },
+    "PURPLE_CANDLE_CAKE": {
+        "description": "BlockData: Lightable"
+    },
+    "PURPLE_CARPET": {
+        "description": ""
+    },
+    "PURPLE_CONCRETE": {
+        "description": ""
+    },
+    "PURPLE_CONCRETE_POWDER": {
+        "description": ""
+    },
+    "PURPLE_DYE": {
+        "description": ""
+    },
+    "PURPLE_GLAZED_TERRACOTTA": {
+        "description": "BlockData: Directional"
+    },
+    "PURPLE_SHULKER_BOX": {
+        "description": "BlockData: Directional"
+    },
+    "PURPLE_STAINED_GLASS": {
+        "description": ""
+    },
+    "PURPLE_STAINED_GLASS_PANE": {
+        "description": "BlockData: GlassPane"
+    },
+    "PURPLE_TERRACOTTA": {
+        "description": ""
+    },
+    "PURPLE_WALL_BANNER": {
+        "description": "BlockData: Directional"
+    },
+    "PURPLE_WOOL": {
+        "description": ""
+    },
+    "PURPUR_BLOCK": {
+        "description": ""
+    },
+    "PURPUR_PILLAR": {
+        "description": "BlockData: Orientable"
+    },
+    "PURPUR_SLAB": {
+        "description": "BlockData: Slab"
+    },
+    "PURPUR_STAIRS": {
+        "description": "BlockData: Stairs"
+    },
+    "QUARTZ": {
+        "description": ""
+    },
+    "QUARTZ_BLOCK": {
+        "description": ""
+    },
+    "QUARTZ_BRICKS": {
+        "description": ""
+    },
+    "QUARTZ_PILLAR": {
+        "description": "BlockData: Orientable"
+    },
+    "QUARTZ_SLAB": {
+        "description": "BlockData: Slab"
+    },
+    "QUARTZ_STAIRS": {
+        "description": "BlockData: Stairs"
+    },
+    "RABBIT": {
+        "description": ""
+    },
+    "RABBIT_FOOT": {
+        "description": ""
+    },
+    "RABBIT_HIDE": {
+        "description": ""
+    },
+    "RABBIT_SPAWN_EGG": {
+        "description": ""
+    },
+    "RABBIT_STEW": {
+        "description": ""
+    },
+    "RAIL": {
+        "description": "BlockData: Rail"
+    },
+    "RAISER_ARMOR_TRIM_SMITHING_TEMPLATE": {
+        "description": ""
+    },
+    "RAVAGER_SPAWN_EGG": {
+        "description": ""
+    },
+    "RAW_COPPER": {
+        "description": ""
+    },
+    "RAW_COPPER_BLOCK": {
+        "description": ""
+    },
+    "RAW_GOLD": {
+        "description": ""
+    },
+    "RAW_GOLD_BLOCK": {
+        "description": ""
+    },
+    "RAW_IRON": {
+        "description": ""
+    },
+    "RAW_IRON_BLOCK": {
+        "description": ""
+    },
+    "RECOVERY_COMPASS": {
+        "description": ""
+    },
+    "REDSTONE": {
+        "description": ""
+    },
+    "REDSTONE_BLOCK": {
+        "description": ""
+    },
+    "REDSTONE_LAMP": {
+        "description": "BlockData: Lightable"
+    },
+    "REDSTONE_ORE": {
+        "description": "BlockData: Lightable"
+    },
+    "REDSTONE_TORCH": {
+        "description": "BlockData: Lightable"
+    },
+    "REDSTONE_WALL_TORCH": {
+        "description": "BlockData: RedstoneWallTorch"
+    },
+    "REDSTONE_WIRE": {
+        "description": "BlockData: RedstoneWire"
+    },
+    "RED_BANNER": {
+        "description": "BlockData: Rotatable"
+    },
+    "RED_BED": {
+        "description": "BlockData: Bed"
+    },
+    "RED_CANDLE": {
+        "description": "BlockData: Candle"
+    },
+    "RED_CANDLE_CAKE": {
+        "description": "BlockData: Lightable"
+    },
+    "RED_CARPET": {
+        "description": ""
+    },
+    "RED_CONCRETE": {
+        "description": ""
+    },
+    "RED_CONCRETE_POWDER": {
+        "description": ""
+    },
+    "RED_DYE": {
+        "description": ""
+    },
+    "RED_GLAZED_TERRACOTTA": {
+        "description": "BlockData: Directional"
+    },
+    "RED_MUSHROOM": {
+        "description": ""
+    },
+    "RED_MUSHROOM_BLOCK": {
+        "description": "BlockData: MultipleFacing"
+    },
+    "RED_NETHER_BRICKS": {
+        "description": ""
+    },
+    "RED_NETHER_BRICK_SLAB": {
+        "description": "BlockData: Slab"
+    },
+    "RED_NETHER_BRICK_STAIRS": {
+        "description": "BlockData: Stairs"
+    },
+    "RED_NETHER_BRICK_WALL": {
+        "description": "BlockData: Wall"
+    },
+    "RED_SAND": {
+        "description": ""
+    },
+    "RED_SANDSTONE": {
+        "description": ""
+    },
+    "RED_SANDSTONE_SLAB": {
+        "description": "BlockData: Slab"
+    },
+    "RED_SANDSTONE_STAIRS": {
+        "description": "BlockData: Stairs"
+    },
+    "RED_SANDSTONE_WALL": {
+        "description": "BlockData: Wall"
+    },
+    "RED_SHULKER_BOX": {
+        "description": "BlockData: Directional"
+    },
+    "RED_STAINED_GLASS": {
+        "description": ""
+    },
+    "RED_STAINED_GLASS_PANE": {
+        "description": "BlockData: GlassPane"
+    },
+    "RED_TERRACOTTA": {
+        "description": ""
+    },
+    "RED_TULIP": {
+        "description": ""
+    },
+    "RED_WALL_BANNER": {
+        "description": "BlockData: Directional"
+    },
+    "RED_WOOL": {
+        "description": ""
+    },
+    "REINFORCED_DEEPSLATE": {
+        "description": ""
+    },
+    "REPEATER": {
+        "description": "BlockData: Repeater"
+    },
+    "REPEATING_COMMAND_BLOCK": {
+        "description": "BlockData: CommandBlock"
+    },
+    "RESPAWN_ANCHOR": {
+        "description": "BlockData: RespawnAnchor"
+    },
+    "RIB_ARMOR_TRIM_SMITHING_TEMPLATE": {
+        "description": ""
+    },
+    "ROOTED_DIRT": {
+        "description": ""
+    },
+    "ROSE_BUSH": {
+        "description": "BlockData: Bisected"
+    },
+    "ROTTEN_FLESH": {
+        "description": ""
+    },
+    "SADDLE": {
+        "description": ""
+    },
+    "SALMON": {
+        "description": ""
+    },
+    "SALMON_BUCKET": {
+        "description": ""
+    },
+    "SALMON_SPAWN_EGG": {
+        "description": ""
+    },
+    "SAND": {
+        "description": ""
+    },
+    "SANDSTONE": {
+        "description": ""
+    },
+    "SANDSTONE_SLAB": {
+        "description": "BlockData: Slab"
+    },
+    "SANDSTONE_STAIRS": {
+        "description": "BlockData: Stairs"
+    },
+    "SANDSTONE_WALL": {
+        "description": "BlockData: Wall"
+    },
+    "SCAFFOLDING": {
+        "description": "BlockData: Scaffolding"
+    },
+    "SCULK": {
+        "description": ""
+    },
+    "SCULK_CATALYST": {
+        "description": "BlockData: SculkCatalyst"
+    },
+    "SCULK_SENSOR": {
+        "description": "BlockData: SculkSensor"
+    },
+    "SCULK_SHRIEKER": {
+        "description": "BlockData: SculkShrieker"
+    },
+    "SCULK_VEIN": {
+        "description": "BlockData: SculkVein"
+    },
+    "SCUTE": {
+        "description": ""
+    },
+    "SEAGRASS": {
+        "description": ""
+    },
+    "SEA_LANTERN": {
+        "description": ""
+    },
+    "SEA_PICKLE": {
+        "description": "BlockData: SeaPickle"
+    },
+    "SENTRY_ARMOR_TRIM_SMITHING_TEMPLATE": {
+        "description": ""
+    },
+    "SHAPER_ARMOR_TRIM_SMITHING_TEMPLATE": {
+        "description": ""
+    },
+    "SHEAF_POTTERY_SHERD": {
+        "description": ""
+    },
+    "SHEARS": {
+        "description": ""
+    },
+    "SHEEP_SPAWN_EGG": {
+        "description": ""
+    },
+    "SHELTER_POTTERY_SHERD": {
+        "description": ""
+    },
+    "SHIELD": {
+        "description": ""
+    },
+    "SHORT_GRASS": {
+        "description": ""
+    },
+    "SHROOMLIGHT": {
+        "description": ""
+    },
+    "SHULKER_BOX": {
+        "description": "BlockData: Directional"
+    },
+    "SHULKER_SHELL": {
+        "description": ""
+    },
+    "SHULKER_SPAWN_EGG": {
+        "description": ""
+    },
+    "SILENCE_ARMOR_TRIM_SMITHING_TEMPLATE": {
+        "description": ""
+    },
+    "SILVERFISH_SPAWN_EGG": {
+        "description": ""
+    },
+    "SKELETON_HORSE_SPAWN_EGG": {
+        "description": ""
+    },
+    "SKELETON_SKULL": {
+        "description": "BlockData: Rotatable"
+    },
+    "SKELETON_SPAWN_EGG": {
+        "description": ""
+    },
+    "SKELETON_WALL_SKULL": {
+        "description": "BlockData: Directional"
+    },
+    "SKULL_BANNER_PATTERN": {
+        "description": ""
+    },
+    "SKULL_POTTERY_SHERD": {
+        "description": ""
+    },
+    "SLIME_BALL": {
+        "description": ""
+    },
+    "SLIME_BLOCK": {
+        "description": ""
+    },
+    "SLIME_SPAWN_EGG": {
+        "description": ""
+    },
+    "SMALL_AMETHYST_BUD": {
+        "description": "BlockData: AmethystCluster"
+    },
+    "SMALL_DRIPLEAF": {
+        "description": "BlockData: SmallDripleaf"
+    },
+    "SMITHING_TABLE": {
+        "description": ""
+    },
+    "SMOKER": {
+        "description": "BlockData: Furnace"
+    },
+    "SMOOTH_BASALT": {
+        "description": ""
+    },
+    "SMOOTH_QUARTZ": {
+        "description": ""
+    },
+    "SMOOTH_QUARTZ_SLAB": {
+        "description": "BlockData: Slab"
+    },
+    "SMOOTH_QUARTZ_STAIRS": {
+        "description": "BlockData: Stairs"
+    },
+    "SMOOTH_RED_SANDSTONE": {
+        "description": ""
+    },
+    "SMOOTH_RED_SANDSTONE_SLAB": {
+        "description": "BlockData: Slab"
+    },
+    "SMOOTH_RED_SANDSTONE_STAIRS": {
+        "description": "BlockData: Stairs"
+    },
+    "SMOOTH_SANDSTONE": {
+        "description": ""
+    },
+    "SMOOTH_SANDSTONE_SLAB": {
+        "description": "BlockData: Slab"
+    },
+    "SMOOTH_SANDSTONE_STAIRS": {
+        "description": "BlockData: Stairs"
+    },
+    "SMOOTH_STONE": {
+        "description": ""
+    },
+    "SMOOTH_STONE_SLAB": {
+        "description": "BlockData: Slab"
+    },
+    "SNIFFER_EGG": {
+        "description": "BlockData: Hatchable"
+    },
+    "SNIFFER_SPAWN_EGG": {
+        "description": ""
+    },
+    "SNORT_POTTERY_SHERD": {
+        "description": ""
+    },
+    "SNOUT_ARMOR_TRIM_SMITHING_TEMPLATE": {
+        "description": ""
+    },
+    "SNOW": {
+        "description": "BlockData: Snow"
+    },
+    "SNOWBALL": {
+        "description": ""
+    },
+    "SNOW_BLOCK": {
+        "description": ""
+    },
+    "SNOW_GOLEM_SPAWN_EGG": {
+        "description": ""
+    },
+    "SOUL_CAMPFIRE": {
+        "description": "BlockData: Campfire"
+    },
+    "SOUL_FIRE": {
+        "description": ""
+    },
+    "SOUL_LANTERN": {
+        "description": "BlockData: Lantern"
+    },
+    "SOUL_SAND": {
+        "description": ""
+    },
+    "SOUL_SOIL": {
+        "description": ""
+    },
+    "SOUL_TORCH": {
+        "description": ""
+    },
+    "SOUL_WALL_TORCH": {
+        "description": "BlockData: Directional"
+    },
+    "SPAWNER": {
+        "description": ""
+    },
+    "SPECTRAL_ARROW": {
+        "description": ""
+    },
+    "SPIDER_EYE": {
+        "description": ""
+    },
+    "SPIDER_SPAWN_EGG": {
+        "description": ""
+    },
+    "SPIRE_ARMOR_TRIM_SMITHING_TEMPLATE": {
+        "description": ""
+    },
+    "SPLASH_POTION": {
+        "description": ""
+    },
+    "SPONGE": {
+        "description": ""
+    },
+    "SPORE_BLOSSOM": {
+        "description": ""
+    },
+    "SPRUCE_BOAT": {
+        "description": ""
+    },
+    "SPRUCE_BUTTON": {
+        "description": "BlockData: Switch"
+    },
+    "SPRUCE_CHEST_BOAT": {
+        "description": ""
+    },
+    "SPRUCE_DOOR": {
+        "description": "BlockData: Door"
+    },
+    "SPRUCE_FENCE": {
+        "description": "BlockData: Fence"
+    },
+    "SPRUCE_FENCE_GATE": {
+        "description": "BlockData: Gate"
+    },
+    "SPRUCE_HANGING_SIGN": {
+        "description": "BlockData: HangingSign"
+    },
+    "SPRUCE_LEAVES": {
+        "description": "BlockData: Leaves"
+    },
+    "SPRUCE_LOG": {
+        "description": "BlockData: Orientable"
+    },
+    "SPRUCE_PLANKS": {
+        "description": ""
+    },
+    "SPRUCE_PRESSURE_PLATE": {
+        "description": "BlockData: Powerable"
+    },
+    "SPRUCE_SAPLING": {
+        "description": "BlockData: Sapling"
+    },
+    "SPRUCE_SIGN": {
+        "description": "BlockData: Sign"
+    },
+    "SPRUCE_SLAB": {
+        "description": "BlockData: Slab"
+    },
+    "SPRUCE_STAIRS": {
+        "description": "BlockData: Stairs"
+    },
+    "SPRUCE_TRAPDOOR": {
+        "description": "BlockData: TrapDoor"
+    },
+    "SPRUCE_WALL_HANGING_SIGN": {
+        "description": "BlockData: WallHangingSign"
+    },
+    "SPRUCE_WALL_SIGN": {
+        "description": "BlockData: WallSign"
+    },
+    "SPRUCE_WOOD": {
+        "description": "BlockData: Orientable"
+    },
+    "SPYGLASS": {
+        "description": ""
+    },
+    "SQUID_SPAWN_EGG": {
+        "description": ""
+    },
+    "STICK": {
+        "description": ""
+    },
+    "STICKY_PISTON": {
+        "description": "BlockData: Piston"
+    },
+    "STONE": {
+        "description": ""
+    },
+    "STONECUTTER": {
+        "description": "BlockData: Directional"
+    },
+    "STONE_AXE": {
+        "description": ""
+    },
+    "STONE_BRICKS": {
+        "description": ""
+    },
+    "STONE_BRICK_SLAB": {
+        "description": "BlockData: Slab"
+    },
+    "STONE_BRICK_STAIRS": {
+        "description": "BlockData: Stairs"
+    },
+    "STONE_BRICK_WALL": {
+        "description": "BlockData: Wall"
+    },
+    "STONE_BUTTON": {
+        "description": "BlockData: Switch"
+    },
+    "STONE_HOE": {
+        "description": ""
+    },
+    "STONE_PICKAXE": {
+        "description": ""
+    },
+    "STONE_PRESSURE_PLATE": {
+        "description": "BlockData: Powerable"
+    },
+    "STONE_SHOVEL": {
+        "description": ""
+    },
+    "STONE_SLAB": {
+        "description": "BlockData: Slab"
+    },
+    "STONE_STAIRS": {
+        "description": "BlockData: Stairs"
+    },
+    "STONE_SWORD": {
+        "description": ""
+    },
+    "STRAY_SPAWN_EGG": {
+        "description": ""
+    },
+    "STRIDER_SPAWN_EGG": {
+        "description": ""
+    },
+    "STRING": {
+        "description": ""
+    },
+    "STRIPPED_ACACIA_LOG": {
+        "description": "BlockData: Orientable"
+    },
+    "STRIPPED_ACACIA_WOOD": {
+        "description": "BlockData: Orientable"
+    },
+    "STRIPPED_BAMBOO_BLOCK": {
+        "description": "BlockData: Orientable"
+    },
+    "STRIPPED_BIRCH_LOG": {
+        "description": "BlockData: Orientable"
+    },
+    "STRIPPED_BIRCH_WOOD": {
+        "description": "BlockData: Orientable"
+    },
+    "STRIPPED_CHERRY_LOG": {
+        "description": "BlockData: Orientable"
+    },
+    "STRIPPED_CHERRY_WOOD": {
+        "description": "BlockData: Orientable"
+    },
+    "STRIPPED_CRIMSON_HYPHAE": {
+        "description": "BlockData: Orientable"
+    },
+    "STRIPPED_CRIMSON_STEM": {
+        "description": "BlockData: Orientable"
+    },
+    "STRIPPED_DARK_OAK_LOG": {
+        "description": "BlockData: Orientable"
+    },
+    "STRIPPED_DARK_OAK_WOOD": {
+        "description": "BlockData: Orientable"
+    },
+    "STRIPPED_JUNGLE_LOG": {
+        "description": "BlockData: Orientable"
+    },
+    "STRIPPED_JUNGLE_WOOD": {
+        "description": "BlockData: Orientable"
+    },
+    "STRIPPED_MANGROVE_LOG": {
+        "description": "BlockData: Orientable"
+    },
+    "STRIPPED_MANGROVE_WOOD": {
+        "description": "BlockData: Orientable"
+    },
+    "STRIPPED_OAK_LOG": {
+        "description": "BlockData: Orientable"
+    },
+    "STRIPPED_OAK_WOOD": {
+        "description": "BlockData: Orientable"
+    },
+    "STRIPPED_SPRUCE_LOG": {
+        "description": "BlockData: Orientable"
+    },
+    "STRIPPED_SPRUCE_WOOD": {
+        "description": "BlockData: Orientable"
+    },
+    "STRIPPED_WARPED_HYPHAE": {
+        "description": "BlockData: Orientable"
+    },
+    "STRIPPED_WARPED_STEM": {
+        "description": "BlockData: Orientable"
+    },
+    "STRUCTURE_BLOCK": {
+        "description": "BlockData: StructureBlock"
+    },
+    "STRUCTURE_VOID": {
+        "description": ""
+    },
+    "SUGAR": {
+        "description": ""
+    },
+    "SUGAR_CANE": {
+        "description": "BlockData: Ageable"
+    },
+    "SUNFLOWER": {
+        "description": "BlockData: Bisected"
+    },
+    "SUSPICIOUS_GRAVEL": {
+        "description": "BlockData: Brushable"
+    },
+    "SUSPICIOUS_SAND": {
+        "description": "BlockData: Brushable"
+    },
+    "SUSPICIOUS_STEW": {
+        "description": ""
+    },
+    "SWEET_BERRIES": {
+        "description": ""
+    },
+    "SWEET_BERRY_BUSH": {
+        "description": "BlockData: Ageable"
+    },
+    "TADPOLE_BUCKET": {
+        "description": ""
+    },
+    "TADPOLE_SPAWN_EGG": {
+        "description": ""
+    },
+    "TALL_GRASS": {
+        "description": "BlockData: Bisected"
+    },
+    "TALL_SEAGRASS": {
+        "description": "BlockData: Bisected"
+    },
+    "TARGET": {
+        "description": "BlockData: AnaloguePowerable"
+    },
+    "TERRACOTTA": {
+        "description": ""
+    },
+    "TIDE_ARMOR_TRIM_SMITHING_TEMPLATE": {
+        "description": ""
+    },
+    "TINTED_GLASS": {
+        "description": ""
+    },
+    "TIPPED_ARROW": {
+        "description": ""
+    },
+    "TNT": {
+        "description": "BlockData: TNT"
+    },
+    "TNT_MINECART": {
+        "description": ""
+    },
+    "TORCH": {
+        "description": ""
+    },
+    "TORCHFLOWER": {
+        "description": ""
+    },
+    "TORCHFLOWER_CROP": {
+        "description": "BlockData: Ageable"
+    },
+    "TORCHFLOWER_SEEDS": {
+        "description": ""
+    },
+    "TOTEM_OF_UNDYING": {
+        "description": ""
+    },
+    "TRADER_LLAMA_SPAWN_EGG": {
+        "description": ""
+    },
+    "TRAPPED_CHEST": {
+        "description": "BlockData: Chest"
+    },
+    "TRIAL_KEY": {
+        "description": ""
+    },
+    "TRIAL_SPAWNER": {
+        "description": "BlockData: TrialSpawner"
+    },
+    "TRIDENT": {
+        "description": ""
+    },
+    "TRIPWIRE": {
+        "description": "BlockData: Tripwire"
+    },
+    "TRIPWIRE_HOOK": {
+        "description": "BlockData: TripwireHook"
+    },
+    "TROPICAL_FISH": {
+        "description": ""
+    },
+    "TROPICAL_FISH_BUCKET": {
+        "description": ""
+    },
+    "TROPICAL_FISH_SPAWN_EGG": {
+        "description": ""
+    },
+    "TUBE_CORAL": {
+        "description": "BlockData: Waterlogged"
+    },
+    "TUBE_CORAL_BLOCK": {
+        "description": ""
+    },
+    "TUBE_CORAL_FAN": {
+        "description": "BlockData: Waterlogged"
+    },
+    "TUBE_CORAL_WALL_FAN": {
+        "description": "BlockData: CoralWallFan"
+    },
+    "TUFF": {
+        "description": ""
+    },
+    "TUFF_BRICKS": {
+        "description": ""
+    },
+    "TUFF_BRICK_SLAB": {
+        "description": "BlockData: Slab"
+    },
+    "TUFF_BRICK_STAIRS": {
+        "description": "BlockData: Stairs"
+    },
+    "TUFF_BRICK_WALL": {
+        "description": "BlockData: Wall"
+    },
+    "TUFF_SLAB": {
+        "description": "BlockData: Slab"
+    },
+    "TUFF_STAIRS": {
+        "description": "BlockData: Stairs"
+    },
+    "TUFF_WALL": {
+        "description": "BlockData: Wall"
+    },
+    "TURTLE_EGG": {
+        "description": "BlockData: TurtleEgg"
+    },
+    "TURTLE_HELMET": {
+        "description": ""
+    },
+    "TURTLE_SPAWN_EGG": {
+        "description": ""
+    },
+    "TWISTING_VINES": {
+        "description": "BlockData: Ageable"
+    },
+    "TWISTING_VINES_PLANT": {
+        "description": ""
+    },
+    "VERDANT_FROGLIGHT": {
+        "description": "BlockData: Orientable"
+    },
+    "VEX_ARMOR_TRIM_SMITHING_TEMPLATE": {
+        "description": ""
+    },
+    "VEX_SPAWN_EGG": {
+        "description": ""
+    },
+    "VILLAGER_SPAWN_EGG": {
+        "description": ""
+    },
+    "VINDICATOR_SPAWN_EGG": {
+        "description": ""
+    },
+    "VINE": {
+        "description": "BlockData: MultipleFacing"
+    },
+    "VOID_AIR": {
+        "description": ""
+    },
+    "WALL_TORCH": {
+        "description": "BlockData: Directional"
+    },
+    "WANDERING_TRADER_SPAWN_EGG": {
+        "description": ""
+    },
+    "WARDEN_SPAWN_EGG": {
+        "description": ""
+    },
+    "WARD_ARMOR_TRIM_SMITHING_TEMPLATE": {
+        "description": ""
+    },
+    "WARPED_BUTTON": {
+        "description": "BlockData: Switch"
+    },
+    "WARPED_DOOR": {
+        "description": "BlockData: Door"
+    },
+    "WARPED_FENCE": {
+        "description": "BlockData: Fence"
+    },
+    "WARPED_FENCE_GATE": {
+        "description": "BlockData: Gate"
+    },
+    "WARPED_FUNGUS": {
+        "description": ""
+    },
+    "WARPED_FUNGUS_ON_A_STICK": {
+        "description": ""
+    },
+    "WARPED_HANGING_SIGN": {
+        "description": "BlockData: HangingSign"
+    },
+    "WARPED_HYPHAE": {
+        "description": "BlockData: Orientable"
+    },
+    "WARPED_NYLIUM": {
+        "description": ""
+    },
+    "WARPED_PLANKS": {
+        "description": ""
+    },
+    "WARPED_PRESSURE_PLATE": {
+        "description": "BlockData: Powerable"
+    },
+    "WARPED_ROOTS": {
+        "description": ""
+    },
+    "WARPED_SIGN": {
+        "description": "BlockData: Sign"
+    },
+    "WARPED_SLAB": {
+        "description": "BlockData: Slab"
+    },
+    "WARPED_STAIRS": {
+        "description": "BlockData: Stairs"
+    },
+    "WARPED_STEM": {
+        "description": "BlockData: Orientable"
+    },
+    "WARPED_TRAPDOOR": {
+        "description": "BlockData: TrapDoor"
+    },
+    "WARPED_WALL_HANGING_SIGN": {
+        "description": "BlockData: WallHangingSign"
+    },
+    "WARPED_WALL_SIGN": {
+        "description": "BlockData: WallSign"
+    },
+    "WARPED_WART_BLOCK": {
+        "description": ""
+    },
+    "WATER": {
+        "description": "BlockData: Levelled"
+    },
+    "WATER_BUCKET": {
+        "description": ""
+    },
+    "WATER_CAULDRON": {
+        "description": "BlockData: Levelled"
+    },
+    "WAXED_CHISELED_COPPER": {
+        "description": ""
+    },
+    "WAXED_COPPER_BLOCK": {
+        "description": ""
+    },
+    "WAXED_COPPER_BULB": {
+        "description": "BlockData: CopperBulb"
+    },
+    "WAXED_COPPER_DOOR": {
+        "description": "BlockData: Door"
+    },
+    "WAXED_COPPER_GRATE": {
+        "description": "BlockData: Waterlogged"
+    },
+    "WAXED_COPPER_TRAPDOOR": {
+        "description": "BlockData: TrapDoor"
+    },
+    "WAXED_CUT_COPPER": {
+        "description": ""
+    },
+    "WAXED_CUT_COPPER_SLAB": {
+        "description": "BlockData: Slab"
+    },
+    "WAXED_CUT_COPPER_STAIRS": {
+        "description": "BlockData: Stairs"
+    },
+    "WAXED_EXPOSED_CHISELED_COPPER": {
+        "description": ""
+    },
+    "WAXED_EXPOSED_COPPER": {
+        "description": ""
+    },
+    "WAXED_EXPOSED_COPPER_BULB": {
+        "description": "BlockData: CopperBulb"
+    },
+    "WAXED_EXPOSED_COPPER_DOOR": {
+        "description": "BlockData: Door"
+    },
+    "WAXED_EXPOSED_COPPER_GRATE": {
+        "description": "BlockData: Waterlogged"
+    },
+    "WAXED_EXPOSED_COPPER_TRAPDOOR": {
+        "description": "BlockData: TrapDoor"
+    },
+    "WAXED_EXPOSED_CUT_COPPER": {
+        "description": ""
+    },
+    "WAXED_EXPOSED_CUT_COPPER_SLAB": {
+        "description": "BlockData: Slab"
+    },
+    "WAXED_EXPOSED_CUT_COPPER_STAIRS": {
+        "description": "BlockData: Stairs"
+    },
+    "WAXED_OXIDIZED_CHISELED_COPPER": {
+        "description": ""
+    },
+    "WAXED_OXIDIZED_COPPER": {
+        "description": ""
+    },
+    "WAXED_OXIDIZED_COPPER_BULB": {
+        "description": "BlockData: CopperBulb"
+    },
+    "WAXED_OXIDIZED_COPPER_DOOR": {
+        "description": "BlockData: Door"
+    },
+    "WAXED_OXIDIZED_COPPER_GRATE": {
+        "description": "BlockData: Waterlogged"
+    },
+    "WAXED_OXIDIZED_COPPER_TRAPDOOR": {
+        "description": "BlockData: TrapDoor"
+    },
+    "WAXED_OXIDIZED_CUT_COPPER": {
+        "description": ""
+    },
+    "WAXED_OXIDIZED_CUT_COPPER_SLAB": {
+        "description": "BlockData: Slab"
+    },
+    "WAXED_OXIDIZED_CUT_COPPER_STAIRS": {
+        "description": "BlockData: Stairs"
+    },
+    "WAXED_WEATHERED_CHISELED_COPPER": {
+        "description": ""
+    },
+    "WAXED_WEATHERED_COPPER": {
+        "description": ""
+    },
+    "WAXED_WEATHERED_COPPER_BULB": {
+        "description": "BlockData: CopperBulb"
+    },
+    "WAXED_WEATHERED_COPPER_DOOR": {
+        "description": "BlockData: Door"
+    },
+    "WAXED_WEATHERED_COPPER_GRATE": {
+        "description": "BlockData: Waterlogged"
+    },
+    "WAXED_WEATHERED_COPPER_TRAPDOOR": {
+        "description": "BlockData: TrapDoor"
+    },
+    "WAXED_WEATHERED_CUT_COPPER": {
+        "description": ""
+    },
+    "WAXED_WEATHERED_CUT_COPPER_SLAB": {
+        "description": "BlockData: Slab"
+    },
+    "WAXED_WEATHERED_CUT_COPPER_STAIRS": {
+        "description": "BlockData: Stairs"
+    },
+    "WAYFINDER_ARMOR_TRIM_SMITHING_TEMPLATE": {
+        "description": ""
+    },
+    "WEATHERED_CHISELED_COPPER": {
+        "description": ""
+    },
+    "WEATHERED_COPPER": {
+        "description": ""
+    },
+    "WEATHERED_COPPER_BULB": {
+        "description": "BlockData: CopperBulb"
+    },
+    "WEATHERED_COPPER_DOOR": {
+        "description": "BlockData: Door"
+    },
+    "WEATHERED_COPPER_GRATE": {
+        "description": "BlockData: Waterlogged"
+    },
+    "WEATHERED_COPPER_TRAPDOOR": {
+        "description": "BlockData: TrapDoor"
+    },
+    "WEATHERED_CUT_COPPER": {
+        "description": ""
+    },
+    "WEATHERED_CUT_COPPER_SLAB": {
+        "description": "BlockData: Slab"
+    },
+    "WEATHERED_CUT_COPPER_STAIRS": {
+        "description": "BlockData: Stairs"
+    },
+    "WEEPING_VINES": {
+        "description": "BlockData: Ageable"
+    },
+    "WEEPING_VINES_PLANT": {
+        "description": ""
+    },
+    "WET_SPONGE": {
+        "description": ""
+    },
+    "WHEAT": {
+        "description": "BlockData: Ageable"
+    },
+    "WHEAT_SEEDS": {
+        "description": ""
+    },
+    "WHITE_BANNER": {
+        "description": "BlockData: Rotatable"
+    },
+    "WHITE_BED": {
+        "description": "BlockData: Bed"
+    },
+    "WHITE_CANDLE": {
+        "description": "BlockData: Candle"
+    },
+    "WHITE_CANDLE_CAKE": {
+        "description": "BlockData: Lightable"
+    },
+    "WHITE_CARPET": {
+        "description": ""
+    },
+    "WHITE_CONCRETE": {
+        "description": ""
+    },
+    "WHITE_CONCRETE_POWDER": {
+        "description": ""
+    },
+    "WHITE_DYE": {
+        "description": ""
+    },
+    "WHITE_GLAZED_TERRACOTTA": {
+        "description": "BlockData: Directional"
+    },
+    "WHITE_SHULKER_BOX": {
+        "description": "BlockData: Directional"
+    },
+    "WHITE_STAINED_GLASS": {
+        "description": ""
+    },
+    "WHITE_STAINED_GLASS_PANE": {
+        "description": "BlockData: GlassPane"
+    },
+    "WHITE_TERRACOTTA": {
+        "description": ""
+    },
+    "WHITE_TULIP": {
+        "description": ""
+    },
+    "WHITE_WALL_BANNER": {
+        "description": "BlockData: Directional"
+    },
+    "WHITE_WOOL": {
+        "description": ""
+    },
+    "WILD_ARMOR_TRIM_SMITHING_TEMPLATE": {
+        "description": ""
+    },
+    "WITCH_SPAWN_EGG": {
+        "description": ""
+    },
+    "WITHER_ROSE": {
+        "description": ""
+    },
+    "WITHER_SKELETON_SKULL": {
+        "description": "BlockData: Rotatable"
+    },
+    "WITHER_SKELETON_SPAWN_EGG": {
+        "description": ""
+    },
+    "WITHER_SKELETON_WALL_SKULL": {
+        "description": "BlockData: Directional"
+    },
+    "WITHER_SPAWN_EGG": {
+        "description": ""
+    },
+    "WOLF_SPAWN_EGG": {
+        "description": ""
+    },
+    "WOODEN_AXE": {
+        "description": ""
+    },
+    "WOODEN_HOE": {
+        "description": ""
+    },
+    "WOODEN_PICKAXE": {
+        "description": ""
+    },
+    "WOODEN_SHOVEL": {
+        "description": ""
+    },
+    "WOODEN_SWORD": {
+        "description": ""
+    },
+    "WRITABLE_BOOK": {
+        "description": ""
+    },
+    "WRITTEN_BOOK": {
+        "description": ""
+    },
+    "YELLOW_BANNER": {
+        "description": "BlockData: Rotatable"
+    },
+    "YELLOW_BED": {
+        "description": "BlockData: Bed"
+    },
+    "YELLOW_CANDLE": {
+        "description": "BlockData: Candle"
+    },
+    "YELLOW_CANDLE_CAKE": {
+        "description": "BlockData: Lightable"
+    },
+    "YELLOW_CARPET": {
+        "description": ""
+    },
+    "YELLOW_CONCRETE": {
+        "description": ""
+    },
+    "YELLOW_CONCRETE_POWDER": {
+        "description": ""
+    },
+    "YELLOW_DYE": {
+        "description": ""
+    },
+    "YELLOW_GLAZED_TERRACOTTA": {
+        "description": "BlockData: Directional"
+    },
+    "YELLOW_SHULKER_BOX": {
+        "description": "BlockData: Directional"
+    },
+    "YELLOW_STAINED_GLASS": {
+        "description": ""
+    },
+    "YELLOW_STAINED_GLASS_PANE": {
+        "description": "BlockData: GlassPane"
+    },
+    "YELLOW_TERRACOTTA": {
+        "description": ""
+    },
+    "YELLOW_WALL_BANNER": {
+        "description": "BlockData: Directional"
+    },
+    "YELLOW_WOOL": {
+        "description": ""
+    },
+    "ZOGLIN_SPAWN_EGG": {
+        "description": ""
+    },
+    "ZOMBIE_HEAD": {
+        "description": "BlockData: Rotatable"
+    },
+    "ZOMBIE_HORSE_SPAWN_EGG": {
+        "description": ""
+    },
+    "ZOMBIE_SPAWN_EGG": {
+        "description": ""
+    },
+    "ZOMBIE_VILLAGER_SPAWN_EGG": {
+        "description": ""
+    },
+    "ZOMBIE_WALL_HEAD": {
+        "description": "BlockData: Directional"
+    },
+    "ZOMBIFIED_PIGLIN_SPAWN_EGG": {
+        "description": ""
+    }
+}

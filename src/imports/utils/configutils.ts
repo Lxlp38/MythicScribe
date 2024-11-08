@@ -163,3 +163,7 @@ export function datasetSource() {
 export function enableMythicScriptSyntax() {
     return vscode.workspace.getConfiguration('MythicScribe').get('enableMythicScriptSyntax');
 }
+
+export function minecraftVersion() {
+    return vscode.workspace.getConfiguration('MythicScribe').get('minecraftVersion');
+}
