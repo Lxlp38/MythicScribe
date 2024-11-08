@@ -1,6 +1,6 @@
 # Changelog
 
-## [Unreleased]
+## [1.1.0]
 
 ### Added
 - Autocompletions on invocations for file enums (For instance, now an Item File's Id will complete as a list of materials also when pression ctrl + space)
