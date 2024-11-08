@@ -19,15 +19,17 @@ export let isTriggerFile = false;
 
 export const extensionEnabler = vscode.window.onDidChangeActiveTextEditor(editor => {
     if (!editor) {
-        return
+        return;
     }
     const document = editor.document;
     updateEnabled(document);
 });
 
 export async function checkIfMythicScriptFile(document: vscode.TextDocument) {
-    if (document.languageId !== 'yaml') return;
-    if (checkEnabled(document)){
+    if (document.languageId !== 'yaml') {
+        return;
+    }
+    if (checkEnabled(document)) {
         vscode.languages.setTextDocumentLanguage(document, 'mythicscript');
     }
 }
@@ -39,7 +41,7 @@ export function updateEnabled(document: vscode.TextDocument) {
         checkIfMythicScriptFile(document);
     }
 
-    if (isEnabled != checkEnabled(document)) {
+    if (isEnabled !== checkEnabled(document)) {
         isEnabled = checkEnabled(document);
         console.log('updateEnabled', isEnabled);
         if (isEnabled) {
@@ -52,10 +54,12 @@ export function updateEnabled(document: vscode.TextDocument) {
     }
 
     // Don't check other things if the extension is disabled to begin with
-    if (!isEnabled) return;
+    if (!isEnabled) {
+        return;
+    }
 
     // Check if the file is a metaskill file
-    if (isMetaskillFile != checkMetaskillFile(document)) {
+    if (isMetaskillFile !== checkMetaskillFile(document)) {
         isMetaskillFile = checkMetaskillFile(document);
         console.log('updateMetaskillFile', isMetaskillFile);
         if (isMetaskillFile) {
@@ -67,7 +71,7 @@ export function updateEnabled(document: vscode.TextDocument) {
     }
 
     // Check if the file is a mob file
-    if (isMobFile != checkMobFile(document)) {
+    if (isMobFile !== checkMobFile(document)) {
         isMobFile = checkMobFile(document);
         console.log('updateMobFile', isMobFile);
         if (isMobFile) {
@@ -79,7 +83,7 @@ export function updateEnabled(document: vscode.TextDocument) {
     }
 
     // Check if the file is an item file
-    if (isItemFile != checkItemFile(document)) {
+    if (isItemFile !== checkItemFile(document)) {
         isItemFile = checkItemFile(document);
         console.log('updateItemFile', isItemFile);
         if (isItemFile) {
@@ -93,7 +97,7 @@ export function updateEnabled(document: vscode.TextDocument) {
 
     // Check if the file is a trigger file
     const newisTriggerFile = isMobFile || isItemFile;
-    if (isTriggerFile != newisTriggerFile) {
+    if (isTriggerFile !== newisTriggerFile) {
         isTriggerFile = newisTriggerFile;
         console.log('updateTriggerFile', isTriggerFile);
         if (isTriggerFile) {

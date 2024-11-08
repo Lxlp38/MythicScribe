@@ -4,6 +4,39 @@ import { previousSymbol } from './yamlutils';
 import { EnumDatasetValue, EnumInfo, FileObject, FileObjectMap, FileObjectTypes, Mechanic, MechanicDataset } from '../../objectInfos';
 
 
+export function listCompletion(document: vscode.TextDocument, position: vscode.Position, context: vscode.CompletionContext): string | undefined {
+    let space = " ";
+
+    if (context.triggerCharacter === undefined){
+        const charBefore2 = document.getText(new vscode.Range(position.translate(0, -2), position));
+        if (charBefore2 !== "- ") {
+            return undefined;
+        }
+    } else {
+        const specialSymbol = yamlutils.previousSpecialSymbol(document, position);
+        if (specialSymbol !== "-") {
+            return undefined;
+        }    
+    }
+
+
+    if (context.triggerKind === vscode.CompletionTriggerKind.TriggerCharacter && context.triggerCharacter === " ") {
+        space = "";
+    }
+
+    if (context.triggerCharacter === undefined) {
+        const charBefore = document.getText(new vscode.Range(position.translate(0, -1), position));
+        if (charBefore === '-') {
+            space = " ";
+        }
+        else {
+            space = "";
+        }
+    }
+
+    return space;
+}
+
 export function checkShouldComplete(document: vscode.TextDocument, position: vscode.Position, context: vscode.CompletionContext, symbol: string[]): boolean {
 
     // called via invocation

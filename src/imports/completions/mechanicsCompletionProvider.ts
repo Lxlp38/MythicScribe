@@ -1,6 +1,7 @@
 import * as vscode from 'vscode';
 import * as yamlutils from '../utils/yamlutils';
 import { keyAliases, Mechanic, ObjectInfo, ObjectType } from '../../objectInfos';
+import { listCompletion } from '../utils/completionhelper';
 
 
 export function mechanicCompletionProvider(){
@@ -12,39 +13,14 @@ export function mechanicCompletionProvider(){
                 if(!keyAliases["Skills"].includes(yamlutils.getParentKeys(document, position)[0])){
                     return undefined;
                 }
-    
-                let space = " ";
+        
+                const space = listCompletion(document, position, context);
+                if (space === undefined){
+                    return undefined;
+                }
 
-                if (context.triggerCharacter === undefined){
-                    const charBefore2 = document.getText(new vscode.Range(position.translate(0, -2), position));
-                    if (charBefore2 !== "- ") {
-                        return undefined;
-                    }
-                } else {
-                    const specialSymbol = yamlutils.previousSpecialSymbol(document, position);
-                    if (specialSymbol !== "-") {
-                        return undefined;
-                    }    
-                }
-    
-    
-                if (context.triggerKind === vscode.CompletionTriggerKind.TriggerCharacter && context.triggerCharacter === " ") {
-                    space = "";
-                }
-    
-                if (context.triggerCharacter === undefined) {
-                    const charBefore = document.getText(new vscode.Range(position.translate(0, -1), position));
-                    if (charBefore === '-') {
-                        space = " ";
-                    }
-                    else {
-                        space = "";
-                    }
-                }
-    
                 const completionItems: vscode.CompletionItem[] = [];
-    
-    
+
                 ObjectInfo[ObjectType.MECHANIC].dataset.forEach((item: Mechanic) => {
                     item.name.forEach((name: string) => {
                         const completionItem = new vscode.CompletionItem(name, vscode.CompletionItemKind.Function);
@@ -61,8 +37,6 @@ export function mechanicCompletionProvider(){
                     });
                 });
                 return completionItems;
-    
-    
             }
         }, "-", " "
     );    
