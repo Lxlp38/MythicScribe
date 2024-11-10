@@ -160,7 +160,6 @@ function getHoverForFileElement(keys: string[], type: FileObjectMap, link: strin
     }
     if(object.type === FileObjectTypes.KEY && object.keys){
         const newobject = object.keys;
-        console.log(object);
         return getHoverForFileElement(keys, newobject, object.link);
     }
 }

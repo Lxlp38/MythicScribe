@@ -1,6 +1,6 @@
 import * as vscode from 'vscode';
 
-function getUpstreamKey(document: vscode.TextDocument, lineIndex: number): string {
+export function getUpstreamKey(document: vscode.TextDocument, lineIndex: number): string {
 	for (let i = lineIndex; i >= 0; i--) {
 		const line = document.lineAt(i).text.trim();
 		if (line.match(/^[A-Za-z0-9_]+:/)) {
@@ -9,7 +9,7 @@ function getUpstreamKey(document: vscode.TextDocument, lineIndex: number): strin
 	}
 	return '';
 }
-function getParentKeys(document: vscode.TextDocument, position: vscode.Position, getLineKey: boolean = false): string[] {
+export function getParentKeys(document: vscode.TextDocument, position: vscode.Position, getLineKey: boolean = false): string[] {
     const keys: string[] = [];
     const lineIndex = position.line;
 	
@@ -37,23 +37,18 @@ function getParentKeys(document: vscode.TextDocument, position: vscode.Position,
     return keys;
 }
 
-/**
- * Helper function to get the indentation level of a line
- * @param line - A line of YAML text
- * @returns The number of leading spaces (indentation level)
- */
+
 export function getIndentation(line: string): number {
     return line.length - line.trimStart().length;
 }
 
-/**
- * Function to determine if the current line is a key in the YAML file
- * @param document - The TextDocument of the YAML file
- * @param lineIndex - The index of the current line
- * @returns Whether the current line is a key
- */
 
-function isKey(document: vscode.TextDocument, lineIndex: number): boolean {
+
+export function isEmptyLine(document: vscode.TextDocument, lineIndex: number): boolean {
+	return /^\s*$/.test(document.lineAt(lineIndex).text);
+}
+
+export function isKey(document: vscode.TextDocument, lineIndex: number): boolean {
 
 	const line = document.lineAt(lineIndex).text.trim();
 	// If we are inside a key, we're not inside the Skills section
@@ -63,6 +58,11 @@ function isKey(document: vscode.TextDocument, lineIndex: number): boolean {
 
 	return false;
 
+}
+
+export function isList(document: vscode.TextDocument, lineIndex: number): boolean {
+	const line = document.lineAt(lineIndex).text.trim();
+	return (/^\s*-\s?/.test(line));
 }
 
 export function getKey(document: vscode.TextDocument, lineIndex: number): string {
@@ -77,7 +77,7 @@ export function getKey(document: vscode.TextDocument, lineIndex: number): string
  * @param key - The key to check for
  * @returns Whether the current line is inside the specified key
  */
-function isInsideKey(document: vscode.TextDocument, lineIndex: number, key: string): boolean {
+export function isInsideKey(document: vscode.TextDocument, lineIndex: number, key: string): boolean {
 
 	if (isKey(document, lineIndex)) {
 		return false;
@@ -154,5 +154,3 @@ export function previousSymbol(document: vscode.TextDocument, position: vscode.P
 	}
 	return '';
 }
-
-export { getUpstreamKey, getParentKeys, isKey, isInsideKey };

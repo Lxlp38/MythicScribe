@@ -51,7 +51,7 @@
             "patterns": [
                 {
                     "name": "storage.modifier.mythicscript",
-                    "match": "\\b[\\w]+\\b(?=:)"
+                    "match": "^\\s*\\b[\\w]+\\b(?=:)"
                 }
             ]
         },
@@ -89,7 +89,7 @@
                         },
                         {
                             "name": "string.unquoted.mythicscript",
-                            "match": "(?<=: )\\w*\\b"
+                            "match": "(?<=: )[\\w\\-]*\\b"
                         }
                     ]
                 }
@@ -131,7 +131,7 @@
             "patterns": [
                 {
                     "name": "keyword.control.mythicscript",
-                    "match": "[=;@~?!:,\\-+\\/\\*]"
+                    "match": "[=;@~?!:,\\-+\\/\\*\\|]"
                 }
             ]
         },
@@ -146,8 +146,11 @@
                             "include": "#symbols"
                         },
                         {
+                            "include": "#placeholder"
+                        },
+                        {
                             "name": "support.class.mythicscript.inner",
-                            "match": "[^<>]*([;}\n]|<[a-zA-Z][^<>]*([;}\n>]|<[a-zA-Z][^<>]*>))"
+                            "match": "[^<>]*"
                         }
                     ]
                 }
@@ -183,14 +186,17 @@
                     "include": "#placeholder"
                 },
                 {
+                    "include": "#symbols"
+                },
+                {
                     "name": "constant.character.escape.mythicscript",
                     "match": "(?<==)([\\w:]+)(?={)"
                 },
                 {
                     "name": "string.unquoted.mythicscript",
-                    "match": "(?<=[=,])[^\\[\\n]+?(?=[\\n\\[,;\\{\\}])"
+                    "match": "(?<=[=,\\>])[\\.\\w\\-\\:]+(?=[,;\\<\\}])"
                 }
-            ]
+    ]
         },
         "inlineCondition": {
             "patterns": [

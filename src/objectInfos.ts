@@ -100,8 +100,8 @@ export enum EnumType {
 	PARTICLE = 'Particle',
 	STATMODIFIER = 'Stat Modifier',
 
-	SPIGOTATTRIBUTE = 'Spigot Attribute',
-	SPIGOTATTRIBUTEOPERATION = 'Spigot Attribute Operation',
+	PAPERATTRIBUTE = 'Paper Attribute',
+	PAPERATTRIBUTEOPERATION = 'Paper Attribute Operation',
 	BARCOLOR = 'Bar Color',
 	BARSTYLE = 'Bar Style',
 	DAMAGECAUSE = 'Damage Cause',
@@ -170,92 +170,92 @@ export const EnumInfo = {
 		commalist: "",
 	},
 
-	[EnumType.SPIGOTATTRIBUTE]: {
-		path: "spigot/attributes.json",
+	[EnumType.PAPERATTRIBUTE]: {
+		path: "paper/attributes.json",
 		dataset: {},
 		commalist: ""
 	},
 
-	[EnumType.SPIGOTATTRIBUTEOPERATION]: {
+	[EnumType.PAPERATTRIBUTEOPERATION]: {
 		path: "attributesoperations.json",
 		dataset: {},
 		commalist: ""
 	},
 
 	[EnumType.BARCOLOR]: {
-		path: "spigot/barcolor.json",
+		path: "paper/barcolor.json",
 		dataset: {},
 		commalist: ""
 	},
 
 	[EnumType.BARSTYLE]: {
-		path: "spigot/barstyle.json",
+		path: "paper/barstyle.json",
 		dataset: {},
 		commalist: ""
 	},
 
 	[EnumType.DAMAGECAUSE]: {
-		path: "spigot/damagecause.json",
+		path: "paper/damagecause.json",
 		dataset: {},
 		commalist: ""
 	},
 
 	[EnumType.DYE]: {
-		path: "spigot/dye.json",
+		path: "paper/dye.json",
 		dataset: {},
 		commalist: ""
 	},
 
 	[EnumType.MATERIAL]: {
-		path: "spigot/material.json",
+		path: "paper/material.json",
 		dataset: {},
 		commalist: ""
 	},
 
 	[EnumType.BLOCKFACE]: {
-		path: "spigot/blockface.json",
+		path: "paper/blockface.json",
 		dataset: {},
 		commalist: ""
 	},
 
 	[EnumType.ENDERDRAGONPHASE]: {
-		path: "spigot/enderdragonphase.json",
+		path: "paper/enderdragonphase.json",
 		dataset: {},
 		commalist: ""
 	},
 
 	[EnumType.DRAGONBATTLERESPAWNPHASE]: {
-		path: "spigot/dragonbattlerespawnphase.json",
+		path: "paper/dragonbattlerespawnphase.json",
 		dataset: {},
 		commalist: ""
 	},
 
 	[EnumType.POTIONEFFECTTYPE]: {
-		path: "spigot/potioneffecttype.json",
+		path: "paper/potioneffecttype.json",
 		dataset: {},
 		commalist: ""
 	},
 
 	[EnumType.WORLDENVIRONMENT]: {
-		path: "spigot/worldenvironment.json",
+		path: "paper/worldenvironment.json",
 		dataset: {},
 		commalist: ""
 	},
 
 	[EnumType.ENTITYTYPE]: {
-		path: "spigot/entitytype.json",
+		path: "paper/entitytype.json",
 		dataset: {},
 		commalist: ""
 	},
 
 	[EnumType.GAMEMODE]: {
-		path: "spigot/gamemode.json",
+		path: "paper/gamemode.json",
 		dataset: {},
 		commalist: ""
 	},
 
 	[EnumType.SPAWNREASON]: {
-		path: "spigot/spawnreason.json",
+		path: "paper/spawnreason.json",
 		dataset: {},
 		commalist: ""
 	}
@@ -295,6 +295,7 @@ export interface FileObject {
 	description?: string;
 	keys?: FileObjectMap;
 	dataset?: EnumType;
+	values?: string[];
 }
 
 
@@ -302,3 +303,20 @@ export const keyAliases = {
 	"Skills": ["Skills", "FurnitureSkills", "InitSkills", "QuitSkills", "LevelSkills", "CustomBlockSkills"],
 	"Conditions": ["Conditions", "TriggerConditions", "TargetConditions"]
 };
+
+
+export function generateIntInRange(min: number, max: number, step: number, float: boolean = false): string[] {
+	const result = [];
+	
+	if (!float) {
+		for (let i = min; i <= max; i += step) {
+			result.push(i.toString());
+		}
+		return result;
+	}
+
+	for (let i = min; i <= max; i += step) {
+		result.push(i.toFixed(2).toString());
+	}
+	return result;
+}

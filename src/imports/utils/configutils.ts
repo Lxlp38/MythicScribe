@@ -164,6 +164,38 @@ export function enableMythicScriptSyntax() {
     return vscode.workspace.getConfiguration('MythicScribe').get('enableMythicScriptSyntax');
 }
 
+
+const MinecraftVersions = [
+    "latest",
+    "1.21.1",
+    "1.20.6",
+    "1.20.5",
+    "1.20.4",
+    "1.19.4"
+  ] 
 export function minecraftVersion() {
-    return vscode.workspace.getConfiguration('MythicScribe').get('minecraftVersion');
+    const config = vscode.workspace.getConfiguration('MythicScribe');
+    const inspected = config.inspect<string>('minecraftVersion');
+    const value = config.get<string>('minecraftVersion');
+
+    // Check if the value is invalid
+    if (typeof value !== 'string' || !MinecraftVersions.includes(value)) {
+        let target: vscode.ConfigurationTarget | undefined;
+
+        // Determine the scope where the value is defined
+        if (inspected?.workspaceFolderValue !== undefined) {
+            target = vscode.ConfigurationTarget.WorkspaceFolder;
+        } else if (inspected?.workspaceValue !== undefined) {
+            target = vscode.ConfigurationTarget.Workspace;
+        } else {
+            target = vscode.ConfigurationTarget.Global;
+        }
+
+        // Update the value only in the defined scope
+        config.update('minecraftVersion', undefined, target);
+        vscode.window.showWarningMessage('Invalid MythicScribe.minecraftVersion configuration value detected. Resetting to "latest".');
+        return 'latest';
+    }
+
+    return config.get<string>('minecraftVersion');
 }

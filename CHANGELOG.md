@@ -1,5 +1,27 @@
 # Changelog
 
+## [Unreleased]
+
+### Added
+- Lots of completions for file-specific fields
+
+### Changed
+- Changed dataset source from Spigot to Paper
+- Changed supported Minecraft version (and added check to make sure the selected one is not invalid)
+  - Removed 1.20.1
+  - Removed 1.20.2
+  - Added 1.20.5
+  - Added 1.20.6
+- Refactor of how file-specific autocompletions are generated
+- Writing < now automatically writes <>
+- You can press < while having an area of text selected to surround it with <>
+- You can press ( while having an aera of text selected to surround it with ()
+
+### Fixed
+- Syntax Highlighting: yaml keys being recognized if using a : inside an attribute
+- Syntax Highlighting: placeholders are now detected more effectively when inside attribute values
+
+
 ## [1.1.0]
 
 ### Added

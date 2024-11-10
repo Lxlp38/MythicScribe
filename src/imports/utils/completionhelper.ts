@@ -4,6 +4,19 @@ import { previousSymbol } from './yamlutils';
 import { EnumDatasetValue, EnumInfo, FileObject, FileObjectMap, FileObjectTypes, Mechanic, MechanicDataset } from '../../objectInfos';
 
 
+export async function generateFileCompletion(document: vscode.TextDocument, position: vscode.Position, context: vscode.CompletionContext, type: FileObjectMap): Promise<vscode.CompletionItem[] | undefined> {
+    if (context.triggerKind === vscode.CompletionTriggerKind.Invoke && !yamlutils.isEmptyLine(document, position.line)) {
+        return getCompletionForInvocation(document, position, context, type);
+    }
+
+    if (!yamlutils.isEmptyLine(document, position.line)) {
+        return undefined;
+    }
+
+    return fileCompletions(document, position, type);
+
+}
+
 export function listCompletion(document: vscode.TextDocument, position: vscode.Position, context: vscode.CompletionContext): string | undefined {
     let space = " ";
 
@@ -76,6 +89,13 @@ export function addMechanicCompletions(target: MechanicDataset, completionItems:
 
 
 
+
+
+
+
+
+
+
 export function fileCompletions(document: vscode.TextDocument, position: vscode.Position, objectmap: FileObjectMap): vscode.CompletionItem[] | undefined {
     const keys = yamlutils.getParentKeys(document, position).reverse();
 
@@ -115,7 +135,7 @@ function fileCompletionFindNodesOnLevel(objectmap: FileObjectMap, keys: string[]
     const selectedObject = objectmap[key as keyof typeof objectmap];
 
     if (selectedObject) {
-        if (selectedObject.keys) {
+        if (selectedObject.type === FileObjectTypes.KEY && selectedObject.keys) {
             const result = fileCompletionFindNodesOnLevel(selectedObject.keys, keys.slice(1), level+1);
             return result;
         }
@@ -131,6 +151,7 @@ function fileCompletionFindNodesOnLevel(objectmap: FileObjectMap, keys: string[]
     return null;
 }
 
+// Completes the key itself
 function fileCompletionForFileObjectMap(objectMap: FileObjectMap, indentation: string): vscode.CompletionItem[] {
     const completionItems: vscode.CompletionItem[] = [];
 
@@ -164,6 +185,7 @@ function fileCompletionForFileObjectMap(objectMap: FileObjectMap, indentation: s
 
 }
 
+// Completes the key's values prefix on newline
 function fileCompletionForFileObject(object: FileObject, indentation: string): vscode.CompletionItem[] {
     const completionItems: vscode.CompletionItem[] = [];
 
@@ -184,7 +206,17 @@ function fileCompletionForFileObject(object: FileObject, indentation: string): v
     return completionItems;
 }
 
-export async function getKeyObjectCompletions(keys: string[], type: FileObjectMap) : Promise<vscode.CompletionItem[] | undefined> {
+
+
+
+
+
+
+
+
+
+
+function getObjectInTree(keys: string[], type: FileObjectMap): FileObject | undefined {
     const key = keys[0];
     keys = keys.slice(1);
     const object = type[key];
@@ -192,21 +224,85 @@ export async function getKeyObjectCompletions(keys: string[], type: FileObjectMa
         return undefined;
     }
     if (keys.length === 0) {
-        if (object.type === FileObjectTypes.ENUM && object.dataset) {
-            const dataset = EnumInfo[object.dataset].dataset as Record<string, EnumDatasetValue>;
-            const completionItems: vscode.CompletionItem[] = [];
-            Object.entries(dataset).forEach(([item, value]) => {
-                const completionItem = new vscode.CompletionItem(item, vscode.CompletionItemKind.EnumMember);
-                completionItem.kind = vscode.CompletionItemKind.EnumMember;
-                completionItem.detail = value.description;
-                completionItem.insertText = new vscode.SnippetString(item);
-                completionItems.push(completionItem);
-            });
-            return completionItems;
-        }
+        return object;
     }
     if(object.type === FileObjectTypes.KEY && object.keys){
         const newobject = object.keys;
-        return getKeyObjectCompletions(keys, newobject);
+        return getObjectInTree(keys, newobject);
+    }
+    return undefined;
+}
+
+export async function getCompletionForInvocation(document: vscode.TextDocument, position: vscode.Position, context: vscode.CompletionContext, type: FileObjectMap): Promise<vscode.CompletionItem[] | undefined> {
+
+    const keys = yamlutils.getParentKeys(document, position, true).reverse();
+    if (yamlutils.isKey(document, position.line)) {
+        return getKeyObjectCompletion(keys.slice(1), type);
+    }
+    else if (yamlutils.isList(document, position.line)) {
+        return getListObjectCompletion(keys.slice(1), type, document, position, context);
+    }
+
+}
+
+async function getKeyObjectCompletion(keys: string[], type: FileObjectMap) : Promise<vscode.CompletionItem[] | undefined> {
+    const object = getObjectInTree(keys, type);
+    if (!object) {
+        return undefined;
+    }
+
+    if (object.type === FileObjectTypes.ENUM && object.dataset) {
+        const dataset = EnumInfo[object.dataset].dataset as Record<string, EnumDatasetValue>;
+        const completionItems: vscode.CompletionItem[] = [];
+        Object.entries(dataset).forEach(([item, value]) => {
+            const completionItem = new vscode.CompletionItem(item, vscode.CompletionItemKind.EnumMember);
+            completionItem.kind = vscode.CompletionItemKind.EnumMember;
+            completionItem.detail = value.description;
+            completionItem.insertText = new vscode.SnippetString(item);
+            completionItems.push(completionItem);
+        });
+        return completionItems;
+    }
+    else if ((object.type === FileObjectTypes.INTEGER || object.type === FileObjectTypes.FLOAT) && object.values) {
+        const completionItems: vscode.CompletionItem[] = [];
+        object.values.forEach((value) => {
+            const completionItem = new vscode.CompletionItem(value, vscode.CompletionItemKind.EnumMember);
+            completionItem.sortText = value.toString().padStart(4, "0");
+            completionItem.kind = vscode.CompletionItemKind.EnumMember;
+            completionItem.insertText = new vscode.SnippetString(value);
+            completionItems.push(completionItem);
+        });
+        return completionItems;
+    }
+
+}
+
+function getListObjectCompletion(keys: string[], type: FileObjectMap, document: vscode.TextDocument, position: vscode.Position, context: vscode.CompletionContext) : vscode.CompletionItem[] | undefined {
+    const object = getObjectInTree(keys, type);
+    if (!object) {
+        return undefined;
+    }
+
+    if (object.type === FileObjectTypes.LIST && object.dataset) {
+        const space = listCompletion(document, position, context);
+        if (space === undefined){
+            return undefined;
+        }
+        const dataset = EnumInfo[object.dataset].dataset as Record<string, EnumDatasetValue>;
+        const completionItems: vscode.CompletionItem[] = [];
+        Object.entries(dataset).forEach(([item, value]) => {
+            const completionItem = new vscode.CompletionItem(item, vscode.CompletionItemKind.EnumMember);
+            completionItem.kind = vscode.CompletionItemKind.EnumMember;
+            completionItem.detail = value.description;
+            if (object.values) {
+                completionItem.insertText = new vscode.SnippetString(space + item + " ${1|" + object.values.join(",") + "|}");
+            }
+            else {
+                completionItem.insertText = new vscode.SnippetString(space + item);
+            }
+            completionItems.push(completionItem);
+        });
+        return completionItems;
     }
 }
+

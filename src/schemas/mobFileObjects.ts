@@ -1,4 +1,4 @@
-import { FileObjectMap, FileObjectTypes, EnumType } from '../objectInfos';
+import { FileObjectMap, FileObjectTypes, EnumType, generateIntInRange } from '../objectInfos';
 
 
 export const MobFileObjects: FileObjectMap = {
@@ -123,6 +123,8 @@ export const MobFileObjects: FileObjectMap = {
 	},
 	"DamageModifiers": {
 		type: FileObjectTypes.LIST,
+		dataset: EnumType.DAMAGECAUSE,
+		values: generateIntInRange(-1.0, 2.0, 0.1, true),
 		link: "https://git.lumine.io/mythiccraft/MythicMobs/-/wikis/Mobs/DamageModifiers",
 		description: "The damage modifiers of the mob.",
 	},
@@ -152,6 +154,7 @@ export const MobFileObjects: FileObjectMap = {
 			},
 			"KnockbackResistance": {
 				type: FileObjectTypes.FLOAT,
+				values: generateIntInRange(0.0, 1.0, 0.1, true),
 			},
 			"Power": {
 				type: FileObjectTypes.FLOAT,
@@ -162,7 +165,8 @@ export const MobFileObjects: FileObjectMap = {
 		}
 	},
 	"Disguise": {
-		type: FileObjectTypes.STRING,
+		type: FileObjectTypes.ENUM,
+		dataset: EnumType.ENTITYTYPE,
 		link: "https://git.lumine.io/mythiccraft/MythicMobs/-/wikis/Mobs/Disguise",
 		description: "The disguise of the mob.",
 	},

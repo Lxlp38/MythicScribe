@@ -20,7 +20,7 @@ import { loadDatasets } from './datasets';
 
 import { metaskillFileCompletionProvider } from './imports/completions/filecompletions/metaskillfileCompletionProvider';
 import { triggerfileCompletionProvider } from './imports/completions/filecompletions/triggerfileCompletionProvider';
-import { mobFileCompletionProvider, damagemodifierCompletionProvider } from './imports/completions/filecompletions/mobfileCompletionProvider';
+import { mobFileCompletionProvider } from './imports/completions/filecompletions/mobfileCompletionProvider';
 import { itemFileCompletionProvider } from './imports/completions/filecompletions/itemfileCompletionProvider';
 
 export let ctx: vscode.ExtensionContext;
@@ -128,7 +128,6 @@ export function enableMobfileSubscriptions() {
 
 	if (config.enableFileSpecificSuggestions()) {
 		toEnable.push(mobFileCompletionProvider());
-		toEnable.push(damagemodifierCompletionProvider());
 	}
 
 	toEnable.forEach(subscription => {

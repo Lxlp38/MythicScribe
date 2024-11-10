@@ -1,4 +1,4 @@
-import { FileObjectMap, FileObjectTypes, EnumType } from '../objectInfos';
+import { FileObjectMap, FileObjectTypes, EnumType, generateIntInRange } from '../objectInfos';
 
 
 export const ItemFileObjects: FileObjectMap = {
@@ -65,6 +65,7 @@ export const ItemFileObjects: FileObjectMap = {
 		type: FileObjectTypes.INTEGER,
 		link: "https://git.lumine.io/mythiccraft/MythicMobs/-/wikis/Items/Items#amount",
 		description: "Sets the default amount of items to give when this item is being called by the plugin",
+		values: generateIntInRange(1, 12, 1),
 	},
 	"Options": {
 		type: FileObjectTypes.KEY_LIST,
@@ -93,11 +94,13 @@ export const ItemFileObjects: FileObjectMap = {
 	},
 	"CanPlaceOn": {
 		type: FileObjectTypes.LIST,
+		dataset: EnumType.MATERIAL,
 		link: "https://git.lumine.io/mythiccraft/MythicMobs/-/wikis/Items/Items#canplaceon",
 		description: "Specifies blocks on which this item can be placed in adventure mode",
 	},
 	"CanBreak": {
 		type: FileObjectTypes.LIST,
+		dataset: EnumType.MATERIAL,
 		link: "https://git.lumine.io/mythiccraft/MythicMobs/-/wikis/Items/Items#canbreak",
 		description: "Specifies blocks that this item can break in adventure mode",
 	},
@@ -133,12 +136,15 @@ export const ItemFileObjects: FileObjectMap = {
 		keys: {
 			"Nutrition": {
 				type: FileObjectTypes.FLOAT,
+				values: generateIntInRange(1, 20, 1),
 			},
 			"Saturation": {
 				type: FileObjectTypes.FLOAT,
+				values: generateIntInRange(1, 20, 1),
 			},
 			"EatSeconds": {
 				type: FileObjectTypes.FLOAT,
+				values: generateIntInRange(1, 10, 1),
 			},
 			"CanAlwaysEat": {
 				type: FileObjectTypes.BOOLEAN,
@@ -326,6 +332,7 @@ export const ItemFileObjects: FileObjectMap = {
 			},
 			"Size": {
 				type: FileObjectTypes.INTEGER,
+				values: generateIntInRange(9, 54, 9),
 			}
 		}
 	},
