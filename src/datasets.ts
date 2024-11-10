@@ -195,7 +195,7 @@ function updateDatasetEnums() {
 function mapDataset(object: ObjectInfo) {
 	for (const mechanic of object.dataset) {
 		for (const name of mechanic.name) {
-			object.datasetMap.set(name, mechanic);
+			object.datasetMap.set(name.toLowerCase(), mechanic);
 		}
 		object.datasetClassMap.set(mechanic.class.toLowerCase(), mechanic);
 	}
@@ -218,12 +218,3 @@ function loadLocalEnumDataset(datasetPath: string): EnumDataset {
 		return {};
 	}
 }
-
-// function loadLocalDataset(datasetPath: string): any {
-// 	try {
-// 		return JSON.parse(fs.readFileSync(datasetPath, 'utf8'));
-// 	} catch (error) {
-// 		console.error(`Error reading local dataset: ${datasetPath}`, error);
-// 		return [];
-// 	}
-// }

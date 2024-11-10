@@ -15,11 +15,12 @@ export enum ObjectType {
 export interface Attribute {
 	name: string[];
 	type: string;
-	enum: string | null;
-	list: boolean;
+	enum?: string;
+	list?: boolean;
 	description: string;
 	link: string;
 	default_value: string;
+	inheritable?: boolean;
 }
 
 export interface Mechanic {
@@ -30,7 +31,6 @@ export interface Mechanic {
 	description: string;
 	link: string;
 	attributes: Attribute[];
-	inheritable_attributes: string[];
 }
 
 export type MechanicDataset = Mechanic[];

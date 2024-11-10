@@ -1,14 +1,22 @@
 import { Attribute, Mechanic, ObjectInfo, ObjectType } from '../../objectInfos';
 
 
+function includesIgnoreCase(arr: string[], value: string) {
+	return arr.some((v) => v.toLowerCase() === value.toLowerCase());
+}
+
+function attributeIsInheritable(attribute: Attribute) {
+	return attribute.inheritable === undefined || attribute.inheritable !== false;
+}
+
 // Utility to get mechanic data by name
 export function getMechanicDataByName(name: string, type: ObjectType) {
 	return ObjectInfo[type].datasetMap.get(name.toLowerCase());
 }
 
-// Utility to get all mechanics that have a name that starts with a certain string
-export function getMechanicsByPrefix(prefix: string, type: ObjectType) {
-	return ObjectInfo[type].dataset.filter((mechanic: Mechanic) => mechanic.name.some((name: string) => name.startsWith(prefix.toLowerCase())));
+// Utility to get mechanic data by class
+function getMechanicDataByClass(name: string, type: ObjectType) {
+	return ObjectInfo[type].datasetClassMap.get(name.toLowerCase());
 }
 
 export function getAllAttributes(mechanic: Mechanic, type: ObjectType) {
@@ -19,12 +27,9 @@ export function getAllAttributes(mechanic: Mechanic, type: ObjectType) {
 			return attributes;
 		}
 		let parentMechanicAttributes = getAllAttributes(parentMechanic, type);
-		const parentMechanicInheritableAttributes = parentMechanic.inheritable_attributes;
-		if (parentMechanicInheritableAttributes) {
-			parentMechanicAttributes = parentMechanicAttributes.filter((attr: Attribute) =>
-				parentMechanicInheritableAttributes.includes(attr.name[0].toLowerCase())
-			);
-		}
+		parentMechanicAttributes = parentMechanicAttributes.filter((attr: Attribute) =>
+			attributeIsInheritable(attr)
+		);
 		attributes = attributes.concat(parentMechanicAttributes);
 	}
 	return attributes;
@@ -33,7 +38,7 @@ export function getAllAttributes(mechanic: Mechanic, type: ObjectType) {
 
 // Utility to get attribute data by name
 export function getAttributeDataByName(mechanic: Mechanic, attributeName: string, type: ObjectType) {
-	const attribute = mechanic.attributes.find((attr: Attribute) => attr.name.includes(attributeName.toLowerCase()));
+	const attribute = mechanic.attributes.find((attr: Attribute) => includesIgnoreCase(attr.name, attributeName));
 	if (!attribute && mechanic.extends) {
 		const parentMechanic = getMechanicDataByClass(mechanic.extends, type);
 		if (parentMechanic) {
@@ -48,16 +53,7 @@ export function getAttributeDataByName(mechanic: Mechanic, attributeName: string
 
 function getInheritedAttributeDataByName(mechanic: Mechanic, attributeName: string, type: ObjectType) {
 
-	let attribute = null;
-
-	if (mechanic.inheritable_attributes) {
-		if (mechanic.inheritable_attributes.includes(attributeName.toLowerCase())) {
-			attribute = mechanic.attributes.find((attr: Attribute) => attr.name.includes(attributeName.toLowerCase()));
-		}
-	}
-	else {
-		attribute = mechanic.attributes.find((attr: Attribute) => attr.name.includes(attributeName.toLowerCase()));
-	}
+	const attribute = mechanic.attributes.find((attr: Attribute) => attributeIsInheritable(attr) && includesIgnoreCase(attr.name, attributeName));
 
 	if (!attribute && mechanic.extends) {
 		const parentMechanic = getMechanicDataByClass(mechanic.extends, type);
@@ -66,9 +62,4 @@ function getInheritedAttributeDataByName(mechanic: Mechanic, attributeName: stri
 		}
 	}
 	return attribute;
-}
-
-// Utility to get mechanic data by class
-function getMechanicDataByClass(name: string, type: ObjectType) {
-	return ObjectInfo[type].datasetClassMap.get(name.toLowerCase());
 }

@@ -1,8 +1,6 @@
 import * as vscode from 'vscode';
 import { MobFileObjects } from '../../../schemas/mobFileObjects';
-import { generateFileCompletion, listCompletion } from '../../utils/completionhelper';
-import { getParentKeys } from '../../utils/yamlutils';
-import { EnumDatasetValue, EnumInfo, EnumType } from '../../../objectInfos';
+import { generateFileCompletion } from '../../utils/completionhelper';
 
 export function mobFileCompletionProvider() {
     return vscode.languages.registerCompletionItemProvider(

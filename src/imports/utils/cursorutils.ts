@@ -1,5 +1,5 @@
 import * as vscode from 'vscode';
-import { getAttributeDataByName, getMechanicDataByName, getMechanicsByPrefix } from './mechanicutils';
+import { getAttributeDataByName, getMechanicDataByName } from './mechanicutils';
 import { ObjectInfo, ObjectType } from '../../objectInfos';
 
 /**
@@ -44,36 +44,33 @@ export function getObjectLinkedToAttribute(document: vscode.TextDocument, positi
 	return null;  // No unbalanced opening brace found
 }
 
-export function fetchCursorSkills(document: vscode.TextDocument, position: vscode.Position, type: ObjectType, exact: boolean = true) {
+export function fetchCursorSkills(document: vscode.TextDocument, position: vscode.Position, type: ObjectType) {
 	const maybeMechanic = document.getWordRangeAtPosition(position, ObjectInfo[type].regex);
 	if (maybeMechanic) {
 		const mechanic = document.getText(maybeMechanic);
-		if (exact) {
-			return [getMechanicDataByName(mechanic, type), type];
-		}
-		return [getMechanicsByPrefix(mechanic, type), type];
+		return [getMechanicDataByName(mechanic, type), type];
 	}
 	return null;
 
 }
 
-export function getCursorSkills(document: vscode.TextDocument, position: vscode.Position, exact: boolean = true) {
-	const maybeMechanic = fetchCursorSkills(document, position, ObjectType.MECHANIC, exact);
+export function getCursorSkills(document: vscode.TextDocument, position: vscode.Position) {
+	const maybeMechanic = fetchCursorSkills(document, position, ObjectType.MECHANIC);
 	if (maybeMechanic) {
 		return maybeMechanic;
 	}
 
-	const maybeTargeter = fetchCursorSkills(document, position, ObjectType.TARGETER, exact);
+	const maybeTargeter = fetchCursorSkills(document, position, ObjectType.TARGETER);
 	if (maybeTargeter) {
 		return maybeTargeter;
 	}
 
-	const maybeTrigger = fetchCursorSkills(document, position, ObjectType.TRIGGER, exact);
+	const maybeTrigger = fetchCursorSkills(document, position, ObjectType.TRIGGER);
 	if (maybeTrigger) {
 		return maybeTrigger;
 	}
 
-	const maybeInlineCondition = fetchCursorSkills(document, position, ObjectType.INLINECONDITION, exact);
+	const maybeInlineCondition = fetchCursorSkills(document, position, ObjectType.INLINECONDITION);
 	if (maybeInlineCondition) {
 		return maybeInlineCondition;
 	}
@@ -112,8 +109,8 @@ export function getCursorSkills(document: vscode.TextDocument, position: vscode.
 }
 
 
-export function getCursorCondition(document: vscode.TextDocument, position: vscode.Position, exact: boolean = true) {
-	const maybeCondition = fetchCursorSkills(document, position, ObjectType.CONDITION, exact);
+export function getCursorCondition(document: vscode.TextDocument, position: vscode.Position) {
+	const maybeCondition = fetchCursorSkills(document, position, ObjectType.CONDITION);
 	if (maybeCondition) {
 		return maybeCondition;
 	}

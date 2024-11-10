@@ -41,7 +41,7 @@ export function hoverProvider(){
                 return getHover(obj, type);
             }
             else if (keyAliases["Conditions"].includes(keys[0])) {
-                [obj, type] = getCursorCondition(document, position, true);
+                [obj, type] = getCursorCondition(document, position);
         
                 if (!obj) {
                     return null;

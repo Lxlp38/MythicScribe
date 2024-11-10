@@ -6,16 +6,22 @@
 - Lots of completions for file-specific fields
 
 ### Changed
+#### Datasets
 - Changed dataset source from Spigot to Paper
 - Changed supported Minecraft version (and added check to make sure the selected one is not invalid)
   - Removed 1.20.1
   - Removed 1.20.2
   - Added 1.20.5
   - Added 1.20.6
-- Refactor of how file-specific autocompletions are generated
+#### Syntax
 - Writing < now automatically writes <>
 - You can press < while having an area of text selected to surround it with <>
 - You can press ( while having an aera of text selected to surround it with ()
+#### Others
+- Refactor of how file-specific autocompletions are generated
+- Now mechanics/conditions/targeters/triggers and attributes' names are no longer only in lowercase
+- Minor refactor for how mechanics/conditions/targeters/triggers/attributes are fetched from the datasets
+- Minor refactor for how attribute inheritance is handled
 
 ### Fixed
 - Syntax Highlighting: yaml keys being recognized if using a : inside an attribute
