@@ -1,9 +1,10 @@
 # Changelog
 
-## [Unreleased]
+## [1.2.0]
 
 ### Added
 - Lots of completions for file-specific fields
+- Added a default value of "false" for editor.acceptSuggestionOnEnter for MythicScript 
 
 ### Changed
 #### Datasets
@@ -27,6 +28,7 @@
 - Syntax Highlighting: yaml keys being wrongly recognized if using a : inside an attribute
 - Syntax Highlighting: placeholders are now detected more effectively when inside attribute values
 - Some triggers that needed specific casing to work now being autocompleted correctly by virtue of all mechanics/conditions/targeters/triggers now being completed with the original casing
+- Local datasets not being loaded if an error occured while fetching githib datasets
 
 
 ## [1.1.0]

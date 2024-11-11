@@ -118,6 +118,7 @@ async function checkGithubDatasets(context: vscode.ExtensionContext) {
 		} else {
 			// Fallback to globalState or local datasets if fetch failed
 			console.warn("No connection with GitHub could be enstablished. Using globalState or local datasets as a fallback");
+			loadLocalDatasets();
 		}
 	}
 

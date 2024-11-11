@@ -1,6 +1,7 @@
 {
   "name": "mythicscribe",
   "displayName": "MythicScribe",
+  "version": "1.2.0",
   "icon": "assets/icon.png",
   "description": "Offers support for MythicMobs scripting",
   "license": "SEE LICENSE IN LICENSE.txt",
@@ -21,7 +22,6 @@
     "url": "https://github.com/Lxlp38/MythicScribe"
   },
   "homepage": "https://github.com/Lxlp38/MythicScribe/blob/master/README.md",
-  "version": "1.1.0",
   "engines": {
     "vscode": "^1.94.0"
   },
@@ -37,7 +37,8 @@
       "[mythicscript]": {
         "editor.defaultFormatter": "Lxlp.mythicscribe",
         "editor.tabSize": 2,
-        "editor.insertSpaces": true
+        "editor.insertSpaces": true,
+        "editor.acceptSuggestionOnEnter": "off"
       }
     },
     "languages": [
@@ -140,7 +141,7 @@
             "Local"
           ],
           "default": "Local",
-          "description": "Select what dataset to use: `GitHub` fetches the latest datasets from the repository, while `Local` uses the native one that came bundled with the extension."
+          "description": "Select what dataset to use: `GitHub` fetches the latest datasets from the repository, while `Local` uses the native one that came bundled with the extension. The affected datasets are only those for mechanics, targeters, triggers and conditions"
         },
         "MythicScribe.enableShortcuts": {
           "title": "Enable Shortcuts",
