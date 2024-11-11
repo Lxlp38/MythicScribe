@@ -172,7 +172,7 @@ const MinecraftVersions = [
     "1.20.5",
     "1.20.4",
     "1.19.4"
-  ] 
+  ];
 export function minecraftVersion() {
     const config = vscode.workspace.getConfiguration('MythicScribe');
     const inspected = config.inspect<string>('minecraftVersion');

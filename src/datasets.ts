@@ -50,7 +50,6 @@ async function fetchJsonFromGithub(filename: string): Promise<MechanicDataset | 
 
 // Function to load datasets, check globalState, and update if necessary
 export async function loadDatasets(context: vscode.ExtensionContext) {
-	const globalState = context.globalState;
 
 	if (config.datasetSource() === 'GitHub') {
 		checkGithubDatasets(context);
@@ -58,6 +57,7 @@ export async function loadDatasets(context: vscode.ExtensionContext) {
 		loadLocalDatasets();
 	}
 
+	loadEnumDatasets();
 	updateDatasets();
 	return;
 }
@@ -77,8 +77,9 @@ function loadLocalDatasets() {
 	ObjectInfo[ObjectType.CONDITION].dataset = loadLocalMechanicDataset(conditionsDatasetPath);
 	ObjectInfo[ObjectType.TRIGGER].dataset = loadLocalMechanicDataset(triggersDatasetPath);
 
+}
 
-
+function loadEnumDatasets() {
 	for (const key of Object.keys(EnumType) as Array<keyof typeof EnumType>) {
 		EnumInfo[EnumType[key]].dataset = loadLocalEnumDataset(getVersionSpecificDatasetPath(EnumInfo[EnumType[key]].path));
 	}
@@ -101,14 +102,6 @@ async function checkGithubDatasets(context: vscode.ExtensionContext) {
 		const conditionsData = await fetchJsonFromGithub('conditions.json');
 		const triggersData = await fetchJsonFromGithub('triggers.json');
 
-		const enummap: Map<EnumType, EnumDatasetValue> = new Map<EnumType, EnumDatasetValue>();
-		for (const key of Object.keys(EnumType) as Array<keyof typeof EnumType>) {
-			const enumData = await fetchJsonFromGithub(EnumInfo[EnumType[key]].path);
-            if (enumData){
-                enummap.set(EnumType[key], enumData);
-            }
-		}
-
 		console.log("Fetched datasets from GitHub");
 
 		// Check if the data was successfully fetched
@@ -120,9 +113,6 @@ async function checkGithubDatasets(context: vscode.ExtensionContext) {
 			globalState.update('conditionsDataset', conditionsData);
 			globalState.update('triggersDataset', triggersData);
 
-			for (const [key, value] of enummap) {
-				globalState.update(EnumInfo[key].path, value);
-			}
 
 			globalState.update('latestCommitHash', latestCommitHash);
 		} else {
@@ -132,7 +122,6 @@ async function checkGithubDatasets(context: vscode.ExtensionContext) {
 	}
 
 	loadGithubDatasets(context);
-
 
 }
 
@@ -144,10 +133,6 @@ function loadGithubDatasets(context: vscode.ExtensionContext) {
 	ObjectInfo[ObjectType.TARGETER].dataset = globalState.get('targetersDataset') || loadLocalMechanicDataset(targetersDatasetPath);
 	ObjectInfo[ObjectType.CONDITION].dataset = globalState.get('conditionsDataset') || loadLocalMechanicDataset(conditionsDatasetPath);
 	ObjectInfo[ObjectType.TRIGGER].dataset = globalState.get('triggersDataset') || loadLocalMechanicDataset(triggersDatasetPath);
-
-	for (const key of Object.keys(EnumType) as Array<keyof typeof EnumType>) {
-		EnumInfo[EnumType[key]].dataset = globalState.get(EnumInfo[EnumType[key]].path) || loadLocalEnumDataset(getVersionSpecificDatasetPath(EnumInfo[EnumType[key]].path));
-	}
 
 }
 

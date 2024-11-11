@@ -115,6 +115,8 @@ export enum EnumType {
 	ENTITYTYPE = 'Entity Type',
 	GAMEMODE = 'Game Mode',
 	SPAWNREASON = 'Spawn Reason',
+	ENCHANTMENT = 'Enchantment',
+	ITEMFLAG = 'Item Flag',
 
 }
 
@@ -258,6 +260,18 @@ export const EnumInfo = {
 		path: "paper/spawnreason.json",
 		dataset: {},
 		commalist: ""
+	},
+
+	[EnumType.ENCHANTMENT]: {
+		path: "paper/enchantment.json",
+		dataset: {},
+		commalist: ""
+	},
+
+	[EnumType.ITEMFLAG]: {
+		path: "paper/itemflag.json",
+		dataset: {},
+		commalist: ""
 	}
 
 };
@@ -305,9 +319,14 @@ export const keyAliases = {
 };
 
 
-export function generateIntInRange(min: number, max: number, step: number, float: boolean = false): string[] {
+export function generateIntInRange(min: number, max: number, step: number, float: boolean = false, start: number|null = null): string[] {
 	const result = [];
 	
+	if (start) {
+		result.push(start.toString());
+		min += step;
+	}
+
 	if (!float) {
 		for (let i = min; i <= max; i += step) {
 			result.push(i.toString());

@@ -40,6 +40,7 @@ export const MobFileObjects: FileObjectMap = {
 			},
 			"Offset": {
 				type: FileObjectTypes.FLOAT,
+				values: generateIntInRange(0.1, 2.0, 0.1, true),
 			}
 		},
 		link: "https://git.lumine.io/mythiccraft/MythicMobs/-/wikis/Mobs/Mobs#healthbar",
@@ -56,14 +57,15 @@ export const MobFileObjects: FileObjectMap = {
 			},
 			"Range": {
 				type: FileObjectTypes.FLOAT,
+				values: generateIntInRange(10, 100, 10, true),
 			},
 			"Color": {
 				type: FileObjectTypes.ENUM,
-				"dataset": EnumType.BARCOLOR,
+				dataset: EnumType.BARCOLOR,
 			},
 			"Style": {
 				type: FileObjectTypes.ENUM,
-				"dataset": EnumType.BARSTYLE,
+				dataset: EnumType.BARSTYLE,
 			},
 			"CreateFog": {
 				type: FileObjectTypes.BOOLEAN,
@@ -95,16 +97,16 @@ export const MobFileObjects: FileObjectMap = {
 	},
 	"Modules": {
 		type: FileObjectTypes.KEY,
-		"keys": {
+		link: "https://git.lumine.io/mythiccraft/MythicMobs/-/wikis/Mobs/Mobs#modules",
+		description: "The modules of the mob.",
+		keys: {
 			"ThreatTable": {
 				type: FileObjectTypes.BOOLEAN,
 			},
 			"ImmunityTable": {
-				type: FileObjectTypes.FLOAT,
+				type: FileObjectTypes.BOOLEAN,
 			},
 		},
-		link: "https://git.lumine.io/mythiccraft/MythicMobs/-/wikis/Mobs/Mobs#modules",
-		description: "The modules of the mob.",
 	},
 	"AIGoalSelectors": {
 		type: FileObjectTypes.LIST,
@@ -161,6 +163,7 @@ export const MobFileObjects: FileObjectMap = {
 			},
 			"MovementSpeed": {
 				type: FileObjectTypes.FLOAT,
+				values: generateIntInRange(0.0, 0.4, 0.05, true),
 			}
 		}
 	},
@@ -185,9 +188,11 @@ export const MobFileObjects: FileObjectMap = {
 			},
 			"Offset": {
 				type: FileObjectTypes.FLOAT,
+				values: generateIntInRange(0.1, 2.0, 0.1, true),
 			},
 			"Scale": {
-				type: FileObjectTypes.FLOAT,
+				type: FileObjectTypes.VECTOR,
+				values: ["1,1,1"],
 			},
 			"Mounted": {
 				type: FileObjectTypes.BOOLEAN,

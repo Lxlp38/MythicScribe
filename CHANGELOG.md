@@ -16,7 +16,7 @@
 #### Syntax
 - Writing < now automatically writes <>
 - You can press < while having an area of text selected to surround it with <>
-- You can press ( while having an aera of text selected to surround it with ()
+- You can press ( while having an area of text selected to surround it with ()
 #### Others
 - Refactor of how file-specific autocompletions are generated
 - Now mechanics/conditions/targeters/triggers and attributes' names are no longer only in lowercase
@@ -24,8 +24,9 @@
 - Minor refactor for how attribute inheritance is handled
 
 ### Fixed
-- Syntax Highlighting: yaml keys being recognized if using a : inside an attribute
+- Syntax Highlighting: yaml keys being wrongly recognized if using a : inside an attribute
 - Syntax Highlighting: placeholders are now detected more effectively when inside attribute values
+- Some triggers that needed specific casing to work now being autocompleted correctly by virtue of all mechanics/conditions/targeters/triggers now being completed with the original casing
 
 
 ## [1.1.0]

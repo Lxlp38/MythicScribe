@@ -74,16 +74,21 @@ export const ItemFileObjects: FileObjectMap = {
 	},
 	"Enchantments": {
 		type: FileObjectTypes.LIST,
+		dataset: EnumType.ENCHANTMENT,
+		values: generateIntInRange(1, 5, 1),
 		link: "https://git.lumine.io/mythiccraft/MythicMobs/-/wikis/Items/Items#enchantments",
 		description: "Adds enchantments to items. A list of available enchantments is provided in the documentation",
 	},
 	"Hide": {
 		type: FileObjectTypes.LIST,
+		dataset: EnumType.ITEMFLAG,
 		link: "https://git.lumine.io/mythiccraft/MythicMobs/-/wikis/Items/Items#hide",
 		description: "Allows specific details, like enchantments, to be hidden from the item tooltip",
 	},
 	"PotionEffects": {
 		type: FileObjectTypes.LIST,
+		dataset: EnumType.POTIONEFFECTTYPE,
+		values: generateIntInRange(20, 200, 20),
 		link: "https://git.lumine.io/mythiccraft/MythicMobs/-/wikis/Items/Items#potioneffects",
 		description: "Sets the potion effects of the item, applicable to potions, splash potions, and tipped arrows",
 	},
@@ -124,10 +129,20 @@ export const ItemFileObjects: FileObjectMap = {
 		link: "https://git.lumine.io/mythiccraft/MythicMobs/-/wikis/Items/Items#firework",
 		description: "Configures firework or firework_charge items with colors, flicker, trail, etc.",
 	},
-	"Book": {
-		type: FileObjectTypes.KEY_LIST,
+	"Title": {
+		type: FileObjectTypes.STRING,
 		link: "https://git.lumine.io/mythiccraft/MythicMobs/-/wikis/Items/Items#book",
-		description: "Configures written books with title, author, and multiple pages",
+		description: "The title of the book",
+	},
+	"Author": {
+		type: FileObjectTypes.STRING,
+		link: "https://git.lumine.io/mythiccraft/MythicMobs/-/wikis/Items/Items#book",
+		description: "The author of the book",
+	},
+	"Pages": {
+		type: FileObjectTypes.LIST,
+		link: "https://git.lumine.io/mythiccraft/MythicMobs/-/wikis/Items/Items#book",
+		description: "The pages of the book",
 	},
 	"Food": {
 		type: FileObjectTypes.KEY,
@@ -151,6 +166,7 @@ export const ItemFileObjects: FileObjectMap = {
 			},
 			"Effects": {
 				type: FileObjectTypes.LIST,
+				dataset: EnumType.POTIONEFFECTTYPE,
 			}
 		}
 	},
