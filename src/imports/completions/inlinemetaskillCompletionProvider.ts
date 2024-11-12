@@ -6,7 +6,7 @@ import { keyAliases } from '../../objectInfos';
 export function inlineMetaskillCompletionProvider(){
 
     return vscode.languages.registerCompletionItemProvider(
-        'mythicscript',
+        ['mythicscript', 'yaml'],
         {
             async provideCompletionItems(document: vscode.TextDocument, position: vscode.Position) {
     

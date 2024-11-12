@@ -9,7 +9,7 @@ import { getCursorSkills, getCursorCondition } from '../utils/cursorutils';
 
 export function hoverProvider(){
 
-    return vscode.languages.registerHoverProvider('mythicscript', {
+    return vscode.languages.registerHoverProvider(['mythicscript', 'yaml'], {
         provideHover(document: vscode.TextDocument, position: vscode.Position) {
         
             const keys = yamlutils.getParentKeys(document, position);

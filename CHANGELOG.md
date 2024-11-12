@@ -1,5 +1,11 @@
 # Changelog
 
+## [Unreleased]
+
+### Fixed
+- Yaml files not having autocompletions and hovers when the mythicscript syntax was disabled
+
+
 ## [1.2.0]
 
 ### Added
@@ -28,7 +34,7 @@
 - Syntax Highlighting: yaml keys being wrongly recognized if using a : inside an attribute
 - Syntax Highlighting: placeholders are now detected more effectively when inside attribute values
 - Some triggers that needed specific casing to work now being autocompleted correctly by virtue of all mechanics/conditions/targeters/triggers now being completed with the original casing
-- Local datasets not being loaded if an error occured while fetching githib datasets
+- Local datasets not being loaded if an error occurred while fetching github datasets
 
 
 ## [1.1.0]

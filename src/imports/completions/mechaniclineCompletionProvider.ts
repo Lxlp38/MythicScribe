@@ -8,7 +8,7 @@ import { keyAliases } from '../../objectInfos';
 export function mechaniclineCompletionProvider(){
 
     return vscode.languages.registerCompletionItemProvider(
-        'mythicscript',
+        ['mythicscript', 'yaml'],
         {
             async provideCompletionItems(document: vscode.TextDocument, position: vscode.Position) {
     

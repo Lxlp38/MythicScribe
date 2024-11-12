@@ -4,7 +4,7 @@ import { generateFileCompletion } from '../../utils/completionhelper';
 
 export function itemFileCompletionProvider(){
     return vscode.languages.registerCompletionItemProvider(
-        'mythicscript',
+        ['mythicscript', 'yaml'],
         {
             async provideCompletionItems(document: vscode.TextDocument, position: vscode.Position, _token: vscode.CancellationToken, context: vscode.CompletionContext) {
     
