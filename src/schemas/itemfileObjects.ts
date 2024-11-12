@@ -94,6 +94,7 @@ export const ItemFileObjects: FileObjectMap = {
 	},
 	"BannerLayers": {
 		type: FileObjectTypes.LIST,
+		dataset: EnumType.DYE,
 		link: "https://git.lumine.io/mythiccraft/MythicMobs/-/wikis/Items/Items#bannerlayers",
 		description: "Sets the banner layers for a banner or shield",
 	},

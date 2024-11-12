@@ -5,6 +5,9 @@
 ### Fixed
 - Yaml files not having autocompletions and hovers when the mythicscript syntax was disabled
 
+### Removed
+- Removed <> from autoclosing pairs and highlighted brackets
+
 
 ## [1.2.0]
 

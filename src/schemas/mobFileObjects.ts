@@ -12,6 +12,11 @@ export const MobFileObjects: FileObjectMap = {
 		link: "https://git.lumine.io/mythiccraft/MythicMobs/-/wikis/Mobs/Templates",
 		description: "The templates for the mob.",
 	},
+	"Exclude": {
+		type: FileObjectTypes.LIST,
+		link: "https://git.lumine.io/mythiccraft/MythicMobs/-/wikis/Mobs/Templates#excluding-elements",
+		description: "A list of elements the mob should not inherit.",
+	},
 	"Display": {
 		type: FileObjectTypes.STRING,
 		link: "https://git.lumine.io/mythiccraft/MythicMobs/-/wikis/Mobs/Mobs#display",
@@ -207,6 +212,29 @@ export const MobFileObjects: FileObjectMap = {
 			"Enabled": {
 				type: FileObjectTypes.BOOLEAN,
 			},
+		}
+	},
+	"Totem": {
+		type: FileObjectTypes.KEY,
+		link: "https://git.lumine.io/mythiccraft/MythicMobs/-/wikis/Mobs/Totem",
+		description: "Allows you to configure a custom structure that, once built, will summon a mob",
+		keys: {
+			"Head": {
+				type: FileObjectTypes.ENUM,
+				dataset: EnumType.MATERIAL,
+				description: "The block that once placed will prompt the plugin to check for a totem",
+				link: "https://git.lumine.io/mythiccraft/MythicMobs/-/wikis/Mobs/Totem",
+			},
+			"Pattern": {
+				type: FileObjectTypes.LIST,
+				description: "A list of offset vectors and materials that define what the totem should look like",
+				link: "https://git.lumine.io/mythiccraft/MythicMobs/-/wikis/Mobs/Totem",
+			},
+			"Replacement" : {
+				type: FileObjectTypes.LIST,
+				description: "Optional list of replacements blocks for the pattern",
+				link: "https://git.lumine.io/mythiccraft/MythicMobs/-/wikis/Mobs/Totem",
+			}
 		}
 	},
 	"Variables": {

@@ -45,7 +45,6 @@ export function mechaniclineCompletionProvider(){
                     return completionItems;
                 }
     
-    
                 if (!mechanicLine.has("targeter")){
                     const completionItem = new vscode.CompletionItem("@", vscode.CompletionItemKind.Function);
                     completionItem.detail = "Add a targeter to the mechanic line";

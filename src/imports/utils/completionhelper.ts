@@ -5,15 +5,15 @@ import { EnumDatasetValue, EnumInfo, FileObject, FileObjectMap, FileObjectTypes,
 
 
 export async function generateFileCompletion(document: vscode.TextDocument, position: vscode.Position, context: vscode.CompletionContext, type: FileObjectMap): Promise<vscode.CompletionItem[] | undefined> {
-    if (context.triggerKind === vscode.CompletionTriggerKind.Invoke && !yamlutils.isEmptyLine(document, position.line)) {
+    
+    if (yamlutils.isEmptyLine(document, position.line)) {
+        return fileCompletions(document, position, type);
+    }
+    else if (context.triggerKind === vscode.CompletionTriggerKind.Invoke) {
         return getCompletionForInvocation(document, position, context, type);
     }
 
-    if (!yamlutils.isEmptyLine(document, position.line)) {
-        return undefined;
-    }
-
-    return fileCompletions(document, position, type);
+    return undefined;
 
 }
 
@@ -71,7 +71,6 @@ export function checkShouldComplete(document: vscode.TextDocument, position: vsc
 }
 
 export function addMechanicCompletions(target: MechanicDataset, completionItems: vscode.CompletionItem[]) {
-
     target.forEach((item: Mechanic) => {
         item.name.forEach((name: string) => {
             const completionItem = new vscode.CompletionItem(name, vscode.CompletionItemKind.Function);
@@ -83,8 +82,6 @@ export function addMechanicCompletions(target: MechanicDataset, completionItems:
         });
 
     });
-
-
 }
 
 
