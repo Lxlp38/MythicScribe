@@ -1,6 +1,6 @@
 # Changelog
 
-## [Unreleased]
+## [1.2.1]
 
 ### Fixed
 - Yaml files not having autocompletions and hovers when the mythicscript syntax was disabled

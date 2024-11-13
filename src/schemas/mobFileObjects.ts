@@ -115,12 +115,12 @@ export const MobFileObjects: FileObjectMap = {
 	},
 	"AIGoalSelectors": {
 		type: FileObjectTypes.LIST,
-		link: "https://git.lumine.io/mythiccraft/MythicMobs/-/wikis/Mobs/AIGoalSelectors",
+		link: "https://git.lumine.io/mythiccraft/MythicMobs/-/wikis/Mobs/Custom-AI#ai-goal-selectors",
 		description: "The AI goal selectors of the mob.",
 	},
 	"AITargetSelectors": {
 		type: FileObjectTypes.LIST,
-		link: "https://git.lumine.io/mythiccraft/MythicMobs/-/wikis/Mobs/AITargetSelectors",
+		link: "https://git.lumine.io/mythiccraft/MythicMobs/-/wikis/Mobs/Custom-AI#ai-target-selectors",
 		description: "The AI target selectors of the mob.",
 	},
 	"Drops": {
