@@ -2,7 +2,6 @@
     {
         "plugin": "MythicMobs",
         "class": "ATTACK",
-        "extends": null,
         "name": [
             "onAttack",
             "onHit"
@@ -13,8 +12,39 @@
     },
     {
         "plugin": "MythicMobs",
+        "class": "BLOCK_BREAK",
+        "implements": [
+            "PlayerTrigger"
+        ],
+        "name": [
+            "onBlock_Break",
+            "onBlockbreak",
+            "onBreakblock",
+            "onBreak_Block"
+        ],
+        "description": "When the player breaks a custom block or a furniture",
+        "link": "https://git.lumine.io/mythiccraft/MythicMobs/-/wikis/Skills/Triggers/onBlockBreak",
+        "attributes": []
+    },
+    {
+        "plugin": "MythicMobs",
+        "class": "BLOCK_PLACE",
+        "implements": [
+            "PlayerTrigger"
+        ],
+        "name": [
+            "onBlock_Place",
+            "onBlockplace",
+            "onPlaceblock",
+            "onPlace_Block"
+        ],
+        "description": "When the player places the custom block or a furniture",
+        "link": "https://git.lumine.io/mythiccraft/MythicMobs/-/wikis/Skills/Triggers/onBlockPlace",
+        "attributes": []
+    },
+    {
+        "plugin": "MythicMobs",
         "class": "BOW_HIT",
-        "extends": null,
         "name": [
             "onBow_Hit",
             "onBowhit"
@@ -26,7 +56,6 @@
     {
         "plugin": "MythicMobs",
         "class": "BREED",
-        "extends": null,
         "name": [
             "onBreed"
         ],
@@ -37,7 +66,6 @@
     {
         "plugin": "MythicMobs",
         "class": "BUCKET",
-        "extends": null,
         "name": [
             "onBucket",
             "onUsebucket",
@@ -53,7 +81,6 @@
     {
         "plugin": "MythicMobs",
         "class": "CHANGE_WORLD",
-        "extends": null,
         "name": [
             "onChange_World",
             "onChangeworld",
@@ -67,7 +94,6 @@
     {
         "plugin": "MythicMobs",
         "class": "COMBAT",
-        "extends": null,
         "name": [
             "onCombat"
         ],
@@ -78,7 +104,6 @@
     {
         "plugin": "MythicMobs",
         "class": "CREEPER_CHARGE",
-        "extends": null,
         "name": [
             "onCreeper_Charge",
             "onCreepercharge",
@@ -92,7 +117,6 @@
     {
         "plugin": "MythicMobs",
         "class": "DAMAGED",
-        "extends": null,
         "name": [
             "onDamaged",
             "onHurt"
@@ -104,7 +128,6 @@
     {
         "plugin": "MythicMobs",
         "class": "DEATH",
-        "extends": null,
         "name": [
             "onDeath"
         ],
@@ -115,7 +138,6 @@
     {
         "plugin": "MythicMobs",
         "class": "DESPAWNED",
-        "extends": null,
         "name": [
             "onDespawned",
             "onDespawn"
@@ -127,7 +149,6 @@
     {
         "plugin": "MythicMobs",
         "class": "DROPCOMBAT",
-        "extends": null,
         "name": [
             "onDropcombat",
             "onLeavecombat",
@@ -140,7 +161,6 @@
     {
         "plugin": "MythicMobs",
         "class": "ENTERCOMBAT",
-        "extends": null,
         "name": [
             "onEntercombat"
         ],
@@ -151,7 +171,6 @@
     {
         "plugin": "MythicMobs",
         "class": "EXPLODE",
-        "extends": null,
         "name": [
             "onExplode"
         ],
@@ -162,7 +181,6 @@
     {
         "plugin": "MythicMobs",
         "class": "HEAR",
-        "extends": null,
         "name": [
             "onHear",
             "onVibration"
@@ -174,7 +192,6 @@
     {
         "plugin": "MythicMobs",
         "class": "INTERACT",
-        "extends": null,
         "name": [
             "onInteract"
         ],
@@ -185,7 +202,6 @@
     {
         "plugin": "MythicMobs",
         "class": "KILLPLAYER",
-        "extends": null,
         "name": [
             "onKillplayer",
             "onPlayerkill"
@@ -197,7 +213,6 @@
     {
         "plugin": "MythicMobs",
         "class": "LOAD",
-        "extends": null,
         "name": [
             "onLoad"
         ],
@@ -208,7 +223,6 @@
     {
         "plugin": "MythicMobs",
         "class": "PRIME",
-        "extends": null,
         "name": [
             "onPrime"
         ],
@@ -219,7 +233,6 @@
     {
         "plugin": "MythicMobs",
         "class": "READY",
-        "extends": null,
         "name": [
             "onReady",
             "onFirstspawn"
@@ -231,7 +244,6 @@
     {
         "plugin": "MythicMobs",
         "class": "SHOOT",
-        "extends": null,
         "name": [
             "onShoot",
             "onBowshoot",
@@ -244,7 +256,6 @@
     {
         "plugin": "MythicMobs",
         "class": "SIGNAL",
-        "extends": null,
         "name": [
             "onSignal"
         ],
@@ -255,7 +266,6 @@
     {
         "plugin": "MythicMobs",
         "class": "SKILL_HIT",
-        "extends": null,
         "name": [
             "onSkillhit",
             "onSkill_Damage",
@@ -268,7 +278,6 @@
     {
         "plugin": "MythicMobs",
         "class": "SPAWN",
-        "extends": null,
         "name": [
             "onSpawn"
         ],
@@ -279,7 +288,6 @@
     {
         "plugin": "MythicMobs",
         "class": "SPAWN_OR_LOAD",
-        "extends": null,
         "name": [
             "onSpawnorload"
         ],
@@ -290,7 +298,6 @@
     {
         "plugin": "MythicMobs",
         "class": "TAME",
-        "extends": null,
         "name": [
             "onTame"
         ],
@@ -301,7 +308,6 @@
     {
         "plugin": "MythicMobs",
         "class": "TARGETCHANGE",
-        "extends": null,
         "name": [
             "onTargetchange",
             "onChangetarget"
@@ -313,7 +319,6 @@
     {
         "plugin": "MythicMobs",
         "class": "TELEPORT",
-        "extends": null,
         "name": [
             "onTeleport"
         ],
@@ -324,7 +329,6 @@
     {
         "plugin": "MythicMobs",
         "class": "TIMER",
-        "extends": null,
         "name": [
             "onTimer"
         ],
@@ -335,7 +339,6 @@
     {
         "plugin": "MythicMobs",
         "class": "TRADE",
-        "extends": null,
         "name": [
             "onTrade"
         ],

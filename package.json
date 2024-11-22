@@ -10,6 +10,10 @@
     "name": "Lxlp"
   },
   "pricing": "Free",
+  "funding": {
+    "type": "github",
+    "url": "https://github.com/sponsors/Lxlp38"
+  },
   "keywords": [
     "mythicmobs",
     "mythic",
@@ -41,11 +45,20 @@
         "editor.acceptSuggestionOnEnter": "off"
       }
     },
+    "commands" : [
+      {
+        "command": "MythicScribe.addCustomDataset",
+        "title": "Add Custom Dataset",
+        "category": "MythicScribe"
+      }
+    ],
     "languages": [
       {
         "id": "mythicscript",
         "configuration": "./language-configuration.json",
-        "aliases": ["MythicScript"],
+        "aliases": [
+          "MythicScript"
+        ],
         "displayName": "MythicScript",
         "icon": {
           "light": "./assets/icon128x128.png",
@@ -58,7 +71,9 @@
         "language": "mythicscript",
         "scopeName": "source.mythicscript",
         "path": "./syntaxes/mythicscript.tmLanguage.json",
-        "injectTo": ["source.yaml"]
+        "injectTo": [
+          "source.yaml"
+        ]
       }
     ],
     "completionItemProviders": [
@@ -176,6 +191,43 @@
           ],
           "default": "main",
           "description": "Which attribute alias should be used in autocompletions."
+        },
+        "MythicScribe.customDatasets": {
+          "type": "array",
+          "description": "Load a Custom Dataset from a Local File or a Link.",
+          "items": {
+            "type": "object",
+            "properties": {
+              "elementType": {
+                "type": "string",
+                "enum": [
+                  "Mechanic",
+                  "Condition",
+                  "Trigger",
+                  "Targeter"
+                ],
+                "description": "The type of element to associate."
+              },
+              "source": {
+                "type": "string",
+                "enum": [
+                  "Link",
+                  "Local File"
+                ],
+                "description": "The source of the dataset."
+              },
+              "path": {
+                "type": "string",
+                "description": "The local file path or URL to associate with the element type."
+              }
+            },
+            "required": [
+              "elementType",
+              "source",
+              "path"
+            ]
+          },
+          "default": []
         }
       }
     }

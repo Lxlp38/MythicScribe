@@ -1,8 +1,8 @@
-import { FileObjectMap, FileObjectTypes, EnumType, generateIntInRange } from '../objectInfos';
+import { FileObjectMap, FileObjectTypes, EnumType, generateNumbersInRange } from '../objectInfos';
 
 
 export const ItemFileObjects: FileObjectMap = {
-	"Id": {
+	"Material": {
 		type: FileObjectTypes.ENUM,
 		dataset: EnumType.MATERIAL,
 		link: "https://git.lumine.io/mythiccraft/MythicMobs/-/wikis/Items/Items#id",
@@ -65,7 +65,7 @@ export const ItemFileObjects: FileObjectMap = {
 		type: FileObjectTypes.INTEGER,
 		link: "https://git.lumine.io/mythiccraft/MythicMobs/-/wikis/Items/Items#amount",
 		description: "Sets the default amount of items to give when this item is being called by the plugin",
-		values: generateIntInRange(1, 12, 1),
+		values: generateNumbersInRange(1, 12, 1),
 	},
 	"Options": {
 		type: FileObjectTypes.KEY_LIST,
@@ -75,7 +75,7 @@ export const ItemFileObjects: FileObjectMap = {
 	"Enchantments": {
 		type: FileObjectTypes.LIST,
 		dataset: EnumType.ENCHANTMENT,
-		values: generateIntInRange(1, 5, 1),
+		values: generateNumbersInRange(1, 5, 1),
 		link: "https://git.lumine.io/mythiccraft/MythicMobs/-/wikis/Items/Items#enchantments",
 		description: "Adds enchantments to items. A list of available enchantments is provided in the documentation",
 	},
@@ -88,7 +88,7 @@ export const ItemFileObjects: FileObjectMap = {
 	"PotionEffects": {
 		type: FileObjectTypes.LIST,
 		dataset: EnumType.POTIONEFFECTTYPE,
-		values: generateIntInRange(20, 200, 20),
+		values: generateNumbersInRange(20, 200, 20),
 		link: "https://git.lumine.io/mythiccraft/MythicMobs/-/wikis/Items/Items#potioneffects",
 		description: "Sets the potion effects of the item, applicable to potions, splash potions, and tipped arrows",
 	},
@@ -126,9 +126,31 @@ export const ItemFileObjects: FileObjectMap = {
 		description: "Sets custom armor trim for items, like iron chestplates, with specified materials and patterns",
 	},
 	"Firework": {
-		type: FileObjectTypes.KEY_LIST,
-		link: "https://git.lumine.io/mythiccraft/MythicMobs/-/wikis/Items/Items#firework",
+		type: FileObjectTypes.KEY,
+		link: "https://git.lumine.io/mythiccraft/MythicMobs/-/wikis/Items/Firework",
 		description: "Configures firework or firework_charge items with colors, flicker, trail, etc.",
+		keys: {
+			"Colors": {
+				type: FileObjectTypes.LIST,
+				link: "https://git.lumine.io/mythiccraft/MythicMobs/-/wikis/Items/Firework#colors",
+				description: "Sets the colors of the firework",
+			},
+			"FadeColors": {
+				type: FileObjectTypes.LIST,
+				link: "https://git.lumine.io/mythiccraft/MythicMobs/-/wikis/Items/Firework#fadecolors",
+				description: "Sets the fade colors of the firework",
+			},
+			"Flicker": {
+				type: FileObjectTypes.BOOLEAN,
+				link: "https://git.lumine.io/mythiccraft/MythicMobs/-/wikis/Items/Firework#flicker",
+				description: "Sets the flicker of the firework",
+			},
+			"Trail": {
+				type: FileObjectTypes.BOOLEAN,
+				link: "https://git.lumine.io/mythiccraft/MythicMobs/-/wikis/Items/Firework#trail",
+				description: "Sets the trail of the firework",
+			}
+		}
 	},
 	"Title": {
 		type: FileObjectTypes.STRING,
@@ -152,15 +174,15 @@ export const ItemFileObjects: FileObjectMap = {
 		keys: {
 			"Nutrition": {
 				type: FileObjectTypes.FLOAT,
-				values: generateIntInRange(1, 20, 1),
+				values: generateNumbersInRange(1, 20, 1),
 			},
 			"Saturation": {
 				type: FileObjectTypes.FLOAT,
-				values: generateIntInRange(1, 20, 1),
+				values: generateNumbersInRange(1, 20, 1),
 			},
 			"EatSeconds": {
 				type: FileObjectTypes.FLOAT,
-				values: generateIntInRange(1, 10, 1),
+				values: generateNumbersInRange(1, 10, 1),
 			},
 			"CanAlwaysEat": {
 				type: FileObjectTypes.BOOLEAN,
@@ -168,6 +190,84 @@ export const ItemFileObjects: FileObjectMap = {
 			"Effects": {
 				type: FileObjectTypes.LIST,
 				dataset: EnumType.POTIONEFFECTTYPE,
+			}
+		}
+	},
+	"Equippable": {
+		type: FileObjectTypes.KEY,
+		link: "https://git.lumine.io/mythiccraft/MythicMobs/-/wikis/Items/Items#equippable",
+		description: "Used to handle the equippable item component of an item",
+		keys: {
+			"Slot": {
+				type: FileObjectTypes.ENUM,
+				dataset: EnumType.EQUIPSLOT,
+				description: "The slot where the item can be equipped"
+			},
+			"Model": {
+				type: FileObjectTypes.STRING,
+				description: "The model of the item when equipped"
+			},
+			"CameraOverlay": {
+				type: FileObjectTypes.STRING,
+				description: "The resource location of the overlay texture to use when equipped. If a namespace is not used, it will default to `minecraft:`"
+			},
+			"Dispensable": {
+				type: FileObjectTypes.BOOLEAN,
+				description: "Whether the item can be dispensed"
+			},
+			"Swappable": {
+				type: FileObjectTypes.BOOLEAN,
+				description: "Whether the item can be equipped into the relevant slot by right-clicking"
+			},
+			"DamageOnHurt": {
+				type: FileObjectTypes.BOOLEAN,
+				description: "Whether this item is damaged when the wearing entity is damaged"
+			},
+			"EquipSound": {
+				type: FileObjectTypes.ENUM,
+				dataset: EnumType.SOUND,
+				description: "The sound to play when the item is equipped"
+			},
+			"EntityTypes": {
+				type: FileObjectTypes.LIST,
+				dataset: EnumType.ENTITYTYPE,
+				description: "The entity types that can wear this item"
+			},
+		}
+	},
+	"UseCooldown": {
+		type: FileObjectTypes.KEY,
+		link: "https://git.lumine.io/mythiccraft/MythicMobs/-/wikis/Items/Items#usecooldown",
+		description: "Used to handle the use_cooldown item component of an item",
+		keys: {
+			"CooldownGroup": {
+				type: FileObjectTypes.STRING,
+				description: "The unique resource location to identify this cooldown group. If present, the item is included in a cooldown group and no longer shares cooldowns with its base item type, but instead with any other items that are part of the same cooldown group. If a namespace is not used, it will default to minecraft:"
+			},
+			"CooldownSeconds": {
+				type: FileObjectTypes.INTEGER,
+				"description": "The cooldown duration in seconds. Must be an integer, so the cooldown cannot be defined up to the tick"
+			}
+		}
+	},
+	"Tool": {
+		type: FileObjectTypes.KEY,
+		link: "https://git.lumine.io/mythiccraft/MythicMobs/-/wikis/Items/Items#tool",
+		description: "Used to handle the tool item component of an item",
+		keys: {
+			"DamagePerBlock": {
+				type: FileObjectTypes.INTEGER,
+				values: generateNumbersInRange(1, 10, 1),
+				description: "The amount of durability to remove each time a block is broken with this tool. Must be a non-negative integer"
+			},
+			"DefaultMiningSpeed": {
+				type: FileObjectTypes.FLOAT,
+				values: generateNumbersInRange(1, 10, 0.5, true),
+				description: "The default mining speed of this tool, used if no rule overrides it"
+			},
+			"Rules": {
+				type: FileObjectTypes.LIST,
+				description: "A list of rules for the tool"
 			}
 		}
 	},
@@ -349,7 +449,7 @@ export const ItemFileObjects: FileObjectMap = {
 			},
 			"Size": {
 				type: FileObjectTypes.INTEGER,
-				values: generateIntInRange(9, 54, 9),
+				values: generateNumbersInRange(9, 54, 9),
 			}
 		}
 	},

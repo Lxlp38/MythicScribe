@@ -697,6 +697,9 @@
         "plugin": "MythicMobs",
         "class": "IEntitySelector",
         "extends": "SkillTargeter",
+        "implements": [
+            "IEntityTargeter"
+        ],
         "name": [],
         "description": null,
         "link": "https://git.lumine.io/mythiccraft/MythicMobs/-/wikis/Skills/Targeters#common-entity-targeters-attributes",
@@ -892,6 +895,9 @@
         "plugin": "MythicMobs",
         "class": "ILocationSelector",
         "extends": "SkillTargeter",
+        "implements": [
+            "ILocationTargeter"
+        ],
         "name": [],
         "description": null,
         "link": "https://git.lumine.io/mythiccraft/MythicMobs/-/wikis/Skills/Targeters#common-location-targeters-attributes",
@@ -1512,162 +1518,6 @@
         ]
     },
     {
-        "plugin": "ModelEngine",
-        "class": "ModelDriverTargeter",
-        "extends": "SkillTargeter",
-        "name": [
-            "modeldriver"
-        ],
-        "description": "Targets the driver of the casting modeled entity",
-        "link": "https://git.lumine.io/mythiccraft/model-engine-4/-/wikis/Skills/Targeters/ModelDriver",
-        "attributes": []
-    },
-    {
-        "plugin": "ModelEngine",
-        "class": "ModelPartTargeter",
-        "extends": "SkillTargeter",
-        "name": [
-            "modelpart"
-        ],
-        "description": "Targets the location of a specific part of the specified model applied on the casting modeled entity",
-        "link": "https://git.lumine.io/mythiccraft/model-engine-4/-/wikis/Skills/Targeters/ModelPart",
-        "attributes": [
-            {
-                "name": [
-                    "m",
-                    "mid",
-                    "model",
-                    "modelid"
-                ],
-                "type": "PlaceholderString",
-                "description": "The id of the model of the modeled entity to check against",
-                "link": "https://git.lumine.io/mythiccraft/model-engine-4/-/wikis/Skills/Targeters/ModelPart",
-                "default_value": ""
-            },
-            {
-                "name": [
-                    "p",
-                    "pid",
-                    "part",
-                    "partid"
-                ],
-                "type": "PlaceholderString",
-                "description": "The id of the bone whose location you wish to target",
-                "link": "https://git.lumine.io/mythiccraft/model-engine-4/-/wikis/Skills/Targeters/ModelPart",
-                "default_value": ""
-            },
-            {
-                "name": [
-                    "o",
-                    "off",
-                    "offset"
-                ],
-                "type": "PlaceholderString",
-                "description": "The type of the Offset. Can be `LOCAL`, `MODEL`, `GLOBAL`",
-                "link": "https://git.lumine.io/mythiccraft/model-engine-4/-/wikis/Skills/Targeters/ModelPart",
-                "default_value": "LOCAL"
-            },
-            {
-                "name": [
-                    "location",
-                    "loc",
-                    "l",
-                    "coordinates",
-                    "c"
-                ],
-                "type": "String",
-                "description": "The offset on all three axis, in the `x,y,z` format. <br>If not set, the normal x, y and z attributes will be used instead.",
-                "link": "https://git.lumine.io/mythiccraft/model-engine-4/-/wikis/Skills/Targeters/ModelPart",
-                "default_value": ""
-            },
-            {
-                "name": [
-                    "x"
-                ],
-                "type": "PlaceholderDouble",
-                "description": "The offset in the X axis",
-                "link": "https://git.lumine.io/mythiccraft/model-engine-4/-/wikis/Skills/Targeters/ModelPart",
-                "default_value": "0"
-            },
-            {
-                "name": [
-                    "y"
-                ],
-                "type": "PlaceholderDouble",
-                "description": "The offset in the Y axis",
-                "link": "https://git.lumine.io/mythiccraft/model-engine-4/-/wikis/Skills/Targeters/ModelPart",
-                "default_value": "0"
-            },
-            {
-                "name": [
-                    "z"
-                ],
-                "type": "PlaceholderDouble",
-                "description": "The offset in the Z axis",
-                "link": "https://git.lumine.io/mythiccraft/model-engine-4/-/wikis/Skills/Targeters/ModelPart",
-                "default_value": "0"
-            },
-            {
-                "name": [
-                    "em",
-                    "exact",
-                    "match",
-                    "exactmatch"
-                ],
-                "type": "Boolean",
-                "description": "Does the part need to match the partid completely<br>If set to false, this will get the location of all bones whose id contains the specified one<br>*Example: pid=arm;em=false*<br>This will target **both** leftarm and rightarm",
-                "link": "https://git.lumine.io/mythiccraft/model-engine-4/-/wikis/Skills/Targeters/ModelPart",
-                "default_value": "true"
-            },
-            {
-                "name": [
-                    "s",
-                    "sc",
-                    "scale"
-                ],
-                "type": "Boolean",
-                "description": "If the offset should scale with the model's scale. This works by multiplying the offset by the value of the model's scale",
-                "link": "https://git.lumine.io/mythiccraft/model-engine-4/-/wikis/Skills/Targeters/ModelPart",
-                "default_value": "true"
-            }
-        ]
-    },
-    {
-        "plugin": "ModelEngine",
-        "class": "ModelPassengersTargeter",
-        "extends": "SkillTargeter",
-        "name": [
-            "modelpassengers"
-        ],
-        "description": "Targets the passengers of the casting modeled entity",
-        "link": "https://git.lumine.io/mythiccraft/model-engine-4/-/wikis/Skills/Targeters/ModelPassengers",
-        "attributes": [
-            {
-                "name": [
-                    "m",
-                    "mid",
-                    "model",
-                    "modelid"
-                ],
-                "type": "PlaceholderString",
-                "description": "The id of the model of the modeled entity to check against",
-                "link": "https://git.lumine.io/mythiccraft/model-engine-4/-/wikis/Skills/Targeters/ModelPassengers",
-                "default_value": ""
-            },
-            {
-                "name": [
-                    "p",
-                    "pbone",
-                    "seat"
-                ],
-                "type": "PlaceholderString",
-                "description": "The name of the seat(s) to check for",
-                "link": "https://git.lumine.io/mythiccraft/model-engine-4/-/wikis/Skills/Targeters/ModelPassengers",
-                "default_value": ""
-            }
-        ]
-    },
-    {
         "plugin": "MythicMobs",
         "class": "MotherTargeter",
         "extends": "IEntitySelector",
@@ -1689,17 +1539,6 @@
         ],
         "description": "Targets the caster's mount",
         "link": "https://git.lumine.io/mythiccraft/MythicMobs/-/wikis/Skills/Targeters/Mount",
-        "attributes": []
-    },
-    {
-        "plugin": "ModelEngine",
-        "class": "MountedModelTargeter",
-        "extends": "SkillTargeter",
-        "name": [
-            "mountedmodel"
-        ],
-        "description": "Targets the modeled entity the caster is currently mounting, both as a driver or a passenger",
-        "link": "https://git.lumine.io/mythiccraft/model-engine-4/-/wikis/Skills/Targeters/MountedModel",
         "attributes": []
     },
     {
@@ -2816,7 +2655,6 @@
     {
         "plugin": "MythicMobs",
         "class": "SkillTargeter",
-        "extends": null,
         "name": [],
         "description": null,
         "link": "https://git.lumine.io/mythiccraft/MythicMobs/-/wikis/Skills/Targeters#common-attributes",

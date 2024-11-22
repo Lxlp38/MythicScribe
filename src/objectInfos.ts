@@ -1,8 +1,3 @@
-import * as vscode from 'vscode';
-import * as path from 'path';
-import * as fs from 'fs';
-import * as config from './imports/utils/configutils';
-
 export enum ObjectType {
 	MECHANIC = 'Mechanic',
 	ATTRIBUTE = 'Attribute',
@@ -26,7 +21,8 @@ export interface Attribute {
 export interface Mechanic {
 	plugin: string;
 	class: string;
-	extends: string;
+	extends?: string;
+	implements?: string[];
 	name: string[];
 	description: string;
 	link: string;
@@ -120,13 +116,12 @@ export enum EnumType {
 
 }
 
-
 interface EnumInfo {
 	[key: string]: EnumDetail ;
 }
 
 interface EnumDetail  {
-	path: string;
+	readonly path: string;
 	dataset: EnumDataset;
 	commalist: string;
 }
@@ -140,147 +135,60 @@ export interface EnumDatasetValue {
 	name?: string[];
 }
 
-export const EnumInfo = {
-
-	[EnumType.SOUND]: {
-		path: "minecraft/sounds.json",
-		dataset: {},
-		commalist: "",
-	},
-
-	[EnumType.AUDIENCE]: {
-		path: "audiences.json",
-		dataset: {},
-		commalist: "",
-	},
-
-	[EnumType.EQUIPSLOT]: {
-		path: "equipslot.json",
-		dataset: {},
-		commalist: "",
-	},
-
-	[EnumType.PARTICLE]: {
-		path: "particles.json",
-		dataset: {},
-		commalist: "",
-	},
-
-	[EnumType.STATMODIFIER]: {
-		path: "statsmodifiers.json",
-		dataset: {},
-		commalist: "",
-	},
-
-	[EnumType.PAPERATTRIBUTE]: {
-		path: "paper/attributes.json",
-		dataset: {},
-		commalist: ""
-	},
-
-	[EnumType.PAPERATTRIBUTEOPERATION]: {
-		path: "attributesoperations.json",
-		dataset: {},
-		commalist: ""
-	},
-
-	[EnumType.BARCOLOR]: {
-		path: "paper/barcolor.json",
-		dataset: {},
-		commalist: ""
-	},
-
-	[EnumType.BARSTYLE]: {
-		path: "paper/barstyle.json",
-		dataset: {},
-		commalist: ""
-	},
-
-	[EnumType.DAMAGECAUSE]: {
-		path: "paper/damagecause.json",
-		dataset: {},
-		commalist: ""
-	},
-
-	[EnumType.DYE]: {
-		path: "paper/dye.json",
-		dataset: {},
-		commalist: ""
-	},
-
-	[EnumType.MATERIAL]: {
-		path: "paper/material.json",
-		dataset: {},
-		commalist: ""
-	},
-
-	[EnumType.BLOCKFACE]: {
-		path: "paper/blockface.json",
-		dataset: {},
-		commalist: ""
-	},
-
-	[EnumType.ENDERDRAGONPHASE]: {
-		path: "paper/enderdragonphase.json",
-		dataset: {},
-		commalist: ""
-	},
-
-	[EnumType.DRAGONBATTLERESPAWNPHASE]: {
-		path: "paper/dragonbattlerespawnphase.json",
-		dataset: {},
-		commalist: ""
-	},
-
-	[EnumType.POTIONEFFECTTYPE]: {
-		path: "paper/potioneffecttype.json",
-		dataset: {},
-		commalist: ""
-	},
-
-	[EnumType.WORLDENVIRONMENT]: {
-		path: "paper/worldenvironment.json",
-		dataset: {},
-		commalist: ""
-	},
-
-	[EnumType.ENTITYTYPE]: {
-		path: "paper/entitytype.json",
-		dataset: {},
-		commalist: ""
-	},
-
-	[EnumType.GAMEMODE]: {
-		path: "paper/gamemode.json",
-		dataset: {},
-		commalist: ""
-	},
-
-	[EnumType.SPAWNREASON]: {
-		path: "paper/spawnreason.json",
-		dataset: {},
-		commalist: ""
-	},
-
-	[EnumType.ENCHANTMENT]: {
-		path: "paper/enchantment.json",
-		dataset: {},
-		commalist: ""
-	},
-
-	[EnumType.ITEMFLAG]: {
-		path: "paper/itemflag.json",
+function newEnumDetail(path: string) : EnumDetail {
+	return {
+		path: path,
 		dataset: {},
 		commalist: ""
 	}
+}
 
+export const EnumInfo = {
+
+	[EnumType.SOUND]: newEnumDetail("minecraft/sounds.json"),
+
+	[EnumType.AUDIENCE]: newEnumDetail("audiences.json"),
+
+	[EnumType.EQUIPSLOT]: newEnumDetail("equipslot.json"),
+
+	[EnumType.PARTICLE]: newEnumDetail("particles.json"),
+
+	[EnumType.STATMODIFIER]: newEnumDetail("statsmodifiers.json"),
+
+	[EnumType.PAPERATTRIBUTE]: newEnumDetail("paper/attributes.json"),
+
+	[EnumType.PAPERATTRIBUTEOPERATION]: newEnumDetail("attributesoperations.json"),
+
+	[EnumType.BARCOLOR]: newEnumDetail("paper/barcolor.json"),
+
+	[EnumType.BARSTYLE]: newEnumDetail("paper/barstyle.json"),
+
+	[EnumType.DAMAGECAUSE]: newEnumDetail("paper/damagecause.json"),
+
+	[EnumType.DYE]: newEnumDetail("paper/dye.json"),
+
+	[EnumType.MATERIAL]: newEnumDetail("paper/material.json"),
+
+	[EnumType.BLOCKFACE]: newEnumDetail("paper/blockface.json"),
+
+	[EnumType.ENDERDRAGONPHASE]: newEnumDetail("paper/enderdragonphase.json"),
+
+	[EnumType.DRAGONBATTLERESPAWNPHASE]: newEnumDetail("paper/dragonbattlerespawnphase.json"),
+
+	[EnumType.POTIONEFFECTTYPE]: newEnumDetail("paper/potioneffecttype.json"),
+
+	[EnumType.WORLDENVIRONMENT]: newEnumDetail("paper/worldenvironment.json"),
+
+	[EnumType.ENTITYTYPE]: newEnumDetail("paper/entitytype.json"),
+
+	[EnumType.GAMEMODE]: newEnumDetail("paper/gamemode.json"),
+
+	[EnumType.SPAWNREASON]: newEnumDetail("paper/spawnreason.json"),
+
+	[EnumType.ENCHANTMENT]: newEnumDetail("paper/enchantment.json"),
+
+	[EnumType.ITEMFLAG]: newEnumDetail("paper/itemflag.json")
 };
-
-
-
-
-// Different types of objects that can be found in a configuration
-
 
 
 
@@ -289,7 +197,9 @@ export enum FileObjectTypes {
 	STRING = 'string',
 	INTEGER = 'integer',
 	FLOAT = 'float',
+
 	VECTOR = 'vector',
+	RGB = 'rgb',
 
 	LIST = 'list',
 	
@@ -319,7 +229,7 @@ export const keyAliases = {
 };
 
 
-export function generateIntInRange(min: number, max: number, step: number, float: boolean = false, start: number|null = null): string[] {
+export function generateNumbersInRange(min: number, max: number, step: number, float: boolean = false, start: number|null = null): string[] {
 	const result = [];
 	
 	if (start) {

@@ -1,0 +1,95 @@
+[
+    {
+        "plugin": "ModelEngine",
+        "class": "IsDrivingModelCondition",
+        "extends": "SkillCondition",
+        "implements": [
+            "IEntityCondition"
+        ],
+        "name": [
+            "drivingmodel"
+        ],
+        "description": "Checks if the target entity is the driver of a model",
+        "link": "https://git.lumine.io/mythiccraft/model-engine-4/-/wikis/Skills/Conditions/DrivingModel",
+        "attributes": []
+    },
+    {
+        "plugin": "ModelEngine",
+        "class": "IsRidingModelCondition",
+        "extends": "SkillCondition",
+        "implements": [
+            "IEntityCondition"
+        ],
+        "name": [
+            "ridingmodel"
+        ],
+        "description": "Checks if the target entity is a passenger of a model",
+        "link": "https://git.lumine.io/mythiccraft/model-engine-4/-/wikis/Skills/Conditions/RidingModel",
+        "attributes": []
+    },
+    {
+        "plugin": "ModelEngine",
+        "class": "ModelHasDriverCondition",
+        "extends": "SkillCondition",
+        "implements": [
+            "IEntityCondition"
+        ],
+        "name": [
+            "modelhasdriver",
+            "modeldriver"
+        ],
+        "description": "Checks if the target modeled entity has a driver",
+        "link": "https://git.lumine.io/mythiccraft/model-engine-4/-/wikis/Skills/Conditions/ModelHasDriver",
+        "attributes": []
+    },
+    {
+        "plugin": "ModelEngine",
+        "class": "ModelHasPassengerCondition",
+        "extends": "SkillCondition",
+        "implements": [
+            "IEntityCondition"
+        ],
+        "name": [
+            "modelhaspassengers",
+            "modelhaspassenger",
+            "modelpassengers",
+            "modelpassenger"
+        ],
+        "description": "Checks if the target modeled entity has passengers",
+        "link": "https://git.lumine.io/mythiccraft/model-engine-4/-/wikis/Skills/Conditions/ModelHasPassengers",
+        "attributes": [
+            {
+                "name": [
+                    "m",
+                    "mid",
+                    "model",
+                    "modelid"
+                ],
+                "type": "PlaceholderString",
+                "description": "The id of the model of the modeled entity to check against",
+                "link": "https://git.lumine.io/mythiccraft/model-engine-4/-/wikis/Skills/Conditions/ModelHasPassengers",
+                "default_value": ""
+            },
+            {
+                "name": [
+                    "p",
+                    "pbone",
+                    "seat"
+                ],
+                "type": "PlaceholderString",
+                "description": "The name of the seat(s) to check for",
+                "link": "https://git.lumine.io/mythiccraft/model-engine-4/-/wikis/Skills/Conditions/ModelHasPassengers",
+                "default_value": ""
+            },
+            {
+                "name": [
+                    "mode"
+                ],
+                "type": "String",
+                "description": "The mode of the search. Can be either `AND` or `OR`",
+                "link": "https://git.lumine.io/mythiccraft/model-engine-4/-/wikis/Skills/Conditions/ModelHasPassengers",
+                "default_value": "AND"
+            }
+        ]
+    }
+]

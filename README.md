@@ -33,6 +33,7 @@ It provides hover text with information about the pointed object and offers auto
 # Table of Contents
 
 - [Features](#features)
+  - [Syntax Highlighting](#syntax-highlighting)
   - [Autocompletions](#autocompletions)
   - [Hover Information](#hover-informations)
 - [Extension Settings](#extension-settings)
@@ -40,6 +41,9 @@ It provides hover text with information about the pointed object and offers auto
 - [Credits and Acknowledgements](#credits-and-acknowledgements)
 
 # Features
+
+### Syntax Highlighting
+![Syntax Highlighting Demo](https://raw.githubusercontent.com/Lxlp38/MythicScribe/refs/heads/master/demos/syntax-highlighting-demo.png)
 
 ### Autocompletions
 ![Autocompletion Demo](https://raw.githubusercontent.com/Lxlp38/MythicScribe/refs/heads/master/demos/autocompletion-demo.gif)
@@ -50,8 +54,6 @@ It provides hover text with information about the pointed object and offers auto
 
 
 # Extension Settings
-
-This extension contributes the following settings:
 
 * `MythicScribe.alwaysEnabled`: When enabled, the extension will no longer do any check to see if a document is a MythicMobs one
 * `MythicScribe.regexForMythicmobsFile`: Determines which files are recognized as MythicMobs files based on a custom regex
@@ -66,6 +68,13 @@ This extension contributes the following settings:
 * `MythicScribe.enableFileSpecificSuggestions`: Whether file specific suggestions (metaskill files, mob files) should be shown
 * `MythicScribe.disableAcceptSuggestionOnEnter`: Whether the reminder to disable `editor.acceptSuggestionOnEnter` should be shown
 * `MythicScribe.attributeAliasUsedInCompletions`: Which attribute alias to use for completions. Defaults to `main`
+* `MythicScribe.customDatasets`: Which Custom Dataset to load and from where
+
+
+# Extension Commands
+
+* `MythicScribe.addCustomDataset`: Add a Custom Dataset from either a local path a link
+
 
 # Known Issues
 

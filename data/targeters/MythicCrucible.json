@@ -1,0 +1,39 @@
+[
+    {
+        "plugin": "MythicCrucible",
+        "class": "FurnitureInRadiusTargeter",
+        "extends": "SkillTargeter",
+        "implements": [
+            "IEntityTargeter"
+        ],
+        "name": [
+            "furnitureInRadius",
+            "FIR"
+        ],
+        "description": "Targets all the furniture in a radius, optionally filtering for some of them",
+        "link": "https://git.lumine.io/mythiccraft/mythiccrucible/-/wikis/Skills/Targeters/FurnitureInRadius",
+        "attributes": [
+            {
+                "name": [
+                    "radius",
+                    "r"
+                ],
+                "type": "String",
+                "description": "The radius of the targeter",
+                "link": "https://git.lumine.io/mythiccraft/mythiccrucible/-/wikis/Skills/Targeters/FurnitureInRadius",
+                "default_value": "5"
+            },
+            {
+                "name": [
+                    "types",
+                    "type",
+                    "t"
+                ],
+                "type": "String",
+                "description": "A list of furniture types to check against",
+                "link": "https://git.lumine.io/mythiccraft/mythiccrucible/-/wikis/Skills/Targeters/FurnitureInRadius",
+                "default_value": ""
+            }
+        ]
+    }
+]

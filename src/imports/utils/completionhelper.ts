@@ -92,7 +92,7 @@ export function addMechanicCompletions(target: MechanicDataset, completionItems:
 
 
 
-
+// Completes new lines
 export function fileCompletions(document: vscode.TextDocument, position: vscode.Position, objectmap: FileObjectMap): vscode.CompletionItem[] | undefined {
     const keys = yamlutils.getParentKeys(document, position).reverse();
 
@@ -159,21 +159,19 @@ function fileCompletionForFileObjectMap(objectMap: FileObjectMap, indentation: s
             completionItem.insertText = new vscode.SnippetString(indentation + key + ":\n" + indentation + "- $0");
         }
         else if (value.type === FileObjectTypes.BOOLEAN) {
-            completionItem.insertText = new vscode.SnippetString(indentation + key + ": ${1|true,false|}");
+            completionItem.insertText = new vscode.SnippetString(indentation + key + ": ${1|true,false|}$0");
         }
         else if (value.type === FileObjectTypes.KEY) {
-            completionItem.insertText = new vscode.SnippetString(indentation + key + ":\n" + indentation + "  $1");
+            completionItem.insertText = new vscode.SnippetString(indentation + key + ":\n" + indentation + "  $0");
         }
         else if (value.type === FileObjectTypes.KEY_LIST) {
-            completionItem.insertText = new vscode.SnippetString(indentation + key + ":\n" + indentation + "  $1: $2");
+            completionItem.insertText = new vscode.SnippetString(indentation + key + ":\n" + indentation + "  $1: $2$0");
         }
-        else if (value.type === FileObjectTypes.ENUM) {
-            const dataset = value.dataset ? EnumInfo[value.dataset].commalist : [];
-            completionItem.insertText = new vscode.SnippetString(indentation + key + ": ${1|" + dataset + "|}");
-        }    
         else {
             completionItem.insertText = new vscode.SnippetString(indentation + key + ": $0");
         }
+
+        completionItem.detail = value.description;
         completionItem.command = { command: 'editor.action.triggerSuggest', title: 'Re-trigger completions...' };
         completionItems.push(completionItem);
     });
@@ -230,6 +228,7 @@ function getObjectInTree(keys: string[], type: FileObjectMap): FileObject | unde
     return undefined;
 }
 
+// Completes Invocations
 export async function getCompletionForInvocation(document: vscode.TextDocument, position: vscode.Position, context: vscode.CompletionContext, type: FileObjectMap): Promise<vscode.CompletionItem[] | undefined> {
 
     const keys = yamlutils.getParentKeys(document, position, true).reverse();
