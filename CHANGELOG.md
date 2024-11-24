@@ -1,6 +1,6 @@
 # Changelog
 
-## [Unreleased]
+## [1.3.0]
 
 ### Added
 - Custom Datasets (Experimental!) Feature: you can specify a file on your system or an url online as a new dataset for mechanics/conditions/targeters/triggers. This means that:
