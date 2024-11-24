@@ -1,18 +1,16 @@
 import * as vscode from 'vscode';
 import * as config from './imports/utils/configutils';
 import { EnumInfo, EnumDataset, EnumType, Mechanic, MechanicDataset, ObjectInfo, ObjectType } from './objectInfos';
-import path from 'path';
-import * as fs from 'fs';
 import { loadCustomDatasets } from './customDatasets';
 
 
-
 // Define the paths to your local datasets
-const mechanicsDatasetPath = path.join(__dirname, '../data/mechanics');
-const targetersDatasetPath = path.join(__dirname, '../data/targeters');
-const conditionsDatasetPath = path.join(__dirname, '../data/conditions');
-const triggersDatasetPath = path.join(__dirname, '../data/triggers');
+let mechanicsDatasetPath : vscode.Uri;
+let targetersDatasetPath : vscode.Uri;
+let conditionsDatasetPath : vscode.Uri;
+let triggersDatasetPath : vscode.Uri;
 
+let ctx: vscode.ExtensionContext;
 
 // GitHub URL to fetch data from
 const GITHUB_BASE_URL = 'https://raw.githubusercontent.com/Lxlp38/MythicScribe/master/data/';
@@ -22,15 +20,20 @@ const GITHUB_API_COMMITS_URL = 'https://api.github.com/repos/Lxlp38/MythicScribe
 // Function to load datasets, check globalState, and update if necessary
 export async function loadDatasets(context: vscode.ExtensionContext) {
 
+	ctx = context;
+
+	mechanicsDatasetPath = vscode.Uri.joinPath(context.extensionUri ,'data', 'mechanics');
+	targetersDatasetPath = vscode.Uri.joinPath(context.extensionUri,'data', 'targeters');
+	conditionsDatasetPath = vscode.Uri.joinPath(context.extensionUri,'data', 'conditions');
+	triggersDatasetPath = vscode.Uri.joinPath(context.extensionUri ,'data', 'triggers');	
+
 	if (config.datasetSource() === 'GitHub') {
-		checkGithubDatasets(context);
+		await checkGithubDatasets(context);
 	} else {
-		loadLocalDatasets();
+		await loadLocalDatasets();
 	}
 
-	loadEnumDatasets();
-
-	loadCustomDatasets();
+	await Promise.all([loadEnumDatasets(), loadCustomDatasets()]);
 
 	updateDatasets();
 	return;
@@ -85,17 +88,17 @@ export async function fetchMechanicDatasetFromLink(link: string): Promise<Mechan
 function getVersionSpecificDatasetPath(specificpath: string): string {
 	if (specificpath.includes('/')) {
 		const version = config.minecraftVersion();
-		return path.join(__dirname, '../data/versions/', version as string , specificpath);
+		return vscode.Uri.joinPath(ctx.extensionUri, 'data', 'versions', version as string, specificpath).fsPath;
 	}
-	return path.join(__dirname, '../data/', specificpath);
+	return vscode.Uri.joinPath(ctx.extensionUri, 'data', specificpath).fsPath;
 }
 
-function loadLocalDatasets() {
+async function loadLocalDatasets() {
 	// Load datasets from local files
-	ObjectInfo[ObjectType.MECHANIC].dataset = loadDatasetFromLocalDirectory(mechanicsDatasetPath);
-	ObjectInfo[ObjectType.TARGETER].dataset = loadDatasetFromLocalDirectory(targetersDatasetPath);
-	ObjectInfo[ObjectType.CONDITION].dataset = loadDatasetFromLocalDirectory(conditionsDatasetPath);
-	ObjectInfo[ObjectType.TRIGGER].dataset = loadDatasetFromLocalDirectory(triggersDatasetPath);
+	ObjectInfo[ObjectType.MECHANIC].dataset = await loadDatasetFromLocalDirectory(mechanicsDatasetPath);
+	ObjectInfo[ObjectType.TARGETER].dataset = await loadDatasetFromLocalDirectory(targetersDatasetPath);
+	ObjectInfo[ObjectType.CONDITION].dataset = await loadDatasetFromLocalDirectory(conditionsDatasetPath);
+	ObjectInfo[ObjectType.TRIGGER].dataset = await loadDatasetFromLocalDirectory(triggersDatasetPath);
 
 }
 
@@ -140,30 +143,30 @@ async function checkGithubDatasets(context: vscode.ExtensionContext) {
 
 }
 
-function loadGithubDatasets(context: vscode.ExtensionContext) {
+async function loadGithubDatasets(context: vscode.ExtensionContext) {
 	const globalState = context.globalState;
 
 	// Load datasets from globalState or fallback to local datasets if necessary
-	ObjectInfo[ObjectType.MECHANIC].dataset = globalState.get('mechanicsDataset') || loadDatasetFromLocalDirectory(mechanicsDatasetPath);
-	ObjectInfo[ObjectType.TARGETER].dataset = globalState.get('targetersDataset') || loadDatasetFromLocalDirectory(targetersDatasetPath);
-	ObjectInfo[ObjectType.CONDITION].dataset = globalState.get('conditionsDataset') || loadDatasetFromLocalDirectory(conditionsDatasetPath);
-	ObjectInfo[ObjectType.TRIGGER].dataset = globalState.get('triggersDataset') || loadDatasetFromLocalDirectory(triggersDatasetPath);
+	ObjectInfo[ObjectType.MECHANIC].dataset = globalState.get('mechanicsDataset') || await loadDatasetFromLocalDirectory(mechanicsDatasetPath);
+	ObjectInfo[ObjectType.TARGETER].dataset = globalState.get('targetersDataset') || await loadDatasetFromLocalDirectory(targetersDatasetPath);
+	ObjectInfo[ObjectType.CONDITION].dataset = globalState.get('conditionsDataset') || await loadDatasetFromLocalDirectory(conditionsDatasetPath);
+	ObjectInfo[ObjectType.TRIGGER].dataset = globalState.get('triggersDataset') || await loadDatasetFromLocalDirectory(triggersDatasetPath);
 
 }
 
 
-function loadEnumDatasets() {
+async function loadEnumDatasets() {
 	for (const key of Object.keys(EnumType) as Array<keyof typeof EnumType>) {
-		EnumInfo[EnumType[key]].dataset = loadLocalEnumDataset(getVersionSpecificDatasetPath(EnumInfo[EnumType[key]].path));
+		EnumInfo[EnumType[key]].dataset = await loadLocalEnumDataset(getVersionSpecificDatasetPath(EnumInfo[EnumType[key]].path));
 	}
 }
 
-export function updateDatasets() {
+export async function updateDatasets() {
 	updateDatasetMaps();
 	updateDatasetEnums();
 }
 
-function updateDatasetMaps() {
+async function updateDatasetMaps() {
 
 	ObjectInfo[ObjectType.MECHANIC].datasetMap = new Map<string, Mechanic>();
 	ObjectInfo[ObjectType.MECHANIC].datasetClassMap = new Map<string, Mechanic>();
@@ -187,7 +190,7 @@ function updateDatasetMaps() {
 	ObjectInfo[ObjectType.INLINECONDITION].datasetClassMap = ObjectInfo[ObjectType.CONDITION].datasetClassMap;
 }
 
-function updateDatasetEnums() {
+async function updateDatasetEnums() {
 
 	for (const key in EnumInfo) {
 		const list: string[] = [];
@@ -207,38 +210,41 @@ function mapDataset(object: ObjectInfo) {
 	}
 }
 
-export function loadLocalMechanicDataset(datasetPath: string): MechanicDataset {
+export async function loadLocalMechanicDataset(datasetPath: string): Promise<MechanicDataset> {
 	try {
-		return JSON.parse(fs.readFileSync(datasetPath, 'utf8'));
+		const fileUri = vscode.Uri.parse(datasetPath);
+		const fileData = await vscode.workspace.fs.readFile(fileUri);
+		return JSON.parse(Buffer.from(fileData).toString('utf8'));
 	} catch (error) {
 		console.error(`Error reading local dataset: ${datasetPath}`, error);
 		return [];
 	}
 }
 
-function loadLocalEnumDataset(datasetPath: string): EnumDataset {
+async function loadLocalEnumDataset(datasetPath: string): Promise<EnumDataset> {
 	try {
-		return JSON.parse(fs.readFileSync(datasetPath, 'utf8'));
+		const fileUri = vscode.Uri.file(datasetPath);
+		const fileData = await vscode.workspace.fs.readFile(fileUri);
+		return JSON.parse(Buffer.from(fileData).toString('utf8'));
 	} catch (error) {
 		console.error(`Error reading local dataset: ${datasetPath}`, error);
 		return {};
 	}
 }
 
-function loadDatasetFromLocalDirectory(directoryPath: string): MechanicDataset {
+async function loadDatasetFromLocalDirectory(directoryPath: vscode.Uri): Promise<MechanicDataset> {
     const combinedDataset: MechanicDataset = [];
-	const files = fs.readdirSync(directoryPath);
+	const files = await vscode.workspace.fs.readDirectory(vscode.Uri.file(directoryPath.fsPath));
 
-    files.forEach((file) => {
-        const filePath = path.join(directoryPath, file);
+	for (const [file, fileType] of files) {
+		if (fileType === vscode.FileType.File && file.endsWith('.json')) {
+			const fileUri = vscode.Uri.joinPath(directoryPath, file);
+			const fileData = await vscode.workspace.fs.readFile(fileUri);
+			const parsedData: MechanicDataset = JSON.parse(Buffer.from(fileData).toString('utf8'));
 
-        if (path.extname(file) === '.json') {
-            const fileContents = fs.readFileSync(filePath, 'utf-8');
-            const parsedData: MechanicDataset = JSON.parse(fileContents);
-
-            combinedDataset.push(...parsedData);
-        }
-    });
+			combinedDataset.push(...parsedData);
+		}
+	}
 
     return combinedDataset;
 }

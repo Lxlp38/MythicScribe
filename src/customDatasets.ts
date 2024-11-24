@@ -1,6 +1,5 @@
 import * as vscode from "vscode";
 import { MechanicDataset, ObjectInfo, ObjectType } from "./objectInfos";
-import fs from 'fs/promises';
 import { fetchMechanicDatasetFromLink, loadDatasets, loadLocalMechanicDataset } from "./datasets";
 import { ctx } from "./MythicScribe";
 
@@ -24,7 +23,7 @@ export interface CustomDataset {
 
 
 export async function addCustomDataset() {
-    
+
     const scope = await vscode.window.showQuickPick([
         { label: "Global", target: vscode.ConfigurationTarget.Global },
         { label: "Workspace", target: vscode.ConfigurationTarget.Workspace },
@@ -64,14 +63,12 @@ export async function addCustomDataset() {
     }
 
     //const mechanicDatasets : MechanicDataset[] = [];
-    const validPaths : string[] = [];
+    const validPaths: vscode.Uri[] = [];
 
     for (const uri of fileUri) {
-        const selectedFile = uri.fsPath;
-
         try {
-            // Read the file
-            const data = await fs.readFile(selectedFile, "utf8");
+            const fileContent = await vscode.workspace.fs.readFile(uri);
+            const data = Buffer.from(fileContent).toString("utf8");
             const mechanicdataset = JSON.parse(data) as MechanicDataset;
             if (!mechanicdataset) {
                 vscode.window.showErrorMessage(`Error parsing file content.`);
@@ -79,14 +76,19 @@ export async function addCustomDataset() {
             }
 
             vscode.window.showInformationMessage(`File content loaded successfully.`);
-            validPaths.push(selectedFile);
+            validPaths.push(uri);
         } catch (err) {
             vscode.window.showErrorMessage(`Error reading file: ${err}`);
         }
     }
 
-    for (const pathOrUrl of validPaths) {
-        await finalizeCustomDatasetAddition(elementType as CustomDatasetElementType, source as CustomDatasetSource, pathOrUrl, scope);
+    for (const uri of validPaths) {
+        await finalizeCustomDatasetAddition(
+            elementType as CustomDatasetElementType,
+            source as CustomDatasetSource,
+            uri.toString(),
+            scope
+        );
     }
 }
 
@@ -102,8 +104,22 @@ export async function addCustomDatasetFromLink(elementtype: string, scope: vscod
         return;
     }
 
-    await finalizeCustomDatasetAddition(elementtype as CustomDatasetElementType, CustomDatasetSource.LINK, pathOrUrl, scope);
+    try {
+        // Parse the input as a URI
+        const uri = vscode.Uri.parse(pathOrUrl);
 
+        // Pass the URI as a string to the finalize function
+        await finalizeCustomDatasetAddition(
+            elementtype as CustomDatasetElementType,
+            CustomDatasetSource.LINK,
+            uri.toString(),
+            scope
+        );
+
+        vscode.window.showInformationMessage(`Successfully added dataset from: ${uri.toString()}`);
+    } catch (err) {
+        vscode.window.showErrorMessage(`Invalid URL or path: ${pathOrUrl}`);
+    }
 }
 
 async function finalizeCustomDatasetAddition(elementType: CustomDatasetElementType, source: CustomDatasetSource, pathOrUrl: string, scope: vscode.ConfigurationTarget) {
@@ -124,49 +140,49 @@ export function getCustomDatasetConfiguration(): CustomDataset[] {
 }
 
 
-export async function loadCustomDatasets(){
-	const customDatasets = getCustomDatasetConfiguration();
-	console.log("Custom datasets:", customDatasets);
+export async function loadCustomDatasets() {
+    const customDatasets = getCustomDatasetConfiguration();
+    console.log("Custom datasets:", customDatasets);
 
-	for (const entry in customDatasets) {
-		const dataset = customDatasets[entry];
-		if (dataset.source === CustomDatasetSource.LOCALFILE) {
-			const localDataset = loadLocalMechanicDataset(dataset.pathOrUrl);
-			if (localDataset) {
-				switch (dataset.elementType) {
-					case CustomDatasetElementType.MECHANIC:
-						ObjectInfo[ObjectType.MECHANIC].dataset.push(...localDataset);
-						break;
-					case CustomDatasetElementType.TARGETER:
-						ObjectInfo[ObjectType.TARGETER].dataset.push(...localDataset);
-						break;
-					case CustomDatasetElementType.CONDITION:
-						ObjectInfo[ObjectType.CONDITION].dataset.push(...localDataset);
-						break;
-					case CustomDatasetElementType.TRIGGER:
-						ObjectInfo[ObjectType.TRIGGER].dataset.push(...localDataset);
-						break;
-				}
-			}
-		}
-		else if (dataset.source === CustomDatasetSource.LINK) {
-			const fileData = await fetchMechanicDatasetFromLink(dataset.pathOrUrl);
-			if (fileData) {
-				switch (dataset.elementType) {
-					case CustomDatasetElementType.MECHANIC:
-						ObjectInfo[ObjectType.MECHANIC].dataset.push(...fileData);
-						break;
-					case CustomDatasetElementType.TARGETER:
-						ObjectInfo[ObjectType.TARGETER].dataset.push(...fileData);
-						break;
-					case CustomDatasetElementType.CONDITION:
-						ObjectInfo[ObjectType.CONDITION].dataset.push(...fileData);
-						break;
-					case CustomDatasetElementType.TRIGGER:
-						ObjectInfo[ObjectType.TRIGGER].dataset.push(...fileData);
-						break;
-				}
-			}
-		}
-	}
+    for (const entry in customDatasets) {
+        const dataset = customDatasets[entry];
+        if (dataset.source === CustomDatasetSource.LOCALFILE) {
+            const localDataset = await loadLocalMechanicDataset(dataset.pathOrUrl);
+            if (localDataset) {
+                switch (dataset.elementType) {
+                    case CustomDatasetElementType.MECHANIC:
+                        ObjectInfo[ObjectType.MECHANIC].dataset.push(...localDataset);
+                        break;
+                    case CustomDatasetElementType.TARGETER:
+                        ObjectInfo[ObjectType.TARGETER].dataset.push(...localDataset);
+                        break;
+                    case CustomDatasetElementType.CONDITION:
+                        ObjectInfo[ObjectType.CONDITION].dataset.push(...localDataset);
+                        break;
+                    case CustomDatasetElementType.TRIGGER:
+                        ObjectInfo[ObjectType.TRIGGER].dataset.push(...localDataset);
+                        break;
+                }
+            }
+        }
+        else if (dataset.source === CustomDatasetSource.LINK) {
+            const fileData = await fetchMechanicDatasetFromLink(dataset.pathOrUrl);
+            if (fileData) {
+                switch (dataset.elementType) {
+                    case CustomDatasetElementType.MECHANIC:
+                        ObjectInfo[ObjectType.MECHANIC].dataset.push(...fileData);
+                        break;
+                    case CustomDatasetElementType.TARGETER:
+                        ObjectInfo[ObjectType.TARGETER].dataset.push(...fileData);
+                        break;
+                    case CustomDatasetElementType.CONDITION:
+                        ObjectInfo[ObjectType.CONDITION].dataset.push(...fileData);
+                        break;
+                    case CustomDatasetElementType.TRIGGER:
+                        ObjectInfo[ObjectType.TRIGGER].dataset.push(...fileData);
+                        break;
+                }
+            }
+        }
+    }
 }

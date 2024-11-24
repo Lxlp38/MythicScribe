@@ -64,8 +64,6 @@ export function enableSubscriptions() {
 
 	const context = ctx;
 
-	vscode.workspace.getConfiguration().update('workbench.colorTheme', 'MythicScript Theme', vscode.ConfigurationTarget.Workspace);
-
 	const toEnable = [
 		attributeCompletionProvider(),
 		attributeValueCompletionProvider(),

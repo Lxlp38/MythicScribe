@@ -19,9 +19,12 @@
 
 ### Changed
 - Changed how mechanics/conditions/triggers/targeters datasets are stored and handled
+- Changed some URI related stuff as a first step towards web compatibility
 
-## Removed
+### Removed
 - Check on startup for every mythicscript file (It was just an aesthetic feature, as file are checked again once they are opened)
+- Theme enforcing
+
 
 ## [1.2.1]
 
