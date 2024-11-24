@@ -31,19 +31,25 @@ export async function addCustomDataset() {
         placeHolder: "Select the scope for which you want to add the custom dataset",
     }).then(selection => selection?.target);
 
-    if (!scope) return;
+    if (!scope) {
+        return;
+    }
 
     const elementType = await vscode.window.showQuickPick(Object.values(CustomDatasetElementType), {
         placeHolder: "Select an element type",
     });
 
-    if (!elementType) return;
+    if (!elementType) {
+        return;
+    }
 
     const source = await vscode.window.showQuickPick(Object.values(CustomDatasetSource), {
         placeHolder: "Select a source",
     });
 
-    if (!source) return;
+    if (!source) {
+        return;
+    }
 
     if (source === CustomDatasetSource.LINK) {
         return addCustomDatasetFromLink(elementType, scope);

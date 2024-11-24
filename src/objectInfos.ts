@@ -140,7 +140,7 @@ function newEnumDetail(path: string) : EnumDetail {
 		path: path,
 		dataset: {},
 		commalist: ""
-	}
+	};
 }
 
 export const EnumInfo = {

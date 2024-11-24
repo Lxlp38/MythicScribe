@@ -253,7 +253,9 @@ async function loadDatasetFromGithubDirectory(directoryUrl: string): Promise<Mec
 	try {
 		// Fetch directory contents to get a list of files
 		const response = await fetch(`${GITHUB_BASE_URL}${directoryUrl}`);
-		if (!response.ok) throw new Error(`Failed to fetch directory listing from ${directoryUrl}`);
+		if (!response.ok) {
+			throw new Error(`Failed to fetch directory listing from ${directoryUrl}`);
+		}
 
 		const files: { name: string }[] = await response.json() as { name: string }[];
 		const combinedDataset: unknown[] = [];
