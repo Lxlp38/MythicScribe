@@ -1,7 +1,7 @@
 {
   "name": "mythicscribe",
   "displayName": "MythicScribe",
-  "version": "1.2.1",
+  "version": "1.3.0",
   "icon": "assets/icon.png",
   "description": "Offers support for MythicMobs scripting",
   "license": "SEE LICENSE IN LICENSE.txt",
@@ -10,6 +10,10 @@
     "name": "Lxlp"
   },
   "pricing": "Free",
+  "funding": {
+    "type": "github",
+    "url": "https://github.com/sponsors/Lxlp38"
+  },
   "keywords": [
     "mythicmobs",
     "mythic",
@@ -32,6 +36,7 @@
     "onLanguage:yaml"
   ],
   "main": "./out/MythicScribe.js",
+  "browser": "./out/MythicScribe.js",
   "contributes": {
     "configurationDefaults": {
       "[mythicscript]": {
@@ -41,11 +46,20 @@
         "editor.acceptSuggestionOnEnter": "off"
       }
     },
+    "commands" : [
+      {
+        "command": "MythicScribe.addCustomDataset",
+        "title": "Add Custom Dataset",
+        "category": "MythicScribe"
+      }
+    ],
     "languages": [
       {
         "id": "mythicscript",
         "configuration": "./language-configuration.json",
-        "aliases": ["MythicScript"],
+        "aliases": [
+          "MythicScript"
+        ],
         "displayName": "MythicScript",
         "icon": {
           "light": "./assets/icon128x128.png",
@@ -58,7 +72,9 @@
         "language": "mythicscript",
         "scopeName": "source.mythicscript",
         "path": "./syntaxes/mythicscript.tmLanguage.json",
-        "injectTo": ["source.yaml"]
+        "injectTo": [
+          "source.yaml"
+        ]
       }
     ],
     "completionItemProviders": [
@@ -176,6 +192,43 @@
           ],
           "default": "main",
           "description": "Which attribute alias should be used in autocompletions."
+        },
+        "MythicScribe.customDatasets": {
+          "type": "array",
+          "description": "Load a Custom Dataset from a Local File or a Link.",
+          "items": {
+            "type": "object",
+            "properties": {
+              "elementType": {
+                "type": "string",
+                "enum": [
+                  "Mechanic",
+                  "Condition",
+                  "Trigger",
+                  "Targeter"
+                ],
+                "description": "The type of element to associate."
+              },
+              "source": {
+                "type": "string",
+                "enum": [
+                  "Link",
+                  "Local File"
+                ],
+                "description": "The source of the dataset."
+              },
+              "path": {
+                "type": "string",
+                "description": "The local file path or URL to associate with the element type."
+              }
+            },
+            "required": [
+              "elementType",
+              "source",
+              "path"
+            ]
+          },
+          "default": []
         }
       }
     }
@@ -189,7 +242,7 @@
     "vscode:prepublish": "npm run package",
     "package": "npm run check-types && node esbuild.js --production",
     "build": "node esbuild.js",
-    "buildtag": "npm run package && npx @vscode/vsce package"
+    "buildtag": "npx @vscode/vsce package"
   },
   "devDependencies": {
     "@types/mocha": "^10.0.8",

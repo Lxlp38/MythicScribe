@@ -22,6 +22,7 @@ import { metaskillFileCompletionProvider } from './imports/completions/filecompl
 import { triggerfileCompletionProvider } from './imports/completions/filecompletions/triggerfileCompletionProvider';
 import { mobFileCompletionProvider } from './imports/completions/filecompletions/mobfileCompletionProvider';
 import { itemFileCompletionProvider } from './imports/completions/filecompletions/itemfileCompletionProvider';
+import { addCustomDataset } from './customDatasets';
 
 export let ctx: vscode.ExtensionContext;
 
@@ -40,22 +41,16 @@ export function activate(context: vscode.ExtensionContext) {
 
 	loadDatasets(context);
 
-	// Config
+	// Subscription Handler
 	context.subscriptions.push(config.extensionEnabler);
 	if (vscode.window.activeTextEditor) {
 		config.updateEnabled(vscode.window.activeTextEditor.document);
 	}
 
-	if (config.enableMythicScriptSyntax()) {
-		// Check all files in the workspace to see if they are MythicScript files
-		vscode.workspace.findFiles('**/*.{yml,yaml}').then(files => {
-			files.forEach(async fileUri => {
-				await vscode.workspace.openTextDocument(fileUri).then(async document => {
-					await config.checkIfMythicScriptFile(document);
-				});
-			});
-		});
-	}
+
+	// Commands
+	context.subscriptions.push(vscode.commands.registerCommand('MythicScribe.addCustomDataset', addCustomDataset));
+
 }
 
 export function deactivate() {
@@ -68,8 +63,6 @@ export function enableSubscriptions() {
 	console.log('Enabling subscriptions');
 
 	const context = ctx;
-
-	vscode.workspace.getConfiguration().update('workbench.colorTheme', 'MythicScript Theme', vscode.ConfigurationTarget.Workspace);
 
 	const toEnable = [
 		attributeCompletionProvider(),

@@ -1,5 +1,31 @@
 # Changelog
 
+## [1.3.0]
+
+### Added
+- Custom Datasets (Experimental!) Feature: you can specify a file on your system or an url online as a new dataset for mechanics/conditions/targeters/triggers. This means that:
+  - As an user: you can add your custom metaskill as a new mechanic (skill:yourcustommetaskill) and put the skill parameters as attributes in order to get yuor metaskill to autocomplete
+  - As a plugin developer: you can make datasets for your mythicmobs extension and make your users use it (or, well, another choice would be to make a pull request and put the dataset directly on the MythicScribe repo)
+- New datasets can be added either
+  - Via the config `MythicScribe.customDatasets`
+  - Via the command `MythicScribe.addCustomDataset`
+- Syntax Highlighting for Template
+- "Plugin" section to Mechanics/Targeters/Conditions/Triggers' Hovers, to specify from which plugin they are from
+
+### Fixed
+#### Syntax Highlighting 
+- Unquoted strings not being recognized once a . or a space is used inside of them
+- Closing placeholders (like `</red>`) not being recognized
+
+### Changed
+- Changed how mechanics/conditions/triggers/targeters datasets are stored and handled
+- Changed some URI related stuff as a first step towards web compatibility
+
+### Removed
+- Check on startup for every mythicscript file (It was just an aesthetic feature, as file are checked again once they are opened)
+- Theme enforcing
+
+
 ## [1.2.1]
 
 ### Fixed

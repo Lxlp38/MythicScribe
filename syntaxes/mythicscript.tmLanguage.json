@@ -4,6 +4,9 @@
     "name": "MythicScript",
     "patterns": [
         {
+            "include": "#templates"
+        },
+        {
             "include": "#comment"
         },
         {
@@ -18,6 +21,7 @@
         {
             "include": "#targeters"
         },
+        
         {
             "include": "#nameids"
         },
@@ -30,6 +34,7 @@
         {
             "include": "#boolean"
         },
+
         {
             "include": "#strings"
         },
@@ -89,7 +94,7 @@
                         },
                         {
                             "name": "string.unquoted.mythicscript",
-                            "match": "(?<=: )[\\w\\-]*\\b"
+                            "match": "(?<=[:,] )[\\w\\-\\. ]*\\b"
                         }
                     ]
                 }
@@ -138,7 +143,7 @@
         "placeholder": {
             "patterns": [
                 {
-                    "begin": "<[a-zA-Z]",
+                    "begin": "<[a-zA-Z\\/]",
                     "end": ">",
                     "name": "support.class.mythicscript",
                     "patterns": [
@@ -194,9 +199,9 @@
                 },
                 {
                     "name": "string.unquoted.mythicscript",
-                    "match": "(?<=[=,\\>])[\\.\\w\\-\\:]+(?=[,;\\<\\}])"
+                    "match": "(?<=[=,\\>])[\\.\\w\\-\\: ]+(?=[,;\\<\\}])"
                 }
-    ]
+            ]
         },
         "inlineCondition": {
             "patterns": [
@@ -237,6 +242,28 @@
                     "begin": "%",
                     "end": "%",
                     "name": "support.class.mythicscript"
+                }
+            ]
+        },
+        "templates": {
+            "patterns": [
+                {
+                    "name": "variable.parameter.mythicscript",
+                    "match": "^\\s*Template:\\s*(.+)",
+                    "captures": {
+                        "1": {
+                            "patterns": [
+                                {
+                                    "match": "\\b\\w+\\b",
+                                    "name": "entity.name.type.class.mythicscript"
+                                },
+                                {
+                                    "match": ",",
+                                    "name": "keyword.control.mythicscript"
+                                }
+                            ]
+                        }
+                    }
                 }
             ]
         }

@@ -103,7 +103,10 @@ ${mechanic.description}
         });
     }
 
+    hoverContent.appendMarkdown(`\n\n##### Plugin: ${mechanic.plugin}\n\n---`);
+
     hoverContent.appendMarkdown(`\n\n[Get More Information By Visiting Its Wiki Page](${mechanic.link})`);
+
 
     // Enable support for links
     hoverContent.isTrusted = true;

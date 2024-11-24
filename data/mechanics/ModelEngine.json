@@ -1,0 +1,3096 @@
+[
+    {
+        "plugin": "ModelEngine",
+        "class": "BindHitboxMechanic",
+        "extends": "SkillMechanic",
+        "implements": [
+            "ITargetedEntitySkill"
+        ],
+        "name": [
+            "bindhitbox"
+        ],
+        "description": "Summon and bind an entity to a sub-hitbox.",
+        "link": "https://git.lumine.io/mythiccraft/model-engine-4/-/wikis/Skills/Mechanics/BindHitbox",
+        "attributes": [
+            {
+                "name": [
+                    "m",
+                    "mid",
+                    "model",
+                    "modelid"
+                ],
+                "type": "PlaceholderString",
+                "description": "Targeted model",
+                "link": "https://git.lumine.io/mythiccraft/model-engine-4/-/wikis/Skills/Mechanics/BindHitbox",
+                "default_value": ""
+            },
+            {
+                "name": [
+                    "p",
+                    "pid",
+                    "part",
+                    "partid"
+                ],
+                "type": "PlaceholderString",
+                "description": "Targeted sub-hitbox",
+                "link": "https://git.lumine.io/mythiccraft/model-engine-4/-/wikis/Skills/Mechanics/BindHitbox",
+                "default_value": ""
+            },
+            {
+                "name": [
+                    "type",
+                    "t",
+                    "mob",
+                    "m"
+                ],
+                "type": "String",
+                "description": "Targeted model",
+                "link": "https://git.lumine.io/mythiccraft/model-engine-4/-/wikis/Skills/Mechanics/BindHitbox",
+                "default_value": ""
+            }
+        ]
+    },
+    {
+        "plugin": "ModelEngine",
+        "class": "BodyRotationMechanic",
+        "extends": "SkillMechanic",
+        "implements": [
+            "ITargetedEntitySkill"
+        ],
+        "name": [
+            "bodyrotation",
+            "bodyclamp"
+        ],
+        "description": "Configure the body rotation of the modeled entity.",
+        "link": "https://git.lumine.io/mythiccraft/model-engine-4/-/wikis/Skills/Mechanics/BodyRotation",
+        "attributes": [
+            {
+                "name": [
+                    "hu",
+                    "head",
+                    "headuneven"
+                ],
+                "type": "Boolean",
+                "description": "Is the head clamp uneven.<br/>Head clamp is used to clamp the head when an entity is moving.",
+                "link": "https://git.lumine.io/mythiccraft/model-engine-4/-/wikis/Skills/Mechanics/BodyRotation",
+                "default_value": "Last Value"
+            },
+            {
+                "name": [
+                    "mh",
+                    "mxh",
+                    "maxhead"
+                ],
+                "type": "PlaceholderFloat",
+                "description": "Maximum head angle in degrees.<br/>If `headuneven` is false, the minimum head angle would be set as the negative of this value.",
+                "link": "https://git.lumine.io/mythiccraft/model-engine-4/-/wikis/Skills/Mechanics/BodyRotation",
+                "default_value": "Last Value"
+            },
+            {
+                "name": [
+                    "mnh",
+                    "minhead"
+                ],
+                "type": "PlaceholderFloat",
+                "description": "Minimum head angle in degrees.<br/>Only takes effect when `headuneven` is true.",
+                "link": "https://git.lumine.io/mythiccraft/model-engine-4/-/wikis/Skills/Mechanics/BodyRotation",
+                "default_value": "Last Value"
+            },
+            {
+                "name": [
+                    "bu",
+                    "body",
+                    "bodyuneven"
+                ],
+                "type": "Boolean",
+                "description": "Is the body clamp uneven.<br/>Body clamp is used to clamp the body when an entity is standing still.",
+                "link": "https://git.lumine.io/mythiccraft/model-engine-4/-/wikis/Skills/Mechanics/BodyRotation",
+                "default_value": "Last Value"
+            },
+            {
+                "name": [
+                    "mb",
+                    "mxb",
+                    "maxbody"
+                ],
+                "type": "PlaceholderFloat",
+                "description": "Maximum body angle in degrees.<br/>If `bodyuneven` is false, the minimum body angle would be set as the negative of this value.",
+                "link": "https://git.lumine.io/mythiccraft/model-engine-4/-/wikis/Skills/Mechanics/BodyRotation",
+                "default_value": "Last Value"
+            },
+            {
+                "name": [
+                    "mnb",
+                    "minbody"
+                ],
+                "type": "PlaceholderFloat",
+                "description": "Minimum body angle in degrees.<br/>Only takes effect when `bodyuneven` is true.",
+                "link": "https://git.lumine.io/mythiccraft/model-engine-4/-/wikis/Skills/Mechanics/BodyRotation",
+                "default_value": "Last Value"
+            },
+            {
+                "name": [
+                    "m",
+                    "mode",
+                    "player",
+                    "playermode"
+                ],
+                "type": "Boolean",
+                "description": "Should the body rotate like a player (i.e. will not try to match the head angle)",
+                "link": "https://git.lumine.io/mythiccraft/model-engine-4/-/wikis/Skills/Mechanics/BodyRotation",
+                "default_value": "Last Value"
+            },
+            {
+                "name": [
+                    "s",
+                    "stable"
+                ],
+                "type": "PlaceholderFloat",
+                "description": "Stable angle in degrees where the body rotation can exceed the clamp before snapping towards the clamped values",
+                "link": "https://git.lumine.io/mythiccraft/model-engine-4/-/wikis/Skills/Mechanics/BodyRotation",
+                "default_value": "Last Value"
+            },
+            {
+                "name": [
+                    "rde",
+                    "rdelay"
+                ],
+                "type": "PlaceholderInteger",
+                "description": "Rotation delay in ticks before the body rotate towards the head",
+                "link": "https://git.lumine.io/mythiccraft/model-engine-4/-/wikis/Skills/Mechanics/BodyRotation",
+                "default_value": "Last Value"
+            },
+            {
+                "name": [
+                    "rdu",
+                    "rduration"
+                ],
+                "type": "PlaceholderInteger",
+                "description": "Rotation duration in ticks the body takes to rotate towards the head",
+                "link": "https://git.lumine.io/mythiccraft/model-engine-4/-/wikis/Skills/Mechanics/BodyRotation",
+                "default_value": "Last Value"
+            }
+        ]
+    },
+    {
+        "plugin": "ModelEngine",
+        "class": "BrightnessMechanic",
+        "extends": "SkillMechanic",
+        "implements": [
+            "ITargetedEntitySkill"
+        ],
+        "name": [
+            "brightness",
+            "light"
+        ],
+        "description": "Configure the model's block and sky light.",
+        "link": "https://git.lumine.io/mythiccraft/model-engine-4/-/wikis/Skills/Mechanics/Brightness",
+        "attributes": [
+            {
+                "name": [
+                    "m",
+                    "mid",
+                    "model",
+                    "modelid"
+                ],
+                "type": "PlaceholderString",
+                "description": "Targeted model",
+                "link": "https://git.lumine.io/mythiccraft/model-engine-4/-/wikis/Skills/Mechanics/Brightness",
+                "default_value": ""
+            },
+            {
+                "name": [
+                    "p",
+                    "pid",
+                    "part",
+                    "partid"
+                ],
+                "type": "PlaceholderString",
+                "description": "Targeted rendering bone.<br/>If not set, set brightness of the entire model.",
+                "link": "https://git.lumine.io/mythiccraft/model-engine-4/-/wikis/Skills/Mechanics/Brightness",
+                "default_value": ""
+            },
+            {
+                "name": [
+                    "block",
+                    "b"
+                ],
+                "type": "PlaceholderInteger",
+                "description": "Block light level. Value must be 0 - 15, or -1 for auto brightness",
+                "link": "https://git.lumine.io/mythiccraft/model-engine-4/-/wikis/Skills/Mechanics/Brightness",
+                "default_value": "-1"
+            },
+            {
+                "name": [
+                    "sky",
+                    "s"
+                ],
+                "type": "PlaceholderInteger",
+                "description": "Sky light level. Value must be 0 - 15, or -1 for auto brightness",
+                "link": "https://git.lumine.io/mythiccraft/model-engine-4/-/wikis/Skills/Mechanics/Brightness",
+                "default_value": "-1"
+            },
+            {
+                "name": [
+                    "em",
+                    "exact",
+                    "match",
+                    "exactmatch"
+                ],
+                "type": "Boolean",
+                "description": "Should the part match the `partid` completely",
+                "link": "https://git.lumine.io/mythiccraft/model-engine-4/-/wikis/Skills/Mechanics/Brightness",
+                "default_value": "true"
+            }
+        ]
+    },
+    {
+        "plugin": "ModelEngine",
+        "class": "ChangeParentMechanic",
+        "extends": "SkillMechanic",
+        "implements": [
+            "ITargetedEntitySkill"
+        ],
+        "name": [
+            "changeparent"
+        ],
+        "description": "Changes the parent of a bone to another bone.",
+        "link": "https://git.lumine.io/mythiccraft/model-engine-4/-/wikis/Skills/Mechanics/ChangeParent",
+        "attributes": [
+            {
+                "name": [
+                    "m",
+                    "mid",
+                    "model",
+                    "modelid"
+                ],
+                "type": "PlaceholderString",
+                "description": "Targeted model",
+                "link": "https://git.lumine.io/mythiccraft/model-engine-4/-/wikis/Skills/Mechanics/ChangeParent",
+                "default_value": ""
+            },
+            {
+                "name": [
+                    "p",
+                    "parent"
+                ],
+                "type": "PlaceholderString",
+                "description": "The new parent bone",
+                "link": "https://git.lumine.io/mythiccraft/model-engine-4/-/wikis/Skills/Mechanics/ChangeParent",
+                "default_value": ""
+            },
+            {
+                "name": [
+                    "c",
+                    "child"
+                ],
+                "type": "PlaceholderString",
+                "description": "The bone being moved",
+                "link": "https://git.lumine.io/mythiccraft/model-engine-4/-/wikis/Skills/Mechanics/ChangeParent",
+                "default_value": ""
+            }
+        ]
+    },
+    {
+        "plugin": "ModelEngine",
+        "class": "ChangePartMechanic",
+        "extends": "SkillMechanic",
+        "implements": [
+            "ITargetedEntitySkill"
+        ],
+        "name": [
+            "changepart"
+        ],
+        "description": "Change the model of a rendering bone to use a different model.",
+        "link": "https://git.lumine.io/mythiccraft/model-engine-4/-/wikis/Skills/Mechanics/ChangePart",
+        "attributes": [
+            {
+                "name": [
+                    "m",
+                    "mid",
+                    "model",
+                    "modelid"
+                ],
+                "type": "PlaceholderString",
+                "description": "Targeted model",
+                "link": "https://git.lumine.io/mythiccraft/model-engine-4/-/wikis/Skills/Mechanics/ChangePart",
+                "default_value": ""
+            },
+            {
+                "name": [
+                    "p",
+                    "pid",
+                    "part",
+                    "partid"
+                ],
+                "type": "PlaceholderString",
+                "description": "Targeted rendering bone",
+                "link": "https://git.lumine.io/mythiccraft/model-engine-4/-/wikis/Skills/Mechanics/ChangePart",
+                "default_value": ""
+            },
+            {
+                "name": [
+                    "nm",
+                    "nmid",
+                    "newmodel",
+                    "newmodelid"
+                ],
+                "type": "PlaceholderString",
+                "description": "The model targeted to fetch the new bone model",
+                "link": "https://git.lumine.io/mythiccraft/model-engine-4/-/wikis/Skills/Mechanics/ChangePart",
+                "default_value": ""
+            },
+            {
+                "name": [
+                    "np",
+                    "npid",
+                    "newpart",
+                    "newpartid"
+                ],
+                "type": "PlaceholderString",
+                "description": "The bone model used",
+                "link": "https://git.lumine.io/mythiccraft/model-engine-4/-/wikis/Skills/Mechanics/ChangePart",
+                "default_value": ""
+            }
+        ]
+    },
+    {
+        "plugin": "ModelEngine",
+        "class": "ConfigureCullMechanic",
+        "extends": "SkillMechanic",
+        "implements": [
+            "ITargetedEntitySkill"
+        ],
+        "name": [
+            "cullconfig",
+            "cull"
+        ],
+        "description": "Configure the culling of a modeled entity,\nwhich allows you to further optimize or increase the importance of a modeled entity.",
+        "link": "https://git.lumine.io/mythiccraft/model-engine-4/-/wikis/Skills/Mechanics/CullConfig",
+        "attributes": []
+    },
+    {
+        "plugin": "ModelEngine",
+        "class": "ConfigureHitboxMechanic",
+        "extends": "SkillMechanic",
+        "implements": [
+            "ITargetedEntitySkill"
+        ],
+        "name": [
+            "hitboxconfig"
+        ],
+        "description": "Configure the sub-hitbox damage pass-through multiplier.",
+        "link": "https://git.lumine.io/mythiccraft/model-engine-4/-/wikis/Skills/Mechanics/HitboxConfig",
+        "attributes": [
+            {
+                "name": [
+                    "m",
+                    "mid",
+                    "model",
+                    "modelid"
+                ],
+                "type": "PlaceholderString",
+                "description": "Targeted model",
+                "link": "https://git.lumine.io/mythiccraft/model-engine-4/-/wikis/Skills/Mechanics/HitboxConfig",
+                "default_value": ""
+            },
+            {
+                "name": [
+                    "p",
+                    "pid",
+                    "part",
+                    "partid"
+                ],
+                "type": "PlaceholderString",
+                "description": "Targeted sub-hitbox bone",
+                "link": "https://git.lumine.io/mythiccraft/model-engine-4/-/wikis/Skills/Mechanics/HitboxConfig",
+                "default_value": ""
+            },
+            {
+                "name": [
+                    "pass"
+                ],
+                "type": "PlaceholderDouble",
+                "description": "Damage multiplier.<br/>If set to 0, the sub-hitbox will not get hurt **and right-click interaction is canceled**",
+                "link": "https://git.lumine.io/mythiccraft/model-engine-4/-/wikis/Skills/Mechanics/HitboxConfig",
+                "default_value": "1"
+            }
+        ]
+    },
+    {
+        "plugin": "ModelEngine",
+        "class": "CyclePartsMechanic",
+        "extends": "SkillMechanic",
+        "implements": [
+            "ITargetedEntitySkill"
+        ],
+        "name": [
+            "cycleparts"
+        ],
+        "description": "Changes the model of a rendering bone to use a different model under a predefined sequence.",
+        "link": "https://git.lumine.io/mythiccraft/model-engine-4/-/wikis/Skills/Mechanics/CycleParts",
+        "attributes": [
+            {
+                "name": [
+                    "m",
+                    "mid",
+                    "model",
+                    "modelid"
+                ],
+                "type": "PlaceholderString",
+                "description": "Targeted model",
+                "link": "https://git.lumine.io/mythiccraft/model-engine-4/-/wikis/Skills/Mechanics/CycleParts",
+                "default_value": ""
+            },
+            {
+                "name": [
+                    "p",
+                    "pid",
+                    "part",
+                    "partid"
+                ],
+                "type": "PlaceholderString",
+                "description": "Targeted rendering bone",
+                "link": "https://git.lumine.io/mythiccraft/model-engine-4/-/wikis/Skills/Mechanics/CycleParts",
+                "default_value": ""
+            },
+            {
+                "name": [
+                    "nm",
+                    "nmid",
+                    "newmodel",
+                    "newmodelid"
+                ],
+                "type": "PlaceholderString",
+                "description": "The model targeted to fetch the new bone model",
+                "link": "https://git.lumine.io/mythiccraft/model-engine-4/-/wikis/Skills/Mechanics/CycleParts",
+                "default_value": ""
+            },
+            {
+                "name": [
+                    "np",
+                    "npid",
+                    "newpart",
+                    "newpartid",
+                    "newparts",
+                    "cycledparts"
+                ],
+                "type": "String",
+                "description": "The sequence of bone models (e.g. bone1,bone2,bone3)",
+                "link": "https://git.lumine.io/mythiccraft/model-engine-4/-/wikis/Skills/Mechanics/CycleParts",
+                "default_value": ""
+            },
+            {
+                "name": [
+                    "interval",
+                    "i"
+                ],
+                "type": "Integer",
+                "description": "Duration in ticks each bone model would be shown for",
+                "link": "https://git.lumine.io/mythiccraft/model-engine-4/-/wikis/Skills/Mechanics/CycleParts",
+                "default_value": "1"
+            },
+            {
+                "name": [
+                    "duration",
+                    "d"
+                ],
+                "type": "Integer",
+                "description": "Number of times to change bone model.<br/>If the value is more than `cycledparts` length, the sequence will loop",
+                "link": "https://git.lumine.io/mythiccraft/model-engine-4/-/wikis/Skills/Mechanics/CycleParts",
+                "default_value": "`cycledparts` length"
+            }
+        ]
+    },
+    {
+        "plugin": "ModelEngine",
+        "class": "DefaultStateMechanic",
+        "extends": "SkillMechanic",
+        "implements": [
+            "ITargetedEntitySkill"
+        ],
+        "name": [
+            "defaultstate",
+            "defaultanimation"
+        ],
+        "description": "Configure the default animations of an active model.",
+        "link": "https://git.lumine.io/mythiccraft/model-engine-4/-/wikis/Skills/Mechanics/DefaultState",
+        "attributes": [
+            {
+                "name": [
+                    "m",
+                    "mid",
+                    "model",
+                    "modelid"
+                ],
+                "type": "PlaceholderString",
+                "description": "Targeted model",
+                "link": "https://git.lumine.io/mythiccraft/model-engine-4/-/wikis/Skills/Mechanics/DefaultState",
+                "default_value": ""
+            },
+            {
+                "name": [
+                    "t",
+                    "type"
+                ],
+                "type": "PlaceholderString",
+                "description": "Default state type (check config section `Default-Animations`)",
+                "link": "https://git.lumine.io/mythiccraft/model-engine-4/-/wikis/Skills/Mechanics/DefaultState",
+                "default_value": ""
+            },
+            {
+                "name": [
+                    "s",
+                    "state"
+                ],
+                "type": "PlaceholderString",
+                "description": "The animation used when the default state is played",
+                "link": "https://git.lumine.io/mythiccraft/model-engine-4/-/wikis/Skills/Mechanics/DefaultState",
+                "default_value": "Last Value"
+            },
+            {
+                "name": [
+                    "li",
+                    "lerpin"
+                ],
+                "type": "PlaceholderInteger",
+                "description": "Transition tick when the animation starts",
+                "link": "https://git.lumine.io/mythiccraft/model-engine-4/-/wikis/Skills/Mechanics/DefaultState",
+                "default_value": "Last Value"
+            },
+            {
+                "name": [
+                    "lo",
+                    "lerpout"
+                ],
+                "type": "PlaceholderInteger",
+                "description": "Transition tick when the animation ends",
+                "link": "https://git.lumine.io/mythiccraft/model-engine-4/-/wikis/Skills/Mechanics/DefaultState",
+                "default_value": "Last Value"
+            },
+            {
+                "name": [
+                    "sp",
+                    "speed"
+                ],
+                "type": "PlaceholderDouble",
+                "description": "Speed multiplier of the state",
+                "link": "https://git.lumine.io/mythiccraft/model-engine-4/-/wikis/Skills/Mechanics/DefaultState",
+                "default_value": "Last Value"
+            }
+        ]
+    },
+    {
+        "plugin": "ModelEngine",
+        "class": "DismountAllMechanic",
+        "extends": "SkillMechanic",
+        "implements": [
+            "ITargetedEntitySkill"
+        ],
+        "name": [
+            "dismountallmodel",
+            "dismountall"
+        ],
+        "description": "Dismount all passengers of a model or a specific mount bone.",
+        "link": "https://git.lumine.io/mythiccraft/model-engine-4/-/wikis/Skills/Mechanics/DismountAllModel",
+        "attributes": [
+            {
+                "name": [
+                    "m",
+                    "mid",
+                    "model",
+                    "modelid"
+                ],
+                "type": "PlaceholderString",
+                "description": "Targeted model",
+                "link": "https://git.lumine.io/mythiccraft/model-engine-4/-/wikis/Skills/Mechanics/DismountAllModel",
+                "default_value": ""
+            },
+            {
+                "name": [
+                    "p",
+                    "pbone",
+                    "seat"
+                ],
+                "type": "PlaceholderString",
+                "description": "Targeted mount bones (e.g. bone1,bone2,bone3).<br/>If not set, this will dismount all passengers of the model.",
+                "link": "https://git.lumine.io/mythiccraft/model-engine-4/-/wikis/Skills/Mechanics/DismountAllModel",
+                "default_value": ""
+            }
+        ]
+    },
+    {
+        "plugin": "ModelEngine",
+        "class": "DismountModelMechanic",
+        "extends": "SkillMechanic",
+        "implements": [
+            "ITargetedEntitySkill"
+        ],
+        "name": [
+            "dismountmodel"
+        ],
+        "description": "Dismount driver or specific passengers riding on list of mount bones.",
+        "link": "https://git.lumine.io/mythiccraft/model-engine-4/-/wikis/Skills/Mechanics/DismountModel",
+        "attributes": [
+            {
+                "name": [
+                    "d",
+                    "drive",
+                    "driver"
+                ],
+                "type": "Boolean",
+                "description": "Is dismounting driver.<br/>If true, this will dismount the driver regardless of target.",
+                "link": "https://git.lumine.io/mythiccraft/model-engine-4/-/wikis/Skills/Mechanics/DismountModel",
+                "default_value": "true"
+            },
+            {
+                "name": [
+                    "m",
+                    "mid",
+                    "model",
+                    "modelid"
+                ],
+                "type": "PlaceholderString",
+                "description": "Targeted model",
+                "link": "https://git.lumine.io/mythiccraft/model-engine-4/-/wikis/Skills/Mechanics/DismountModel",
+                "default_value": ""
+            },
+            {
+                "name": [
+                    "p",
+                    "pbone",
+                    "seat"
+                ],
+                "type": "PlaceholderString",
+                "description": "Targeted mount bones (e.g. bone1,bone2,bone3).<br/>If not set, this will just dismount the target from the model.<br/>Otherwise, it will only dismount the target if they are riding on one of the specified bones",
+                "link": "https://git.lumine.io/mythiccraft/model-engine-4/-/wikis/Skills/Mechanics/DismountModel",
+                "default_value": ""
+            }
+        ]
+    },
+    {
+        "plugin": "ModelEngine",
+        "class": "EnchantMechanic",
+        "extends": "SkillMechanic",
+        "implements": [
+            "ITargetedEntitySkill"
+        ],
+        "name": [
+            "enchant"
+        ],
+        "description": "Enchant the entire model or a specific bone.",
+        "link": "https://git.lumine.io/mythiccraft/model-engine-4/-/wikis/Skills/Mechanics/Enchant",
+        "attributes": [
+            {
+                "name": [
+                    "m",
+                    "mid",
+                    "model",
+                    "modelid"
+                ],
+                "type": "PlaceholderString",
+                "description": "Targeted model",
+                "link": "https://git.lumine.io/mythiccraft/model-engine-4/-/wikis/Skills/Mechanics/Enchant",
+                "default_value": ""
+            },
+            {
+                "name": [
+                    "p",
+                    "pid",
+                    "part",
+                    "partid"
+                ],
+                "type": "PlaceholderString",
+                "description": "Targeted rendering bone.<br/>If not set, enchant the entire model.",
+                "link": "https://git.lumine.io/mythiccraft/model-engine-4/-/wikis/Skills/Mechanics/Enchant",
+                "default_value": ""
+            },
+            {
+                "name": [
+                    "en",
+                    "enchant"
+                ],
+                "type": "Boolean",
+                "description": "Is enchanted",
+                "link": "https://git.lumine.io/mythiccraft/model-engine-4/-/wikis/Skills/Mechanics/Enchant",
+                "default_value": "true"
+            },
+            {
+                "name": [
+                    "em",
+                    "exact",
+                    "match",
+                    "exactmatch"
+                ],
+                "type": "Boolean",
+                "description": "Should the part match the `partid` completely",
+                "link": "https://git.lumine.io/mythiccraft/model-engine-4/-/wikis/Skills/Mechanics/Enchant",
+                "default_value": "true"
+            }
+        ]
+    },
+    {
+        "plugin": "ModelEngine",
+        "class": "GlowMechanic",
+        "extends": "SkillMechanic",
+        "implements": [
+            "ITargetedEntitySkill"
+        ],
+        "name": [
+            "glow",
+            "glowbone"
+        ],
+        "description": "Configure the model's glow and glow color.",
+        "link": "https://git.lumine.io/mythiccraft/model-engine-4/-/wikis/Skills/Mechanics/Glow",
+        "attributes": [
+            {
+                "name": [
+                    "m",
+                    "mid",
+                    "model",
+                    "modelid"
+                ],
+                "type": "PlaceholderString",
+                "description": "Targeted model",
+                "link": "https://git.lumine.io/mythiccraft/model-engine-4/-/wikis/Skills/Mechanics/Glow",
+                "default_value": ""
+            },
+            {
+                "name": [
+                    "p",
+                    "pid",
+                    "part",
+                    "partid"
+                ],
+                "type": "PlaceholderString",
+                "description": "Targeted rendering bone.<br/>If not set, glow the entire model.",
+                "link": "https://git.lumine.io/mythiccraft/model-engine-4/-/wikis/Skills/Mechanics/Glow",
+                "default_value": ""
+            },
+            {
+                "name": [
+                    "g",
+                    "glow"
+                ],
+                "type": "Boolean",
+                "description": "Is glowing",
+                "link": "https://git.lumine.io/mythiccraft/model-engine-4/-/wikis/Skills/Mechanics/Glow",
+                "default_value": "true"
+            },
+            {
+                "name": [
+                    "c",
+                    "color"
+                ],
+                "type": "PlaceholderString",
+                "description": "The color in hex.<br>If not set, it will either glow as white or the team color of the base entity",
+                "link": "https://git.lumine.io/mythiccraft/model-engine-4/-/wikis/Skills/Mechanics/Glow",
+                "default_value": ""
+            },
+            {
+                "name": [
+                    "em",
+                    "exact",
+                    "match",
+                    "exactmatch"
+                ],
+                "type": "Boolean",
+                "description": "Should the part match the `partid` completely",
+                "link": "https://git.lumine.io/mythiccraft/model-engine-4/-/wikis/Skills/Mechanics/Glow",
+                "default_value": "true"
+            }
+        ]
+    },
+    {
+        "plugin": "ModelEngine",
+        "class": "LeashMechanic",
+        "extends": "SkillMechanic",
+        "implements": [
+            "ITargetedEntitySkill"
+        ],
+        "name": [
+            "leash"
+        ],
+        "description": "Visually leash the target to a leash bone of the model.",
+        "link": "https://git.lumine.io/mythiccraft/model-engine-4/-/wikis/Skills/Mechanics/Leash",
+        "attributes": [
+            {
+                "name": [
+                    "m",
+                    "mid",
+                    "model",
+                    "modelid"
+                ],
+                "type": "PlaceholderString",
+                "description": "Targeted model",
+                "link": "https://git.lumine.io/mythiccraft/model-engine-4/-/wikis/Skills/Mechanics/Leash",
+                "default_value": ""
+            },
+            {
+                "name": [
+                    "p",
+                    "pid",
+                    "part",
+                    "partid"
+                ],
+                "type": "PlaceholderString",
+                "description": "Targeted leash bone",
+                "link": "https://git.lumine.io/mythiccraft/model-engine-4/-/wikis/Skills/Mechanics/Leash",
+                "default_value": ""
+            },
+            {
+                "name": [
+                    "l",
+                    "leash"
+                ],
+                "type": "Boolean",
+                "description": "Is leashing the target",
+                "link": "https://git.lumine.io/mythiccraft/model-engine-4/-/wikis/Skills/Mechanics/Leash",
+                "default_value": "true"
+            }
+        ]
+    },
+    {
+        "plugin": "ModelEngine",
+        "class": "LeashSelfMechanic",
+        "extends": "SkillMechanic",
+        "implements": [
+            "ITargetedEntitySkill"
+        ],
+        "name": [
+            "leashself"
+        ],
+        "description": "Visually leash a leash bone to another leash bone of the same model.",
+        "link": "https://git.lumine.io/mythiccraft/model-engine-4/-/wikis/Skills/Mechanics/LeashSelf",
+        "attributes": [
+            {
+                "name": [
+                    "m",
+                    "mid",
+                    "model",
+                    "modelid"
+                ],
+                "type": "PlaceholderString",
+                "description": "Targeted model",
+                "link": "https://git.lumine.io/mythiccraft/model-engine-4/-/wikis/Skills/Mechanics/LeashSelf",
+                "default_value": ""
+            },
+            {
+                "name": [
+                    "s",
+                    "sid",
+                    "src",
+                    "source",
+                    "sourceid"
+                ],
+                "type": "PlaceholderString",
+                "description": "The source leash bone, aka the leash holder",
+                "link": "https://git.lumine.io/mythiccraft/model-engine-4/-/wikis/Skills/Mechanics/LeashSelf",
+                "default_value": ""
+            },
+            {
+                "name": [
+                    "d",
+                    "did",
+                    "dest",
+                    "destid"
+                ],
+                "type": "PlaceholderString",
+                "description": "The destination leash bone, aka the leashed",
+                "link": "https://git.lumine.io/mythiccraft/model-engine-4/-/wikis/Skills/Mechanics/LeashSelf",
+                "default_value": ""
+            }
+        ]
+    },
+    {
+        "plugin": "ModelEngine",
+        "class": "LinkItemBoneMechanic",
+        "extends": "SkillMechanic",
+        "implements": [
+            "ITargetedEntitySkill"
+        ],
+        "name": [
+            "linkitembone"
+        ],
+        "description": "Link an equipment slot to an item bone, allowing it to update the item automatically.",
+        "link": "https://git.lumine.io/mythiccraft/model-engine-4/-/wikis/Skills/Mechanics/LinkItemBone",
+        "attributes": [
+            {
+                "name": [
+                    "m",
+                    "mid",
+                    "model",
+                    "modelid"
+                ],
+                "type": "PlaceholderString",
+                "description": "Targeted model",
+                "link": "https://git.lumine.io/mythiccraft/model-engine-4/-/wikis/Skills/Mechanics/LinkItemBone",
+                "default_value": ""
+            },
+            {
+                "name": [
+                    "b",
+                    "bone",
+                    "p",
+                    "pid",
+                    "part",
+                    "partid"
+                ],
+                "type": "PlaceholderString",
+                "description": "Targeted item bone",
+                "link": "https://git.lumine.io/mythiccraft/model-engine-4/-/wikis/Skills/Mechanics/LinkItemBone",
+                "default_value": ""
+            },
+            {
+                "name": [
+                    "s",
+                    "slot"
+                ],
+                "type": "PlaceholderString",
+                "description": "Slot to copy the item from",
+                "link": "https://git.lumine.io/mythiccraft/model-engine-4/-/wikis/Skills/Mechanics/LinkItemBone",
+                "default_value": ""
+            }
+        ]
+    },
+    {
+        "plugin": "ModelEngine",
+        "class": "LockHeadMechanic",
+        "extends": "SkillMechanic",
+        "implements": [
+            "ITargetedEntitySkill"
+        ],
+        "name": [
+            "lockmodelhead",
+            "lockhead"
+        ],
+        "description": "Locks the head of the model into place. Can lock either pitch, yaw, or both.",
+        "link": "https://git.lumine.io/mythiccraft/model-engine-4/-/wikis/Skills/Mechanics/LockModelHead",
+        "attributes": [
+            {
+                "name": [
+                    "m",
+                    "mid",
+                    "model",
+                    "modelid"
+                ],
+                "type": "PlaceholderString",
+                "description": "The model id of the model",
+                "link": "https://git.lumine.io/mythiccraft/model-engine-4/-/wikis/Skills/Mechanics/LockModelHead",
+                "default_value": ""
+            },
+            {
+                "name": [
+                    "lp",
+                    "lpitch",
+                    "lockpitch"
+                ],
+                "type": "Boolean",
+                "description": "Whether the pitch of the head should be locked",
+                "link": "https://git.lumine.io/mythiccraft/model-engine-4/-/wikis/Skills/Mechanics/LockModelHead",
+                "default_value": "Previous Value"
+            },
+            {
+                "name": [
+                    "ly",
+                    "lyaw",
+                    "lockyaw"
+                ],
+                "type": "Boolean",
+                "description": "Whether the yaw of the head should be locked",
+                "link": "https://git.lumine.io/mythiccraft/model-engine-4/-/wikis/Skills/Mechanics/LockModelHead",
+                "default_value": "Previous Value"
+            }
+        ]
+    },
+    {
+        "plugin": "ModelEngine",
+        "class": "LockModelRotationMechanic",
+        "extends": "SkillMechanic",
+        "implements": [
+            "ITargetedEntitySkill"
+        ],
+        "name": [
+            "lockmodel",
+            "lockrotation"
+        ],
+        "description": "Lock or unlock the rotation of a modeled entity.",
+        "link": "https://git.lumine.io/mythiccraft/model-engine-4/-/wikis/Skills/Mechanics/LockModel",
+        "attributes": [
+            {
+                "name": [
+                    "l",
+                    "lock"
+                ],
+                "type": "Boolean",
+                "description": "Lock the rotation of the entity",
+                "link": "https://git.lumine.io/mythiccraft/model-engine-4/-/wikis/Skills/Mechanics/LockModel",
+                "default_value": "true"
+            }
+        ]
+    },
+    {
+        "plugin": "ModelEngine",
+        "class": "ModelMechanic",
+        "extends": "SkillMechanic",
+        "implements": [
+            "ITargetedEntitySkill"
+        ],
+        "name": [
+            "model"
+        ],
+        "description": "Add or remove a model from the targeted entity.",
+        "link": "https://git.lumine.io/mythiccraft/model-engine-4/-/wikis/Skills/Mechanics/Model",
+        "attributes": [
+            {
+                "name": [
+                    "m",
+                    "mid",
+                    "model",
+                    "modelid"
+                ],
+                "type": "PlaceholderString",
+                "description": "The model id of the model",
+                "link": "https://git.lumine.io/mythiccraft/model-engine-4/-/wikis/Skills/Mechanics/Model",
+                "default_value": ""
+            },
+            {
+                "name": [
+                    "h",
+                    "hitbox"
+                ],
+                "type": "Boolean",
+                "description": "Should the model override the hitbox",
+                "link": "https://git.lumine.io/mythiccraft/model-engine-4/-/wikis/Skills/Mechanics/Model",
+                "default_value": "true"
+            },
+            {
+                "name": [
+                    "r",
+                    "remove"
+                ],
+                "type": "Boolean",
+                "description": "Is this mechanic used for removing model",
+                "link": "https://git.lumine.io/mythiccraft/model-engine-4/-/wikis/Skills/Mechanics/Model",
+                "default_value": "false"
+            },
+            {
+                "name": [
+                    "ko",
+                    "killowner"
+                ],
+                "type": "Boolean",
+                "description": "Should the base entity be killed",
+                "link": "https://git.lumine.io/mythiccraft/model-engine-4/-/wikis/Skills/Mechanics/Model",
+                "default_value": "false"
+            },
+            {
+                "name": [
+                    "i",
+                    "invis",
+                    "invisible"
+                ],
+                "type": "Boolean",
+                "description": "Should the base entity be invisible",
+                "link": "https://git.lumine.io/mythiccraft/model-engine-4/-/wikis/Skills/Mechanics/Model",
+                "default_value": "true"
+            },
+            {
+                "name": [
+                    "d",
+                    "tint",
+                    "damagetint"
+                ],
+                "type": "Boolean",
+                "description": "Should the model flash red when damaged",
+                "link": "https://git.lumine.io/mythiccraft/model-engine-4/-/wikis/Skills/Mechanics/Model",
+                "default_value": "true"
+            },
+            {
+                "name": [
+                    "n",
+                    "name",
+                    "nametag"
+                ],
+                "type": "PlaceholderString",
+                "description": "The tag bone used to display the name",
+                "link": "https://git.lumine.io/mythiccraft/model-engine-4/-/wikis/Skills/Mechanics/Model",
+                "default_value": ""
+            },
+            {
+                "name": [
+                    "drive"
+                ],
+                "type": "Boolean",
+                "description": "Can this model be driven",
+                "link": "https://git.lumine.io/mythiccraft/model-engine-4/-/wikis/Skills/Mechanics/Model",
+                "default_value": "false"
+            },
+            {
+                "name": [
+                    "ride"
+                ],
+                "type": "Boolean",
+                "description": "Can this model have passengers",
+                "link": "https://git.lumine.io/mythiccraft/model-engine-4/-/wikis/Skills/Mechanics/Model",
+                "default_value": "false"
+            },
+            {
+                "name": [
+                    "lp",
+                    "lpitch",
+                    "lockpitch"
+                ],
+                "type": "Boolean",
+                "description": "Should the model's pitch be locked",
+                "link": "https://git.lumine.io/mythiccraft/model-engine-4/-/wikis/Skills/Mechanics/Model",
+                "default_value": "false"
+            },
+            {
+                "name": [
+                    "ly",
+                    "lyaw",
+                    "lockyaw"
+                ],
+                "type": "Boolean",
+                "description": "Should the model's yaw be locked",
+                "link": "https://git.lumine.io/mythiccraft/model-engine-4/-/wikis/Skills/Mechanics/Model",
+                "default_value": "false"
+            },
+            {
+                "name": [
+                    "s",
+                    "step"
+                ],
+                "type": "PlaceholderDouble",
+                "description": "The step height of the model",
+                "link": "https://git.lumine.io/mythiccraft/model-engine-4/-/wikis/Skills/Mechanics/Model",
+                "default_value": "0.5"
+            },
+            {
+                "name": [
+                    "rad",
+                    "radius"
+                ],
+                "type": "PlaceholderInteger",
+                "description": "Visible radius of the model.<br/>Values less than or equal to 0 will not be read",
+                "link": "https://git.lumine.io/mythiccraft/model-engine-4/-/wikis/Skills/Mechanics/Model",
+                "default_value": "0"
+            },
+            {
+                "name": [
+                    "scale"
+                ],
+                "type": "PlaceholderDouble",
+                "description": "Scale of the model",
+                "link": "https://git.lumine.io/mythiccraft/model-engine-4/-/wikis/Skills/Mechanics/Model",
+                "default_value": "1"
+            },
+            {
+                "name": [
+                    "hitboxscale"
+                ],
+                "type": "PlaceholderDouble",
+                "description": "Collision hitbox scale of the model<br/>**Caution: Large hitboxes might cause server lag**",
+                "link": "https://git.lumine.io/mythiccraft/model-engine-4/-/wikis/Skills/Mechanics/Model",
+                "default_value": "scale"
+            },
+            {
+                "name": [
+                    "usm",
+                    "state",
+                    "statemachine",
+                    "usestatemachine"
+                ],
+                "type": "Boolean",
+                "description": "Use the new animation system<br/>**Highly recommended to switch to this system**",
+                "link": "https://git.lumine.io/mythiccraft/model-engine-4/-/wikis/Skills/Mechanics/Model",
+                "default_value": "false"
+            },
+            {
+                "name": [
+                    "init",
+                    "initrender"
+                ],
+                "type": "Boolean",
+                "description": "Whether the model should immediately be shown to players. If false, this allows you to further customize your model before showing with [RenderInit][]",
+                "link": "https://git.lumine.io/mythiccraft/model-engine-4/-/wikis/Skills/Mechanics/Model",
+                "default_value": "true"
+            },
+            {
+                "name": [
+                    "showhitbox"
+                ],
+                "type": "Boolean",
+                "description": "Should the model's hitbox be visible.<br>If hidden, the player can no longer interact with the model.",
+                "link": "https://git.lumine.io/mythiccraft/model-engine-4/-/wikis/Skills/Mechanics/Model",
+                "default_value": "true"
+            },
+            {
+                "name": [
+                    "showshadow"
+                ],
+                "type": "Boolean",
+                "description": "Should the shadow be visible",
+                "link": "https://git.lumine.io/mythiccraft/model-engine-4/-/wikis/Skills/Mechanics/Model",
+                "default_value": "true"
+            },
+            {
+                "name": [
+                    "syncbody"
+                ],
+                "type": "Boolean",
+                "description": "Should the body rotation be synced to the head rotation",
+                "link": "https://git.lumine.io/mythiccraft/model-engine-4/-/wikis/Skills/Mechanics/Model",
+                "default_value": "true"
+            },
+            {
+                "name": [
+                    "save"
+                ],
+                "type": "Boolean",
+                "description": "Should the model be saved on entity unload",
+                "link": "https://git.lumine.io/mythiccraft/model-engine-4/-/wikis/Skills/Mechanics/Model",
+                "default_value": "false"
+            }
+        ]
+    },
+    {
+        "plugin": "ModelEngine",
+        "class": "ModelSkinMechanic",
+        "extends": "SkillMechanic",
+        "implements": [
+            "ITargetedEntitySkill"
+        ],
+        "name": [
+            "modelplayerskin",
+            "modelskin"
+        ],
+        "description": "Set a player limb bone of a model to the targeted player's skin.",
+        "link": "https://git.lumine.io/mythiccraft/model-engine-4/-/wikis/Skills/Mechanics/ModelPlayerSkin",
+        "attributes": [
+            {
+                "name": [
+                    "m",
+                    "mid",
+                    "model",
+                    "modelid"
+                ],
+                "type": "PlaceholderString",
+                "description": "Targeted model. If null, targets all models.",
+                "link": "https://git.lumine.io/mythiccraft/model-engine-4/-/wikis/Skills/Mechanics/ModelPlayerSkin",
+                "default_value": ""
+            },
+            {
+                "name": [
+                    "p",
+                    "pbone",
+                    "limbs"
+                ],
+                "type": "PlaceholderString",
+                "description": "Targeted player limb bones (e.g. bone1,bone2,bone3). If null, targets all player limb bones.",
+                "link": "https://git.lumine.io/mythiccraft/model-engine-4/-/wikis/Skills/Mechanics/ModelPlayerSkin",
+                "default_value": ""
+            },
+            {
+                "name": [
+                    "uuid"
+                ],
+                "type": "PlaceholderString",
+                "description": "Use the texture of the player with this UUID.<br/>UUID works with or without dashes (`-`)<br/>Player does not need to be online. Texture data is only downloaded once.",
+                "link": "https://git.lumine.io/mythiccraft/model-engine-4/-/wikis/Skills/Mechanics/ModelPlayerSkin",
+                "default_value": ""
+            },
+            {
+                "name": [
+                    "user",
+                    "name",
+                    "username"
+                ],
+                "type": "PlaceholderString",
+                "description": "Use the texture of a player.<br/>Player does not need to be online. Texture data is only downloaded once.",
+                "link": "https://git.lumine.io/mythiccraft/model-engine-4/-/wikis/Skills/Mechanics/ModelPlayerSkin",
+                "default_value": ""
+            },
+            {
+                "name": [
+                    "s",
+                    "skin"
+                ],
+                "type": "PlaceholderString",
+                "description": "Base64 texture data. If the data does not contain model information, default to CLASSIC model.",
+                "link": "https://git.lumine.io/mythiccraft/model-engine-4/-/wikis/Skills/Mechanics/ModelPlayerSkin",
+                "default_value": ""
+            },
+            {
+                "name": [
+                    "slim"
+                ],
+                "type": "String",
+                "description": "Force the player model. If not set, it will default to the model the texture is using.",
+                "link": "https://git.lumine.io/mythiccraft/model-engine-4/-/wikis/Skills/Mechanics/ModelPlayerSkin",
+                "default_value": ""
+            }
+        ]
+    },
+    {
+        "plugin": "ModelEngine",
+        "class": "ModifyStateMechanic",
+        "extends": "SkillMechanic",
+        "implements": [
+            "ITargetedEntitySkill"
+        ],
+        "name": [
+            "modifystate",
+            "modifyanimation",
+            "modstate"
+        ],
+        "description": "Modify an animation played by the targeted active model.  \nThis mechanic can change the lerp in time, lerp out time, speed, loop mode and override mode of an animation.",
+        "link": "https://git.lumine.io/mythiccraft/model-engine-4/-/wikis/Skills/Mechanics/ModifyState",
+        "attributes": [
+            {
+                "name": [
+                    "m",
+                    "mid",
+                    "model",
+                    "modelid"
+                ],
+                "type": "PlaceholderString",
+                "description": "Targeted model",
+                "link": "https://git.lumine.io/mythiccraft/model-engine-4/-/wikis/Skills/Mechanics/ModifyState",
+                "default_value": ""
+            },
+            {
+                "name": [
+                    "s",
+                    "state"
+                ],
+                "type": "PlaceholderString",
+                "description": "Targeted state",
+                "link": "https://git.lumine.io/mythiccraft/model-engine-4/-/wikis/Skills/Mechanics/ModifyState",
+                "default_value": ""
+            },
+            {
+                "name": [
+                    "p",
+                    "pr",
+                    "priority"
+                ],
+                "type": "PlaceholderInteger",
+                "description": "Priority of the animation<br>This is only read when model is using the new animation system",
+                "link": "https://git.lumine.io/mythiccraft/model-engine-4/-/wikis/Skills/Mechanics/ModifyState",
+                "default_value": "1"
+            },
+            {
+                "name": [
+                    "sp",
+                    "speed"
+                ],
+                "type": "PlaceholderDouble",
+                "description": "New speed of the animation",
+                "link": "https://git.lumine.io/mythiccraft/model-engine-4/-/wikis/Skills/Mechanics/ModifyState",
+                "default_value": "Last Value"
+            },
+            {
+                "name": [
+                    "li",
+                    "lerpin"
+                ],
+                "type": "PlaceholderInteger",
+                "description": "New lerp in of the animation",
+                "link": "https://git.lumine.io/mythiccraft/model-engine-4/-/wikis/Skills/Mechanics/ModifyState",
+                "default_value": "Last Value"
+            },
+            {
+                "name": [
+                    "lo",
+                    "lerpout"
+                ],
+                "type": "PlaceholderInteger",
+                "description": "New lerp out of the animation",
+                "link": "https://git.lumine.io/mythiccraft/model-engine-4/-/wikis/Skills/Mechanics/ModifyState",
+                "default_value": "Last Value"
+            },
+            {
+                "name": [
+                    "l",
+                    "loop"
+                ],
+                "type": "PlaceholderString",
+                "description": "New loop mode of the animation",
+                "link": "https://git.lumine.io/mythiccraft/model-engine-4/-/wikis/Skills/Mechanics/ModifyState",
+                "default_value": "Last Value"
+            },
+            {
+                "name": [
+                    "ov",
+                    "override"
+                ],
+                "type": "Boolean",
+                "description": "New override mode of the animation",
+                "link": "https://git.lumine.io/mythiccraft/model-engine-4/-/wikis/Skills/Mechanics/ModifyState",
+                "default_value": "Last Value"
+            }
+        ]
+    },
+    {
+        "plugin": "ModelEngine",
+        "class": "MountModelMechanic",
+        "extends": "SkillMechanic",
+        "implements": [
+            "ITargetedEntitySkill",
+            "SkillHolder"
+        ],
+        "name": [
+            "mountmodel"
+        ],
+        "description": "Mount an entity to a model's driver seat, or a specific mount bone.",
+        "link": "https://git.lumine.io/mythiccraft/model-engine-4/-/wikis/Skills/Mechanics/MountModel",
+        "attributes": [
+            {
+                "name": [
+                    "d",
+                    "drive",
+                    "driver"
+                ],
+                "type": "Boolean",
+                "description": "Is mounting a driver",
+                "link": "https://git.lumine.io/mythiccraft/model-engine-4/-/wikis/Skills/Mechanics/MountModel",
+                "default_value": "true"
+            },
+            {
+                "name": [
+                    "f",
+                    "force"
+                ],
+                "type": "Boolean",
+                "description": "Is trying to forcibly mount an entity.<br/>If true and driver=true, it will dismount the old driver.<br/>If true and driver=false, it will mount the target on the least occupied mount bone.<br/>Otherwise, it will not mount the target if the seat is already occupied.",
+                "link": "https://git.lumine.io/mythiccraft/model-engine-4/-/wikis/Skills/Mechanics/MountModel",
+                "default_value": "false"
+            },
+            {
+                "name": [
+                    "ad",
+                    "autodismount"
+                ],
+                "type": "Boolean",
+                "description": "Should the target dismount from the old mount if they are mounted already",
+                "link": "https://git.lumine.io/mythiccraft/model-engine-4/-/wikis/Skills/Mechanics/MountModel",
+                "default_value": "false"
+            },
+            {
+                "name": [
+                    "dmg",
+                    "damagemount"
+                ],
+                "type": "Boolean",
+                "description": "Can the target damage the mount",
+                "link": "https://git.lumine.io/mythiccraft/model-engine-4/-/wikis/Skills/Mechanics/MountModel",
+                "default_value": "false"
+            },
+            {
+                "name": [
+                    "int",
+                    "interactmount"
+                ],
+                "type": "Boolean",
+                "description": "Can the target interact with the mount (right click)",
+                "link": "https://git.lumine.io/mythiccraft/model-engine-4/-/wikis/Skills/Mechanics/MountModel",
+                "default_value": "true"
+            },
+            {
+                "name": [
+                    "m",
+                    "mode"
+                ],
+                "type": "PlaceholderString",
+                "description": "The controller mode specific to the target",
+                "link": "https://git.lumine.io/mythiccraft/model-engine-4/-/wikis/Skills/Mechanics/MountModel",
+                "default_value": "walking"
+            },
+            {
+                "name": [
+                    "mid",
+                    "model",
+                    "modelid"
+                ],
+                "type": "PlaceholderString",
+                "description": "Targeted model.<br>If driver = true, it is used to mount on the driver seat of a model that does not represent main mount controller.<br>Otherwise, used to mount on passenger seats.",
+                "link": "https://git.lumine.io/mythiccraft/model-engine-4/-/wikis/Skills/Mechanics/MountModel",
+                "default_value": ""
+            },
+            {
+                "name": [
+                    "p",
+                    "pbone",
+                    "seat"
+                ],
+                "type": "PlaceholderString",
+                "description": "Targeted mount bones (e.g. bone1,bone2,bone3).",
+                "link": "https://git.lumine.io/mythiccraft/model-engine-4/-/wikis/Skills/Mechanics/MountModel",
+                "default_value": ""
+            }
+        ]
+    },
+    {
+        "plugin": "ModelEngine",
+        "class": "MoveMechanic",
+        "extends": "SkillMechanic",
+        "implements": [
+            "ITargetedEntitySkill"
+        ],
+        "name": [
+            "move"
+        ],
+        "description": "Directly controls the entity to move at a certain direction.<br>\nThis mechanic accounts for step height, meaning the entity would move up blocks based on its step height.",
+        "link": "https://git.lumine.io/mythiccraft/model-engine-4/-/wikis/Skills/Mechanics/Move",
+        "attributes": [
+            {
+                "name": [
+                    "side",
+                    "x"
+                ],
+                "type": "PlaceholderDouble",
+                "description": "Left/right movement of the entity",
+                "link": "https://git.lumine.io/mythiccraft/model-engine-4/-/wikis/Skills/Mechanics/Move",
+                "default_value": "0"
+            },
+            {
+                "name": [
+                    "up",
+                    "y"
+                ],
+                "type": "PlaceholderDouble",
+                "description": "Up/down movement of the entity",
+                "link": "https://git.lumine.io/mythiccraft/model-engine-4/-/wikis/Skills/Mechanics/Move",
+                "default_value": "0"
+            },
+            {
+                "name": [
+                    "front",
+                    "z"
+                ],
+                "type": "PlaceholderDouble",
+                "description": "Front/back movement of the entity",
+                "link": "https://git.lumine.io/mythiccraft/model-engine-4/-/wikis/Skills/Mechanics/Move",
+                "default_value": "0"
+            },
+            {
+                "name": [
+                    "speed"
+                ],
+                "type": "PlaceholderDouble",
+                "description": "Speed modifier of the mount",
+                "link": "https://git.lumine.io/mythiccraft/model-engine-4/-/wikis/Skills/Mechanics/Move",
+                "default_value": "1"
+            },
+            {
+                "name": [
+                    "global",
+                    "g"
+                ],
+                "type": "Boolean",
+                "description": "Whether the direction is using global axis",
+                "link": "https://git.lumine.io/mythiccraft/model-engine-4/-/wikis/Skills/Mechanics/Move",
+                "default_value": "false"
+            },
+            {
+                "name": [
+                    "queue",
+                    "q"
+                ],
+                "type": "Boolean",
+                "description": "Queue the movement<br>Mainly used for calling this method outside of [Meta Controller][]",
+                "link": "https://git.lumine.io/mythiccraft/model-engine-4/-/wikis/Skills/Mechanics/Move",
+                "default_value": "false"
+            }
+        ]
+    },
+    {
+        "plugin": "ModelEngine",
+        "class": "NoFallMechanic",
+        "extends": "SkillMechanic",
+        "implements": [
+            "ITargetedEntitySkill"
+        ],
+        "name": [
+            "nofall",
+            "cancelfall",
+            "cancelfalldamage"
+        ],
+        "description": "Cancel the fall of the entity.<br>\nUnder the hood, this is resetting the entity's internal drop distance counter to 0, causing it to assume that it just\nstarted falling. If called too early, fall damage might still not be negated.",
+        "link": "https://git.lumine.io/mythiccraft/model-engine-4/-/wikis/Skills/Mechanics/NoFall",
+        "attributes": []
+    },
+    {
+        "plugin": "ModelEngine",
+        "class": "PairModelMechanic",
+        "extends": "SkillMechanic",
+        "implements": [
+            "ITargetedEntitySkill"
+        ],
+        "name": [
+            "pairmodel"
+        ],
+        "description": "Forcibly show or hide a modeled entity from the targeted players.",
+        "link": "https://git.lumine.io/mythiccraft/model-engine-4/-/wikis/Skills/Mechanics/PairModel",
+        "attributes": [
+            {
+                "name": [
+                    "h",
+                    "hidden"
+                ],
+                "type": "Boolean",
+                "description": "Is the mechanic used to hide model from target",
+                "link": "https://git.lumine.io/mythiccraft/model-engine-4/-/wikis/Skills/Mechanics/PairModel",
+                "default_value": "false"
+            },
+            {
+                "name": [
+                    "r",
+                    "remove"
+                ],
+                "type": "Boolean",
+                "description": "Is being removed from visible / hidden list",
+                "link": "https://git.lumine.io/mythiccraft/model-engine-4/-/wikis/Skills/Mechanics/PairModel",
+                "default_value": "false"
+            }
+        ]
+    },
+    {
+        "plugin": "ModelEngine",
+        "class": "PartVisibilityMechanic",
+        "extends": "SkillMechanic",
+        "implements": [
+            "ITargetedEntitySkill"
+        ],
+        "name": [
+            "partvisibility",
+            "partvis"
+        ],
+        "description": "Toggle the visibility of a renderer bone.",
+        "link": "https://git.lumine.io/mythiccraft/model-engine-4/-/wikis/Skills/Mechanics/PartVisibility",
+        "attributes": [
+            {
+                "name": [
+                    "m",
+                    "mid",
+                    "model",
+                    "modelid"
+                ],
+                "type": "PlaceholderString",
+                "description": "Targeted model. If not set, targets all models",
+                "link": "https://git.lumine.io/mythiccraft/model-engine-4/-/wikis/Skills/Mechanics/PartVisibility",
+                "default_value": ""
+            },
+            {
+                "name": [
+                    "p",
+                    "pid",
+                    "part",
+                    "partid"
+                ],
+                "type": "PlaceholderString",
+                "description": "Targeted part",
+                "link": "https://git.lumine.io/mythiccraft/model-engine-4/-/wikis/Skills/Mechanics/PartVisibility",
+                "default_value": "Empty String"
+            },
+            {
+                "name": [
+                    "v",
+                    "visible",
+                    "visibility"
+                ],
+                "type": "Boolean",
+                "description": "Visibility of the parts",
+                "link": "https://git.lumine.io/mythiccraft/model-engine-4/-/wikis/Skills/Mechanics/PartVisibility",
+                "default_value": "false"
+            },
+            {
+                "name": [
+                    "em",
+                    "exact",
+                    "match",
+                    "exactmatch"
+                ],
+                "type": "Boolean",
+                "description": "Should the tested bone matches the part id completely",
+                "link": "https://git.lumine.io/mythiccraft/model-engine-4/-/wikis/Skills/Mechanics/PartVisibility",
+                "default_value": "true"
+            },
+            {
+                "name": [
+                    "c",
+                    "child"
+                ],
+                "type": "Boolean",
+                "description": "Should the mechanic also hide all child bones",
+                "link": "https://git.lumine.io/mythiccraft/model-engine-4/-/wikis/Skills/Mechanics/PartVisibility",
+                "default_value": "false"
+            }
+        ]
+    },
+    {
+        "plugin": "ModelEngine",
+        "class": "PetrifyMechanic",
+        "extends": "SkillMechanic",
+        "implements": [
+            "ITargetedEntitySkill"
+        ],
+        "name": [
+            "petrify"
+        ],
+        "description": "Create a statue of the model. This model will no longer be able to change or move",
+        "link": "https://git.lumine.io/mythiccraft/model-engine-4/-/wikis/Skills/Mechanics/Petrify",
+        "attributes": [
+            {
+                "name": [
+                    "m",
+                    "mid",
+                    "model",
+                    "modelid"
+                ],
+                "type": "PlaceholderString",
+                "description": "The model id of the model to petrify",
+                "link": "https://git.lumine.io/mythiccraft/model-engine-4/-/wikis/Skills/Mechanics/Petrify",
+                "default_value": ""
+            }
+        ]
+    },
+    {
+        "plugin": "ModelEngine",
+        "class": "RemapModelMechanic",
+        "extends": "SkillMechanic",
+        "implements": [
+            "ITargetedEntitySkill"
+        ],
+        "name": [
+            "remapmodel",
+            "remap"
+        ],
+        "description": "Remap a new model to the current model, part by part.<br>\nThis is useful for doing \"phase change\" of a model if both model shares the same structure.\nWhere instead removing the model and adding a new one, this method would just replace the\nbone models of the current model.<br>\nIf a part is not found, it will remain unchanged.",
+        "link": "https://git.lumine.io/mythiccraft/model-engine-4/-/wikis/Skills/Mechanics/RemapModel",
+        "attributes": [
+            {
+                "name": [
+                    "m",
+                    "mid",
+                    "model",
+                    "modelid"
+                ],
+                "type": "PlaceholderString",
+                "description": "Targeted model",
+                "link": "https://git.lumine.io/mythiccraft/model-engine-4/-/wikis/Skills/Mechanics/RemapModel",
+                "default_value": ""
+            },
+            {
+                "name": [
+                    "n",
+                    "nid",
+                    "newmodel",
+                    "newmodelid"
+                ],
+                "type": "PlaceholderString",
+                "description": "The model being used to remap the targeted model",
+                "link": "https://git.lumine.io/mythiccraft/model-engine-4/-/wikis/Skills/Mechanics/RemapModel",
+                "default_value": ""
+            },
+            {
+                "name": [
+                    "map"
+                ],
+                "type": "PlaceholderString",
+                "description": "The model used to map newmodel to model.<br>If this is set, all bones (including ghost bones) will be used to map the model.<br> Otherwise, newmodel would be used and only renderer bones are used.",
+                "link": "https://git.lumine.io/mythiccraft/model-engine-4/-/wikis/Skills/Mechanics/RemapModel",
+                "default_value": ""
+            }
+        ]
+    },
+    {
+        "plugin": "ModelEngine",
+        "class": "RendererInitMechanic",
+        "extends": "SkillMechanic",
+        "implements": [
+            "ITargetedEntitySkill"
+        ],
+        "name": [
+            "rendererinit",
+            "renderinit"
+        ],
+        "description": "Shows a model to the players, if the model was previously applied on the Modeled Entity by setting the `initrender`\nattribute to `false`.",
+        "link": "https://git.lumine.io/mythiccraft/model-engine-4/-/wikis/Skills/Mechanics/RenderInit",
+        "attributes": [
+            {
+                "name": [
+                    "m",
+                    "mid",
+                    "model",
+                    "modelid"
+                ],
+                "type": "PlaceholderString",
+                "description": "The model id to show",
+                "link": "https://git.lumine.io/mythiccraft/model-engine-4/-/wikis/Skills/Mechanics/RenderInit",
+                "default_value": ""
+            }
+        ]
+    },
+    {
+        "plugin": "ModelEngine",
+        "class": "ScaleMechanic",
+        "extends": "SkillMechanic",
+        "implements": [
+            "ITargetedEntitySkill"
+        ],
+        "name": [
+            "scale"
+        ],
+        "description": "Scale the model's hitbox or render scale.",
+        "link": "https://git.lumine.io/mythiccraft/model-engine-4/-/wikis/Skills/Mechanics/Scale",
+        "attributes": [
+            {
+                "name": [
+                    "m",
+                    "mid",
+                    "model",
+                    "modelid"
+                ],
+                "type": "PlaceholderString",
+                "description": "Targeted model",
+                "link": "https://git.lumine.io/mythiccraft/model-engine-4/-/wikis/Skills/Mechanics/Scale",
+                "default_value": ""
+            },
+            {
+                "name": [
+                    "s",
+                    "scale"
+                ],
+                "type": "PlaceholderDouble",
+                "description": "Scale",
+                "link": "https://git.lumine.io/mythiccraft/model-engine-4/-/wikis/Skills/Mechanics/Scale",
+                "default_value": "1"
+            },
+            {
+                "name": [
+                    "h",
+                    "hitbox"
+                ],
+                "type": "Boolean",
+                "description": "Is scaling hitbox",
+                "link": "https://git.lumine.io/mythiccraft/model-engine-4/-/wikis/Skills/Mechanics/Scale",
+                "default_value": "false"
+            }
+        ]
+    },
+    {
+        "plugin": "ModelEngine",
+        "class": "SegmentMechanic",
+        "extends": "SkillMechanic",
+        "implements": [
+            "ITargetedEntitySkill"
+        ],
+        "name": [
+            "segment",
+            "seg"
+        ],
+        "description": "Configure the segment or tail bones.",
+        "link": "https://git.lumine.io/mythiccraft/model-engine-4/-/wikis/Skills/Mechanics/Segment",
+        "attributes": [
+            {
+                "name": [
+                    "m",
+                    "mid",
+                    "model",
+                    "modelid"
+                ],
+                "type": "PlaceholderString",
+                "description": "Targeted model",
+                "link": "https://git.lumine.io/mythiccraft/model-engine-4/-/wikis/Skills/Mechanics/Segment",
+                "default_value": ""
+            },
+            {
+                "name": [
+                    "p",
+                    "pid",
+                    "part",
+                    "partid"
+                ],
+                "type": "PlaceholderString",
+                "description": "Targeted segment bone.<br/>If not set, configures the entire model.",
+                "link": "https://git.lumine.io/mythiccraft/model-engine-4/-/wikis/Skills/Mechanics/Segment",
+                "default_value": ""
+            },
+            {
+                "name": [
+                    "b",
+                    "bd",
+                    "bounded"
+                ],
+                "type": "PlaceholderBoolean",
+                "description": "Is the segment bone bounded by any rotational restrictions. <br/>`true` by default.<br/>If not set, use the last value",
+                "link": "https://git.lumine.io/mythiccraft/model-engine-4/-/wikis/Skills/Mechanics/Segment",
+                "default_value": ""
+            },
+            {
+                "name": [
+                    "r",
+                    "rl",
+                    "roll",
+                    "rolllock"
+                ],
+                "type": "PlaceholderBoolean",
+                "description": "Should the segment bone mimic the roll of the parent bone. When `true`, if the parent bond twists, the child bone would twists together. <br/>`false` by default.<br/>If not set, use the last value",
+                "link": "https://git.lumine.io/mythiccraft/model-engine-4/-/wikis/Skills/Mechanics/Segment",
+                "default_value": ""
+            },
+            {
+                "name": [
+                    "a",
+                    "al",
+                    "angle",
+                    "anglelimit"
+                ],
+                "type": "PlaceholderFloat",
+                "description": "The maximum angle in degrees the segment bone can deviate from the parent bone. <br/>`50` by default.<br/>If not set, use the last value",
+                "link": "https://git.lumine.io/mythiccraft/model-engine-4/-/wikis/Skills/Mechanics/Segment",
+                "default_value": ""
+            },
+            {
+                "name": [
+                    "e",
+                    "er",
+                    "extend",
+                    "extendrate"
+                ],
+                "type": "PlaceholderFloat",
+                "description": "The extend, or straightening rate of the segment bone, where the bone would slowly align to the parent bone. <br/>`0` means no straightening at all. <br/>`0.01` by default.<br/>If not set, use the last value",
+                "link": "https://git.lumine.io/mythiccraft/model-engine-4/-/wikis/Skills/Mechanics/Segment",
+                "default_value": ""
+            },
+            {
+                "name": [
+                    "em",
+                    "exact",
+                    "match",
+                    "exactmatch"
+                ],
+                "type": "Boolean",
+                "description": "Should the part match the `partid` completely",
+                "link": "https://git.lumine.io/mythiccraft/model-engine-4/-/wikis/Skills/Mechanics/Segment",
+                "default_value": "true"
+            }
+        ]
+    },
+    {
+        "plugin": "ModelEngine",
+        "class": "SetNametagMechanic",
+        "extends": "SkillMechanic",
+        "implements": [
+            "ITargetedEntitySkill"
+        ],
+        "name": [
+            "setmodeltag"
+        ],
+        "description": "Set the text of a name tag bone",
+        "link": "https://git.lumine.io/mythiccraft/model-engine-4/-/wikis/Skills/Mechanics/SetModelTag",
+        "attributes": [
+            {
+                "name": [
+                    "m",
+                    "mid",
+                    "model",
+                    "modelid"
+                ],
+                "type": "PlaceholderString",
+                "description": "Targeted model",
+                "link": "https://git.lumine.io/mythiccraft/model-engine-4/-/wikis/Skills/Mechanics/SetModelTag",
+                "default_value": ""
+            },
+            {
+                "name": [
+                    "b",
+                    "bone",
+                    "p",
+                    "pid",
+                    "part",
+                    "partid"
+                ],
+                "type": "PlaceholderString",
+                "description": "Targeted name tag bone",
+                "link": "https://git.lumine.io/mythiccraft/model-engine-4/-/wikis/Skills/Mechanics/SetModelTag",
+                "default_value": ""
+            },
+            {
+                "name": [
+                    "t",
+                    "tag"
+                ],
+                "type": "PlaceholderString",
+                "description": "The displayed text",
+                "link": "https://git.lumine.io/mythiccraft/model-engine-4/-/wikis/Skills/Mechanics/SetModelTag",
+                "default_value": ""
+            },
+            {
+                "name": [
+                    "v",
+                    "visible"
+                ],
+                "type": "Boolean",
+                "description": "Visibility",
+                "link": "https://git.lumine.io/mythiccraft/model-engine-4/-/wikis/Skills/Mechanics/SetModelTag",
+                "default_value": "true"
+            }
+        ]
+    },
+    {
+        "plugin": "ModelEngine",
+        "class": "SetNametagVisibilityMechanic",
+        "extends": "SkillMechanic",
+        "implements": [
+            "ITargetedEntitySkill"
+        ],
+        "name": [
+            "setmodeltagvisible"
+        ],
+        "description": "Set the visibility of a name tag bone.",
+        "link": "https://git.lumine.io/mythiccraft/model-engine-4/-/wikis/Skills/Mechanics/SetModelTagVisible",
+        "attributes": [
+            {
+                "name": [
+                    "m",
+                    "mid",
+                    "model",
+                    "modelid"
+                ],
+                "type": "PlaceholderString",
+                "description": "Targeted model",
+                "link": "https://git.lumine.io/mythiccraft/model-engine-4/-/wikis/Skills/Mechanics/SetModelTagVisible",
+                "default_value": ""
+            },
+            {
+                "name": [
+                    "b",
+                    "bone",
+                    "p",
+                    "pid",
+                    "part",
+                    "partid"
+                ],
+                "type": "PlaceholderString",
+                "description": "Targeted name tag bone",
+                "link": "https://git.lumine.io/mythiccraft/model-engine-4/-/wikis/Skills/Mechanics/SetModelTagVisible",
+                "default_value": ""
+            },
+            {
+                "name": [
+                    "v",
+                    "visible"
+                ],
+                "type": "Boolean",
+                "description": "Visibility",
+                "link": "https://git.lumine.io/mythiccraft/model-engine-4/-/wikis/Skills/Mechanics/SetModelTagVisible",
+                "default_value": "true"
+            }
+        ]
+    },
+    {
+        "plugin": "ModelEngine",
+        "class": "StateMechanic",
+        "extends": "SkillMechanic",
+        "implements": [
+            "ITargetedEntitySkill"
+        ],
+        "name": [
+            "state",
+            "animation"
+        ],
+        "description": "Play or stop an animation on a model.",
+        "link": "https://git.lumine.io/mythiccraft/model-engine-4/-/wikis/Skills/Mechanics/State",
+        "attributes": [
+            {
+                "name": [
+                    "m",
+                    "mid",
+                    "model",
+                    "modelid"
+                ],
+                "type": "PlaceholderString",
+                "description": "The model receiving a state change",
+                "link": "https://git.lumine.io/mythiccraft/model-engine-4/-/wikis/Skills/Mechanics/State",
+                "default_value": ""
+            },
+            {
+                "name": [
+                    "s",
+                    "state"
+                ],
+                "type": "PlaceholderString",
+                "description": "The animation being played",
+                "link": "https://git.lumine.io/mythiccraft/model-engine-4/-/wikis/Skills/Mechanics/State",
+                "default_value": ""
+            },
+            {
+                "name": [
+                    "r",
+                    "remove"
+                ],
+                "type": "Boolean",
+                "description": "Is this mechanic used for removing state",
+                "link": "https://git.lumine.io/mythiccraft/model-engine-4/-/wikis/Skills/Mechanics/State",
+                "default_value": "false"
+            },
+            {
+                "name": [
+                    "sp",
+                    "speed"
+                ],
+                "type": "PlaceholderDouble",
+                "description": "Speed multiplier of the state",
+                "link": "https://git.lumine.io/mythiccraft/model-engine-4/-/wikis/Skills/Mechanics/State",
+                "default_value": "1"
+            },
+            {
+                "name": [
+                    "li",
+                    "lerpin"
+                ],
+                "type": "PlaceholderInteger",
+                "description": "Transition tick when the animation starts",
+                "link": "https://git.lumine.io/mythiccraft/model-engine-4/-/wikis/Skills/Mechanics/State",
+                "default_value": "0"
+            },
+            {
+                "name": [
+                    "lo",
+                    "lerpout"
+                ],
+                "type": "PlaceholderInteger",
+                "description": "Transition tick when the animation ends",
+                "link": "https://git.lumine.io/mythiccraft/model-engine-4/-/wikis/Skills/Mechanics/State",
+                "default_value": "1"
+            },
+            {
+                "name": [
+                    "i",
+                    "ignorelerp"
+                ],
+                "type": "Boolean",
+                "description": "Should the state be instantly removed without transition",
+                "link": "https://git.lumine.io/mythiccraft/model-engine-4/-/wikis/Skills/Mechanics/State",
+                "default_value": "false"
+            },
+            {
+                "name": [
+                    "f",
+                    "force"
+                ],
+                "type": "Boolean",
+                "description": "Should the animation be played again even if it is already playing",
+                "link": "https://git.lumine.io/mythiccraft/model-engine-4/-/wikis/Skills/Mechanics/State",
+                "default_value": "true"
+            },
+            {
+                "name": [
+                    "p",
+                    "pr",
+                    "priority"
+                ],
+                "type": "PlaceholderInteger",
+                "description": "Set the priority of the animation.<br/>Only parsed when model is using Hybrid system",
+                "link": "https://git.lumine.io/mythiccraft/model-engine-4/-/wikis/Skills/Mechanics/State",
+                "default_value": "1"
+            },
+            {
+                "name": [
+                    "l",
+                    "loop"
+                ],
+                "type": "PlaceholderString",
+                "description": "Forced loop mode of the animation.<br>If not set, the mechanic use default animation loop mode",
+                "link": "https://git.lumine.io/mythiccraft/model-engine-4/-/wikis/Skills/Mechanics/State",
+                "default_value": ""
+            },
+            {
+                "name": [
+                    "ov",
+                    "override"
+                ],
+                "type": "String",
+                "description": "Forced override mode of the animation.<br>If not set, the mechanic use default override mode",
+                "link": "https://git.lumine.io/mythiccraft/model-engine-4/-/wikis/Skills/Mechanics/State",
+                "default_value": ""
+            }
+        ]
+    },
+    {
+        "plugin": "ModelEngine",
+        "class": "StateToggleMechanic",
+        "extends": "SkillMechanic",
+        "implements": [
+            "ITargetedEntitySkill"
+        ],
+        "name": [
+            "statetoggle",
+            "togglestate"
+        ],
+        "description": "Toggle a state on the model. In other words, if the model has an animation, it will remove it. Otherwise, it will be\nadded.",
+        "link": "https://git.lumine.io/mythiccraft/model-engine-4/-/wikis/Skills/Mechanics/StateToggle",
+        "attributes": [
+            {
+                "name": [
+                    "m",
+                    "mid",
+                    "model",
+                    "modelid"
+                ],
+                "type": "PlaceholderString",
+                "description": "Targeted model",
+                "link": "https://git.lumine.io/mythiccraft/model-engine-4/-/wikis/Skills/Mechanics/StateToggle",
+                "default_value": ""
+            },
+            {
+                "name": [
+                    "s",
+                    "state"
+                ],
+                "type": "PlaceholderString",
+                "description": "Targeted state",
+                "link": "https://git.lumine.io/mythiccraft/model-engine-4/-/wikis/Skills/Mechanics/StateToggle",
+                "default_value": ""
+            },
+            {
+                "name": [
+                    "sp",
+                    "speed"
+                ],
+                "type": "PlaceholderDouble",
+                "description": "Speed multiplier of the state",
+                "link": "https://git.lumine.io/mythiccraft/model-engine-4/-/wikis/Skills/Mechanics/StateToggle",
+                "default_value": "1"
+            },
+            {
+                "name": [
+                    "li",
+                    "lerpin"
+                ],
+                "type": "PlaceholderInteger",
+                "description": "Transition tick when the animation starts",
+                "link": "https://git.lumine.io/mythiccraft/model-engine-4/-/wikis/Skills/Mechanics/StateToggle",
+                "default_value": "0"
+            },
+            {
+                "name": [
+                    "lo",
+                    "lerpout"
+                ],
+                "type": "PlaceholderInteger",
+                "description": "Transition tick when the animation ends",
+                "link": "https://git.lumine.io/mythiccraft/model-engine-4/-/wikis/Skills/Mechanics/StateToggle",
+                "default_value": "1"
+            },
+            {
+                "name": [
+                    "i",
+                    "ignorelerp"
+                ],
+                "type": "Boolean",
+                "description": "Should the state be instantly removed without transition",
+                "link": "https://git.lumine.io/mythiccraft/model-engine-4/-/wikis/Skills/Mechanics/StateToggle",
+                "default_value": "false"
+            },
+            {
+                "name": [
+                    "f",
+                    "force"
+                ],
+                "type": "Boolean",
+                "description": "Should the animation be played again even if it is already playing",
+                "link": "https://git.lumine.io/mythiccraft/model-engine-4/-/wikis/Skills/Mechanics/StateToggle",
+                "default_value": "true"
+            },
+            {
+                "name": [
+                    "p",
+                    "pr",
+                    "priority"
+                ],
+                "type": "PlaceholderInteger",
+                "description": "Target the animation of a particular priority<br/>Only parsed when model is using new animation system",
+                "link": "https://git.lumine.io/mythiccraft/model-engine-4/-/wikis/Skills/Mechanics/StateToggle",
+                "default_value": "1"
+            }
+        ]
+    },
+    {
+        "plugin": "ModelEngine",
+        "class": "SubModelMechanic",
+        "extends": "SkillMechanic",
+        "implements": [
+            "ITargetedEntitySkill"
+        ],
+        "name": [
+            "submodel"
+        ],
+        "description": "Forcibly create or delete bones from a model.<br>\nThis is mainly used for removing interactive bones such as sub-hitboxes or seats.<br>\nIf you want to hide a renderer bone temporarily, use [PartVisibility](/Skills/Mechanics/PartVisibility) instead.",
+        "link": "https://git.lumine.io/mythiccraft/model-engine-4/-/wikis/Skills/Mechanics/SubModel",
+        "attributes": [
+            {
+                "name": [
+                    "m",
+                    "mid",
+                    "model",
+                    "modelid"
+                ],
+                "type": "PlaceholderString",
+                "description": "Targeted model",
+                "link": "https://git.lumine.io/mythiccraft/model-engine-4/-/wikis/Skills/Mechanics/SubModel",
+                "default_value": ""
+            },
+            {
+                "name": [
+                    "p",
+                    "pid",
+                    "part",
+                    "partid"
+                ],
+                "type": "PlaceholderString",
+                "description": "The parent of the added bone",
+                "link": "https://git.lumine.io/mythiccraft/model-engine-4/-/wikis/Skills/Mechanics/SubModel",
+                "default_value": ""
+            },
+            {
+                "name": [
+                    "sp",
+                    "spid",
+                    "subpart",
+                    "subpartid"
+                ],
+                "type": "PlaceholderString",
+                "description": "The added bone. All child bone of this bone will also be added.",
+                "link": "https://git.lumine.io/mythiccraft/model-engine-4/-/wikis/Skills/Mechanics/SubModel",
+                "default_value": ""
+            },
+            {
+                "name": [
+                    "pfx",
+                    "prefix"
+                ],
+                "type": "PlaceholderString",
+                "description": "Prefix of the newly added bones.<br> This is used to distinguish duplicate bones.<br>E.g.`sp=test;pfx=custom_` will add a bone called `custom_test`.<br> This new bone name can be targeted by other mechanics.",
+                "link": "https://git.lumine.io/mythiccraft/model-engine-4/-/wikis/Skills/Mechanics/SubModel",
+                "default_value": "Empty String"
+            },
+            {
+                "name": [
+                    "r",
+                    "remove"
+                ],
+                "type": "Boolean",
+                "description": "Is this mechanic used for removing bones",
+                "link": "https://git.lumine.io/mythiccraft/model-engine-4/-/wikis/Skills/Mechanics/SubModel",
+                "default_value": "false"
+            }
+        ]
+    },
+    {
+        "plugin": "ModelEngine",
+        "class": "SwapEntityMechanic",
+        "extends": "SkillMechanic",
+        "implements": [
+            "ITargetedEntitySkill"
+        ],
+        "name": [
+            "swapentity"
+        ],
+        "description": "Swap the owner of an active model from one entity to the targeted entity.<br>\nYet another mechanic with little use case, but it is possible anyway.",
+        "link": "https://git.lumine.io/mythiccraft/model-engine-4/-/wikis/Skills/Mechanics/SwapEntity",
+        "attributes": [
+            {
+                "name": [
+                    "m",
+                    "mid",
+                    "model",
+                    "modelid"
+                ],
+                "type": "PlaceholderString",
+                "description": "Targeted model",
+                "link": "https://git.lumine.io/mythiccraft/model-engine-4/-/wikis/Skills/Mechanics/SwapEntity",
+                "default_value": ""
+            },
+            {
+                "name": [
+                    "h",
+                    "hitbox"
+                ],
+                "type": "Boolean",
+                "description": "Should the model override the hitbox",
+                "link": "https://git.lumine.io/mythiccraft/model-engine-4/-/wikis/Skills/Mechanics/SwapEntity",
+                "default_value": "true"
+            },
+            {
+                "name": [
+                    "i",
+                    "invis",
+                    "invisible"
+                ],
+                "type": "Boolean",
+                "description": "Should the base entity be invisible",
+                "link": "https://git.lumine.io/mythiccraft/model-engine-4/-/wikis/Skills/Mechanics/SwapEntity",
+                "default_value": "true"
+            },
+            {
+                "name": [
+                    "s",
+                    "step"
+                ],
+                "type": "PlaceholderDouble",
+                "description": "The step height of the model",
+                "link": "https://git.lumine.io/mythiccraft/model-engine-4/-/wikis/Skills/Mechanics/SwapEntity",
+                "default_value": "0.5"
+            },
+            {
+                "name": [
+                    "rad",
+                    "radius"
+                ],
+                "type": "PlaceholderInteger",
+                "description": "Visible radius of the model.<br/>Values less than or equal to 0 will not be read",
+                "link": "https://git.lumine.io/mythiccraft/model-engine-4/-/wikis/Skills/Mechanics/SwapEntity",
+                "default_value": "0"
+            }
+        ]
+    },
+    {
+        "plugin": "ModelEngine",
+        "class": "SyncYawMechanic",
+        "extends": "SkillMechanic",
+        "implements": [
+            "ITargetedEntitySkill"
+        ],
+        "name": [
+            "syncyaw"
+        ],
+        "description": "Sync the yaw of the entity to either the head or body yaw.<br>\nMinecraft tracks 3 types of yaw internally: `yaw`, `head_yaw` and `body_yaw`. It is not guaranteed that `yaw` is the\nequal to the other yaws, but local entity movements use `yaw`. Hence, this mechanic exists to guarantee the yaw is\nsynced to either the head or body.",
+        "link": "https://git.lumine.io/mythiccraft/model-engine-4/-/wikis/Skills/Mechanics/SyncYaw",
+        "attributes": [
+            {
+                "name": [
+                    "target",
+                    "t"
+                ],
+                "type": "String",
+                "description": "Yaw to be modified<br>Can only be `yaw`, `body` or `head`",
+                "link": "https://git.lumine.io/mythiccraft/model-engine-4/-/wikis/Skills/Mechanics/SyncYaw",
+                "default_value": "yaw"
+            },
+            {
+                "name": [
+                    "body",
+                    "b"
+                ],
+                "type": "Boolean",
+                "description": "Whether the yaw is syncing to the body yaw<br>If false, uses head yaw instead",
+                "link": "https://git.lumine.io/mythiccraft/model-engine-4/-/wikis/Skills/Mechanics/SyncYaw",
+                "default_value": "false"
+            }
+        ]
+    },
+    {
+        "plugin": "ModelEngine",
+        "class": "TintMechanic",
+        "extends": "SkillMechanic",
+        "implements": [
+            "ITargetedEntitySkill"
+        ],
+        "name": [
+            "tint",
+            "color"
+        ],
+        "description": "Color the entire model or a specific bone.",
+        "link": "https://git.lumine.io/mythiccraft/model-engine-4/-/wikis/Skills/Mechanics/Tint",
+        "attributes": [
+            {
+                "name": [
+                    "m",
+                    "mid",
+                    "model",
+                    "modelid"
+                ],
+                "type": "PlaceholderString",
+                "description": "Targeted model",
+                "link": "https://git.lumine.io/mythiccraft/model-engine-4/-/wikis/Skills/Mechanics/Tint",
+                "default_value": ""
+            },
+            {
+                "name": [
+                    "p",
+                    "pid",
+                    "part",
+                    "partid"
+                ],
+                "type": "PlaceholderString",
+                "description": "Targeted rendering bone.<br/>If not set, color the entire model.",
+                "link": "https://git.lumine.io/mythiccraft/model-engine-4/-/wikis/Skills/Mechanics/Tint",
+                "default_value": ""
+            },
+            {
+                "name": [
+                    "d",
+                    "dmg",
+                    "damage",
+                    "damagetint"
+                ],
+                "type": "Boolean",
+                "description": "Is this mechanic used to change the damage tint",
+                "link": "https://git.lumine.io/mythiccraft/model-engine-4/-/wikis/Skills/Mechanics/Tint",
+                "default_value": "false"
+            },
+            {
+                "name": [
+                    "c",
+                    "color"
+                ],
+                "type": "PlaceholderString",
+                "description": "The color in hex",
+                "link": "https://git.lumine.io/mythiccraft/model-engine-4/-/wikis/Skills/Mechanics/Tint",
+                "default_value": "FFFFFF or FF6666 (damagetint = true)"
+            },
+            {
+                "name": [
+                    "em",
+                    "exact",
+                    "match",
+                    "exactmatch"
+                ],
+                "type": "Boolean",
+                "description": "Should the part match the `partid` completely",
+                "link": "https://git.lumine.io/mythiccraft/model-engine-4/-/wikis/Skills/Mechanics/Tint",
+                "default_value": "true"
+            }
+        ]
+    },
+    {
+        "plugin": "ModelEngine",
+        "class": "UndisguiseMechanic",
+        "extends": "SkillMechanic",
+        "implements": [
+            "ITargetedEntitySkill"
+        ],
+        "name": [
+            "undisguise",
+            "modelundisguise"
+        ],
+        "description": "Undisguise the targeted player.",
+        "link": "https://git.lumine.io/mythiccraft/model-engine-4/-/wikis/Skills/Mechanics/ModelUndisguise",
+        "attributes": [
+            {
+                "name": [
+                    "m",
+                    "mid",
+                    "model",
+                    "modelid"
+                ],
+                "type": "PlaceholderString",
+                "description": "Targeted model. If not set, target all models",
+                "link": "https://git.lumine.io/mythiccraft/model-engine-4/-/wikis/Skills/Mechanics/ModelUndisguise",
+                "default_value": ""
+            }
+        ]
+    },
+    {
+        "plugin": "ModelEngine",
+        "class": "VFXChangeModelMechanic",
+        "extends": "SkillMechanic",
+        "implements": [
+            "ITargetedEntitySkill",
+            "INoTargetSkill"
+        ],
+        "name": [
+            "vfxchangemodel"
+        ],
+        "description": "Change the model of a VFX.",
+        "link": "https://git.lumine.io/mythiccraft/model-engine-4/-/wikis/Skills/Mechanics/VFXChangeModel",
+        "attributes": [
+            {
+                "name": [
+                    "m",
+                    "mid",
+                    "model",
+                    "modelid"
+                ],
+                "type": "PlaceholderString",
+                "description": "Model of the VFX",
+                "link": "https://git.lumine.io/mythiccraft/model-engine-4/-/wikis/Skills/Mechanics/VFXChangeModel",
+                "default_value": ""
+            },
+            {
+                "name": [
+                    "p",
+                    "pid",
+                    "part",
+                    "partid"
+                ],
+                "type": "PlaceholderString",
+                "description": "Bone of the VFX. The bone must be a renderer bone",
+                "link": "https://git.lumine.io/mythiccraft/model-engine-4/-/wikis/Skills/Mechanics/VFXChangeModel",
+                "default_value": ""
+            }
+        ]
+    },
+    {
+        "plugin": "ModelEngine",
+        "class": "VFXEnchantMechanic",
+        "extends": "SkillMechanic",
+        "implements": [
+            "ITargetedEntitySkill",
+            "INoTargetSkill"
+        ],
+        "name": [
+            "vfxenchant"
+        ],
+        "description": "Enchant or remove the enchant glint of a VFX.",
+        "link": "https://git.lumine.io/mythiccraft/model-engine-4/-/wikis/Skills/Mechanics/VFXEnchant",
+        "attributes": [
+            {
+                "name": [
+                    "e",
+                    "en",
+                    "enchant"
+                ],
+                "type": "Boolean",
+                "description": "Is enchanted",
+                "link": "https://git.lumine.io/mythiccraft/model-engine-4/-/wikis/Skills/Mechanics/VFXEnchant",
+                "default_value": "true"
+            }
+        ]
+    },
+    {
+        "plugin": "ModelEngine",
+        "class": "VFXMechanic",
+        "extends": "SkillMechanic",
+        "implements": [
+            "ITargetedEntitySkill",
+            "INoTargetSkill"
+        ],
+        "name": [
+            "vfx"
+        ],
+        "description": "Assign or remove a VFX from an entity or a projectile.  \nThe VFX will automatically be spawned and move with the target.  \nSimilarly, the VFX will despawn when the target is removed.",
+        "link": "https://git.lumine.io/mythiccraft/model-engine-4/-/wikis/Skills/Mechanics/VFX",
+        "attributes": [
+            {
+                "name": [
+                    "m",
+                    "mid",
+                    "model",
+                    "modelid"
+                ],
+                "type": "PlaceholderString",
+                "description": "Model of the VFX",
+                "link": "https://git.lumine.io/mythiccraft/model-engine-4/-/wikis/Skills/Mechanics/VFX",
+                "default_value": ""
+            },
+            {
+                "name": [
+                    "p",
+                    "pid",
+                    "part",
+                    "partid"
+                ],
+                "type": "PlaceholderString",
+                "description": "Bone of the VFX. The bone must be a renderer bone",
+                "link": "https://git.lumine.io/mythiccraft/model-engine-4/-/wikis/Skills/Mechanics/VFX",
+                "default_value": ""
+            },
+            {
+                "name": [
+                    "r",
+                    "remove"
+                ],
+                "type": "Boolean",
+                "description": "Is this mechanic used for removing VFX",
+                "link": "https://git.lumine.io/mythiccraft/model-engine-4/-/wikis/Skills/Mechanics/VFX",
+                "default_value": "false"
+            },
+            {
+                "name": [
+                    "rad",
+                    "radius"
+                ],
+                "type": "PlaceholderInteger",
+                "description": "Visible radius of the VFX.<br/>Values less than or equal to 0 will not be read",
+                "link": "https://git.lumine.io/mythiccraft/model-engine-4/-/wikis/Skills/Mechanics/VFX",
+                "default_value": "0"
+            },
+            {
+                "name": [
+                    "c",
+                    "color"
+                ],
+                "type": "PlaceholderString",
+                "description": "Default color of the VFX in hex",
+                "link": "https://git.lumine.io/mythiccraft/model-engine-4/-/wikis/Skills/Mechanics/VFX",
+                "default_value": "FFFFFF"
+            },
+            {
+                "name": [
+                    "en",
+                    "enchant"
+                ],
+                "type": "Boolean",
+                "description": "Whether the vfx should be enchanted",
+                "link": "https://git.lumine.io/mythiccraft/model-engine-4/-/wikis/Skills/Mechanics/VFX",
+                "default_value": "False"
+            },
+            {
+                "name": [
+                    "v",
+                    "visible"
+                ],
+                "type": "Boolean",
+                "description": "Is the VFX visible by default",
+                "link": "https://git.lumine.io/mythiccraft/model-engine-4/-/wikis/Skills/Mechanics/VFX",
+                "default_value": "true"
+            },
+            {
+                "name": [
+                    "bv",
+                    "bvisible"
+                ],
+                "type": "Boolean",
+                "description": "Is the base entity visible by default.<br/>Has no effect when the target is a projectile.",
+                "link": "https://git.lumine.io/mythiccraft/model-engine-4/-/wikis/Skills/Mechanics/VFX",
+                "default_value": "true"
+            }
+        ]
+    },
+    {
+        "plugin": "ModelEngine",
+        "class": "VFXResetPositionMechanic",
+        "extends": "SkillMechanic",
+        "implements": [
+            "ITargetedEntitySkill",
+            "INoTargetSkill"
+        ],
+        "name": [
+            "vfxposreset"
+        ],
+        "description": "Reset the VFX position back to 0 0 0.",
+        "link": "https://git.lumine.io/mythiccraft/model-engine-4/-/wikis/Skills/Mechanics/VFXPosReset",
+        "attributes": []
+    },
+    {
+        "plugin": "ModelEngine",
+        "class": "VFXResetRotationMechanic",
+        "extends": "SkillMechanic",
+        "implements": [
+            "ITargetedEntitySkill",
+            "INoTargetSkill"
+        ],
+        "name": [
+            "vfxrotreset"
+        ],
+        "description": "Reset the VFX rotation back to 0 0 0.",
+        "link": "https://git.lumine.io/mythiccraft/model-engine-4/-/wikis/Skills/Mechanics/VFXRotReset",
+        "attributes": []
+    },
+    {
+        "plugin": "ModelEngine",
+        "class": "VFXResetScaleMechanic",
+        "extends": "SkillMechanic",
+        "implements": [
+            "ITargetedEntitySkill",
+            "INoTargetSkill"
+        ],
+        "name": [
+            "vfxscalereset",
+            "vfxsclreset",
+            "vfxscareset"
+        ],
+        "description": "Reset the VFX scale back to 1 1 1.",
+        "link": "https://git.lumine.io/mythiccraft/model-engine-4/-/wikis/Skills/Mechanics/VFXScaleReset",
+        "attributes": []
+    },
+    {
+        "plugin": "ModelEngine",
+        "class": "VFXSetPositionMechanic",
+        "extends": "SkillMechanic",
+        "implements": [
+            "ITargetedEntitySkill",
+            "INoTargetSkill"
+        ],
+        "name": [
+            "vfxpos"
+        ],
+        "description": "Position the VFX. The position is local to the VFX, and does not affect the actual VFX entity's location.",
+        "link": "https://git.lumine.io/mythiccraft/model-engine-4/-/wikis/Skills/Mechanics/VFXPos",
+        "attributes": [
+            {
+                "name": [
+                    "p",
+                    "pos",
+                    "position"
+                ],
+                "type": "String",
+                "description": "Position of the VFX, in the `x,y,z` format",
+                "link": "https://git.lumine.io/mythiccraft/model-engine-4/-/wikis/Skills/Mechanics/VFXPos",
+                "default_value": ""
+            },
+            {
+                "name": [
+                    "x"
+                ],
+                "type": "PlaceholderDouble",
+                "description": "X component of the position. Only read when `position` is null",
+                "link": "https://git.lumine.io/mythiccraft/model-engine-4/-/wikis/Skills/Mechanics/VFXPos",
+                "default_value": "0"
+            },
+            {
+                "name": [
+                    "y"
+                ],
+                "type": "PlaceholderDouble",
+                "description": "Y component of the position. Only read when `position` is null",
+                "link": "https://git.lumine.io/mythiccraft/model-engine-4/-/wikis/Skills/Mechanics/VFXPos",
+                "default_value": "0"
+            },
+            {
+                "name": [
+                    "z"
+                ],
+                "type": "PlaceholderDouble",
+                "description": "Z component of the position. Only read when `position` is null",
+                "link": "https://git.lumine.io/mythiccraft/model-engine-4/-/wikis/Skills/Mechanics/VFXPos",
+                "default_value": "0"
+            },
+            {
+                "name": [
+                    "r",
+                    "rel",
+                    "relative"
+                ],
+                "type": "Boolean",
+                "description": "Is the position change relative, meaning should it add onto the current position",
+                "link": "https://git.lumine.io/mythiccraft/model-engine-4/-/wikis/Skills/Mechanics/VFXPos",
+                "default_value": "false"
+            }
+        ]
+    },
+    {
+        "plugin": "ModelEngine",
+        "class": "VFXSetRotationMechanic",
+        "extends": "SkillMechanic",
+        "implements": [
+            "ITargetedEntitySkill",
+            "INoTargetSkill"
+        ],
+        "name": [
+            "vfxrot"
+        ],
+        "description": "Rotation the VFX. The rotation is local to the VFX, and does not affect the actual VFX entity's rotation.",
+        "link": "https://git.lumine.io/mythiccraft/model-engine-4/-/wikis/Skills/Mechanics/VFXRot",
+        "attributes": [
+            {
+                "name": [
+                    "r",
+                    "rot",
+                    "rotation"
+                ],
+                "type": "String",
+                "description": "Rotation of the VFX, in the `x,y,z` format and in degrees",
+                "link": "https://git.lumine.io/mythiccraft/model-engine-4/-/wikis/Skills/Mechanics/VFXRot",
+                "default_value": ""
+            },
+            {
+                "name": [
+                    "x"
+                ],
+                "type": "PlaceholderDouble",
+                "description": "X component of the rotation in degrees. Only read when `rotation` is null",
+                "link": "https://git.lumine.io/mythiccraft/model-engine-4/-/wikis/Skills/Mechanics/VFXRot",
+                "default_value": "0"
+            },
+            {
+                "name": [
+                    "y"
+                ],
+                "type": "PlaceholderDouble",
+                "description": "Y component of the rotation in degrees. Only read when `rotation` is null",
+                "link": "https://git.lumine.io/mythiccraft/model-engine-4/-/wikis/Skills/Mechanics/VFXRot",
+                "default_value": "0"
+            },
+            {
+                "name": [
+                    "z"
+                ],
+                "type": "PlaceholderDouble",
+                "description": "Z component of the rotation in degrees. Only read when `rotation` is null",
+                "link": "https://git.lumine.io/mythiccraft/model-engine-4/-/wikis/Skills/Mechanics/VFXRot",
+                "default_value": "0"
+            },
+            {
+                "name": [
+                    "rel",
+                    "relative"
+                ],
+                "type": "Boolean",
+                "description": "Is the rotation change relative, meaning should it add onto the current rotation",
+                "link": "https://git.lumine.io/mythiccraft/model-engine-4/-/wikis/Skills/Mechanics/VFXRot",
+                "default_value": "false"
+            },
+            {
+                "name": [
+                    "neworigin",
+                    "origin",
+                    "o"
+                ],
+                "type": "Boolean",
+                "description": "Should the rotation be applied using the world axis",
+                "link": "https://git.lumine.io/mythiccraft/model-engine-4/-/wikis/Skills/Mechanics/VFXRot",
+                "default_value": "false"
+            }
+        ]
+    },
+    {
+        "plugin": "ModelEngine",
+        "class": "VFXSetScaleMechanic",
+        "extends": "SkillMechanic",
+        "implements": [
+            "ITargetedEntitySkill",
+            "INoTargetSkill"
+        ],
+        "name": [
+            "vfxscale",
+            "vfxscl",
+            "vfxsca"
+        ],
+        "description": "Scale the VFX.",
+        "link": "https://git.lumine.io/mythiccraft/model-engine-4/-/wikis/Skills/Mechanics/VFXScale",
+        "attributes": [
+            {
+                "name": [
+                    "s",
+                    "sca",
+                    "scl",
+                    "scale"
+                ],
+                "type": "String",
+                "description": "Scale of the VFX, in the `x,y,z` format",
+                "link": "https://git.lumine.io/mythiccraft/model-engine-4/-/wikis/Skills/Mechanics/VFXScale",
+                "default_value": ""
+            },
+            {
+                "name": [
+                    "x"
+                ],
+                "type": "PlaceholderDouble",
+                "description": "X component of the scale. Only read when `scale` is null",
+                "link": "https://git.lumine.io/mythiccraft/model-engine-4/-/wikis/Skills/Mechanics/VFXScale",
+                "default_value": "0"
+            },
+            {
+                "name": [
+                    "y"
+                ],
+                "type": "PlaceholderDouble",
+                "description": "Y component of the scale. Only read when `scale` is null",
+                "link": "https://git.lumine.io/mythiccraft/model-engine-4/-/wikis/Skills/Mechanics/VFXScale",
+                "default_value": "0"
+            },
+            {
+                "name": [
+                    "z"
+                ],
+                "type": "PlaceholderDouble",
+                "description": "Z component of the scale. Only read when `scale` is null",
+                "link": "https://git.lumine.io/mythiccraft/model-engine-4/-/wikis/Skills/Mechanics/VFXScale",
+                "default_value": "0"
+            },
+            {
+                "name": [
+                    "r",
+                    "rel",
+                    "relative"
+                ],
+                "type": "Boolean",
+                "description": "Is the scale change relative, meaning should it add onto the current scale",
+                "link": "https://git.lumine.io/mythiccraft/model-engine-4/-/wikis/Skills/Mechanics/VFXScale",
+                "default_value": "false"
+            }
+        ]
+    },
+    {
+        "plugin": "ModelEngine",
+        "class": "VFXSetVisibilityMechanic",
+        "extends": "SkillMechanic",
+        "implements": [
+            "ITargetedEntitySkill",
+            "INoTargetSkill"
+        ],
+        "name": [
+            "vfxsetvis"
+        ],
+        "description": "Set the visibility of the VFX.",
+        "link": "https://git.lumine.io/mythiccraft/model-engine-4/-/wikis/Skills/Mechanics/VFXSetVis",
+        "attributes": [
+            {
+                "name": [
+                    "v",
+                    "visible"
+                ],
+                "type": "Boolean",
+                "description": "Is visible",
+                "link": "https://git.lumine.io/mythiccraft/model-engine-4/-/wikis/Skills/Mechanics/VFXSetVis",
+                "default_value": "true"
+            }
+        ]
+    },
+    {
+        "plugin": "ModelEngine",
+        "class": "VFXTintMechanic",
+        "extends": "SkillMechanic",
+        "implements": [
+            "ITargetedEntitySkill",
+            "INoTargetSkill"
+        ],
+        "name": [
+            "vfxtint",
+            "vfxcolor"
+        ],
+        "description": "Color the VFX, or animate from one color to another.",
+        "link": "https://git.lumine.io/mythiccraft/model-engine-4/-/wikis/Skills/Mechanics/VFXTint",
+        "attributes": [
+            {
+                "name": [
+                    "duration",
+                    "d"
+                ],
+                "type": "PlaceholderInteger",
+                "description": "Duration of the color change",
+                "link": "https://git.lumine.io/mythiccraft/model-engine-4/-/wikis/Skills/Mechanics/VFXTint",
+                "default_value": "0"
+            },
+            {
+                "name": [
+                    "c",
+                    "color",
+                    "ca",
+                    "colora"
+                ],
+                "type": "PlaceholderString",
+                "description": "The color in hex",
+                "link": "https://git.lumine.io/mythiccraft/model-engine-4/-/wikis/Skills/Mechanics/VFXTint",
+                "default_value": "FFFFFF"
+            },
+            {
+                "name": [
+                    "cb",
+                    "colorb"
+                ],
+                "type": "PlaceholderString",
+                "description": "Target color in hex. Only read when `duration` greater than 0",
+                "link": "https://git.lumine.io/mythiccraft/model-engine-4/-/wikis/Skills/Mechanics/VFXTint",
+                "default_value": "FFFFFF"
+            }
+        ]
+    }
+]

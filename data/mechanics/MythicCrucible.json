@@ -1,0 +1,627 @@
+[
+    {
+        "plugin": "MythicCrucible",
+        "class": "DealCustomDurabilityMechanic",
+        "extends": "SkillMechanic",
+        "implements": [
+            "INoTargetSkill"
+        ],
+        "name": [
+            "dealCustomDurability",
+            "dealDura",
+            "customDura"
+        ],
+        "description": "Modifies the custom durability of the held item.",
+        "link": "https://git.lumine.io/mythiccraft/mythiccrucible/-/wikis/Skills/Mechanics/DealCustomDurability",
+        "attributes": [
+            {
+                "name": [
+                    "amount",
+                    "a"
+                ],
+                "type": "Integer",
+                "description": "Adds/Subtracts durability",
+                "link": "https://git.lumine.io/mythiccraft/mythiccrucible/-/wikis/Skills/Mechanics/DealCustomDurability",
+                "default_value": "1"
+            }
+        ]
+    },
+    {
+        "plugin": "MythicCrucible",
+        "class": "InventoryClearMechanic",
+        "extends": "SkillMechanic",
+        "implements": [
+            "ITargetedEntitySkill"
+        ],
+        "name": [
+            "clearInventory",
+            "inventoryClear"
+        ],
+        "description": "Clears the inventory of the targeted player",
+        "link": "https://git.lumine.io/mythiccraft/mythiccrucible/-/wikis/Skills/Mechanics/InventoryClear",
+        "attributes": []
+    },
+    {
+        "plugin": "MythicCrucible",
+        "class": "OpenFurnitureInventoryMechanic",
+        "extends": "SkillMechanic",
+        "implements": [
+            "ITargetedEntitySkill"
+        ],
+        "name": [
+            "openFurnitureInventory",
+            "furnitureInventory"
+        ],
+        "description": "Opens an inventory with a specified amount of slots and name to the target player. The inventory is persistent and is dropped once the Furniture breaks.  \n\n\nOpening inventories with different amounts of slots is **not possible**: the first time an inventory is opened, the specified amount of slots is registered as the \"correct\" one, and trying to use the mechanic with a different amount will not work.  \n\n\nIt is however **possible** to change the *name* of the inventory every time it is opened, and as long as the number of slots is constant the mechanic will open the same inventory, but with the specified name as the inventory's name.  \n\n\nThe number of slots of the inventory can be `9`,`18`,`27`,`36`,`45`,`54`.",
+        "link": "https://git.lumine.io/mythiccraft/mythiccrucible/-/wikis/Skills/Mechanics/furnitureinventory",
+        "attributes": [
+            {
+                "name": [
+                    "size",
+                    "s"
+                ],
+                "type": "Integer",
+                "description": "The number of slots of the inventory",
+                "link": "https://git.lumine.io/mythiccraft/mythiccrucible/-/wikis/Skills/Mechanics/furnitureinventory",
+                "default_value": "9"
+            },
+            {
+                "name": [
+                    "title",
+                    "t"
+                ],
+                "type": "PlaceholderString",
+                "description": "The name displayed in the inventory",
+                "link": "https://git.lumine.io/mythiccraft/mythiccrucible/-/wikis/Skills/Mechanics/furnitureinventory",
+                "default_value": "The Display name of the Item"
+            }
+        ]
+    },
+    {
+        "plugin": "MythicCrucible",
+        "class": "ParseEquipmentMechanic",
+        "extends": "SkillMechanic",
+        "implements": [
+            "INoTargetSkill"
+        ],
+        "name": [
+            "parseEquipment",
+            "parseArmor"
+        ],
+        "description": "Updates the status of the target player's armor pieces",
+        "link": "https://git.lumine.io/mythiccraft/mythiccrucible/-/wikis/Skills/Mechanics/parsearmor",
+        "attributes": []
+    },
+    {
+        "plugin": "MythicCrucible",
+        "class": "ParseWeaponMechanic",
+        "extends": "SkillMechanic",
+        "implements": [
+            "INoTargetSkill"
+        ],
+        "name": [
+            "parseWeapon",
+            "parseWeapons"
+        ],
+        "description": "Updates the status of the item the target player is holding in its main hand",
+        "link": "https://git.lumine.io/mythiccraft/mythiccrucible/-/wikis/Skills/Mechanics/ParseWeapon",
+        "attributes": []
+    },
+    {
+        "plugin": "MythicCrucible",
+        "class": "PlaceFurnitureAtMechanic",
+        "extends": "SkillMechanic",
+        "implements": [
+            "ITargetedLocationSkill"
+        ],
+        "name": [
+            "placeFurnitureAt"
+        ],
+        "description": "Makes the casting player place a furniture at a specific location",
+        "link": "https://git.lumine.io/mythiccraft/mythiccrucible/-/wikis/Skills/Mechanics/PlaceFurnitureAt",
+        "attributes": [
+            {
+                "name": [
+                    "furniture",
+                    "f"
+                ],
+                "type": "PlaceholderString",
+                "description": "The furniture to place",
+                "link": "https://git.lumine.io/mythiccraft/mythiccrucible/-/wikis/Skills/Mechanics/PlaceFurnitureAt",
+                "default_value": ""
+            }
+        ]
+    },
+    {
+        "plugin": "MythicCrucible",
+        "class": "RegenerateLoreMechanic",
+        "extends": "ItemMechanic",
+        "implements": [
+            "INoTargetSkill",
+            "ITargetedEntitySkill"
+        ],
+        "name": [
+            "regenerateLore",
+            "updateLore"
+        ],
+        "description": "Reparses the lore in your item config",
+        "link": "https://git.lumine.io/mythiccraft/mythiccrucible/-/wikis/Skills/Mechanics/UpdateLore",
+        "attributes": []
+    },
+    {
+        "plugin": "MythicCrucible",
+        "class": "RemoveFurnitureAtMechanic",
+        "extends": "SkillMechanic",
+        "implements": [
+            "ITargetedLocationSkill"
+        ],
+        "name": [
+            "removeFurnitureAt",
+            "furnitureRemoveAt"
+        ],
+        "description": "Removes the furniture at the target location",
+        "link": "https://git.lumine.io/mythiccraft/mythiccrucible/-/wikis/Skills/Mechanics/furnitureremoveat",
+        "attributes": []
+    },
+    {
+        "plugin": "MythicCrucible",
+        "class": "RemoveFurnitureMechanic",
+        "extends": "SkillMechanic",
+        "implements": [
+            "INoTargetSkill"
+        ],
+        "name": [
+            "removeFurniture",
+            "furnitureRemove"
+        ],
+        "description": "Removes the furniture that casted the mechanic",
+        "link": "https://git.lumine.io/mythiccraft/mythiccrucible/-/wikis/Skills/Mechanics/furnitureremove",
+        "attributes": [
+            {
+                "name": [
+                    "dodrops",
+                    "drops",
+                    "drop",
+                    "d"
+                ],
+                "type": "Boolean",
+                "description": "If the Furniture should drop its Drops once removed",
+                "link": "https://git.lumine.io/mythiccraft/mythiccrucible/-/wikis/Skills/Mechanics/furnitureremove",
+                "default_value": "false"
+            }
+        ]
+    },
+    {
+        "plugin": "MythicCrucible",
+        "class": "SetCompassLocationMechanic",
+        "extends": "SkillMechanic",
+        "implements": [
+            "ITargetedLocationSkill"
+        ],
+        "name": [
+            "setCompassLocation",
+            "setCompassTarget"
+        ],
+        "description": "Sets the location a compass points to. Compass will point to whatever targeter you use.",
+        "link": "https://git.lumine.io/mythiccraft/mythiccrucible/-/wikis/Skills/Mechanics/SetCompassLocation",
+        "attributes": []
+    },
+    {
+        "plugin": "MythicCrucible",
+        "class": "SetCrossbowChargedMechanic",
+        "extends": "SkillMechanic",
+        "implements": [
+            "INoTargetSkill"
+        ],
+        "name": [
+            "setCrossbowCharged"
+        ],
+        "description": "Sets the target player's held crossbow's CustomModelData and visualy sets it as either charged or not charged.\n\nIf an unloaded crossbow is set as \"charged\", the user will not be able to shoot the arrow.  \nIf a loaded crossbow is set as \"not charged\", the user will not be able to shoot the arrows in it until he loads another arrow or mechanic is used again to set it as \"charged\".  \n\nEvery time a loaded crossbow is set as \"not charged\", the arrow is stored. If the user loads multiple arrows and the mechanic is used each time before the user can shoot it, the arrows will add up. When the crossbow shoots, every arrow stored in it (up to *3*) will be launched in a \"multishot\" shaped pattern.",
+        "link": "https://git.lumine.io/mythiccraft/mythiccrucible/-/wikis/Skills/Mechanics/setcrossbowcharged",
+        "attributes": [
+            {
+                "name": [
+                    "model",
+                    "m"
+                ],
+                "type": "Integer",
+                "description": "The new CustomModelData",
+                "link": "https://git.lumine.io/mythiccraft/mythiccrucible/-/wikis/Skills/Mechanics/setcrossbowcharged",
+                "default_value": "0"
+            },
+            {
+                "name": [
+                    "charged"
+                ],
+                "type": "Boolean",
+                "description": "Should the crossbow be set as \"charged\"",
+                "link": "https://git.lumine.io/mythiccraft/mythiccrucible/-/wikis/Skills/Mechanics/setcrossbowcharged",
+                "default_value": "true"
+            }
+        ]
+    },
+    {
+        "plugin": "MythicCrucible",
+        "class": "SetFurnitureAtMechanic",
+        "extends": "SkillMechanic",
+        "implements": [
+            "ITargetedLocationSkill"
+        ],
+        "name": [
+            "setFurnitureAt",
+            "furnitureSetAt"
+        ],
+        "description": "Sets a furniture at the target location",
+        "link": "https://git.lumine.io/mythiccraft/mythiccrucible/-/wikis/Skills/Mechanics/FurnitureSetAt",
+        "attributes": [
+            {
+                "name": [
+                    "furniture",
+                    "f"
+                ],
+                "type": "PlaceholderString",
+                "description": "The Furniture to place",
+                "link": "https://git.lumine.io/mythiccraft/mythiccrucible/-/wikis/Skills/Mechanics/FurnitureSetAt",
+                "default_value": ""
+            },
+            {
+                "name": [
+                    "yaw",
+                    "y"
+                ],
+                "type": "PlaceholderFloat",
+                "description": "The yaw of the furniture",
+                "link": "https://git.lumine.io/mythiccraft/mythiccrucible/-/wikis/Skills/Mechanics/FurnitureSetAt",
+                "default_value": "0"
+            },
+            {
+                "name": [
+                    "overwrite",
+                    "ow",
+                    "force"
+                ],
+                "type": "Boolean",
+                "description": "If the mechanic should remove any furniture at the target location before placing its own",
+                "link": "https://git.lumine.io/mythiccraft/mythiccrucible/-/wikis/Skills/Mechanics/FurnitureSetAt",
+                "default_value": "false"
+            },
+            {
+                "name": [
+                    "dodrops",
+                    "drops",
+                    "drop",
+                    "d"
+                ],
+                "type": "Boolean",
+                "description": "If the overwritten Furniture should drop its Drops once removed",
+                "link": "https://git.lumine.io/mythiccraft/mythiccrucible/-/wikis/Skills/Mechanics/FurnitureSetAt",
+                "default_value": "false"
+            }
+        ]
+    },
+    {
+        "plugin": "MythicCrucible",
+        "class": "SetFurnitureColorMechanic",
+        "extends": "SkillMechanic",
+        "implements": [
+            "INoTargetSkill"
+        ],
+        "name": [
+            "setFurnitureColor",
+            "furnitureColor"
+        ],
+        "description": "Sets the casting Furniture's [Color](/Furniture#color) as the specified one",
+        "link": "https://git.lumine.io/mythiccraft/mythiccrucible/-/wikis/Skills/Mechanics/furniturecolor",
+        "attributes": [
+            {
+                "name": [
+                    "color",
+                    "c"
+                ],
+                "type": "PlaceholderString",
+                "description": "The name of the new state the Furniture should have",
+                "link": "https://git.lumine.io/mythiccraft/mythiccrucible/-/wikis/Skills/Mechanics/furniturecolor",
+                "default_value": "#FFFFFF"
+            }
+        ]
+    },
+    {
+        "plugin": "MythicCrucible",
+        "class": "SetFurnitureStateAtMechanic",
+        "extends": "SkillMechanic",
+        "implements": [
+            "ITargetedEntitySkill",
+            "ITargetedLocationSkill"
+        ],
+        "name": [
+            "setFurnitureStateAt",
+            "furnitureState"
+        ],
+        "description": "Sets the casting Furniture's [State](/Furniture#furniture-states) as the specified one",
+        "link": "https://git.lumine.io/mythiccraft/mythiccrucible/-/wikis/Skills/Mechanics/furniturestate",
+        "attributes": [
+            {
+                "name": [
+                    "state",
+                    "s"
+                ],
+                "type": "PlaceholderString",
+                "description": "The name of the new state the Furniture should have",
+                "link": "https://git.lumine.io/mythiccraft/mythiccrucible/-/wikis/Skills/Mechanics/furniturestate",
+                "default_value": "DEFAULT"
+            }
+        ]
+    },
+    {
+        "plugin": "MythicCrucible",
+        "class": "SetFurnitureStateMechanic",
+        "extends": "SkillMechanic",
+        "implements": [
+            "INoTargetSkill"
+        ],
+        "name": [
+            "setFurnitureState",
+            "furnitureState"
+        ],
+        "description": "Sets the casting Furniture's [State](/Furniture#furniture-states) as the specified one",
+        "link": "https://git.lumine.io/mythiccraft/mythiccrucible/-/wikis/Skills/Mechanics/furniturestate",
+        "attributes": [
+            {
+                "name": [
+                    "state",
+                    "s"
+                ],
+                "type": "PlaceholderString",
+                "description": "The name of the new state the Furniture should have",
+                "link": "https://git.lumine.io/mythiccraft/mythiccrucible/-/wikis/Skills/Mechanics/furniturestate",
+                "default_value": "DEFAULT"
+            }
+        ]
+    },
+    {
+        "plugin": "MythicCrucible",
+        "class": "SetItemDisplayMechanic",
+        "extends": "ItemMechanic",
+        "implements": [
+            "INoTargetSkill",
+            "ITargetedEntitySkill"
+        ],
+        "name": [
+            "setItemDisplay"
+        ],
+        "description": "Sets the item display name",
+        "link": "https://git.lumine.io/mythiccraft/mythiccrucible/-/wikis/Skills/Mechanics/SetItemDisplay",
+        "attributes": [
+            {
+                "name": [
+                    "display",
+                    "d"
+                ],
+                "type": "PlaceholderString",
+                "description": "The new displayed name of the item",
+                "link": "https://git.lumine.io/mythiccraft/mythiccrucible/-/wikis/Skills/Mechanics/SetItemDisplay",
+                "default_value": ""
+            },
+            {
+                "name": [
+                    "equipslot",
+                    "slot",
+                    "s"
+                ],
+                "type": null,
+                "description": "The [slot](/../../../MythicMobs/-/wikis/Skills/EquipSlot) to target",
+                "link": "https://git.lumine.io/mythiccraft/mythiccrucible/-/wikis/Skills/Mechanics/SetItemDisplay",
+                "default_value": ""
+            }
+        ]
+    },
+    {
+        "plugin": "MythicCrucible",
+        "class": "SetItemLoreMechanic",
+        "extends": "ItemMechanic",
+        "implements": [
+            "INoTargetSkill",
+            "ITargetedEntitySkill"
+        ],
+        "name": [
+            "setLore"
+        ],
+        "description": "Sets the new lore of the item",
+        "link": "https://git.lumine.io/mythiccraft/mythiccrucible/-/wikis/Skills/Mechanics/SetLore",
+        "attributes": [
+            {
+                "name": [
+                    "lore",
+                    "l"
+                ],
+                "type": "String",
+                "description": "The new lore of the item",
+                "link": "https://git.lumine.io/mythiccraft/mythiccrucible/-/wikis/Skills/Mechanics/SetLore",
+                "default_value": ""
+            },
+            {
+                "name": [
+                    "equipslot",
+                    "slot",
+                    "s"
+                ],
+                "type": null,
+                "description": "The [slot](/../../../MythicMobs/-/wikis/Skills/EquipSlot) to target",
+                "link": "https://git.lumine.io/mythiccraft/mythiccrucible/-/wikis/Skills/Mechanics/SetLore",
+                "default_value": ""
+            }
+        ]
+    },
+    {
+        "plugin": "MythicCrucible",
+        "class": "SetItemModelMechanic",
+        "extends": "ItemMechanic",
+        "implements": [
+            "INoTargetSkill",
+            "ITargetedEntitySkill"
+        ],
+        "name": [
+            "setItemModel",
+            "modelset",
+            "setmodel"
+        ],
+        "description": "Sets the specified CustomModelData on the item the caster is holding",
+        "link": "https://git.lumine.io/mythiccraft/mythiccrucible/-/wikis/Skills/Mechanics/ModelSet",
+        "attributes": [
+            {
+                "name": [
+                    "model",
+                    "m"
+                ],
+                "type": "PlaceholderInteger",
+                "description": "The new CustomModelData",
+                "link": "https://git.lumine.io/mythiccraft/mythiccrucible/-/wikis/Skills/Mechanics/ModelSet",
+                "default_value": "0"
+            },
+            {
+                "name": [
+                    "equipslot",
+                    "slot",
+                    "s"
+                ],
+                "type": null,
+                "description": "The [slot](/../../../MythicMobs/-/wikis/Skills/EquipSlot) to target",
+                "link": "https://git.lumine.io/mythiccraft/mythiccrucible/-/wikis/Skills/Mechanics/ModelSet",
+                "default_value": ""
+            }
+        ]
+    },
+    {
+        "plugin": "MythicCrucible",
+        "class": "SetItemNBTMechanic",
+        "extends": "ItemMechanic",
+        "implements": [
+            "INoTargetSkill",
+            "ITargetedEntitySkill"
+        ],
+        "name": [
+            "setItemNBT",
+            "setSlotNBT"
+        ],
+        "description": "Sets an NBT value on an item",
+        "link": "https://git.lumine.io/mythiccraft/mythiccrucible/-/wikis/Skills/Mechanics/SetItemNBT",
+        "attributes": [
+            {
+                "name": [
+                    "key",
+                    "k"
+                ],
+                "type": "String",
+                "description": "The NBT key to set. Can be a path",
+                "link": "https://git.lumine.io/mythiccraft/mythiccrucible/-/wikis/Skills/Mechanics/SetItemNBT",
+                "default_value": ""
+            },
+            {
+                "name": [
+                    "value",
+                    "val",
+                    "v"
+                ],
+                "type": "String",
+                "description": "The value to set",
+                "link": "https://git.lumine.io/mythiccraft/mythiccrucible/-/wikis/Skills/Mechanics/SetItemNBT",
+                "default_value": ""
+            },
+            {
+                "name": [
+                    "equipslot",
+                    "slot",
+                    "s"
+                ],
+                "type": null,
+                "description": "The [slot] where the equipment you want to set the NBT of is located",
+                "link": "https://git.lumine.io/mythiccraft/mythiccrucible/-/wikis/Skills/Mechanics/SetItemNBT",
+                "default_value": ""
+            }
+        ]
+    },
+    {
+        "plugin": "MythicCrucible",
+        "class": "SetSlotModelMechanic",
+        "extends": "SkillMechanic",
+        "implements": [
+            "INoTargetSkill"
+        ],
+        "name": [
+            "setSlotModel"
+        ],
+        "description": "Sets the specified CustomModelData on the item on the specified slot",
+        "link": "https://git.lumine.io/mythiccraft/mythiccrucible/-/wikis/Skills/Mechanics/SetSlotModel",
+        "attributes": [
+            {
+                "name": [
+                    "model",
+                    "m"
+                ],
+                "type": "Integer",
+                "description": "The new CustomModelData",
+                "link": "https://git.lumine.io/mythiccraft/mythiccrucible/-/wikis/Skills/Mechanics/SetSlotModel",
+                "default_value": "0"
+            },
+            {
+                "name": [
+                    "equipslot",
+                    "slot",
+                    "s"
+                ],
+                "type": "String",
+                "description": "The slot of the item",
+                "link": "https://git.lumine.io/mythiccraft/mythiccrucible/-/wikis/Skills/Mechanics/SetSlotModel",
+                "default_value": "HEAD"
+            }
+        ]
+    },
+    {
+        "plugin": "MythicCrucible",
+        "class": "ToggleModelMechanic",
+        "extends": "ItemMechanic",
+        "implements": [
+            "INoTargetSkill",
+            "ITargetedEntitySkill"
+        ],
+        "name": [
+            "toggleModel",
+            "modelToggle"
+        ],
+        "description": "Switches the item's CustomModelData value between two specified ones each time this mechanic is triggered",
+        "link": "https://git.lumine.io/mythiccraft/mythiccrucible/-/wikis/Skills/Mechanics/modeltoggle",
+        "attributes": [
+            {
+                "name": [
+                    "model1",
+                    "m1"
+                ],
+                "type": "Integer",
+                "description": "The first CustomModelData value",
+                "link": "https://git.lumine.io/mythiccraft/mythiccrucible/-/wikis/Skills/Mechanics/modeltoggle",
+                "default_value": "0"
+            },
+            {
+                "name": [
+                    "model2",
+                    "m2"
+                ],
+                "type": "Integer",
+                "description": "The second CustomModelData value",
+                "link": "https://git.lumine.io/mythiccraft/mythiccrucible/-/wikis/Skills/Mechanics/modeltoggle",
+                "default_value": "0"
+            },
+            {
+                "name": [
+                    "equipslot",
+                    "slot",
+                    "s"
+                ],
+                "type": null,
+                "description": "The [slot](/../../../MythicMobs/-/wikis/Skills/EquipSlot) to target",
+                "link": "https://git.lumine.io/mythiccraft/mythiccrucible/-/wikis/Skills/Mechanics/modeltoggle",
+                "default_value": ""
+            }
+        ]
+    }
+]

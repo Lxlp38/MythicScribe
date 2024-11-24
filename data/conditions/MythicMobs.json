@@ -3,6 +3,9 @@
         "plugin": "MythicMobs",
         "class": "AltitudeCondition",
         "extends": "SkillCondition",
+        "implements": [
+            "IEntityCondition"
+        ],
         "name": [
             "altitude",
             "heightfromsurface"
@@ -38,6 +41,9 @@
         "plugin": "MythicMobs",
         "class": "BiomeCondition",
         "extends": "SkillCondition",
+        "implements": [
+            "ILocationCondition"
+        ],
         "name": [
             "biome"
         ],
@@ -72,6 +78,9 @@
         "plugin": "MythicMobs",
         "class": "BiomeTypeCondition",
         "extends": "SkillCondition",
+        "implements": [
+            "ILocationCondition"
+        ],
         "name": [
             "biometype",
             "biomecategory"
@@ -105,6 +114,9 @@
         "plugin": "MythicMobs",
         "class": "BlockTypeCondition",
         "extends": "SkillCondition",
+        "implements": [
+            "ILocationCondition"
+        ],
         "name": [
             "blockType",
             "inblock",
@@ -137,6 +149,9 @@
         "plugin": "MythicMobs",
         "class": "BlockTypeInRadiusCondition",
         "extends": "SkillCondition",
+        "implements": [
+            "ILocationCondition"
+        ],
         "name": [
             "blockTypeInRadius"
         ],
@@ -185,6 +200,9 @@
         "plugin": "MythicMobs",
         "class": "BlockingCondition",
         "extends": "SkillCondition",
+        "implements": [
+            "IEntityCondition"
+        ],
         "name": [
             "blocking",
             "isblocking"
@@ -197,6 +215,9 @@
         "plugin": "MythicMobs",
         "class": "BoundingBoxesOverlapCondition",
         "extends": "SkillCondition",
+        "implements": [
+            "IEntityComparisonCondition"
+        ],
         "name": [
             "boundingBoxesOverlap",
             "bbsoverlap"
@@ -224,6 +245,9 @@
         "plugin": "MythicMobs",
         "class": "BowTensionCondition",
         "extends": "SkillCondition",
+        "implements": [
+            "ISkillMetaCondition"
+        ],
         "name": [
             "bowTension",
             "bowshoottension"
@@ -250,6 +274,9 @@
         "plugin": "MythicMobs",
         "class": "BurningCondition",
         "extends": "SkillCondition",
+        "implements": [
+            "IEntityCondition"
+        ],
         "name": [
             "burning",
             "isburning",
@@ -263,6 +290,10 @@
         "plugin": "MythicMobs",
         "class": "ChanceCondition",
         "extends": "SkillCondition",
+        "implements": [
+            "ISkillMetaCondition",
+            "ISkillMetaComparisonCondition"
+        ],
         "name": [
             "chance"
         ],
@@ -285,6 +316,9 @@
         "plugin": "MythicMobs",
         "class": "ChildrenCondition",
         "extends": "SkillCondition",
+        "implements": [
+            "ICasterCondition"
+        ],
         "name": [
             "children"
         ],
@@ -307,6 +341,9 @@
         "plugin": "MythicMobs",
         "class": "ColorCondition",
         "extends": "SkillCondition",
+        "implements": [
+            "IEntityCondition"
+        ],
         "name": [
             "color",
             "clr"
@@ -331,6 +368,9 @@
         "plugin": "MythicMobs",
         "class": "CreeperChargeCondition",
         "extends": "SkillCondition",
+        "implements": [
+            "IEntityCondition"
+        ],
         "name": [
             "charged",
             "isCharged",
@@ -344,6 +384,9 @@
         "plugin": "MythicMobs",
         "class": "CrouchingCondition",
         "extends": "SkillCondition",
+        "implements": [
+            "IEntityCondition"
+        ],
         "name": [
             "crouching",
             "sneaking",
@@ -358,6 +401,11 @@
         "plugin": "MythicMobs",
         "class": "CuboidCondition",
         "extends": "SkillCondition",
+        "implements": [
+            "IEntityComparisonCondition",
+            "ILocationComparisonCondition",
+            "ILocationCondition"
+        ],
         "name": [
             "cuboid",
             "incuboid"
@@ -405,6 +453,9 @@
         "plugin": "MythicMobs",
         "class": "DamageAmountCondition",
         "extends": "SkillCondition",
+        "implements": [
+            "ISkillMetaCondition"
+        ],
         "name": [
             "DamageAmount"
         ],
@@ -428,6 +479,9 @@
         "plugin": "MythicMobs",
         "class": "DamageCauseCondition",
         "extends": "SkillCondition",
+        "implements": [
+            "ISkillMetaCondition"
+        ],
         "name": [
             "DamageCause"
         ],
@@ -452,6 +506,9 @@
         "plugin": "MythicMobs",
         "class": "DamageHasTagCondition",
         "extends": "SkillCondition",
+        "implements": [
+            "ISkillMetaCondition"
+        ],
         "name": [
             "damageTag",
             "damageHasTag"
@@ -489,6 +546,9 @@
         "plugin": "MythicMobs",
         "class": "DawnCondition",
         "extends": "SkillCondition",
+        "implements": [
+            "ILocationCondition"
+        ],
         "name": [
             "dawn"
         ],
@@ -500,6 +560,9 @@
         "plugin": "MythicMobs",
         "class": "DayCondition",
         "extends": "SkillCondition",
+        "implements": [
+            "ILocationCondition"
+        ],
         "name": [
             "day"
         ],
@@ -511,6 +574,9 @@
         "plugin": "MythicMobs",
         "class": "DimensionCondition",
         "extends": "SkillCondition",
+        "implements": [
+            "ILocationCondition"
+        ],
         "name": [
             "dimension",
             "environment"
@@ -538,6 +604,9 @@
         "plugin": "MythicMobs",
         "class": "DirectionalVelocityCondition",
         "extends": "SkillCondition",
+        "implements": [
+            "IEntityCondition"
+        ],
         "name": [
             "directionalvelocity",
             "dvelocity"
@@ -630,6 +699,11 @@
         "plugin": "MythicMobs",
         "class": "DistanceCondition",
         "extends": "SkillCondition",
+        "implements": [
+            "ISkillMetaComparisonCondition",
+            "IEntityComparisonCondition",
+            "ILocationComparisonCondition"
+        ],
         "name": [
             "distance"
         ],
@@ -652,6 +726,9 @@
         "plugin": "MythicMobs",
         "class": "DistanceFromLocationCondition",
         "extends": "SkillCondition",
+        "implements": [
+            "IEntityCondition"
+        ],
         "name": [
             "distanceFromLocation"
         ],
@@ -711,6 +788,9 @@
         "plugin": "MythicMobs",
         "class": "DistanceFromPinCondition",
         "extends": "SkillCondition",
+        "implements": [
+            "IEntityCondition"
+        ],
         "name": [
             "distanceFromPin"
         ],
@@ -743,6 +823,9 @@
         "plugin": "MythicMobs",
         "class": "DistanceFromSpawnCondition",
         "extends": "SkillCondition",
+        "implements": [
+            "ILocationCondition"
+        ],
         "name": [
             "distanceFromSpawn"
         ],
@@ -765,6 +848,9 @@
         "plugin": "MythicMobs",
         "class": "DistanceFromTrackedLocationCondition",
         "extends": "SkillCondition",
+        "implements": [
+            "ICasterCondition"
+        ],
         "name": [
             "distanceFromTrackedLocation",
             "distanceFromTL"
@@ -788,6 +874,9 @@
         "plugin": "MythicMobs",
         "class": "DuskCondition",
         "extends": "SkillCondition",
+        "implements": [
+            "ILocationCondition"
+        ],
         "name": [
             "dusk"
         ],
@@ -799,6 +888,9 @@
         "plugin": "MythicMobs",
         "class": "EnchantingExperienceCondition",
         "extends": "SkillCondition",
+        "implements": [
+            "IEntityCondition"
+        ],
         "name": [
             "enchantingExperience",
             "enchantingExp",
@@ -826,6 +918,9 @@
         "plugin": "MythicMobs",
         "class": "EnchantingLevelCondition",
         "extends": "SkillCondition",
+        "implements": [
+            "IEntityCondition"
+        ],
         "name": [
             "enchantingLevel"
         ],
@@ -848,6 +943,9 @@
         "plugin": "MythicMobs",
         "class": "EnderDragonAliveCondition",
         "extends": "SkillCondition",
+        "implements": [
+            "ILocationCondition"
+        ],
         "name": [
             "enderdragonalive",
             "isdragonalive",
@@ -861,6 +959,9 @@
         "plugin": "MythicMobs",
         "class": "EnderDragonPhaseCondition",
         "extends": "SkillCondition",
+        "implements": [
+            "IEntityCondition"
+        ],
         "name": [
             "enderdragonPhase",
             "edragonPhase"
@@ -884,6 +985,9 @@
         "plugin": "MythicMobs",
         "class": "EntityItemIsSimilarCondition",
         "extends": "SkillCondition",
+        "implements": [
+            "IEntityCondition"
+        ],
         "name": [
             "entityitemissimilar"
         ],
@@ -910,6 +1014,9 @@
         "plugin": "MythicMobs",
         "class": "EntityItemTypeCondition",
         "extends": "SkillCondition",
+        "implements": [
+            "IEntityCondition"
+        ],
         "name": [
             "entityItemType"
         ],
@@ -936,6 +1043,9 @@
         "plugin": "MythicMobs",
         "class": "EntityMaterialTypeCondition",
         "extends": "SkillCondition",
+        "implements": [
+            "IEntityCondition"
+        ],
         "name": [
             "entityMaterialType"
         ],
@@ -964,6 +1074,9 @@
         "plugin": "MythicMobs",
         "class": "EntityTypeCondition",
         "extends": "SkillCondition",
+        "implements": [
+            "IEntityCondition"
+        ],
         "name": [
             "entityType",
             "mobtype"
@@ -990,6 +1103,9 @@
         "plugin": "MythicMobs",
         "class": "FactionCondition",
         "extends": "SkillCondition",
+        "implements": [
+            "IEntityCondition"
+        ],
         "name": [
             "faction"
         ],
@@ -1012,6 +1128,9 @@
         "plugin": "MythicMobs",
         "class": "FactionSameCondition",
         "extends": "SkillCondition",
+        "implements": [
+            "IEntityComparisonCondition"
+        ],
         "name": [
             "samefaction",
             "factionsame"
@@ -1024,6 +1143,9 @@
         "plugin": "MythicMobs",
         "class": "FallSpeedCondition",
         "extends": "SkillCondition",
+        "implements": [
+            "IEntityCondition"
+        ],
         "name": [
             "fallSpeed",
             "fallingspeed"
@@ -1047,6 +1169,10 @@
         "plugin": "MythicMobs",
         "class": "FieldOfViewCondition",
         "extends": "SkillCondition",
+        "implements": [
+            "IEntityComparisonCondition",
+            "IEntityLocationComparisonCondition"
+        ],
         "name": [
             "fieldOfView",
             "infieldofview",
@@ -1081,6 +1207,9 @@
         "plugin": "MythicMobs",
         "class": "FoodCondition",
         "extends": "SkillCondition",
+        "implements": [
+            "IEntityCondition"
+        ],
         "name": [
             "foodlevel",
             "hunger",
@@ -1108,6 +1237,9 @@
         "plugin": "MythicMobs",
         "class": "FoodSaturationCondition",
         "extends": "SkillCondition",
+        "implements": [
+            "IEntityCondition"
+        ],
         "name": [
             "foodSaturation",
             "hungerSaturation"
@@ -1135,6 +1267,9 @@
         "plugin": "MythicMobs",
         "class": "GamemodeCondition",
         "extends": "SkillCondition",
+        "implements": [
+            "IEntityCondition"
+        ],
         "name": [
             "gamemode",
             "gm"
@@ -1159,6 +1294,9 @@
         "plugin": "MythicMobs",
         "class": "GlidingCondition",
         "extends": "SkillCondition",
+        "implements": [
+            "IEntityCondition"
+        ],
         "name": [
             "gliding",
             "isgliding"
@@ -1171,6 +1309,9 @@
         "plugin": "MythicMobs",
         "class": "HasAICondition",
         "extends": "SkillCondition",
+        "implements": [
+            "IEntityCondition"
+        ],
         "name": [
             "hasAI"
         ],
@@ -1182,6 +1323,10 @@
         "plugin": "MythicMobs",
         "class": "HasAuraCondition",
         "extends": "SkillCondition",
+        "implements": [
+            "IEntityCondition",
+            "ISkillMetaComparisonCondition"
+        ],
         "name": [
             "hasAura",
             "hasbuff",
@@ -1213,6 +1358,9 @@
         "plugin": "MythicMobs",
         "class": "HasAuraStacksCondition",
         "extends": "SkillCondition",
+        "implements": [
+            "IEntityCondition"
+        ],
         "name": [
             "hasAuraStacks",
             "hasbuffstacks",
@@ -1257,6 +1405,9 @@
         "plugin": "MythicMobs",
         "class": "HasAuraTypeCondition",
         "extends": "SkillCondition",
+        "implements": [
+            "IEntityCondition"
+        ],
         "name": [
             "hasAuraType",
             "hasbufftype",
@@ -1285,6 +1436,9 @@
         "plugin": "MythicMobs",
         "class": "HasCurrencyCondition",
         "extends": "SkillCondition",
+        "implements": [
+            "IEntityCondition"
+        ],
         "name": [
             "hasCurrency",
             "hasmoney"
@@ -1308,6 +1462,9 @@
         "plugin": "MythicMobs",
         "class": "HasEnchantmentCondition",
         "extends": "SkillCondition",
+        "implements": [
+            "IEntityCondition"
+        ],
         "name": [
             "hasEnchantment",
             "hasEnchant"
@@ -1345,6 +1502,9 @@
         "plugin": "MythicMobs",
         "class": "HasGravityCondition",
         "extends": "SkillCondition",
+        "implements": [
+            "IEntityCondition"
+        ],
         "name": [
             "hasgravity",
             "gravity"
@@ -1357,6 +1517,9 @@
         "plugin": "MythicMobs",
         "class": "HasInventorySpaceCondition",
         "extends": "SkillCondition",
+        "implements": [
+            "IEntityCondition"
+        ],
         "name": [
             "hasInventorySpace"
         ],
@@ -1368,6 +1531,10 @@
         "plugin": "MythicMobs",
         "class": "HasItemCondition",
         "extends": "SkillCondition",
+        "implements": [
+            "IEntityCondition",
+            "ILocationCondition"
+        ],
         "name": [
             "HasItem"
         ],
@@ -1404,6 +1571,9 @@
         "plugin": "MythicMobs",
         "class": "HasOffhandCondition",
         "extends": "SkillCondition",
+        "implements": [
+            "IEntityCondition"
+        ],
         "name": [
             "hasoffhand",
             "offhand"
@@ -1416,6 +1586,9 @@
         "plugin": "MythicMobs",
         "class": "HasOwnerCondition",
         "extends": "SkillCondition",
+        "implements": [
+            "IEntityCondition"
+        ],
         "name": [
             "hasOwner"
         ],
@@ -1427,6 +1600,9 @@
         "plugin": "MythicMobs",
         "class": "HasParentCondition",
         "extends": "SkillCondition",
+        "implements": [
+            "IEntityCondition"
+        ],
         "name": [
             "hasParent"
         ],
@@ -1438,6 +1614,9 @@
         "plugin": "MythicMobs",
         "class": "HasPassengerCondition",
         "extends": "SkillCondition",
+        "implements": [
+            "IEntityCondition"
+        ],
         "name": [
             "haspassenger"
         ],
@@ -1449,6 +1628,9 @@
         "plugin": "MythicMobs",
         "class": "HasPermissionCondition",
         "extends": "SkillCondition",
+        "implements": [
+            "IEntityCondition"
+        ],
         "name": [
             "haspermission",
             "permission"
@@ -1472,6 +1654,9 @@
         "plugin": "MythicMobs",
         "class": "HasPotionEffectCondition",
         "extends": "SkillCondition",
+        "implements": [
+            "IEntityCondition"
+        ],
         "name": [
             "hasPotionEffect",
             "hasPotion"
@@ -1517,6 +1702,9 @@
         "plugin": "MythicMobs",
         "class": "HasTagCondition",
         "extends": "SkillCondition",
+        "implements": [
+            "IEntityCondition"
+        ],
         "name": [
             "hasTag",
             "hasScoreboardTag"
@@ -1540,6 +1728,10 @@
         "plugin": "MythicMobs",
         "class": "HealthCondition",
         "extends": "SkillCondition",
+        "implements": [
+            "IEntityCondition",
+            "ISkillMetaComparisonCondition"
+        ],
         "name": [
             "health",
             "hp"
@@ -1575,6 +1767,10 @@
         "plugin": "MythicMobs",
         "class": "HealthPercentCondition",
         "extends": "SkillCondition",
+        "implements": [
+            "IEntityCondition",
+            "ISkillMetaComparisonCondition"
+        ],
         "name": [
             "healthpercent",
             "hppercent"
@@ -1610,6 +1806,9 @@
         "plugin": "MythicMobs",
         "class": "HeightAboveCondition",
         "extends": "SkillCondition",
+        "implements": [
+            "ILocationCondition"
+        ],
         "name": [
             "heightAbove"
         ],
@@ -1632,6 +1831,9 @@
         "plugin": "MythicMobs",
         "class": "HeightBelowCondition",
         "extends": "SkillCondition",
+        "implements": [
+            "ILocationCondition"
+        ],
         "name": [
             "heightBelow"
         ],
@@ -1654,6 +1856,9 @@
         "plugin": "MythicMobs",
         "class": "HeightCondition",
         "extends": "SkillCondition",
+        "implements": [
+            "ILocationCondition"
+        ],
         "name": [
             "height"
         ],
@@ -1676,6 +1881,9 @@
         "plugin": "MythicMobs",
         "class": "HoldingCondition",
         "extends": "SkillCondition",
+        "implements": [
+            "IEntityCondition"
+        ],
         "name": [
             "holding"
         ],
@@ -1702,6 +1910,9 @@
         "plugin": "MythicMobs",
         "class": "InClaimCondition",
         "extends": "SkillCondition",
+        "implements": [
+            "ILocationCondition"
+        ],
         "name": [
             "inClaim",
             "inclaim"
@@ -1714,6 +1925,9 @@
         "plugin": "MythicMobs",
         "class": "InCombatCondition",
         "extends": "SkillCondition",
+        "implements": [
+            "IEntityCondition"
+        ],
         "name": [
             "incombat"
         ],
@@ -1725,6 +1939,9 @@
         "plugin": "MythicMobs",
         "class": "InPinRegionCondition",
         "extends": "SkillCondition",
+        "implements": [
+            "ILocationCondition"
+        ],
         "name": [
             "inPinRegion"
         ],
@@ -1757,6 +1974,9 @@
         "plugin": "MythicMobs",
         "class": "InSurvivalModeCondition",
         "extends": "SkillCondition",
+        "implements": [
+            "IEntityCondition"
+        ],
         "name": [
             "isInSurvivalMode",
             "inSurvivalMode"
@@ -1769,6 +1989,9 @@
         "plugin": "MythicMobs",
         "class": "InsideCondition",
         "extends": "SkillCondition",
+        "implements": [
+            "ILocationCondition"
+        ],
         "name": [
             "inside"
         ],
@@ -1780,6 +2003,9 @@
         "plugin": "MythicMobs",
         "class": "IsBabyCondition",
         "extends": "SkillCondition",
+        "implements": [
+            "IEntityCondition"
+        ],
         "name": [
             "isBaby"
         ],
@@ -1791,6 +2017,9 @@
         "plugin": "MythicMobs",
         "class": "IsCasterCondition",
         "extends": "SkillCondition",
+        "implements": [
+            "IEntityComparisonCondition"
+        ],
         "name": [
             "iscaster"
         ],
@@ -1802,6 +2031,9 @@
         "plugin": "MythicMobs",
         "class": "IsChildCondition",
         "extends": "SkillCondition",
+        "implements": [
+            "ISkillMetaComparisonCondition"
+        ],
         "name": [
             "ischild",
             "child"
@@ -1814,6 +2046,9 @@
         "plugin": "MythicMobs",
         "class": "IsClimbingCondition",
         "extends": "SkillCondition",
+        "implements": [
+            "IEntityCondition"
+        ],
         "name": [
             "isClimbing",
             "climbing"
@@ -1826,6 +2061,9 @@
         "plugin": "MythicMobs",
         "class": "IsCreeperPrimedCondition",
         "extends": "SkillCondition",
+        "implements": [
+            "IEntityCondition"
+        ],
         "name": [
             "isCreeperPrimed"
         ],
@@ -1834,20 +2072,12 @@
         "attributes": []
     },
     {
-        "plugin": "ModelEngine",
-        "class": "IsDrivingModelCondition",
-        "extends": "SkillCondition",
-        "name": [
-            "drivingmodel"
-        ],
-        "description": "Checks if the target entity is the driver of a model",
-        "link": "https://git.lumine.io/mythiccraft/model-engine-4/-/wikis/Skills/Conditions/DrivingModel",
-        "attributes": []
-    },
-    {
         "plugin": "MythicMobs",
         "class": "IsFlyingCondition",
         "extends": "SkillCondition",
+        "implements": [
+            "IEntityCondition"
+        ],
         "name": [
             "isflying",
             "flying"
@@ -1860,6 +2090,9 @@
         "plugin": "MythicMobs",
         "class": "IsFrozenCondition",
         "extends": "SkillCondition",
+        "implements": [
+            "IEntityCondition"
+        ],
         "name": [
             "isFrozen"
         ],
@@ -1871,6 +2104,9 @@
         "plugin": "MythicMobs",
         "class": "IsInvulnerableCondition",
         "extends": "SkillCondition",
+        "implements": [
+            "IEntityCondition"
+        ],
         "name": [
             "isInvulnerable",
             "isInvincible"
@@ -1883,6 +2119,9 @@
         "plugin": "MythicMobs",
         "class": "IsLeashedCondition",
         "extends": "SkillCondition",
+        "implements": [
+            "IEntityCondition"
+        ],
         "name": [
             "IsLeashed"
         ],
@@ -1894,6 +2133,9 @@
         "plugin": "MythicMobs",
         "class": "IsLivingCondition",
         "extends": "SkillCondition",
+        "implements": [
+            "IEntityCondition"
+        ],
         "name": [
             "isliving"
         ],
@@ -1905,6 +2147,9 @@
         "plugin": "MythicMobs",
         "class": "IsMonsterCondition",
         "extends": "SkillCondition",
+        "implements": [
+            "IEntityCondition"
+        ],
         "name": [
             "ismonster"
         ],
@@ -1916,6 +2161,9 @@
         "plugin": "MythicMobs",
         "class": "IsMythicMobCondition",
         "extends": "SkillCondition",
+        "implements": [
+            "IEntityCondition"
+        ],
         "name": [
             "isMythicMob",
             "isMM"
@@ -1928,6 +2176,9 @@
         "plugin": "MythicMobs",
         "class": "IsParentAliveCondition",
         "extends": "SkillCondition",
+        "implements": [
+            "IEntityCondition"
+        ],
         "name": [
             "isParentAlive",
             "parentAlive"
@@ -1940,6 +2191,9 @@
         "plugin": "MythicMobs",
         "class": "IsParentCondition",
         "extends": "SkillCondition",
+        "implements": [
+            "IEntityComparisonCondition"
+        ],
         "name": [
             "parent",
             "isParent"
@@ -1952,6 +2206,9 @@
         "plugin": "MythicMobs",
         "class": "IsPlayerCondition",
         "extends": "SkillCondition",
+        "implements": [
+            "IEntityCondition"
+        ],
         "name": [
             "isplayer"
         ],
@@ -1963,6 +2220,9 @@
         "plugin": "MythicMobs",
         "class": "IsRaiderPatrolLeaderCondition",
         "extends": "SkillCondition",
+        "implements": [
+            "IEntityCondition"
+        ],
         "name": [
             "isRaiderPatrolLeader",
             "isPatrolLeader"
@@ -1972,20 +2232,12 @@
         "attributes": []
     },
     {
-        "plugin": "ModelEngine",
-        "class": "IsRidingModelCondition",
-        "extends": "SkillCondition",
-        "name": [
-            "ridingmodel"
-        ],
-        "description": "Checks if the target entity is a passenger of a model",
-        "link": "https://git.lumine.io/mythiccraft/model-engine-4/-/wikis/Skills/Conditions/RidingModel",
-        "attributes": []
-    },
-    {
         "plugin": "MythicMobs",
         "class": "IsSaddledCondition",
         "extends": "SkillCondition",
+        "implements": [
+            "IEntityCondition"
+        ],
         "name": [
             "isSaddled",
             "saddled"
@@ -1998,6 +2250,9 @@
         "plugin": "MythicMobs",
         "class": "IsTamedCondition",
         "extends": "SkillCondition",
+        "implements": [
+            "IEntityCondition"
+        ],
         "name": [
             "isTamed"
         ],
@@ -2009,6 +2264,9 @@
         "plugin": "MythicMobs",
         "class": "IsUsingSpyglassCondition",
         "extends": "SkillCondition",
+        "implements": [
+            "IEntityCondition"
+        ],
         "name": [
             "isUsingSpyglass",
             "isScoping"
@@ -2021,6 +2279,9 @@
         "plugin": "MythicMobs",
         "class": "ItemIsSimilarCondition",
         "extends": "SkillCondition",
+        "implements": [
+            "IEntityCondition"
+        ],
         "name": [
             "itemissimilar",
             "issimilar",
@@ -2059,6 +2320,9 @@
         "plugin": "MythicMobs",
         "class": "ItemRechargingCondition",
         "extends": "SkillCondition",
+        "implements": [
+            "IEntityCondition"
+        ],
         "name": [
             "itemRecharging"
         ],
@@ -2070,6 +2334,10 @@
         "plugin": "MythicMobs",
         "class": "ItemTypeCondition",
         "extends": "SkillCondition",
+        "implements": [
+            "ISkillMetaCondition",
+            "IEntityCondition"
+        ],
         "name": [
             "itemType"
         ],
@@ -2096,6 +2364,9 @@
         "plugin": "MythicMobs",
         "class": "LastDamageCauseCondition",
         "extends": "SkillCondition",
+        "implements": [
+            "IEntityCondition"
+        ],
         "name": [
             "lastDamageCause"
         ],
@@ -2119,6 +2390,9 @@
         "plugin": "MythicMobs",
         "class": "LastSignalCondition",
         "extends": "SkillCondition",
+        "implements": [
+            "IEntityCondition"
+        ],
         "name": [
             "lastSignal"
         ],
@@ -2141,6 +2415,10 @@
         "plugin": "MythicMobs",
         "class": "LevelCondition",
         "extends": "SkillCondition",
+        "implements": [
+            "ICasterCondition",
+            "IEntityCondition"
+        ],
         "name": [
             "level"
         ],
@@ -2163,6 +2441,9 @@
         "plugin": "MythicMobs",
         "class": "LightLevelBlockCondition",
         "extends": "SkillCondition",
+        "implements": [
+            "ILocationCondition"
+        ],
         "name": [
             "lightLevelfromblocks",
             "blocklightlevel"
@@ -2186,6 +2467,9 @@
         "plugin": "MythicMobs",
         "class": "LightLevelCondition",
         "extends": "SkillCondition",
+        "implements": [
+            "ILocationCondition"
+        ],
         "name": [
             "lightLevel"
         ],
@@ -2208,6 +2492,9 @@
         "plugin": "MythicMobs",
         "class": "LineOfSightCondition",
         "extends": "SkillCondition",
+        "implements": [
+            "IEntityComparisonCondition"
+        ],
         "name": [
             "lineOfSight",
             "inlineofsight"
@@ -2220,6 +2507,9 @@
         "plugin": "MythicMobs",
         "class": "LineOfSightFromOriginCondition",
         "extends": "SkillCondition",
+        "implements": [
+            "ISkillMetaComparisonCondition"
+        ],
         "name": [
             "lineOfSightFromOrigin",
             "inlineofsightfromorigin"
@@ -2232,6 +2522,9 @@
         "plugin": "MythicMobs",
         "class": "LivingInRadiusCondition",
         "extends": "SkillCondition",
+        "implements": [
+            "ISkillMetaCondition"
+        ],
         "name": [
             "livinginradius"
         ],
@@ -2264,6 +2557,9 @@
         "plugin": "MythicMobs",
         "class": "LocalDifficultyCondition",
         "extends": "SkillCondition",
+        "implements": [
+            "ILocationCondition"
+        ],
         "name": [
             "localdifficulty"
         ],
@@ -2287,6 +2583,9 @@
         "plugin": "MythicMobs",
         "class": "LookingAtCondition",
         "extends": "SkillCondition",
+        "implements": [
+            "IEntityCondition"
+        ],
         "name": [
             "lookingAt"
         ],
@@ -2313,6 +2612,9 @@
         "plugin": "MythicMobs",
         "class": "LunarPhaseCondition",
         "extends": "SkillCondition",
+        "implements": [
+            "ILocationCondition"
+        ],
         "name": [
             "lunarPhase"
         ],
@@ -2336,6 +2638,9 @@
         "plugin": "MythicMobs",
         "class": "MaterialCooldownCondition",
         "extends": "SkillCondition",
+        "implements": [
+            "IEntityCondition"
+        ],
         "name": [
             "materialIsOnCooldown",
             "materialCooldown",
@@ -2362,6 +2667,9 @@
         "plugin": "MythicMobs",
         "class": "MobsInChunkCondition",
         "extends": "SkillCondition",
+        "implements": [
+            "ILocationCondition"
+        ],
         "name": [
             "mobsinchunk"
         ],
@@ -2384,6 +2692,10 @@
         "plugin": "MythicMobs",
         "class": "MobsInRadiusCondition",
         "extends": "SkillCondition",
+        "implements": [
+            "ISkillMetaCondition",
+            "ILocationCondition"
+        ],
         "name": [
             "mobsinradius"
         ],
@@ -2427,6 +2739,9 @@
         "plugin": "MythicMobs",
         "class": "MobsInWorldCondition",
         "extends": "SkillCondition",
+        "implements": [
+            "ILocationCondition"
+        ],
         "name": [
             "mobsinworld"
         ],
@@ -2446,68 +2761,12 @@
         ]
     },
     {
-        "plugin": "ModelEngine",
-        "class": "ModelHasDriverCondition",
-        "extends": "SkillCondition",
-        "name": [
-            "modelhasdriver",
-            "modeldriver"
-        ],
-        "description": "Checks if the target modeled entity has a driver",
-        "link": "https://git.lumine.io/mythiccraft/model-engine-4/-/wikis/Skills/Conditions/ModelHasDriver",
-        "attributes": []
-    },
-    {
-        "plugin": "ModelEngine",
-        "class": "ModelHasPassengerCondition",
-        "extends": "SkillCondition",
-        "name": [
-            "modelhaspassengers",
-            "modelhaspassenger",
-            "modelpassengers",
-            "modelpassenger"
-        ],
-        "description": "Checks if the target modeled entity has passengers",
-        "link": "https://git.lumine.io/mythiccraft/model-engine-4/-/wikis/Skills/Conditions/ModelHasPassengers",
-        "attributes": [
-            {
-                "name": [
-                    "m",
-                    "mid",
-                    "model",
-                    "modelid"
-                ],
-                "type": "PlaceholderString",
-                "description": "The id of the model of the modeled entity to check against",
-                "link": "https://git.lumine.io/mythiccraft/model-engine-4/-/wikis/Skills/Conditions/ModelHasPassengers",
-                "default_value": ""
-            },
-            {
-                "name": [
-                    "p",
-                    "pbone",
-                    "seat"
-                ],
-                "type": "PlaceholderString",
-                "description": "The name of the seat(s) to check for",
-                "link": "https://git.lumine.io/mythiccraft/model-engine-4/-/wikis/Skills/Conditions/ModelHasPassengers",
-                "default_value": ""
-            },
-            {
-                "name": [
-                    "mode"
-                ],
-                "type": "String",
-                "description": "The mode of the search. Can be either `AND` or `OR`",
-                "link": "https://git.lumine.io/mythiccraft/model-engine-4/-/wikis/Skills/Conditions/ModelHasPassengers",
-                "default_value": "AND"
-            }
-        ]
-    },
-    {
         "plugin": "MythicMobs",
         "class": "MoistCondition",
         "extends": "SkillCondition",
+        "implements": [
+            "ILocationCondition"
+        ],
         "name": [
             "ismoist",
             "moist"
@@ -2520,6 +2779,9 @@
         "plugin": "MythicMobs",
         "class": "MoistureCondition",
         "extends": "SkillCondition",
+        "implements": [
+            "ILocationCondition"
+        ],
         "name": [
             "moisturelevel",
             "moistness",
@@ -2545,6 +2807,9 @@
         "plugin": "MythicMobs",
         "class": "MotionXCondition",
         "extends": "SkillCondition",
+        "implements": [
+            "IEntityCondition"
+        ],
         "name": [
             "motionx",
             "motx"
@@ -2568,6 +2833,9 @@
         "plugin": "MythicMobs",
         "class": "MotionYCondition",
         "extends": "SkillCondition",
+        "implements": [
+            "IEntityCondition"
+        ],
         "name": [
             "motiony",
             "moty"
@@ -2591,6 +2859,9 @@
         "plugin": "MythicMobs",
         "class": "MotionZCondition",
         "extends": "SkillCondition",
+        "implements": [
+            "IEntityCondition"
+        ],
         "name": [
             "motionz",
             "motz"
@@ -2614,6 +2885,9 @@
         "plugin": "MythicMobs",
         "class": "MountedCondition",
         "extends": "SkillCondition",
+        "implements": [
+            "IEntityCondition"
+        ],
         "name": [
             "mounted"
         ],
@@ -2625,6 +2899,9 @@
         "plugin": "MythicMobs",
         "class": "MovingCondition",
         "extends": "SkillCondition",
+        "implements": [
+            "IEntityCondition"
+        ],
         "name": [
             "moving",
             "ismoving"
@@ -2648,6 +2925,9 @@
         "plugin": "MythicMobs",
         "class": "MythicMobTypeCondition",
         "extends": "SkillCondition",
+        "implements": [
+            "IEntityCondition"
+        ],
         "name": [
             "mythicMobType",
             "mmType"
@@ -2672,6 +2952,9 @@
         "plugin": "MythicMobs",
         "class": "MythicPackInstalledCondition",
         "extends": "SkillCondition",
+        "implements": [
+            "ICasterCondition"
+        ],
         "name": [
             "mythicpack",
             "pack",
@@ -2698,6 +2981,9 @@
         "plugin": "MythicMobs",
         "class": "MythicPackVersionCondition",
         "extends": "SkillCondition",
+        "implements": [
+            "ICasterCondition"
+        ],
         "name": [
             "packversion",
             "mythicpackversion",
@@ -2736,6 +3022,9 @@
         "plugin": "MythicMobs",
         "class": "MythicPackVersionGreaterThanCondition",
         "extends": "SkillCondition",
+        "implements": [
+            "ICasterCondition"
+        ],
         "name": [
             "packversiongreater",
             "mythicpackversiongreater",
@@ -2774,6 +3063,10 @@
         "plugin": "MythicMobs",
         "class": "NameCondition",
         "extends": "SkillCondition",
+        "implements": [
+            "IEntityCondition",
+            "ISkillMetaComparisonCondition"
+        ],
         "name": [
             "name",
             "castername"
@@ -2797,6 +3090,9 @@
         "plugin": "MythicMobs",
         "class": "NearClaimCondition",
         "extends": "SkillCondition",
+        "implements": [
+            "ILocationCondition"
+        ],
         "name": [
             "nearClaim",
             "nearClaims"
@@ -2820,6 +3116,9 @@
         "plugin": "MythicMobs",
         "class": "NightCondition",
         "extends": "SkillCondition",
+        "implements": [
+            "ILocationCondition"
+        ],
         "name": [
             "night"
         ],
@@ -2831,6 +3130,9 @@
         "plugin": "MythicMobs",
         "class": "NotInRegionCondition",
         "extends": "SkillCondition",
+        "implements": [
+            "ILocationCondition"
+        ],
         "name": [
             "notInRegion"
         ],
@@ -2855,6 +3157,10 @@
         "plugin": "MythicMobs",
         "class": "OffGCDCondition",
         "extends": "SkillCondition",
+        "implements": [
+            "ICasterCondition",
+            "IEntityCondition"
+        ],
         "name": [
             "offGCD"
         ],
@@ -2866,6 +3172,9 @@
         "plugin": "MythicMobs",
         "class": "OnBlockCondition",
         "extends": "SkillCondition",
+        "implements": [
+            "ILocationCondition"
+        ],
         "name": [
             "onBlock"
         ],
@@ -2894,6 +3203,9 @@
         "plugin": "MythicMobs",
         "class": "OnGroundCondition",
         "extends": "SkillCondition",
+        "implements": [
+            "IEntityCondition"
+        ],
         "name": [
             "onGround",
             "grounded"
@@ -2906,6 +3218,9 @@
         "plugin": "MythicMobs",
         "class": "OriginDistanceFromPinCondition",
         "extends": "SkillCondition",
+        "implements": [
+            "ISkillMetaCondition"
+        ],
         "name": [
             "originDistanceFromPin"
         ],
@@ -2938,6 +3253,9 @@
         "plugin": "MythicMobs",
         "class": "OriginLocationCondition",
         "extends": "SkillCondition",
+        "implements": [
+            "ISkillMetaCondition"
+        ],
         "name": [
             "originLocation"
         ],
@@ -2999,6 +3317,9 @@
         "plugin": "MythicMobs",
         "class": "OutsideCondition",
         "extends": "SkillCondition",
+        "implements": [
+            "ILocationCondition"
+        ],
         "name": [
             "outside"
         ],
@@ -3010,6 +3331,9 @@
         "plugin": "MythicMobs",
         "class": "OwnerCondition",
         "extends": "SkillCondition",
+        "implements": [
+            "IEntityComparisonCondition"
+        ],
         "name": [
             "owner"
         ],
@@ -3021,6 +3345,9 @@
         "plugin": "MythicMobs",
         "class": "OwnerIsOnlineCondition",
         "extends": "SkillCondition",
+        "implements": [
+            "IEntityCondition"
+        ],
         "name": [
             "ownerIsOnline"
         ],
@@ -3032,6 +3359,9 @@
         "plugin": "MythicMobs",
         "class": "PitchCondition",
         "extends": "SkillCondition",
+        "implements": [
+            "IEntityCondition"
+        ],
         "name": [
             "pitch"
         ],
@@ -3054,6 +3384,9 @@
         "plugin": "MythicMobs",
         "class": "PlayerKillsCondition",
         "extends": "SkillCondition",
+        "implements": [
+            "IEntityCondition"
+        ],
         "name": [
             "playerKills"
         ],
@@ -3076,6 +3409,9 @@
         "plugin": "MythicMobs",
         "class": "PlayerNotWithinCondition",
         "extends": "SkillCondition",
+        "implements": [
+            "ILocationCondition"
+        ],
         "name": [
             "playerNotWithin",
             "playersnotwithin"
@@ -3099,6 +3435,9 @@
         "plugin": "MythicMobs",
         "class": "PlayerWithinCondition",
         "extends": "SkillCondition",
+        "implements": [
+            "ILocationCondition"
+        ],
         "name": [
             "playerWithin",
             "playerswithin"
@@ -3122,6 +3461,9 @@
         "plugin": "MythicMobs",
         "class": "PlayersInRadiusCondition",
         "extends": "SkillCondition",
+        "implements": [
+            "ILocationCondition"
+        ],
         "name": [
             "playersInRadius",
             "pir",
@@ -3168,6 +3510,9 @@
         "plugin": "MythicMobs",
         "class": "PlayersInWorldCondition",
         "extends": "SkillCondition",
+        "implements": [
+            "ILocationCondition"
+        ],
         "name": [
             "playersInWorld"
         ],
@@ -3190,6 +3535,9 @@
         "plugin": "MythicMobs",
         "class": "PlayersOnlineCondition",
         "extends": "SkillCondition",
+        "implements": [
+            "ILocationCondition"
+        ],
         "name": [
             "playersOnline",
             "onlinePlayerCount",
@@ -3214,6 +3562,9 @@
         "plugin": "MythicMobs",
         "class": "PluginExistsCondition",
         "extends": "SkillCondition",
+        "implements": [
+            "ICasterCondition"
+        ],
         "name": [
             "plugin",
             "pluginexists",
@@ -3239,6 +3590,9 @@
         "plugin": "MythicMobs",
         "class": "PremiumCondition",
         "extends": "SkillCondition",
+        "implements": [
+            "ICasterCondition"
+        ],
         "name": [
             "premium",
             "ispremium",
@@ -3252,6 +3606,9 @@
         "plugin": "MythicMobs",
         "class": "RainingCondition",
         "extends": "SkillCondition",
+        "implements": [
+            "ILocationCondition"
+        ],
         "name": [
             "raining",
             "israining"
@@ -3264,6 +3621,9 @@
         "plugin": "MythicMobs",
         "class": "RegionCondition",
         "extends": "SkillCondition",
+        "implements": [
+            "ILocationCondition"
+        ],
         "name": [
             "region",
             "inregion"
@@ -3289,6 +3649,9 @@
         "plugin": "MythicMobs",
         "class": "ScoreCondition",
         "extends": "SkillCondition",
+        "implements": [
+            "IEntityCondition"
+        ],
         "name": [
             "score"
         ],
@@ -3334,6 +3697,9 @@
         "plugin": "MythicMobs",
         "class": "ScoreGlobalCondition",
         "extends": "SkillCondition",
+        "implements": [
+            "IEntityCondition"
+        ],
         "name": [
             "globalscore",
             "scoreglobal"
@@ -3369,6 +3735,9 @@
         "plugin": "MythicMobs",
         "class": "ServerNMSVersionCondition",
         "extends": "SkillCondition",
+        "implements": [
+            "ICasterCondition"
+        ],
         "name": [
             "servernmsversion",
             "servernms",
@@ -3394,6 +3763,9 @@
         "plugin": "MythicMobs",
         "class": "ServerVersionCondition",
         "extends": "SkillCondition",
+        "implements": [
+            "ICasterCondition"
+        ],
         "name": [
             "serverversion",
             "server",
@@ -3419,6 +3791,9 @@
         "plugin": "MythicMobs",
         "class": "SizeCondition",
         "extends": "SkillCondition",
+        "implements": [
+            "IEntityCondition"
+        ],
         "name": [
             "size",
             "mobSize"
@@ -3441,7 +3816,9 @@
     {
         "plugin": "MythicMobs",
         "class": "SkillCondition",
-        "extends": null,
+        "implements": [
+            "ISkillCondition"
+        ],
         "name": [],
         "description": null,
         "link": "https://git.lumine.io/mythiccraft/MythicMobs/-/wikis/Skills/Conditions",
@@ -3472,6 +3849,10 @@
         "plugin": "MythicMobs",
         "class": "SkillOnCooldownCondition",
         "extends": "SkillCondition",
+        "implements": [
+            "ICasterCondition",
+            "IEntityCondition"
+        ],
         "name": [
             "skillOnCooldown"
         ],
@@ -3494,6 +3875,9 @@
         "plugin": "MythicMobs",
         "class": "SpawnReasonCondition",
         "extends": "SkillCondition",
+        "implements": [
+            "IEntityCondition"
+        ],
         "name": [
             "spawnReason"
         ],
@@ -3517,6 +3901,9 @@
         "plugin": "MythicMobs",
         "class": "SprintingCondition",
         "extends": "SkillCondition",
+        "implements": [
+            "IEntityCondition"
+        ],
         "name": [
             "sprinting",
             "issprinting"
@@ -3529,6 +3916,9 @@
         "plugin": "MythicMobs",
         "class": "StanceCondition",
         "extends": "SkillCondition",
+        "implements": [
+            "IEntityCondition"
+        ],
         "name": [
             "stance"
         ],
@@ -3561,6 +3951,10 @@
         "plugin": "MythicMobs",
         "class": "StringEmptyCondition",
         "extends": "SkillCondition",
+        "implements": [
+            "IEntityCondition",
+            "ISkillMetaCondition"
+        ],
         "name": [
             "stringEmpty",
             "isEmpty"
@@ -3587,6 +3981,11 @@
         "plugin": "MythicMobs",
         "class": "StringEqualsCondition",
         "extends": "SkillCondition",
+        "implements": [
+            "IEntityCondition",
+            "ILocationCondition",
+            "ISkillMetaComparisonCondition"
+        ],
         "name": [
             "stringEquals",
             "stringEq"
@@ -3630,6 +4029,10 @@
         "plugin": "MythicMobs",
         "class": "StringNotEmptyCondition",
         "extends": "SkillCondition",
+        "implements": [
+            "IEntityCondition",
+            "ISkillMetaCondition"
+        ],
         "name": [
             "stringNotEmpty",
             "notEmpty"
@@ -3656,6 +4059,9 @@
         "plugin": "MythicMobs",
         "class": "StructureCondition",
         "extends": "SkillCondition",
+        "implements": [
+            "ILocationCondition"
+        ],
         "name": [
             "structure"
         ],
@@ -3679,6 +4085,9 @@
         "plugin": "MythicMobs",
         "class": "SunnyCondition",
         "extends": "SkillCondition",
+        "implements": [
+            "ILocationCondition"
+        ],
         "name": [
             "sunny",
             "issunny"
@@ -3691,6 +4100,9 @@
         "plugin": "MythicMobs",
         "class": "TargetInLineOfSightCondition",
         "extends": "SkillCondition",
+        "implements": [
+            "IEntityCondition"
+        ],
         "name": [
             "targetInLineOfSight"
         ],
@@ -3702,6 +4114,9 @@
         "plugin": "MythicMobs",
         "class": "TargetNotInLineOfSightCondition",
         "extends": "SkillCondition",
+        "implements": [
+            "IEntityCondition"
+        ],
         "name": [
             "targetNotInLineOfSight"
         ],
@@ -3713,6 +4128,9 @@
         "plugin": "MythicMobs",
         "class": "TargetNotWithinCondition",
         "extends": "SkillCondition",
+        "implements": [
+            "IEntityCondition"
+        ],
         "name": [
             "targetnotwithin"
         ],
@@ -3735,6 +4153,9 @@
         "plugin": "MythicMobs",
         "class": "TargetWithinCondition",
         "extends": "SkillCondition",
+        "implements": [
+            "IEntityCondition"
+        ],
         "name": [
             "targetWithin"
         ],
@@ -3757,6 +4178,9 @@
         "plugin": "MythicMobs",
         "class": "TargetsCondition",
         "extends": "SkillCondition",
+        "implements": [
+            "ISkillMetaCondition"
+        ],
         "name": [
             "targets"
         ],
@@ -3779,6 +4203,9 @@
         "plugin": "MythicMobs",
         "class": "ThunderingCondition",
         "extends": "SkillCondition",
+        "implements": [
+            "ILocationCondition"
+        ],
         "name": [
             "thundering",
             "stormy",
@@ -3793,6 +4220,9 @@
         "plugin": "MythicMobs",
         "class": "TriggerBlockTypeCondition",
         "extends": "SkillCondition",
+        "implements": [
+            "ISkillMetaCondition"
+        ],
         "name": [
             "triggerBlockType",
             "triggeringBlockType"
@@ -3821,6 +4251,9 @@
         "plugin": "MythicMobs",
         "class": "TriggerItemTypeCondition",
         "extends": "SkillCondition",
+        "implements": [
+            "ISkillMetaCondition"
+        ],
         "name": [
             "triggerItemType",
             "triggeringItemType"
@@ -3853,6 +4286,11 @@
         "plugin": "MythicMobs",
         "class": "VariableEqualsCondition",
         "extends": "VariableCondition",
+        "implements": [
+            "IEntityCondition",
+            "ILocationCondition",
+            "ISkillMetaCondition"
+        ],
         "name": [
             "variableEquals",
             "variableeq",
@@ -3903,6 +4341,11 @@
         "plugin": "MythicMobs",
         "class": "VariableInRangeCondition",
         "extends": "VariableCondition",
+        "implements": [
+            "IEntityCondition",
+            "ILocationCondition",
+            "ISkillMetaCondition"
+        ],
         "name": [
             "variableInRange",
             "varinrange",
@@ -3954,6 +4397,11 @@
         "plugin": "MythicMobs",
         "class": "VariableIsSetCondition",
         "extends": "VariableCondition",
+        "implements": [
+            "IEntityCondition",
+            "ILocationCondition",
+            "ISkillMetaCondition"
+        ],
         "name": [
             "variableIsSet",
             "varisset",
@@ -3992,6 +4440,9 @@
         "plugin": "MythicMobs",
         "class": "VehicleIsDeadCondition",
         "extends": "SkillCondition",
+        "implements": [
+            "IEntityComparisonCondition"
+        ],
         "name": [
             "vehicleisdead"
         ],
@@ -4003,6 +4454,9 @@
         "plugin": "MythicMobs",
         "class": "VelocityCondition",
         "extends": "SkillCondition",
+        "implements": [
+            "IEntityCondition"
+        ],
         "name": [
             "velocity"
         ],
@@ -4025,6 +4479,9 @@
         "plugin": "MythicMobs",
         "class": "WearingCondition",
         "extends": "SkillCondition",
+        "implements": [
+            "IEntityCondition"
+        ],
         "name": [
             "wearing",
             "iswearing",
@@ -4067,6 +4524,9 @@
         "plugin": "MythicMobs",
         "class": "WorldCondition",
         "extends": "SkillCondition",
+        "implements": [
+            "ILocationCondition"
+        ],
         "name": [
             "world"
         ],
@@ -4089,6 +4549,9 @@
         "plugin": "MythicMobs",
         "class": "WorldTimeCondition",
         "extends": "SkillCondition",
+        "implements": [
+            "ILocationCondition"
+        ],
         "name": [
             "worldtime"
         ],
@@ -4111,6 +4574,10 @@
         "plugin": "MythicMobs",
         "class": "YDiffCondition",
         "extends": "SkillCondition",
+        "implements": [
+            "IEntityComparisonCondition",
+            "ILocationComparisonCondition"
+        ],
         "name": [
             "ydiff"
         ],
@@ -4134,6 +4601,9 @@
         "plugin": "MythicMobs",
         "class": "YawCondition",
         "extends": "SkillCondition",
+        "implements": [
+            "IEntityCondition"
+        ],
         "name": [
             "yaw"
         ],

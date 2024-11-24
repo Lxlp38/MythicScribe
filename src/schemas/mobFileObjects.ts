@@ -1,4 +1,4 @@
-import { FileObjectMap, FileObjectTypes, EnumType, generateIntInRange } from '../objectInfos';
+import { FileObjectMap, FileObjectTypes, EnumType, generateNumbersInRange } from '../objectInfos';
 
 
 export const MobFileObjects: FileObjectMap = {
@@ -45,7 +45,7 @@ export const MobFileObjects: FileObjectMap = {
 			},
 			"Offset": {
 				type: FileObjectTypes.FLOAT,
-				values: generateIntInRange(0.1, 2.0, 0.1, true),
+				values: generateNumbersInRange(0.1, 2.0, 0.1, true),
 			}
 		},
 		link: "https://git.lumine.io/mythiccraft/MythicMobs/-/wikis/Mobs/Mobs#healthbar",
@@ -62,7 +62,7 @@ export const MobFileObjects: FileObjectMap = {
 			},
 			"Range": {
 				type: FileObjectTypes.FLOAT,
-				values: generateIntInRange(10, 100, 10, true),
+				values: generateNumbersInRange(10, 100, 10, true),
 			},
 			"Color": {
 				type: FileObjectTypes.ENUM,
@@ -131,7 +131,7 @@ export const MobFileObjects: FileObjectMap = {
 	"DamageModifiers": {
 		type: FileObjectTypes.LIST,
 		dataset: EnumType.DAMAGECAUSE,
-		values: generateIntInRange(-1.0, 2.0, 0.1, true),
+		values: generateNumbersInRange(-1.0, 2.0, 0.1, true),
 		link: "https://git.lumine.io/mythiccraft/MythicMobs/-/wikis/Mobs/DamageModifiers",
 		description: "The damage modifiers of the mob.",
 	},
@@ -161,14 +161,14 @@ export const MobFileObjects: FileObjectMap = {
 			},
 			"KnockbackResistance": {
 				type: FileObjectTypes.FLOAT,
-				values: generateIntInRange(0.0, 1.0, 0.1, true),
+				values: generateNumbersInRange(0.0, 1.0, 0.1, true),
 			},
 			"Power": {
 				type: FileObjectTypes.FLOAT,
 			},
 			"MovementSpeed": {
 				type: FileObjectTypes.FLOAT,
-				values: generateIntInRange(0.0, 0.4, 0.05, true),
+				values: generateNumbersInRange(0.0, 0.4, 0.05, true),
 			}
 		}
 	},
@@ -193,7 +193,7 @@ export const MobFileObjects: FileObjectMap = {
 			},
 			"Offset": {
 				type: FileObjectTypes.FLOAT,
-				values: generateIntInRange(0.1, 2.0, 0.1, true),
+				values: generateNumbersInRange(0.1, 2.0, 0.1, true),
 			},
 			"Scale": {
 				type: FileObjectTypes.VECTOR,
@@ -223,17 +223,14 @@ export const MobFileObjects: FileObjectMap = {
 				type: FileObjectTypes.ENUM,
 				dataset: EnumType.MATERIAL,
 				description: "The block that once placed will prompt the plugin to check for a totem",
-				link: "https://git.lumine.io/mythiccraft/MythicMobs/-/wikis/Mobs/Totem",
 			},
 			"Pattern": {
 				type: FileObjectTypes.LIST,
 				description: "A list of offset vectors and materials that define what the totem should look like",
-				link: "https://git.lumine.io/mythiccraft/MythicMobs/-/wikis/Mobs/Totem",
 			},
 			"Replacement" : {
 				type: FileObjectTypes.LIST,
 				description: "Optional list of replacements blocks for the pattern",
-				link: "https://git.lumine.io/mythiccraft/MythicMobs/-/wikis/Mobs/Totem",
 			}
 		}
 	},

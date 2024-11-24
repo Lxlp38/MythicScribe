@@ -1,4 +1,4 @@
-import { FileObjectMap, FileObjectTypes, generateIntInRange } from '../objectInfos';
+import { FileObjectMap, FileObjectTypes, generateNumbersInRange } from '../objectInfos';
 
 
 export const MetaskillFileObjects: FileObjectMap = {
@@ -24,7 +24,7 @@ export const MetaskillFileObjects: FileObjectMap = {
 	},
 	"Cooldown": {
 		type: FileObjectTypes.FLOAT,
-		values: generateIntInRange(0, 100, 10, false),
+		values: generateNumbersInRange(0, 100, 10, false),
 		link: "https://git.lumine.io/mythiccraft/MythicMobs/-/wikis/Skills/Metaskills#cooldown",
 		description: "The cooldown of the metaskill (in seconds).",
 	},
