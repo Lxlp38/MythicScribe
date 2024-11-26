@@ -2,6 +2,8 @@ import * as vscode from 'vscode';
 
 import * as config from './imports/utils/configutils';
 
+import { getFormatter } from './imports/formatter/formatter';
+
 import { hoverProvider } from './imports/hovers/hoverprovider';
 
 import { inlineConditionCompletionProvider } from './imports/completions/inlineconditionCompletionProvider';
@@ -39,6 +41,7 @@ export function activate(context: vscode.ExtensionContext) {
 
 	ctx = context;
 
+	// Datasets
 	loadDatasets(context);
 
 	// Subscription Handler
@@ -47,9 +50,11 @@ export function activate(context: vscode.ExtensionContext) {
 		config.updateEnabled(vscode.window.activeTextEditor.document);
 	}
 
-
 	// Commands
 	context.subscriptions.push(vscode.commands.registerCommand('MythicScribe.addCustomDataset', addCustomDataset));
+
+	// Formatter
+	context.subscriptions.push(getFormatter());
 
 }
 

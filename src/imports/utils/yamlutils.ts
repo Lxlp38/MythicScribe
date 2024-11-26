@@ -42,6 +42,9 @@ export function getIndentation(line: string): number {
     return line.length - line.trimStart().length;
 }
 
+export function getDefaultIndentation(): number {
+	return vscode.window.activeTextEditor ? vscode.window.activeTextEditor.options.tabSize as number : 2;
+}
 
 
 export function isEmptyLine(document: vscode.TextDocument, lineIndex: number): boolean {
