@@ -113,6 +113,7 @@ export enum EnumType {
 	SPAWNREASON = 'Spawn Reason',
 	ENCHANTMENT = 'Enchantment',
 	ITEMFLAG = 'Item Flag',
+	SOUNDCATEGORY = 'Sound Category',
 
 }
 
@@ -187,7 +188,9 @@ export const EnumInfo = {
 
 	[EnumType.ENCHANTMENT]: newEnumDetail("paper/enchantment.json"),
 
-	[EnumType.ITEMFLAG]: newEnumDetail("paper/itemflag.json")
+	[EnumType.ITEMFLAG]: newEnumDetail("paper/itemflag.json"),
+
+	[EnumType.SOUNDCATEGORY]: newEnumDetail("paper/soundcategory.json")
 };
 
 

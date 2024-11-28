@@ -44,6 +44,15 @@ export function getObjectLinkedToAttribute(document: vscode.TextDocument, positi
 	return null;  // No unbalanced opening brace found
 }
 
+export function getAttributeLinkedToValue(document: vscode.TextDocument, position: vscode.Position): string | null {
+	const textBeforeValue = document.getText(new vscode.Range(new vscode.Position(0, 0), position));
+	const attributeMatch = textBeforeValue.match(/[{;]\s*\b(\w+)\b=[^;]*$/);
+	if (attributeMatch && attributeMatch[1]) {
+		return attributeMatch[1];
+	}
+	return null;
+}
+
 export function fetchCursorSkills(document: vscode.TextDocument, position: vscode.Position, type: ObjectType) {
 	const maybeMechanic = document.getWordRangeAtPosition(position, ObjectInfo[type].regex);
 	if (maybeMechanic) {

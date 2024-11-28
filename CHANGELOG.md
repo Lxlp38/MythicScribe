@@ -1,5 +1,14 @@
 # Changelog
 
+## [Unreleased]
+
+## Added
+- "Format Document" Feature
+- SoundCategory paper dataset
+
+## Fixed
+- Attribute values completions not working on invocation 
+
 ## [1.3.0]
 
 ### Added

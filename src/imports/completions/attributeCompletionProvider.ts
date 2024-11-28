@@ -89,7 +89,7 @@ export function attributeCompletionProvider() {
 
 export function attributeValueCompletionProvider() {
     const attributeValueCompletionProvider = vscode.languages.registerCompletionItemProvider(
-        'yaml',
+        ['mythicscript', 'yaml'],
         {
             async provideCompletionItems(document: vscode.TextDocument, position: vscode.Position, token: vscode.CancellationToken, context: vscode.CompletionContext) {
 
@@ -139,7 +139,6 @@ export function attributeValueCompletionProvider() {
                     Object.entries(EnumInfo[EnumType[attributeEnum as keyof typeof EnumType]].dataset).forEach(([key, value]: [string, unknown]) => {
                         const completionItem = new vscode.CompletionItem(key, vscode.CompletionItemKind.Value);
                         if ((value as EnumDatasetValue).description) {
-                            const completionItem = new vscode.CompletionItem(key, vscode.CompletionItemKind.Value);
                             completionItem.detail = `${(value as EnumDatasetValue).description}`;
                             completionItems.push(completionItem);
                         }
