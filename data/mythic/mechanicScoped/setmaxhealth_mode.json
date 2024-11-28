@@ -1,0 +1,8 @@
+{
+    "STATIC": {
+        "description": "Sets the max health directly to the amount value."
+    },
+    "SCALE":{
+        "description": "Sets the max health to the amount value while also scalign the current health accordingly."
+    }
+}

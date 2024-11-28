@@ -1,0 +1,11 @@
+{
+    "ADD": {
+        "description": "Adds the trade."
+    },
+    "REMOVE": {
+        "description": "Removes the trade at the given slot."
+    },
+    "REPLACE": {
+        "description": "Replaces the trade at the given slot."
+    }
+}

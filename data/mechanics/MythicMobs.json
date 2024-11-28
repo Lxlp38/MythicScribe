@@ -51,7 +51,8 @@
                 "type": "String",
                 "description": "The action to perform. Can be `ADD`, `REMOVE`,`REPLACE`",
                 "link": "https://git.lumine.io/mythiccraft/MythicMobs/-/wikis/Skills/Mechanics/AddTrade",
-                "default_value": "ADD"
+                "default_value": "ADD",
+                "enum": "AddTrade_Action"
             },
             {
                 "name": [
@@ -76,7 +77,8 @@
                 "type": "String",
                 "description": "The first ingredient",
                 "link": "https://git.lumine.io/mythiccraft/MythicMobs/-/wikis/Skills/Mechanics/AddTrade",
-                "default_value": "STONE"
+                "default_value": "STONE",
+                "enum": "Material"
             },
             {
                 "name": [
@@ -97,7 +99,8 @@
                 "type": "String",
                 "description": "The result item of the trade",
                 "link": "https://git.lumine.io/mythiccraft/MythicMobs/-/wikis/Skills/Mechanics/AddTrade",
-                "default_value": "STONE"
+                "default_value": "STONE",
+                "enum": "Material"
             },
             {
                 "name": [
@@ -409,7 +412,7 @@
                 "description": "The [attribute][] to set",
                 "link": "https://git.lumine.io/mythiccraft/MythicMobs/-/wikis/Skills/Mechanics/Attribute",
                 "default_value": "GENERIC_LUCK",
-                "enum": "SpigotAttribute"
+                "enum": "PaperAttribute"
             },
             {
                 "name": [
@@ -457,7 +460,7 @@
                 "description": "The [attribute]",
                 "link": "https://git.lumine.io/mythiccraft/MythicMobs/-/wikis/Skills/Mechanics/AttributeModifier",
                 "default_value": "GENERIC_LUCK",
-                "enum": "SpigotAttribute"
+                "enum": "PaperAttribute"
             },
             {
                 "name": [
@@ -467,7 +470,8 @@
                 "type": "Enum",
                 "description": "The [operation] to perform",
                 "link": "https://git.lumine.io/mythiccraft/MythicMobs/-/wikis/Skills/Mechanics/AttributeModifier",
-                "default_value": "ADD_NUMBER"
+                "default_value": "ADD_NUMBER",
+                "enum": "PaperAttributeOperation"
             },
             {
                 "name": [
@@ -1158,7 +1162,8 @@
                 "type": "String",
                 "description": "The shape of the effect. `Sphere`/`Cube`",
                 "link": "https://git.lumine.io/mythiccraft/MythicMobs/-/wikis/Skills/Mechanics/BlockMask",
-                "default_value": "SPHERE"
+                "default_value": "SPHERE",
+                "enum": "Shape"
             },
             {
                 "name": [
@@ -1231,7 +1236,8 @@
                 "type": "String",
                 "description": "The shape of the effect. `Sphere`/`Cube`",
                 "link": "https://git.lumine.io/mythiccraft/MythicMobs/-/wikis/Skills/Mechanics/BlockUnmask",
-                "default_value": "SPHERE"
+                "default_value": "SPHERE",
+                "enum": "Shape"
             }
         ]
     },
@@ -1381,7 +1387,8 @@
                 "type": "String",
                 "description": "The shape of the effect (Sphere/Cube)",
                 "link": "https://git.lumine.io/mythiccraft/MythicMobs/-/wikis/Skills/Mechanics/BlockWave",
-                "default_value": "sphere"
+                "default_value": "sphere",
+                "enum": "Shape"
             },
             {
                 "name": [
@@ -2798,7 +2805,8 @@
                 "type": "Enum",
                 "description": "The action to use. Can be `SET`, `ADD`, `MULTIPLY`, `DIVIDE`",
                 "link": "https://git.lumine.io/mythiccraft/MythicMobs/-/wikis/Skills/Mechanics/DisplayTransformation",
-                "default_value": "SET"
+                "default_value": "SET",
+                "enum": "DisplayTransformation_Action"
             },
             {
                 "name": [
@@ -2810,7 +2818,8 @@
                 "type": "Enum",
                 "description": "The type of the transformation. Can be `TRANSLATION`, `SCALE`, `RIGHT_ROTATION`, `LEFT_ROTATION`",
                 "link": "https://git.lumine.io/mythiccraft/MythicMobs/-/wikis/Skills/Mechanics/DisplayTransformation",
-                "default_value": "TRANSLATION"
+                "default_value": "TRANSLATION",
+                "enum": "DisplayTransformation_Type"
             },
             {
                 "name": [
@@ -2886,7 +2895,8 @@
                 "type": "PlaceholderString",
                 "description": "Items to drop. Can be a comma-separated list of items, or a DropTable. You can specify an amount by putting a space and a number after the item name.",
                 "link": "https://git.lumine.io/mythiccraft/MythicMobs/-/wikis/Skills/Mechanics/dropitem",
-                "default_value": "NONE"
+                "default_value": "NONE",
+                "enum": "Material"
             },
             {
                 "name": [
@@ -3336,7 +3346,8 @@
                 "type": "String",
                 "description": "The Type of firework. See below for a list.",
                 "link": "https://git.lumine.io/mythiccraft/MythicMobs/-/wikis/Skills/Mechanics/firework",
-                "default_value": "BALL"
+                "default_value": "BALL",
+                "enum": "FireworkEffectType"
             },
             {
                 "name": [
@@ -3736,7 +3747,8 @@
                 "type": "String",
                 "description": "The type of liquid. Can be \u201cWATER\u201d or \u201cLAVA\u201d",
                 "link": "https://git.lumine.io/mythiccraft/MythicMobs/-/wikis/Skills/Mechanics/geyser",
-                "default_value": "WATER"
+                "default_value": "WATER",
+                "enum": "Fluid"
             }
         ]
     },
@@ -3841,7 +3853,8 @@
                 "type": "String",
                 "description": "The item material (supports for mythicmobs item)",
                 "link": "https://git.lumine.io/mythiccraft/MythicMobs/-/wikis/Skills/Mechanics/giveitemfromtarget",
-                "default_value": ""
+                "default_value": "",
+                "enum": "Material"
             }
         ]
     },
@@ -3886,7 +3899,8 @@
                 "type": "PlaceholderString",
                 "description": "The item material (supports for MythicMobs' [Items](https://git.lumine.io/mythiccraft/MythicMobs/-/wikis/Items/Items) and [Droptables](https://git.lumine.io/mythiccraft/MythicMobs/-/wikis/drops/Drops#drop-tables)) You can specify an amount by putting a space and a number after the item name",
                 "link": "https://git.lumine.io/mythiccraft/MythicMobs/-/wikis/Skills/Mechanics/giveitem",
-                "default_value": ""
+                "default_value": "",
+                "enum": "Material"
             }
         ]
     },
@@ -3934,7 +3948,8 @@
                 "type": "String",
                 "description": "The [color] with which the entity will glow",
                 "link": "https://git.lumine.io/mythiccraft/MythicMobs/-/wikis/Skills/Mechanics/glow",
-                "default_value": "white"
+                "default_value": "white",
+                "enum": "GlowColor"
             }
         ]
     },
@@ -4423,7 +4438,8 @@
                 "type": "String",
                 "description": "The list of items to drop. This attribute works like the [DropItem](/skills/mechanics/dropitem)'s one",
                 "link": "https://git.lumine.io/mythiccraft/MythicMobs/-/wikis/Skills/Mechanics/itemspray",
-                "default_value": "iron_sword"
+                "default_value": "iron_sword",
+                "enum": "Material"
             }
         ]
     },
@@ -5012,7 +5028,8 @@
                 "type": "String",
                 "description": "Whether to use high-accuracy mode, which raytraces every tick to ensure the projectile cannot ever go through anything. Values can be `true`, `false`, `PLAYERS_ONLY`",
                 "link": "https://git.lumine.io/mythiccraft/MythicMobs/-/wikis/Skills/Mechanics/missile",
-                "default_value": "PLAYERS_ONLY"
+                "default_value": "PLAYERS_ONLY",
+                "enum": "Projectile_HighAccuracyMode"
             }
         ]
     },
@@ -5059,7 +5076,8 @@
                 "type": "String",
                 "description": "The operation to perform",
                 "link": "https://git.lumine.io/mythiccraft/MythicMobs/-/wikis/Skills/Mechanics/modifyglobalscore",
-                "default_value": "ADD"
+                "default_value": "ADD",
+                "enum": "ScoreAction"
             }
         ]
     },
@@ -5099,7 +5117,8 @@
                 "type": "String",
                 "description": "The trait to modify:<br>`INERTIA`, `POWER`, `VELOCITY`, `RADIUS` and `YOFFSET`",
                 "link": "https://git.lumine.io/mythiccraft/MythicMobs/-/wikis/Skills/Mechanics/modifyprojectile",
-                "default_value": "`VELOCITY`"
+                "default_value": "`VELOCITY`",
+                "enum": "ModifyProjectile_Trait"
             },
             {
                 "name": [
@@ -5109,7 +5128,8 @@
                 "type": "String",
                 "description": "The action to perform for modifying the projectile trait:<br>`ADD`, `SET`, `MULTIPLY`",
                 "link": "https://git.lumine.io/mythiccraft/MythicMobs/-/wikis/Skills/Mechanics/modifyprojectile",
-                "default_value": "`MULTIPLY`"
+                "default_value": "`MULTIPLY`",
+                "enum": "ModifyProjectile_Action"
             },
             {
                 "name": [
@@ -5177,7 +5197,8 @@
                 "type": "String",
                 "description": "The operation to perform",
                 "link": "https://git.lumine.io/mythiccraft/MythicMobs/-/wikis/Skills/Mechanics/modifyscore",
-                "default_value": "SET"
+                "default_value": "SET",
+                "enum": "ScoreAction"
             }
         ]
     },
@@ -5224,7 +5245,8 @@
                 "type": "String",
                 "description": "The operation to perform",
                 "link": "https://git.lumine.io/mythiccraft/MythicMobs/-/wikis/Skills/Mechanics/modifytargetscore",
-                "default_value": "ADD"
+                "default_value": "ADD",
+                "enum": "ScoreAction"
             }
         ]
     },
@@ -6134,7 +6156,8 @@
                 "type": "String",
                 "description": "The [Projectile Bullet Type](/skills/mechanics/projectile#projectile-bullets). Also makes the orbital inherits every related attribute",
                 "link": "https://git.lumine.io/mythiccraft/MythicMobs/-/wikis/Skills/Mechanics/orbital",
-                "default_value": "NONE"
+                "default_value": "NONE",
+                "enum": "Projectile_BulletType"
             }
         ]
     },
@@ -6188,7 +6211,8 @@
                 "type": "String",
                 "description": "The [particle] that will be displayed at the orbitals",
                 "link": "https://git.lumine.io/mythiccraft/MythicMobs/-/wikis/Skills/Mechanics/Atom",
-                "default_value": "`particle`"
+                "default_value": "`particle`",
+                "enum": "Particle"
             },
             {
                 "name": [
@@ -6199,7 +6223,8 @@
                 "type": "String",
                 "description": "The [particle] that will be displayed at the nucleus",
                 "link": "https://git.lumine.io/mythiccraft/MythicMobs/-/wikis/Skills/Mechanics/Atom",
-                "default_value": "reddust"
+                "default_value": "reddust",
+                "enum": "Particle"
             },
             {
                 "name": [
@@ -7971,7 +7996,8 @@
                 "type": "PlaceholderString",
                 "description": "The type or list of types of potion effects to clear. Not providing a type will clear all effects.",
                 "link": "https://git.lumine.io/mythiccraft/MythicMobs/-/wikis/Skills/Mechanics/potionclear",
-                "default_value": ""
+                "default_value": "",
+                "enum": "PotionEffectType"
             }
         ]
     },
@@ -8150,6 +8176,7 @@
                 "description": "The \"type\" of projectile. Default projectiles are launched from the mob's location towards the target. METEOR type projectiles fall from the sky above the target.",
                 "link": "https://git.lumine.io/mythiccraft/MythicMobs/-/wikis/Skills/Mechanics/projectile",
                 "default_value": "NORMAL",
+                "enum": "Projectile_Type",
                 "inheritable": false
             },
             {
@@ -8250,6 +8277,7 @@
                 "description": "Whether to use high-accuracy mode, which raytraces every tick to ensure the projectile cannot ever go through anything. Values can be `true`, `false`, `PLAYERS_ONLY`",
                 "link": "https://git.lumine.io/mythiccraft/MythicMobs/-/wikis/Skills/Mechanics/projectile",
                 "default_value": "PLAYERS_ONLY",
+                "enum": "Projectile_HighAccuracyMode",
                 "inheritable": false
             },
             {
@@ -8340,7 +8368,8 @@
                 "type": "String",
                 "description": "The type of the bullet. If set, additional attributes becomes available depending on the specified bullet type. A list of bullet types and associated attributes is available [below](/skills/mechanics/projectile#projectile-bullets)",
                 "link": "https://git.lumine.io/mythiccraft/MythicMobs/-/wikis/Skills/Mechanics/projectile",
-                "default_value": "NONE"
+                "default_value": "",
+                "enum": "Projectile_BulletType"
             },
             {
                 "name": [
@@ -8729,7 +8758,8 @@
                 "type": "String",
                 "description": "Whether the starting point must have line-of-sight to the origin.  Values can be `true`, `false`, `PLAYERS_ONLY`",
                 "link": "https://git.lumine.io/mythiccraft/MythicMobs/-/wikis/Skills/Mechanics/projectile",
-                "default_value": "PLAYERS_ONLY"
+                "default_value": "PLAYERS_ONLY",
+                "enum": "Projectile_HighAccuracyMode"
             },
             {
                 "name": [
@@ -9609,7 +9639,8 @@
                 "type": "String",
                 "description": "The operation to perform. Can be SET, ADD, REMOVE, DIVIDE, or MULTIPLY.",
                 "link": "https://git.lumine.io/mythiccraft/MythicMobs/-/wikis/Skills/Mechanics/projectilevelocity",
-                "default_value": "SET"
+                "default_value": "SET",
+                "enum": "Velocity_Mode"
             }
         ]
     },
@@ -9697,7 +9728,8 @@
                 "type": "String",
                 "description": "The direction of the movement. Can also be a Targeter",
                 "link": "https://git.lumine.io/mythiccraft/MythicMobs/-/wikis/Skills/Mechanics/PushBlock",
-                "default_value": "NORTH"
+                "default_value": "NORTH",
+                "enum": "PushBlock_Direction"
             },
             {
                 "name": [
@@ -10005,7 +10037,8 @@
                 "type": "String",
                 "description": "[Determines the collision behaviour when fluids get hit during ray tracing](https://hub.spigotmc.org/javadocs/spigot/org/bukkit/FluidCollisionMode.html)",
                 "link": "https://git.lumine.io/mythiccraft/MythicMobs/-/wikis/Skills/Mechanics/raytrace",
-                "default_value": "NEVER"
+                "default_value": "NEVER",
+                "enum": "FluidCollisionMode"
             },
             {
                 "name": [
@@ -10151,7 +10184,8 @@
                 "type": "String",
                 "description": "[Determines the collision behaviour when fluids get hit during ray tracing](https://hub.spigotmc.org/javadocs/spigot/org/bukkit/FluidCollisionMode.html)",
                 "link": "https://git.lumine.io/mythiccraft/MythicMobs/-/wikis/Skills/Mechanics/raytraceto",
-                "default_value": "NEVER"
+                "default_value": "NEVER",
+                "enum": "FluidCollisionMode"
             },
             {
                 "name": [
@@ -10643,7 +10677,8 @@
                 "type": "String",
                 "description": "The icon to send. Accepts any valid MATERIAL.",
                 "link": "https://git.lumine.io/mythiccraft/MythicMobs/-/wikis/Skills/Mechanics/sendtoast",
-                "default_value": "diamond_sword"
+                "default_value": "diamond_sword",
+                "enum": "Material"
             },
             {
                 "name": [
@@ -10663,7 +10698,8 @@
                 "type": "String",
                 "description": "The type of toast to send. MUST BE LOWERCASE. Options are: `challenge`, `task` or `goal`.",
                 "link": "https://git.lumine.io/mythiccraft/MythicMobs/-/wikis/Skills/Mechanics/sendtoast",
-                "default_value": "challenge"
+                "default_value": "challenge",
+                "enum": "SendToast_Frame"
             }
         ]
     },
@@ -10934,7 +10970,8 @@
                 "type": "String",
                 "description": "The gamemode to change the target to.",
                 "link": "https://git.lumine.io/mythiccraft/MythicMobs/-/wikis/Skills/Mechanics/setgamemode",
-                "default_value": "SURVIVAL"
+                "default_value": "SURVIVAL",
+                "enum": "Gamemode"
             }
         ]
     },
@@ -11114,7 +11151,8 @@
                 "type": "String",
                 "description": "The type of the operation to perform",
                 "link": "https://git.lumine.io/mythiccraft/MythicMobs/-/wikis/Skills/Mechanics/setlevel",
-                "default_value": "SET"
+                "default_value": "SET",
+                "enum": "SetLevel_Action"
             },
             {
                 "name": [
@@ -11197,7 +11235,8 @@
                 "type": "String",
                 "description": "The method of setting max health. `STATIC` will set the max health directly to amount value. `SCALE` will set the new max health but also scale the current health of the entity accordingly",
                 "link": "https://git.lumine.io/mythiccraft/MythicMobs/-/wikis/Skills/Mechanics/setmaxhealth",
-                "default_value": "STATIC"
+                "default_value": "STATIC",
+                "enum": "SetMaxHealth_Mode"
             }
         ]
     },
@@ -12006,7 +12045,8 @@
                 "type": "String",
                 "description": "The [material] of the fireball, if ITEM type was used",
                 "link": "https://git.lumine.io/mythiccraft/MythicMobs/-/wikis/Skills/Mechanics/shootfireball",
-                "default_value": "BLAZE_POWDER"
+                "default_value": "BLAZE_POWDER",
+                "enum": "Material"
             },
             {
                 "name": [
@@ -12027,7 +12067,8 @@
                 "type": "String",
                 "description": "The type of the fireball",
                 "link": "https://git.lumine.io/mythiccraft/MythicMobs/-/wikis/Skills/Mechanics/shootfireball",
-                "default_value": "SMALL"
+                "default_value": "SMALL",
+                "enum": "ShootFireball_Type"
             }
         ]
     },
@@ -12054,7 +12095,8 @@
                 "type": "String",
                 "description": "Type of projectile to shoot.",
                 "link": "https://git.lumine.io/mythiccraft/MythicMobs/-/wikis/Skills/Mechanics/shoot",
-                "default_value": "arrow"
+                "default_value": "arrow",
+                "enum": "Shoot_Type"
             },
             {
                 "name": [
@@ -12279,7 +12321,8 @@
                 "type": "PlaceholderString",
                 "description": "The type of the potion applied to the projectile, if POTION",
                 "link": "https://git.lumine.io/mythiccraft/MythicMobs/-/wikis/Skills/Mechanics/shoot",
-                "default_value": "SLOW"
+                "default_value": "SLOW",
+                "enum": "PotionEffectType"
             },
             {
                 "name": [
@@ -13289,7 +13332,8 @@
                 "type": "String",
                 "description": "The category at which the sound is played, useful for resourcepacks",
                 "link": "https://git.lumine.io/mythiccraft/MythicMobs/-/wikis/Skills/Mechanics/Sound",
-                "default_value": "MASTER"
+                "default_value": "MASTER",
+                "enum": "SoundCategory"
             }
         ]
     },
@@ -13471,7 +13515,8 @@
                 "type": "String",
                 "description": "The type of spring. Can be `water` or `lava`",
                 "link": "https://git.lumine.io/mythiccraft/MythicMobs/-/wikis/Skills/Mechanics/spring",
-                "default_value": "water"
+                "default_value": "water",
+                "enum": "Fluid"
             }
         ]
     },
@@ -13564,7 +13609,8 @@
                 "type": "String",
                 "description": "The category at which the sound is played, useful for resourcepacks",
                 "link": "https://git.lumine.io/mythiccraft/MythicMobs/-/wikis/Skills/Mechanics/StopSound",
-                "default_value": "MASTER"
+                "default_value": "MASTER",
+                "enum": "SoundCategory"
             }
         ]
     },
@@ -13710,7 +13756,8 @@
                 "type": "String",
                 "description": "The particle effects to use",
                 "link": "https://git.lumine.io/mythiccraft/MythicMobs/-/wikis/Skills/Mechanics/SummonAreaEffectCloud",
-                "default_value": "reddust"
+                "default_value": "reddust",
+                "enum": "Particle"
             },
             {
                 "name": [
@@ -14296,7 +14343,8 @@
                 "type": "PlaceholderString",
                 "description": "How the threat should be assigned",
                 "link": "https://git.lumine.io/mythiccraft/MythicMobs/-/wikis/Skills/Mechanics/Taunt",
-                "default_value": "taunt"
+                "default_value": "taunt",
+                "enum": "ThreatMode"
             }
         ]
     },
@@ -14650,7 +14698,8 @@
                 "type": "PlaceholderString",
                 "description": "The [mode](#mode-attribute) of the operation",
                 "link": "https://git.lumine.io/mythiccraft/MythicMobs/-/wikis/Skills/Mechanics/threat",
-                "default_value": "add"
+                "default_value": "add",
+                "enum": "ThreatMode"
             },
             {
                 "name": [
@@ -14778,7 +14827,8 @@
                 "type": "Enum",
                 "description": "The mode used in the time mechanic. Can be ADD/SET/RESET",
                 "link": "https://git.lumine.io/mythiccraft/MythicMobs/-/wikis/Skills/Mechanics/Time",
-                "default_value": "ADD"
+                "default_value": "ADD",
+                "enum": "Time_Mode"
             },
             {
                 "name": [
@@ -15308,7 +15358,8 @@
                 "type": "String",
                 "description": "The operation to perform. Can be SET, ADD, REMOVE, DIVIDE, or MULTIPLY.",
                 "link": "https://git.lumine.io/mythiccraft/MythicMobs/-/wikis/Skills/Mechanics/velocity",
-                "default_value": "SET"
+                "default_value": "SET",
+                "enum": "Velocity_Mode"
             }
         ]
     },
@@ -15335,7 +15386,8 @@
                 "type": "String",
                 "description": "The type of the volley. Can be REGULAR or RAIN",
                 "link": "https://git.lumine.io/mythiccraft/MythicMobs/-/wikis/Skills/Mechanics/volley",
-                "default_value": "REGULAR"
+                "default_value": "REGULAR",
+                "enum": "Volley_Source"
             },
             {
                 "name": [
@@ -15546,7 +15598,8 @@
                 "type": "String",
                 "description": "The type of weather. Can be \"sunny\", \"rainy\", or \"stormy\"",
                 "link": "https://git.lumine.io/mythiccraft/MythicMobs/-/wikis/Skills/Mechanics/weather",
-                "default_value": "sunny"
+                "default_value": "sunny",
+                "enum": "Weather_Type"
             },
             {
                 "name": [

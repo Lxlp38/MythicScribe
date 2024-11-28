@@ -1,0 +1,25 @@
+{
+    "ADD": {
+        "description": "Adds `amount` threat to the target entity."
+    },
+    "REMOVE": {
+        "description": "Removes `amount` threat from the target entity."
+    },
+    "MULTIPLY": {
+        "description": "Multiplies the threat against the target entity by `amount`."
+    },
+    "DIVIDE": {
+        "description": "Divides the threat against the target entity by `amount`."
+    },
+    "SET": {
+        "description": "Sets the threat against the target entity to `amount`."
+    },
+    "RESET": {
+        "name": ["delete"],
+        "description": "Remove all threat from the target entity."
+    },
+    "FORCETOP": {
+        "name": ["force", "top", "topthreat", "taunt"],
+        "description": "Gives the target enough threat to be moved to the top of the threat list."
+    }
+}

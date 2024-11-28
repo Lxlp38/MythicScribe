@@ -70,7 +70,8 @@ export function attributeCompletionProvider() {
                         completionItem.insertText = new vscode.SnippetString(mainname + "=" + "${1|true,false|}");
                     }
                     else if (attributeEnum && Object.keys(EnumType).includes(attributeEnum)) {
-                        completionItem.insertText = new vscode.SnippetString(mainname + "=" + "${1|"+ EnumInfo[EnumType[attributeEnum as keyof typeof EnumType]].commalist +"|}");
+                        completionItem.insertText = new vscode.SnippetString(mainname + "=");
+                        completionItem.command = { command: 'editor.action.triggerSuggest', title: 'Re-trigger completions...' };
                     }
                     else {
                         completionItem.insertText = new vscode.SnippetString(mainname + "=");
@@ -137,11 +138,11 @@ export function attributeValueCompletionProvider() {
                 }
                 else if (attributeEnum && Object.keys(EnumType).includes(attributeEnum)) {
                     Object.entries(EnumInfo[EnumType[attributeEnum as keyof typeof EnumType]].dataset).forEach(([key, value]: [string, unknown]) => {
-                        const completionItem = new vscode.CompletionItem(key, vscode.CompletionItemKind.Value);
-                        if ((value as EnumDatasetValue).description) {
+                        const completionItem = new vscode.CompletionItem(key, vscode.CompletionItemKind.Value);                        
+                        if (isEnumDatasetValue(value)) {
                             completionItem.detail = `${(value as EnumDatasetValue).description}`;
-                            completionItems.push(completionItem);
                         }
+                        completionItems.push(completionItem);
                     });
                 }
                 else {
@@ -154,6 +155,10 @@ export function attributeValueCompletionProvider() {
     );
     return attributeValueCompletionProvider;
 }
+
+function isEnumDatasetValue(value: any): value is EnumDatasetValue {
+    return value && typeof value.description === 'string';
+  }  
 
 function searchForLinkedObject(document: vscode.TextDocument, position: vscode.Position, keys: string[]) : [Mechanic, ObjectType] | null {
 

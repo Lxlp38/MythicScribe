@@ -4,7 +4,7 @@
 
 ## Added
 - "Format Document" Feature
-- SoundCategory paper dataset
+- A lot of datasets and associated autocompletions
 
 ## Fixed
 - Attribute values completions not working on invocation 

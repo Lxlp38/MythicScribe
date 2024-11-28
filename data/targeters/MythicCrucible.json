@@ -35,5 +35,19 @@
                 "default_value": ""
             }
         ]
+    },
+    {
+        "plugin": "MythicCrucible",
+        "class": "FurnitureTargeter",
+        "extends": "SkillTargeter",
+        "implements": [
+            "IEntityTargeter"
+        ],
+        "name": [
+            "furniture"
+        ],
+        "description": "Targets the furnitures at the inherited locations, if any",
+        "link": "https://git.lumine.io/mythiccraft/mythiccrucible/-/wikis/Skills/Targeters/Furniture",
+        "attributes": []
     }
 ]

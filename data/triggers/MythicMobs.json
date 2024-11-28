@@ -2,6 +2,9 @@
     {
         "plugin": "MythicMobs",
         "class": "ATTACK",
+        "implements": [
+            "GeneralTrigger"
+        ],
         "name": [
             "onAttack",
             "onHit"
@@ -45,6 +48,9 @@
     {
         "plugin": "MythicMobs",
         "class": "BOW_HIT",
+        "implements": [
+            "GeneralTrigger"
+        ],
         "name": [
             "onBow_Hit",
             "onBowhit"
@@ -56,6 +62,9 @@
     {
         "plugin": "MythicMobs",
         "class": "BREED",
+        "implements": [
+            "GeneralTrigger"
+        ],
         "name": [
             "onBreed"
         ],
@@ -66,6 +75,9 @@
     {
         "plugin": "MythicMobs",
         "class": "BUCKET",
+        "implements": [
+            "GeneralTrigger"
+        ],
         "name": [
             "onBucket",
             "onUsebucket",
@@ -81,6 +93,9 @@
     {
         "plugin": "MythicMobs",
         "class": "CHANGE_WORLD",
+        "implements": [
+            "GeneralTrigger"
+        ],
         "name": [
             "onChange_World",
             "onChangeworld",
@@ -94,6 +109,9 @@
     {
         "plugin": "MythicMobs",
         "class": "COMBAT",
+        "implements": [
+            "GeneralTrigger"
+        ],
         "name": [
             "onCombat"
         ],
@@ -104,6 +122,9 @@
     {
         "plugin": "MythicMobs",
         "class": "CREEPER_CHARGE",
+        "implements": [
+            "GeneralTrigger"
+        ],
         "name": [
             "onCreeper_Charge",
             "onCreepercharge",
@@ -117,6 +138,9 @@
     {
         "plugin": "MythicMobs",
         "class": "DAMAGED",
+        "implements": [
+            "GeneralTrigger"
+        ],
         "name": [
             "onDamaged",
             "onHurt"
@@ -128,6 +152,9 @@
     {
         "plugin": "MythicMobs",
         "class": "DEATH",
+        "implements": [
+            "GeneralTrigger"
+        ],
         "name": [
             "onDeath"
         ],
@@ -138,6 +165,9 @@
     {
         "plugin": "MythicMobs",
         "class": "DESPAWNED",
+        "implements": [
+            "GeneralTrigger"
+        ],
         "name": [
             "onDespawned",
             "onDespawn"
@@ -149,6 +179,9 @@
     {
         "plugin": "MythicMobs",
         "class": "DROPCOMBAT",
+        "implements": [
+            "GeneralTrigger"
+        ],
         "name": [
             "onDropcombat",
             "onLeavecombat",
@@ -161,6 +194,9 @@
     {
         "plugin": "MythicMobs",
         "class": "ENTERCOMBAT",
+        "implements": [
+            "GeneralTrigger"
+        ],
         "name": [
             "onEntercombat"
         ],
@@ -171,6 +207,9 @@
     {
         "plugin": "MythicMobs",
         "class": "EXPLODE",
+        "implements": [
+            "GeneralTrigger"
+        ],
         "name": [
             "onExplode"
         ],
@@ -181,6 +220,9 @@
     {
         "plugin": "MythicMobs",
         "class": "HEAR",
+        "implements": [
+            "GeneralTrigger"
+        ],
         "name": [
             "onHear",
             "onVibration"
@@ -192,6 +234,9 @@
     {
         "plugin": "MythicMobs",
         "class": "INTERACT",
+        "implements": [
+            "GeneralTrigger"
+        ],
         "name": [
             "onInteract"
         ],
@@ -201,7 +246,42 @@
     },
     {
         "plugin": "MythicMobs",
+        "class": "ITEM_DROP",
+        "implements": [
+            "PlayerTrigger"
+        ],
+        "name": [
+            "onItem_Drop",
+            "onItemdrop",
+            "onDropitem",
+            "onDrop_Item"
+        ],
+        "description": "When the player drops an item",
+        "link": "https://git.lumine.io/mythiccraft/MythicMobs/-/wikis/Skills/Triggers/onItemDrop",
+        "attributes": []
+    },
+    {
+        "plugin": "MythicMobs",
+        "class": "ITEM_PICKUP",
+        "implements": [
+            "PlayerTrigger"
+        ],
+        "name": [
+            "onItem_Pickup",
+            "onItempickup",
+            "onPickupitem",
+            "onPickup_Item"
+        ],
+        "description": "When the player picks up an item.",
+        "link": "https://git.lumine.io/mythiccraft/MythicMobs/-/wikis/Skills/Triggers/onItemPickup",
+        "attributes": []
+    },
+    {
+        "plugin": "MythicMobs",
         "class": "KILLPLAYER",
+        "implements": [
+            "GeneralTrigger"
+        ],
         "name": [
             "onKillplayer",
             "onPlayerkill"
@@ -213,6 +293,9 @@
     {
         "plugin": "MythicMobs",
         "class": "LOAD",
+        "implements": [
+            "GeneralTrigger"
+        ],
         "name": [
             "onLoad"
         ],
@@ -222,7 +305,25 @@
     },
     {
         "plugin": "MythicMobs",
+        "class": "PRESS_Q",
+        "implements": [
+            "PlayerTrigger"
+        ],
+        "name": [
+            "onPress_Q",
+            "onPressq",
+            "onDropitem"
+        ],
+        "description": "When the player drops an item",
+        "link": "https://git.lumine.io/mythiccraft/MythicMobs/-/wikis/Skills/Triggers/onItemDrop",
+        "attributes": []
+    },
+    {
+        "plugin": "MythicMobs",
         "class": "PRIME",
+        "implements": [
+            "GeneralTrigger"
+        ],
         "name": [
             "onPrime"
         ],
@@ -233,6 +334,9 @@
     {
         "plugin": "MythicMobs",
         "class": "READY",
+        "implements": [
+            "GeneralTrigger"
+        ],
         "name": [
             "onReady",
             "onFirstspawn"
@@ -244,6 +348,9 @@
     {
         "plugin": "MythicMobs",
         "class": "SHOOT",
+        "implements": [
+            "GeneralTrigger"
+        ],
         "name": [
             "onShoot",
             "onBowshoot",
@@ -256,6 +363,9 @@
     {
         "plugin": "MythicMobs",
         "class": "SIGNAL",
+        "implements": [
+            "GeneralTrigger"
+        ],
         "name": [
             "onSignal"
         ],
@@ -266,6 +376,9 @@
     {
         "plugin": "MythicMobs",
         "class": "SKILL_HIT",
+        "implements": [
+            "GeneralTrigger"
+        ],
         "name": [
             "onSkillhit",
             "onSkill_Damage",
@@ -278,6 +391,9 @@
     {
         "plugin": "MythicMobs",
         "class": "SPAWN",
+        "implements": [
+            "GeneralTrigger"
+        ],
         "name": [
             "onSpawn"
         ],
@@ -288,6 +404,9 @@
     {
         "plugin": "MythicMobs",
         "class": "SPAWN_OR_LOAD",
+        "implements": [
+            "GeneralTrigger"
+        ],
         "name": [
             "onSpawnorload"
         ],
@@ -298,6 +417,9 @@
     {
         "plugin": "MythicMobs",
         "class": "TAME",
+        "implements": [
+            "GeneralTrigger"
+        ],
         "name": [
             "onTame"
         ],
@@ -308,6 +430,9 @@
     {
         "plugin": "MythicMobs",
         "class": "TARGETCHANGE",
+        "implements": [
+            "GeneralTrigger"
+        ],
         "name": [
             "onTargetchange",
             "onChangetarget"
@@ -319,6 +444,9 @@
     {
         "plugin": "MythicMobs",
         "class": "TELEPORT",
+        "implements": [
+            "GeneralTrigger"
+        ],
         "name": [
             "onTeleport"
         ],
@@ -329,6 +457,9 @@
     {
         "plugin": "MythicMobs",
         "class": "TIMER",
+        "implements": [
+            "GeneralTrigger"
+        ],
         "name": [
             "onTimer"
         ],
@@ -339,6 +470,9 @@
     {
         "plugin": "MythicMobs",
         "class": "TRADE",
+        "implements": [
+            "GeneralTrigger"
+        ],
         "name": [
             "onTrade"
         ],

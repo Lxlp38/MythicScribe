@@ -1,0 +1,32 @@
+{
+    "ARROW": {
+        "description": "The bullet will be a minecraft projectile"
+    },
+    "BLOCK": {
+        "description": "The bullet will be a block"
+    },
+    "SMALLBLOCK": {
+        "description": "The bullet will be a small block"
+    },
+    "ITEM": {
+        "description": "The bullet will be an item"
+    },
+    "MOB": {
+        "description": "The bullet will be a mob. If a Mythicmobs, it will retain its skills"
+    },
+    "TRACKING": {
+        "description": "The bullet will be an item, but its rotation will be adjusted depending on the projectile's direction"
+    },
+    "REALTRACKING": {
+        "description": "As above, but a real armor stand will also be spawned instead of a packet"
+    },
+    "DISPLAY": {
+        "description": "The projectile will be a display entity"
+    },
+    "TEXT": {
+        "description": "The projectile will display a line of text"
+    },
+    "ME": {
+        "description": "The projectile will be a ModelEngine model"
+    }
+}

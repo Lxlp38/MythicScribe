@@ -1,0 +1,8 @@
+{
+    "NORMAL": {
+        "description": "A normal projectile."
+    },
+    "METEOR": {
+        "description": "Falls from the sky above the target"
+    }
+}

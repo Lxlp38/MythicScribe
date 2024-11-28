@@ -1,0 +1,11 @@
+{
+    "ADD": {
+        "description": "Sets the current time of the world with an offset."
+    },
+    "SET": {
+        "description": "Sets the current time of the world."
+    },
+    "RESET": {
+        "description": "Re-syncs the target's world time with the server world time, if it is not already synced."
+    }
+}

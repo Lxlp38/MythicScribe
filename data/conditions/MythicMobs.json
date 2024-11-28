@@ -137,7 +137,7 @@
                     "b"
                 ],
                 "type": "StringList",
-                "description": "A list of materials or MMOItem's block name to check",
+                "description": "A list of materials or MMOItem's block name to check. Does also support wildcards and block tags",
                 "link": "https://git.lumine.io/mythiccraft/MythicMobs/-/wikis/Skills/Conditions/blocktype",
                 "default_value": "DIRT",
                 "enum": "Material",
@@ -3193,7 +3193,7 @@
                     "b"
                 ],
                 "type": "StringList",
-                "description": "A list of materials. The condition will match if one is found",
+                "description": "A list of materials. The condition will match if one is found. Does also support wildcards and block tags",
                 "link": "https://git.lumine.io/mythiccraft/MythicMobs/-/wikis/Skills/Conditions/onblock",
                 "default_value": "STONE"
             }
@@ -4237,7 +4237,9 @@
                     "t",
                     "material",
                     "mat",
-                    "m"
+                    "m",
+                    "block",
+                    "b"
                 ],
                 "type": "StringList",
                 "description": "A list of [materials] to check against",

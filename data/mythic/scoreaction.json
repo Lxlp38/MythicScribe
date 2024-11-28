@@ -1,0 +1,20 @@
+{
+    "SET": {
+        "description": "Sets the scoreboard value."
+    },
+    "ADD": {
+        "description": "Adds the value to the scoreboard value."
+    },
+    "SUBTRACT": {
+        "description": "Subtracts the value from the scoreboard value."
+    },
+    "MULTIPLY": {
+        "description": "Multiplies the scoreboard value."
+    },
+    "DIVIDE": {
+        "description": "Divides the scoreboard value."
+    },
+    "MOD": {
+        "description": "Sets the scoreboard value to the remainder of the division."
+    }
+}

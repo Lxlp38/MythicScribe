@@ -1,0 +1,14 @@
+{
+    "SET": {
+        "description": "Sets the value of the transformation."
+    },
+    "ADD": {
+        "description": "Adds the value to the transformation."
+    },
+    "MULTIPLY": {
+        "description": "Multiplies the value of the transformation."
+    },
+    "DIVIDE": {
+        "description": "Divides the value of the transformation."
+    }
+}

@@ -367,7 +367,108 @@
         ],
         "description": "Configure the culling of a modeled entity,\nwhich allows you to further optimize or increase the importance of a modeled entity.",
         "link": "https://git.lumine.io/mythiccraft/model-engine-4/-/wikis/Skills/Mechanics/CullConfig",
-        "attributes": []
+        "attributes": [
+            {
+                "name": [
+                    "ci",
+                    "cullinterval"
+                ],
+                "type": "Integer",
+                "description": "Tick interval to check if the entity can be culled",
+                "link": "https://git.lumine.io/mythiccraft/model-engine-4/-/wikis/Skills/Mechanics/CullConfig",
+                "default_value": "Config Default"
+            },
+            {
+                "name": [
+                    "vc",
+                    "verticalcull"
+                ],
+                "type": "Boolean",
+                "description": "Should the entity be vertically culled",
+                "link": "https://git.lumine.io/mythiccraft/model-engine-4/-/wikis/Skills/Mechanics/CullConfig",
+                "default_value": "Config Default"
+            },
+            {
+                "name": [
+                    "vcd",
+                    "verticalculldistance"
+                ],
+                "type": "Double",
+                "description": "Absolute Y distance between the entity and players",
+                "link": "https://git.lumine.io/mythiccraft/model-engine-4/-/wikis/Skills/Mechanics/CullConfig",
+                "default_value": "Config Default"
+            },
+            {
+                "name": [
+                    "vct",
+                    "verticalculltype"
+                ],
+                "type": "CullType",
+                "description": "Vertical culling type",
+                "link": "https://git.lumine.io/mythiccraft/model-engine-4/-/wikis/Skills/Mechanics/CullConfig",
+                "default_value": "Config Default"
+            },
+            {
+                "name": [
+                    "bkc",
+                    "backcull"
+                ],
+                "type": "Boolean",
+                "description": "Should the entity be culled when behind the player",
+                "link": "https://git.lumine.io/mythiccraft/model-engine-4/-/wikis/Skills/Mechanics/CullConfig",
+                "default_value": "Config Default"
+            },
+            {
+                "name": [
+                    "bkcr",
+                    "backcullignoreradius"
+                ],
+                "type": "Double",
+                "description": "Max distance to ignore the back-cull method",
+                "link": "https://git.lumine.io/mythiccraft/model-engine-4/-/wikis/Skills/Mechanics/CullConfig",
+                "default_value": "Config Default"
+            },
+            {
+                "name": [
+                    "bkct",
+                    "backculltype"
+                ],
+                "type": "CullType",
+                "description": "Back-cull culling type",
+                "link": "https://git.lumine.io/mythiccraft/model-engine-4/-/wikis/Skills/Mechanics/CullConfig",
+                "default_value": "Config Default"
+            },
+            {
+                "name": [
+                    "blc",
+                    "blockedcull"
+                ],
+                "type": "Boolean",
+                "description": "Should the entity be culled when blocked by blocks",
+                "link": "https://git.lumine.io/mythiccraft/model-engine-4/-/wikis/Skills/Mechanics/CullConfig",
+                "default_value": "Config Default"
+            },
+            {
+                "name": [
+                    "blcr",
+                    "blockedcullignoreradius"
+                ],
+                "type": "Double",
+                "description": "Max distance to ignore the blocked-cull method",
+                "link": "https://git.lumine.io/mythiccraft/model-engine-4/-/wikis/Skills/Mechanics/CullConfig",
+                "default_value": "Config Default"
+            },
+            {
+                "name": [
+                    "blct",
+                    "blockedculltype"
+                ],
+                "type": "CullType",
+                "description": "Blocked-cull culling type",
+                "link": "https://git.lumine.io/mythiccraft/model-engine-4/-/wikis/Skills/Mechanics/CullConfig",
+                "default_value": "Config Default"
+            }
+        ]
     },
     {
         "plugin": "ModelEngine",

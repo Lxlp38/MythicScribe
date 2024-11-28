@@ -1,0 +1,11 @@
+{
+    "SET": {
+        "description": "Sets the value."
+    },
+    "ADD": {
+        "description": "Adds the value."
+    },
+    "MULTIPLY": {
+        "description": "Multiplies the value."
+    }
+}

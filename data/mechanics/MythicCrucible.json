@@ -1,6 +1,55 @@
 [
     {
         "plugin": "MythicCrucible",
+        "class": "AmmoConsumeMechanic",
+        "extends": "SkillMechanic",
+        "implements": [
+            "INoTargetSkill"
+        ],
+        "name": [
+            "consumeAmmo",
+            "useAmmo"
+        ],
+        "description": "Consumes ammo to execute a skill. This skill does not need a targeter.",
+        "link": "https://git.lumine.io/mythiccraft/mythiccrucible/-/wikis/Skills/Mechanics/ConsumeAmmo",
+        "attributes": [
+            {
+                "name": [
+                    "amount",
+                    "a"
+                ],
+                "type": "Integer",
+                "description": "How many ammo are consumed",
+                "link": "https://git.lumine.io/mythiccraft/mythiccrucible/-/wikis/Skills/Mechanics/ConsumeAmmo",
+                "default_value": "1"
+            },
+            {
+                "name": [
+                    "useskill",
+                    "onuse",
+                    "onconsume",
+                    "use"
+                ],
+                "type": "String",
+                "description": "The skill to trigger on ammo consume",
+                "link": "https://git.lumine.io/mythiccraft/mythiccrucible/-/wikis/Skills/Mechanics/ConsumeAmmo",
+                "default_value": ""
+            },
+            {
+                "name": [
+                    "noammoskill",
+                    "onnoammo",
+                    "noammo"
+                ],
+                "type": "String",
+                "description": "The skill to trigger when there's no ammo left",
+                "link": "https://git.lumine.io/mythiccraft/mythiccrucible/-/wikis/Skills/Mechanics/ConsumeAmmo",
+                "default_value": ""
+            }
+        ]
+    },
+    {
+        "plugin": "MythicCrucible",
         "class": "DealCustomDurabilityMechanic",
         "extends": "SkillMechanic",
         "implements": [

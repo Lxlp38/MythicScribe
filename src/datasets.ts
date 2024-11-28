@@ -1,6 +1,6 @@
 import * as vscode from 'vscode';
 import * as config from './imports/utils/configutils';
-import { EnumInfo, EnumDataset, EnumType, Mechanic, MechanicDataset, ObjectInfo, ObjectType } from './objectInfos';
+import { EnumInfo, EnumDataset, EnumType, EnumDetail, Mechanic, MechanicDataset, ObjectInfo, ObjectType } from './objectInfos';
 import { loadCustomDatasets } from './customDatasets';
 
 
@@ -85,12 +85,12 @@ export async function fetchMechanicDatasetFromLink(link: string): Promise<Mechan
 	}
 }
 
-function getVersionSpecificDatasetPath(specificpath: string): string {
-	if (specificpath.includes('/')) {
+function getVersionSpecificDatasetPath(enumdetail: EnumDetail): string {
+	if (enumdetail.volatile) {
 		const version = config.minecraftVersion();
-		return vscode.Uri.joinPath(ctx.extensionUri, 'data', 'versions', version as string, specificpath).fsPath;
+		return vscode.Uri.joinPath(ctx.extensionUri, 'data', 'versions', version as string, enumdetail.path).fsPath;
 	}
-	return vscode.Uri.joinPath(ctx.extensionUri, 'data', specificpath).fsPath;
+	return vscode.Uri.joinPath(ctx.extensionUri, 'data', enumdetail.path).fsPath;
 }
 
 async function loadLocalDatasets() {
@@ -157,7 +157,7 @@ async function loadGithubDatasets(context: vscode.ExtensionContext) {
 
 async function loadEnumDatasets() {
 	for (const key of Object.keys(EnumType) as Array<keyof typeof EnumType>) {
-		EnumInfo[EnumType[key]].dataset = await loadLocalEnumDataset(getVersionSpecificDatasetPath(EnumInfo[EnumType[key]].path));
+		EnumInfo[EnumType[key]].dataset = await loadLocalEnumDataset(getVersionSpecificDatasetPath(EnumInfo[EnumType[key]]));
 	}
 }
 

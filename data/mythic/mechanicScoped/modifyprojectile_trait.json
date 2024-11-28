@@ -1,0 +1,17 @@
+{
+    "INERTIA": {
+        "description": "The inertia of the missile."
+    },
+    "POWER": {
+        "description": "The power of the projectile, missile, orbital."
+    },
+    "VELOCITY": {
+        "description": "The velocity of the projectile, missile."
+    },
+    "RADIUS": {
+        "description": "The radius of the orbital."
+    },
+    "YOFFSET": {
+        "description": "The y offset of the orbital."
+    }
+}

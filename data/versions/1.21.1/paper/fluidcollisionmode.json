@@ -1,0 +1,11 @@
+{
+    "ALWAYS": {
+        "description": "Collide with all fluids."
+    },
+    "NEVER": {
+        "description": "Ignore fluids."
+    },
+    "SOURCE_ONLY": {
+        "description": "Only collide with source fluid blocks."
+    }
+}

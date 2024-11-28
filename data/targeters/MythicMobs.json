@@ -1997,6 +1997,17 @@
                 "description": "The minimum amount of space between selected targets",
                 "link": "https://git.lumine.io/mythiccraft/MythicMobs/-/wikis/Skills/Targeters/RandomLocationsNearOrigin",
                 "default_value": "0"
+            },
+            {
+                "name": [
+                    "onsurface",
+                    "onsurf",
+                    "os"
+                ],
+                "type": "Boolean",
+                "description": "Only target locations above solid blocks",
+                "link": "https://git.lumine.io/mythiccraft/MythicMobs/-/wikis/Skills/Targeters/RandomLocationsNearOrigin",
+                "default_value": "false"
             }
         ]
     },
@@ -2113,6 +2124,17 @@
                 "description": "The minimum amount of space between selected targets",
                 "link": "https://git.lumine.io/mythiccraft/MythicMobs/-/wikis/Skills/Targeters/RandomLocationsNearCaster",
                 "default_value": "0"
+            },
+            {
+                "name": [
+                    "onsurface",
+                    "onsurf",
+                    "os"
+                ],
+                "type": "Boolean",
+                "description": "Only target locations above solid blocks",
+                "link": "https://git.lumine.io/mythiccraft/MythicMobs/-/wikis/Skills/Targeters/RandomLocationsNearCaster",
+                "default_value": "false"
             }
         ]
     },
