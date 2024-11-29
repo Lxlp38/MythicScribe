@@ -27,7 +27,12 @@ export function getFormatter() {
 }
 
 function addNewlinesInInlineMetaskills(text: string): string {
-    return text.replace(/\[\s*(?=\S)/g, '[\n').replace(/(?<=\S)\s*\]/g, '\n]');
+    return text.split('\n').map(line => {
+        if (line.trim().startsWith('#')) {
+            return line;
+        }
+        return line.replace(/\[\s*(?=\S)/g, '[\n').replace(/(?<=\S)\s*\]/g, '\n]');
+    }).join('\n');
 }
 
 function formatMythicScript(text: string): string {
@@ -38,15 +43,18 @@ function formatMythicScript(text: string): string {
     const newLines: string[] = [];
 
     lines.forEach((line) => {
-        console.log(line);
         // Positive --> too many open square brackets
         // Negative --> too many close square brackets
         // Will be effective from next line
         const squareBracketsBalance = (line.match(/\[/g) || []).length - (line.match(/\]/g) || []).length;
         const curlyBracketsBalance = (line.match(/\{/g) || []).length - (line.match(/\}/g) || []).length;
-        const pre_bracketindent = squareBracketsBalance < 0 ? squareBracketsBalance : 0;
-        const post_bracketindent = squareBracketsBalance + curlyBracketsBalance - pre_bracketindent;
-        lastKeyIndent += pre_bracketindent;
+        
+        const pre_squarebracketindent = squareBracketsBalance < 0 ? squareBracketsBalance : 0;
+        //const pre_curlybracketindent = curlyBracketsBalance < 0 ? curlyBracketsBalance : 0;
+        const post_bracketindent = squareBracketsBalance + curlyBracketsBalance*2 - pre_squarebracketindent;
+        
+        lastKeyIndent += pre_squarebracketindent;
+        
         const lineIndentation = line.indexOf(line.trim()) / INDENTATION_LEVEL;
         if (line.trim().endsWith(":")) {
             lastKeyIndent = lineIndentation;
