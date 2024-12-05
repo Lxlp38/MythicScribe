@@ -4,10 +4,13 @@
 
 ## Added
 - "Format Document" Feature
-- A lot of datasets and associated autocompletions
+- A lot of datasets and associated autocompletions for mechanics
 
 ## Fixed
 - Attribute values completions not working on invocation 
+- MechanicLine completions popping up after a comment. For now this has been patched by detecting the presence of the "#" or the "<#" characters on the same line before the cursor position 
+- Skill mechanics written in the skill:MetaSkill syntax now get autocompletions
+- Autocompletions for list completions showing elements already put in the line (for instance, suggesting to put another mechanic on a line that already has one)
 
 ## [1.3.0]
 

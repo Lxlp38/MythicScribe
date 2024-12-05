@@ -107,7 +107,6 @@ export function attributeValueCompletionProvider() {
                 }
                 const [mechanic, type] = result;
 
-
                 const attribute = document.getText(new vscode.Range(new vscode.Position(position.line, 0), position)).match(ObjectInfo[ObjectType.ATTRIBUTE].regex)?.pop();
 
                 if (!attribute) {
@@ -183,6 +182,11 @@ function searchForLinkedObject(document: vscode.TextDocument, position: vscode.P
     else {
         mechanic = getMechanicDataByName(object, ObjectType.MECHANIC);
         type = ObjectType.MECHANIC;
+
+
+        if (!mechanic && object.startsWith("skill:")) {
+            mechanic = getMechanicDataByName("skill", ObjectType.MECHANIC);
+        }
     }
     if (!mechanic) {
         return null;

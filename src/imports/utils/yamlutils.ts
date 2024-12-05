@@ -46,6 +46,14 @@ export function getDefaultIndentation(): number {
 	return vscode.window.activeTextEditor ? vscode.window.activeTextEditor.options.tabSize as number : 2;
 }
 
+export function getUsedIndentation(text: string): number {
+	const match = text.match(/^[^:]+:\n(\s+)\S/m);
+	if (match) {
+		return match[1].length;
+	}
+	return getDefaultIndentation();
+}
+
 
 export function isEmptyLine(document: vscode.TextDocument, lineIndex: number): boolean {
 	return /^\s*$/.test(document.lineAt(lineIndex).text);
@@ -156,4 +164,9 @@ export function previousSymbol(document: vscode.TextDocument, position: vscode.P
 		return matches[1];
 	}
 	return '';
+}
+
+export function isAfterComment(document: vscode.TextDocument, position: vscode.Position): boolean {
+    const textBeforePosition = document.lineAt(position.line).text.substring(0, position.character);
+    return textBeforePosition.includes('#');
 }

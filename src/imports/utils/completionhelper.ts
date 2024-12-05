@@ -5,7 +5,7 @@ import { EnumDatasetValue, EnumInfo, FileObject, FileObjectMap, FileObjectTypes,
 
 
 export async function generateFileCompletion(document: vscode.TextDocument, position: vscode.Position, context: vscode.CompletionContext, type: FileObjectMap): Promise<vscode.CompletionItem[] | undefined> {
-    
+
     if (yamlutils.isEmptyLine(document, position.line)) {
         return fileCompletions(document, position, type);
     }
@@ -20,16 +20,21 @@ export async function generateFileCompletion(document: vscode.TextDocument, posi
 export function listCompletion(document: vscode.TextDocument, position: vscode.Position, context: vscode.CompletionContext): string | undefined {
     let space = " ";
 
-    if (context.triggerCharacter === undefined){
+    const line = document.lineAt(position.line).text;
+    if (line.match(/^\s*-\s*\S+\s/gm)) {
+        return undefined;
+    }
+
+    if (context.triggerCharacter === undefined) {
+        const specialSymbol = yamlutils.previousSpecialSymbol(document, position);
+        if (specialSymbol !== "-") {
+            return undefined;
+        }
+    } else {
         const charBefore2 = document.getText(new vscode.Range(position.translate(0, -2), position));
         if (charBefore2 !== "- ") {
             return undefined;
         }
-    } else {
-        const specialSymbol = yamlutils.previousSpecialSymbol(document, position);
-        if (specialSymbol !== "-") {
-            return undefined;
-        }    
     }
 
 
@@ -52,6 +57,10 @@ export function listCompletion(document: vscode.TextDocument, position: vscode.P
 
 export function checkShouldComplete(document: vscode.TextDocument, position: vscode.Position, context: vscode.CompletionContext, symbol: string[]): boolean {
 
+    if (yamlutils.isAfterComment(document, position)) {
+        return false;
+    }
+
     // called via invocation
     if (context.triggerKind === vscode.CompletionTriggerKind.Invoke) {
         const mypreviousSpecialSymbol = previousSymbol(document, position);
@@ -69,6 +78,7 @@ export function checkShouldComplete(document: vscode.TextDocument, position: vsc
     return false;
 
 }
+
 
 export function addMechanicCompletions(target: MechanicDataset, completionItems: vscode.CompletionItem[]) {
     target.forEach((item: Mechanic) => {
@@ -107,7 +117,7 @@ export function fileCompletions(document: vscode.TextDocument, position: vscode.
     const defaultindentation = vscode.window.activeTextEditor ? vscode.window.activeTextEditor.options.tabSize as number : 2;
     const [keyobjects, level] = result;
     const thislineindentation = yamlutils.getIndentation(document.lineAt(position.line).text);
-    const indentation = " ".repeat((level-thislineindentation/2) * defaultindentation);
+    const indentation = " ".repeat((level - thislineindentation / 2) * defaultindentation);
 
     if (!keyobjects) {
         return undefined;
@@ -133,13 +143,13 @@ function fileCompletionFindNodesOnLevel(objectmap: FileObjectMap, keys: string[]
 
     if (selectedObject) {
         if (selectedObject.type === FileObjectTypes.KEY && selectedObject.keys) {
-            const result = fileCompletionFindNodesOnLevel(selectedObject.keys, keys.slice(1), level+1);
+            const result = fileCompletionFindNodesOnLevel(selectedObject.keys, keys.slice(1), level + 1);
             return result;
         }
         if (selectedObject.type === FileObjectTypes.KEY_LIST) {
-            return [selectedObject, level+1];
+            return [selectedObject, level + 1];
         }
-        if (selectedObject.type  === FileObjectTypes.LIST) {
+        if (selectedObject.type === FileObjectTypes.LIST) {
             return [selectedObject, level];
         }
         return [objectmap, level];
@@ -221,7 +231,7 @@ function getObjectInTree(keys: string[], type: FileObjectMap): FileObject | unde
     if (keys.length === 0) {
         return object;
     }
-    if(object.type === FileObjectTypes.KEY && object.keys){
+    if (object.type === FileObjectTypes.KEY && object.keys) {
         const newobject = object.keys;
         return getObjectInTree(keys, newobject);
     }
@@ -241,7 +251,7 @@ export async function getCompletionForInvocation(document: vscode.TextDocument, 
 
 }
 
-async function getKeyObjectCompletion(keys: string[], type: FileObjectMap) : Promise<vscode.CompletionItem[] | undefined> {
+async function getKeyObjectCompletion(keys: string[], type: FileObjectMap): Promise<vscode.CompletionItem[] | undefined> {
     const object = getObjectInTree(keys, type);
     if (!object) {
         return undefined;
@@ -273,7 +283,7 @@ async function getKeyObjectCompletion(keys: string[], type: FileObjectMap) : Pro
 
 }
 
-function getListObjectCompletion(keys: string[], type: FileObjectMap, document: vscode.TextDocument, position: vscode.Position, context: vscode.CompletionContext) : vscode.CompletionItem[] | undefined {
+function getListObjectCompletion(keys: string[], type: FileObjectMap, document: vscode.TextDocument, position: vscode.Position, context: vscode.CompletionContext): vscode.CompletionItem[] | undefined {
     const object = getObjectInTree(keys, type);
     if (!object) {
         return undefined;
@@ -281,7 +291,7 @@ function getListObjectCompletion(keys: string[], type: FileObjectMap, document: 
 
     if (object.type === FileObjectTypes.LIST && object.dataset) {
         const space = listCompletion(document, position, context);
-        if (space === undefined){
+        if (space === undefined) {
             return undefined;
         }
         const dataset = EnumInfo[object.dataset].dataset as Record<string, EnumDatasetValue>;

@@ -16,6 +16,10 @@ export function mechaniclineCompletionProvider(){
                 if (["{", ";", "="].includes(previusSpecialSymbol)) {
                     return undefined;
                 }
+
+                if (yamlutils.isAfterComment(document, position)) {
+                    return undefined;
+                }
     
                 const keys = yamlutils.getParentKeys(document, position);
                 if (!keyAliases["Skills"].includes(keys[0])) {
