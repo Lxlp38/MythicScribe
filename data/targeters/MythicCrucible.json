@@ -49,5 +49,31 @@
         "description": "Targets the furnitures at the inherited locations, if any",
         "link": "https://git.lumine.io/mythiccraft/mythiccrucible/-/wikis/Skills/Targeters/Furniture",
         "attributes": []
+    },
+    {
+        "plugin": "MythicCrucible",
+        "class": "MuzzleLocationTargeter",
+        "extends": "SkillTargeter",
+        "implements": [
+            "ILocationTargeter"
+        ],
+        "name": [
+            "muzzleLocation",
+            "muzzle"
+        ],
+        "description": "Targets a location in front of the caster's eyes, with a rotation in degrees",
+        "link": "https://git.lumine.io/mythiccraft/mythiccrucible/-/wikis/Skills/Targeters/MuzzleLocation",
+        "attributes": [
+            {
+                "name": [
+                    "rotation",
+                    "r"
+                ],
+                "type": "Double",
+                "description": "The rotation",
+                "link": "https://git.lumine.io/mythiccraft/mythiccrucible/-/wikis/Skills/Targeters/MuzzleLocation",
+                "default_value": "160"
+            }
+        ]
     }
 ]

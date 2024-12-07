@@ -21,10 +21,11 @@ import { shortcutsProvider } from './imports/textchanges/shortcuts';
 import { loadDatasets } from './datasets';
 
 import { metaskillFileCompletionProvider } from './imports/completions/filecompletions/metaskillfileCompletionProvider';
-import { triggerfileCompletionProvider } from './imports/completions/filecompletions/triggerfileCompletionProvider';
 import { mobFileCompletionProvider } from './imports/completions/filecompletions/mobfileCompletionProvider';
 import { itemFileCompletionProvider } from './imports/completions/filecompletions/itemfileCompletionProvider';
 import { addCustomDataset } from './customDatasets';
+import { triggerfileCompletionProvider } from './imports/completions/filecompletions/triggerfileCompletionProvider';
+import { TriggerType } from './objectInfos';
 
 export let ctx: vscode.ExtensionContext;
 
@@ -33,7 +34,6 @@ const gloabsubscriptions: vscode.Disposable[] = [];
 const mobfilesubscriptions: vscode.Disposable[] = [];
 const skillfilesubscriptions: vscode.Disposable[] = [];
 const itemfilesubscriptions: vscode.Disposable[] = [];
-const triggerfilesubscriptions: vscode.Disposable[] = [];
 
 export function activate(context: vscode.ExtensionContext) {
 
@@ -112,7 +112,6 @@ export function disableSubscriptions() {
 	disableSkillfileSubscriptions();
 	disableMobfileSubscriptions();
 	disableItemFileSubscriptions();
-	disableTriggerFileSubscriptions();
 }
 
 
@@ -126,6 +125,7 @@ export function enableMobfileSubscriptions() {
 
 	if (config.enableFileSpecificSuggestions()) {
 		toEnable.push(mobFileCompletionProvider());
+		toEnable.push(triggerfileCompletionProvider(TriggerType.MOB));
 	}
 
 	toEnable.forEach(subscription => {
@@ -195,6 +195,9 @@ export function enableItemFileSubscriptions() {
 
 	if (config.enableFileSpecificSuggestions()) {
 		toEnable.push(itemFileCompletionProvider());
+		toEnable.push(triggerfileCompletionProvider(TriggerType.ITEM, ["Skills"]));
+		toEnable.push(triggerfileCompletionProvider(TriggerType.FURNITURE, ["FurnitureSkills"]));
+		toEnable.push(triggerfileCompletionProvider(TriggerType.BLOCK, ["CustomBlockSkills"]));
 	}
 
 	toEnable.forEach(subscription => {
@@ -208,26 +211,4 @@ export function disableItemFileSubscriptions() {
 		subscription.dispose();
 	});
 	itemfilesubscriptions.length = 0;
-}
-
-
-
-// Enable all triggerfile subscriptions
-export function enableTriggerFileSubscriptions() {
-	const context = ctx;
-	const toEnable = [
-		triggerfileCompletionProvider()
-	];
-
-	toEnable.forEach(subscription => {
-		context.subscriptions.push(subscription);
-		triggerfilesubscriptions.push(subscription);
-	});
-}
-// Disable all triggerfile subscriptions
-export function disableTriggerFileSubscriptions() {
-	triggerfilesubscriptions.forEach(subscription => {
-		subscription.dispose();
-	});
-	triggerfilesubscriptions.length = 0;
 }

@@ -1,9 +1,40 @@
 [
     {
         "plugin": "MythicMobs",
+        "class": "ARMOR_EQUIP",
+        "implements": [
+            "Item"
+        ],
+        "name": [
+            "onEquip",
+            "onEquiparmor",
+            "onArmorequip"
+        ],
+        "description": "When the item is equipped as an armor piece\n\n| [Implemented Placeholders](Skills/Placeholders#variable-placeholders)     |\n|--------------------------------|\n| `<skill.var.equip-slot>`       |\n| `<skill.var.equip-item>`       |",
+        "link": "https://git.lumine.io/mythiccraft/mythiccrucible/-/wikis/Skills/Triggers/onEquip",
+        "attributes": []
+    },
+    {
+        "plugin": "MythicMobs",
+        "class": "ARMOR_UNEQUIP",
+        "implements": [
+            "Item"
+        ],
+        "name": [
+            "onUnequip",
+            "onUnequiparmor",
+            "onArmorunequip"
+        ],
+        "description": "When the item is unequipped as an armor piece\n\n| [Implemented Placeholders](Skills/Placeholders#variable-placeholders)     |\n|--------------------------------|\n| `<skill.var.equip-slot>`       |\n| `<skill.var.equip-item>`       |",
+        "link": "https://git.lumine.io/mythiccraft/mythiccrucible/-/wikis/Skills/Triggers/onUnEquip",
+        "attributes": []
+    },
+    {
+        "plugin": "MythicMobs",
         "class": "ATTACK",
         "implements": [
-            "GeneralTrigger"
+            "Mob",
+            "Item"
         ],
         "name": [
             "onAttack",
@@ -17,7 +48,9 @@
         "plugin": "MythicMobs",
         "class": "BLOCK_BREAK",
         "implements": [
-            "PlayerTrigger"
+            "Block",
+            "Furniture",
+            "Item"
         ],
         "name": [
             "onBlock_Break",
@@ -26,14 +59,16 @@
             "onBreak_Block"
         ],
         "description": "When the player breaks a custom block or a furniture",
-        "link": "https://git.lumine.io/mythiccraft/MythicMobs/-/wikis/Skills/Triggers/onBlockBreak",
+        "link": "https://git.lumine.io/mythiccraft/mythiccrucible/-/wikis/Skills/Triggers/onBlockBreak",
         "attributes": []
     },
     {
         "plugin": "MythicMobs",
         "class": "BLOCK_PLACE",
         "implements": [
-            "PlayerTrigger"
+            "Block",
+            "Furniture",
+            "Item"
         ],
         "name": [
             "onBlock_Place",
@@ -42,14 +77,15 @@
             "onPlace_Block"
         ],
         "description": "When the player places the custom block or a furniture",
-        "link": "https://git.lumine.io/mythiccraft/MythicMobs/-/wikis/Skills/Triggers/onBlockPlace",
+        "link": "https://git.lumine.io/mythiccraft/mythiccrucible/-/wikis/Skills/Triggers/onBlockPlace",
         "attributes": []
     },
     {
         "plugin": "MythicMobs",
         "class": "BOW_HIT",
         "implements": [
-            "GeneralTrigger"
+            "Mob",
+            "Item"
         ],
         "name": [
             "onBow_Hit",
@@ -63,7 +99,7 @@
         "plugin": "MythicMobs",
         "class": "BREED",
         "implements": [
-            "GeneralTrigger"
+            "Mob"
         ],
         "name": [
             "onBreed"
@@ -76,7 +112,7 @@
         "plugin": "MythicMobs",
         "class": "BUCKET",
         "implements": [
-            "GeneralTrigger"
+            "Mob"
         ],
         "name": [
             "onBucket",
@@ -94,7 +130,7 @@
         "plugin": "MythicMobs",
         "class": "CHANGE_WORLD",
         "implements": [
-            "GeneralTrigger"
+            "Mob"
         ],
         "name": [
             "onChange_World",
@@ -110,7 +146,7 @@
         "plugin": "MythicMobs",
         "class": "COMBAT",
         "implements": [
-            "GeneralTrigger"
+            "Mob"
         ],
         "name": [
             "onCombat"
@@ -121,9 +157,23 @@
     },
     {
         "plugin": "MythicMobs",
+        "class": "CONSUME",
+        "implements": [
+            "Item"
+        ],
+        "name": [
+            "onConsume",
+            "onEat"
+        ],
+        "description": "Triggered when the item is eaten",
+        "link": "https://git.lumine.io/mythiccraft/mythiccrucible/-/wikis/Skills/Triggers/onConsume",
+        "attributes": []
+    },
+    {
+        "plugin": "MythicMobs",
         "class": "CREEPER_CHARGE",
         "implements": [
-            "GeneralTrigger"
+            "Mob"
         ],
         "name": [
             "onCreeper_Charge",
@@ -137,9 +187,24 @@
     },
     {
         "plugin": "MythicMobs",
+        "class": "CROUCH",
+        "implements": [
+            "Item"
+        ],
+        "name": [
+            "onCrouch"
+        ],
+        "description": "Executes the skill when the player holding or equipping the item starts to crouch",
+        "link": "https://git.lumine.io/mythiccraft/mythiccrucible/-/wikis/Skills/Triggers/onCrouch",
+        "attributes": []
+    },
+    {
+        "plugin": "MythicMobs",
         "class": "DAMAGED",
         "implements": [
-            "GeneralTrigger"
+            "Mob",
+            "Furniture",
+            "Item"
         ],
         "name": [
             "onDamaged",
@@ -153,7 +218,8 @@
         "plugin": "MythicMobs",
         "class": "DEATH",
         "implements": [
-            "GeneralTrigger"
+            "Mob",
+            "Item"
         ],
         "name": [
             "onDeath"
@@ -166,7 +232,7 @@
         "plugin": "MythicMobs",
         "class": "DESPAWNED",
         "implements": [
-            "GeneralTrigger"
+            "Mob"
         ],
         "name": [
             "onDespawned",
@@ -180,7 +246,7 @@
         "plugin": "MythicMobs",
         "class": "DROPCOMBAT",
         "implements": [
-            "GeneralTrigger"
+            "Mob"
         ],
         "name": [
             "onDropcombat",
@@ -195,7 +261,7 @@
         "plugin": "MythicMobs",
         "class": "ENTERCOMBAT",
         "implements": [
-            "GeneralTrigger"
+            "Mob"
         ],
         "name": [
             "onEntercombat"
@@ -208,7 +274,7 @@
         "plugin": "MythicMobs",
         "class": "EXPLODE",
         "implements": [
-            "GeneralTrigger"
+            "Mob"
         ],
         "name": [
             "onExplode"
@@ -219,9 +285,119 @@
     },
     {
         "plugin": "MythicMobs",
+        "class": "FISH",
+        "implements": [
+            "Item"
+        ],
+        "name": [
+            "onFish",
+            "onFishing",
+            "onFishingcast"
+        ],
+        "description": "When a player holding or equipping the item is fishing, ie casting the line out",
+        "link": "https://git.lumine.io/mythiccraft/mythiccrucible/-/wikis/Skills/Triggers/onFish",
+        "attributes": []
+    },
+    {
+        "plugin": "MythicMobs",
+        "class": "FISH_BITE",
+        "implements": [
+            "Item"
+        ],
+        "name": [
+            "onFish_Bite",
+            "onFishbite",
+            "onFishing_Bite",
+            "onFishingbite"
+        ],
+        "description": "Executed when, for the player holding or equipping the item, there is a bite on the hook and it is ready to be reeled in",
+        "link": "https://git.lumine.io/mythiccraft/mythiccrucible/-/wikis/Skills/Triggers/onFishBite",
+        "attributes": []
+    },
+    {
+        "plugin": "MythicMobs",
+        "class": "FISH_CATCH_ENTITY",
+        "implements": [
+            "Item"
+        ],
+        "name": [
+            "onFishgrab",
+            "onFishinggrab",
+            "onFishentity",
+            "onFishingentity"
+        ],
+        "description": "When a player holding or equipping the item has successfully caught an entity",
+        "link": "https://git.lumine.io/mythiccraft/mythiccrucible/-/wikis/Skills/Triggers/onFishGrab",
+        "attributes": []
+    },
+    {
+        "plugin": "MythicMobs",
+        "class": "FISH_CATCH_FISH",
+        "implements": [
+            "Item"
+        ],
+        "name": [
+            "onFishcatch",
+            "onFishcaught",
+            "onFishingcatch",
+            "onFishingcaught",
+            "onCatchfish",
+            "onCaughtfish"
+        ],
+        "description": "When a player holding or equipping the item has successfully caught a fish and is reeling it in.",
+        "link": "https://git.lumine.io/mythiccraft/mythiccrucible/-/wikis/Skills/Triggers/onFishCatch",
+        "attributes": []
+    },
+    {
+        "plugin": "MythicMobs",
+        "class": "FISH_FAIL",
+        "implements": [
+            "Item"
+        ],
+        "name": [
+            "onFish_Fail",
+            "onFishfail",
+            "onFishingfail"
+        ],
+        "description": "When a player holding or equipping the item fails to catch a bite while fishing usually due to poor timing",
+        "link": "https://git.lumine.io/mythiccraft/mythiccrucible/-/wikis/Skills/Triggers/onFishingFail",
+        "attributes": []
+    },
+    {
+        "plugin": "MythicMobs",
+        "class": "FISH_GROUND",
+        "implements": [
+            "Item"
+        ],
+        "name": [
+            "onFish_Ground",
+            "onFishingground",
+            "onFishground"
+        ],
+        "description": "When a bobber casted by a player holding or equipping the item is stuck in the ground",
+        "link": "https://git.lumine.io/mythiccraft/mythiccrucible/-/wikis/Skills/Triggers/onFishGround",
+        "attributes": []
+    },
+    {
+        "plugin": "MythicMobs",
+        "class": "FISH_REEL",
+        "implements": [
+            "Item"
+        ],
+        "name": [
+            "onFish_Reel",
+            "onFishingreel",
+            "onFishreel"
+        ],
+        "description": "When a player holding or equipping the item reels in their hook without receiving any bites",
+        "link": "https://git.lumine.io/mythiccraft/mythiccrucible/-/wikis/Skills/Triggers/onFishingReel",
+        "attributes": []
+    },
+    {
+        "plugin": "MythicMobs",
         "class": "HEAR",
         "implements": [
-            "GeneralTrigger"
+            "Mob"
         ],
         "name": [
             "onHear",
@@ -235,7 +411,9 @@
         "plugin": "MythicMobs",
         "class": "INTERACT",
         "implements": [
-            "GeneralTrigger"
+            "Mob",
+            "Furniture",
+            "Item"
         ],
         "name": [
             "onInteract"
@@ -248,7 +426,7 @@
         "plugin": "MythicMobs",
         "class": "ITEM_DROP",
         "implements": [
-            "PlayerTrigger"
+            "Item"
         ],
         "name": [
             "onItem_Drop",
@@ -257,14 +435,14 @@
             "onDrop_Item"
         ],
         "description": "When the player drops an item",
-        "link": "https://git.lumine.io/mythiccraft/MythicMobs/-/wikis/Skills/Triggers/onItemDrop",
+        "link": "https://git.lumine.io/mythiccraft/mythiccrucible/-/wikis/Skills/Triggers/onItemDrop",
         "attributes": []
     },
     {
         "plugin": "MythicMobs",
         "class": "ITEM_PICKUP",
         "implements": [
-            "PlayerTrigger"
+            "Item"
         ],
         "name": [
             "onItem_Pickup",
@@ -273,14 +451,53 @@
             "onPickup_Item"
         ],
         "description": "When the player picks up an item.",
-        "link": "https://git.lumine.io/mythiccraft/MythicMobs/-/wikis/Skills/Triggers/onItemPickup",
+        "link": "https://git.lumine.io/mythiccraft/mythiccrucible/-/wikis/Skills/Triggers/onItemPickup",
+        "attributes": []
+    },
+    {
+        "plugin": "MythicMobs",
+        "class": "JOIN",
+        "implements": [
+            "Item"
+        ],
+        "name": [
+            "onJoin"
+        ],
+        "description": "Executes the skill when the player holding or equipping the item joins the server",
+        "link": "https://git.lumine.io/mythiccraft/mythiccrucible/-/wikis/Skills/Triggers/onJoin",
+        "attributes": []
+    },
+    {
+        "plugin": "MythicMobs",
+        "class": "JUMP",
+        "implements": [
+            "Item"
+        ],
+        "name": [
+            "onJump"
+        ],
+        "description": "Executes the skill when the player holding or equipping the item jumps\n\n> **This is a [Paper-Only] mechanic!**\n\n\n<!-- LINKS -->\n[Paper-Only]: https://papermc.io/downloads/all\n\n\n<!--TAGS-->\n<!--tag:Paper-Only-->",
+        "link": "https://git.lumine.io/mythiccraft/mythiccrucible/-/wikis/Skills/Triggers/onJump",
+        "attributes": []
+    },
+    {
+        "plugin": "MythicMobs",
+        "class": "KILL",
+        "implements": [
+            "Item"
+        ],
+        "name": [
+            "onKill"
+        ],
+        "description": "Executes the skill when the player holding or equipping the item kills another entity",
+        "link": "https://git.lumine.io/mythiccraft/mythiccrucible/-/wikis/Skills/Triggers/onKill",
         "attributes": []
     },
     {
         "plugin": "MythicMobs",
         "class": "KILLPLAYER",
         "implements": [
-            "GeneralTrigger"
+            "Mob"
         ],
         "name": [
             "onKillplayer",
@@ -294,7 +511,7 @@
         "plugin": "MythicMobs",
         "class": "LOAD",
         "implements": [
-            "GeneralTrigger"
+            "Mob"
         ],
         "name": [
             "onLoad"
@@ -305,24 +522,55 @@
     },
     {
         "plugin": "MythicMobs",
+        "class": "PRESS_CTRLQ",
+        "implements": [
+            "Item"
+        ],
+        "name": [
+            "onPress_Ctrl_Q",
+            "onPressctrlq",
+            "onPress_Ctrlq",
+            "onDropitemstack"
+        ],
+        "description": "When a player presses Ctrl+Q to drop a stack of items\n\n> **This is a [ProtocolLib-Only] trigger!**",
+        "link": "https://git.lumine.io/mythiccraft/mythiccrucible/-/wikis/Skills/Triggers/onPressCtrlQ",
+        "attributes": []
+    },
+    {
+        "plugin": "MythicMobs",
+        "class": "PRESS_F",
+        "implements": [
+            "Item"
+        ],
+        "name": [
+            "onPress_F",
+            "onItemswap",
+            "onSwapitems",
+            "onPressf"
+        ],
+        "description": "When a player presses F to swap the item",
+        "link": "https://git.lumine.io/mythiccraft/mythiccrucible/-/wikis/Skills/Triggers/onPressF",
+        "attributes": []
+    },
+    {
+        "plugin": "MythicMobs",
         "class": "PRESS_Q",
         "implements": [
-            "PlayerTrigger"
+            "Item"
         ],
         "name": [
             "onPress_Q",
-            "onPressq",
-            "onDropitem"
+            "onPressq"
         ],
-        "description": "When the player drops an item",
-        "link": "https://git.lumine.io/mythiccraft/MythicMobs/-/wikis/Skills/Triggers/onItemDrop",
+        "description": "When a player presses Q to drop the item\n\n> **This is a [ProtocolLib-Only] trigger!**",
+        "link": "https://git.lumine.io/mythiccraft/mythiccrucible/-/wikis/Skills/Triggers/onPressQ",
         "attributes": []
     },
     {
         "plugin": "MythicMobs",
         "class": "PRIME",
         "implements": [
-            "GeneralTrigger"
+            "Mob"
         ],
         "name": [
             "onPrime"
@@ -335,7 +583,7 @@
         "plugin": "MythicMobs",
         "class": "READY",
         "implements": [
-            "GeneralTrigger"
+            "Mob"
         ],
         "name": [
             "onReady",
@@ -347,9 +595,36 @@
     },
     {
         "plugin": "MythicMobs",
+        "class": "RESPAWN",
+        "implements": [
+            "Item"
+        ],
+        "name": [
+            "onRespawn"
+        ],
+        "description": "Executes the skill when the player holding or equipping the item respawns",
+        "link": "https://git.lumine.io/mythiccraft/mythiccrucible/-/wikis/Skills/Triggers/onRespawn",
+        "attributes": []
+    },
+    {
+        "plugin": "MythicMobs",
+        "class": "RIGHTCLICK",
+        "implements": [
+            "Item"
+        ],
+        "name": [
+            "onRightclick"
+        ],
+        "description": "Executes the skill when the player holding or equipping the item right-clicks",
+        "link": "https://git.lumine.io/mythiccraft/mythiccrucible/-/wikis/Skills/Triggers/onRightClick",
+        "attributes": []
+    },
+    {
+        "plugin": "MythicMobs",
         "class": "SHOOT",
         "implements": [
-            "GeneralTrigger"
+            "Mob",
+            "Item"
         ],
         "name": [
             "onShoot",
@@ -364,7 +639,7 @@
         "plugin": "MythicMobs",
         "class": "SIGNAL",
         "implements": [
-            "GeneralTrigger"
+            "Mob"
         ],
         "name": [
             "onSignal"
@@ -377,7 +652,7 @@
         "plugin": "MythicMobs",
         "class": "SKILL_HIT",
         "implements": [
-            "GeneralTrigger"
+            "Mob"
         ],
         "name": [
             "onSkillhit",
@@ -392,7 +667,8 @@
         "plugin": "MythicMobs",
         "class": "SPAWN",
         "implements": [
-            "GeneralTrigger"
+            "Mob",
+            "Item"
         ],
         "name": [
             "onSpawn"
@@ -405,7 +681,7 @@
         "plugin": "MythicMobs",
         "class": "SPAWN_OR_LOAD",
         "implements": [
-            "GeneralTrigger"
+            "Mob"
         ],
         "name": [
             "onSpawnorload"
@@ -416,9 +692,38 @@
     },
     {
         "plugin": "MythicMobs",
+        "class": "SPLASH_POTION",
+        "implements": [
+            "Item"
+        ],
+        "name": [
+            "onSplash_Potion",
+            "onPotionsplash",
+            "onSplashpotion"
+        ],
+        "description": "Executes the skill when the potion is splashed",
+        "link": "https://git.lumine.io/mythiccraft/mythiccrucible/-/wikis/Skills/Triggers/onPotionSplash",
+        "attributes": []
+    },
+    {
+        "plugin": "MythicMobs",
+        "class": "SWING",
+        "implements": [
+            "Item"
+        ],
+        "name": [
+            "onSwing",
+            "onLeftclick"
+        ],
+        "description": "Executes the skill when the player holding or equipping the item left clicks",
+        "link": "https://git.lumine.io/mythiccraft/mythiccrucible/-/wikis/Skills/Triggers/onSwing",
+        "attributes": []
+    },
+    {
+        "plugin": "MythicMobs",
         "class": "TAME",
         "implements": [
-            "GeneralTrigger"
+            "Mob"
         ],
         "name": [
             "onTame"
@@ -431,7 +736,7 @@
         "plugin": "MythicMobs",
         "class": "TARGETCHANGE",
         "implements": [
-            "GeneralTrigger"
+            "Mob"
         ],
         "name": [
             "onTargetchange",
@@ -445,7 +750,7 @@
         "plugin": "MythicMobs",
         "class": "TELEPORT",
         "implements": [
-            "GeneralTrigger"
+            "Mob"
         ],
         "name": [
             "onTeleport"
@@ -458,7 +763,9 @@
         "plugin": "MythicMobs",
         "class": "TIMER",
         "implements": [
-            "GeneralTrigger"
+            "Mob",
+            "Furniture",
+            "Item"
         ],
         "name": [
             "onTimer"
@@ -471,13 +778,54 @@
         "plugin": "MythicMobs",
         "class": "TRADE",
         "implements": [
-            "GeneralTrigger"
+            "Mob"
         ],
         "name": [
             "onTrade"
         ],
         "description": "Executes the skill when the villager trades with a player.  \n\n> The associated [@trigger](/Skills/Targeters/Trigger) is the player that traded with the villager",
         "link": "https://git.lumine.io/mythiccraft/MythicMobs/-/wikis/Skills/Triggers/onTrade",
+        "attributes": []
+    },
+    {
+        "plugin": "MythicMobs",
+        "class": "TRIDENT_THROW",
+        "implements": [
+            "Item"
+        ],
+        "name": [
+            "onTrident_Throw",
+            "onThrowtrident",
+            "onTridentthrow"
+        ],
+        "description": "Executes the skill when the trident item is thrown\n\n> **This is a [Paper-Only] mechanic!**",
+        "link": "https://git.lumine.io/mythiccraft/mythiccrucible/-/wikis/Skills/Triggers/onTridentThrow",
+        "attributes": []
+    },
+    {
+        "plugin": "MythicMobs",
+        "class": "UNCROUCH",
+        "implements": [
+            "Item"
+        ],
+        "name": [
+            "onUncrouch"
+        ],
+        "description": "Executes the skill when the player holding or equipping the item stops to crouch",
+        "link": "https://git.lumine.io/mythiccraft/mythiccrucible/-/wikis/Skills/Triggers/onUnCrouch",
+        "attributes": []
+    },
+    {
+        "plugin": "MythicMobs",
+        "class": "USE",
+        "implements": [
+            "Item"
+        ],
+        "name": [
+            "onUse"
+        ],
+        "description": "Executes the skill when the player holding the item right-clicks.",
+        "link": "https://git.lumine.io/mythiccraft/mythiccrucible/-/wikis/Skills/Triggers/onUse",
         "attributes": []
     }
 ]

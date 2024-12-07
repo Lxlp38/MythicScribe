@@ -1,0 +1,193 @@
+[
+    {
+        "plugin": "MythicCrucible",
+        "class": "BLOCK_ROTATE",
+        "implements": [
+            "Furniture",
+            "Item"
+        ],
+        "name": [
+            "onBlockrotate"
+        ],
+        "description": "Executes the skill when the furniture is rotated\n\n\n<!--TYPES-->\n<!--type:Furniture-->",
+        "link": "https://git.lumine.io/mythiccraft/mythiccrucible/-/wikis/Skills/Triggers/onBlockRotate",
+        "attributes": []
+    },
+    {
+        "plugin": "MythicCrucible",
+        "class": "BLOCK_SIT",
+        "implements": [
+            "Furniture",
+            "Item"
+        ],
+        "name": [
+            "onBlocksit",
+            "onFurnituresit"
+        ],
+        "description": "Executes the skill when a player sits on the furniture",
+        "link": "https://git.lumine.io/mythiccraft/mythiccrucible/-/wikis/Skills/Triggers/onBlockSit",
+        "attributes": []
+    },
+    {
+        "plugin": "MythicCrucible",
+        "class": "FURNITURE_INVENTORY_CLOSE",
+        "implements": [
+            "Furniture",
+            "Item"
+        ],
+        "name": [
+            "onFurnitureinventoryclose",
+            "onClosefurnitureinventory"
+        ],
+        "description": "Triggers when the [Furniture Inventory](/Skills/Mechanics/furnitureinventory) is closed",
+        "link": "https://git.lumine.io/mythiccraft/mythiccrucible/-/wikis/Skills/Triggers/onFurnitureInventoryClose",
+        "attributes": []
+    },
+    {
+        "plugin": "MythicCrucible",
+        "class": "FURNITURE_INVENTORY_OPEN",
+        "implements": [
+            "Furniture",
+            "Item"
+        ],
+        "name": [
+            "onFurnitureinventoryopen",
+            "onOpenfurnitureinventory"
+        ],
+        "description": "Triggers when the [Furniture Inventory](/Skills/Mechanics/furnitureinventory) is opened",
+        "link": "https://git.lumine.io/mythiccraft/mythiccrucible/-/wikis/Skills/Triggers/onFurnitureInventoryOpen",
+        "attributes": []
+    },
+    {
+        "plugin": "MythicCrucible",
+        "class": "FURNITURE_STATE_CHANGE",
+        "implements": [
+            "Furniture",
+            "Item"
+        ],
+        "name": [
+            "onFurniturestatechange",
+            "onFurniturestate"
+        ],
+        "description": "When the state of the furniture changes",
+        "link": "https://git.lumine.io/mythiccraft/mythiccrucible/-/wikis/Skills/Triggers/onFurnitureStateChange",
+        "attributes": []
+    },
+    {
+        "plugin": "MythicCrucible",
+        "class": "HELD",
+        "implements": [
+            "Item"
+        ],
+        "name": [
+            "onHeld",
+            "onClasp",
+            "onClasped",
+            "onHold"
+        ],
+        "description": "Executes the skill when the player holds the item",
+        "link": "https://git.lumine.io/mythiccraft/mythiccrucible/-/wikis/Skills/Triggers/onHold",
+        "attributes": []
+    },
+    {
+        "plugin": "MythicCrucible",
+        "class": "PAINT",
+        "implements": [
+            "Item"
+        ],
+        "name": [
+            "onPaint"
+        ],
+        "description": "When a [Paint Brush](Paint-Brush) paints a furniture",
+        "link": "https://git.lumine.io/mythiccraft/mythiccrucible/-/wikis/Skills/Triggers/onPaint",
+        "attributes": []
+    },
+    {
+        "plugin": "MythicCrucible",
+        "class": "PICKUP",
+        "implements": [
+            "Item"
+        ],
+        "name": [
+            "onPickup"
+        ],
+        "description": "Executes the skill when the item is picked up by a player",
+        "link": "https://git.lumine.io/mythiccraft/mythiccrucible/-/wikis/Skills/Triggers/onPickup",
+        "attributes": []
+    },
+    {
+        "plugin": "MythicCrucible",
+        "class": "PRESS_F_HAND",
+        "implements": [
+            "Item"
+        ],
+        "name": [
+            "onPressf_Hand",
+            "onPressf_Mainhand"
+        ],
+        "description": "When a player presses F to swap the item, and it ends up in the main hand",
+        "link": "https://git.lumine.io/mythiccraft/mythiccrucible/-/wikis/Skills/Triggers/onPressF_HAND",
+        "attributes": []
+    },
+    {
+        "plugin": "MythicCrucible",
+        "class": "PRESS_F_OFFHAND",
+        "implements": [
+            "Item"
+        ],
+        "name": [
+            "onPressf_Offhand"
+        ],
+        "description": "When a player presses F to swap the item, and it ends up in the offhand",
+        "link": "https://git.lumine.io/mythiccraft/mythiccrucible/-/wikis/Skills/Triggers/onPressF_OFFHAND",
+        "attributes": []
+    },
+    {
+        "plugin": "MythicCrucible",
+        "class": "START_DESTROY_BLOCK",
+        "implements": [
+            "Item"
+        ],
+        "name": [
+            "onStartdestroyblock",
+            "onStartdestroyingblock",
+            "onBlockdamage",
+            "onBlockdamaged"
+        ],
+        "description": "Executes the skill when the player holding or equipping the item starts destroying a block",
+        "link": "https://git.lumine.io/mythiccraft/mythiccrucible/-/wikis/Skills/Triggers/onStartDestroyBlock",
+        "attributes": []
+    },
+    {
+        "plugin": "MythicCrucible",
+        "class": "STOP_DESTROY_BLOCK",
+        "implements": [
+            "Item"
+        ],
+        "name": [
+            "onStopdestroyblock",
+            "onStopdestroyingblock",
+            "onAbortblockdamage",
+            "onBlockdamageabort"
+        ],
+        "description": "Executes the skill when the player holding or equipping the item stops destroying a block",
+        "link": "https://git.lumine.io/mythiccraft/mythiccrucible/-/wikis/Skills/Triggers/onStopDestroyBlock",
+        "attributes": []
+    },
+    {
+        "plugin": "MythicCrucible",
+        "class": "UNHELD",
+        "implements": [
+            "Item"
+        ],
+        "name": [
+            "onUnheld",
+            "onUnclasp",
+            "onUnclasped",
+            "on!Hold"
+        ],
+        "description": "Executes the skill when the player stops holding the item",
+        "link": "https://git.lumine.io/mythiccraft/mythiccrucible/-/wikis/Skills/Triggers/onUnHeld",
+        "attributes": []
+    }
+]

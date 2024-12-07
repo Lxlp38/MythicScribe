@@ -320,7 +320,7 @@
         "name": [
             "arrowvolley"
         ],
-        "description": "Fires a volley of arrows towards the target with a number of\nconfigurable properties.",
+        "description": "Fires a volley of arrows towards the target with a number of configurable properties.",
         "link": "https://git.lumine.io/mythiccraft/MythicMobs/-/wikis/Skills/Mechanics/arrowvolley",
         "attributes": [
             {
@@ -1028,6 +1028,117 @@
                 "link": "https://git.lumine.io/mythiccraft/MythicMobs/-/wikis/Skills/Mechanics/barset",
                 "default_value": "SOLID",
                 "enum": "BarStyle"
+            }
+        ]
+    },
+    {
+        "plugin": "MythicMobs",
+        "class": "BeamMechanic",
+        "extends": "SkillMechanic",
+        "implements": [
+            "ITargetedEntitySkill",
+            "ITargetedLocationSkill"
+        ],
+        "name": [
+            "beam"
+        ],
+        "description": "Creates a beam of a material between the caster and the target",
+        "link": "https://git.lumine.io/mythiccraft/MythicMobs/-/wikis/Skills/Mechanics/beam",
+        "attributes": [
+            {
+                "name": [
+                    "onhitskill",
+                    "onhit",
+                    "oh"
+                ],
+                "type": "String",
+                "description": "The skill to execute when the beam hits an entity. Currently not supported",
+                "link": "https://git.lumine.io/mythiccraft/MythicMobs/-/wikis/Skills/Mechanics/beam",
+                "default_value": ""
+            },
+            {
+                "name": [
+                    "ontickskill",
+                    "ontick",
+                    "ot"
+                ],
+                "type": "String",
+                "description": "The skill to execute each tick. The origin will be the starting location",
+                "link": "https://git.lumine.io/mythiccraft/MythicMobs/-/wikis/Skills/Mechanics/beam",
+                "default_value": ""
+            },
+            {
+                "name": [
+                    "duration",
+                    "d"
+                ],
+                "type": "Integer",
+                "description": "Duration of the beam in ticks",
+                "link": "https://git.lumine.io/mythiccraft/MythicMobs/-/wikis/Skills/Mechanics/beam",
+                "default_value": "20"
+            },
+            {
+                "name": [
+                    "tickinterval",
+                    "interval",
+                    "i"
+                ],
+                "type": "Integer",
+                "description": "Tick interval of the beam",
+                "link": "https://git.lumine.io/mythiccraft/MythicMobs/-/wikis/Skills/Mechanics/beam",
+                "default_value": "1"
+            },
+            {
+                "name": [
+                    "material",
+                    "m"
+                ],
+                "type": "String",
+                "description": "Material of the beam",
+                "link": "https://git.lumine.io/mythiccraft/MythicMobs/-/wikis/Skills/Mechanics/beam",
+                "default_value": "END_ROD",
+                "enum": "Material"
+            },
+            {
+                "name": [
+                    "rotationspeed",
+                    "rs"
+                ],
+                "type": "Float",
+                "description": "Rotation speed of the beam in degrees per tick",
+                "link": "https://git.lumine.io/mythiccraft/MythicMobs/-/wikis/Skills/Mechanics/beam",
+                "default_value": "0"
+            },
+            {
+                "name": [
+                    "hitradius",
+                    "radius",
+                    "r"
+                ],
+                "type": "Double",
+                "description": "Hit Radius of the beam",
+                "link": "https://git.lumine.io/mythiccraft/MythicMobs/-/wikis/Skills/Mechanics/beam",
+                "default_value": "1.0"
+            },
+            {
+                "name": [
+                    "startyoffset",
+                    "syo"
+                ],
+                "type": "Double",
+                "description": "The starting y offset of the beam from the caster's location",
+                "link": "https://git.lumine.io/mythiccraft/MythicMobs/-/wikis/Skills/Mechanics/beam",
+                "default_value": "0"
+            },
+            {
+                "name": [
+                    "endyoffset",
+                    "eyo"
+                ],
+                "type": "Double",
+                "description": "The end y offset of the beam from the target's location",
+                "link": "https://git.lumine.io/mythiccraft/MythicMobs/-/wikis/Skills/Mechanics/beam",
+                "default_value": "0"
             }
         ]
     },
@@ -8097,6 +8208,20 @@
     },
     {
         "plugin": "MythicMobs",
+        "class": "PrintParentTreeMechanic",
+        "extends": "SkillMechanic",
+        "implements": [
+            "INoTargetSkill"
+        ],
+        "name": [
+            "printParentTree"
+        ],
+        "description": "Prints debug information regarding the Metaskill executing the mechanic and its SkillTree",
+        "link": "https://git.lumine.io/mythiccraft/MythicMobs/-/wikis/Skills/Mechanics/PrintParentTree",
+        "attributes": []
+    },
+    {
+        "plugin": "MythicMobs",
         "class": "PrisonMechanic",
         "extends": "SkillMechanic",
         "implements": [
@@ -10106,7 +10231,7 @@
         "name": [
             "raytraceTo"
         ],
-        "description": "Traces a ray to the target, like the [Raytrace](/skills/mechanics/raytrace) mechanic, but with additional attributes regarding the start and end position of the ray. **\\[PREMIUM ONLY\\]**",
+        "description": "Traces a ray to the target, like the [Raytrace](/skills/mechanics/raytrace) mechanic, but with additional attributes regarding the start and end position of the ray.\n\n> **This is a [Premium-Only] mechanic!**",
         "link": "https://git.lumine.io/mythiccraft/MythicMobs/-/wikis/Skills/Mechanics/raytraceto",
         "attributes": [
             {
@@ -10329,7 +10454,7 @@
                     "recoil",
                     "r"
                 ],
-                "type": "Float",
+                "type": "PlaceholderFloat",
                 "description": "The amount of recoil.",
                 "link": "https://git.lumine.io/mythiccraft/MythicMobs/-/wikis/Skills/Mechanics/Recoil",
                 "default_value": "1"
@@ -10418,6 +10543,74 @@
         "description": "Removes the caster's Mythic and Vanilla owner",
         "link": "https://git.lumine.io/mythiccraft/MythicMobs/-/wikis/Skills/Mechanics/removeowner",
         "attributes": []
+    },
+    {
+        "plugin": "MythicMobs",
+        "class": "RotateTowardsMechanic",
+        "extends": "SkillMechanic",
+        "implements": [
+            "ITargetedLocationSkill"
+        ],
+        "name": [
+            "rotatetowards",
+            "rotateto"
+        ],
+        "description": "Rotates the caster towards the target location, up to a maximum yaw/pitch increment from the current rotation.",
+        "link": "https://git.lumine.io/mythiccraft/MythicMobs/-/wikis/Skills/Mechanics/RotateTowards",
+        "attributes": [
+            {
+                "name": [
+                    "rotateyaw",
+                    "yaw"
+                ],
+                "type": "Boolean",
+                "description": "Whether yaw should be rotated",
+                "link": "https://git.lumine.io/mythiccraft/MythicMobs/-/wikis/Skills/Mechanics/RotateTowards",
+                "default_value": "true"
+            },
+            {
+                "name": [
+                    "rotatepitch",
+                    "pitch"
+                ],
+                "type": "Boolean",
+                "description": "Whether pitch should be rotated",
+                "link": "https://git.lumine.io/mythiccraft/MythicMobs/-/wikis/Skills/Mechanics/RotateTowards",
+                "default_value": "false"
+            },
+            {
+                "name": [
+                    "useEyeLocation",
+                    "uel"
+                ],
+                "type": "Boolean",
+                "description": "Whether the caster's eye location should be used as the base to calculate the new yaw/pitch",
+                "link": "https://git.lumine.io/mythiccraft/MythicMobs/-/wikis/Skills/Mechanics/RotateTowards",
+                "default_value": "false"
+            },
+            {
+                "name": [
+                    "maxyaw",
+                    "my",
+                    "y"
+                ],
+                "type": "PlaceholderDouble",
+                "description": "The maximum increment the yaw can have",
+                "link": "https://git.lumine.io/mythiccraft/MythicMobs/-/wikis/Skills/Mechanics/RotateTowards",
+                "default_value": "0"
+            },
+            {
+                "name": [
+                    "maxpitch",
+                    "mp",
+                    "p"
+                ],
+                "type": "PlaceholderDouble",
+                "description": "The maximum increment the pitch can have",
+                "link": "https://git.lumine.io/mythiccraft/MythicMobs/-/wikis/Skills/Mechanics/RotateTowards",
+                "default_value": "0"
+            }
+        ]
     },
     {
         "plugin": "MythicMobs",
@@ -11679,7 +11872,7 @@
                     "m"
                 ],
                 "type": "PlaceholderFloat",
-                "description": "Speed of the entity",
+                "description": "Speed multiplier to apply to the base speed of the entity",
                 "link": "https://git.lumine.io/mythiccraft/MythicMobs/-/wikis/Skills/Mechanics/setspeed",
                 "default_value": "1"
             }
@@ -12249,6 +12442,16 @@
                 "description": "If the caster is a player, adjusts the velocity and direction as if the player was shooting it themselves",
                 "link": "https://git.lumine.io/mythiccraft/MythicMobs/-/wikis/Skills/Mechanics/shoot",
                 "default_value": "true"
+            },
+            {
+                "name": [
+                    "fromorigin",
+                    "fo"
+                ],
+                "type": "Boolean",
+                "description": "Whether the projectile should be shot from the origin of the mechanic",
+                "link": "https://git.lumine.io/mythiccraft/MythicMobs/-/wikis/Skills/Mechanics/shoot",
+                "default_value": "false"
             },
             {
                 "name": [
@@ -13890,7 +14093,7 @@
             "spawnMobs",
             "pirateSummon"
         ],
-        "description": "<!--\nTo utilize the summon mechanic in Mythic Mobs, you will need the following:\n\n1. Minecraft: make sure you have a working installation of Minecraft Java Edition on your computer\n\n  - ChatGPT, 16/05/2023, oil on canvas\n-->\n\nSummons mobs of the given type around the target.",
+        "description": "Summons mobs of the given type around the target.\n\n<!--\nTo utilize the summon mechanic in Mythic Mobs, you will need the following:\n\n1. Minecraft: make sure you have a working installation of Minecraft Java Edition on your computer\n\n  - ChatGPT, 16/05/2023, oil on canvas\n-->",
         "link": "https://git.lumine.io/mythiccraft/MythicMobs/-/wikis/Skills/Mechanics/summon",
         "attributes": [
             {
@@ -15220,7 +15423,8 @@
                 "type": "String",
                 "description": "The [scope](/skills/variables#variable_scopes) of the variable, e.g. where the variable will be located",
                 "link": "https://git.lumine.io/mythiccraft/MythicMobs/-/wikis/Skills/Mechanics/setvariable",
-                "default_value": "SKILL"
+                "default_value": "SKILL",
+                "enum": "VariableScope"
             },
             {
                 "name": [
@@ -15293,6 +15497,61 @@
         "description": "Unsets a [variable](/skills/variables).",
         "link": "https://git.lumine.io/mythiccraft/MythicMobs/-/wikis/Skills/Mechanics/variableunset",
         "attributes": []
+    },
+    {
+        "plugin": "MythicMobs",
+        "class": "VelocityDirectionalMechanic",
+        "extends": "SkillMechanic",
+        "implements": [
+            "ITargetedEntitySkill"
+        ],
+        "name": [
+            "directionalvelocity",
+            "dvelocity"
+        ],
+        "description": "Changes the velocity on the target entity on a specific vector",
+        "link": "https://git.lumine.io/mythiccraft/MythicMobs/-/wikis/Skills/Mechanics/DirectionalVelocity",
+        "attributes": [
+            {
+                "name": [
+                    "yaw"
+                ],
+                "type": "PlaceholderFloat",
+                "description": "The yaw of the vector for the velocity change",
+                "link": "https://git.lumine.io/mythiccraft/MythicMobs/-/wikis/Skills/Mechanics/DirectionalVelocity",
+                "default_value": ""
+            },
+            {
+                "name": [
+                    "pitch"
+                ],
+                "type": "PlaceholderFloat",
+                "description": "The pitch of the vector for the velocity change",
+                "link": "https://git.lumine.io/mythiccraft/MythicMobs/-/wikis/Skills/Mechanics/DirectionalVelocity",
+                "default_value": ""
+            },
+            {
+                "name": [
+                    "velocity",
+                    "v"
+                ],
+                "type": "PlaceholderFloat",
+                "description": "The magnitude of the velocity change",
+                "link": "https://git.lumine.io/mythiccraft/MythicMobs/-/wikis/Skills/Mechanics/DirectionalVelocity",
+                "default_value": ""
+            },
+            {
+                "name": [
+                    "mode",
+                    "m"
+                ],
+                "type": "String",
+                "description": "The mode to use",
+                "link": "https://git.lumine.io/mythiccraft/MythicMobs/-/wikis/Skills/Mechanics/DirectionalVelocity",
+                "default_value": "SET",
+                "enum": "DirectionalVelocity_Mode"
+            }
+        ]
     },
     {
         "plugin": "MythicMobs",

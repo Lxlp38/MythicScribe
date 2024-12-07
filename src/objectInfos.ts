@@ -99,6 +99,7 @@ export enum EnumType {
 	FLUID = 'Fluid',
 	GLOWCOLOR = 'Glow Color',
 	SCOREACTION = 'Score Action',
+	VARIABLESCOPE = 'Variable Scope',
 
 	PAPERATTRIBUTE = 'Paper Attribute',
 	PAPERATTRIBUTEOPERATION = 'Paper Attribute Operation',
@@ -122,6 +123,7 @@ export enum EnumType {
 	FLUIDCOLLISIONMODE = 'Fluid Collision Mode',
 
 	ADDTRADE_ACTION = 'Add Trade Action',
+	DIRECTIONALVELOCITY_MODE = 'Directional Velocity Mode',
 	DISPLAYTRANSFORMATION_ACTION = 'Display Transformation Action',
 	DISPLAYTRANSFORMATION_TYPE = 'Display Transformation Type',
 	PROJECTILE_BULLETTYPE = 'Projectile Bullet Type',
@@ -191,6 +193,8 @@ export const EnumInfo = {
 
 	[EnumType.SCOREACTION]: newEnumDetail("mythic/scoreaction.json", false),
 
+	[EnumType.VARIABLESCOPE]: newEnumDetail("mythic/variablescope.json", false),
+
 	[EnumType.PAPERATTRIBUTE]: newEnumDetail("paper/attributes.json"),
 
 	[EnumType.PAPERATTRIBUTEOPERATION]: newEnumDetail("mythic/attributesoperations.json", false),
@@ -234,6 +238,7 @@ export const EnumInfo = {
 
 
 	[EnumType.ADDTRADE_ACTION]: newEnumDetail("mythic/mechanicScoped/addtrade_action.json", false),
+	[EnumType.DIRECTIONALVELOCITY_MODE]: newEnumDetail("mythic/mechanicScoped/directionalvelocity_mode.json", false),
 	[EnumType.DISPLAYTRANSFORMATION_ACTION]: newEnumDetail("mythic/mechanicScoped/displaytransformation_action.json", false),
 	[EnumType.DISPLAYTRANSFORMATION_TYPE]: newEnumDetail("mythic/mechanicScoped/displaytransformation_type.json", false),
 	[EnumType.PROJECTILE_BULLETTYPE]: newEnumDetail("mythic/mechanicScoped/projectile_bullettype.json", false),
@@ -253,7 +258,6 @@ export const EnumInfo = {
 	[EnumType.VOLLEY_SOURCE]: newEnumDetail("mythic/mechanicScoped/volley_source.json", false),
 	[EnumType.WEATHER_TYPE]: newEnumDetail("mythic/mechanicScoped/weather_type.json", false),
 };
-
 
 
 export enum FileObjectTypes {
@@ -292,6 +296,13 @@ export const keyAliases = {
 	"Conditions": ["Conditions", "TriggerConditions", "TargetConditions"]
 };
 
+export enum TriggerType {
+	MOB = 'Mob',
+	ITEM = 'Item',
+	ARCHETYPE = 'Archetype',
+	BLOCK = 'Block',
+	FURNITURE = 'Furniture',
+}
 
 export function generateNumbersInRange(min: number, max: number, step: number, float: boolean = false, start: number|null = null): string[] {
 	const result = [];

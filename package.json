@@ -30,7 +30,8 @@
     "vscode": "^1.94.0"
   },
   "categories": [
-    "Other"
+    "Programming Languages",
+    "Formatters"
   ],
   "activationEvents": [
     "onLanguage:yaml"

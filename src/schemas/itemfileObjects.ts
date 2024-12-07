@@ -281,6 +281,11 @@ export const ItemFileObjects: FileObjectMap = {
 		link: "https://git.lumine.io/mythiccraft/mythiccrucible/-/wikis/Furniture#furniture-skills",
 		description: "Sets the furniture skills of the item",
 	},
+	"CustomBlockSkills": {
+		type: FileObjectTypes.LIST,
+		link: "https://git.lumine.io/mythiccraft/mythiccrucible/-/wikis/Custom-Blocks",
+		description: "Sets the custom block skills of the item",
+	},
 	"CustomDurability": {
 		type: FileObjectTypes.KEY,
 		link: "https://git.lumine.io/mythiccraft/mythiccrucible/-/wikis/CustomDurability",
@@ -453,4 +458,100 @@ export const ItemFileObjects: FileObjectMap = {
 			}
 		}
 	},
+	"Spawner": {
+		type: FileObjectTypes.KEY,
+		link: "https://git.lumine.io/mythiccraft/MythicMobs/-/wikis/Items/Items#spawner",
+		description: "Configures the spawner settings for the item",
+		keys: {
+			"Delay": {
+				type: FileObjectTypes.INTEGER,
+			},
+			"MinSpawnDelay": {
+				type: FileObjectTypes.INTEGER,
+			},
+			"MaxSpawnDelay": {
+				type: FileObjectTypes.INTEGER,
+			},
+			"RequiredPlayerRange": {
+				type: FileObjectTypes.INTEGER,
+			},
+			"SpawnCount": {
+				type: FileObjectTypes.INTEGER,
+			},
+			"SpawnRange": {
+				type: FileObjectTypes.INTEGER,
+			},
+			"MaxNearbyEntities": {
+				type: FileObjectTypes.INTEGER,
+			},
+			"Mobs": {
+				type: FileObjectTypes.LIST,
+				keys: {
+					"Type": {
+						type: FileObjectTypes.STRING,
+					},
+					"Weight": {
+						type: FileObjectTypes.INTEGER,
+					},
+					"MinBlockLight": {
+						type: FileObjectTypes.INTEGER,
+					},
+					"MaxBlockLight": {
+						type: FileObjectTypes.INTEGER,
+					},
+					"MinSkyLight": {
+						type: FileObjectTypes.INTEGER,
+					},
+					"MaxSkyLight": {
+						type: FileObjectTypes.INTEGER,
+					}
+				}
+			}
+		}
+	},
+	"TooltipStyle": {
+		type: FileObjectTypes.STRING,
+		link: "https://git.lumine.io/mythiccraft/MythicMobs/-/wikis/Items/Items#tooltipstyle",
+		description: "Configures the tooltip style for the item",
+	},
+	"DropOptions": {
+		type: FileObjectTypes.KEY,
+		link: "https://git.lumine.io/mythiccraft/MythicMobs/-/wikis/Items/Items#dropoptions",
+		description: "Default drop settings for this item",
+		keys: {
+			"DropGlowColor": {
+				type: FileObjectTypes.STRING,
+			},
+			"DropBeamColor": {
+				type: FileObjectTypes.STRING,
+			},
+			"DropLootsplosion": {
+				type: FileObjectTypes.BOOLEAN,
+			},
+			"DropHologram": {
+				type: FileObjectTypes.BOOLEAN,
+			},
+			"DropVFX": {
+				type: FileObjectTypes.BOOLEAN,
+			},
+			"DropVFXMaterial": {
+				type: FileObjectTypes.STRING,
+			},
+			"DropVFXData": {
+				type: FileObjectTypes.INTEGER,
+			},
+			"DropVFXColor": {
+				type: FileObjectTypes.STRING,
+			},
+			"DropBillboarding": {
+				type: FileObjectTypes.STRING,
+			},
+			"DropBrightness": {
+				type: FileObjectTypes.INTEGER,
+			},
+			"DropClientSide": {
+				type: FileObjectTypes.BOOLEAN,
+			}
+		}
+	}
 };

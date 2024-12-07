@@ -1,5 +1,5 @@
 import * as vscode from 'vscode';
-import { enableSubscriptions, disableSubscriptions, enableSkillfileSubscriptions, disableSkillfileSubscriptions, enableTriggerFileSubscriptions, disableTriggerFileSubscriptions, enableMobfileSubscriptions, disableMobfileSubscriptions, enableItemFileSubscriptions, disableItemFileSubscriptions } from '../../MythicScribe';
+import { enableSubscriptions, disableSubscriptions, enableSkillfileSubscriptions, disableSkillfileSubscriptions, enableMobfileSubscriptions, disableMobfileSubscriptions, enableItemFileSubscriptions, disableItemFileSubscriptions } from '../../MythicScribe';
 
 
 function resetFileChecks() {
@@ -7,13 +7,11 @@ function resetFileChecks() {
     isMetaskillFile = false;
     isMobFile = false;
     isItemFile = false;
-    isTriggerFile = false;
 }
 export let isEnabled = false;
 export let isMetaskillFile = false;
 export let isMobFile = false;
 export let isItemFile = false;
-export let isTriggerFile = false;
 
 
 
@@ -93,21 +91,6 @@ export function updateEnabled(document: vscode.TextDocument) {
             disableItemFileSubscriptions();
         }
     }
-
-
-    // Check if the file is a trigger file
-    const newisTriggerFile = isMobFile || isItemFile;
-    if (isTriggerFile !== newisTriggerFile) {
-        isTriggerFile = newisTriggerFile;
-        console.log('updateTriggerFile', isTriggerFile);
-        if (isTriggerFile) {
-            enableTriggerFileSubscriptions();
-        }
-        else {
-            disableTriggerFileSubscriptions();
-        }
-    }
-
 }
 
 

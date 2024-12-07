@@ -1,10 +1,16 @@
 # Changelog
 
-## [Unreleased]
+## [1.4.0]
 
 ## Added
-- "Format Document" Feature
-- A lot of datasets and associated autocompletions for mechanics
+- "Format Document" Feature.
+  - Should be good to use, but let me know if it behaves wrongly
+  - Will also change document indentation based on the `editor.tabSize` config
+- Item Triggers
+- Enhanced Autocompletion for Item triggers:
+  - Furniture triggers only will be displayed when inside FurnitureSkills
+  - Block triggers only will be displayed when inside CustomBlockSkills
+- Multiple datasets and associated autocompletions for mechanic attributes
 
 ## Fixed
 - Attribute values completions not working on invocation 

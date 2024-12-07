@@ -1,0 +1,17 @@
+{
+    "skill": {
+        "description": "The Registry of the SkillTree"
+    },
+    "caster": {
+        "description": "The Registry of the caster of the mechanic"
+    },
+    "target": {
+        "description": "The Registry of the target of the mechanic"
+    },
+    "world": {
+        "description": "The Registry of the world in which the mechanic is executed"
+    },
+    "global": {
+        "description": "The Registry of the server"
+    }
+}

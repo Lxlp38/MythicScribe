@@ -50,6 +50,103 @@
     },
     {
         "plugin": "MythicCrucible",
+        "class": "AmmoLoadMechanic",
+        "extends": "SkillMechanic",
+        "implements": [
+            "INoTargetSkill"
+        ],
+        "name": [
+            "reloadAmmo",
+            "loadAmmo"
+        ],
+        "description": "will search the caster's inventory for the configured ammo item (or another item if overridden), and for each item it finds it will consume it and add ammo to the item.",
+        "link": "https://git.lumine.io/mythiccraft/mythiccrucible/-/wikis/Skills/Mechanics/ReloadAmmo",
+        "attributes": [
+            {
+                "name": [
+                    "time",
+                    "t"
+                ],
+                "type": "Long",
+                "description": "The time in ticks it takes to complete the operation",
+                "link": "https://git.lumine.io/mythiccraft/mythiccrucible/-/wikis/Skills/Mechanics/ReloadAmmo",
+                "default_value": "20"
+            },
+            {
+                "name": [
+                    "reloadskill",
+                    "onreload",
+                    "reload"
+                ],
+                "type": "String",
+                "description": "Metaskill to execute once the reload is completed",
+                "link": "https://git.lumine.io/mythiccraft/mythiccrucible/-/wikis/Skills/Mechanics/ReloadAmmo",
+                "default_value": ""
+            },
+            {
+                "name": [
+                    "reloadfullskill",
+                    "onreloadfull",
+                    "onfull"
+                ],
+                "type": "String",
+                "description": "Metaskill to execute if the gun is already full",
+                "link": "https://git.lumine.io/mythiccraft/mythiccrucible/-/wikis/Skills/Mechanics/ReloadAmmo",
+                "default_value": ""
+            },
+            {
+                "name": [
+                    "reloadfailskill",
+                    "onreloadfail",
+                    "onfail"
+                ],
+                "type": "String",
+                "description": "Metaskill to execute if the reload fails",
+                "link": "https://git.lumine.io/mythiccraft/mythiccrucible/-/wikis/Skills/Mechanics/ReloadAmmo",
+                "default_value": ""
+            }
+        ]
+    },
+    {
+        "plugin": "MythicCrucible",
+        "class": "BlockCrackEffect",
+        "extends": "SkillMechanic",
+        "implements": [
+            "ITargetedLocationSkill"
+        ],
+        "name": [
+            "blockcrack",
+            "effect:blockcrack",
+            "e:blockcrack",
+            "blockcracking"
+        ],
+        "description": "Shows a block crack effect on the target block for the selected audience.",
+        "link": "https://git.lumine.io/mythiccraft/mythiccrucible/-/wikis/Skills/Mechanics/BlockCrack",
+        "attributes": [
+            {
+                "name": [
+                    "audience"
+                ],
+                "type": "Audience",
+                "description": "The [audience] of the effect",
+                "link": "https://git.lumine.io/mythiccraft/mythiccrucible/-/wikis/Skills/Mechanics/BlockCrack",
+                "default_value": "CASTER",
+                "enum": "Audience"
+            },
+            {
+                "name": [
+                    "progress",
+                    "p"
+                ],
+                "type": "PlaceholderInteger",
+                "description": "The progress of the block crack effect, expressed as a float value from 0 to 1",
+                "link": "https://git.lumine.io/mythiccraft/mythiccrucible/-/wikis/Skills/Mechanics/BlockCrack",
+                "default_value": "1"
+            }
+        ]
+    },
+    {
+        "plugin": "MythicCrucible",
         "class": "DealCustomDurabilityMechanic",
         "extends": "SkillMechanic",
         "implements": [
@@ -72,6 +169,31 @@
                 "description": "Adds/Subtracts durability",
                 "link": "https://git.lumine.io/mythiccraft/mythiccrucible/-/wikis/Skills/Mechanics/DealCustomDurability",
                 "default_value": "1"
+            }
+        ]
+    },
+    {
+        "plugin": "MythicCrucible",
+        "class": "GiveAmmoMechanic",
+        "extends": "SkillMechanic",
+        "implements": [
+            "ITargetedEntitySkill"
+        ],
+        "name": [
+            "giveAmmo"
+        ],
+        "description": "Sets the ammo amount of a player's weapon to its maximum.",
+        "link": "https://git.lumine.io/mythiccraft/mythiccrucible/-/wikis/Skills/Mechanics/GiveAmmo",
+        "attributes": [
+            {
+                "name": [
+                    "type",
+                    "t"
+                ],
+                "type": "String",
+                "description": "The internal id of the weapon to target",
+                "link": "https://git.lumine.io/mythiccraft/mythiccrucible/-/wikis/Skills/Mechanics/GiveAmmo",
+                "default_value": ""
             }
         ]
     },
@@ -239,6 +361,21 @@
                 "default_value": "false"
             }
         ]
+    },
+    {
+        "plugin": "MythicCrucible",
+        "class": "ResetAttackCooldownMechanic",
+        "extends": "SkillMechanic",
+        "implements": [
+            "INoTargetSkill"
+        ],
+        "name": [
+            "resetAttackCooldown",
+            "rac"
+        ],
+        "description": "Resets the attack cooldown of the item in hand",
+        "link": "https://git.lumine.io/mythiccraft/mythiccrucible/-/wikis/Skills/Mechanics/ResetAttackCooldown",
+        "attributes": []
     },
     {
         "plugin": "MythicCrucible",

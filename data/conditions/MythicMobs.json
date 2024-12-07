@@ -122,7 +122,7 @@
             "inblock",
             "insideblock"
         ],
-        "description": "This condition tests if material type present at the target location is the specified one.  \nValid for any [Bukkit material type](https://hub.spigotmc.org/javadocs/spigot/org/bukkit/Material.html).",
+        "description": "This condition tests if material type present at the target location is the specified one.  \nValid for any [Spigot material type](https://hub.spigotmc.org/javadocs/spigot/org/bukkit/Material.html), wildcards and block tags.",
         "link": "https://git.lumine.io/mythiccraft/MythicMobs/-/wikis/Skills/Conditions/blocktype",
         "attributes": [
             {
@@ -2341,7 +2341,7 @@
         "name": [
             "itemType"
         ],
-        "description": "Checks against the material of the item that triggered the skill.",
+        "description": "Checks against the material of the item that triggered the skill.  \nWildcards (`*_SWORD`) and item tags (`#arrows`)",
         "link": "https://git.lumine.io/mythiccraft/MythicMobs/-/wikis/Skills/Conditions/ItemType",
         "attributes": [
             {
@@ -2351,7 +2351,9 @@
                     "t",
                     "material",
                     "mat",
-                    "m"
+                    "m",
+                    "item",
+                    "i"
                 ],
                 "type": "StringList",
                 "description": "A list of [materials] to check against",
