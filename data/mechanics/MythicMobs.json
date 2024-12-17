@@ -400,7 +400,7 @@
             "attribute",
             "setAttribute"
         ],
-        "description": "Sets the base value of the targeted entity's [attribute][]",
+        "description": "Sets the base value of the targeted entity's [attribute](https://hub.spigotmc.org/javadocs/spigot/org/bukkit/attribute/Attribute.html)",
         "link": "https://git.lumine.io/mythiccraft/MythicMobs/-/wikis/Skills/Mechanics/Attribute",
         "attributes": [
             {
@@ -409,7 +409,7 @@
                     "attr"
                 ],
                 "type": "String",
-                "description": "The [attribute][] to set",
+                "description": "The [attribute](https://hub.spigotmc.org/javadocs/spigot/org/bukkit/attribute/Attribute.html) to set",
                 "link": "https://git.lumine.io/mythiccraft/MythicMobs/-/wikis/Skills/Mechanics/Attribute",
                 "default_value": "GENERIC_LUCK",
                 "enum": "PaperAttribute"
@@ -457,7 +457,7 @@
                     "attr"
                 ],
                 "type": "String",
-                "description": "The [attribute]",
+                "description": "The [attribute](https://hub.spigotmc.org/javadocs/spigot/org/bukkit/attribute/Attribute.html)",
                 "link": "https://git.lumine.io/mythiccraft/MythicMobs/-/wikis/Skills/Mechanics/AttributeModifier",
                 "default_value": "GENERIC_LUCK",
                 "enum": "PaperAttribute"
@@ -468,7 +468,7 @@
                     "op"
                 ],
                 "type": "Enum",
-                "description": "The [operation] to perform",
+                "description": "The [operation](https://git.lumine.io/mythiccraft/MythicMobs/-/wikis/Items/Attributes#operations) to perform",
                 "link": "https://git.lumine.io/mythiccraft/MythicMobs/-/wikis/Skills/Mechanics/AttributeModifier",
                 "default_value": "ADD_NUMBER",
                 "enum": "PaperAttributeOperation"
@@ -519,7 +519,7 @@
             "buff",
             "debuff"
         ],
-        "description": "The Aura mechanic acts as a status effect on the target entity, and can\ntrigger other skills over its duration. Auras allow you to create custom\nstatus effects (i.e. buffs and debuffs) that are tracked for their\nduration and can also be used in other mechanics and conditions.  \n\n| [Implemented Placeholders]         |\n|------------------------------------|\n| `<skill.var.aura-name>`            |\n| `<skill.var.aura-type>`            |\n| `<skill.var.aura-charges>`         |\n| `<skill.var.aura-duration>`        |\n| `<skill.var.aura-duration-millis>` |\n| `<skill.var.aura-stacks>`          |",
+        "description": "The Aura mechanic acts as a status effect on the target entity, and can\ntrigger other skills over its duration. Auras allow you to create custom\nstatus effects (i.e. buffs and debuffs) that are tracked for their\nduration and can also be used in other mechanics and conditions.  \n\n| [Implemented Placeholders](https://git.lumine.io/mythiccraft/MythicMobs/-/wikis/Skills/Placeholders#variable-placeholders)         |\n|------------------------------------|\n| `<skill.var.aura-name>`            |\n| `<skill.var.aura-type>`            |\n| `<skill.var.aura-charges>`         |\n| `<skill.var.aura-duration>`        |\n| `<skill.var.aura-duration-millis>` |\n| `<skill.var.aura-stacks>`          |",
         "link": "https://git.lumine.io/mythiccraft/MythicMobs/-/wikis/Skills/Mechanics/aura",
         "attributes": [
             {
@@ -675,7 +675,7 @@
                     "bartimercolor"
                 ],
                 "type": "String",
-                "description": "The [Color](/Mobs/BossBar#color) of the bossbar",
+                "description": "The [Color](https://git.lumine.io/mythiccraft/MythicMobs/-/wikis/Mobs/BossBar#color) of the bossbar",
                 "link": "https://git.lumine.io/mythiccraft/MythicMobs/-/wikis/Skills/Mechanics/aura",
                 "default_value": "RED",
                 "enum": "BarColor"
@@ -685,7 +685,7 @@
                     "bartimerstyle"
                 ],
                 "type": "String",
-                "description": "The [Style](/Mobs/BossBar#style) of the bossbar",
+                "description": "The [Style](https://git.lumine.io/mythiccraft/MythicMobs/-/wikis/Mobs/BossBar#style) of the bossbar",
                 "link": "https://git.lumine.io/mythiccraft/MythicMobs/-/wikis/Skills/Mechanics/aura",
                 "default_value": "SOLID",
                 "enum": "BarStyle"
@@ -830,7 +830,7 @@
             "removebuff",
             "removedebuff"
         ],
-        "description": "Removes an aura from the target.  \n\nYou can decide if the aura executes its `onEnd` metaskill via the `DoEndSkillOnTerminate` attribute of the [Aura](/skills/mechanics/aura) mechanic.",
+        "description": "Removes an aura from the target.  \n\nYou can decide if the aura executes its `onEnd` metaskill via the `DoEndSkillOnTerminate` attribute of the [Aura](https://git.lumine.io/mythiccraft/MythicMobs/-/wikis/skills/mechanics/aura) mechanic.",
         "link": "https://git.lumine.io/mythiccraft/MythicMobs/-/wikis/Skills/Mechanics/auraremove",
         "attributes": [
             {
@@ -916,7 +916,7 @@
                     "bartimercolor"
                 ],
                 "type": "String",
-                "description": "The [Color](/Mobs/BossBar#color) of the bossbar",
+                "description": "The [Color](https://git.lumine.io/mythiccraft/MythicMobs/-/wikis/Mobs/BossBar#color) of the bossbar",
                 "link": "https://git.lumine.io/mythiccraft/MythicMobs/-/wikis/Skills/Mechanics/barcreate",
                 "default_value": "RED",
                 "enum": "BarColor"
@@ -928,7 +928,7 @@
                     "bartimerstyle"
                 ],
                 "type": "String",
-                "description": "The [Style](/Mobs/BossBar#style) of the bossbar",
+                "description": "The [Style](https://git.lumine.io/mythiccraft/MythicMobs/-/wikis/Mobs/BossBar#style) of the bossbar",
                 "link": "https://git.lumine.io/mythiccraft/MythicMobs/-/wikis/Skills/Mechanics/barcreate",
                 "default_value": "SOLID",
                 "enum": "BarStyle"
@@ -1012,7 +1012,7 @@
                     "bartimercolor"
                 ],
                 "type": "String",
-                "description": "The [Color](/Mobs/BossBar#color) of the bossbar",
+                "description": "The [Color](https://git.lumine.io/mythiccraft/MythicMobs/-/wikis/Mobs/BossBar#color) of the bossbar",
                 "link": "https://git.lumine.io/mythiccraft/MythicMobs/-/wikis/Skills/Mechanics/barset",
                 "default_value": "RED",
                 "enum": "BarColor"
@@ -1024,7 +1024,7 @@
                     "bartimerstyle"
                 ],
                 "type": "String",
-                "description": "The [Style](/Mobs/BossBar#style) of the bossbar",
+                "description": "The [Style](https://git.lumine.io/mythiccraft/MythicMobs/-/wikis/Mobs/BossBar#style) of the bossbar",
                 "link": "https://git.lumine.io/mythiccraft/MythicMobs/-/wikis/Skills/Mechanics/barset",
                 "default_value": "SOLID",
                 "enum": "BarStyle"
@@ -1209,7 +1209,7 @@
                     "audience"
                 ],
                 "type": "Audience",
-                "description": "The [audience] of the effect",
+                "description": "The [audience](https://git.lumine.io/mythiccraft/MythicMobs/-/wikis/Skills/Audience) of the effect",
                 "link": "https://git.lumine.io/mythiccraft/MythicMobs/-/wikis/Skills/Mechanics/BlockMask",
                 "default_value": "nearby",
                 "enum": "Audience"
@@ -1507,7 +1507,7 @@
                     "m"
                 ],
                 "type": "String",
-                "description": "The [material] used for the blockwave",
+                "description": "The [material](https://hub.spigotmc.org/javadocs/bukkit/org/bukkit/Material.html) used for the blockwave",
                 "link": "https://git.lumine.io/mythiccraft/MythicMobs/-/wikis/Skills/Mechanics/BlockWave",
                 "default_value": "",
                 "enum": "Material"
@@ -1796,7 +1796,7 @@
             "cancel",
             "return"
         ],
-        "description": "Cancels the execution of the [Metaskill][] when triggered",
+        "description": "Cancels the execution of the [Metaskill](https://git.lumine.io/mythiccraft/MythicMobs/-/wikis/Skills/Metaskills) when triggered",
         "link": "https://git.lumine.io/mythiccraft/MythicMobs/-/wikis/Skills/Mechanics/CancelSkill",
         "attributes": []
     },
@@ -1811,7 +1811,7 @@
         "name": [
             "cast"
         ],
-        "description": "Cast is an [Aura] mechanic similar to\n[Skill](/skills/mechanics/skill) in that it executes a skill, however\nCast instead \"casts\" the skill similar to how you'd expect an RPG hero\nor monster to do so. Cast will execute the given skill if the cast\ncompletes successfully (e.g. if the aura finishes normally), but can be\ninterrupted.\n\nOnly one spell can be cast at a time, and which runs as an aura on the\ncaster named **#casting**. Removing the aura from the entity will\ninterrupt the cast. Any aura settings that cause the cast to stop early\nwill also interrupt casting, such as cancelling on move or teleport.",
+        "description": "Cast is an [Aura] mechanic similar to\n[Skill](https://git.lumine.io/mythiccraft/MythicMobs/-/wikis/skills/mechanics/skill) in that it executes a skill, however\nCast instead \"casts\" the skill similar to how you'd expect an RPG hero\nor monster to do so. Cast will execute the given skill if the cast\ncompletes successfully (e.g. if the aura finishes normally), but can be\ninterrupted.\n\nOnly one spell can be cast at a time, and which runs as an aura on the\ncaster named **#casting**. Removing the aura from the entity will\ninterrupt the cast. Any aura settings that cause the cast to stop early\nwill also interrupt casting, such as cancelling on move or teleport.",
         "link": "https://git.lumine.io/mythiccraft/MythicMobs/-/wikis/Skills/Mechanics/cast",
         "attributes": [
             {
@@ -2016,7 +2016,7 @@
             "chainmissile",
             "cmi"
         ],
-        "description": "Shoots a chaining homing missile at the target  \n\n> **This is a [Premium-Only] mechanic!**",
+        "description": "Shoots a chaining homing missile at the target  \n\n> **This is a [Premium-Only](Premium-Features) mechanic!**",
         "link": "https://git.lumine.io/mythiccraft/MythicMobs/-/wikis/Skills/Mechanics/chainmissile",
         "attributes": [
             {
@@ -2061,7 +2061,7 @@
                     "c"
                 ],
                 "type": "String",
-                "description": "The conditions for the skill to bounce, similar to the [chain](/skills/mechanics/chain) mechanic",
+                "description": "The conditions for the skill to bounce, similar to the [chain](https://git.lumine.io/mythiccraft/MythicMobs/-/wikis/skills/mechanics/chain) mechanic",
                 "link": "https://git.lumine.io/mythiccraft/MythicMobs/-/wikis/Skills/Mechanics/chainmissile",
                 "default_value": ""
             }
@@ -2124,7 +2124,7 @@
             "command",
             "cmd"
         ],
-        "description": "Executes a command for each target supplied.\n\n[Color codes](/Skills/Placeholders#color-codes) and [variables](/Skills/Variables) are allowed.  \n\nThe command specified will not function correctly if it contains double\nquotes \" or curly brackets {} and must be substitued with their\nrespective [message variables](/skills/Placeholders#special-characters).  \nThat happens because the double\nquotes and curly brackets are reserved for MythicMobs itself trying to\nread the syntax you supplied.",
+        "description": "Executes a command for each target supplied.\n\n[Color codes](https://git.lumine.io/mythiccraft/MythicMobs/-/wikis/Skills/Placeholders#color-codes) and [variables](https://git.lumine.io/mythiccraft/MythicMobs/-/wikis/Skills/Variables) are allowed.  \n\nThe command specified will not function correctly if it contains double\nquotes \" or curly brackets {} and must be substitued with their\nrespective [message variables](https://git.lumine.io/mythiccraft/MythicMobs/-/wikis/skills/Placeholders#special-characters).  \nThat happens because the double\nquotes and curly brackets are reserved for MythicMobs itself trying to\nread the syntax you supplied.",
         "link": "https://git.lumine.io/mythiccraft/MythicMobs/-/wikis/Skills/Mechanics/command",
         "attributes": [
             {
@@ -2322,7 +2322,7 @@
             "currencyTake",
             "takeCurrency"
         ],
-        "description": "Takes money from players.  \nThis mechanic needs the Vault plugin and an economy plugin installed to\nwork.  \nIt also requires Vault being enabled in the [config.yml](/configuration/)\n```yaml\n        Vault:\n          Enabled: true\n```",
+        "description": "Takes money from players.  \nThis mechanic needs the Vault plugin and an economy plugin installed to\nwork.  \nIt also requires Vault being enabled in the [config.yml](https://git.lumine.io/mythiccraft/MythicMobs/-/wikis/configuration/)\n```yaml\n        Vault:\n          Enabled: true\n```",
         "link": "https://git.lumine.io/mythiccraft/MythicMobs/-/wikis/Skills/Mechanics/currencytake",
         "attributes": [
             {
@@ -2350,7 +2350,7 @@
             "weaponDamage",
             "wd"
         ],
-        "description": "Damages the target entity for a percentage of the mob's damage.  \nInherits every attribute of the [Damage](/skills/mechanics/damage) mechanic.",
+        "description": "Damages the target entity for a percentage of the mob's damage.  \nInherits every attribute of the [Damage](https://git.lumine.io/mythiccraft/MythicMobs/-/wikis/skills/mechanics/damage) mechanic.",
         "link": "https://git.lumine.io/mythiccraft/MythicMobs/-/wikis/Skills/Mechanics/basedamage",
         "attributes": [
             {
@@ -2428,7 +2428,7 @@
                     "pi"
                 ],
                 "type": "Boolean",
-                "description": "Whether or not to prevent the [damage immunity ticks] on the target by setting them to 0 after the damage is inflicted",
+                "description": "Whether or not to prevent the [damage immunity ticks](https://git.lumine.io/mythiccraft/MythicMobs/-/wikis/skills/mechanics/setnodamageticks) on the target by setting them to 0 after the damage is inflicted",
                 "link": "https://git.lumine.io/mythiccraft/MythicMobs/-/wikis/Skills/Mechanics/damage",
                 "default_value": "false"
             },
@@ -2482,7 +2482,7 @@
                     "ii"
                 ],
                 "type": "Boolean",
-                "description": "Whether or not to ignore the [damage immunity ticks] on the target by setting them to 0 before the damage is inflicted",
+                "description": "Whether or not to ignore the [damage immunity ticks](https://git.lumine.io/mythiccraft/MythicMobs/-/wikis/skills/mechanics/setnodamageticks) on the target by setting them to 0 before the damage is inflicted",
                 "link": "https://git.lumine.io/mythiccraft/MythicMobs/-/wikis/Skills/Mechanics/damage",
                 "default_value": "false"
             },
@@ -2603,7 +2603,7 @@
                     "m"
                 ],
                 "type": "String",
-                "description": "The [modifier](/Items/Attributes#operations) to use",
+                "description": "The [modifier](https://git.lumine.io/mythiccraft/MythicMobs/-/wikis/Items/Attributes#operations) to use",
                 "link": "https://git.lumine.io/mythiccraft/MythicMobs/-/wikis/Skills/Mechanics/ModifyDamage",
                 "default_value": "ADD",
                 "enum": "SpigotAttributeOperation"
@@ -2621,7 +2621,7 @@
             "damagePercent",
             "percentDamage"
         ],
-        "description": "Deals damage equal to a percent of the player's max health, where 1 is\n100%. Inherits every attribute of the [Damage](/skills/mechanics/damage) mechanic.",
+        "description": "Deals damage equal to a percent of the player's max health, where 1 is\n100%. Inherits every attribute of the [Damage](https://git.lumine.io/mythiccraft/MythicMobs/-/wikis/skills/mechanics/damage) mechanic.",
         "link": "https://git.lumine.io/mythiccraft/MythicMobs/-/wikis/Skills/Mechanics/percentdamage",
         "attributes": [
             {
@@ -2660,7 +2660,7 @@
             "meleeHit",
             "hit"
         ],
-        "description": "Simulates a physical hit from the mob. Takes melee stats and attribute modifiers into account.  \nInherits every attribute of the [Damage](/skills/mechanics/damage) mechanic.",
+        "description": "Simulates a physical hit from the mob. Takes melee stats and attribute modifiers into account.  \nInherits every attribute of the [Damage](https://git.lumine.io/mythiccraft/MythicMobs/-/wikis/skills/mechanics/damage) mechanic.",
         "link": "https://git.lumine.io/mythiccraft/MythicMobs/-/wikis/Skills/Mechanics/hit",
         "attributes": [
             {
@@ -2721,7 +2721,7 @@
         "name": [
             "delay"
         ],
-        "description": "Causes the current skilltree to be delayed by X ticks.  \nDelay can also be used as an attribute directly inside of mechanics by adding the `delay=TICKS` [universal attribute](/Skills/Mechanics#universal-attributes). This way, the delay is not applied to the entire skilltree but only to the single mechanic.  \n\nSkill-delay and Attribute-delay do not work in the same manner.\n\n> This mechanic can also be used to accomplish [Intratick Scheduling](/Skills/Intratick-Scheduling)",
+        "description": "Causes the current skilltree to be delayed by X ticks.  \nDelay can also be used as an attribute directly inside of mechanics by adding the `delay=TICKS` [universal attribute](https://git.lumine.io/mythiccraft/MythicMobs/-/wikis/Skills/Mechanics#universal-attributes). This way, the delay is not applied to the entire skilltree but only to the single mechanic.  \n\nSkill-delay and Attribute-delay do not work in the same manner.\n\n> This mechanic can also be used to accomplish [Intratick Scheduling](https://git.lumine.io/mythiccraft/MythicMobs/-/wikis/Skills/Intratick-Scheduling)",
         "link": "https://git.lumine.io/mythiccraft/MythicMobs/-/wikis/Skills/Mechanics/delay",
         "attributes": []
     },
@@ -2774,7 +2774,7 @@
         "name": [
             "disguise"
         ],
-        "description": "Runs a disguise string on the casting mob. This skill requires Libs'\nDisguises and ProtocolLib be installed to enable Disguise functionality.\n\nSee [Add-On: Disguises](/Mobs/Disguises) for a list of available\ndisguises.",
+        "description": "Runs a disguise string on the casting mob. This skill requires Libs'\nDisguises and ProtocolLib be installed to enable Disguise functionality.\n\nSee [Add-On: Disguises](https://git.lumine.io/mythiccraft/MythicMobs/-/wikis/Mobs/Disguises) for a list of available\ndisguises.",
         "link": "https://git.lumine.io/mythiccraft/MythicMobs/-/wikis/Skills/Mechanics/disguise",
         "attributes": [
             {
@@ -2782,7 +2782,7 @@
                     "audience"
                 ],
                 "type": "Audience",
-                "description": "The [audience] of the disguise",
+                "description": "The [audience](https://git.lumine.io/mythiccraft/MythicMobs/-/wikis/Skills/Audience) of the disguise",
                 "link": "https://git.lumine.io/mythiccraft/MythicMobs/-/wikis/Skills/Mechanics/disguise",
                 "default_value": "",
                 "enum": "Audience"
@@ -2811,7 +2811,7 @@
             "disguisemodify",
             "modifydisguise"
         ],
-        "description": "Modifies an *already* applied disguise on the target entity.  \nLike the [Disguise](/skills/mechanics/disguise) mechanic, [LibsDisguises](https://www.spigotmc.org/resources/libs-disguises-free.81/) and [ProtocolLib](https://www.spigotmc.org/resources/protocollib.1997/) must be installed. [Here](/Mobs/Disguises) you can find our documentation on the matter.  \nThe syntax for the disguise in this mechanic is completely equivalent to the one used in the `/modifydisguise` command.",
+        "description": "Modifies an *already* applied disguise on the target entity.  \nLike the [Disguise](https://git.lumine.io/mythiccraft/MythicMobs/-/wikis/skills/mechanics/disguise) mechanic, [LibsDisguises](https://www.spigotmc.org/resources/libs-disguises-free.81/) and [ProtocolLib](https://www.spigotmc.org/resources/protocollib.1997/) must be installed. [Here](https://git.lumine.io/mythiccraft/MythicMobs/-/wikis/Mobs/Disguises) you can find our documentation on the matter.  \nThe syntax for the disguise in this mechanic is completely equivalent to the one used in the `/modifydisguise` command.",
         "link": "https://git.lumine.io/mythiccraft/MythicMobs/-/wikis/Skills/Mechanics/DisguiseModify",
         "attributes": [
             {
@@ -2838,7 +2838,7 @@
             "undisguise",
             "disguiseRemove"
         ],
-        "description": "Removes the mob's active disguise, if it has one.  \nThis skill requires Libs' Disguises to be installed to enable Disguise functionality.\n\nSee [Extra: Disguises](/Mobs/Disguises) for how to apply and use disguises.\n\n> **This is a no-target mechanic, and the affected entity will always be the caster**",
+        "description": "Removes the mob's active disguise, if it has one.  \nThis skill requires Libs' Disguises to be installed to enable Disguise functionality.\n\nSee [Extra: Disguises](https://git.lumine.io/mythiccraft/MythicMobs/-/wikis/Mobs/Disguises) for how to apply and use disguises.\n\n> **This is a no-target mechanic, and the affected entity will always be the caster**",
         "link": "https://git.lumine.io/mythiccraft/MythicMobs/-/wikis/Skills/Mechanics/undisguise",
         "attributes": []
     },
@@ -2860,7 +2860,7 @@
                     "audience"
                 ],
                 "type": "Audience",
-                "description": "The [audience] of the disguise",
+                "description": "The [audience](https://git.lumine.io/mythiccraft/MythicMobs/-/wikis/Skills/Audience) of the disguise",
                 "link": "https://git.lumine.io/mythiccraft/MythicMobs/-/wikis/Skills/Mechanics/disguisetarget",
                 "default_value": "",
                 "enum": "Audience"
@@ -2994,7 +2994,7 @@
             "dropitems",
             "itemdrop"
         ],
-        "description": "Drops a set of items or optionally a\n[DropTable](/drops/DropTables).",
+        "description": "Drops a set of items or optionally a\n[DropTable](https://git.lumine.io/mythiccraft/MythicMobs/-/wikis/drops/DropTables).",
         "link": "https://git.lumine.io/mythiccraft/MythicMobs/-/wikis/Skills/Mechanics/dropitem",
         "attributes": [
             {
@@ -3218,7 +3218,7 @@
                     "s"
                 ],
                 "type": "String",
-                "description": "The [slots](/Mobs/Equipment#slot) to copy",
+                "description": "The [slots](https://git.lumine.io/mythiccraft/MythicMobs/-/wikis/Mobs/Equipment#slot) to copy",
                 "link": "https://git.lumine.io/mythiccraft/MythicMobs/-/wikis/Skills/Mechanics/EquipCopy",
                 "default_value": "ALL"
             }
@@ -3234,7 +3234,7 @@
         "name": [
             "equip"
         ],
-        "description": "Equips the mob with an item. Uses the exact same syntax as the\n[Equipment](/mobs/equipment) configuration.",
+        "description": "Equips the mob with an item. Uses the exact same syntax as the\n[Equipment](https://git.lumine.io/mythiccraft/MythicMobs/-/wikis/mobs/equipment) configuration.",
         "link": "https://git.lumine.io/mythiccraft/MythicMobs/-/wikis/Skills/Mechanics/equip",
         "attributes": [
             {
@@ -3395,7 +3395,7 @@
             "fillContainer",
             "populateContainer"
         ],
-        "description": "Fills a chest with a list of items, or a [droptable](/Items/Drops#drop-tables)",
+        "description": "Fills a chest with a list of items, or a [droptable](https://git.lumine.io/mythiccraft/MythicMobs/-/wikis/Items/Drops#drop-tables)",
         "link": "https://git.lumine.io/mythiccraft/MythicMobs/-/wikis/Skills/Mechanics/fillChest",
         "attributes": [
             {
@@ -3558,7 +3558,7 @@
             "followPath",
             "path"
         ],
-        "description": "Crates an [aura] that causes the holding mob to follow a path.  \nThis mechanic is also an [aura].",
+        "description": "Crates an [aura](https://git.lumine.io/mythiccraft/MythicMobs/-/wikis/skills/mechanics/aura) that causes the holding mob to follow a path.  \nThis mechanic is also an [aura](https://git.lumine.io/mythiccraft/MythicMobs/-/wikis/skills/mechanics/aura).",
         "link": "https://git.lumine.io/mythiccraft/MythicMobs/-/wikis/Skills/Mechanics/FollowPath",
         "attributes": [
             {
@@ -3603,7 +3603,7 @@
                     "p"
                 ],
                 "type": "String",
-                "description": "A list of either coordinates in the format `(x,y,z)` or [targeters]",
+                "description": "A list of either coordinates in the format `(x,y,z)` or [targeters](https://git.lumine.io/mythiccraft/MythicMobs/-/wikis/Skills/Targeters)",
                 "link": "https://git.lumine.io/mythiccraft/MythicMobs/-/wikis/Skills/Mechanics/FollowPath",
                 "default_value": ""
             },
@@ -3634,7 +3634,7 @@
                     "then"
                 ],
                 "type": "String",
-                "description": "The [metaskill] to execute when the last point is reached",
+                "description": "The [metaskill](https://git.lumine.io/mythiccraft/MythicMobs/-/wikis/Skills/Metaskills) to execute when the last point is reached",
                 "link": "https://git.lumine.io/mythiccraft/MythicMobs/-/wikis/Skills/Mechanics/FollowPath",
                 "default_value": ""
             }
@@ -3787,7 +3787,7 @@
             "setgcd",
             "setglobalcooldown"
         ],
-        "description": "The Global Cooldown skill lets you set a caster's global\ncooldown, used in conjunction with the [offgcd](/skills/conditions/offgcd) condition if you want a\nmob's abilities to have a global, over-all shared cooldown. This can be useful for allowing a mob to only use a single skill at a time rather than multiple by giving the cooldown to each skill the mob uses.  \n> This is a no-target mechanic, and the affected entity will always be the caster",
+        "description": "The Global Cooldown skill lets you set a caster's global\ncooldown, used in conjunction with the [offgcd](https://git.lumine.io/mythiccraft/MythicMobs/-/wikis/skills/conditions/offgcd) condition if you want a\nmob's abilities to have a global, over-all shared cooldown. This can be useful for allowing a mob to only use a single skill at a time rather than multiple by giving the cooldown to each skill the mob uses.  \n> This is a no-target mechanic, and the affected entity will always be the caster",
         "link": "https://git.lumine.io/mythiccraft/MythicMobs/-/wikis/Skills/Mechanics/globalcooldown",
         "attributes": [
             {
@@ -3823,7 +3823,7 @@
                     "audience"
                 ],
                 "type": "Audience",
-                "description": "The [audience] of the effect",
+                "description": "The [audience](https://git.lumine.io/mythiccraft/MythicMobs/-/wikis/Skills/Audience) of the effect",
                 "link": "https://git.lumine.io/mythiccraft/MythicMobs/-/wikis/Skills/Mechanics/geyser",
                 "default_value": "nearby",
                 "enum": "Audience"
@@ -3920,7 +3920,7 @@
                     "s"
                 ],
                 "type": "String",
-                "description": "The caster's [slot](/Skills/EquipSlot)",
+                "description": "The caster's [slot](https://git.lumine.io/mythiccraft/MythicMobs/-/wikis/Skills/EquipSlot)",
                 "link": "https://git.lumine.io/mythiccraft/MythicMobs/-/wikis/Skills/Mechanics/giveitemfromslot",
                 "default_value": "",
                 "enum": "EquipSlot"
@@ -4027,7 +4027,7 @@
             "glow",
             "e:glow"
         ],
-        "description": "Makes the target entity glow (like with the Glowing potion effect).  \nThis mechanic is also an [aura].\n\n> **[Glow API](https://www.spigotmc.org/resources/api-glowapi-1-9-1-10.19422/)** is required for minecraft version 1.16.\n\n> Please note that this mechanic is not actually giving the *glowing* effect in any form: it will just *look* like it. If you want to check against the presence of this mechanic, you must check against the presence of the applied aura (an [hasaura](/skills/conditions/hasaura) condition con do the trick, for instance)",
+        "description": "Makes the target entity glow (like with the Glowing potion effect).  \nThis mechanic is also an [aura](https://git.lumine.io/mythiccraft/MythicMobs/-/wikis/skills/mechanics/aura).\n\n> **[Glow API](https://www.spigotmc.org/resources/api-glowapi-1-9-1-10.19422/)** is required for minecraft version 1.16.\n\n> Please note that this mechanic is not actually giving the *glowing* effect in any form: it will just *look* like it. If you want to check against the presence of this mechanic, you must check against the presence of the applied aura (an [hasaura](https://git.lumine.io/mythiccraft/MythicMobs/-/wikis/skills/conditions/hasaura) condition con do the trick, for instance)",
         "link": "https://git.lumine.io/mythiccraft/MythicMobs/-/wikis/Skills/Mechanics/glow",
         "attributes": [
             {
@@ -4046,7 +4046,7 @@
                     "audience"
                 ],
                 "type": "Audience",
-                "description": "The [audience] of the glow effect",
+                "description": "The [audience](https://git.lumine.io/mythiccraft/MythicMobs/-/wikis/Skills/Audience) of the glow effect",
                 "link": "https://git.lumine.io/mythiccraft/MythicMobs/-/wikis/Skills/Mechanics/glow",
                 "default_value": "nearby",
                 "enum": "Audience"
@@ -4057,7 +4057,7 @@
                     "c"
                 ],
                 "type": "String",
-                "description": "The [color] with which the entity will glow",
+                "description": "The [color](#valid-colors) with which the entity will glow",
                 "link": "https://git.lumine.io/mythiccraft/MythicMobs/-/wikis/Skills/Mechanics/glow",
                 "default_value": "white",
                 "enum": "GlowColor"
@@ -4122,7 +4122,7 @@
         "name": [
             "GoatRam"
         ],
-        "description": "Causes the casting goat mob to ram the targeted entity\n\n> **This is a [Paper-Only] mechanic!**",
+        "description": "Causes the casting goat mob to ram the targeted entity\n\n> **This is a [Paper-Only](https://papermc.io/downloads/all) mechanic!**",
         "link": "https://git.lumine.io/mythiccraft/MythicMobs/-/wikis/Skills/Mechanics/GoatRam",
         "attributes": []
     },
@@ -4335,7 +4335,7 @@
             "hideFromPlayer",
             "hide"
         ],
-        "description": "Hides the caster from the targeted players for a set duration.  \n\n> The hidden entity can then be shown via the used of the [showentity] mechanic.",
+        "description": "Hides the caster from the targeted players for a set duration.  \n\n> The hidden entity can then be shown via the used of the [showentity](https://git.lumine.io/mythiccraft/MythicMobs/-/wikis/skills/mechanics/showentity) mechanic.",
         "link": "https://git.lumine.io/mythiccraft/MythicMobs/-/wikis/Skills/Mechanics/hide",
         "attributes": [
             {
@@ -4346,7 +4346,7 @@
                     "iao"
                 ],
                 "type": "Boolean",
-                "description": "This will make the mechanic ignore any [aura]-related option and the `duration` attribute",
+                "description": "This will make the mechanic ignore any [aura](https://git.lumine.io/mythiccraft/MythicMobs/-/wikis/skills/mechanics/aura)-related option and the `duration` attribute",
                 "link": "https://git.lumine.io/mythiccraft/MythicMobs/-/wikis/Skills/Mechanics/hide",
                 "default_value": "false"
             },
@@ -4535,7 +4535,7 @@
                     "audience"
                 ],
                 "type": "Audience",
-                "description": "The [audience] of the effect",
+                "description": "The [audience](https://git.lumine.io/mythiccraft/MythicMobs/-/wikis/Skills/Audience) of the effect",
                 "link": "https://git.lumine.io/mythiccraft/MythicMobs/-/wikis/Skills/Mechanics/itemspray",
                 "default_value": "world",
                 "enum": "Audience"
@@ -4547,7 +4547,7 @@
                     "i"
                 ],
                 "type": "String",
-                "description": "The list of items to drop. This attribute works like the [DropItem](/skills/mechanics/dropitem)'s one",
+                "description": "The list of items to drop. This attribute works like the [DropItem](https://git.lumine.io/mythiccraft/MythicMobs/-/wikis/skills/mechanics/dropitem)'s one",
                 "link": "https://git.lumine.io/mythiccraft/MythicMobs/-/wikis/Skills/Mechanics/itemspray",
                 "default_value": "iron_sword",
                 "enum": "Material"
@@ -4841,7 +4841,7 @@
                     "of"
                 ],
                 "type": "String",
-                "description": "The [targeter](/Skills/Targeters)",
+                "description": "The [targeter](https://git.lumine.io/mythiccraft/MythicMobs/-/wikis/Skills/Targeters)",
                 "link": "https://git.lumine.io/mythiccraft/MythicMobs/-/wikis/Skills/Mechanics/MatchRotation",
                 "default_value": ""
             }
@@ -4860,7 +4860,7 @@
             "jmsg",
             "jm"
         ],
-        "description": "Sends a json-format chat message to the target player(s). JSON-messages\nare capable of hover-events, click events and some other perks that are\nunavailable in the other message mechanics. They also support [color\ncodes](https://htmlcolorcodes.com/bukkit-color-codes/) and [message\nvariables](/skills/stringvariables).\n\nThe format of JSON-messages is a little more advanced than your everyday\nmessage. The syntax requires some extra symbols. If you don't know\nanything about writing JSONs, you can visit [this\npage](https://www.minecraftjson.com/) or [this\none](http://minecraft.tools/en/tellraw.php) for help.\n\n> Note that double quotes must be replaced with single quotes in\nJSON-message mechanics\n\nPlease do not post issues relating to this mechanic in the bug-report\nsubforums unless you're certain that your syntax is correct.",
+        "description": "Sends a json-format chat message to the target player(s). JSON-messages\nare capable of hover-events, click events and some other perks that are\nunavailable in the other message mechanics. They also support [color\ncodes](https://htmlcolorcodes.com/bukkit-color-codes/) and [message\nvariables](https://git.lumine.io/mythiccraft/MythicMobs/-/wikis/skills/stringvariables).\n\nThe format of JSON-messages is a little more advanced than your everyday\nmessage. The syntax requires some extra symbols. If you don't know\nanything about writing JSONs, you can visit [this\npage](https://www.minecraftjson.com/) or [this\none](http://minecraft.tools/en/tellraw.php) for help.\n\n> Note that double quotes must be replaced with single quotes in\nJSON-message mechanics\n\nPlease do not post issues relating to this mechanic in the bug-report\nsubforums unless you're certain that your syntax is correct.",
         "link": "https://git.lumine.io/mythiccraft/MythicMobs/-/wikis/Skills/Mechanics/jsonmessage",
         "attributes": [
             {
@@ -4889,7 +4889,7 @@
             "msg",
             "m"
         ],
-        "description": "Sends a chat message to the target, if the target is a player. [Color\ncodes](/Skills/Placeholders#color-codes) and\n[variables](/Skills/Variables) are useable in this mechanic.\n\n* Allows hex colors in the format **`<#FFFFFF>`**\n* Supports gradients in the format **`<gradient:#color1:#color2>text</gradient>`**\n* Supports **`<rainbow>text</rainbow>`**\n* Supports hover text in the format **`<hover:show_text:'hover text??'>hover over me!</hover>`**\n* Supports clickable text in the format **`<click:run_command:/say hello>click me!</click>`**",
+        "description": "Sends a chat message to the target, if the target is a player. [Color\ncodes](https://git.lumine.io/mythiccraft/MythicMobs/-/wikis/Skills/Placeholders#color-codes) and\n[variables](https://git.lumine.io/mythiccraft/MythicMobs/-/wikis/Skills/Variables) are useable in this mechanic.\n\n* Allows hex colors in the format **`<#FFFFFF>`**\n* Supports gradients in the format **`<gradient:#color1:#color2>text</gradient>`**\n* Supports **`<rainbow>text</rainbow>`**\n* Supports hover text in the format **`<hover:show_text:'hover text??'>hover over me!</hover>`**\n* Supports clickable text in the format **`<click:run_command:/say hello>click me!</click>`**",
         "link": "https://git.lumine.io/mythiccraft/MythicMobs/-/wikis/Skills/Mechanics/message",
         "attributes": [
             {
@@ -4908,7 +4908,7 @@
                     "audience"
                 ],
                 "type": "Audience",
-                "description": "the [audience] of the message",
+                "description": "the [audience](https://git.lumine.io/mythiccraft/MythicMobs/-/wikis/Skills/Audience) of the message",
                 "link": "https://git.lumine.io/mythiccraft/MythicMobs/-/wikis/Skills/Mechanics/message",
                 "default_value": "",
                 "enum": "Audience"
@@ -4928,7 +4928,7 @@
             "skill",
             "meta"
         ],
-        "description": "Executes another [MetaSkill](/Skills/Metaskills), which must be located in\n*/MythicMobs/Skills*. The executed skill will inherit any targets if no\ntargeter is specified.",
+        "description": "Executes another [MetaSkill](https://git.lumine.io/mythiccraft/MythicMobs/-/wikis/Skills/Metaskills), which must be located in\n*/MythicMobs/Skills*. The executed skill will inherit any targets if no\ntargeter is specified.",
         "link": "https://git.lumine.io/mythiccraft/MythicMobs/-/wikis/Skills/Mechanics/skill",
         "attributes": [
             {
@@ -4982,7 +4982,7 @@
             "variableskill",
             "vskill"
         ],
-        "description": "Executes another meta-skill like the [Skill mechanic](/skills/mechanics/skill), but allows for placeholders inside the skill attribute.  \nThe attribute \"sync=true\" will be inherited by any sub-skills and cannot\nbe set to *false* later in a skill-tree.",
+        "description": "Executes another meta-skill like the [Skill mechanic](https://git.lumine.io/mythiccraft/MythicMobs/-/wikis/skills/mechanics/skill), but allows for placeholders inside the skill attribute.  \nThe attribute \"sync=true\" will be inherited by any sub-skills and cannot\nbe set to *false* later in a skill-tree.",
         "link": "https://git.lumine.io/mythiccraft/MythicMobs/-/wikis/Skills/Mechanics/variableskill",
         "attributes": [
             {
@@ -4996,7 +4996,7 @@
                     "()"
                 ],
                 "type": "PlaceholderString",
-                "description": "The metaskill to be executed. Accepts [Placeholders](/Skills/Placeholders)",
+                "description": "The metaskill to be executed. Accepts [Placeholders](https://git.lumine.io/mythiccraft/MythicMobs/-/wikis/Skills/Placeholders)",
                 "link": "https://git.lumine.io/mythiccraft/MythicMobs/-/wikis/Skills/Mechanics/variableskill",
                 "default_value": ""
             },
@@ -5008,7 +5008,7 @@
                     "f"
                 ],
                 "type": "Boolean",
-                "description": "Whether the called metaskill's skilltree should [branch](/skills/mechanics/skill#branch-attribute) off from the skilltree of the calling mechanic",
+                "description": "Whether the called metaskill's skilltree should [branch](https://git.lumine.io/mythiccraft/MythicMobs/-/wikis/skills/mechanics/skill#branch-attribute) off from the skilltree of the calling mechanic",
                 "link": "https://git.lumine.io/mythiccraft/MythicMobs/-/wikis/Skills/Mechanics/variableskill",
                 "default_value": "false"
             },
@@ -5036,7 +5036,7 @@
             "missile",
             "mi"
         ],
-        "description": "The missile mechanic is similar to the projectile mechanic and can use any of the [Projectile's Inheritable Attributes](/skills/mechanics/projectile#inheritable-attributes).  \nMissiles however are homing and will track down their targets.\nMissiles can target both a location and an entity.",
+        "description": "The missile mechanic is similar to the projectile mechanic and can use any of the [Projectile's Inheritable Attributes](https://git.lumine.io/mythiccraft/MythicMobs/-/wikis/skills/mechanics/projectile#inheritable-attributes).  \nMissiles however are homing and will track down their targets.\nMissiles can target both a location and an entity.",
         "link": "https://git.lumine.io/mythiccraft/MythicMobs/-/wikis/Skills/Mechanics/missile",
         "attributes": [
             {
@@ -5155,7 +5155,7 @@
             "modifyglobalscore",
             "mgs"
         ],
-        "description": "Modifies the scoreboard-objective value of the fake player `__GLOBAL__`.\nThis is a notarget skill and cannot affect any other players' score.\n\nA list of possible operations for the action-syntax:\n\n-   `SET`\n-   `ADD`\n-   `SUBTRACT`\n-   `MULTIPLY`\n-   `DIVIDE`\n-   `MOD` [^mod]",
+        "description": "Modifies the scoreboard-objective value of the fake player `__GLOBAL__`.\nThis is a notarget skill and cannot affect any other players' score.\n\nA list of possible operations for the action-syntax:\n\n-   `SET`\n-   `ADD`\n-   `SUBTRACT`\n-   `MULTIPLY`\n-   `DIVIDE`\n-   `MOD` [^mod](shorthand)",
         "link": "https://git.lumine.io/mythiccraft/MythicMobs/-/wikis/Skills/Mechanics/modifyglobalscore",
         "attributes": [
             {
@@ -5264,7 +5264,7 @@
         "name": [
             "modifyscore"
         ],
-        "description": "Modifies the scoreboard-objective value of a fake player name.  \nCan also be used to modify a specific players score.\n\nA list of possible operations for the action-syntax:\n\n-   `SET`\n-   `ADD`\n-   `SUBTRACT`\n-   `MULTIPLY`\n-   `DIVIDE`\n-   `MOD` [^mod]",
+        "description": "Modifies the scoreboard-objective value of a fake player name.  \nCan also be used to modify a specific players score.\n\nA list of possible operations for the action-syntax:\n\n-   `SET`\n-   `ADD`\n-   `SUBTRACT`\n-   `MULTIPLY`\n-   `DIVIDE`\n-   `MOD` [^mod](shorthand)",
         "link": "https://git.lumine.io/mythiccraft/MythicMobs/-/wikis/Skills/Mechanics/modifyscore",
         "attributes": [
             {
@@ -5324,7 +5324,7 @@
             "modifytargetscore",
             "mts"
         ],
-        "description": "Modifies the a scoreboard-objective value of the specified targeter(s).\n\nA list of possible operations for the action-syntax:\n\n-   `SET`\n-   `ADD`\n-   `SUBTRACT`\n-   `MULTIPLY`\n-   `DIVIDE`\n-   `MOD` [^mod]",
+        "description": "Modifies the a scoreboard-objective value of the specified targeter(s).\n\nA list of possible operations for the action-syntax:\n\n-   `SET`\n-   `ADD`\n-   `SUBTRACT`\n-   `MULTIPLY`\n-   `DIVIDE`\n-   `MOD` [^mod](shorthand)",
         "link": "https://git.lumine.io/mythiccraft/MythicMobs/-/wikis/Skills/Mechanics/modifytargetscore",
         "attributes": [
             {
@@ -5386,7 +5386,7 @@
             "mount",
             "vehicle"
         ],
-        "description": "Causes the casting mob to summon a specified MythicMob and mount it. The caster will be set as both the [owner](/Skills/Targeters/Owner) and the [parent](/Skills/Targeters/Parent) of the summoned mob.",
+        "description": "Causes the casting mob to summon a specified MythicMob and mount it. The caster will be set as both the [owner](https://git.lumine.io/mythiccraft/MythicMobs/-/wikis/Skills/Targeters/Owner) and the [parent](https://git.lumine.io/mythiccraft/MythicMobs/-/wikis/Skills/Targeters/Parent) of the summoned mob.",
         "link": "https://git.lumine.io/mythiccraft/MythicMobs/-/wikis/Skills/Mechanics/mount",
         "attributes": [
             {
@@ -5437,7 +5437,7 @@
         "name": [
             "movePin"
         ],
-        "description": "Moves the given [pin](/Pins) to the target location.  \nCannot move MultiPins.",
+        "description": "Moves the given [pin](https://git.lumine.io/mythiccraft/MythicMobs/-/wikis/Pins) to the target location.  \nCannot move MultiPins.",
         "link": "https://git.lumine.io/mythiccraft/MythicMobs/-/wikis/Skills/Mechanics/MovePin",
         "attributes": [
             {
@@ -5463,7 +5463,7 @@
             "onattack",
             "onhit"
         ],
-        "description": "Applies an aura to the target that triggers a skill when they damage\nsomething. Can use any aura attribute\n\n| [Implemented Placeholders]     |\n|--------------------------------|\n| `<skill.var.damage-amount>`    |\n| `<skill.var.damage-type>`      |\n| `<skill.var.damage-cause>`     |",
+        "description": "Applies an aura to the target that triggers a skill when they damage\nsomething. Can use any aura attribute\n\n| [Implemented Placeholders](https://git.lumine.io/mythiccraft/MythicMobs/-/wikis/Skills/Placeholders#variable-placeholders)     |\n|--------------------------------|\n| `<skill.var.damage-amount>`    |\n| `<skill.var.damage-type>`      |\n| `<skill.var.damage-cause>`     |",
         "link": "https://git.lumine.io/mythiccraft/MythicMobs/-/wikis/Skills/Mechanics/onattack",
         "attributes": [
             {
@@ -5477,7 +5477,7 @@
                     "oh"
                 ],
                 "type": "String",
-                "description": "[metaskill] to execute if the target hits something",
+                "description": "[metaskill](https://git.lumine.io/mythiccraft/MythicMobs/-/wikis/Skills/Metaskills) to execute if the target hits something",
                 "link": "https://git.lumine.io/mythiccraft/MythicMobs/-/wikis/Skills/Mechanics/onattack",
                 "default_value": ""
             },
@@ -5644,7 +5644,7 @@
             "onchat",
             "chatprompt"
         ],
-        "description": "Applies an [aura] on the target player that triggers a [metaskill] when they type a chat message\n\n| [Implemented Placeholders]     |\n|--------------------------------|\n| `<skill.var.input>`            |",
+        "description": "Applies an [aura](https://git.lumine.io/mythiccraft/MythicMobs/-/wikis/skills/mechanics/aura) on the target player that triggers a [metaskill](https://git.lumine.io/mythiccraft/MythicMobs/-/wikis/Skills/Metaskills) when they type a chat message\n\n| [Implemented Placeholders](https://git.lumine.io/mythiccraft/MythicMobs/-/wikis/Skills/Placeholders#variable-placeholders)     |\n|--------------------------------|\n| `<skill.var.input>`            |",
         "link": "https://git.lumine.io/mythiccraft/MythicMobs/-/wikis/Skills/Mechanics/OnChat",
         "attributes": [
             {
@@ -5655,7 +5655,7 @@
                     "then"
                 ],
                 "type": "String",
-                "description": "The [metaskill] to execute when the player chats",
+                "description": "The [metaskill](https://git.lumine.io/mythiccraft/MythicMobs/-/wikis/Skills/Metaskills) to execute when the player chats",
                 "link": "https://git.lumine.io/mythiccraft/MythicMobs/-/wikis/Skills/Mechanics/OnChat",
                 "default_value": ""
             }
@@ -5671,7 +5671,7 @@
         "name": [
             "ondamaged"
         ],
-        "description": "Applies an aura to the target that triggers a skill when they take\ndamage. Can use any aura attribute\n\n| [Implemented Placeholders]     |\n|--------------------------------|\n| `<skill.var.damage-amount>`    |\n| `<skill.var.damage-type>`      |\n| `<skill.var.damage-cause>`     |",
+        "description": "Applies an aura to the target that triggers a skill when they take\ndamage. Can use any aura attribute\n\n| [Implemented Placeholders](https://git.lumine.io/mythiccraft/MythicMobs/-/wikis/Skills/Placeholders#variable-placeholders)     |\n|--------------------------------|\n| `<skill.var.damage-amount>`    |\n| `<skill.var.damage-type>`      |\n| `<skill.var.damage-cause>`     |",
         "link": "https://git.lumine.io/mythiccraft/MythicMobs/-/wikis/Skills/Mechanics/ondamaged",
         "attributes": [
             {
@@ -5831,7 +5831,7 @@
         "name": [
             "OnJump"
         ],
-        "description": "Applies an [aura] to the target that triggers a skill when they jump.\n\n> **This is a [Paper-Only] mechanic!**",
+        "description": "Applies an [aura](https://git.lumine.io/mythiccraft/MythicMobs/-/wikis/skills/mechanics/aura) to the target that triggers a skill when they jump.\n\n> **This is a [Paper-Only](https://papermc.io/downloads/all) mechanic!**",
         "link": "https://git.lumine.io/mythiccraft/MythicMobs/-/wikis/Skills/Mechanics/onjump",
         "attributes": [
             {
@@ -5895,7 +5895,7 @@
             "onbowshoot",
             "onshoot"
         ],
-        "description": "Applies an aura to the target that triggers a skill when they shoot with a bow. Can use any [aura] attribute\n\n| [Implemented Placeholders]     |\n|--------------------------------|\n| `<skill.var.bow-tension>`      |",
+        "description": "Applies an aura to the target that triggers a skill when they shoot with a bow. Can use any [aura](https://git.lumine.io/mythiccraft/MythicMobs/-/wikis/skills/mechanics/aura) attribute\n\n| [Implemented Placeholders](https://git.lumine.io/mythiccraft/MythicMobs/-/wikis/Skills/Placeholders#variable-placeholders)     |\n|--------------------------------|\n| `<skill.var.bow-tension>`      |",
         "link": "https://git.lumine.io/mythiccraft/MythicMobs/-/wikis/Skills/Mechanics/onshoot",
         "attributes": [
             {
@@ -5972,7 +5972,7 @@
             "orbital",
             "o"
         ],
-        "description": "The Orbital skill fires a special type of\n[projectile](/skills/mechanics/projectile) that will orbit around the\ntarget and can also act as an [Aura](/skills/mechanics/aura), inheriting all of its attributes. Like the\nprojectile, it will trigger other skills on anyone that is hit by it\nduring its orbit.  \nMuch like projectile, it's great for creating complex skills, such as a\nfire shield, and is a very complex skill to master.  \n\nAdded projectile bullets to Orbital in MM 4.11. See how to use them on the [projectiles mechanic](/skills/mechanics/projectile) page.",
+        "description": "The Orbital skill fires a special type of\n[projectile](https://git.lumine.io/mythiccraft/MythicMobs/-/wikis/skills/mechanics/projectile) that will orbit around the\ntarget and can also act as an [Aura](https://git.lumine.io/mythiccraft/MythicMobs/-/wikis/skills/mechanics/aura), inheriting all of its attributes. Like the\nprojectile, it will trigger other skills on anyone that is hit by it\nduring its orbit.  \nMuch like projectile, it's great for creating complex skills, such as a\nfire shield, and is a very complex skill to master.  \n\nAdded projectile bullets to Orbital in MM 4.11. See how to use them on the [projectiles mechanic](https://git.lumine.io/mythiccraft/MythicMobs/-/wikis/skills/mechanics/projectile) page.",
         "link": "https://git.lumine.io/mythiccraft/MythicMobs/-/wikis/Skills/Mechanics/orbital",
         "attributes": [
             {
@@ -6265,7 +6265,7 @@
                     "b"
                 ],
                 "type": "String",
-                "description": "The [Projectile Bullet Type](/skills/mechanics/projectile#projectile-bullets). Also makes the orbital inherits every related attribute",
+                "description": "The [Projectile Bullet Type](https://git.lumine.io/mythiccraft/MythicMobs/-/wikis/skills/mechanics/projectile#projectile-bullets). Also makes the orbital inherits every related attribute",
                 "link": "https://git.lumine.io/mythiccraft/MythicMobs/-/wikis/Skills/Mechanics/orbital",
                 "default_value": "NONE",
                 "enum": "Projectile_BulletType"
@@ -6320,7 +6320,7 @@
                     "po"
                 ],
                 "type": "String",
-                "description": "The [particle] that will be displayed at the orbitals",
+                "description": "The [particle](https://git.lumine.io/mythiccraft/MythicMobs/-/wikis/Skills/Mechanics/Particle/Particle-Types) that will be displayed at the orbitals",
                 "link": "https://git.lumine.io/mythiccraft/MythicMobs/-/wikis/Skills/Mechanics/Atom",
                 "default_value": "`particle`",
                 "enum": "Particle"
@@ -6332,7 +6332,7 @@
                     "pn"
                 ],
                 "type": "String",
-                "description": "The [particle] that will be displayed at the nucleus",
+                "description": "The [particle](https://git.lumine.io/mythiccraft/MythicMobs/-/wikis/Skills/Mechanics/Particle/Particle-Types) that will be displayed at the nucleus",
                 "link": "https://git.lumine.io/mythiccraft/MythicMobs/-/wikis/Skills/Mechanics/Atom",
                 "default_value": "reddust",
                 "enum": "Particle"
@@ -6479,7 +6479,7 @@
             "e:particle",
             "e:p"
         ],
-        "description": "Creates a particle effect at the targeted entity or location.\n\nA list of particle types can be found **[here](/Skills/Mechanics/Particle/Particle-Types)**. \n\n[All of the spigot particle effects listed in the javadocs should be acceptable as well.](https://hub.spigotmc.org/javadocs/spigot/org/bukkit/Particle.html)",
+        "description": "Creates a particle effect at the targeted entity or location.\n\nA list of particle types can be found **[here](https://git.lumine.io/mythiccraft/MythicMobs/-/wikis/Skills/Mechanics/Particle/Particle-Types)**. \n\n[All of the spigot particle effects listed in the javadocs should be acceptable as well.](https://hub.spigotmc.org/javadocs/spigot/org/bukkit/Particle.html)",
         "link": "https://git.lumine.io/mythiccraft/MythicMobs/-/wikis/Skills/Mechanics/Particle",
         "attributes": [
             {
@@ -6488,7 +6488,7 @@
                     "p"
                 ],
                 "type": "String",
-                "description": "The [particle type] to use.",
+                "description": "The [particle type](https://git.lumine.io/mythiccraft/MythicMobs/-/wikis/Skills/Mechanics/Particle/Particle-Types) to use.",
                 "link": "https://git.lumine.io/mythiccraft/MythicMobs/-/wikis/Skills/Mechanics/Particle",
                 "default_value": "reddust",
                 "enum": "Particle"
@@ -6583,7 +6583,7 @@
                     "s"
                 ],
                 "type": "PlaceholderFloat",
-                "description": "The \u201cspeed\u201d of the particles. If a particle has a [DataType](/Skills/Mechanics/Particle/Particle-Types#datatypes), this attribute will behave inconsistently.",
+                "description": "The \u201cspeed\u201d of the particles. If a particle has a [DataType](https://git.lumine.io/mythiccraft/MythicMobs/-/wikis/Skills/Mechanics/Particle/Particle-Types#datatypes), this attribute will behave inconsistently.",
                 "link": "https://git.lumine.io/mythiccraft/MythicMobs/-/wikis/Skills/Mechanics/Particle",
                 "default_value": "0"
             },
@@ -6665,7 +6665,7 @@
                     "d"
                 ],
                 "type": "Boolean",
-                "description": "Does the particle use directional travel. The [particle type] used must not have additional data (extra attributes)",
+                "description": "Does the particle use directional travel. The [particle type](https://git.lumine.io/mythiccraft/MythicMobs/-/wikis/Skills/Mechanics/Particle/Particle-Types) used must not have additional data (extra attributes)",
                 "link": "https://git.lumine.io/mythiccraft/MythicMobs/-/wikis/Skills/Mechanics/Particle",
                 "default_value": "false"
             },
@@ -6833,7 +6833,7 @@
                     "fo"
                 ],
                 "type": "Boolean",
-                "description": "Whether to draw the line from the [@origin] instead",
+                "description": "Whether to draw the line from the [@origin](https://git.lumine.io/mythiccraft/MythicMobs/-/wikis/skills/targeters/origin) instead",
                 "link": "https://git.lumine.io/mythiccraft/MythicMobs/-/wikis/Skills/Mechanics/ParticleLine",
                 "default_value": "false"
             },
@@ -6935,7 +6935,7 @@
                     "fo"
                 ],
                 "type": "Boolean",
-                "description": "Whether to draw the line from the [@origin] instead",
+                "description": "Whether to draw the line from the [@origin](https://git.lumine.io/mythiccraft/MythicMobs/-/wikis/skills/targeters/origin) instead",
                 "link": "https://git.lumine.io/mythiccraft/MythicMobs/-/wikis/Skills/Mechanics/ParticleLineHelix",
                 "default_value": "false"
             },
@@ -7037,7 +7037,7 @@
                     "fo"
                 ],
                 "type": "Boolean",
-                "description": "Whether to draw the line from the [@origin] instead",
+                "description": "Whether to draw the line from the [@origin](https://git.lumine.io/mythiccraft/MythicMobs/-/wikis/skills/targeters/origin) instead",
                 "link": "https://git.lumine.io/mythiccraft/MythicMobs/-/wikis/Skills/Mechanics/ParticleLineRing",
                 "default_value": "false"
             },
@@ -7588,7 +7588,7 @@
             "playBlockBreakSound",
             "blockBreakSound"
         ],
-        "description": "Plays the target block's breaking sound.\n\n> **This is a [Paper-Only] mechanic!**",
+        "description": "Plays the target block's breaking sound.\n\n> **This is a [Paper-Only](https://papermc.io/downloads/all) mechanic!**",
         "link": "https://git.lumine.io/mythiccraft/MythicMobs/-/wikis/Skills/Mechanics/PlayBlockBreakSound",
         "attributes": [
             {
@@ -7625,7 +7625,7 @@
             "playBlockFallSound",
             "blockFallSound"
         ],
-        "description": "Plays the target block's falling sound.  \n\n> **This is a [Paper-Only] mechanic!**",
+        "description": "Plays the target block's falling sound.  \n\n> **This is a [Paper-Only](https://papermc.io/downloads/all) mechanic!**",
         "link": "https://git.lumine.io/mythiccraft/MythicMobs/-/wikis/Skills/Mechanics/PlayBlockFallSound",
         "attributes": [
             {
@@ -7662,7 +7662,7 @@
             "playBlockHitSound",
             "blockHitSound"
         ],
-        "description": "Plays the target block's hit (damage) sound.  \n\n> **This is a [Paper-Only] mechanic!**",
+        "description": "Plays the target block's hit (damage) sound.  \n\n> **This is a [Paper-Only](https://papermc.io/downloads/all) mechanic!**",
         "link": "https://git.lumine.io/mythiccraft/MythicMobs/-/wikis/Skills/Mechanics/PlayBlockHitSound",
         "attributes": [
             {
@@ -7699,7 +7699,7 @@
             "playBlockPlaceSound",
             "blockPlaceSound"
         ],
-        "description": "Plays the target block's placement sound.\n\n> **This is a [Paper-Only] mechanic!**",
+        "description": "Plays the target block's placement sound.\n\n> **This is a [Paper-Only](https://papermc.io/downloads/all) mechanic!**",
         "link": "https://git.lumine.io/mythiccraft/MythicMobs/-/wikis/Skills/Mechanics/PlayBlockPlaceSound",
         "attributes": [
             {
@@ -7736,7 +7736,7 @@
             "playBlockStepSound",
             "blockStepSound"
         ],
-        "description": "Plays the target block's step sound (The sound played when an entity walks on it).  \n\n> **This is a [Paper-Only] mechanic!**",
+        "description": "Plays the target block's step sound (The sound played when an entity walks on it).  \n\n> **This is a [Paper-Only](https://papermc.io/downloads/all) mechanic!**",
         "link": "https://git.lumine.io/mythiccraft/MythicMobs/-/wikis/Skills/Mechanics/PlayBlockStepSound",
         "attributes": [
             {
@@ -7957,7 +7957,7 @@
                     "hC"
                 ],
                 "type": "String",
-                "description": "List of [Inline Conditions](/Skills/Inline-Conditions) that an entity must met to be hit by the polygon mechanic",
+                "description": "List of [Inline Conditions](https://git.lumine.io/mythiccraft/MythicMobs/-/wikis/Skills/Inline-Conditions) that an entity must met to be hit by the polygon mechanic",
                 "link": "https://git.lumine.io/mythiccraft/MythicMobs/-/wikis/Skills/Mechanics/polygon",
                 "default_value": ""
             },
@@ -8290,7 +8290,7 @@
             "projectile",
             "p"
         ],
-        "description": "The Projectile skill fires a meta-\"projectile\" that can be decorated\nusing particle and sound effects.  \nIt's great for creating complex, aesthetically pleasing skills, such as\nshadow bolts, balls of ice, or even meteors.  \nIt has a lot of options (more than any other mechanic) and can be a bit of a\nnightmare to jump into without knowing what you're doing.  \nIt will disappear after hitting an entity or location that is able to stop the projectile. This behavior can be configured via attributes like `stopatblock`, `stopatentity` and `stopconditions`\n\nIt is of importance to note that other mechanics (such as [Missile](/skills/mechanics/missile)) are an \"extension\" of this mechanic, and can as such use a great deal of this mechanic's attributes. The attributes that those mechanics can use are listen in [Inheritable Attributes](/skills/mechanics/projectile#inheritable-attributes)\n\n[[_TOC_]]",
+        "description": "The Projectile skill fires a meta-\"projectile\" that can be decorated\nusing particle and sound effects.  \nIt's great for creating complex, aesthetically pleasing skills, such as\nshadow bolts, balls of ice, or even meteors.  \nIt has a lot of options (more than any other mechanic) and can be a bit of a\nnightmare to jump into without knowing what you're doing.  \nIt will disappear after hitting an entity or location that is able to stop the projectile. This behavior can be configured via attributes like `stopatblock`, `stopatentity` and `stopconditions`\n\nIt is of importance to note that other mechanics (such as [Missile](https://git.lumine.io/mythiccraft/MythicMobs/-/wikis/skills/mechanics/missile)) are an \"extension\" of this mechanic, and can as such use a great deal of this mechanic's attributes. The attributes that those mechanics can use are listen in [Inheritable Attributes](https://git.lumine.io/mythiccraft/MythicMobs/-/wikis/skills/mechanics/projectile#inheritable-attributes)\n\n[[_TOC_]]",
         "link": "https://git.lumine.io/mythiccraft/MythicMobs/-/wikis/Skills/Mechanics/projectile",
         "attributes": [
             {
@@ -8491,7 +8491,7 @@
                     "b"
                 ],
                 "type": "String",
-                "description": "The type of the bullet. If set, additional attributes becomes available depending on the specified bullet type. A list of bullet types and associated attributes is available [below](/skills/mechanics/projectile#projectile-bullets)",
+                "description": "The type of the bullet. If set, additional attributes becomes available depending on the specified bullet type. A list of bullet types and associated attributes is available [below](https://git.lumine.io/mythiccraft/MythicMobs/-/wikis/skills/mechanics/projectile#projectile-bullets)",
                 "link": "https://git.lumine.io/mythiccraft/MythicMobs/-/wikis/Skills/Mechanics/projectile",
                 "default_value": "",
                 "enum": "Projectile_BulletType"
@@ -8739,7 +8739,7 @@
                     "pav"
                 ],
                 "type": "Boolean",
-                "description": "Whether a mob's [power level](/Mobs/Power) affects the projectile's velocity.",
+                "description": "Whether a mob's [power level](https://git.lumine.io/mythiccraft/MythicMobs/-/wikis/Mobs/Power) affects the projectile's velocity.",
                 "link": "https://git.lumine.io/mythiccraft/MythicMobs/-/wikis/Skills/Mechanics/projectile",
                 "default_value": "true"
             },
@@ -8749,7 +8749,7 @@
                     "par"
                 ],
                 "type": "Boolean",
-                "description": "Whether a mob's [power level](/Mobs/Power) affects the projectile's range",
+                "description": "Whether a mob's [power level](https://git.lumine.io/mythiccraft/MythicMobs/-/wikis/Mobs/Power) affects the projectile's range",
                 "link": "https://git.lumine.io/mythiccraft/MythicMobs/-/wikis/Skills/Mechanics/projectile",
                 "default_value": "true"
             },
@@ -8958,7 +8958,7 @@
                     "audience"
                 ],
                 "type": "Audience",
-                "description": "The [Audience][] of the bullet",
+                "description": "The [Audience](https://git.lumine.io/mythiccraft/MythicMobs/-/wikis/Skills/Audience) of the bullet",
                 "link": "https://git.lumine.io/mythiccraft/MythicMobs/-/wikis/Skills/Mechanics/projectile",
                 "default_value": "world",
                 "enum": "Audience"
@@ -9099,7 +9099,7 @@
                     "audience"
                 ],
                 "type": "Audience",
-                "description": "The [Audience][] of the bullet",
+                "description": "The [Audience](https://git.lumine.io/mythiccraft/MythicMobs/-/wikis/Skills/Audience) of the bullet",
                 "link": "https://git.lumine.io/mythiccraft/MythicMobs/-/wikis/Skills/Mechanics/projectile",
                 "default_value": "world"
             },
@@ -9129,7 +9129,7 @@
                     "audience"
                 ],
                 "type": "Audience",
-                "description": "The [Audience][] of the bullet",
+                "description": "The [Audience](https://git.lumine.io/mythiccraft/MythicMobs/-/wikis/Skills/Audience) of the bullet",
                 "link": "https://git.lumine.io/mythiccraft/MythicMobs/-/wikis/Skills/Mechanics/projectile",
                 "default_value": "world"
             },
@@ -9225,7 +9225,7 @@
                     "bulletBillboard"
                 ],
                 "type": "String",
-                "description": "The [billboard type] of the bullet",
+                "description": "The [billboard type](https://hub.spigotmc.org/javadocs/bukkit/org/bukkit/entity/Display.Billboard.html) of the bullet",
                 "link": "https://git.lumine.io/mythiccraft/MythicMobs/-/wikis/Skills/Mechanics/projectile",
                 "default_value": "FIXED"
             },
@@ -9400,7 +9400,7 @@
                     "audience"
                 ],
                 "type": "Audience",
-                "description": "The [Audience][] of the bullet",
+                "description": "The [Audience](https://git.lumine.io/mythiccraft/MythicMobs/-/wikis/Skills/Audience) of the bullet",
                 "link": "https://git.lumine.io/mythiccraft/MythicMobs/-/wikis/Skills/Mechanics/projectile",
                 "default_value": "world"
             },
@@ -9602,7 +9602,7 @@
                     "audience"
                 ],
                 "type": "Audience",
-                "description": "The [Audience][] of the bullet",
+                "description": "The [Audience](https://git.lumine.io/mythiccraft/MythicMobs/-/wikis/Skills/Audience) of the bullet",
                 "link": "https://git.lumine.io/mythiccraft/MythicMobs/-/wikis/Skills/Mechanics/projectile",
                 "default_value": "world"
             },
@@ -9622,7 +9622,7 @@
                     "audience"
                 ],
                 "type": "Audience",
-                "description": "The [Audience][] of the bullet",
+                "description": "The [Audience](https://git.lumine.io/mythiccraft/MythicMobs/-/wikis/Skills/Audience) of the bullet",
                 "link": "https://git.lumine.io/mythiccraft/MythicMobs/-/wikis/Skills/Mechanics/projectile",
                 "default_value": "world"
             },
@@ -9683,7 +9683,7 @@
                     "billboard"
                 ],
                 "type": "String",
-                "description": "The [billboard type] of the bullet",
+                "description": "The [billboard type](https://hub.spigotmc.org/javadocs/bukkit/org/bukkit/entity/Display.Billboard.html) of the bullet",
                 "link": "https://git.lumine.io/mythiccraft/MythicMobs/-/wikis/Skills/Mechanics/projectile",
                 "default_value": "FIXED"
             },
@@ -9710,7 +9710,7 @@
             "projectilevelocity",
             "pvelocity"
         ],
-        "description": "Modifies the velocity of the calling [Projectile](/skills/mechanics/projectile) or [Missile](/skills/mechanics/missile). In this context, it works the same as the [Velocity](/skills/mechanics/velocity) mechanic.",
+        "description": "Modifies the velocity of the calling [Projectile](https://git.lumine.io/mythiccraft/MythicMobs/-/wikis/skills/mechanics/projectile) or [Missile](https://git.lumine.io/mythiccraft/MythicMobs/-/wikis/skills/mechanics/missile). In this context, it works the same as the [Velocity](https://git.lumine.io/mythiccraft/MythicMobs/-/wikis/skills/mechanics/velocity) mechanic.",
         "link": "https://git.lumine.io/mythiccraft/MythicMobs/-/wikis/Skills/Mechanics/projectilevelocity",
         "attributes": [
             {
@@ -10045,7 +10045,7 @@
             "randomskill",
             "randommeta"
         ],
-        "description": "Executes a random skill from the list of supplied [skills](/skills/mechanics/skill). Will ignore any skills that are on cooldown or whose conditions do not check. There is no limit to how many skills can be added.",
+        "description": "Executes a random skill from the list of supplied [skills](https://git.lumine.io/mythiccraft/MythicMobs/-/wikis/skills/mechanics/skill). Will ignore any skills that are on cooldown or whose conditions do not check. There is no limit to how many skills can be added.",
         "link": "https://git.lumine.io/mythiccraft/MythicMobs/-/wikis/Skills/Mechanics/randomskill",
         "attributes": [
             {
@@ -10084,7 +10084,7 @@
         "name": [
             "raytrace"
         ],
-        "description": "Traces a ray to the target.\n\n> **This is a [Premium-Only] mechanic!**\n\n| [Implemented Placeholders]     |\n|--------------------------------|\n| `<skill.var.hit-block-type>`   |",
+        "description": "Traces a ray to the target.\n\n> **This is a [Premium-Only](Premium-Features) mechanic!**\n\n| [Implemented Placeholders](https://git.lumine.io/mythiccraft/MythicMobs/-/wikis/Skills/Placeholders#variable-placeholders)     |\n|--------------------------------|\n| `<skill.var.hit-block-type>`   |",
         "link": "https://git.lumine.io/mythiccraft/MythicMobs/-/wikis/Skills/Mechanics/raytrace",
         "attributes": [
             {
@@ -10231,7 +10231,7 @@
         "name": [
             "raytraceTo"
         ],
-        "description": "Traces a ray to the target, like the [Raytrace](/skills/mechanics/raytrace) mechanic, but with additional attributes regarding the start and end position of the ray.\n\n> **This is a [Premium-Only] mechanic!**",
+        "description": "Traces a ray to the target, like the [Raytrace](https://git.lumine.io/mythiccraft/MythicMobs/-/wikis/skills/mechanics/raytrace) mechanic, but with additional attributes regarding the start and end position of the ray.\n\n> **This is a [Premium-Only](Premium-Features) mechanic!**",
         "link": "https://git.lumine.io/mythiccraft/MythicMobs/-/wikis/Skills/Mechanics/raytraceto",
         "attributes": [
             {
@@ -10624,7 +10624,7 @@
             "aigoal",
             "aigoals"
         ],
-        "description": "Change pathfindergoals. It is not possible to use every goal on every\nentity. To change the ai of an entity, you need to use clear first.\nAfter that you can use the runaigoalselector and add the goals you need.\nUnlike the mob configuration, if you use the runaigoalselector skill,\nyou can only use one pathfindergoal in the mechanic. But aslong as you\ndont use clear, the pathfindergoal is added to the end of the already\nexisting goals of the entity.\n\nA list of AI Goals can be found\n[here](/Mobs/Custom-AI#ai-goal-selectors)\nMore complex goals, such as a patrol with locations, may need to be inputted as a string, such as the below example.\n\n> **This is a no-target mechanic, and the affected entity will always be the caster**",
+        "description": "Change pathfindergoals. It is not possible to use every goal on every\nentity. To change the ai of an entity, you need to use clear first.\nAfter that you can use the runaigoalselector and add the goals you need.\nUnlike the mob configuration, if you use the runaigoalselector skill,\nyou can only use one pathfindergoal in the mechanic. But aslong as you\ndont use clear, the pathfindergoal is added to the end of the already\nexisting goals of the entity.\n\nA list of AI Goals can be found\n[here](https://git.lumine.io/mythiccraft/MythicMobs/-/wikis/Mobs/Custom-AI#ai-goal-selectors)\nMore complex goals, such as a patrol with locations, may need to be inputted as a string, such as the below example.\n\n> **This is a no-target mechanic, and the affected entity will always be the caster**",
         "link": "https://git.lumine.io/mythiccraft/MythicMobs/-/wikis/Skills/Mechanics/runaigoalselector",
         "attributes": [
             {
@@ -10656,7 +10656,7 @@
             "runaitargetselector",
             "aitarget"
         ],
-        "description": "Change target pathfindergoals. It is not possible to use every goal on\nevery entity. To change the ai of an entity, you need to use clear\nfirst. After that you can use the runaitargetselector and add the goals\nyou need. Unlike the mob configuration, if you use the\nrunaitargetselector skill, you can only use one pathfindergoal in the\nmechanic. But aslong as you dont use clear, the pathfindergoal is added\nto the end of the already existing goals of the entity.\n\nA list of available targets can be found [here](/Mobs/Custom-AI#ai-target-selectors)\n\n> **This is a no-target mechanic, and the affected entity will always be the caster**",
+        "description": "Change target pathfindergoals. It is not possible to use every goal on\nevery entity. To change the ai of an entity, you need to use clear\nfirst. After that you can use the runaitargetselector and add the goals\nyou need. Unlike the mob configuration, if you use the\nrunaitargetselector skill, you can only use one pathfindergoal in the\nmechanic. But aslong as you dont use clear, the pathfindergoal is added\nto the end of the already existing goals of the entity.\n\nA list of available targets can be found [here](https://git.lumine.io/mythiccraft/MythicMobs/-/wikis/Mobs/Custom-AI#ai-target-selectors)\n\n> **This is a no-target mechanic, and the affected entity will always be the caster**",
         "link": "https://git.lumine.io/mythiccraft/MythicMobs/-/wikis/Skills/Mechanics/runaitargetselector",
         "attributes": [
             {
@@ -10715,7 +10715,7 @@
             "actionmessage",
             "am"
         ],
-        "description": "Sends a message to the target player's action bar.\n\n[Color codes](/Skills/Placeholders#color-codes) and\n[Variables](/Skills/Variables) are compatible with the action\nmessage bar. Some targeters might not work properly with this mechanic.\nIf you happen to find a targeter that doesn't work, please be sure to\npost it in the bugs/suggestion-subforum!\n\n![](http://fs5.directupload.net/images/160306/zswobuo8.jpg)",
+        "description": "Sends a message to the target player's action bar.\n\n[Color codes](https://git.lumine.io/mythiccraft/MythicMobs/-/wikis/Skills/Placeholders#color-codes) and\n[Variables](https://git.lumine.io/mythiccraft/MythicMobs/-/wikis/Skills/Variables) are compatible with the action\nmessage bar. Some targeters might not work properly with this mechanic.\nIf you happen to find a targeter that doesn't work, please be sure to\npost it in the bugs/suggestion-subforum!\n\n![](http://fs5.directupload.net/images/160306/zswobuo8.jpg)",
         "link": "https://git.lumine.io/mythiccraft/MythicMobs/-/wikis/Skills/Mechanics/sendactionmessage",
         "attributes": [
             {
@@ -11026,7 +11026,7 @@
         "name": [
             "setcollidable"
         ],
-        "description": "Sets if the target of the mechanic should have a collidable hitbox or not.\n<br>The result is equivalent to the [Collidable](/Mobs/Options#collidable) Option.",
+        "description": "Sets if the target of the mechanic should have a collidable hitbox or not.\n<br>The result is equivalent to the [Collidable](https://git.lumine.io/mythiccraft/MythicMobs/-/wikis/Mobs/Options#collidable) Option.",
         "link": "https://git.lumine.io/mythiccraft/MythicMobs/-/wikis/Skills/Mechanics/setcollidable",
         "attributes": [
             {
@@ -11268,7 +11268,7 @@
             "setInteractionSize",
             "interactionSize"
         ],
-        "description": "Sets the size of the target `INTERACTION` [Type](/mythiccraft/MythicMobs/-/wikis/Mobs/Mobs#type) entity.",
+        "description": "Sets the size of the target `INTERACTION` [Type](https://git.lumine.io/mythiccraft/MythicMobs/-/wikis/mythiccraft/MythicMobs/-/wikis/Mobs/Mobs#type) entity.",
         "link": "https://git.lumine.io/mythiccraft/MythicMobs/-/wikis/Skills/Mechanics/SetInteractionSize",
         "attributes": [
             {
@@ -11560,7 +11560,7 @@
         "name": [
             "setOwner"
         ],
-        "description": "Sets the \"owner\" attribute of the Mythic Mob to the given target. This is a special attribute used within MythicMobs, and different from the normal \"vanilla\" owner of a mob.  \n\nDoes nothing if the caster is not a Mythic Mob.  \nIf the casting mob is a `Wolf`,`Cat` or `Parrot` and the target is a Player, then the mechanic will _also_ set their Vanilla Owner as the targeted player.  \n\nWorks with the [@Owner Targeter](/Skills/Targeters/Owner), and the [Owner Condition](/skills/conditions/owner).  \n\nWhile an Owner is set, a mob will never attack or target it, even if specified otherwise. A mob will still retain any aggro it had against the owner before it was set as such.",
+        "description": "Sets the \"owner\" attribute of the Mythic Mob to the given target. This is a special attribute used within MythicMobs, and different from the normal \"vanilla\" owner of a mob.  \n\nDoes nothing if the caster is not a Mythic Mob.  \nIf the casting mob is a `Wolf`,`Cat` or `Parrot` and the target is a Player, then the mechanic will _also_ set their Vanilla Owner as the targeted player.  \n\nWorks with the [@Owner Targeter](https://git.lumine.io/mythiccraft/MythicMobs/-/wikis/Skills/Targeters/Owner), and the [Owner Condition](https://git.lumine.io/mythiccraft/MythicMobs/-/wikis/skills/conditions/owner).  \n\nWhile an Owner is set, a mob will never attack or target it, even if specified otherwise. A mob will still retain any aggro it had against the owner before it was set as such.",
         "link": "https://git.lumine.io/mythiccraft/MythicMobs/-/wikis/Skills/Mechanics/setowner",
         "attributes": []
     },
@@ -11574,7 +11574,7 @@
         "name": [
             "setParent"
         ],
-        "description": "Sets the \"Parent\" of the casting MythicMob as the targeted entity.  \nThe Parent can be either a Player or another MythicMob.\nWorks with the [@Parent Targeter](/mythiccraft/MythicMobs/-/wikis/Skills/Targeters/Parent), and the [IsParent Condition](/mythiccraft/MythicMobs/-/wikis/skills/conditions/IsParent).  \n\nIf the Parent is a `Player`, this information will not persist across player relogging, and is, as such, only usable \"temporarily\", from when the Parent is set to when the player quits the server.",
+        "description": "Sets the \"Parent\" of the casting MythicMob as the targeted entity.  \nThe Parent can be either a Player or another MythicMob.\nWorks with the [@Parent Targeter](https://git.lumine.io/mythiccraft/MythicMobs/-/wikis/mythiccraft/MythicMobs/-/wikis/Skills/Targeters/Parent), and the [IsParent Condition](https://git.lumine.io/mythiccraft/MythicMobs/-/wikis/mythiccraft/MythicMobs/-/wikis/skills/conditions/IsParent).  \n\nIf the Parent is a `Player`, this information will not persist across player relogging, and is, as such, only usable \"temporarily\", from when the Parent is set to when the player quits the server.",
         "link": "https://git.lumine.io/mythiccraft/MythicMobs/-/wikis/Skills/Mechanics/SetParent",
         "attributes": []
     },
@@ -11745,7 +11745,7 @@
                     "b"
                 ],
                 "type": "String",
-                "description": "A [Location Targeter], whose targeted location will be the specified one",
+                "description": "A [Location Targeter](https://git.lumine.io/mythiccraft/MythicMobs/-/wikis/Skills/Targeters#single-location-targeters), whose targeted location will be the specified one",
                 "link": "https://git.lumine.io/mythiccraft/MythicMobs/-/wikis/Skills/Mechanics/setraiderpatrolblock",
                 "default_value": ""
             }
@@ -11833,7 +11833,7 @@
         "name": [
             "setscore"
         ],
-        "description": "Modifies the scoreboard-objective value of a fake player name. Works\nlike the [Modify Score](/skills/mechanics/modifyscore) mechanic, but is\nonly capable of performing the **set**-action.",
+        "description": "Modifies the scoreboard-objective value of a fake player name. Works\nlike the [Modify Score](https://git.lumine.io/mythiccraft/MythicMobs/-/wikis/skills/mechanics/modifyscore) mechanic, but is\nonly capable of performing the **set**-action.",
         "link": "https://git.lumine.io/mythiccraft/MythicMobs/-/wikis/Skills/Mechanics/setscore",
         "attributes": []
     },
@@ -11889,7 +11889,7 @@
             "setStance",
             "stance"
         ],
-        "description": "Sets the \"stance\" attribute of the target Mythic Mob to the given\nstring. Does nothing if the target is not a Mythic Mob.  \n\nThis can be used in conjunction with the [Stance condition](/skills/conditions/stance) to create different stances or phases\nfor a mob, where they use different abilities.  \nThe stance condition will match the current stance loosely, meaning if you set the stance to\n\"angry fiery explosive\" the stance condition will be true for the stance\n\"fiery\".",
+        "description": "Sets the \"stance\" attribute of the target Mythic Mob to the given\nstring. Does nothing if the target is not a Mythic Mob.  \n\nThis can be used in conjunction with the [Stance condition](https://git.lumine.io/mythiccraft/MythicMobs/-/wikis/skills/conditions/stance) to create different stances or phases\nfor a mob, where they use different abilities.  \nThe stance condition will match the current stance loosely, meaning if you set the stance to\n\"angry fiery explosive\" the stance condition will be true for the stance\n\"fiery\".",
         "link": "https://git.lumine.io/mythiccraft/MythicMobs/-/wikis/Skills/Mechanics/setstance",
         "attributes": [
             {
@@ -12009,7 +12009,7 @@
             "tracklocation",
             "stl"
         ],
-        "description": "Sets the casting mob's tracked location to the targeted location.  \nPlease note that a player cannot have a tracked location.  \nThis location can then be used via the relevant [Targeter](/Skills/Targeters/TrackedLocation) and [Condition](/skills/conditions/distancefromtrackedlocation).",
+        "description": "Sets the casting mob's tracked location to the targeted location.  \nPlease note that a player cannot have a tracked location.  \nThis location can then be used via the relevant [Targeter](https://git.lumine.io/mythiccraft/MythicMobs/-/wikis/Skills/Targeters/TrackedLocation) and [Condition](https://git.lumine.io/mythiccraft/MythicMobs/-/wikis/skills/conditions/distancefromtrackedlocation).",
         "link": "https://git.lumine.io/mythiccraft/MythicMobs/-/wikis/Skills/Mechanics/tracklocation",
         "attributes": []
     },
@@ -12226,7 +12226,7 @@
                     "fo"
                 ],
                 "type": "Boolean",
-                "description": "Whether the fireball should be shot from the [origin]",
+                "description": "Whether the fireball should be shot from the [origin](https://git.lumine.io/mythiccraft/MythicMobs/-/wikis/Skills/Targeters/Origin)",
                 "link": "https://git.lumine.io/mythiccraft/MythicMobs/-/wikis/Skills/Mechanics/shootfireball",
                 "default_value": "false"
             },
@@ -12236,7 +12236,7 @@
                     "material"
                 ],
                 "type": "String",
-                "description": "The [material] of the fireball, if ITEM type was used",
+                "description": "The [material](https://hub.spigotmc.org/javadocs/bukkit/org/bukkit/Material.html) of the fireball, if ITEM type was used",
                 "link": "https://git.lumine.io/mythiccraft/MythicMobs/-/wikis/Skills/Mechanics/shootfireball",
                 "default_value": "BLAZE_POWDER",
                 "enum": "Material"
@@ -12855,7 +12855,7 @@
             "showentity",
             "showplayer"
         ],
-        "description": "Shows the caster, if hidden via the use of the [hide] mechanic, to the targeted players.",
+        "description": "Shows the caster, if hidden via the use of the [hide](https://git.lumine.io/mythiccraft/MythicMobs/-/wikis/skills/mechanics/hide) mechanic, to the targeted players.",
         "link": "https://git.lumine.io/mythiccraft/MythicMobs/-/wikis/Skills/Mechanics/showentity",
         "attributes": []
     },
@@ -12907,7 +12907,7 @@
                     "s"
                 ],
                 "type": "String",
-                "description": "The [metaskill] of which you want to set the cooldown",
+                "description": "The [metaskill](https://git.lumine.io/mythiccraft/MythicMobs/-/wikis/Skills/Metaskills) of which you want to set the cooldown",
                 "link": "https://git.lumine.io/mythiccraft/MythicMobs/-/wikis/Skills/Mechanics/setskillcooldown",
                 "default_value": ""
             },
@@ -12989,7 +12989,7 @@
                     "power"
                 ],
                 "type": "Float",
-                "description": "[Power](/mobs/Power) multiplier",
+                "description": "[Power](https://git.lumine.io/mythiccraft/MythicMobs/-/wikis/mobs/Power) multiplier",
                 "link": "https://git.lumine.io/mythiccraft/MythicMobs/-/wikis/Skills/Mechanics#universal-attributes",
                 "default_value": "1"
             },
@@ -13307,7 +13307,7 @@
                     "hC"
                 ],
                 "type": "String",
-                "description": "List of [Inline Conditions](/Skills/Inline-Conditions) that an entity must met to be hit by the slash mechanic",
+                "description": "List of [Inline Conditions](https://git.lumine.io/mythiccraft/MythicMobs/-/wikis/Skills/Inline-Conditions) that an entity must met to be hit by the slash mechanic",
                 "link": "https://git.lumine.io/mythiccraft/MythicMobs/-/wikis/Skills/Mechanics/slash",
                 "default_value": ""
             },
@@ -13491,7 +13491,7 @@
                     "audience"
                 ],
                 "type": "Audience",
-                "description": "The [audience] of the effect",
+                "description": "The [audience](https://git.lumine.io/mythiccraft/MythicMobs/-/wikis/Skills/Audience) of the effect",
                 "link": "https://git.lumine.io/mythiccraft/MythicMobs/-/wikis/Skills/Mechanics/Sound",
                 "default_value": "world",
                 "enum": "Audience"
@@ -13735,7 +13735,7 @@
             "statbuff",
             "statdebuff"
         ],
-        "description": "Applies an [aura] to the target that applies a specific [stat] to them.",
+        "description": "Applies an [aura](https://git.lumine.io/mythiccraft/MythicMobs/-/wikis/skills/mechanics/aura) to the target that applies a specific [stat](Stats) to them.",
         "link": "https://git.lumine.io/mythiccraft/MythicMobs/-/wikis/Skills/Mechanics/StatAura",
         "attributes": [
             {
@@ -13744,7 +13744,7 @@
                     "s"
                 ],
                 "type": "PlaceholderString",
-                "description": "The [stat] to apply",
+                "description": "The [stat](Stats) to apply",
                 "link": "https://git.lumine.io/mythiccraft/MythicMobs/-/wikis/Skills/Mechanics/StatAura",
                 "default_value": ""
             },
@@ -13757,7 +13757,7 @@
                     "m"
                 ],
                 "type": "PlaceholderString",
-                "description": "The [stat modifier] to use",
+                "description": "The [stat modifier](Stats#modifiers) to use",
                 "link": "https://git.lumine.io/mythiccraft/MythicMobs/-/wikis/Skills/Mechanics/StatAura",
                 "default_value": "ADDITIVE",
                 "enum": "StatModifier"
@@ -13897,7 +13897,7 @@
             "sudoskill",
             "sudo"
         ],
-        "description": "The SudoSkill mechanic allows you to force the targeted entity to \u201ccast\u201d\na MythicMobs [Metaskill], even if the targeted entity is a player.  \nNo single mechanics can be used straight: they have to be in a [Metaskill]!",
+        "description": "The SudoSkill mechanic allows you to force the targeted entity to \u201ccast\u201d\na MythicMobs [Metaskill](https://git.lumine.io/mythiccraft/MythicMobs/-/wikis/Skills/Metaskills), even if the targeted entity is a player.  \nNo single mechanics can be used straight: they have to be in a [Metaskill](https://git.lumine.io/mythiccraft/MythicMobs/-/wikis/Skills/Metaskills)!",
         "link": "https://git.lumine.io/mythiccraft/MythicMobs/-/wikis/Skills/Mechanics/sudoskill",
         "attributes": [
             {
@@ -13932,7 +13932,7 @@
         "name": [
             "suicide"
         ],
-        "description": "Instantly kills the mob. This is a no-target mechanic and will only\naffect the casting mob.  \nThis won't work on a few non-mob entities like boats or armor stands! For them, the use of [Remove](/skills/mechanics/remove) is advised!",
+        "description": "Instantly kills the mob. This is a no-target mechanic and will only\naffect the casting mob.  \nThis won't work on a few non-mob entities like boats or armor stands! For them, the use of [Remove](https://git.lumine.io/mythiccraft/MythicMobs/-/wikis/skills/mechanics/remove) is advised!",
         "link": "https://git.lumine.io/mythiccraft/MythicMobs/-/wikis/Skills/Mechanics/suicide",
         "attributes": []
     },
@@ -14072,7 +14072,7 @@
                     "m"
                 ],
                 "type": "PlaceholderString",
-                "description": "The [material] of the falling block",
+                "description": "The [material](https://hub.spigotmc.org/javadocs/bukkit/org/bukkit/Material.html) of the falling block",
                 "link": "https://git.lumine.io/mythiccraft/MythicMobs/-/wikis/Skills/Mechanics/SummonFallingBlock",
                 "default_value": "DIRT",
                 "enum": "Material"
@@ -14262,7 +14262,7 @@
                     "ido"
                 ],
                 "type": "Boolean",
-                "description": "Whether the summoned mob should inherit the caster's [Despawn Option](/Mobs/Options#despawn)",
+                "description": "Whether the summoned mob should inherit the caster's [Despawn Option](https://git.lumine.io/mythiccraft/MythicMobs/-/wikis/Mobs/Options#despawn)",
                 "link": "https://git.lumine.io/mythiccraft/MythicMobs/-/wikis/Skills/Mechanics/summon",
                 "default_value": "false"
             },
@@ -14285,7 +14285,7 @@
                     "then"
                 ],
                 "type": "String",
-                "description": "The [metaskill] to execute on the summoned mobs",
+                "description": "The [metaskill](https://git.lumine.io/mythiccraft/MythicMobs/-/wikis/Skills/Metaskills) to execute on the summoned mobs",
                 "link": "https://git.lumine.io/mythiccraft/MythicMobs/-/wikis/Skills/Mechanics/summon",
                 "default_value": ""
             }
@@ -14404,7 +14404,7 @@
             "addtag",
             "addscoreboardtag"
         ],
-        "description": "Adds a scoreboard tag to the target.\n\nThis is used in conjunction with the **hastag condition** (see\n[Conditions](/skills/conditions/hastag)). You can also use the vanilla command\n`/scoreboard players tag <player name> add [Tag Name]` to do\nthe same thing.",
+        "description": "Adds a scoreboard tag to the target.\n\nThis is used in conjunction with the **hastag condition** (see\n[Conditions](https://git.lumine.io/mythiccraft/MythicMobs/-/wikis/skills/conditions/hastag)). You can also use the vanilla command\n`/scoreboard players tag <player name> add [Tag Name]` to do\nthe same thing.",
         "link": "https://git.lumine.io/mythiccraft/MythicMobs/-/wikis/Skills/Mechanics/addtag",
         "attributes": [
             {
@@ -14431,7 +14431,7 @@
             "removetag",
             "removescoreboardtag"
         ],
-        "description": "Removes a scoreboard tag from the target.\n\nThis is used in conjunction with the **hastag condition** (see\n[Conditions](/conditions/start)). You can also use the vanilla command\n`/scoreboard players tag <player name> remove [Tag Name]` to do\nthe same thing.",
+        "description": "Removes a scoreboard tag from the target.\n\nThis is used in conjunction with the **hastag condition** (see\n[Conditions](https://git.lumine.io/mythiccraft/MythicMobs/-/wikis/conditions/start)). You can also use the vanilla command\n`/scoreboard players tag <player name> remove [Tag Name]` to do\nthe same thing.",
         "link": "https://git.lumine.io/mythiccraft/MythicMobs/-/wikis/Skills/Mechanics/removetag",
         "attributes": [
             {
@@ -14795,7 +14795,7 @@
             "exit",
             "terminatable"
         ],
-        "description": "Creates an [aura] that, after each mechanic of its onStart [metaskill], checks if a set of conditions is met: If so, the execution of the onStart skill is immediately cancelled. This effectively adds a conditional cancel mechanic after each line of the cascading meta skill.",
+        "description": "Creates an [aura](https://git.lumine.io/mythiccraft/MythicMobs/-/wikis/Skills/Mechanics/aura) that, after each mechanic of its onStart [metaskill](https://git.lumine.io/mythiccraft/MythicMobs/-/wikis/Skills/Metaskills), checks if a set of conditions is met: If so, the execution of the onStart skill is immediately cancelled. This effectively adds a conditional cancel mechanic after each line of the cascading meta skill.",
         "link": "https://git.lumine.io/mythiccraft/MythicMobs/-/wikis/Skills/Mechanics/Terminable",
         "attributes": [
             {
@@ -14815,7 +14815,7 @@
                     "deep"
                 ],
                 "type": "Boolean",
-                "description": "Whether the terminable aura, once its conditions have been met, should also stop the execution of the [metaskill] it has been called from",
+                "description": "Whether the terminable aura, once its conditions have been met, should also stop the execution of the [metaskill](https://git.lumine.io/mythiccraft/MythicMobs/-/wikis/Skills/Metaskills) it has been called from",
                 "link": "https://git.lumine.io/mythiccraft/MythicMobs/-/wikis/Skills/Mechanics/Terminable",
                 "default_value": "false"
             },
@@ -14825,7 +14825,7 @@
                     "ox"
                 ],
                 "type": "String",
-                "description": "The [metaskill] to execute once the onStart is terminated",
+                "description": "The [metaskill](https://git.lumine.io/mythiccraft/MythicMobs/-/wikis/Skills/Metaskills) to execute once the onStart is terminated",
                 "link": "https://git.lumine.io/mythiccraft/MythicMobs/-/wikis/Skills/Mechanics/Terminable",
                 "default_value": ""
             }
@@ -14890,7 +14890,7 @@
             "threatchange",
             "threatmod"
         ],
-        "description": "Modifies the mob's threat value towards the target. Requires the casting mob\nhave [Threat Tables](/Mobs/ThreatTables) enabled in order to have any effect.",
+        "description": "Modifies the mob's threat value towards the target. Requires the casting mob\nhave [Threat Tables](https://git.lumine.io/mythiccraft/MythicMobs/-/wikis/Mobs/ThreatTables) enabled in order to have any effect.",
         "link": "https://git.lumine.io/mythiccraft/MythicMobs/-/wikis/Skills/Mechanics/threat",
         "attributes": [
             {
@@ -15173,7 +15173,7 @@
             "toteme",
             "t"
         ],
-        "description": "The totem mechanic places an invisible \"totem\", similar to the\n[projectile](/skills/mechanics/projectile) mechanic, except that it\ndoesn't move. Much like projectiles, you can use onTick skills to create\neffects in order to identify the totem's location.\n\nTotems will pulse their onHit skill on any targets that come within\ntheir defined radius until their charges or duration run out. They're\nuseful for creating ground effects with particles, such as clouds of\npoison or land mines.",
+        "description": "The totem mechanic places an invisible \"totem\", similar to the\n[projectile](https://git.lumine.io/mythiccraft/MythicMobs/-/wikis/skills/mechanics/projectile) mechanic, except that it\ndoesn't move. Much like projectiles, you can use onTick skills to create\neffects in order to identify the totem's location.\n\nTotems will pulse their onHit skill on any targets that come within\ntheir defined radius until their charges or duration run out. They're\nuseful for creating ground effects with particles, such as clouds of\npoison or land mines.",
         "link": "https://git.lumine.io/mythiccraft/MythicMobs/-/wikis/Skills/Mechanics/totem",
         "attributes": [
             {
@@ -15252,7 +15252,7 @@
             "undoSchematic",
             "undoSchem"
         ],
-        "description": "Undoes a previous paste done via the [fawePaste] mechanic, based on its id or on the schematic used",
+        "description": "Undoes a previous paste done via the [fawePaste](https://git.lumine.io/mythiccraft/MythicMobs/-/wikis/Skills/mechanics/fawepaste/) mechanic, based on its id or on the schematic used",
         "link": "https://git.lumine.io/mythiccraft/MythicMobs/-/wikis/Skills/Mechanics/undopaste",
         "attributes": [
             {
@@ -15282,7 +15282,7 @@
             "addVar",
             "incrementVariable"
         ],
-        "description": "Adds an amount to a [variable](/skills/variables) on the specified\nscope. Only works with numeric variable types.",
+        "description": "Adds an amount to a [variable](https://git.lumine.io/mythiccraft/MythicMobs/-/wikis/skills/variables) on the specified\nscope. Only works with numeric variable types.",
         "link": "https://git.lumine.io/mythiccraft/MythicMobs/-/wikis/Skills/Mechanics/variableadd",
         "attributes": [
             {
@@ -15313,7 +15313,7 @@
             "mathVariable",
             "mathVar"
         ],
-        "description": "Sets a variable to the result of a math equation, where 'x' is the\n[variable](/skills/variables)'s current value.  \n\nBasically a setvariable mechanic with some extra spices",
+        "description": "Sets a variable to the result of a math equation, where 'x' is the\n[variable](https://git.lumine.io/mythiccraft/MythicMobs/-/wikis/skills/variables)'s current value.  \n\nBasically a setvariable mechanic with some extra spices",
         "link": "https://git.lumine.io/mythiccraft/MythicMobs/-/wikis/Skills/Mechanics/variablemath",
         "attributes": [
             {
@@ -15373,7 +15373,7 @@
             "setVariable",
             "setVar"
         ],
-        "description": "Sets a [variable](/skills/variables). Variables can be permanent or\ntemporary, and can be used in conjunction with conditions or\nplaceholders to store data.",
+        "description": "Sets a [variable](https://git.lumine.io/mythiccraft/MythicMobs/-/wikis/skills/variables). Variables can be permanent or\ntemporary, and can be used in conjunction with conditions or\nplaceholders to store data.",
         "link": "https://git.lumine.io/mythiccraft/MythicMobs/-/wikis/Skills/Mechanics/setvariable",
         "attributes": [
             {
@@ -15396,7 +15396,7 @@
                     "t"
                 ],
                 "type": "String",
-                "description": "The [type](/skills/variables#variable_types) of the variable. Set to STRING if you are using text instead of numbers",
+                "description": "The [type](https://git.lumine.io/mythiccraft/MythicMobs/-/wikis/skills/variables#variable_types) of the variable. Set to STRING if you are using text instead of numbers",
                 "link": "https://git.lumine.io/mythiccraft/MythicMobs/-/wikis/Skills/Mechanics/setvariable",
                 "default_value": "INTEGER",
                 "inheritable": false
@@ -15421,7 +15421,7 @@
                     "s"
                 ],
                 "type": "String",
-                "description": "The [scope](/skills/variables#variable_scopes) of the variable, e.g. where the variable will be located",
+                "description": "The [scope](https://git.lumine.io/mythiccraft/MythicMobs/-/wikis/skills/variables#variable_scopes) of the variable, e.g. where the variable will be located",
                 "link": "https://git.lumine.io/mythiccraft/MythicMobs/-/wikis/Skills/Mechanics/setvariable",
                 "default_value": "SKILL",
                 "enum": "VariableScope"
@@ -15463,7 +15463,7 @@
             "subVar",
             "reduceVariable"
         ],
-        "description": "Subtracts an amount to a [variable](/skills/variables) on the specified\nscope. Only works with numeric variable types.",
+        "description": "Subtracts an amount to a [variable](https://git.lumine.io/mythiccraft/MythicMobs/-/wikis/skills/variables) on the specified\nscope. Only works with numeric variable types.",
         "link": "https://git.lumine.io/mythiccraft/MythicMobs/-/wikis/Skills/Mechanics/variablesubtract",
         "attributes": [
             {
@@ -15494,7 +15494,7 @@
             "unsetVariable",
             "unsetVar"
         ],
-        "description": "Unsets a [variable](/skills/variables).",
+        "description": "Unsets a [variable](https://git.lumine.io/mythiccraft/MythicMobs/-/wikis/skills/variables).",
         "link": "https://git.lumine.io/mythiccraft/MythicMobs/-/wikis/Skills/Mechanics/variableunset",
         "attributes": []
     },
@@ -15703,7 +15703,7 @@
             "fawePaste",
             "wePaste"
         ],
-        "description": "Pastes a Schematic using the FAWE Plugin found here: [FAWE](https://www.spigotmc.org/resources/fast-async-worldedit.13932/)\n\nYou must create a `Schematics` folder in your MythicMob directory and put the schematics you will use inside that folder.<br>\nIf the schematic defined in the mechanic is not found inside mm's `Schematics` folder, FAWE's and WE's will be then checked for its presence\n\n> **This is a [Premium-Only] mechanic!**",
+        "description": "Pastes a Schematic using the FAWE Plugin found here: [FAWE](https://www.spigotmc.org/resources/fast-async-worldedit.13932/)\n\nYou must create a `Schematics` folder in your MythicMob directory and put the schematics you will use inside that folder.<br>\nIf the schematic defined in the mechanic is not found inside mm's `Schematics` folder, FAWE's and WE's will be then checked for its presence\n\n> **This is a [Premium-Only](Premium-Features) mechanic!**",
         "link": "https://git.lumine.io/mythiccraft/MythicMobs/-/wikis/Skills/Mechanics/fawepaste",
         "attributes": [
             {
@@ -15723,7 +15723,7 @@
                     "pid"
                 ],
                 "type": "String",
-                "description": "The paste's id. Can be used to undo the paste via the [undoPaste] mechanic",
+                "description": "The paste's id. Can be used to undo the paste via the [undoPaste](https://git.lumine.io/mythiccraft/MythicMobs/-/wikis/Skills/mechanics/undopaste) mechanic",
                 "link": "https://git.lumine.io/mythiccraft/MythicMobs/-/wikis/Skills/Mechanics/fawepaste",
                 "default_value": ""
             },

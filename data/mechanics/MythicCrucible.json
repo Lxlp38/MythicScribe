@@ -128,7 +128,7 @@
                     "audience"
                 ],
                 "type": "Audience",
-                "description": "The [audience] of the effect",
+                "description": "The [audience](https://git.lumine.io/mythiccraft/mythiccrucible/-/wikis/../../../MythicMobs/-/wikis/Skills/Audience) of the effect",
                 "link": "https://git.lumine.io/mythiccraft/mythiccrucible/-/wikis/Skills/Mechanics/BlockCrack",
                 "default_value": "CASTER",
                 "enum": "Audience"
@@ -496,7 +496,7 @@
             "setFurnitureColor",
             "furnitureColor"
         ],
-        "description": "Sets the casting Furniture's [Color](/Furniture#color) as the specified one",
+        "description": "Sets the casting Furniture's [Color](https://git.lumine.io/mythiccraft/mythiccrucible/-/wikis/Furniture#color) as the specified one",
         "link": "https://git.lumine.io/mythiccraft/mythiccrucible/-/wikis/Skills/Mechanics/furniturecolor",
         "attributes": [
             {
@@ -523,7 +523,7 @@
             "setFurnitureStateAt",
             "furnitureState"
         ],
-        "description": "Sets the casting Furniture's [State](/Furniture#furniture-states) as the specified one",
+        "description": "Sets the casting Furniture's [State](https://git.lumine.io/mythiccraft/mythiccrucible/-/wikis/Furniture#furniture-states) as the specified one",
         "link": "https://git.lumine.io/mythiccraft/mythiccrucible/-/wikis/Skills/Mechanics/furniturestate",
         "attributes": [
             {
@@ -549,7 +549,7 @@
             "setFurnitureState",
             "furnitureState"
         ],
-        "description": "Sets the casting Furniture's [State](/Furniture#furniture-states) as the specified one",
+        "description": "Sets the casting Furniture's [State](https://git.lumine.io/mythiccraft/mythiccrucible/-/wikis/Furniture#furniture-states) as the specified one",
         "link": "https://git.lumine.io/mythiccraft/mythiccrucible/-/wikis/Skills/Mechanics/furniturestate",
         "attributes": [
             {
@@ -595,7 +595,7 @@
                     "s"
                 ],
                 "type": null,
-                "description": "The [slot](/../../../MythicMobs/-/wikis/Skills/EquipSlot) to target",
+                "description": "The [slot](https://git.lumine.io/mythiccraft/mythiccrucible/-/wikis/../../../MythicMobs/-/wikis/Skills/EquipSlot) to target",
                 "link": "https://git.lumine.io/mythiccraft/mythiccrucible/-/wikis/Skills/Mechanics/SetItemDisplay",
                 "default_value": ""
             }
@@ -632,7 +632,7 @@
                     "s"
                 ],
                 "type": null,
-                "description": "The [slot](/../../../MythicMobs/-/wikis/Skills/EquipSlot) to target",
+                "description": "The [slot](https://git.lumine.io/mythiccraft/mythiccrucible/-/wikis/../../../MythicMobs/-/wikis/Skills/EquipSlot) to target",
                 "link": "https://git.lumine.io/mythiccraft/mythiccrucible/-/wikis/Skills/Mechanics/SetLore",
                 "default_value": ""
             }
@@ -671,7 +671,7 @@
                     "s"
                 ],
                 "type": null,
-                "description": "The [slot](/../../../MythicMobs/-/wikis/Skills/EquipSlot) to target",
+                "description": "The [slot](https://git.lumine.io/mythiccraft/mythiccrucible/-/wikis/../../../MythicMobs/-/wikis/Skills/EquipSlot) to target",
                 "link": "https://git.lumine.io/mythiccraft/mythiccrucible/-/wikis/Skills/Mechanics/ModelSet",
                 "default_value": ""
             }
@@ -804,7 +804,7 @@
                     "s"
                 ],
                 "type": null,
-                "description": "The [slot](/../../../MythicMobs/-/wikis/Skills/EquipSlot) to target",
+                "description": "The [slot](https://git.lumine.io/mythiccraft/mythiccrucible/-/wikis/../../../MythicMobs/-/wikis/Skills/EquipSlot) to target",
                 "link": "https://git.lumine.io/mythiccraft/mythiccrucible/-/wikis/Skills/Mechanics/modeltoggle",
                 "default_value": ""
             }

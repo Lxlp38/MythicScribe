@@ -39,7 +39,7 @@
             "onFurnitureinventoryclose",
             "onClosefurnitureinventory"
         ],
-        "description": "Triggers when the [Furniture Inventory](/Skills/Mechanics/furnitureinventory) is closed",
+        "description": "Triggers when the [Furniture Inventory](https://git.lumine.io/mythiccraft/mythiccrucible/-/wikis/Skills/Mechanics/furnitureinventory) is closed",
         "link": "https://git.lumine.io/mythiccraft/mythiccrucible/-/wikis/Skills/Triggers/onFurnitureInventoryClose",
         "attributes": []
     },
@@ -54,7 +54,7 @@
             "onFurnitureinventoryopen",
             "onOpenfurnitureinventory"
         ],
-        "description": "Triggers when the [Furniture Inventory](/Skills/Mechanics/furnitureinventory) is opened",
+        "description": "Triggers when the [Furniture Inventory](https://git.lumine.io/mythiccraft/mythiccrucible/-/wikis/Skills/Mechanics/furnitureinventory) is opened",
         "link": "https://git.lumine.io/mythiccraft/mythiccrucible/-/wikis/Skills/Triggers/onFurnitureInventoryOpen",
         "attributes": []
     },

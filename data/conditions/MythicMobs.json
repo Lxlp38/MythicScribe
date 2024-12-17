@@ -188,7 +188,7 @@
                     "m"
                 ],
                 "type": "StringList",
-                "description": "A list of [materials] to check against",
+                "description": "A list of [materials](https://hub.spigotmc.org/javadocs/bukkit/org/bukkit/Material.html) to check against",
                 "link": "https://git.lumine.io/mythiccraft/MythicMobs/-/wikis/Skills/Conditions/BlockTypeInRadius",
                 "default_value": "DIRT",
                 "enum": "Material",
@@ -459,7 +459,7 @@
         "name": [
             "DamageAmount"
         ],
-        "description": "Checks for a range of damage the entity took, if the skilltree originated from a [onDamaged Trigger](/Skills/Triggers/onDamaged) or an [onDamaged Aura](/skills/mechanics/ondamaged).",
+        "description": "Checks for a range of damage the entity took, if the skilltree originated from a [onDamaged Trigger](https://git.lumine.io/mythiccraft/MythicMobs/-/wikis/Skills/Triggers/onDamaged) or an [onDamaged Aura](https://git.lumine.io/mythiccraft/MythicMobs/-/wikis/skills/mechanics/ondamaged).",
         "link": "https://git.lumine.io/mythiccraft/MythicMobs/-/wikis/Skills/Conditions/DamageAmount",
         "attributes": [
             {
@@ -485,7 +485,7 @@
         "name": [
             "DamageCause"
         ],
-        "description": "Checks the cause of the damage the entity took, if the skilltree originated from a [onDamaged Trigger](/Skills/Triggers/onDamaged) or an [onDamaged Aura](/skills/mechanics/ondamaged).  \nA list of valid damage causes can be found in the [Spigot DamageCause javadoc](https://hub.spigotmc.org/javadocs/spigot/org/bukkit/event/entity/EntityDamageEvent.DamageCause.html).",
+        "description": "Checks the cause of the damage the entity took, if the skilltree originated from a [onDamaged Trigger](https://git.lumine.io/mythiccraft/MythicMobs/-/wikis/Skills/Triggers/onDamaged) or an [onDamaged Aura](https://git.lumine.io/mythiccraft/MythicMobs/-/wikis/skills/mechanics/ondamaged).  \nA list of valid damage causes can be found in the [Spigot DamageCause javadoc](https://hub.spigotmc.org/javadocs/spigot/org/bukkit/event/entity/EntityDamageEvent.DamageCause.html).",
         "link": "https://git.lumine.io/mythiccraft/MythicMobs/-/wikis/Skills/Conditions/DamageCause",
         "attributes": [
             {
@@ -794,7 +794,7 @@
         "name": [
             "distanceFromPin"
         ],
-        "description": "Checks if the target is within a certain distance of a specified [pin]",
+        "description": "Checks if the target is within a certain distance of a specified [pin](https://git.lumine.io/mythiccraft/MythicMobs/-/wikis/Pins)",
         "link": "https://git.lumine.io/mythiccraft/MythicMobs/-/wikis/Skills/Conditions/DistanceFromPin",
         "attributes": [
             {
@@ -1945,7 +1945,7 @@
         "name": [
             "inPinRegion"
         ],
-        "description": "Checks if the target location is within a region delimited by two [pins].",
+        "description": "Checks if the target location is within a region delimited by two [pins](https://git.lumine.io/mythiccraft/MythicMobs/-/wikis/Pins).",
         "link": "https://git.lumine.io/mythiccraft/MythicMobs/-/wikis/Skills/Conditions/InPinRegion",
         "attributes": [
             {
@@ -1954,7 +1954,7 @@
                     "p1"
                 ],
                 "type": "PlaceholderString",
-                "description": "The first [pin]",
+                "description": "The first [pin](https://git.lumine.io/mythiccraft/MythicMobs/-/wikis/Pins)",
                 "link": "https://git.lumine.io/mythiccraft/MythicMobs/-/wikis/Skills/Conditions/InPinRegion",
                 "default_value": ""
             },
@@ -1964,7 +1964,7 @@
                     "p2"
                 ],
                 "type": "PlaceholderString",
-                "description": "The second [pin]",
+                "description": "The second [pin](https://git.lumine.io/mythiccraft/MythicMobs/-/wikis/Pins)",
                 "link": "https://git.lumine.io/mythiccraft/MythicMobs/-/wikis/Skills/Conditions/InPinRegion",
                 "default_value": ""
             }
@@ -2082,7 +2082,7 @@
             "isflying",
             "flying"
         ],
-        "description": "Checks if the evaluated player is flying. Only really works for creative-type fly. To check if an entity is gliding via the use of an elytra, use the [Gliding condition](/skills/conditions/gliding).",
+        "description": "Checks if the evaluated player is flying. Only really works for creative-type fly. To check if an entity is gliding via the use of an elytra, use the [Gliding condition](https://git.lumine.io/mythiccraft/MythicMobs/-/wikis/skills/conditions/gliding).",
         "link": "https://git.lumine.io/mythiccraft/MythicMobs/-/wikis/Skills/Conditions/isflying",
         "attributes": []
     },
@@ -2356,7 +2356,7 @@
                     "i"
                 ],
                 "type": "StringList",
-                "description": "A list of [materials] to check against",
+                "description": "A list of [materials](https://hub.spigotmc.org/javadocs/bukkit/org/bukkit/Material.html) to check against",
                 "link": "https://git.lumine.io/mythiccraft/MythicMobs/-/wikis/Skills/Conditions/ItemType",
                 "default_value": "DIRT"
             }
@@ -2962,7 +2962,7 @@
             "pack",
             "haspack"
         ],
-        "description": "Check if a [Pack](/wikis/Packs) with the specified id is present on the server.",
+        "description": "Check if a [Pack](https://git.lumine.io/mythiccraft/MythicMobs/-/wikis/Packs) with the specified id is present on the server.",
         "link": "https://git.lumine.io/mythiccraft/MythicMobs/-/wikis/Skills/Conditions/mythicpack",
         "attributes": [
             {
@@ -2991,7 +2991,7 @@
             "mythicpackversion",
             "packversionis"
         ],
-        "description": "Check if a [Pack](/wikis/Packs) with the specified id is present on the server with the specified version.",
+        "description": "Check if a [Pack](https://git.lumine.io/mythiccraft/MythicMobs/-/wikis/Packs) with the specified id is present on the server with the specified version.",
         "link": "https://git.lumine.io/mythiccraft/MythicMobs/-/wikis/Skills/Conditions/MythicPackVersion",
         "attributes": [
             {
@@ -3032,7 +3032,7 @@
             "mythicpackversiongreater",
             "packversionisgreater"
         ],
-        "description": "Check if a [Pack](/wikis/Packs) with the specified id is present on the server with a version that is either greater or equal the specified one.",
+        "description": "Check if a [Pack](https://git.lumine.io/mythiccraft/MythicMobs/-/wikis/Packs) with the specified id is present on the server with a version that is either greater or equal the specified one.",
         "link": "https://git.lumine.io/mythiccraft/MythicMobs/-/wikis/Skills/Conditions/MythicPackVersionGreater",
         "attributes": [
             {
@@ -3166,7 +3166,7 @@
         "name": [
             "offGCD"
         ],
-        "description": "Checks if the target mob has an active [Global Cooldown](/skills/mechanics/globalcooldown)",
+        "description": "Checks if the target mob has an active [Global Cooldown](https://git.lumine.io/mythiccraft/MythicMobs/-/wikis/skills/mechanics/globalcooldown)",
         "link": "https://git.lumine.io/mythiccraft/MythicMobs/-/wikis/Skills/Conditions/offgcd",
         "attributes": []
     },
@@ -3226,7 +3226,7 @@
         "name": [
             "originDistanceFromPin"
         ],
-        "description": "Checks if the [@origin] is within a certain distance of a specified [pin]",
+        "description": "Checks if the [@origin](https://git.lumine.io/mythiccraft/MythicMobs/-/wikis/Skills/Targeters/Origin) is within a certain distance of a specified [pin](https://git.lumine.io/mythiccraft/MythicMobs/-/wikis/Pins)",
         "link": "https://git.lumine.io/mythiccraft/MythicMobs/-/wikis/Skills/Conditions/OriginDistanceFromPin",
         "attributes": [
             {
@@ -3261,7 +3261,7 @@
         "name": [
             "originLocation"
         ],
-        "description": "Checks if the [origin] is at a given location",
+        "description": "Checks if the [origin](https://git.lumine.io/mythiccraft/MythicMobs/-/wikis/Skills/Targeters/Origin) is at a given location",
         "link": "https://git.lumine.io/mythiccraft/MythicMobs/-/wikis/Skills/Conditions/OriginLocation",
         "attributes": [
             {
@@ -3339,7 +3339,7 @@
         "name": [
             "owner"
         ],
-        "description": "Checks if the target entity is the owner of the caster. \n\n- If the caster is a tamable mob, if will check if the target entity is the mob's \"vanilla\" owner\n- If the caster is not a tamable mob, then to match the target entity must have been set as the owner via the [SetOwner](/skills/mechanics/setowner) mechanic",
+        "description": "Checks if the target entity is the owner of the caster. \n\n- If the caster is a tamable mob, if will check if the target entity is the mob's \"vanilla\" owner\n- If the caster is not a tamable mob, then to match the target entity must have been set as the owner via the [SetOwner](https://git.lumine.io/mythiccraft/MythicMobs/-/wikis/skills/mechanics/setowner) mechanic",
         "link": "https://git.lumine.io/mythiccraft/MythicMobs/-/wikis/Skills/Conditions/owner",
         "attributes": []
     },
@@ -3892,7 +3892,7 @@
                     "r"
                 ],
                 "type": "String",
-                "description": "The reason to check for. Can be any of the [Bukkit][] ones",
+                "description": "The reason to check for. Can be any of the [Bukkit](https://hub.spigotmc.org/javadocs/bukkit/org/bukkit/event/entity/CreatureSpawnEvent.SpawnReason.html) ones",
                 "link": "https://git.lumine.io/mythiccraft/MythicMobs/-/wikis/Skills/Conditions/SpawnReason",
                 "default_value": "",
                 "enum": "SpawnReason"
@@ -3992,7 +3992,7 @@
             "stringEquals",
             "stringEq"
         ],
-        "description": "Checks if value1 equals value2. Both values can use [variables](/Skills/Variables) and [placeholders](/Skills/Placeholders).",
+        "description": "Checks if value1 equals value2. Both values can use [variables](https://git.lumine.io/mythiccraft/MythicMobs/-/wikis/Skills/Variables) and [placeholders](https://git.lumine.io/mythiccraft/MythicMobs/-/wikis/Skills/Placeholders).",
         "link": "https://git.lumine.io/mythiccraft/MythicMobs/-/wikis/Skills/Conditions/stringequals",
         "attributes": [
             {
@@ -4244,7 +4244,7 @@
                     "b"
                 ],
                 "type": "StringList",
-                "description": "A list of [materials] to check against",
+                "description": "A list of [materials](https://hub.spigotmc.org/javadocs/bukkit/org/bukkit/Material.html) to check against",
                 "link": "https://git.lumine.io/mythiccraft/MythicMobs/-/wikis/Skills/Conditions/TriggerBlockType",
                 "default_value": "DIRT",
                 "enum": "Material"
@@ -4278,7 +4278,7 @@
                     "i"
                 ],
                 "type": "StringList",
-                "description": "A list of [materials] to check against",
+                "description": "A list of [materials](https://hub.spigotmc.org/javadocs/bukkit/org/bukkit/Material.html) to check against",
                 "link": "https://git.lumine.io/mythiccraft/MythicMobs/-/wikis/Skills/Conditions/TriggerItemType",
                 "default_value": "DIRT",
                 "enum": "Material",
@@ -4301,7 +4301,7 @@
             "varequals",
             "vareq"
         ],
-        "description": "A condition that checks the value of a [variable](/Skills/Variables).",
+        "description": "A condition that checks the value of a [variable](https://git.lumine.io/mythiccraft/MythicMobs/-/wikis/Skills/Variables).",
         "link": "https://git.lumine.io/mythiccraft/MythicMobs/-/wikis/Skills/Conditions/variableequals",
         "attributes": [
             {
@@ -4335,7 +4335,7 @@
                     "s"
                 ],
                 "type": null,
-                "description": "The [scope](/Skills/Variables#variable-scopes) of the variable, e.g. where the variable is located",
+                "description": "The [scope](https://git.lumine.io/mythiccraft/MythicMobs/-/wikis/Skills/Variables#variable-scopes) of the variable, e.g. where the variable is located",
                 "link": "https://git.lumine.io/mythiccraft/MythicMobs/-/wikis/Skills/Conditions/variableequals",
                 "default_value": ""
             }
@@ -4391,7 +4391,7 @@
                     "s"
                 ],
                 "type": null,
-                "description": "The [scope](/Skills/Variables#variable-scopes) of the variable, e.g. where the variable is located",
+                "description": "The [scope](https://git.lumine.io/mythiccraft/MythicMobs/-/wikis/Skills/Variables#variable-scopes) of the variable, e.g. where the variable is located",
                 "link": "https://git.lumine.io/mythiccraft/MythicMobs/-/wikis/Skills/Conditions/variableinrange",
                 "default_value": ""
             }
@@ -4411,7 +4411,7 @@
             "varisset",
             "varset"
         ],
-        "description": "Checks if the given [variable](/Skills/Variables) is set.",
+        "description": "Checks if the given [variable](https://git.lumine.io/mythiccraft/MythicMobs/-/wikis/Skills/Variables) is set.",
         "link": "https://git.lumine.io/mythiccraft/MythicMobs/-/wikis/Skills/Conditions/variableisset",
         "attributes": [
             {
@@ -4434,7 +4434,7 @@
                     "s"
                 ],
                 "type": null,
-                "description": "The [scope](/Skills/Variables#variable-scopes) of the variable, e.g. where the variable is located",
+                "description": "The [scope](https://git.lumine.io/mythiccraft/MythicMobs/-/wikis/Skills/Variables#variable-scopes) of the variable, e.g. where the variable is located",
                 "link": "https://git.lumine.io/mythiccraft/MythicMobs/-/wikis/Skills/Conditions/variableisset",
                 "default_value": ""
             }

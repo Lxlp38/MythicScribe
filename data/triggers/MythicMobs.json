@@ -40,7 +40,7 @@
             "onAttack",
             "onHit"
         ],
-        "description": "Executes the skill when the mob attacks an entity.\n> The associated [@trigger](/Skills/Targeters/Trigger) is the entity that was attacked\n\n| [Implemented Placeholders](/Skills/Placeholders#variable-placeholders)     |\n|--------------------------------|\n| `<skill.var.damage-amount>`    |\n| `<skill.var.damage-type>`      |\n| `<skill.var.damage-cause>`     |",
+        "description": "Executes the skill when the mob attacks an entity.\n> The associated [@trigger](https://git.lumine.io/mythiccraft/MythicMobs/-/wikis/Skills/Targeters/Trigger) is the entity that was attacked\n\n| [Implemented Placeholders](https://git.lumine.io/mythiccraft/MythicMobs/-/wikis/Skills/Placeholders#variable-placeholders)     |\n|--------------------------------|\n| `<skill.var.damage-amount>`    |\n| `<skill.var.damage-type>`      |\n| `<skill.var.damage-cause>`     |",
         "link": "https://git.lumine.io/mythiccraft/MythicMobs/-/wikis/Skills/Triggers/onAttack",
         "attributes": []
     },
@@ -91,7 +91,7 @@
             "onBow_Hit",
             "onBowhit"
         ],
-        "description": "Executes a skill when the mob's projectile hits an entity.\n\n> The associated [@trigger](/Skills/Targeters/Trigger) is the entity that has been hit\n\n| [Implemented Placeholders](/Skills/Placeholders#variable-placeholders)     |\n|--------------------------------|\n| `<skill.var.damage-amount>`    |\n| `<skill.var.damage-type>`      |\n| `<skill.var.damage-cause>`     |",
+        "description": "Executes a skill when the mob's projectile hits an entity.\n\n> The associated [@trigger](https://git.lumine.io/mythiccraft/MythicMobs/-/wikis/Skills/Targeters/Trigger) is the entity that has been hit\n\n| [Implemented Placeholders](https://git.lumine.io/mythiccraft/MythicMobs/-/wikis/Skills/Placeholders#variable-placeholders)     |\n|--------------------------------|\n| `<skill.var.damage-amount>`    |\n| `<skill.var.damage-type>`      |\n| `<skill.var.damage-cause>`     |",
         "link": "https://git.lumine.io/mythiccraft/MythicMobs/-/wikis/Skills/Triggers/onBowHit",
         "attributes": []
     },
@@ -104,7 +104,7 @@
         "name": [
             "onBreed"
         ],
-        "description": "Executes the skill when the mob breeds with another mob.\n\n> This trigger has [`@Father`](/Skills/Targeters/Father) and [`@Mother`](/Skills/Targeters/Mother) targeters.\n\n> The associated [@trigger](/Skills/Targeters/Trigger) is the player that made the caster breed",
+        "description": "Executes the skill when the mob breeds with another mob.\n\n> This trigger has [`@Father`](https://git.lumine.io/mythiccraft/MythicMobs/-/wikis/Skills/Targeters/Father) and [`@Mother`](https://git.lumine.io/mythiccraft/MythicMobs/-/wikis/Skills/Targeters/Mother) targeters.\n\n> The associated [@trigger](https://git.lumine.io/mythiccraft/MythicMobs/-/wikis/Skills/Targeters/Trigger) is the player that made the caster breed",
         "link": "https://git.lumine.io/mythiccraft/MythicMobs/-/wikis/Skills/Triggers/onBreed",
         "attributes": []
     },
@@ -122,7 +122,7 @@
             "onMilk",
             "onMilked"
         ],
-        "description": "Executes the skill when the cow is milked or when an entity is stored in a bucket (axolotl and the other bucketable ones).  \n> The associated [@trigger](/Skills/Targeters/Trigger) is the caster itself",
+        "description": "Executes the skill when the cow is milked or when an entity is stored in a bucket (axolotl and the other bucketable ones).  \n> The associated [@trigger](https://git.lumine.io/mythiccraft/MythicMobs/-/wikis/Skills/Targeters/Trigger) is the caster itself",
         "link": "https://git.lumine.io/mythiccraft/MythicMobs/-/wikis/Skills/Triggers/onBucket",
         "attributes": []
     },
@@ -181,7 +181,7 @@
             "onCharge",
             "onCharged"
         ],
-        "description": "Executes the skill when the casting creeper is charged.  \n\n> The associated [@trigger](/Skills/Targeters/Trigger) is the caster itself",
+        "description": "Executes the skill when the casting creeper is charged.  \n\n> The associated [@trigger](https://git.lumine.io/mythiccraft/MythicMobs/-/wikis/Skills/Targeters/Trigger) is the caster itself",
         "link": "https://git.lumine.io/mythiccraft/MythicMobs/-/wikis/Skills/Triggers/onCreeperCharge",
         "attributes": []
     },
@@ -210,7 +210,7 @@
             "onDamaged",
             "onHurt"
         ],
-        "description": "Executes the skill when the mob takes damage.\n> The associated [@trigger](/Skills/Targeters/Trigger) is the entity that dealt the damage\n\n| [Implemented Placeholders](/Skills/Placeholders#variable-placeholders)     |\n|--------------------------------|\n| `<skill.var.damage-amount>`    |\n| `<skill.var.damage-type>`      |\n| `<skill.var.damage-cause>`     |",
+        "description": "Executes the skill when the mob takes damage.\n> The associated [@trigger](https://git.lumine.io/mythiccraft/MythicMobs/-/wikis/Skills/Targeters/Trigger) is the entity that dealt the damage\n\n| [Implemented Placeholders](https://git.lumine.io/mythiccraft/MythicMobs/-/wikis/Skills/Placeholders#variable-placeholders)     |\n|--------------------------------|\n| `<skill.var.damage-amount>`    |\n| `<skill.var.damage-type>`      |\n| `<skill.var.damage-cause>`     |",
         "link": "https://git.lumine.io/mythiccraft/MythicMobs/-/wikis/Skills/Triggers/onDamaged",
         "attributes": []
     },
@@ -224,7 +224,7 @@
         "name": [
             "onDeath"
         ],
-        "description": "Executes the skill when the mob dies.  \nIf the server is a Paper one, it is possible to cancel the death event as long as the cancelevent mechanic is synched. The health that the mob has after this is based on what is specified in the `ReviveHealth` Option.  \n> The associated [@trigger](/Skills/Targeters/Trigger) is the entity that killed the caster",
+        "description": "Executes the skill when the mob dies.  \nIf the server is a Paper one, it is possible to cancel the death event as long as the cancelevent mechanic is synched. The health that the mob has after this is based on what is specified in the `ReviveHealth` Option.  \n> The associated [@trigger](https://git.lumine.io/mythiccraft/MythicMobs/-/wikis/Skills/Targeters/Trigger) is the entity that killed the caster",
         "link": "https://git.lumine.io/mythiccraft/MythicMobs/-/wikis/Skills/Triggers/onDeath",
         "attributes": []
     },
@@ -238,7 +238,7 @@
             "onDespawned",
             "onDespawn"
         ],
-        "description": "Executes the skill when the mob despawns.\n> The associated [@trigger](/Skills/Targeters/Trigger) is the caster itself",
+        "description": "Executes the skill when the mob despawns.\n> The associated [@trigger](https://git.lumine.io/mythiccraft/MythicMobs/-/wikis/Skills/Targeters/Trigger) is the caster itself",
         "link": "https://git.lumine.io/mythiccraft/MythicMobs/-/wikis/Skills/Triggers/onDespawn",
         "attributes": []
     },
@@ -253,7 +253,7 @@
             "onLeavecombat",
             "onCombatdrop"
         ],
-        "description": "Executes the skill when the mob drops combat.\n\n> **REQUIRES [ThreatTables](/Mobs/ThreatTables) to be enabled**  \n\n> There is no associated [@trigger](/Skills/Targeters/Trigger)",
+        "description": "Executes the skill when the mob drops combat.\n\n> **REQUIRES [ThreatTables](https://git.lumine.io/mythiccraft/MythicMobs/-/wikis/Mobs/ThreatTables) to be enabled**  \n\n> There is no associated [@trigger](https://git.lumine.io/mythiccraft/MythicMobs/-/wikis/Skills/Targeters/Trigger)",
         "link": "https://git.lumine.io/mythiccraft/MythicMobs/-/wikis/Skills/Triggers/onDropCombat",
         "attributes": []
     },
@@ -266,7 +266,7 @@
         "name": [
             "onEntercombat"
         ],
-        "description": "Executes the skill when the mob enters combat.\n\n> **REQUIRES [ThreatTables](/Mobs/ThreatTables) to be enabled**  \n\n> The associated [@trigger](/Skills/Targeters/Trigger) is the entity that made the caster enter combat",
+        "description": "Executes the skill when the mob enters combat.\n\n> **REQUIRES [ThreatTables](https://git.lumine.io/mythiccraft/MythicMobs/-/wikis/Mobs/ThreatTables) to be enabled**  \n\n> The associated [@trigger](https://git.lumine.io/mythiccraft/MythicMobs/-/wikis/Skills/Targeters/Trigger) is the entity that made the caster enter combat",
         "link": "https://git.lumine.io/mythiccraft/MythicMobs/-/wikis/Skills/Triggers/onEnterCombat",
         "attributes": []
     },
@@ -279,7 +279,7 @@
         "name": [
             "onExplode"
         ],
-        "description": "Executes the skill when the mob explodes.  \n`mobGriefing` gamerule must be set to true for this to work.  \nGenerally, this trigger only works with creepers and TNTs since they are the only mobs to actually explode  \n> There is no associated [@trigger](/Skills/Targeters/Trigger)",
+        "description": "Executes the skill when the mob explodes.  \n`mobGriefing` gamerule must be set to true for this to work.  \nGenerally, this trigger only works with creepers and TNTs since they are the only mobs to actually explode  \n> There is no associated [@trigger](https://git.lumine.io/mythiccraft/MythicMobs/-/wikis/Skills/Targeters/Trigger)",
         "link": "https://git.lumine.io/mythiccraft/MythicMobs/-/wikis/Skills/Triggers/onExplode",
         "attributes": []
     },
@@ -403,7 +403,7 @@
             "onHear",
             "onVibration"
         ],
-        "description": "Executes the skill when the mob hears a sound, [if this feature has been enabled](/Mobs/Mobs#hearing).  \nThe `<skill.var.volume>` [placeholder](/Skills/Placeholders#variable-placeholders) can be used in the triggered skill to return a float value between 1 and 15 representing the distance from the sound source\n\n> The associated [@trigger](/Skills/Targeters/Trigger) is the entity that generated the sound  \n\n> The associated [@origin](/Skills/Targeters/Origin) is the location where the sound was generated  \n\n| [Implemented Placeholders](/Skills/Placeholders#variable-placeholders)     |\n|--------------------------------|\n| `<skill.var.volume>`           |\n| `<skill.var.sound-type>`       |",
+        "description": "Executes the skill when the mob hears a sound, [if this feature has been enabled](https://git.lumine.io/mythiccraft/MythicMobs/-/wikis/Mobs/Mobs#hearing).  \nThe `<skill.var.volume>` [placeholder](https://git.lumine.io/mythiccraft/MythicMobs/-/wikis/Skills/Placeholders#variable-placeholders) can be used in the triggered skill to return a float value between 1 and 15 representing the distance from the sound source\n\n> The associated [@trigger](https://git.lumine.io/mythiccraft/MythicMobs/-/wikis/Skills/Targeters/Trigger) is the entity that generated the sound  \n\n> The associated [@origin](https://git.lumine.io/mythiccraft/MythicMobs/-/wikis/Skills/Targeters/Origin) is the location where the sound was generated  \n\n| [Implemented Placeholders](https://git.lumine.io/mythiccraft/MythicMobs/-/wikis/Skills/Placeholders#variable-placeholders)     |\n|--------------------------------|\n| `<skill.var.volume>`           |\n| `<skill.var.sound-type>`       |",
         "link": "https://git.lumine.io/mythiccraft/MythicMobs/-/wikis/Skills/Triggers/onHear",
         "attributes": []
     },
@@ -418,7 +418,7 @@
         "name": [
             "onInteract"
         ],
-        "description": "Executes the skill when a player interacts with, or *right-clicks*, the mob.  \n> The associated [@trigger](/Skills/Targeters/Trigger) is the player that interacted with the caster",
+        "description": "Executes the skill when a player interacts with, or *right-clicks*, the mob.  \n> The associated [@trigger](https://git.lumine.io/mythiccraft/MythicMobs/-/wikis/Skills/Targeters/Trigger) is the player that interacted with the caster",
         "link": "https://git.lumine.io/mythiccraft/MythicMobs/-/wikis/Skills/Triggers/onInteract",
         "attributes": []
     },
@@ -476,7 +476,7 @@
         "name": [
             "onJump"
         ],
-        "description": "Executes the skill when the player holding or equipping the item jumps\n\n> **This is a [Paper-Only] mechanic!**\n\n\n<!-- LINKS -->\n[Paper-Only]: https://papermc.io/downloads/all\n\n\n<!--TAGS-->\n<!--tag:Paper-Only-->",
+        "description": "Executes the skill when the player holding or equipping the item jumps\n\n> **This is a [Paper-Only](https://papermc.io/downloads/all) mechanic!**\n\n\n<!-- LINKS -->\n\n\n<!--TAGS-->\n<!--tag:Paper-Only-->",
         "link": "https://git.lumine.io/mythiccraft/mythiccrucible/-/wikis/Skills/Triggers/onJump",
         "attributes": []
     },
@@ -503,7 +503,7 @@
             "onKillplayer",
             "onPlayerkill"
         ],
-        "description": "Executes the skill when the mob kills a player.  \n> The associated [@trigger](/Skills/Targeters/Trigger) is the player that has been killed",
+        "description": "Executes the skill when the mob kills a player.  \n> The associated [@trigger](https://git.lumine.io/mythiccraft/MythicMobs/-/wikis/Skills/Targeters/Trigger) is the player that has been killed",
         "link": "https://git.lumine.io/mythiccraft/MythicMobs/-/wikis/Skills/Triggers/onPlayerKill",
         "attributes": []
     },
@@ -575,7 +575,7 @@
         "name": [
             "onPrime"
         ],
-        "description": "Executes the skill when the mob, must be a creeper, is primed (i.e. via the use of a flint and steel).  \n  \n> The associated [@trigger](/Skills/Targeters/Trigger) is the caster itself",
+        "description": "Executes the skill when the mob, must be a creeper, is primed (i.e. via the use of a flint and steel).  \n  \n> The associated [@trigger](https://git.lumine.io/mythiccraft/MythicMobs/-/wikis/Skills/Targeters/Trigger) is the caster itself",
         "link": "https://git.lumine.io/mythiccraft/MythicMobs/-/wikis/Skills/Triggers/onPrime",
         "attributes": []
     },
@@ -589,7 +589,7 @@
             "onReady",
             "onFirstspawn"
         ],
-        "description": "Executes the skill when the mob is ready to spawn from a [spawner](/Spawners)",
+        "description": "Executes the skill when the mob is ready to spawn from a [spawner](https://git.lumine.io/mythiccraft/MythicMobs/-/wikis/Spawners)",
         "link": "https://git.lumine.io/mythiccraft/MythicMobs/-/wikis/Skills/Triggers/onReady",
         "attributes": []
     },
@@ -631,7 +631,7 @@
             "onBowshoot",
             "onShootbow"
         ],
-        "description": "Executes the skill when the mob shoots a projectile.  \nFor example, skeletons with bows will shoot arrows; ghasts, blazes, or ender dragon will shoot some type of fireball.  \n\n> The associated [@trigger](/Skills/Targeters/Trigger) is the caster\n\n| [Implemented Placeholders](/Skills/Placeholders#variable-placeholders)     |\n|--------------------------------|\n| `<skill.var.bow-tension>`      |",
+        "description": "Executes the skill when the mob shoots a projectile.  \nFor example, skeletons with bows will shoot arrows; ghasts, blazes, or ender dragon will shoot some type of fireball.  \n\n> The associated [@trigger](https://git.lumine.io/mythiccraft/MythicMobs/-/wikis/Skills/Targeters/Trigger) is the caster\n\n| [Implemented Placeholders](https://git.lumine.io/mythiccraft/MythicMobs/-/wikis/Skills/Placeholders#variable-placeholders)     |\n|--------------------------------|\n| `<skill.var.bow-tension>`      |",
         "link": "https://git.lumine.io/mythiccraft/MythicMobs/-/wikis/Skills/Triggers/onShoot",
         "attributes": []
     },
@@ -644,7 +644,7 @@
         "name": [
             "onSignal"
         ],
-        "description": "This Trigger has a special syntax: `~onSignal:<signal>`  \n\nExecutes the skill when the mob receives a signal from the [signal](/Skills/Mechanics/Signal) mechanic.  \nA signal must be alphanumeric.  \n\n> The associated [@trigger](/Skills/Targeters/Trigger) is the entity that sent the signal",
+        "description": "This Trigger has a special syntax: `~onSignal:<signal>`  \n\nExecutes the skill when the mob receives a signal from the [signal](https://git.lumine.io/mythiccraft/MythicMobs/-/wikis/Skills/Mechanics/Signal) mechanic.  \nA signal must be alphanumeric.  \n\n> The associated [@trigger](https://git.lumine.io/mythiccraft/MythicMobs/-/wikis/Skills/Targeters/Trigger) is the entity that sent the signal",
         "link": "https://git.lumine.io/mythiccraft/MythicMobs/-/wikis/Skills/Triggers/onSignal",
         "attributes": []
     },
@@ -659,7 +659,7 @@
             "onSkill_Damage",
             "onSkilldamage"
         ],
-        "description": "Executes the skill when the mob deals damage to other entities via a mechanic.  \n\n> The associated [@trigger](/Skills/Targeters/Trigger) is the entity that was damaged",
+        "description": "Executes the skill when the mob deals damage to other entities via a mechanic.  \n\n> The associated [@trigger](https://git.lumine.io/mythiccraft/MythicMobs/-/wikis/Skills/Targeters/Trigger) is the entity that was damaged",
         "link": "https://git.lumine.io/mythiccraft/MythicMobs/-/wikis/Skills/Triggers/onSkillDamage",
         "attributes": []
     },
@@ -673,7 +673,7 @@
         "name": [
             "onSpawn"
         ],
-        "description": "Executes the skill when the mob spawns.  \n> There is no associated [@trigger](/Skills/Targeters/Trigger)",
+        "description": "Executes the skill when the mob spawns.  \n> There is no associated [@trigger](https://git.lumine.io/mythiccraft/MythicMobs/-/wikis/Skills/Targeters/Trigger)",
         "link": "https://git.lumine.io/mythiccraft/MythicMobs/-/wikis/Skills/Triggers/onSpawn",
         "attributes": []
     },
@@ -686,7 +686,7 @@
         "name": [
             "onSpawnorload"
         ],
-        "description": "Executes the skill when either [~onSpawn](/Skills/Triggers/onSpawn) or [~onLoad](/Skills/Triggers/onLoad) would trigger.",
+        "description": "Executes the skill when either [~onSpawn](https://git.lumine.io/mythiccraft/MythicMobs/-/wikis/Skills/Triggers/onSpawn) or [~onLoad](https://git.lumine.io/mythiccraft/MythicMobs/-/wikis/Skills/Triggers/onLoad) would trigger.",
         "link": "https://git.lumine.io/mythiccraft/MythicMobs/-/wikis/Skills/Triggers/onSpawnOrLoad",
         "attributes": []
     },
@@ -728,7 +728,7 @@
         "name": [
             "onTame"
         ],
-        "description": "Executes the skill when the player tames the mob.  \n\n> The associated [@trigger](/Skills/Targeters/Trigger) is the player that tamed the mob",
+        "description": "Executes the skill when the player tames the mob.  \n\n> The associated [@trigger](https://git.lumine.io/mythiccraft/MythicMobs/-/wikis/Skills/Targeters/Trigger) is the player that tamed the mob",
         "link": "https://git.lumine.io/mythiccraft/MythicMobs/-/wikis/Skills/Triggers/onTame",
         "attributes": []
     },
@@ -742,7 +742,7 @@
             "onTargetchange",
             "onChangetarget"
         ],
-        "description": "Executes the skill when the mob changes target.\n\n> **REQUIRES [ThreatTables](/Mobs/ThreatTables) to be enabled**",
+        "description": "Executes the skill when the mob changes target.\n\n> **REQUIRES [ThreatTables](https://git.lumine.io/mythiccraft/MythicMobs/-/wikis/Mobs/ThreatTables) to be enabled**",
         "link": "https://git.lumine.io/mythiccraft/MythicMobs/-/wikis/Skills/Triggers/onChangeTarget",
         "attributes": []
     },
@@ -755,7 +755,7 @@
         "name": [
             "onTeleport"
         ],
-        "description": "Executes the skill when the mob teleports.  \n> There is no associated [@trigger](/Skills/Targeters/Trigger)",
+        "description": "Executes the skill when the mob teleports.  \n> There is no associated [@trigger](https://git.lumine.io/mythiccraft/MythicMobs/-/wikis/Skills/Targeters/Trigger)",
         "link": "https://git.lumine.io/mythiccraft/MythicMobs/-/wikis/Skills/Triggers/onTeleport",
         "attributes": []
     },
@@ -770,7 +770,7 @@
         "name": [
             "onTimer"
         ],
-        "description": "This Trigger has a special syntax: `~onTimer:<ticks>`  \n\nExecutes the skill every *n<sup>th</sup>* ticks. Ticks can't be zero and 20 ticks is equal to 1 second.  \n\nThis trigger does not act relatively to the mob's spawn time, but to a global clock. So, for instance, if you have `~onTimer:1000`, its first execution could be in any moment between mob spawn and 1000 ticks from it depending on the value of the global clock.\n\n> Care must be taken when using this trigger as it can lead to server/client performance issues!\n>i.e. large amounts of particle effects can cause client lag, or can kick the client from the server\n\n> There is no associated [@trigger](/Skills/Targeters/Trigger).",
+        "description": "This Trigger has a special syntax: `~onTimer:<ticks>`  \n\nExecutes the skill every *n<sup>th</sup>* ticks. Ticks can't be zero and 20 ticks is equal to 1 second.  \n\nThis trigger does not act relatively to the mob's spawn time, but to a global clock. So, for instance, if you have `~onTimer:1000`, its first execution could be in any moment between mob spawn and 1000 ticks from it depending on the value of the global clock.\n\n> Care must be taken when using this trigger as it can lead to server/client performance issues!\n>i.e. large amounts of particle effects can cause client lag, or can kick the client from the server\n\n> There is no associated [@trigger](https://git.lumine.io/mythiccraft/MythicMobs/-/wikis/Skills/Targeters/Trigger).",
         "link": "https://git.lumine.io/mythiccraft/MythicMobs/-/wikis/Skills/Triggers/onTimer",
         "attributes": []
     },
@@ -783,7 +783,7 @@
         "name": [
             "onTrade"
         ],
-        "description": "Executes the skill when the villager trades with a player.  \n\n> The associated [@trigger](/Skills/Targeters/Trigger) is the player that traded with the villager",
+        "description": "Executes the skill when the villager trades with a player.  \n\n> The associated [@trigger](https://git.lumine.io/mythiccraft/MythicMobs/-/wikis/Skills/Targeters/Trigger) is the player that traded with the villager",
         "link": "https://git.lumine.io/mythiccraft/MythicMobs/-/wikis/Skills/Triggers/onTrade",
         "attributes": []
     },
@@ -798,7 +798,7 @@
             "onThrowtrident",
             "onTridentthrow"
         ],
-        "description": "Executes the skill when the trident item is thrown\n\n> **This is a [Paper-Only] mechanic!**",
+        "description": "Executes the skill when the trident item is thrown\n\n> **This is a [Paper-Only](https://papermc.io/downloads/all) mechanic!**",
         "link": "https://git.lumine.io/mythiccraft/mythiccrucible/-/wikis/Skills/Triggers/onTridentThrow",
         "attributes": []
     },

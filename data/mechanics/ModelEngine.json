@@ -1314,7 +1314,7 @@
                     "initrender"
                 ],
                 "type": "Boolean",
-                "description": "Whether the model should immediately be shown to players. If false, this allows you to further customize your model before showing with [RenderInit][]",
+                "description": "Whether the model should immediately be shown to players. If false, this allows you to further customize your model before showing with [RenderInit](https://git.lumine.io/mythiccraft/model-engine-4/-/wikis/Skills/Mechanics/RenderInit)",
                 "link": "https://git.lumine.io/mythiccraft/model-engine-4/-/wikis/Skills/Mechanics/Model",
                 "default_value": "true"
             },
@@ -1701,7 +1701,7 @@
                     "q"
                 ],
                 "type": "Boolean",
-                "description": "Queue the movement<br>Mainly used for calling this method outside of [Meta Controller][]",
+                "description": "Queue the movement<br>Mainly used for calling this method outside of [Meta Controller](https://git.lumine.io/mythiccraft/model-engine-4/-/wikis/Technical/Mount-Controllers#meta-controllers)",
                 "link": "https://git.lumine.io/mythiccraft/model-engine-4/-/wikis/Skills/Mechanics/Move",
                 "default_value": "false"
             }
@@ -2431,7 +2431,7 @@
         "name": [
             "submodel"
         ],
-        "description": "Forcibly create or delete bones from a model.<br>\nThis is mainly used for removing interactive bones such as sub-hitboxes or seats.<br>\nIf you want to hide a renderer bone temporarily, use [PartVisibility](/Skills/Mechanics/PartVisibility) instead.",
+        "description": "Forcibly create or delete bones from a model.<br>\nThis is mainly used for removing interactive bones such as sub-hitboxes or seats.<br>\nIf you want to hide a renderer bone temporarily, use [PartVisibility](https://git.lumine.io/mythiccraft/model-engine-4/-/wikis/Skills/Mechanics/PartVisibility) instead.",
         "link": "https://git.lumine.io/mythiccraft/model-engine-4/-/wikis/Skills/Mechanics/SubModel",
         "attributes": [
             {

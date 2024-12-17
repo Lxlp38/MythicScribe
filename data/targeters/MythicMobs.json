@@ -112,7 +112,7 @@
                     "p1"
                 ],
                 "type": "PlaceholderString",
-                "description": "The first [pin]",
+                "description": "The first [pin](https://git.lumine.io/mythiccraft/MythicMobs/-/wikis/Pins)",
                 "link": "https://git.lumine.io/mythiccraft/MythicMobs/-/wikis/Skills/Targeters/BlocksInPinRegion",
                 "default_value": ""
             },
@@ -122,7 +122,7 @@
                     "p2"
                 ],
                 "type": "PlaceholderString",
-                "description": "The second [pin]",
+                "description": "The second [pin](https://git.lumine.io/mythiccraft/MythicMobs/-/wikis/Pins)",
                 "link": "https://git.lumine.io/mythiccraft/MythicMobs/-/wikis/Skills/Targeters/BlocksInPinRegion",
                 "default_value": ""
             }
@@ -309,7 +309,7 @@
             "child",
             "summons"
         ],
-        "description": "Targets any child entities summoned by the caster.  \nWorks for player casters, if the [summon] mechanic was used and the `summonerIsOwner` attribute was set to `true`.",
+        "description": "Targets any child entities summoned by the caster.  \nWorks for player casters, if the [summon](https://git.lumine.io/mythiccraft/MythicMobs/-/wikis/skills/mechanics/summon) mechanic was used and the `summonerIsOwner` attribute was set to `true`.",
         "link": "https://git.lumine.io/mythiccraft/MythicMobs/-/wikis/Skills/Targeters/Children",
         "attributes": []
     },
@@ -486,7 +486,7 @@
             "entitiesInRingNearOrigin",
             "ERNO"
         ],
-        "description": "Targets all the entities in a ring near the [origin].  \nInherits all attributes from [EntitiesInRing]",
+        "description": "Targets all the entities in a ring near the [origin](https://git.lumine.io/mythiccraft/MythicMobs/-/wikis/Skills/Targeters/Origin).  \nInherits all attributes from [EntitiesInRing](https://git.lumine.io/mythiccraft/MythicMobs/-/wikis/Skills/Targeters/EntitiesInRing)",
         "link": "https://git.lumine.io/mythiccraft/MythicMobs/-/wikis/Skills/Targeters/EntitiesInRingNearOrigin",
         "attributes": []
     },
@@ -532,7 +532,7 @@
             "NearOrigin",
             "ENO"
         ],
-        "description": "Targets all entities in the given radius around the origin of the metaskill.  \nThis targeter is an extension of the **[EntitiesInRadius Targeter](/Skills/Targeters/EntitiesInRadius)** and can, as such, **use any of its attributes**",
+        "description": "Targets all entities in the given radius around the origin of the metaskill.  \nThis targeter is an extension of the **[EntitiesInRadius Targeter](https://git.lumine.io/mythiccraft/MythicMobs/-/wikis/Skills/Targeters/EntitiesInRadius)** and can, as such, **use any of its attributes**",
         "link": "https://git.lumine.io/mythiccraft/MythicMobs/-/wikis/Skills/Targeters/EntitiesNearOrigin",
         "attributes": []
     },
@@ -1116,7 +1116,7 @@
             "interactionLastAttacker",
             "lastAttacker"
         ],
-        "description": "Targets the last entity that attacked the caster, if the caster is of the `INTERACTION` [Type](/Mobs/Mobs#type).",
+        "description": "Targets the last entity that attacked the caster, if the caster is of the `INTERACTION` [Type](https://git.lumine.io/mythiccraft/MythicMobs/-/wikis/Mobs/Mobs#type).",
         "link": "https://git.lumine.io/mythiccraft/MythicMobs/-/wikis/Skills/Targeters/InteractionLastAttacker",
         "attributes": []
     },
@@ -1128,7 +1128,7 @@
             "interactionLastInteract",
             "lastInteract"
         ],
-        "description": "Targets the last entity that interacted with the caster, if the caster is of the `INTERACTION` [Type](/Mobs/Mobs#type).",
+        "description": "Targets the last entity that interacted with the caster, if the caster is of the `INTERACTION` [Type](https://git.lumine.io/mythiccraft/MythicMobs/-/wikis/Mobs/Mobs#type).",
         "link": "https://git.lumine.io/mythiccraft/MythicMobs/-/wikis/Skills/Targeters/InteractionLastInteract",
         "attributes": []
     },
@@ -1659,7 +1659,7 @@
         "name": [
             "owner"
         ],
-        "description": "Targets the Owner of the casting mob.  \nThe Owner can be set via the [SetOwner](/Skills/mechanics/setowner) mechanic.",
+        "description": "Targets the Owner of the casting mob.  \nThe Owner can be set via the [SetOwner](https://git.lumine.io/mythiccraft/MythicMobs/-/wikis/Skills/mechanics/setowner) mechanic.",
         "link": "https://git.lumine.io/mythiccraft/MythicMobs/-/wikis/Skills/Targeters/Owner",
         "attributes": []
     },
@@ -1707,7 +1707,7 @@
                     "k"
                 ],
                 "type": "PlaceholderString",
-                "description": "The name of the [pin] to target",
+                "description": "The name of the [pin](https://git.lumine.io/mythiccraft/MythicMobs/-/wikis/Pins) to target",
                 "link": "https://git.lumine.io/mythiccraft/MythicMobs/-/wikis/Skills/Targeters/Pin",
                 "default_value": ""
             },
@@ -2689,7 +2689,7 @@
                     "c"
                 ],
                 "type": "String",
-                "description": "[Inline Target Conditions](/Skills/Inline-Conditions#targetconditions)",
+                "description": "[Inline Target Conditions](https://git.lumine.io/mythiccraft/MythicMobs/-/wikis/Skills/Inline-Conditions#targetconditions)",
                 "link": "https://git.lumine.io/mythiccraft/MythicMobs/-/wikis/Skills/Targeters#common-attributes",
                 "default_value": ""
             },
@@ -2702,7 +2702,7 @@
                     "sudoparent"
                 ],
                 "type": "Boolean",
-                "description": "If this attribute is set to `true`, the targeter will be parsed as if it was the [Parent][] of the casting entity executing the mechanic",
+                "description": "If this attribute is set to `true`, the targeter will be parsed as if it was the [Parent](https://git.lumine.io/mythiccraft/MythicMobs/-/wikis/Skills/Targeters/Parent) of the casting entity executing the mechanic",
                 "link": "https://git.lumine.io/mythiccraft/MythicMobs/-/wikis/Skills/Targeters#common-attributes",
                 "default_value": ""
             },
@@ -2715,7 +2715,7 @@
                     "sudoowner"
                 ],
                 "type": "Boolean",
-                "description": "If this attribute is set to `true`, the targeter will be parsed as if it was the [Owner][] of the casting entity executing the mechanic",
+                "description": "If this attribute is set to `true`, the targeter will be parsed as if it was the [Owner](https://git.lumine.io/mythiccraft/MythicMobs/-/wikis/Skills/Targeters/Owner) of the casting entity executing the mechanic",
                 "link": "https://git.lumine.io/mythiccraft/MythicMobs/-/wikis/Skills/Targeters#common-attributes",
                 "default_value": ""
             },
@@ -2728,7 +2728,7 @@
                     "sudotrigger"
                 ],
                 "type": "Boolean",
-                "description": "If this attribute is set to `true`, the targeter will be parsed as if it was the [Trigger][] of the skilltree executing the mechanic",
+                "description": "If this attribute is set to `true`, the targeter will be parsed as if it was the [Trigger](https://git.lumine.io/mythiccraft/MythicMobs/-/wikis/Skills/Targeters/Trigger) of the skilltree executing the mechanic",
                 "link": "https://git.lumine.io/mythiccraft/MythicMobs/-/wikis/Skills/Targeters#common-attributes",
                 "default_value": ""
             }
@@ -2911,7 +2911,7 @@
             "targetedLocations",
             "targetedLoc"
         ],
-        "description": "Targets the inherited targeted locations. Useful for [Targets Filtering](/Skills/Metaskills#targets-filtering) by using [Targeter Options](/Skills/Targeters#targeter-options).",
+        "description": "Targets the inherited targeted locations. Useful for [Targets Filtering](https://git.lumine.io/mythiccraft/MythicMobs/-/wikis/Skills/Metaskills#targets-filtering) by using [Targeter Options](https://git.lumine.io/mythiccraft/MythicMobs/-/wikis/Skills/Targeters#targeter-options).",
         "link": "https://git.lumine.io/mythiccraft/MythicMobs/-/wikis/Skills/Targeters/TargetedLocation",
         "attributes": []
     },
@@ -2923,7 +2923,7 @@
             "targetedTarget",
             "targeted"
         ],
-        "description": "Targets the inherited targeted entities. Useful for [Targets Filtering](/Skills/Metaskills#targets-filtering) by using [Targeter Options](/Skills/Targeters#targeter-options).",
+        "description": "Targets the inherited targeted entities. Useful for [Targets Filtering](https://git.lumine.io/mythiccraft/MythicMobs/-/wikis/Skills/Metaskills#targets-filtering) by using [Targeter Options](https://git.lumine.io/mythiccraft/MythicMobs/-/wikis/Skills/Targeters#targeter-options).",
         "link": "https://git.lumine.io/mythiccraft/MythicMobs/-/wikis/Skills/Targeters/TargetedTarget",
         "attributes": []
     },
@@ -2936,7 +2936,7 @@
             "PlayersInThreatTable",
             "TTP"
         ],
-        "description": "Targets all the players on the casting mob's [Threat Table](/Mobs/ThreatTables)",
+        "description": "Targets all the players on the casting mob's [Threat Table](https://git.lumine.io/mythiccraft/MythicMobs/-/wikis/Mobs/ThreatTables)",
         "link": "https://git.lumine.io/mythiccraft/MythicMobs/-/wikis/Skills/Targeters/ThreatTablePlayers",
         "attributes": []
     },
@@ -2948,7 +2948,7 @@
             "randomThreatTargetLocation",
             "RTTL"
         ],
-        "description": "Targets the location of a random entity on the casting mob's [Threat Table](/Mobs/ThreatTables)",
+        "description": "Targets the location of a random entity on the casting mob's [Threat Table](https://git.lumine.io/mythiccraft/MythicMobs/-/wikis/Mobs/ThreatTables)",
         "link": "https://git.lumine.io/mythiccraft/MythicMobs/-/wikis/Skills/Targeters/RandomThreatTargetLocation",
         "attributes": []
     },
@@ -2961,7 +2961,7 @@
             "RandomThreatTarget",
             "RTT"
         ],
-        "description": "Targets a random entity on the casting mob's [Threat Table](/Mobs/ThreatTables)",
+        "description": "Targets a random entity on the casting mob's [Threat Table](https://git.lumine.io/mythiccraft/MythicMobs/-/wikis/Mobs/ThreatTables)",
         "link": "https://git.lumine.io/mythiccraft/MythicMobs/-/wikis/Skills/Targeters/RandomThreatTarget",
         "attributes": []
     },
@@ -2974,7 +2974,7 @@
             "ThreatTargets",
             "TT"
         ],
-        "description": "Targets every entity on the casting mob's [Threat Table](/Mobs/ThreatTables)",
+        "description": "Targets every entity on the casting mob's [Threat Table](https://git.lumine.io/mythiccraft/MythicMobs/-/wikis/Mobs/ThreatTables)",
         "link": "https://git.lumine.io/mythiccraft/MythicMobs/-/wikis/Skills/Targeters/ThreatTable",
         "attributes": []
     },
@@ -2985,7 +2985,7 @@
         "name": [
             "trackedLocation"
         ],
-        "description": "Targets the caster's [Tracked Location](/skills/mechanics/tracklocation)",
+        "description": "Targets the caster's [Tracked Location](https://git.lumine.io/mythiccraft/MythicMobs/-/wikis/skills/mechanics/tracklocation)",
         "link": "https://git.lumine.io/mythiccraft/MythicMobs/-/wikis/Skills/Targeters/TrackedLocation",
         "attributes": []
     },
@@ -3054,7 +3054,7 @@
             "variableLocation",
             "varLocation"
         ],
-        "description": "Targets the location stored in the specified variable. One such variable can be set via the [SetVariableLocation](/skills/mechanics/setvariablelocation) mechanic.",
+        "description": "Targets the location stored in the specified variable. One such variable can be set via the [SetVariableLocation](https://git.lumine.io/mythiccraft/MythicMobs/-/wikis/skills/mechanics/setvariablelocation) mechanic.",
         "link": "https://git.lumine.io/mythiccraft/MythicMobs/-/wikis/Skills/Targeters/VariableLocation",
         "attributes": [
             {
