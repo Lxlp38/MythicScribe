@@ -1,5 +1,12 @@
 # Changelog
 
+## [Unreleased]
+## Changed
+- Changed VSCode compatible version from 1.94 to 1.93 to allow compatibility with Cursor
+
+## Fixed
+- Hovers and attribute completions not showing up (or showing up incorrectly in some instances) for attributes that are not on the same line as the mechanic/targeter/condition they reference
+
 ## [1.4.0]
 
 ## Added

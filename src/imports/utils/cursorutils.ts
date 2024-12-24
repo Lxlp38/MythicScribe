@@ -18,9 +18,9 @@ export function getObjectLinkedToAttribute(document: vscode.TextDocument, positi
 	for (let i = textBeforeAttribute.length - 1; i >= 0; i--) {
 		const char = textBeforeAttribute[i];
 
-		if (char === '}') {
+		if (char === '}' || char === ']') {
 			openBraceCount++;
-		} else if (char === '{') {
+		} else if (char === '{' || char === '[') {
 			openBraceCount--;
 			// If the brace count becomes negative, we've found an unbalanced opening '{'
 			if (openBraceCount < 0) {
@@ -84,8 +84,11 @@ export function getCursorSkills(document: vscode.TextDocument, position: vscode.
 		return maybeInlineCondition;
 	}
 
-	const maybeAttribute = document.getWordRangeAtPosition(position, /(?<=[{;])\w+/gm);
-	if (maybeAttribute) {
+	const maybeAttribute = document.getWordRangeAtPosition(position, /\w+(?=\s*=)/s);
+	const textBeforePosition = document.getText(new vscode.Range(new vscode.Position(0, 0), position.translate(0, 1)));
+	const maybeAttributeMatch = textBeforePosition.match(/(?<=[{;]\s*)(\w+)$/gm);
+	console.log(maybeAttribute, maybeAttributeMatch);
+	if (maybeAttribute && maybeAttributeMatch) {
 		const attribute = document.getText(maybeAttribute);
 		const object = getObjectLinkedToAttribute(document, position);
 		if (!object) {
