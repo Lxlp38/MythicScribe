@@ -64,7 +64,7 @@ export const ObjectInfo: { [key in ObjectType]: ObjectInfo } = {
 		dataset: [],
 		datasetMap: new Map<string, Mechanic>(),
 		datasetClassMap: new Map<string, Mechanic>(),
-		regex: /(?<=\s@)[\w:]+/gm,
+		regex: /(?<=[\s=]@)[\w:]+/gm,
 	},
 	[ObjectType.CONDITION]: {
 		dataset: [],

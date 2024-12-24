@@ -28,7 +28,7 @@ export function getObjectLinkedToAttribute(document: vscode.TextDocument, positi
 				const textBeforeBrace = textBeforeAttribute.substring(0, i).trim();
 
 				// Use a regex to find the object name before the '{'
-				const objectMatch = textBeforeBrace.match(/(?<= )([@~]|(\?~?!?))?[\w:]+$/);  // Match the last word before the brace
+				const objectMatch = textBeforeBrace.match(/(?<=[ =])([@~]|(\?~?!?))?[\w:]+$/);  // Match the last word before the brace
 				if (objectMatch && objectMatch[0]) {
 					return objectMatch[0];  // Return the object name
 				}
@@ -64,59 +64,31 @@ export function fetchCursorSkills(document: vscode.TextDocument, position: vscod
 }
 
 export function getCursorSkills(document: vscode.TextDocument, position: vscode.Position) {
-	const maybeMechanic = fetchCursorSkills(document, position, ObjectType.MECHANIC);
-	if (maybeMechanic) {
-		return maybeMechanic;
+	for (const objectType of [ObjectType.MECHANIC, ObjectType.TARGETER, ObjectType.TRIGGER, ObjectType.INLINECONDITION]) {
+		const maybeObject = fetchCursorSkills(document, position, objectType);
+		if (maybeObject) {
+			return maybeObject;
+		}
 	}
-
-	const maybeTargeter = fetchCursorSkills(document, position, ObjectType.TARGETER);
-	if (maybeTargeter) {
-		return maybeTargeter;
-	}
-
-	const maybeTrigger = fetchCursorSkills(document, position, ObjectType.TRIGGER);
-	if (maybeTrigger) {
-		return maybeTrigger;
-	}
-
-	const maybeInlineCondition = fetchCursorSkills(document, position, ObjectType.INLINECONDITION);
-	if (maybeInlineCondition) {
-		return maybeInlineCondition;
-	}
-
 	const maybeAttribute = document.getWordRangeAtPosition(position, /\w+(?=\s*=)/s);
 	const textBeforePosition = document.getText(new vscode.Range(new vscode.Position(0, 0), position.translate(0, 1)));
 	const maybeAttributeMatch = textBeforePosition.match(/(?<=[{;]\s*)(\w+)$/gm);
-	console.log(maybeAttribute, maybeAttributeMatch);
 	if (maybeAttribute && maybeAttributeMatch) {
 		const attribute = document.getText(maybeAttribute);
 		const object = getObjectLinkedToAttribute(document, position);
-		if (!object) {
+		if (!object || object.startsWith('~')) {
 			return null;
 		}
-		else if (object?.startsWith('@')) {
+		if (object.startsWith('@')) {
 			const targeter = getMechanicDataByName(object.replace("@", ""), ObjectType.TARGETER);
-			if (!targeter) {
-				return null;
-			}
-			return [getAttributeDataByName(targeter, attribute, ObjectType.TARGETER), ObjectType.ATTRIBUTE];
+			return targeter ? [getAttributeDataByName(targeter, attribute, ObjectType.TARGETER), ObjectType.ATTRIBUTE] : null;
 		}
-		else if (object?.startsWith('~')) {
-			return null;
-		}
-		else if (object?.startsWith('?')) {
+		if (object.startsWith('?')) {
 			const condition = getMechanicDataByName(object.replace("?", "").replace("!", "").replace("~", ""), ObjectType.CONDITION);
-			if (!condition) {
-				return null;
-			}
-			return [getAttributeDataByName(condition, attribute, ObjectType.CONDITION), ObjectType.ATTRIBUTE];
+			return condition ? [getAttributeDataByName(condition, attribute, ObjectType.CONDITION), ObjectType.ATTRIBUTE] : null;
 		}
 		const mechanic = getMechanicDataByName(object, ObjectType.MECHANIC);
-		if (!mechanic) {
-			return null;
-		}
-		return [getAttributeDataByName(mechanic, attribute, ObjectType.MECHANIC), ObjectType.ATTRIBUTE];
-
+		return mechanic ? [getAttributeDataByName(mechanic, attribute, ObjectType.MECHANIC), ObjectType.ATTRIBUTE] : null;
 	}
 }
 
@@ -126,7 +98,6 @@ export function getCursorCondition(document: vscode.TextDocument, position: vsco
 	if (maybeCondition) {
 		return maybeCondition;
 	}
-
 	const maybeAttribute = document.getWordRangeAtPosition(position, /(?<=[{;])\w+/gm);
 	if (maybeAttribute) {
 		const attribute = document.getText(maybeAttribute);

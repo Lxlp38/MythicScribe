@@ -30,7 +30,7 @@ export function hoverProvider(){
     
             if (keyAliases["Skills"].includes(keys[0])) {
                 [obj, type] = getCursorSkills(document, position);
-        
+
                 if (!obj) {
                     return null;
                 }

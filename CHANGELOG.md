@@ -6,6 +6,7 @@
 
 ## Fixed
 - Hovers and attribute completions not showing up (or showing up incorrectly in some instances) for attributes that are not on the same line as the mechanic/targeter/condition they reference
+- Targeters can now autocomplete and show hovers when used as the value of an attribute
 
 ## [1.4.0]
 
