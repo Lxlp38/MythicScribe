@@ -324,6 +324,7 @@
         "class": "RemoveFurnitureAtMechanic",
         "extends": "SkillMechanic",
         "implements": [
+            "ITargetedEntitySkill",
             "ITargetedLocationSkill"
         ],
         "name": [

@@ -139,7 +139,7 @@ function fileCompletionFindNodesOnLevel(objectmap: FileObjectMap, keys: string[]
 
     const key = keys[0];
 
-    const selectedObject = objectmap[key as keyof typeof objectmap];
+    const selectedObject = objectmap[key];
 
     if (selectedObject) {
         if (selectedObject.type === FileObjectTypes.KEY && selectedObject.keys) {

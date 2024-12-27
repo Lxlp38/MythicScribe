@@ -38,6 +38,15 @@ export interface ObjectInfo {
 	regex: RegExp;
 }
 
+function newObjectInfo(regex: RegExp): ObjectInfo {
+	return {
+		dataset: [],
+		datasetMap: new Map<string, Mechanic>(),
+		datasetClassMap: new Map<string, Mechanic>(),
+		regex: regex,
+	};
+}
+
 /**
  * A mapping of `ObjectType` to its corresponding information including dataset, dataset maps, and regex patterns.
  * 
@@ -48,108 +57,20 @@ export interface ObjectInfo {
  * @property {RegExp} regex - A regular expression to match specific patterns for the object type.
  */
 export const ObjectInfo: { [key in ObjectType]: ObjectInfo } = {
-	[ObjectType.MECHANIC]: {
-		dataset: [],
-		datasetMap: new Map<string, Mechanic>(),
-		datasetClassMap: new Map<string, Mechanic>(),
-		regex: /(?<=\s- )[\w:]+(?=[\s{])/gm,
-	},
-	[ObjectType.ATTRIBUTE]: {
-		dataset: [],
-		datasetMap: new Map<string, Mechanic>(),
-		datasetClassMap: new Map<string, Mechanic>(),
-		regex: /(?<=[{;])\w+(?==)/gm,
-	},
-	[ObjectType.TARGETER]: {
-		dataset: [],
-		datasetMap: new Map<string, Mechanic>(),
-		datasetClassMap: new Map<string, Mechanic>(),
-		regex: /(?<=[\s=]@)[\w:]+/gm,
-	},
-	[ObjectType.CONDITION]: {
-		dataset: [],
-		datasetMap: new Map<string, Mechanic>(),
-		datasetClassMap: new Map<string, Mechanic>(),
-		regex: /(?<=[\s\|\&][-\(\|\&\)] )[\w:]+/gm,
-	},
-	[ObjectType.INLINECONDITION]: {
-		dataset: [],
-		datasetMap: new Map<string, Mechanic>(),
-		datasetClassMap: new Map<string, Mechanic>(),
-		regex: /(?<=\s(\?)|(\?!)|(\?~)|(\?~!))[\w:]+/gm,
-	},
-	[ObjectType.TRIGGER]: {
-		dataset: [],
-		datasetMap: new Map<string, Mechanic>(),
-		datasetClassMap: new Map<string, Mechanic>(),
-		regex: /(?<=\s~)on[\w:]+/gm,
-	}
+	[ObjectType.MECHANIC]: newObjectInfo(/(?<=\s- )[\w:]+(?=[\s{])/gm),
+	[ObjectType.ATTRIBUTE]: newObjectInfo(/(?<=[{;])\w+(?==)/gm),
+	[ObjectType.TARGETER]: newObjectInfo(/(?<=[\s=]@)[\w:]+/gm),
+	[ObjectType.CONDITION]: newObjectInfo(/(?<=[\s\|\&][-\(\|\&\)] )[\w:]+/gm),
+	[ObjectType.INLINECONDITION]: newObjectInfo(/(?<=\s(\?)|(\?!)|(\?~)|(\?~!))[\w:]+/gm),
+	[ObjectType.TRIGGER]: newObjectInfo(/(?<=\s~)on[\w:]+/gm),
 };
 
-export enum EnumType {
-	// Enums
-
-	SOUND = 'Sound',
-
-	AUDIENCE = 'Audience',
-	EQUIPSLOT = 'Equip Slot',
-	PARTICLE = 'Particle',
-	STATMODIFIER = 'Stat Modifier',
-	SHAPE = 'Shape',
-	FLUID = 'Fluid',
-	GLOWCOLOR = 'Glow Color',
-	SCOREACTION = 'Score Action',
-	VARIABLESCOPE = 'Variable Scope',
-
-	PAPERATTRIBUTE = 'Paper Attribute',
-	PAPERATTRIBUTEOPERATION = 'Paper Attribute Operation',
-	BARCOLOR = 'Bar Color',
-	BARSTYLE = 'Bar Style',
-	DAMAGECAUSE = 'Damage Cause',
-	DYE = 'Dye',
-	MATERIAL = 'Material',
-	BLOCKFACE = 'Block Face',
-	ENDERDRAGONPHASE = 'Ender Dragon Phase',
-	DRAGONBATTLERESPAWNPHASE = 'Dragon Battle Respawn Phase',
-	POTIONEFFECTTYPE = 'Potion Effect Type',
-	WORLDENVIRONMENT = 'World Environment',
-	ENTITYTYPE = 'Entity Type',
-	GAMEMODE = 'Game Mode',
-	SPAWNREASON = 'Spawn Reason',
-	ENCHANTMENT = 'Enchantment',
-	ITEMFLAG = 'Item Flag',
-	SOUNDCATEGORY = 'Sound Category',
-	FIREWORKEFFECTTYPE = 'Firework Effect Type',
-	FLUIDCOLLISIONMODE = 'Fluid Collision Mode',
-
-	ADDTRADE_ACTION = 'Add Trade Action',
-	DIRECTIONALVELOCITY_MODE = 'Directional Velocity Mode',
-	DISPLAYTRANSFORMATION_ACTION = 'Display Transformation Action',
-	DISPLAYTRANSFORMATION_TYPE = 'Display Transformation Type',
-	PROJECTILE_BULLETTYPE = 'Projectile Bullet Type',
-	PROJECTILE_TYPE = 'Projectile Type',
-	PROJECTILE_HIGHACCURACYMODE = 'Projectile High Accuracy Mode',
-	MODIFYPROJECTILE_ACTION = 'Modify Projectile Action',
-	MODIFYPROJECTILE_TRAIT = 'Modify Projectile Trait',
-	PUSHBLOCK_DIRECTION = 'Push Block Direction',
-	SENDTOAST_FRAME = 'Send Toast Frame',
-	SETLEVEL_ACTION = 'Set Level Action',
-	SETMAXHEALTH_MODE = 'Set Max Health Mode',
-	SHOOT_TYPE = 'Shoot Type',
-	SHOOTFIREBALL_TYPE = 'Shoot Fireball Type',
-	THREAT_MODE = 'Threat Mode',
-	TIME_MODE = 'Time Mode',
-	VELOCITY_MODE = 'Velocity Action',
-	VOLLEY_SOURCE = 'Volley Source',
-	WEATHER_TYPE = 'Weather Type',
-}
-
 interface EnumInfo {
-	[key: string]: EnumDetail ;
+	[key: string]: EnumDetail;
 }
 
-export interface EnumDetail  {
-	readonly path: string;
+export interface EnumDetail {
+	readonly path: string | null;
 	readonly volatile?: boolean; //Whether the path to the enum depends on the selected minecraft version
 	dataset: EnumDataset;
 	commalist: string;
@@ -164,7 +85,7 @@ export interface EnumDatasetValue {
 	name?: string[];
 }
 
-function newEnumDetail(path: string, volatile: boolean = true) : EnumDetail {
+export function newEnumDetail(path: string | null = null, volatile: boolean = true): EnumDetail {
 	return {
 		path: path,
 		volatile: volatile,
@@ -173,90 +94,54 @@ function newEnumDetail(path: string, volatile: boolean = true) : EnumDetail {
 	};
 }
 
-export const EnumInfo = {
+export const EnumInfo : EnumInfo = {
 
-	[EnumType.SOUND]: newEnumDetail("minecraft/sounds.json"),
+	SOUND: newEnumDetail("minecraft/sounds.json"),
 
-	[EnumType.AUDIENCE]: newEnumDetail("mythic/audiences.json", false),
+	AUDIENCE: newEnumDetail("mythic/audiences.json", false),
+	EQUIPSLOT: newEnumDetail("mythic/equipslot.json", false),
+	PARTICLE: newEnumDetail("mythic/particles.json", false),
+	STATMODIFIER: newEnumDetail("mythic/statsmodifiers.json", false),
+	SHAPE: newEnumDetail("mythic/shape.json", false),
+	FLUID: newEnumDetail("mythic/fluid.json", false),
+	GLOWCOLOR: newEnumDetail("mythic/glowcolor.json", false),
+	SCOREACTION: newEnumDetail("mythic/scoreaction.json", false),
+	VARIABLESCOPE: newEnumDetail("mythic/variablescope.json", false),
 
-	[EnumType.EQUIPSLOT]: newEnumDetail("mythic/equipslot.json", false),
+	PAPERATTRIBUTE: newEnumDetail("paper/attributes.json"),
+	PAPERATTRIBUTEOPERATION: newEnumDetail("mythic/attributesoperations.json", false),
+	BARCOLOR: newEnumDetail("paper/barcolor.json"),
+	BARSTYLE: newEnumDetail("paper/barstyle.json"),
+	DAMAGECAUSE: newEnumDetail("paper/damagecause.json"),
+	DYE: newEnumDetail("paper/dye.json"),
+	MATERIAL: newEnumDetail("paper/material.json"),
+	BLOCKFACE: newEnumDetail("paper/blockface.json"),
+	ENDERDRAGONPHASE: newEnumDetail("paper/enderdragonphase.json"),
+	DRAGONBATTLERESPAWNPHASE: newEnumDetail("paper/dragonbattlerespawnphase.json"),
+	POTIONEFFECTTYPE: newEnumDetail("paper/potioneffecttype.json"),
+	WORLDENVIRONMENT: newEnumDetail("paper/worldenvironment.json"),
+	ENTITYTYPE: newEnumDetail("paper/entitytype.json"),
+	GAMEMODE: newEnumDetail("paper/gamemode.json"),
+	SPAWNREASON: newEnumDetail("paper/spawnreason.json"),
+	ENCHANTMENT: newEnumDetail("paper/enchantment.json"),
+	ITEMFLAG: newEnumDetail("paper/itemflag.json"),
+	SOUNDCATEGORY: newEnumDetail("paper/soundcategory.json"),
+	FIREWORKEFFECTTYPE: newEnumDetail("paper/fireworkeffecttype.json"),
+	FLUIDCOLLISIONMODE: newEnumDetail("paper/fluidcollisionmode.json"),
 
-	[EnumType.PARTICLE]: newEnumDetail("mythic/particles.json", false),
-
-	[EnumType.STATMODIFIER]: newEnumDetail("mythic/statsmodifiers.json", false),
-
-	[EnumType.SHAPE]: newEnumDetail("mythic/shape.json", false),
-
-	[EnumType.FLUID]: newEnumDetail("mythic/fluid.json", false),
-
-	[EnumType.GLOWCOLOR]: newEnumDetail("mythic/glowcolor.json", false),
-
-	[EnumType.SCOREACTION]: newEnumDetail("mythic/scoreaction.json", false),
-
-	[EnumType.VARIABLESCOPE]: newEnumDetail("mythic/variablescope.json", false),
-
-	[EnumType.PAPERATTRIBUTE]: newEnumDetail("paper/attributes.json"),
-
-	[EnumType.PAPERATTRIBUTEOPERATION]: newEnumDetail("mythic/attributesoperations.json", false),
-
-	[EnumType.BARCOLOR]: newEnumDetail("paper/barcolor.json"),
-
-	[EnumType.BARSTYLE]: newEnumDetail("paper/barstyle.json"),
-
-	[EnumType.DAMAGECAUSE]: newEnumDetail("paper/damagecause.json"),
-
-	[EnumType.DYE]: newEnumDetail("paper/dye.json"),
-
-	[EnumType.MATERIAL]: newEnumDetail("paper/material.json"),
-
-	[EnumType.BLOCKFACE]: newEnumDetail("paper/blockface.json"),
-
-	[EnumType.ENDERDRAGONPHASE]: newEnumDetail("paper/enderdragonphase.json"),
-
-	[EnumType.DRAGONBATTLERESPAWNPHASE]: newEnumDetail("paper/dragonbattlerespawnphase.json"),
-
-	[EnumType.POTIONEFFECTTYPE]: newEnumDetail("paper/potioneffecttype.json"),
-
-	[EnumType.WORLDENVIRONMENT]: newEnumDetail("paper/worldenvironment.json"),
-
-	[EnumType.ENTITYTYPE]: newEnumDetail("paper/entitytype.json"),
-
-	[EnumType.GAMEMODE]: newEnumDetail("paper/gamemode.json"),
-
-	[EnumType.SPAWNREASON]: newEnumDetail("paper/spawnreason.json"),
-
-	[EnumType.ENCHANTMENT]: newEnumDetail("paper/enchantment.json"),
-
-	[EnumType.ITEMFLAG]: newEnumDetail("paper/itemflag.json"),
-
-	[EnumType.SOUNDCATEGORY]: newEnumDetail("paper/soundcategory.json"),
-
-	[EnumType.FIREWORKEFFECTTYPE]: newEnumDetail("paper/fireworkeffecttype.json"),
-
-	[EnumType.FLUIDCOLLISIONMODE]: newEnumDetail("paper/fluidcollisionmode.json"),
-
-
-
-	[EnumType.ADDTRADE_ACTION]: newEnumDetail("mythic/mechanicScoped/addtrade_action.json", false),
-	[EnumType.DIRECTIONALVELOCITY_MODE]: newEnumDetail("mythic/mechanicScoped/directionalvelocity_mode.json", false),
-	[EnumType.DISPLAYTRANSFORMATION_ACTION]: newEnumDetail("mythic/mechanicScoped/displaytransformation_action.json", false),
-	[EnumType.DISPLAYTRANSFORMATION_TYPE]: newEnumDetail("mythic/mechanicScoped/displaytransformation_type.json", false),
-	[EnumType.PROJECTILE_BULLETTYPE]: newEnumDetail("mythic/mechanicScoped/projectile_bullettype.json", false),
-	[EnumType.PROJECTILE_TYPE]: newEnumDetail("mythic/mechanicScoped/projectile_type.json", false),
-	[EnumType.PROJECTILE_HIGHACCURACYMODE]: newEnumDetail("mythic/mechanicScoped/projectile_highaccuracymode.json", false),
-	[EnumType.MODIFYPROJECTILE_ACTION]: newEnumDetail("mythic/mechanicScoped/modifyprojectile_action.json", false),
-	[EnumType.MODIFYPROJECTILE_TRAIT]: newEnumDetail("mythic/mechanicScoped/modifyprojectile_trait.json", false),
-	[EnumType.PUSHBLOCK_DIRECTION]: newEnumDetail("mythic/mechanicScoped/pushblock_direction.json", false),
-	[EnumType.SENDTOAST_FRAME]: newEnumDetail("mythic/mechanicScoped/sendtoast_frame.json", false),
-	[EnumType.SETLEVEL_ACTION]: newEnumDetail("mythic/mechanicScoped/setlevel_action.json", false),
-	[EnumType.SETMAXHEALTH_MODE]: newEnumDetail("mythic/mechanicScoped/setmaxhealth_mode.json", false),
-	[EnumType.SHOOT_TYPE]: newEnumDetail("mythic/mechanicScoped/shoot_type.json", false),
-	[EnumType.SHOOTFIREBALL_TYPE]: newEnumDetail("mythic/mechanicScoped/shootfireball_type.json", false),
-	[EnumType.THREAT_MODE]: newEnumDetail("mythic/mechanicScoped/threat_mode.json", false),
-	[EnumType.TIME_MODE]: newEnumDetail("mythic/mechanicScoped/time_mode.json", false),
-	[EnumType.VELOCITY_MODE]: newEnumDetail("mythic/mechanicScoped/velocity_mode.json", false),
-	[EnumType.VOLLEY_SOURCE]: newEnumDetail("mythic/mechanicScoped/volley_source.json", false),
-	[EnumType.WEATHER_TYPE]: newEnumDetail("mythic/mechanicScoped/weather_type.json", false),
+	ADDTRADE_ACTION: newEnumDetail("mythic/mechanicScoped/addtrade_action.json", false),
+	DISPLAYTRANSFORMATION_ACTION: newEnumDetail("mythic/mechanicScoped/displaytransformation_action.json", false),
+	PROJECTILE_BULLETTYPE: newEnumDetail("mythic/mechanicScoped/projectile_bullettype.json", false),
+	PROJECTILE_TYPE: newEnumDetail("mythic/mechanicScoped/projectile_type.json", false),
+	PROJECTILE_HIGHACCURACYMODE: newEnumDetail("mythic/mechanicScoped/projectile_highaccuracymode.json", false),
+	MODIFYPROJECTILE_ACTION: newEnumDetail("mythic/mechanicScoped/modifyprojectile_action.json", false),
+	MODIFYPROJECTILE_TRAIT: newEnumDetail("mythic/mechanicScoped/modifyprojectile_trait.json", false),
+	SETMAXHEALTH_MODE: newEnumDetail("mythic/mechanicScoped/setmaxhealth_mode.json", false),
+	SHOOT_TYPE: newEnumDetail("mythic/mechanicScoped/shoot_type.json", false),
+	SHOOTFIREBALL_TYPE: newEnumDetail("mythic/mechanicScoped/shootfireball_type.json", false),
+	THREAT_MODE: newEnumDetail("mythic/mechanicScoped/threat_mode.json", false),
+	TIME_MODE: newEnumDetail("mythic/mechanicScoped/time_mode.json", false),
+	VELOCITY_MODE: newEnumDetail("mythic/mechanicScoped/velocity_mode.json", false),
 };
 
 
@@ -270,7 +155,7 @@ export enum FileObjectTypes {
 	RGB = 'rgb',
 
 	LIST = 'list',
-	
+
 	KEY = 'key',
 	KEY_LIST = 'key_list',
 
@@ -286,7 +171,7 @@ export interface FileObject {
 	link?: string;
 	description?: string;
 	keys?: FileObjectMap;
-	dataset?: EnumType;
+	dataset?: keyof typeof EnumInfo;
 	values?: string[];
 }
 
@@ -304,9 +189,9 @@ export enum TriggerType {
 	FURNITURE = 'Furniture',
 }
 
-export function generateNumbersInRange(min: number, max: number, step: number, float: boolean = false, start: number|null = null): string[] {
+export function generateNumbersInRange(min: number, max: number, step: number, float: boolean = false, start: number | null = null): string[] {
 	const result = [];
-	
+
 	if (start) {
 		result.push(start.toString());
 		min += step;

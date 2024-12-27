@@ -2930,7 +2930,7 @@
                 "description": "The type of the transformation. Can be `TRANSLATION`, `SCALE`, `RIGHT_ROTATION`, `LEFT_ROTATION`",
                 "link": "https://git.lumine.io/mythiccraft/MythicMobs/-/wikis/Skills/Mechanics/DisplayTransformation",
                 "default_value": "TRANSLATION",
-                "enum": "DisplayTransformation_Type"
+                "enum": "TRANSLATION,SCALE,RIGHT_ROTATION,LEFT_ROTATION"
             },
             {
                 "name": [
@@ -9854,7 +9854,7 @@
                 "description": "The direction of the movement. Can also be a Targeter",
                 "link": "https://git.lumine.io/mythiccraft/MythicMobs/-/wikis/Skills/Mechanics/PushBlock",
                 "default_value": "NORTH",
-                "enum": "PushBlock_Direction"
+                "enum": "NORTH,SOUTH,EAST,WEST,UP,DOWN"
             },
             {
                 "name": [
@@ -10454,7 +10454,7 @@
                     "recoil",
                     "r"
                 ],
-                "type": "PlaceholderFloat",
+                "type": "Float",
                 "description": "The amount of recoil.",
                 "link": "https://git.lumine.io/mythiccraft/MythicMobs/-/wikis/Skills/Mechanics/Recoil",
                 "default_value": "1"
@@ -10892,7 +10892,7 @@
                 "description": "The type of toast to send. MUST BE LOWERCASE. Options are: `challenge`, `task` or `goal`.",
                 "link": "https://git.lumine.io/mythiccraft/MythicMobs/-/wikis/Skills/Mechanics/sendtoast",
                 "default_value": "challenge",
-                "enum": "SendToast_Frame"
+                "enum": "challenge,task,goal"
             }
         ]
     },
@@ -11345,7 +11345,7 @@
                 "description": "The type of the operation to perform",
                 "link": "https://git.lumine.io/mythiccraft/MythicMobs/-/wikis/Skills/Mechanics/setlevel",
                 "default_value": "SET",
-                "enum": "SetLevel_Action"
+                "enum": "SET,ADD,SUBTRACT,MULTIPLY,DIVIDE"
             },
             {
                 "name": [
@@ -15549,7 +15549,7 @@
                 "description": "The mode to use",
                 "link": "https://git.lumine.io/mythiccraft/MythicMobs/-/wikis/Skills/Mechanics/DirectionalVelocity",
                 "default_value": "SET",
-                "enum": "DirectionalVelocity_Mode"
+                "enum": "SET,ADD,REMOVE,MULTIPLY,DIVIDE,MINIMUM"
             }
         ]
     },
@@ -15646,7 +15646,7 @@
                 "description": "The type of the volley. Can be REGULAR or RAIN",
                 "link": "https://git.lumine.io/mythiccraft/MythicMobs/-/wikis/Skills/Mechanics/volley",
                 "default_value": "REGULAR",
-                "enum": "Volley_Source"
+                "enum": "REGULAR,RAIN"
             },
             {
                 "name": [
@@ -15858,7 +15858,7 @@
                 "description": "The type of weather. Can be \"sunny\", \"rainy\", or \"stormy\"",
                 "link": "https://git.lumine.io/mythiccraft/MythicMobs/-/wikis/Skills/Mechanics/weather",
                 "default_value": "sunny",
-                "enum": "Weather_Type"
+                "enum": "SUNNY,RAINY,STORMY"
             },
             {
                 "name": [

@@ -1,10 +1,10 @@
-import { FileObjectMap, FileObjectTypes, EnumType, generateNumbersInRange } from '../objectInfos';
+import { FileObjectMap, FileObjectTypes, generateNumbersInRange } from '../objectInfos';
 
 
 export const ItemFileObjects: FileObjectMap = {
 	"Material": {
 		type: FileObjectTypes.ENUM,
-		dataset: EnumType.MATERIAL,
+		dataset: "MATERIAL",
 		link: "https://git.lumine.io/mythiccraft/MythicMobs/-/wikis/Items/Items#id",
 		description: "The base material to use for your item",
 	},
@@ -74,39 +74,39 @@ export const ItemFileObjects: FileObjectMap = {
 	},
 	"Enchantments": {
 		type: FileObjectTypes.LIST,
-		dataset: EnumType.ENCHANTMENT,
+		dataset: "ENCHANTMENT",
 		values: generateNumbersInRange(1, 5, 1),
 		link: "https://git.lumine.io/mythiccraft/MythicMobs/-/wikis/Items/Items#enchantments",
 		description: "Adds enchantments to items. A list of available enchantments is provided in the documentation",
 	},
 	"Hide": {
 		type: FileObjectTypes.LIST,
-		dataset: EnumType.ITEMFLAG,
+		dataset: "ITEMFLAG",
 		link: "https://git.lumine.io/mythiccraft/MythicMobs/-/wikis/Items/Items#hide",
 		description: "Allows specific details, like enchantments, to be hidden from the item tooltip",
 	},
 	"PotionEffects": {
 		type: FileObjectTypes.LIST,
-		dataset: EnumType.POTIONEFFECTTYPE,
+		dataset: "POTIONEFFECTTYPE",
 		values: generateNumbersInRange(20, 200, 20),
 		link: "https://git.lumine.io/mythiccraft/MythicMobs/-/wikis/Items/Items#potioneffects",
 		description: "Sets the potion effects of the item, applicable to potions, splash potions, and tipped arrows",
 	},
 	"BannerLayers": {
 		type: FileObjectTypes.LIST,
-		dataset: EnumType.DYE,
+		dataset: "DYE",
 		link: "https://git.lumine.io/mythiccraft/MythicMobs/-/wikis/Items/Items#bannerlayers",
 		description: "Sets the banner layers for a banner or shield",
 	},
 	"CanPlaceOn": {
 		type: FileObjectTypes.LIST,
-		dataset: EnumType.MATERIAL,
+		dataset: "MATERIAL",
 		link: "https://git.lumine.io/mythiccraft/MythicMobs/-/wikis/Items/Items#canplaceon",
 		description: "Specifies blocks on which this item can be placed in adventure mode",
 	},
 	"CanBreak": {
 		type: FileObjectTypes.LIST,
-		dataset: EnumType.MATERIAL,
+		dataset: "MATERIAL",
 		link: "https://git.lumine.io/mythiccraft/MythicMobs/-/wikis/Items/Items#canbreak",
 		description: "Specifies blocks that this item can break in adventure mode",
 	},
@@ -189,7 +189,7 @@ export const ItemFileObjects: FileObjectMap = {
 			},
 			"Effects": {
 				type: FileObjectTypes.LIST,
-				dataset: EnumType.POTIONEFFECTTYPE,
+				dataset: "POTIONEFFECTTYPE",
 			}
 		}
 	},
@@ -200,7 +200,7 @@ export const ItemFileObjects: FileObjectMap = {
 		keys: {
 			"Slot": {
 				type: FileObjectTypes.ENUM,
-				dataset: EnumType.EQUIPSLOT,
+				dataset: "EQUIPSLOT",
 				description: "The slot where the item can be equipped"
 			},
 			"Model": {
@@ -225,12 +225,12 @@ export const ItemFileObjects: FileObjectMap = {
 			},
 			"EquipSound": {
 				type: FileObjectTypes.ENUM,
-				dataset: EnumType.SOUND,
+				dataset: "SOUND",
 				description: "The sound to play when the item is equipped"
 			},
 			"EntityTypes": {
 				type: FileObjectTypes.LIST,
-				dataset: EnumType.ENTITYTYPE,
+				dataset: "ENTITYTYPE",
 				description: "The entity types that can wear this item"
 			},
 		}
@@ -354,7 +354,7 @@ export const ItemFileObjects: FileObjectMap = {
 		keys: {
 			"Material": {
 				type: FileObjectTypes.ENUM,
-				dataset: EnumType.MATERIAL,
+				dataset: "MATERIAL",
 			},
 			"Model": {
 				type: FileObjectTypes.INTEGER,

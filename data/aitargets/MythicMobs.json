@@ -1,0 +1,114 @@
+[
+    {
+        "plugin": "MythicMobs",
+        "class": "NearestConditionalTargetGoal",
+        "extends": "WrappedPathfindingGoal",
+        "implements": [
+            "PathfinderHolder"
+        ],
+        "name": [
+            "nearestConditionalTarget",
+            "nearestConditional",
+            "nearestIf"
+        ],
+        "description": "Causes the mob to target based on conditions.",
+        "link": "https://git.lumine.io/mythiccraft/MythicMobs/-/wikis/Mobs/ai/targets/nearestconditionaltarget",
+        "attributes": [
+            {
+                "name": [
+                    "targetconditions",
+                    "conditions",
+                    "cond",
+                    "c"
+                ],
+                "type": "String",
+                "description": "The conditions to use",
+                "link": "https://git.lumine.io/mythiccraft/MythicMobs/-/wikis/Mobs/ai/targets/nearestconditionaltarget",
+                "default_value": ""
+            },
+            {
+                "name": [
+                    "interval",
+                    "int",
+                    "i"
+                ],
+                "type": "Integer",
+                "description": "Determines the chance for the goal to be ran",
+                "link": "https://git.lumine.io/mythiccraft/MythicMobs/-/wikis/Mobs/ai/targets/nearestconditionaltarget",
+                "default_value": "0"
+            },
+            {
+                "name": [
+                    "mustsee",
+                    "ms"
+                ],
+                "type": "Boolean",
+                "description": "Whether the mob has to be able to see the target",
+                "link": "https://git.lumine.io/mythiccraft/MythicMobs/-/wikis/Mobs/ai/targets/nearestconditionaltarget",
+                "default_value": "true"
+            },
+            {
+                "name": [
+                    "mustreach",
+                    "mr"
+                ],
+                "type": "Boolean",
+                "description": "Whether the mob has to be able to reach the target",
+                "link": "https://git.lumine.io/mythiccraft/MythicMobs/-/wikis/Mobs/ai/targets/nearestconditionaltarget",
+                "default_value": "false"
+            }
+        ]
+    },
+    {
+        "plugin": "MythicMobs",
+        "class": "SpecificFactionGoal",
+        "extends": "WrappedPathfindingGoal",
+        "implements": [
+            "PathfinderHolder"
+        ],
+        "name": [
+            "nearestSpecificFaction",
+            "specificFaction"
+        ],
+        "description": "Causes the mob to target a specific faction.",
+        "link": "https://git.lumine.io/mythiccraft/MythicMobs/-/wikis/Mobs/ai/targets/SpecificFaction",
+        "attributes": [
+            {
+                "name": [
+                    "faction",
+                    "f"
+                ],
+                "type": "String",
+                "description": "The faction to target",
+                "link": "https://git.lumine.io/mythiccraft/MythicMobs/-/wikis/Mobs/ai/targets/SpecificFaction",
+                "default_value": ""
+            }
+        ]
+    },
+    {
+        "plugin": "MythicMobs",
+        "class": "SpecificFactionMonstersGoal",
+        "extends": "WrappedPathfindingGoal",
+        "implements": [
+            "PathfinderHolder"
+        ],
+        "name": [
+            "nearestSpecificFactionMonsters",
+            "specificFactionMonsters"
+        ],
+        "description": "Causes the mob to target monsters of a specific faction.",
+        "link": "https://git.lumine.io/mythiccraft/MythicMobs/-/wikis/Mobs/ai/targets/SpecificFactionMonsters",
+        "attributes": [
+            {
+                "name": [
+                    "faction",
+                    "f"
+                ],
+                "type": "String",
+                "description": "The faction to target",
+                "link": "https://git.lumine.io/mythiccraft/MythicMobs/-/wikis/Mobs/ai/targets/SpecificFactionMonsters",
+                "default_value": ""
+            }
+        ]
+    }
+]

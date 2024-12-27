@@ -1,4 +1,4 @@
-import { FileObjectMap, FileObjectTypes, EnumType, generateNumbersInRange } from '../objectInfos';
+import { FileObjectMap, FileObjectTypes, generateNumbersInRange } from '../objectInfos';
 
 
 export const MobFileObjects: FileObjectMap = {
@@ -66,11 +66,11 @@ export const MobFileObjects: FileObjectMap = {
 			},
 			"Color": {
 				type: FileObjectTypes.ENUM,
-				dataset: EnumType.BARCOLOR,
+				dataset: "BARCOLOR",
 			},
 			"Style": {
 				type: FileObjectTypes.ENUM,
-				dataset: EnumType.BARSTYLE,
+				dataset: "BARSTYLE",
 			},
 			"CreateFog": {
 				type: FileObjectTypes.BOOLEAN,
@@ -130,7 +130,7 @@ export const MobFileObjects: FileObjectMap = {
 	},
 	"DamageModifiers": {
 		type: FileObjectTypes.LIST,
-		dataset: EnumType.DAMAGECAUSE,
+		dataset: "DAMAGECAUSE",
 		values: generateNumbersInRange(-1.0, 2.0, 0.1, true),
 		link: "https://git.lumine.io/mythiccraft/MythicMobs/-/wikis/Mobs/DamageModifiers",
 		description: "The damage modifiers of the mob.",
@@ -174,7 +174,7 @@ export const MobFileObjects: FileObjectMap = {
 	},
 	"Disguise": {
 		type: FileObjectTypes.ENUM,
-		dataset: EnumType.ENTITYTYPE,
+		dataset: "ENTITYTYPE",
 		link: "https://git.lumine.io/mythiccraft/MythicMobs/-/wikis/Mobs/Disguise",
 		description: "The disguise of the mob.",
 	},
@@ -221,7 +221,7 @@ export const MobFileObjects: FileObjectMap = {
 		keys: {
 			"Head": {
 				type: FileObjectTypes.ENUM,
-				dataset: EnumType.MATERIAL,
+				dataset: "MATERIAL",
 				description: "The block that once placed will prompt the plugin to check for a totem",
 			},
 			"Pattern": {

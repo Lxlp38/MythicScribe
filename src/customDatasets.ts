@@ -1,6 +1,6 @@
 import * as vscode from "vscode";
-import { MechanicDataset, ObjectInfo, ObjectType } from "./objectInfos";
-import { fetchMechanicDatasetFromLink, loadDatasets, loadLocalMechanicDataset } from "./datasets";
+import { EnumDataset, EnumInfo, MechanicDataset, newEnumDetail, ObjectInfo, ObjectType } from "./objectInfos";
+import { fetchEnumDatasetFromLink, fetchMechanicDatasetFromLink, loadDatasets, loadLocalEnumDataset, loadLocalMechanicDataset } from "./datasets";
 import { ctx } from "./MythicScribe";
 
 export enum CustomDatasetElementType {
@@ -8,6 +8,7 @@ export enum CustomDatasetElementType {
     CONDITION = "Condition",
     TRIGGER = "Trigger",
     TARGETER = "Targeter",
+    ENUM = "Enum",
 }
 
 export enum CustomDatasetSource {
@@ -75,12 +76,21 @@ export async function addCustomDataset() {
         try {
             const fileContent = await vscode.workspace.fs.readFile(uri);
             const data = Buffer.from(fileContent).toString("utf8");
-            const mechanicdataset = JSON.parse(data) as MechanicDataset;
-            if (!mechanicdataset) {
-                vscode.window.showErrorMessage(`Error parsing file content.`);
-                continue;
-            }
 
+            if (elementType === CustomDatasetElementType.ENUM) {
+                const enumDataset = JSON.parse(data) as EnumDataset;
+                if (!enumDataset) {
+                    vscode.window.showErrorMessage(`Error parsing file content.`);
+                    continue;
+                }
+            }
+            else {
+                const mechanicdataset = JSON.parse(data) as MechanicDataset;
+                if (!mechanicdataset) {
+                    vscode.window.showErrorMessage(`Error parsing file content.`);
+                    continue;
+                }
+            }
             vscode.window.showInformationMessage(`File content loaded successfully.`);
             validPaths.push(uri);
         } catch (err) {
@@ -129,8 +139,7 @@ export async function addCustomDatasetFromLink(elementtype: string, scope: vscod
 }
 
 async function finalizeCustomDatasetAddition(elementType: CustomDatasetElementType, source: CustomDatasetSource, pathOrUrl: string, scope: vscode.ConfigurationTarget) {
-    const config = vscode.workspace.getConfiguration("MythicScribe");
-    const existingMappings = config.get<CustomDataset[]>("customDatasets") || [];
+    const [config, existingMappings] = getCustomDatasetConfiguration();
     existingMappings.push({ elementType, source, pathOrUrl });
     await config.update("customDatasets", existingMappings, scope);
 
@@ -140,55 +149,76 @@ async function finalizeCustomDatasetAddition(elementType: CustomDatasetElementTy
     await loadDatasets(ctx);
 }
 
-export function getCustomDatasetConfiguration(): CustomDataset[] {
+export function getCustomDatasetConfiguration(): [vscode.WorkspaceConfiguration, CustomDataset[]] {
     const config = vscode.workspace.getConfiguration("MythicScribe");
-    return config.get<CustomDataset[]>("customDatasets") || [];
+    const existingMappings = config.get<CustomDataset[]>("customDatasets") || [];
+
+    return [config, existingMappings];
 }
 
-
 export async function loadCustomDatasets() {
-    const customDatasets = getCustomDatasetConfiguration();
+    const customDatasets = getCustomDatasetConfiguration()[1];
     console.log("Custom datasets:", customDatasets);
 
     for (const entry in customDatasets) {
         const dataset = customDatasets[entry];
-        if (dataset.source === CustomDatasetSource.LOCALFILE) {
-            const localDataset = await loadLocalMechanicDataset(dataset.pathOrUrl);
-            if (localDataset) {
-                switch (dataset.elementType) {
-                    case CustomDatasetElementType.MECHANIC:
-                        ObjectInfo[ObjectType.MECHANIC].dataset.push(...localDataset);
-                        break;
-                    case CustomDatasetElementType.TARGETER:
-                        ObjectInfo[ObjectType.TARGETER].dataset.push(...localDataset);
-                        break;
-                    case CustomDatasetElementType.CONDITION:
-                        ObjectInfo[ObjectType.CONDITION].dataset.push(...localDataset);
-                        break;
-                    case CustomDatasetElementType.TRIGGER:
-                        ObjectInfo[ObjectType.TRIGGER].dataset.push(...localDataset);
-                        break;
-                }
+        if (dataset.elementType === CustomDatasetElementType.ENUM) {
+            const fileName = dataset.pathOrUrl.split('/').reverse()[0].replace('.json', '').toUpperCase();
+            EnumInfo[fileName] = newEnumDetail(null, false);
+            if (dataset.source === CustomDatasetSource.LOCALFILE) {
+                EnumInfo[fileName].dataset = await loadLocalEnumDataset(decodeURIComponent(vscode.Uri.parse(dataset.pathOrUrl).path));
+            }
+            else if (dataset.source === CustomDatasetSource.LINK) {
+                EnumInfo[fileName].dataset = await fetchEnumDatasetFromLink(dataset.pathOrUrl);
             }
         }
-        else if (dataset.source === CustomDatasetSource.LINK) {
-            const fileData = await fetchMechanicDatasetFromLink(dataset.pathOrUrl);
-            if (fileData) {
-                switch (dataset.elementType) {
-                    case CustomDatasetElementType.MECHANIC:
-                        ObjectInfo[ObjectType.MECHANIC].dataset.push(...fileData);
-                        break;
-                    case CustomDatasetElementType.TARGETER:
-                        ObjectInfo[ObjectType.TARGETER].dataset.push(...fileData);
-                        break;
-                    case CustomDatasetElementType.CONDITION:
-                        ObjectInfo[ObjectType.CONDITION].dataset.push(...fileData);
-                        break;
-                    case CustomDatasetElementType.TRIGGER:
-                        ObjectInfo[ObjectType.TRIGGER].dataset.push(...fileData);
-                        break;
-                }
+        else {
+            if (dataset.source === CustomDatasetSource.LOCALFILE) {
+                await loadLocalCustomDataset(dataset);
             }
+            else if (dataset.source === CustomDatasetSource.LINK) {
+                await loadLinkCustomDataset(dataset);
+            }
+        }
+    }
+}
+
+async function loadLocalCustomDataset(dataset: CustomDataset) {
+    const localDataset = await loadLocalMechanicDataset(dataset.pathOrUrl);
+    if (localDataset) {
+        switch (dataset.elementType) {
+            case CustomDatasetElementType.MECHANIC:
+                ObjectInfo[ObjectType.MECHANIC].dataset.push(...localDataset);
+                break;
+            case CustomDatasetElementType.TARGETER:
+                ObjectInfo[ObjectType.TARGETER].dataset.push(...localDataset);
+                break;
+            case CustomDatasetElementType.CONDITION:
+                ObjectInfo[ObjectType.CONDITION].dataset.push(...localDataset);
+                break;
+            case CustomDatasetElementType.TRIGGER:
+                ObjectInfo[ObjectType.TRIGGER].dataset.push(...localDataset);
+                break;
+        }
+    }
+}
+
+async function loadLinkCustomDataset(dataset: CustomDataset) {
+    const fileData = await fetchMechanicDatasetFromLink(dataset.pathOrUrl);
+    if (fileData) {
+        switch (dataset.elementType) {
+            case CustomDatasetElementType.MECHANIC:
+                ObjectInfo[ObjectType.MECHANIC].dataset.push(...fileData);
+                break;
+            case CustomDatasetElementType.TARGETER:
+                ObjectInfo[ObjectType.TARGETER].dataset.push(...fileData);
+                break;
+            case CustomDatasetElementType.CONDITION:
+                ObjectInfo[ObjectType.CONDITION].dataset.push(...fileData);
+                break;
+            case CustomDatasetElementType.TRIGGER:
+                ObjectInfo[ObjectType.TRIGGER].dataset.push(...fileData);
+                break;
         }
     }
 }

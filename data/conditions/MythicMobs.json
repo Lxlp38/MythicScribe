@@ -185,7 +185,9 @@
                     "t",
                     "material",
                     "mat",
-                    "m"
+                    "m",
+                    "block",
+                    "b"
                 ],
                 "type": "StringList",
                 "description": "A list of [materials](https://hub.spigotmc.org/javadocs/bukkit/org/bukkit/Material.html) to check against",

@@ -1,9 +1,10 @@
 import * as vscode from 'vscode';
 import * as yamlutils from '../utils/yamlutils';
-import { ObjectType, keyAliases, EnumInfo, EnumType, ObjectInfo, Attribute, Mechanic, EnumDatasetValue } from '../../objectInfos';
+import { ObjectType, keyAliases, EnumInfo, ObjectInfo, Attribute, Mechanic, EnumDatasetValue } from '../../objectInfos';
 import { getAllAttributes, getMechanicDataByName } from '../utils/mechanicutils';
 import { getObjectLinkedToAttribute } from '../utils/cursorutils';
 import { checkShouldComplete } from '../utils/completionhelper';
+import { getAttributeAliasUsedInCompletions } from '../utils/configutils';
 
 
 export function attributeCompletionProvider() {
@@ -39,10 +40,11 @@ export function attributeCompletionProvider() {
                 const attributes = getAllAttributes(mechanic, type);
                 let index = 10000;
 
-                const config = vscode.workspace.getConfiguration('MythicScribe');
-                const attributeAliasUsedInCompletions = config.get<string>('attributeAliasUsedInCompletions', "main");
+                const attributeAliasUsedInCompletions = getAttributeAliasUsedInCompletions();
 
                 const completionItems: vscode.CompletionItem[] = [];
+
+                console.log(EnumInfo);
 
                 attributes.forEach((attribute: Attribute) => {
                     let mainname = attribute.name[0];
@@ -69,7 +71,7 @@ export function attributeCompletionProvider() {
                     if (attributeType === "Boolean") {
                         completionItem.insertText = new vscode.SnippetString(mainname + "=" + "${1|true,false|}");
                     }
-                    else if (attributeEnum && Object.keys(EnumType).includes(attributeEnum)) {
+                    else if (attributeEnum && Object.keys(EnumInfo).includes(attributeEnum)) {
                         completionItem.insertText = new vscode.SnippetString(mainname + "=");
                         completionItem.command = { command: 'editor.action.triggerSuggest', title: 'Re-trigger completions...' };
                     }
@@ -135,8 +137,8 @@ export function attributeValueCompletionProvider() {
                     completionItems.push(new vscode.CompletionItem("true", vscode.CompletionItemKind.Value));
                     completionItems.push(new vscode.CompletionItem("false", vscode.CompletionItemKind.Value));
                 }
-                else if (attributeEnum && Object.keys(EnumType).includes(attributeEnum)) {
-                    Object.entries(EnumInfo[EnumType[attributeEnum as keyof typeof EnumType]].dataset).forEach(([key, value]: [string, unknown]) => {
+                else if (attributeEnum && Object.keys(EnumInfo).includes(attributeEnum)) {
+                    Object.entries(EnumInfo[attributeEnum].dataset).forEach(([key, value]: [string, unknown]) => {
                         const completionItem = new vscode.CompletionItem(key, vscode.CompletionItemKind.Value);                        
                         if (isEnumDatasetValue(value)) {
                             completionItem.detail = `${(value as EnumDatasetValue).description}`;
@@ -193,6 +195,5 @@ function searchForLinkedObject(document: vscode.TextDocument, position: vscode.P
     }
 
     return [mechanic, type];
-
 
 }

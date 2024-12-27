@@ -147,6 +147,9 @@ export function enableMythicScriptSyntax() {
     return vscode.workspace.getConfiguration('MythicScribe').get('enableMythicScriptSyntax');
 }
 
+export function getAttributeAliasUsedInCompletions() {
+    return vscode.workspace.getConfiguration('MythicScribe').get('attributeAliasUsedInCompletions');
+}
 
 const MinecraftVersions = [
     "latest",

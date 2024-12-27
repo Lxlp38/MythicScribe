@@ -1,0 +1,833 @@
+[
+    {
+        "plugin": "MythicMobs",
+        "class": "ArrowAttackGoal",
+        "extends": "WrappedPathfindingGoal",
+        "implements": [
+            "PathfinderHolder"
+        ],
+        "name": [
+            "arrowAttack",
+            "rangedAttack"
+        ],
+        "description": "A basic ranged attack that ranged entities can use.",
+        "link": "https://git.lumine.io/mythiccraft/MythicMobs/-/wikis/Mobs/ai/goals/arrowattack",
+        "attributes": [
+            {
+                "name": [
+                    "speed",
+                    "s"
+                ],
+                "type": "Double",
+                "description": "Movement speed modifier",
+                "link": "https://git.lumine.io/mythiccraft/MythicMobs/-/wikis/Mobs/ai/goals/arrowattack",
+                "default_value": "1"
+            },
+            {
+                "name": [
+                    "attackspeedmax",
+                    "smax"
+                ],
+                "type": "Integer",
+                "description": "The maximum interval per shot (in ticks)",
+                "link": "https://git.lumine.io/mythiccraft/MythicMobs/-/wikis/Mobs/ai/goals/arrowattack",
+                "default_value": "60"
+            },
+            {
+                "name": [
+                    "attackspeedmin",
+                    "amin"
+                ],
+                "type": "Integer",
+                "description": "The minimum interval per shot (in ticks)",
+                "link": "https://git.lumine.io/mythiccraft/MythicMobs/-/wikis/Mobs/ai/goals/arrowattack",
+                "default_value": "20"
+            },
+            {
+                "name": [
+                    "attackradius",
+                    "radius",
+                    "r"
+                ],
+                "type": "Float",
+                "description": "The attack radius of this ai goal",
+                "link": "https://git.lumine.io/mythiccraft/MythicMobs/-/wikis/Mobs/ai/goals/arrowattack",
+                "default_value": "15"
+            }
+        ]
+    },
+    {
+        "plugin": "MythicMobs",
+        "class": "BowAttackGoal",
+        "extends": "WrappedPathfindingGoal",
+        "implements": [
+            "PathfinderHolder"
+        ],
+        "name": [
+            "bowAttack",
+            "skeletonBowAttack",
+            "bowshoot",
+            "bowmaster"
+        ],
+        "description": "An advanced ranged attack that can often cause the shooter to strafe backwards or clockwise.",
+        "link": "https://git.lumine.io/mythiccraft/MythicMobs/-/wikis/Mobs/ai/goals/bowattack",
+        "attributes": [
+            {
+                "name": [
+                    "speed",
+                    "s"
+                ],
+                "type": "Double",
+                "description": "Movement speed modifier",
+                "link": "https://git.lumine.io/mythiccraft/MythicMobs/-/wikis/Mobs/ai/goals/bowattack",
+                "default_value": "1"
+            },
+            {
+                "name": [
+                    "attackspeedmax",
+                    "smax"
+                ],
+                "type": "Integer",
+                "description": "The maximum attack speed",
+                "link": "https://git.lumine.io/mythiccraft/MythicMobs/-/wikis/Mobs/ai/goals/bowattack",
+                "default_value": "20"
+            },
+            {
+                "name": [
+                    "attackradius",
+                    "radius",
+                    "r"
+                ],
+                "type": "Float",
+                "description": "The radius of the attack",
+                "link": "https://git.lumine.io/mythiccraft/MythicMobs/-/wikis/Mobs/ai/goals/bowattack",
+                "default_value": "15"
+            }
+        ]
+    },
+    {
+        "plugin": "MythicMobs",
+        "class": "BreedGoal",
+        "extends": "Animal",
+        "implements": [
+            "PathfinderHolder"
+        ],
+        "name": [
+            "breed"
+        ],
+        "description": "Causes the mob to be able to breed with other mobs.",
+        "link": "https://git.lumine.io/mythiccraft/MythicMobs/-/wikis/Mobs/ai/goals/breed",
+        "attributes": [
+            {
+                "name": [
+                    "speedmodifier",
+                    "speed",
+                    "s"
+                ],
+                "type": "Double",
+                "description": "The speed at which to move towards the partner",
+                "link": "https://git.lumine.io/mythiccraft/MythicMobs/-/wikis/Mobs/ai/goals/breed",
+                "default_value": "1"
+            }
+        ]
+    },
+    {
+        "plugin": "MythicMobs",
+        "class": "CrossbowAttackGoal",
+        "extends": "WrappedPathfindingGoal",
+        "implements": [
+            "PathfinderHolder"
+        ],
+        "name": [
+            "crossbowAttack"
+        ],
+        "description": null,
+        "link": "https://git.lumine.io/mythiccraft/MythicMobs/-/wikis/Mobs/ai/goals/crossbowattack",
+        "attributes": []
+    },
+    {
+        "plugin": "MythicMobs",
+        "class": "DoNothingGoal",
+        "extends": "Pathfinder",
+        "implements": [
+            "PathfindingGoal"
+        ],
+        "name": [
+            "doNothing",
+            "nothing"
+        ],
+        "description": "\\*\\***This is a Premium only feature**\\*\\*<br>\nCauses the mob to stop doing anything based on provided conditions.\n\n**It seems conditions are reversed when using this, for example `day true` will make the mob doNothing if it is night time, and `day false` will make the mob doNothing if its day time.**",
+        "link": "https://git.lumine.io/mythiccraft/MythicMobs/-/wikis/Mobs/ai/goals/doNothing",
+        "attributes": [
+            {
+                "name": [
+                    "fleeconditions",
+                    "conditions",
+                    "cond",
+                    "c"
+                ],
+                "type": "String",
+                "description": "The conditions to use",
+                "link": "https://git.lumine.io/mythiccraft/MythicMobs/-/wikis/Mobs/ai/goals/doNothing",
+                "default_value": ""
+            }
+        ]
+    },
+    {
+        "plugin": "MythicMobs",
+        "class": "FleeConditionalGoal",
+        "extends": "WrappedPathfindingGoal",
+        "implements": [
+            "PathfinderHolder"
+        ],
+        "name": [
+            "fleeConditional",
+            "fleeIf"
+        ],
+        "description": "\\*\\***This is a Premium only feature**\\*\\*<br>\nCauses the mob to flee based on provided conditions.",
+        "link": "https://git.lumine.io/mythiccraft/MythicMobs/-/wikis/Mobs/ai/goals/fleeConditional",
+        "attributes": [
+            {
+                "name": [
+                    "distance",
+                    "d"
+                ],
+                "type": "Float",
+                "description": "The distance for mobs to be from the mob itself",
+                "link": "https://git.lumine.io/mythiccraft/MythicMobs/-/wikis/Mobs/ai/goals/fleeConditional",
+                "default_value": "4"
+            },
+            {
+                "name": [
+                    "speed",
+                    "s"
+                ],
+                "type": "Double",
+                "description": "The speed at which to flee",
+                "link": "https://git.lumine.io/mythiccraft/MythicMobs/-/wikis/Mobs/ai/goals/fleeConditional",
+                "default_value": "1.2"
+            },
+            {
+                "name": [
+                    "safespeed",
+                    "ss"
+                ],
+                "type": "Double",
+                "description": "The speed at which to flee once a safe distance (50 blocks) away",
+                "link": "https://git.lumine.io/mythiccraft/MythicMobs/-/wikis/Mobs/ai/goals/fleeConditional",
+                "default_value": "1"
+            },
+            {
+                "name": [
+                    "fleeconditions",
+                    "conditions",
+                    "cond",
+                    "c"
+                ],
+                "type": "String",
+                "description": "The conditions to use",
+                "link": "https://git.lumine.io/mythiccraft/MythicMobs/-/wikis/Mobs/ai/goals/fleeConditional",
+                "default_value": ""
+            }
+        ]
+    },
+    {
+        "plugin": "MythicMobs",
+        "class": "FleeFactionGoal",
+        "extends": "WrappedPathfindingGoal",
+        "implements": [
+            "PathfinderHolder"
+        ],
+        "name": [
+            "fleeFaction",
+            "runFromFaction"
+        ],
+        "description": "Causes the mob to flee from a specific faction.",
+        "link": "https://git.lumine.io/mythiccraft/MythicMobs/-/wikis/Mobs/ai/goals/fleeFaction",
+        "attributes": [
+            {
+                "name": [
+                    "distance",
+                    "d"
+                ],
+                "type": "Float",
+                "description": "The distance for targets to be from the mob itself",
+                "link": "https://git.lumine.io/mythiccraft/MythicMobs/-/wikis/Mobs/ai/goals/fleeFaction",
+                "default_value": "4"
+            },
+            {
+                "name": [
+                    "speed",
+                    "s"
+                ],
+                "type": "Double",
+                "description": "The speed at which to flee",
+                "link": "https://git.lumine.io/mythiccraft/MythicMobs/-/wikis/Mobs/ai/goals/fleeFaction",
+                "default_value": "1.2"
+            },
+            {
+                "name": [
+                    "safespeed",
+                    "ss"
+                ],
+                "type": "Double",
+                "description": "The speed at which to flee once a safe distance (50 blocks) away",
+                "link": "https://git.lumine.io/mythiccraft/MythicMobs/-/wikis/Mobs/ai/goals/fleeFaction",
+                "default_value": "1"
+            },
+            {
+                "name": [
+                    "faction",
+                    "f"
+                ],
+                "type": "String",
+                "description": "The faction to flee from",
+                "link": "https://git.lumine.io/mythiccraft/MythicMobs/-/wikis/Mobs/ai/goals/fleeFaction",
+                "default_value": ""
+            }
+        ]
+    },
+    {
+        "plugin": "MythicMobs",
+        "class": "FleeGolemsGoal",
+        "extends": "WrappedPathfindingGoal",
+        "implements": [
+            "PathfinderHolder"
+        ],
+        "name": [
+            "fleeGolems",
+            "runfromGolems"
+        ],
+        "description": "Causes the mob to flee from iron golems.",
+        "link": "https://git.lumine.io/mythiccraft/MythicMobs/-/wikis/Mobs/ai/goals/fleeGolems",
+        "attributes": [
+            {
+                "name": [
+                    "distance",
+                    "d"
+                ],
+                "type": "Float",
+                "description": "The distance for targets to be from the mob itself",
+                "link": "https://git.lumine.io/mythiccraft/MythicMobs/-/wikis/Mobs/ai/goals/fleeGolems",
+                "default_value": "16"
+            },
+            {
+                "name": [
+                    "speed",
+                    "s"
+                ],
+                "type": "Double",
+                "description": "The speed at which to flee",
+                "link": "https://git.lumine.io/mythiccraft/MythicMobs/-/wikis/Mobs/ai/goals/fleeGolems",
+                "default_value": "1.2"
+            },
+            {
+                "name": [
+                    "safespeed",
+                    "ss"
+                ],
+                "type": "Double",
+                "description": "The speed at which to flee once a safe distance (50 blocks) away",
+                "link": "https://git.lumine.io/mythiccraft/MythicMobs/-/wikis/Mobs/ai/goals/fleeGolems",
+                "default_value": "1"
+            }
+        ]
+    },
+    {
+        "plugin": "MythicMobs",
+        "class": "FleePlayersGoal",
+        "extends": "WrappedPathfindingGoal",
+        "implements": [
+            "PathfinderHolder"
+        ],
+        "name": [
+            "fleePlayers",
+            "runfromPlayers"
+        ],
+        "description": "Causes the mob to flee from players.",
+        "link": "https://git.lumine.io/mythiccraft/MythicMobs/-/wikis/Mobs/ai/goals/fleePlayers",
+        "attributes": [
+            {
+                "name": [
+                    "distance",
+                    "d"
+                ],
+                "type": "Float",
+                "description": "The distance for targets to be from the mob itself",
+                "link": "https://git.lumine.io/mythiccraft/MythicMobs/-/wikis/Mobs/ai/goals/fleePlayers",
+                "default_value": "16"
+            },
+            {
+                "name": [
+                    "speed",
+                    "s"
+                ],
+                "type": "Double",
+                "description": "The speed at which to flee",
+                "link": "https://git.lumine.io/mythiccraft/MythicMobs/-/wikis/Mobs/ai/goals/fleePlayers",
+                "default_value": "1.2"
+            },
+            {
+                "name": [
+                    "safespeed",
+                    "ss"
+                ],
+                "type": "Double",
+                "description": "The speed at which to flee once a safe distance (50 blocks) away",
+                "link": "https://git.lumine.io/mythiccraft/MythicMobs/-/wikis/Mobs/ai/goals/fleePlayers",
+                "default_value": "1"
+            }
+        ]
+    },
+    {
+        "plugin": "MythicMobs",
+        "class": "FleeSunGoal",
+        "extends": "WrappedPathfindingGoal",
+        "implements": [
+            "PathfinderHolder"
+        ],
+        "name": [
+            "fleeSun"
+        ],
+        "description": "Causes the mob to flee from the sun and hide in shade.",
+        "link": "https://git.lumine.io/mythiccraft/MythicMobs/-/wikis/Mobs/ai/goals/fleeSun",
+        "attributes": [
+            {
+                "name": [
+                    "speed",
+                    "s"
+                ],
+                "type": "Double",
+                "description": "The speed at which to move towards shade",
+                "link": "https://git.lumine.io/mythiccraft/MythicMobs/-/wikis/Mobs/ai/goals/fleeSun",
+                "default_value": "1"
+            }
+        ]
+    },
+    {
+        "plugin": "MythicMobs",
+        "class": "FleeVillagersGoal",
+        "extends": "WrappedPathfindingGoal",
+        "implements": [
+            "PathfinderHolder"
+        ],
+        "name": [
+            "fleeVillagers",
+            "runfromvillagers"
+        ],
+        "description": "Causes the mob to flee from villagers.",
+        "link": "https://git.lumine.io/mythiccraft/MythicMobs/-/wikis/Mobs/ai/goals/fleeVillagers",
+        "attributes": [
+            {
+                "name": [
+                    "distance",
+                    "d"
+                ],
+                "type": "Float",
+                "description": "The distance for villagers to be from the mob itself",
+                "link": "https://git.lumine.io/mythiccraft/MythicMobs/-/wikis/Mobs/ai/goals/fleeVillagers",
+                "default_value": "16"
+            },
+            {
+                "name": [
+                    "speed",
+                    "s"
+                ],
+                "type": "Double",
+                "description": "The speed at which to flee",
+                "link": "https://git.lumine.io/mythiccraft/MythicMobs/-/wikis/Mobs/ai/goals/fleeVillagers",
+                "default_value": "1.2"
+            },
+            {
+                "name": [
+                    "safespeed",
+                    "ss"
+                ],
+                "type": "Double",
+                "description": "The speed at which to flee once a safe distance (50 blocks) away",
+                "link": "https://git.lumine.io/mythiccraft/MythicMobs/-/wikis/Mobs/ai/goals/fleeVillagers",
+                "default_value": "1"
+            }
+        ]
+    },
+    {
+        "plugin": "MythicMobs",
+        "class": "FleeWolfGoal",
+        "extends": "WrappedPathfindingGoal",
+        "implements": [
+            "PathfinderHolder"
+        ],
+        "name": [
+            "fleeWolf",
+            "runfromwolves"
+        ],
+        "description": "Causes the mob to flee from wolves.",
+        "link": "https://git.lumine.io/mythiccraft/MythicMobs/-/wikis/Mobs/ai/goals/fleeWolf",
+        "attributes": [
+            {
+                "name": [
+                    "distance",
+                    "d"
+                ],
+                "type": "Float",
+                "description": "The distance for wolves to be from the mob itself",
+                "link": "https://git.lumine.io/mythiccraft/MythicMobs/-/wikis/Mobs/ai/goals/fleeWolf",
+                "default_value": "6"
+            },
+            {
+                "name": [
+                    "speed",
+                    "s"
+                ],
+                "type": "Double",
+                "description": "The speed at which to flee",
+                "link": "https://git.lumine.io/mythiccraft/MythicMobs/-/wikis/Mobs/ai/goals/fleeWolf",
+                "default_value": "1.2"
+            },
+            {
+                "name": [
+                    "safespeed",
+                    "ss"
+                ],
+                "type": "Double",
+                "description": "The speed at which to flee once a safe distance (50 blocks) away",
+                "link": "https://git.lumine.io/mythiccraft/MythicMobs/-/wikis/Mobs/ai/goals/fleeWolf",
+                "default_value": "1"
+            }
+        ]
+    },
+    {
+        "plugin": "MythicMobs",
+        "class": "GoToSpawnLocationGoal",
+        "extends": "Pathfinder",
+        "implements": [
+            "PathfindingGoal"
+        ],
+        "name": [
+            "goToSpawnLocation",
+            "goToSpawn"
+        ],
+        "description": null,
+        "link": "https://git.lumine.io/mythiccraft/MythicMobs/-/wikis/Mobs/ai/goals/gotospawn",
+        "attributes": [
+            {
+                "name": [
+                    "maxrange",
+                    "max",
+                    "r"
+                ],
+                "type": "Double",
+                "description": "The maximum range the mob can be from its spawn location. If the mob is further than this amount from its spawn location, it will activate the goal and walk towards the spawn location until it reaches the minimum range.",
+                "link": "https://git.lumine.io/mythiccraft/MythicMobs/-/wikis/Mobs/ai/goals/gotospawn",
+                "default_value": "16"
+            },
+            {
+                "name": [
+                    "minrange",
+                    "min",
+                    "mr"
+                ],
+                "type": "Double",
+                "description": "How far the mob needs to be from its spawn location to consider itself \"at the location\". The mob will walk towards its spawn location until it is this close to it.",
+                "link": "https://git.lumine.io/mythiccraft/MythicMobs/-/wikis/Mobs/ai/goals/gotospawn",
+                "default_value": "2"
+            },
+            {
+                "name": [
+                    "speed",
+                    "s"
+                ],
+                "type": "Float",
+                "description": "Movement speed modifier",
+                "link": "https://git.lumine.io/mythiccraft/MythicMobs/-/wikis/Mobs/ai/goals/gotospawn",
+                "default_value": "1"
+            },
+            {
+                "name": [
+                    "droptarget",
+                    "dt"
+                ],
+                "type": "Boolean",
+                "description": "Whether or not the mob should drop its current target when this goal activates.",
+                "link": "https://git.lumine.io/mythiccraft/MythicMobs/-/wikis/Mobs/ai/goals/gotospawn",
+                "default_value": "true"
+            }
+        ]
+    },
+    {
+        "plugin": "MythicMobs",
+        "class": "LeapTowardsTargetGoal",
+        "extends": "WrappedPathfindingGoal",
+        "implements": [
+            "PathfinderHolder"
+        ],
+        "name": [
+            "leapTowardsTarget",
+            "leapAtTarget"
+        ],
+        "description": "Causes the mob to leap towards its target.",
+        "link": "https://git.lumine.io/mythiccraft/MythicMobs/-/wikis/Mobs/ai/goals/leapattarget",
+        "attributes": [
+            {
+                "name": [
+                    "speed",
+                    "s"
+                ],
+                "type": "Double",
+                "description": "The speed at which to leap at the target",
+                "link": "https://git.lumine.io/mythiccraft/MythicMobs/-/wikis/Mobs/ai/goals/leapattarget",
+                "default_value": "1.2"
+            }
+        ]
+    },
+    {
+        "plugin": "MythicMobs",
+        "class": "LookAtPlayersGoal",
+        "extends": "WrappedPathfindingGoal",
+        "implements": [
+            "PathfinderHolder"
+        ],
+        "name": [
+            "lookAtPlayer",
+            "lookAtPlayers"
+        ],
+        "description": "Causes the mob to look at nearby players",
+        "link": "https://git.lumine.io/mythiccraft/MythicMobs/-/wikis/Mobs/ai/goals/lookatplayers",
+        "attributes": [
+            {
+                "name": [
+                    "range",
+                    "radius",
+                    "r"
+                ],
+                "type": "Float",
+                "description": "The range to look for players",
+                "link": "https://git.lumine.io/mythiccraft/MythicMobs/-/wikis/Mobs/ai/goals/lookatplayers",
+                "default_value": "5"
+            }
+        ]
+    },
+    {
+        "plugin": "MythicMobs",
+        "class": "LookAtTargetGoal",
+        "extends": "WrappedPathfindingGoal",
+        "implements": [
+            "PathfinderHolder"
+        ],
+        "name": [
+            "lookAtTarget"
+        ],
+        "description": "Causes the mob to look at its target",
+        "link": "https://git.lumine.io/mythiccraft/MythicMobs/-/wikis/Mobs/ai/goals/LookAtTarget",
+        "attributes": [
+            {
+                "name": [
+                    "speed",
+                    "s"
+                ],
+                "type": "Double",
+                "description": "The speed of the motion",
+                "link": "https://git.lumine.io/mythiccraft/MythicMobs/-/wikis/Mobs/ai/goals/LookAtTarget",
+                "default_value": "0.9"
+            },
+            {
+                "name": [
+                    "maxrange",
+                    "range",
+                    "r"
+                ],
+                "type": "Float",
+                "description": "The maximum range in which the target must be in order for this goal to be effective",
+                "link": "https://git.lumine.io/mythiccraft/MythicMobs/-/wikis/Mobs/ai/goals/LookAtTarget",
+                "default_value": "32"
+            },
+            {
+                "name": [
+                    "onlyhorizontal",
+                    "horizontal",
+                    "h"
+                ],
+                "type": "Boolean",
+                "description": "Whether the mob will not change pitch when looking at the target",
+                "link": "https://git.lumine.io/mythiccraft/MythicMobs/-/wikis/Mobs/ai/goals/LookAtTarget",
+                "default_value": "false"
+            }
+        ]
+    },
+    {
+        "plugin": "MythicMobs",
+        "class": "MeleeAttackGoal",
+        "extends": "WrappedPathfindingGoal",
+        "implements": [
+            "PathfinderHolder"
+        ],
+        "name": [
+            "meleeAttack"
+        ],
+        "description": "Causes the mob to move to and melee attack its target",
+        "link": "https://git.lumine.io/mythiccraft/MythicMobs/-/wikis/Mobs/ai/goals/meleeattack",
+        "attributes": [
+            {
+                "name": [
+                    "speedmodifier",
+                    "speed",
+                    "s"
+                ],
+                "type": "Double",
+                "description": "The speed modifier for the mob while this action is being taken",
+                "link": "https://git.lumine.io/mythiccraft/MythicMobs/-/wikis/Mobs/ai/goals/meleeattack",
+                "default_value": "1"
+            },
+            {
+                "name": [
+                    "followUnseen",
+                    "fu"
+                ],
+                "type": "Boolean",
+                "description": "Should the target be followed even if it is hidden from view",
+                "link": "https://git.lumine.io/mythiccraft/MythicMobs/-/wikis/Mobs/ai/goals/meleeattack",
+                "default_value": "false"
+            }
+        ]
+    },
+    {
+        "plugin": "MythicMobs",
+        "class": "MoveThroughVillageGoal",
+        "extends": "WrappedPathfindingGoal",
+        "implements": [
+            "PathfinderHolder"
+        ],
+        "name": [
+            "moveThroughVillage"
+        ],
+        "description": "Causes the mob to find a path through a village.",
+        "link": "https://git.lumine.io/mythiccraft/MythicMobs/-/wikis/Mobs/ai/goals/movethroughvillage",
+        "attributes": [
+            {
+                "name": [
+                    "speed",
+                    "s"
+                ],
+                "type": "Double",
+                "description": "The speed at which to move",
+                "link": "https://git.lumine.io/mythiccraft/MythicMobs/-/wikis/Mobs/ai/goals/movethroughvillage",
+                "default_value": "0.6"
+            }
+        ]
+    },
+    {
+        "plugin": "MythicMobs",
+        "class": "MoveToBlockGoal",
+        "extends": "WrappedPathfindingGoal",
+        "implements": [
+            "PathfinderHolder"
+        ],
+        "name": [
+            "moveToBlock",
+            "gotoblock"
+        ],
+        "description": null,
+        "link": "https://git.lumine.io/mythiccraft/MythicMobs/-/wikis/Mobs/ai/goals/movetoblock",
+        "attributes": [
+            {
+                "name": [
+                    "material",
+                    "mat",
+                    "m"
+                ],
+                "type": "String",
+                "description": "The block type to target",
+                "link": "https://git.lumine.io/mythiccraft/MythicMobs/-/wikis/Mobs/ai/goals/movetoblock",
+                "default_value": ""
+            },
+            {
+                "name": [
+                    "searchrange",
+                    "search",
+                    "radius",
+                    "r"
+                ],
+                "type": "Integer",
+                "description": "The radius in which to search for the block",
+                "link": "https://git.lumine.io/mythiccraft/MythicMobs/-/wikis/Mobs/ai/goals/movetoblock",
+                "default_value": ""
+            },
+            {
+                "name": [
+                    "verticalsearchrange",
+                    "vsearch",
+                    "radiusy",
+                    "ry",
+                    "yradius",
+                    "yr"
+                ],
+                "type": "Integer",
+                "description": "The y radius in which to search for the block",
+                "link": "https://git.lumine.io/mythiccraft/MythicMobs/-/wikis/Mobs/ai/goals/movetoblock",
+                "default_value": ""
+            },
+            {
+                "name": [
+                    "speed",
+                    "s"
+                ],
+                "type": "Double",
+                "description": "The speed of movement",
+                "link": "https://git.lumine.io/mythiccraft/MythicMobs/-/wikis/Mobs/ai/goals/movetoblock",
+                "default_value": ""
+            }
+        ]
+    },
+    {
+        "plugin": "MythicMobs",
+        "class": "MoveToLavaGoal",
+        "extends": "WrappedPathfindingGoal",
+        "implements": [
+            "PathfinderHolder"
+        ],
+        "name": [
+            "moveToLava",
+            "gotolava"
+        ],
+        "description": "Causes the mob to move towards lava.",
+        "link": "https://git.lumine.io/mythiccraft/MythicMobs/-/wikis/Mobs/ai/goals/movetolava",
+        "attributes": [
+            {
+                "name": [
+                    "speed",
+                    "s"
+                ],
+                "type": "Double",
+                "description": "The speed at which to move",
+                "link": "https://git.lumine.io/mythiccraft/MythicMobs/-/wikis/Mobs/ai/goals/movetolava",
+                "default_value": "0.9"
+            }
+        ]
+    },
+    {
+        "plugin": "MythicMobs",
+        "class": "MoveToWaterGoal",
+        "extends": "WrappedPathfindingGoal",
+        "implements": [
+            "PathfinderHolder"
+        ],
+        "name": [
+            "moveToWater",
+            "gotowater"
+        ],
+        "description": "Causes the mob to move towards water.",
+        "link": "https://git.lumine.io/mythiccraft/MythicMobs/-/wikis/Mobs/ai/goals/movetowater",
+        "attributes": [
+            {
+                "name": [
+                    "speed",
+                    "s"
+                ],
+                "type": "Double",
+                "description": "The speed at which to move",
+                "link": "https://git.lumine.io/mythiccraft/MythicMobs/-/wikis/Mobs/ai/goals/movetowater",
+                "default_value": "0.9"
+            }
+        ]
+    }
+]
