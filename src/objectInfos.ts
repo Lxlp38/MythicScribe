@@ -111,9 +111,10 @@ export const EnumInfo : EnumInfo = {
 	GLOWCOLOR: newEnumDetail("mythic/glowcolor.json", false),
 	SCOREACTION: newEnumDetail("mythic/scoreaction.json", false),
 	VARIABLESCOPE: newEnumDetail("mythic/variablescope.json", false),
+	MYTHICENTITY: newEnumDetail("mythic/mythicentity.json", false),
+	PAPERATTRIBUTEOPERATION: newEnumDetail("mythic/attributesoperations.json", false),
 
 	PAPERATTRIBUTE: newEnumDetail("paper/attributes.json"),
-	PAPERATTRIBUTEOPERATION: newEnumDetail("mythic/attributesoperations.json", false),
 	BARCOLOR: newEnumDetail("paper/barcolor.json"),
 	BARSTYLE: newEnumDetail("paper/barstyle.json"),
 	DAMAGECAUSE: newEnumDetail("paper/damagecause.json"),

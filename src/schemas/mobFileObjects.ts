@@ -3,7 +3,8 @@ import { FileObjectMap, FileObjectTypes, generateNumbersInRange } from '../objec
 
 export const MobFileObjects: FileObjectMap = {
 	"Type": {
-		type: FileObjectTypes.STRING,
+		type: FileObjectTypes.ENUM,
+		dataset: "MYTHICENTITY",
 		link: "https://git.lumine.io/mythiccraft/MythicMobs/-/wikis/Mobs/Mobs#type",
 		description: "The Entity Type of the mob.",
 	},

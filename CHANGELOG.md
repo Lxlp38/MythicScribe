@@ -6,8 +6,8 @@
 - Lambda Enum Datasets: by specifying a comma (`,`) separated list of values for an attribute's enum, an enum will be registered when the attribute is loaded and autocompletions will suggest those values
 - Added Enums to Custom Datasets: new Enum files can be registered to use for your other Custom Datasets.
   - The "Lamba Enum Datasets" feature already allows you to put arbitrary values as the attribute's enum in order to create a quick dataset, but with Custom Enum Datasets you can also add descriptions to the values, while also being able to reference the same Enum Dataset from multiple attributes if need be
+- MythicEntity Enum And Completions
 - AITargets Completions and Hovers
-
 
 ## Changed
 - Refactor of how Enums are handled in order to allow for a dynamic addition
@@ -16,6 +16,7 @@
 ## Fixed
 - Hovers and attribute completions not showing up (or showing up incorrectly in some instances) for attributes that are not on the same line as the mechanic/targeter/condition they reference
 - Targeters can now autocomplete and show hovers when used as the value of an attribute
+
 
 ## [1.4.0]
 
