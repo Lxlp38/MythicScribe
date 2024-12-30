@@ -9,6 +9,7 @@ let mechanicsDatasetPath: vscode.Uri;
 let targetersDatasetPath: vscode.Uri;
 let conditionsDatasetPath: vscode.Uri;
 let triggersDatasetPath: vscode.Uri;
+let aitargetsDatasetPath: vscode.Uri;
 
 let ctx: vscode.ExtensionContext;
 
@@ -26,6 +27,7 @@ export async function loadDatasets(context: vscode.ExtensionContext) {
 	targetersDatasetPath = vscode.Uri.joinPath(context.extensionUri, 'data', 'targeters');
 	conditionsDatasetPath = vscode.Uri.joinPath(context.extensionUri, 'data', 'conditions');
 	triggersDatasetPath = vscode.Uri.joinPath(context.extensionUri, 'data', 'triggers');
+	aitargetsDatasetPath = vscode.Uri.joinPath(context.extensionUri, 'data', 'aitargets');
 
 	if (config.datasetSource() === 'GitHub') {
 		await checkGithubDatasets(context);
@@ -125,6 +127,7 @@ async function loadLocalDatasets() {
 	ObjectInfo[ObjectType.TARGETER].dataset = await loadDatasetFromLocalDirectory(targetersDatasetPath);
 	ObjectInfo[ObjectType.CONDITION].dataset = await loadDatasetFromLocalDirectory(conditionsDatasetPath);
 	ObjectInfo[ObjectType.TRIGGER].dataset = await loadDatasetFromLocalDirectory(triggersDatasetPath);
+	ObjectInfo[ObjectType.AITARGET].dataset = await loadDatasetFromLocalDirectory(aitargetsDatasetPath);
 
 }
 
@@ -144,6 +147,7 @@ async function checkGithubDatasets(context: vscode.ExtensionContext) {
 		const targetersData = await loadDatasetFromGithubDirectory('targeters');
 		const conditionsData = await loadDatasetFromGithubDirectory('conditions');
 		const triggersData = await loadDatasetFromGithubDirectory('triggers');
+		const aitargetsData = await loadDatasetFromGithubDirectory('aitargets');
 
 		console.log("Fetched datasets from GitHub");
 
@@ -155,6 +159,7 @@ async function checkGithubDatasets(context: vscode.ExtensionContext) {
 			globalState.update('targetersDataset', targetersData);
 			globalState.update('conditionsDataset', conditionsData);
 			globalState.update('triggersDataset', triggersData);
+			globalState.update('aitargetsDataset', aitargetsData);
 
 
 			globalState.update('latestCommitHash', latestCommitHash);
@@ -177,7 +182,7 @@ async function loadGithubDatasets(context: vscode.ExtensionContext) {
 	ObjectInfo[ObjectType.TARGETER].dataset = globalState.get('targetersDataset') || await loadDatasetFromLocalDirectory(targetersDatasetPath);
 	ObjectInfo[ObjectType.CONDITION].dataset = globalState.get('conditionsDataset') || await loadDatasetFromLocalDirectory(conditionsDatasetPath);
 	ObjectInfo[ObjectType.TRIGGER].dataset = globalState.get('triggersDataset') || await loadDatasetFromLocalDirectory(triggersDatasetPath);
-
+	ObjectInfo[ObjectType.AITARGET].dataset = globalState.get('aitargetsDataset') || await loadDatasetFromLocalDirectory(aitargetsDatasetPath);
 }
 
 
@@ -208,7 +213,7 @@ async function addLambdaEnumDataset(key: string, values: string[]) {
 
 	EnumInfo[key.toUpperCase()] = newEnum;
 
-	console.log(`Added Lambda Enum Dataset: ${key}`);
+	//console.log(`Added Lambda Enum Dataset: ${key}`);
 }
 
 export async function updateDatasets() {
@@ -217,23 +222,13 @@ export async function updateDatasets() {
 }
 
 async function updateDatasetMaps() {
-
-	ObjectInfo[ObjectType.MECHANIC].datasetMap = new Map<string, Mechanic>();
-	ObjectInfo[ObjectType.MECHANIC].datasetClassMap = new Map<string, Mechanic>();
-
-	ObjectInfo[ObjectType.TARGETER].datasetMap = new Map<string, Mechanic>();
-	ObjectInfo[ObjectType.TARGETER].datasetClassMap = new Map<string, Mechanic>();
-
-	ObjectInfo[ObjectType.CONDITION].datasetMap = new Map<string, Mechanic>();
-	ObjectInfo[ObjectType.CONDITION].datasetClassMap = new Map<string, Mechanic>();
-
-	ObjectInfo[ObjectType.TRIGGER].datasetMap = new Map<string, Mechanic>();
-	ObjectInfo[ObjectType.TRIGGER].datasetClassMap = new Map<string, Mechanic>();
-
-	mapDataset(ObjectInfo[ObjectType.MECHANIC]);
-	mapDataset(ObjectInfo[ObjectType.TARGETER]);
-	mapDataset(ObjectInfo[ObjectType.CONDITION]);
-	mapDataset(ObjectInfo[ObjectType.TRIGGER]);
+	Promise.all([
+		mapDataset(ObjectInfo[ObjectType.MECHANIC]),
+		mapDataset(ObjectInfo[ObjectType.TARGETER]),
+		mapDataset(ObjectInfo[ObjectType.CONDITION]),
+		mapDataset(ObjectInfo[ObjectType.TRIGGER]),
+		mapDataset(ObjectInfo[ObjectType.AITARGET])
+	]);
 
 	ObjectInfo[ObjectType.INLINECONDITION].dataset = ObjectInfo[ObjectType.CONDITION].dataset;
 	ObjectInfo[ObjectType.INLINECONDITION].datasetMap = ObjectInfo[ObjectType.CONDITION].datasetMap;
@@ -251,7 +246,10 @@ async function updateDatasetEnums() {
 	}
 }
 
-function mapDataset(object: ObjectInfo) {
+async function mapDataset(object: ObjectInfo) {
+	object.datasetMap = new Map<string, Mechanic>();
+	object.datasetClassMap = new Map<string, Mechanic>();
+
 	for (const mechanic of object.dataset) {
 		for (const name of mechanic.name) {
 			object.datasetMap.set(name.toLowerCase(), mechanic);

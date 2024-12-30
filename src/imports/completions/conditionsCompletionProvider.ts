@@ -11,7 +11,7 @@ export function conditionCompletionProvider(){
             async provideCompletionItems(document: vscode.TextDocument, position: vscode.Position, _token: vscode.CancellationToken, context: vscode.CompletionContext) {
     
                 const keys = yamlutils.getParentKeys(document, position);
-                if (!keyAliases["Conditions"].includes(keys[0])) {
+                if (!keyAliases.Conditions.includes(keys[0])) {
                     return undefined;
                 }
     

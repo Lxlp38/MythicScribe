@@ -25,7 +25,7 @@ import { mobFileCompletionProvider } from './imports/completions/filecompletions
 import { itemFileCompletionProvider } from './imports/completions/filecompletions/itemfileCompletionProvider';
 import { addCustomDataset } from './customDatasets';
 import { triggerfileCompletionProvider } from './imports/completions/filecompletions/triggerfileCompletionProvider';
-import { TriggerType } from './objectInfos';
+import { keyAliases, ObjectType, TriggerType } from './objectInfos';
 
 export let ctx: vscode.ExtensionContext;
 
@@ -76,7 +76,7 @@ export function enableSubscriptions() {
 		inlineConditionCompletionProvider(),
 		inlineMetaskillCompletionProvider(),
 		mechaniclineCompletionProvider(),
-		mechanicCompletionProvider(),
+		mechanicCompletionProvider(ObjectType.MECHANIC, keyAliases.Skills, ""),
 		targeterCompletionProvider(),
 		hoverProvider(),
 	];
@@ -126,6 +126,7 @@ export function enableMobfileSubscriptions() {
 	if (config.enableFileSpecificSuggestions()) {
 		toEnable.push(mobFileCompletionProvider());
 		toEnable.push(triggerfileCompletionProvider(TriggerType.MOB));
+		toEnable.push(mechanicCompletionProvider(ObjectType.AITARGET, keyAliases.AITargetSelectors, "WrappedPathfindingGoal"));
 	}
 
 	toEnable.forEach(subscription => {

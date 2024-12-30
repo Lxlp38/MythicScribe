@@ -10454,7 +10454,7 @@
                     "recoil",
                     "r"
                 ],
-                "type": "Float",
+                "type": "PlaceholderFloat",
                 "description": "The amount of recoil.",
                 "link": "https://git.lumine.io/mythiccraft/MythicMobs/-/wikis/Skills/Mechanics/Recoil",
                 "default_value": "1"
@@ -14263,6 +14263,26 @@
                 ],
                 "type": "Boolean",
                 "description": "Whether the summoned mob should inherit the caster's [Despawn Option](https://git.lumine.io/mythiccraft/MythicMobs/-/wikis/Mobs/Options#despawn)",
+                "link": "https://git.lumine.io/mythiccraft/MythicMobs/-/wikis/Skills/Mechanics/summon",
+                "default_value": "false"
+            },
+            {
+                "name": [
+                    "usetargetyaw",
+                    "uty"
+                ],
+                "type": "Boolean",
+                "description": "Whether the yaw of the target location/entity should be used to set the yaw of the summoned entity, unless the `yaw` attribute is set",
+                "link": "https://git.lumine.io/mythiccraft/MythicMobs/-/wikis/Skills/Mechanics/summon",
+                "default_value": "false"
+            },
+            {
+                "name": [
+                    "usetargetpitch",
+                    "utp"
+                ],
+                "type": "Boolean",
+                "description": "Whether the pitch of the target location/entity should be used to set the pitch of the summoned entity, unless the `pitch` attribute is set",
                 "link": "https://git.lumine.io/mythiccraft/MythicMobs/-/wikis/Skills/Mechanics/summon",
                 "default_value": "false"
             },

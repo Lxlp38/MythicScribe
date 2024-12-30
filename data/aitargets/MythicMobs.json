@@ -1,6 +1,65 @@
 [
     {
         "plugin": "MythicMobs",
+        "class": "ClearGoal",
+        "extends": "WrappedPathfindingGoal",
+        "name": [
+            "clear"
+        ],
+        "description": "Clears all of the mob's AI",
+        "link": "https://git.lumine.io/mythiccraft/MythicMobs/-/wikis/Mobs/Custom-AI",
+        "attributes": []
+    },
+    {
+        "plugin": "MythicMobs",
+        "class": "HurtByTargetGoal",
+        "extends": "WrappedPathfindingGoal",
+        "implements": [
+            "PathfinderHolder"
+        ],
+        "name": [
+            "hurtByTarget",
+            "attacker",
+            "damager"
+        ],
+        "description": "Targets whatever attacks the mob",
+        "link": "https://git.lumine.io/mythiccraft/MythicMobs/-/wikis/Mobs/ai/targets/HurtByTarget",
+        "attributes": []
+    },
+    {
+        "plugin": "MythicMobs",
+        "class": "IronGolemGoal",
+        "extends": "WrappedPathfindingGoal",
+        "implements": [
+            "PathfinderHolder"
+        ],
+        "name": [
+            "ironGolems",
+            "irongolem",
+            "iron_golems",
+            "iron_golem"
+        ],
+        "description": "Targets Iron Golems",
+        "link": "https://git.lumine.io/mythiccraft/MythicMobs/-/wikis/Mobs/ai/targets/IronGolems",
+        "attributes": []
+    },
+    {
+        "plugin": "MythicMobs",
+        "class": "MonstersGoal",
+        "extends": "WrappedPathfindingGoal",
+        "implements": [
+            "PathfinderHolder"
+        ],
+        "name": [
+            "monsters",
+            "monster"
+        ],
+        "description": "Targets monsters",
+        "link": "https://git.lumine.io/mythiccraft/MythicMobs/-/wikis/Mobs/ai/targets/Monsters",
+        "attributes": []
+    },
+    {
+        "plugin": "MythicMobs",
         "class": "NearestConditionalTargetGoal",
         "extends": "WrappedPathfindingGoal",
         "implements": [
@@ -61,6 +120,84 @@
     },
     {
         "plugin": "MythicMobs",
+        "class": "OtherFactionGoal",
+        "extends": "WrappedPathfindingGoal",
+        "implements": [
+            "PathfinderHolder"
+        ],
+        "name": [
+            "nearestOtherFaction",
+            "otherFaction"
+        ],
+        "description": "Targets ANY entities that are in a different faction",
+        "link": "https://git.lumine.io/mythiccraft/MythicMobs/-/wikis/Mobs/ai/targets/NearestOtherFaction",
+        "attributes": []
+    },
+    {
+        "plugin": "MythicMobs",
+        "class": "OtherFactionMonstersGoal",
+        "extends": "WrappedPathfindingGoal",
+        "implements": [
+            "PathfinderHolder"
+        ],
+        "name": [
+            "nearestOtherFactionMonsters",
+            "otherFactionMonsters"
+        ],
+        "description": "Targets any monster that is in a different faction",
+        "link": "https://git.lumine.io/mythiccraft/MythicMobs/-/wikis/Mobs/ai/targets/NearestOtherFactionMonsters",
+        "attributes": []
+    },
+    {
+        "plugin": "MythicMobs",
+        "class": "OwnerHurtByGoal",
+        "extends": "WrappedPathfindingGoal",
+        "implements": [
+            "PathfinderHolder"
+        ],
+        "name": [
+            "ownerHurtBy",
+            "ownerHurtByTarget",
+            "ownerDamager",
+            "ownerAttacker"
+        ],
+        "description": "Targets whatever attacks the mob's owner",
+        "link": "https://git.lumine.io/mythiccraft/MythicMobs/-/wikis/Mobs/ai/targets/OwnerAttacker",
+        "attributes": []
+    },
+    {
+        "plugin": "MythicMobs",
+        "class": "OwnerHurtGoal",
+        "extends": "WrappedPathfindingGoal",
+        "implements": [
+            "PathfinderHolder"
+        ],
+        "name": [
+            "ownerTarget",
+            "ownerHurt",
+            "ownerAttack"
+        ],
+        "description": "Targets whatever the mob's owner attacks",
+        "link": "https://git.lumine.io/mythiccraft/MythicMobs/-/wikis/Mobs/ai/targets/OwnerTarget",
+        "attributes": []
+    },
+    {
+        "plugin": "MythicMobs",
+        "class": "PlayersGoal",
+        "extends": "WrappedPathfindingGoal",
+        "implements": [
+            "PathfinderHolder"
+        ],
+        "name": [
+            "players",
+            "player"
+        ],
+        "description": "Targets players",
+        "link": "https://git.lumine.io/mythiccraft/MythicMobs/-/wikis/Mobs/ai/targets/Players",
+        "attributes": []
+    },
+    {
+        "plugin": "MythicMobs",
         "class": "SpecificFactionGoal",
         "extends": "WrappedPathfindingGoal",
         "implements": [
@@ -110,5 +247,20 @@
                 "default_value": ""
             }
         ]
+    },
+    {
+        "plugin": "MythicMobs",
+        "class": "VillagersGoal",
+        "extends": "WrappedPathfindingGoal",
+        "implements": [
+            "PathfinderHolder"
+        ],
+        "name": [
+            "villagers",
+            "villager"
+        ],
+        "description": "Targets villagers",
+        "link": "https://git.lumine.io/mythiccraft/MythicMobs/-/wikis/Mobs/ai/targets/Villagers",
+        "attributes": []
     }
 ]

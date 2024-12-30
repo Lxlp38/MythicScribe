@@ -5,7 +5,7 @@ import { MobFileObjects } from '../../schemas/mobFileObjects';
 import { MetaskillFileObjects } from '../../schemas/metaskillFileObjects';
 import * as yamlutils from '../utils/yamlutils';
 import { isItemFile, isMetaskillFile, isMobFile } from '../utils/configutils';
-import { getCursorSkills, getCursorCondition } from '../utils/cursorutils';
+import { getCursorSkills, getCursorObject } from '../utils/cursorutils';
 
 export function hoverProvider(){
 
@@ -25,39 +25,51 @@ export function hoverProvider(){
                 return getHoverForFileElement(keys.slice(1), fileobject, undefined);
 
             }
-    
-            let  obj, type = null;
-    
-            if (keyAliases["Skills"].includes(keys[0])) {
-                [obj, type] = getCursorSkills(document, position);
-
-                if (!obj) {
-                    return null;
-                }
-                if (type === ObjectType.ATTRIBUTE) {
-                    return getHoverForAttribute(obj);
-                } 
-    
-                return getHover(obj, type);
-            }
-            else if (keyAliases["Conditions"].includes(keys[0])) {
-                [obj, type] = getCursorCondition(document, position);
         
+            if (keyAliases.Skills.includes(keys[0])) {
+                const result = getCursorSkills(document, position);
+                if (!result) {
+                    return null;
+                }
+                const [obj, type] = result;
+
                 if (!obj) {
                     return null;
                 }
                 if (type === ObjectType.ATTRIBUTE) {
-                    return getHoverForAttribute(obj);
+                    return getHoverForAttribute(obj as Attribute);
                 } 
-
-                return getHover(obj, type);
-            }    
+    
+                return getHover(obj as Mechanic, type as ObjectType);
+            }
+            else if (keyAliases.Conditions.includes(keys[0])) {
+                return getHoverForMechanicLike(ObjectType.CONDITION, document, position);
+            }
+            else if (keyAliases.AITargetSelectors.includes(keys[0])) {
+                return getHoverForMechanicLike(ObjectType.AITARGET, document, position);
+            }
         
             return null;
         }
     });
 }
 
+async function getHoverForMechanicLike(oType: ObjectType, document: vscode.TextDocument, position: vscode.Position): Promise<vscode.Hover | undefined> {
+    const result = getCursorObject(oType, document, position);
+    if (!result) {
+        return undefined;
+    }
+    const [obj, type] = result;
+        
+    if (!obj) {
+        return undefined;
+    }
+    if (type === ObjectType.ATTRIBUTE) {
+        return getHoverForAttribute(obj as Attribute);
+    } 
+
+    return getHover(obj as Mechanic, type as ObjectType);
+}
 
 
 

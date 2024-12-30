@@ -93,8 +93,8 @@ export function getCursorSkills(document: vscode.TextDocument, position: vscode.
 }
 
 
-export function getCursorCondition(document: vscode.TextDocument, position: vscode.Position) {
-	const maybeCondition = fetchCursorSkills(document, position, ObjectType.CONDITION);
+export function getCursorObject(type: ObjectType, document: vscode.TextDocument, position: vscode.Position) {
+	const maybeCondition = fetchCursorSkills(document, position, type);
 	if (maybeCondition) {
 		return maybeCondition;
 	}
@@ -105,12 +105,11 @@ export function getCursorCondition(document: vscode.TextDocument, position: vsco
 		if (!object) {
 			return null;
 		}
-		const mechanic = getMechanicDataByName(object, ObjectType.CONDITION);
+		const mechanic = getMechanicDataByName(object, type);
 		if (!mechanic) {
 			return null;
 		}
-		return [getAttributeDataByName(mechanic, attribute, ObjectType.CONDITION), ObjectType.ATTRIBUTE];
-
+		return [getAttributeDataByName(mechanic, attribute, type), ObjectType.ATTRIBUTE];
 	}
 	return null;
 }

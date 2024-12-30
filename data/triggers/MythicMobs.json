@@ -560,11 +560,10 @@
         ],
         "name": [
             "onPress_Q",
-            "onPressq",
-            "onDropitem"
+            "onPressq"
         ],
-        "description": "When the player drops an item",
-        "link": "https://git.lumine.io/mythiccraft/mythiccrucible/-/wikis/Skills/Triggers/onItemDrop",
+        "description": "When a player presses Q to drop the item\n\n> **This is a [ProtocolLib-Only] trigger!**",
+        "link": "https://git.lumine.io/mythiccraft/mythiccrucible/-/wikis/Skills/Triggers/onPressQ",
         "attributes": []
     },
     {

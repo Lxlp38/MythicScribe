@@ -4,13 +4,13 @@ import { keyAliases, Mechanic, ObjectInfo, ObjectType } from '../../objectInfos'
 import { listCompletion } from '../utils/completionhelper';
 
 
-export function mechanicCompletionProvider() {
+export function mechanicCompletionProvider(type: ObjectType, keyAliases: string[], defaultextend: string) {
     return vscode.languages.registerCompletionItemProvider(
         ['mythicscript', 'yaml'],
         {
             async provideCompletionItems(document: vscode.TextDocument, position: vscode.Position, _token: vscode.CancellationToken, context: vscode.CompletionContext) {
 
-                if (!keyAliases["Skills"].includes(yamlutils.getParentKeys(document, position)[0])) {
+                if (!keyAliases.includes(yamlutils.getParentKeys(document, position)[0])) {
                     return undefined;
                 }
 
@@ -21,12 +21,12 @@ export function mechanicCompletionProvider() {
 
                 const completionItems: vscode.CompletionItem[] = [];
 
-                ObjectInfo[ObjectType.MECHANIC].dataset.forEach((item: Mechanic) => {
+                ObjectInfo[type].dataset.forEach((item: Mechanic) => {
                     item.name.forEach((name: string) => {
                         const completionItem = new vscode.CompletionItem(name, vscode.CompletionItemKind.Function);
                         completionItem.detail = `${item.description}`;
                         completionItem.kind = vscode.CompletionItemKind.Function;
-                        if (!item.attributes && item.extends !== "SkillMechanic") {
+                        if ((!item.attributes || item.attributes.length === 0) && item.extends === defaultextend) {
                             completionItem.insertText = new vscode.SnippetString(space + name);
                         }
                         else {

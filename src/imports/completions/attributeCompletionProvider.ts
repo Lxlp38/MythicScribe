@@ -44,8 +44,6 @@ export function attributeCompletionProvider() {
 
                 const completionItems: vscode.CompletionItem[] = [];
 
-                console.log(EnumInfo);
-
                 attributes.forEach((attribute: Attribute) => {
                     let mainname = attribute.name[0];
                     let aliases = attribute.name;
@@ -177,9 +175,13 @@ function searchForLinkedObject(document: vscode.TextDocument, position: vscode.P
         mechanic = getMechanicDataByName(object.replace("?", "").replace("!", "").replace("~", ""), ObjectType.CONDITION);
         type = ObjectType.INLINECONDITION;
     }
-    else if (keyAliases["Conditions"].includes(keys[0])) {
+    else if (keyAliases.Conditions.includes(keys[0])) {
         mechanic = getMechanicDataByName(object, ObjectType.CONDITION);
         type = ObjectType.CONDITION;
+    }
+    else if (keyAliases.AITargetSelectors.includes(keys[0])) {
+        mechanic = getMechanicDataByName(object, ObjectType.AITARGET);
+        type = ObjectType.AITARGET;
     }
     else {
         mechanic = getMechanicDataByName(object, ObjectType.MECHANIC);

@@ -1894,14 +1894,16 @@
         "attributes": [
             {
                 "name": [
+                    "types",
+                    "type",
+                    "t",
                     "material",
+                    "mat",
                     "m",
                     "item",
-                    "i",
-                    "type",
-                    "t"
+                    "i"
                 ],
-                "type": "String",
+                "type": "StringList",
                 "description": "A material, MythicItem or MMOItems internal id to check for",
                 "link": "https://git.lumine.io/mythiccraft/MythicMobs/-/wikis/Skills/Conditions/holding",
                 "default_value": ""
@@ -4511,15 +4513,16 @@
             },
             {
                 "name": [
+                    "types",
+                    "type",
+                    "t",
                     "material",
                     "mat",
                     "m",
-                    "mythicmobsitem",
-                    "mmitem",
-                    "mmi",
-                    "item"
+                    "item",
+                    "i"
                 ],
-                "type": "String",
+                "type": "StringList",
                 "description": "A material or MythicItem name to check for. Also supports MMOItems in the format mmoitems.TYPE.ID",
                 "link": "https://git.lumine.io/mythiccraft/MythicMobs/-/wikis/Skills/Conditions/wearing",
                 "default_value": "DIRT"

@@ -5,6 +5,8 @@ export enum ObjectType {
 	CONDITION = 'Condition',
 	INLINECONDITION = 'Inline Condition',
 	TRIGGER = 'Trigger',
+	AITARGET = 'AITarget',
+	AIGOAL = 'AIGoal'
 }
 
 export interface Attribute {
@@ -57,12 +59,14 @@ function newObjectInfo(regex: RegExp): ObjectInfo {
  * @property {RegExp} regex - A regular expression to match specific patterns for the object type.
  */
 export const ObjectInfo: { [key in ObjectType]: ObjectInfo } = {
-	[ObjectType.MECHANIC]: newObjectInfo(/(?<=\s- )[\w:]+(?=[\s{])/gm),
+	[ObjectType.MECHANIC]: newObjectInfo(/(?<=\s- )[\w:]+/gm),
 	[ObjectType.ATTRIBUTE]: newObjectInfo(/(?<=[{;])\w+(?==)/gm),
 	[ObjectType.TARGETER]: newObjectInfo(/(?<=[\s=]@)[\w:]+/gm),
 	[ObjectType.CONDITION]: newObjectInfo(/(?<=[\s\|\&][-\(\|\&\)] )[\w:]+/gm),
 	[ObjectType.INLINECONDITION]: newObjectInfo(/(?<=\s(\?)|(\?!)|(\?~)|(\?~!))[\w:]+/gm),
 	[ObjectType.TRIGGER]: newObjectInfo(/(?<=\s~)on[\w:]+/gm),
+	[ObjectType.AITARGET]: newObjectInfo(/(?<=\s- )[\w:]+/gm),
+	[ObjectType.AIGOAL]: newObjectInfo(/(?<=\s- )[\w:]+/gm)
 };
 
 interface EnumInfo {
@@ -177,8 +181,9 @@ export interface FileObject {
 
 
 export const keyAliases = {
-	"Skills": ["Skills", "FurnitureSkills", "InitSkills", "QuitSkills", "LevelSkills", "CustomBlockSkills"],
-	"Conditions": ["Conditions", "TriggerConditions", "TargetConditions"]
+	Skills: ["Skills", "FurnitureSkills", "InitSkills", "QuitSkills", "LevelSkills", "CustomBlockSkills"],
+	Conditions: ["Conditions", "TriggerConditions", "TargetConditions"],
+	AITargetSelectors: ["AITargetSelectors"],
 };
 
 export enum TriggerType {

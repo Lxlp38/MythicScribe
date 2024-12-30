@@ -6,6 +6,8 @@
 - Lambda Enum Datasets: by specifying a comma (`,`) separated list of values for an attribute's enum, an enum will be registered when the attribute is loaded and autocompletions will suggest those values
 - Added Enums to Custom Datasets: new Enum files can be registered to use for your other Custom Datasets.
   - The "Lamba Enum Datasets" feature already allows you to put arbitrary values as the attribute's enum in order to create a quick dataset, but with Custom Enum Datasets you can also add descriptions to the values, while also being able to reference the same Enum Dataset from multiple attributes if need be
+- AITargets Completions and Hovers
+
 
 ## Changed
 - Refactor of how Enums are handled in order to allow for a dynamic addition

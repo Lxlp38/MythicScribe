@@ -4,7 +4,7 @@ import { keyAliases, Mechanic, ObjectInfo, ObjectType } from '../../../objectInf
 import { checkShouldComplete } from '../../utils/completionhelper';
 import { TriggerType } from '../../../objectInfos';
 
-export function triggerfileCompletionProvider(type: TriggerType, parentKey: string[] = keyAliases["Skills"]) {
+export function triggerfileCompletionProvider(type: TriggerType, parentKey: string[] = keyAliases.Skills) {
     return vscode.languages.registerCompletionItemProvider(
         ['mythicscript', 'yaml'],
         {
