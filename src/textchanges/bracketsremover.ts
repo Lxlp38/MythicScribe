@@ -3,15 +3,16 @@ import * as vscode from 'vscode';
 let lastexecutiontime = 0;
 
 export function removeBracketsTextListener() {
-
-    return vscode.window.onDidChangeTextEditorSelection(event => {    
+    return vscode.window.onDidChangeTextEditorSelection((event) => {
         if (event.kind !== vscode.TextEditorSelectionChangeKind.Keyboard) {
             return;
         }
 
         const editor = vscode.window.activeTextEditor;
-        if (!editor) {return;}
-    
+        if (!editor) {
+            return;
+        }
+
         if (!editor.selection.isEmpty) {
             return;
         }
@@ -23,24 +24,23 @@ export function removeBracketsTextListener() {
         lastexecutiontime = now;
 
         const document = editor.document;
-        const position = editor.selection.active; 
-    
+        const position = editor.selection.active;
+
         const rangeBeforeCursor = new vscode.Range(position.translate(0, -2), position);
         const textBeforeCursor = document.getText(rangeBeforeCursor);
-    
+
         if (textBeforeCursor === '{}') {
             const workspaceEdit = new vscode.WorkspaceEdit();
-            
+
             workspaceEdit.delete(document.uri, rangeBeforeCursor);
             workspaceEdit.insert(document.uri, position.translate(0, -2), ' ');
 
-            vscode.workspace.applyEdit(workspaceEdit).then(success => {
+            vscode.workspace.applyEdit(workspaceEdit).then((success) => {
                 if (success) {
                     vscode.commands.executeCommand('editor.action.triggerSuggest');
-            }});
-
+                }
+                return success;
+            });
         }
     });
-    
 }
-

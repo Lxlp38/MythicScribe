@@ -47,7 +47,7 @@
         "editor.acceptSuggestionOnEnter": "off"
       }
     },
-    "commands" : [
+    "commands": [
       {
         "command": "MythicScribe.addCustomDataset",
         "title": "Add Custom Dataset",
@@ -129,25 +129,25 @@
         "MythicScribe.regexForMythicmobsFile": {
           "title": "Regex for MythicMobs File",
           "type": "string",
-          "default": "[\\\\\\\/][Mm]ythic[Mm]obs[\\\\\\\/]",
+          "default": "[\\\\\\/][Mm]ythic[Mm]obs[\\\\\\/]",
           "description": "The regex used against each document's file path: if it matches, the document will be considered as being a MythicMobs one, enabling this extension."
         },
         "MythicScribe.regexForMetaskillFile": {
           "title": "Regex for MythicMobs Metaskills",
           "type": "string",
-          "default": "[\\\\\\\/][Ss]kills[\\\\\\\/]",
+          "default": "[\\\\\\/][Ss]kills[\\\\\\/]",
           "description": "The regex used against each document's file path: if it matches, the document will be considered as being a Metaskills one, enabling Metaskill files functionalities."
         },
         "MythicScribe.regexForMobFile": {
           "title": "Regex for MythicMobs Mobs",
           "type": "string",
-          "default": "[\\\\\\\/][Mm]obs[\\\\\\\/]",
+          "default": "[\\\\\\/][Mm]obs[\\\\\\/]",
           "description": "The regex used against each document's file path: if it matches, the document will be considered as being a Mob one, enabling Mob files functionalities."
         },
         "MythicScribe.regexForItemFile": {
           "title": "Regex for MythicMobs Items",
           "type": "string",
-          "default": "[\\\\\\\/][Ii]tems[\\\\\\\/]",
+          "default": "[\\\\\\/][Ii]tems[\\\\\\/]",
           "description": "The regex used against each document's file path: if it matches, the document will be considered as being an Item one, enabling Item files functionalities."
         },
         "MythicScribe.datasetSource": {
@@ -235,11 +235,12 @@
     }
   },
   "scripts": {
-    "compile": "npm run check-types && node esbuild.js",
+    "compile": "npm run lint && npm run check-types && node esbuild.js",
     "check-types": "tsc --noEmit",
     "watch": "npm-run-all -p watch:*",
     "watch:esbuild": "node esbuild.js --watch",
     "watch:tsc": "tsc --noEmit --watch --project tsconfig.json",
+    "lint": "cls && eslint src/ --fix && echo 'Linting done.'",
     "vscode:prepublish": "npm run package",
     "package": "npm run check-types && node esbuild.js --production",
     "build": "node esbuild.js",
@@ -249,16 +250,19 @@
     "@types/mocha": "^10.0.8",
     "@types/node": "20.x",
     "@types/vscode": "^1.93.0",
-    "@typescript-eslint/eslint-plugin": "^8.7.0",
-    "@typescript-eslint/parser": "^8.7.0",
+    "@typescript-eslint/eslint-plugin": "^8.19.0",
+    "@typescript-eslint/parser": "^8.19.0",
     "@vscode/test-cli": "^0.0.10",
     "@vscode/test-electron": "^2.4.1",
     "@vscode/vsce": "^3.2.0",
     "esbuild": "^0.24.0",
-    "eslint": "^9.11.1",
+    "eslint": "^9.17.0",
+    "eslint-config-prettier": "^9.1.0",
+    "eslint-plugin-import": "^2.31.0",
+    "eslint-plugin-prettier": "^5.2.1",
+    "eslint-plugin-promise": "^7.2.1",
+    "npm-run-all": "^4.1.5",
+    "prettier": "^3.4.2",
     "typescript": "^5.6.2"
-  },
-  "dependencies": {
-    "npm-run-all": "^4.1.5"
   }
 }

@@ -1,4 +1,5 @@
 import * as vscode from 'vscode';
+
 import { getDefaultIndentation, getUsedIndentation } from '../utils/yamlutils';
 
 export function getFormatter() {
@@ -16,13 +17,13 @@ export function getFormatter() {
             // Replace entire document with the newly formatted text
             const fullRange = new vscode.Range(
                 new vscode.Position(0, 0),
-                document.lineAt(document.lineCount - 1).range.end
+                document.lineAt(document.lineCount - 1).range.end,
             );
 
             textEdits.push(vscode.TextEdit.replace(fullRange, formattedText));
 
             return textEdits;
-        }
+        },
     });
 }
 
@@ -36,7 +37,7 @@ function addNewlinesInInlineMetaskills(text: string): string {
     let comments: string[] = [];
 
     // Preserve the comments by replacing them temporarily with a placeholder
-    const textWithPlaceholders = text.replace(placeholder, "").replace(/#.*?(?=\n)/g, (match) => {
+    const textWithPlaceholders = text.replace(placeholder, '').replace(/#.*?(?=\n)/g, (match) => {
         comments.push(match); // Store the comment
         return placeholder; // Replace the comment so it doesn't fuck up later on
     });
@@ -45,15 +46,13 @@ function addNewlinesInInlineMetaskills(text: string): string {
     const formattedText = textWithPlaceholders
         .replace(/^([^\S\r\n]*)([\w_\-\d]+):/gm, (_match, p1, p2) => {
             const indent = Math.floor(p1.length / USED_INDENTATION);
-            const affix = "" + " ".repeat(indent*INDENTATION_LEVEL);
+            const affix = '' + ' '.repeat(indent * INDENTATION_LEVEL);
             return `${affix}${p2}:`;
         })
         .replace(/(?<=[;{])\s*([^\s;{]*)=\s*\[\s*/gm, '\n$1=\[\n')
-        .replace(/(?<=[^"])\s*\]\s*([;}])/gm, '\n]$1')
-        ;
-
+        .replace(/(?<=[^"])\s*\]\s*([;}])/gm, '\n]$1');
     comments.reverse(); // Reverse the comments to restore them in the order they were added
-    return formattedText.replaceAll(placeholder, (match) => {
+    return formattedText.replaceAll(placeholder, (_match) => {
         return comments.pop() || ''; // Restore the comments by replacing the placeholder
     });
 }
@@ -69,17 +68,20 @@ function formatMythicScript(text: string): string {
         // Positive --> too many open square brackets
         // Negative --> too many close square brackets
         // Will be effective from next line
-        const squareBracketsBalance = (line.match(/\[/g) || []).length - (line.match(/\]/g) || []).length;
-        const curlyBracketsBalance = (line.match(/\{/g) || []).length - (line.match(/\}/g) || []).length;
+        const squareBracketsBalance =
+            (line.match(/\[/g) || []).length - (line.match(/\]/g) || []).length;
+        const curlyBracketsBalance =
+            (line.match(/\{/g) || []).length - (line.match(/\}/g) || []).length;
 
         const pre_squarebracketindent = squareBracketsBalance < 0 ? squareBracketsBalance : 0;
         //const pre_curlybracketindent = curlyBracketsBalance < 0 ? curlyBracketsBalance : 0;
-        const post_bracketindent = squareBracketsBalance + curlyBracketsBalance * 2 - pre_squarebracketindent;
+        const post_bracketindent =
+            squareBracketsBalance + curlyBracketsBalance * 2 - pre_squarebracketindent;
 
         lastKeyIndent += pre_squarebracketindent;
 
         const lineIndentation = line.indexOf(line.trim()) / INDENTATION_LEVEL;
-        if (line.replace(/#.*$/gm, "").trim().endsWith(":")) {
+        if (line.replace(/#.*$/gm, '').trim().endsWith(':')) {
             lastKeyIndent = lineIndentation;
         }
 
@@ -91,7 +93,8 @@ function formatMythicScript(text: string): string {
         // Step 2: Fix indentation for YAML-like arrays under specific keys
         if (formattedText.match(/^\s*-\s/) || insideInline !== 0) {
             if (lineIndentation !== lastKeyIndent) {
-                formattedText = " ".repeat(lastKeyIndent * INDENTATION_LEVEL) + formattedText.trim();
+                formattedText =
+                    ' '.repeat(lastKeyIndent * INDENTATION_LEVEL) + formattedText.trim();
             }
         }
 
@@ -102,5 +105,4 @@ function formatMythicScript(text: string): string {
     });
 
     return newLines.join('\n');
-
 }

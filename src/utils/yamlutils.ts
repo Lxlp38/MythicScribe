@@ -1,84 +1,85 @@
 import * as vscode from 'vscode';
 
 export function getUpstreamKey(document: vscode.TextDocument, lineIndex: number): string {
-	for (let i = lineIndex; i >= 0; i--) {
-		const line = document.lineAt(i).text.trim();
-		if (line.match(/^[A-Za-z0-9_]+:/)) {
-			return line.split(':')[0];
-		}
-	}
-	return '';
+    for (let i = lineIndex; i >= 0; i--) {
+        const line = document.lineAt(i).text.trim();
+        if (line.match(/^[A-Za-z0-9_]+:/)) {
+            return line.split(':')[0];
+        }
+    }
+    return '';
 }
-export function getParentKeys(document: vscode.TextDocument, position: vscode.Position, getLineKey: boolean = false): string[] {
+export function getParentKeys(
+    document: vscode.TextDocument,
+    position: vscode.Position,
+    getLineKey: boolean = false,
+): string[] {
     const keys: string[] = [];
     const lineIndex = position.line;
-	
-	let currentIndent = getIndentation(document.lineAt(lineIndex).text);  // Get the indentation of the current line
 
-	if (!isKey(document, lineIndex)) {
-		currentIndent += 1;
-	}
-	else if (getLineKey) {
-		keys.push(getKey(document, lineIndex));
-	}
+    let currentIndent = getIndentation(document.lineAt(lineIndex).text); // Get the indentation of the current line
+
+    if (!isKey(document, lineIndex)) {
+        currentIndent += 1;
+    } else if (getLineKey) {
+        keys.push(getKey(document, lineIndex));
+    }
 
     for (let i = lineIndex; i >= 0; i--) {
         const line = document.lineAt(i).text.trim();
         if (line.match(/^\s*[^:\s]+:/)) {
-            const lineIndent = getIndentation(document.lineAt(i).text);  // Get the indentation of this line
-            
+            const lineIndent = getIndentation(document.lineAt(i).text); // Get the indentation of this line
+
             // If the line has a lower (less) indentation, it is a parent
             if (lineIndent < currentIndent) {
-                keys.push(line.split(':')[0]);  // Add the key without the colon
-                currentIndent = lineIndent;  // Update current indentation to this parent's level
+                keys.push(line.split(':')[0]); // Add the key without the colon
+                currentIndent = lineIndent; // Update current indentation to this parent's level
             }
         }
     }
     return keys;
 }
 
-
 export function getIndentation(line: string): number {
     return line.length - line.trimStart().length;
 }
 
 export function getDefaultIndentation(): number {
-	return vscode.window.activeTextEditor ? vscode.window.activeTextEditor.options.tabSize as number : 2;
+    return vscode.window.activeTextEditor
+        ? (vscode.window.activeTextEditor.options.tabSize as number)
+        : 2;
 }
 
 export function getUsedIndentation(text: string): number {
-	const match = text.match(/^[^:]+:\n(\s+)\S/m);
-	if (match) {
-		return match[1].length;
-	}
-	return getDefaultIndentation();
+    const match = text.match(/^[^:]+:\n(\s+)\S/m);
+    if (match) {
+        return match[1].length;
+    }
+    return getDefaultIndentation();
 }
 
-
 export function isEmptyLine(document: vscode.TextDocument, lineIndex: number): boolean {
-	return /^\s*$/.test(document.lineAt(lineIndex).text);
+    return /^\s*$/.test(document.lineAt(lineIndex).text);
 }
 
 export function isKey(document: vscode.TextDocument, lineIndex: number): boolean {
+    const line = document.lineAt(lineIndex).text.trim();
+    // If we are inside a key, we're not inside the Skills section
+    if (line.match(/^\s*[^:\s]+:/)) {
+        return true;
+    }
 
-	const line = document.lineAt(lineIndex).text.trim();
-	// If we are inside a key, we're not inside the Skills section
-	if (line.match(/^\s*[^:\s]+:/)) {
-		return true;
-	}
-
-	return false;
-
+    return false;
 }
 
 export function isList(document: vscode.TextDocument, lineIndex: number): boolean {
-	const line = document.lineAt(lineIndex).text.trim();
-	return (/^\s*-\s?/.test(line));
+    const line = document.lineAt(lineIndex).text.trim();
+    return /^\s*-\s?/.test(line);
 }
 
 export function getKey(document: vscode.TextDocument, lineIndex: number): string {
-	const line = document.lineAt(lineIndex).text.trim();
-	return line.split(':')[0];
+    const line = document.lineAt(lineIndex).text.trim();
+    return line.split(':')[0];
 }
 
 /**
@@ -88,25 +89,28 @@ export function getKey(document: vscode.TextDocument, lineIndex: number): string
  * @param key - The key to check for
  * @returns Whether the current line is inside the specified key
  */
-export function isInsideKey(document: vscode.TextDocument, lineIndex: number, key: string): boolean {
+export function isInsideKey(
+    document: vscode.TextDocument,
+    lineIndex: number,
+    key: string,
+): boolean {
+    if (isKey(document, lineIndex)) {
+        return false;
+    }
 
-	if (isKey(document, lineIndex)) {
-		return false;
-	}
-
-	// Traverse upwards to check if we are under the specified key
-	for (let i = lineIndex; i >= 0; i--) {
-		const line = document.lineAt(i).text.trim();
-		// If we find the specified key, we know we're inside it
-		if (line.startsWith(`${key}:`)) {
-			return true;
-		}
-		// If we find another top-level key, we know we've left the specified section
-		if (line.match(/^[A-Za-z0-9_]+:/)) {
-			return false;
-		}
-	}
-	return false;
+    // Traverse upwards to check if we are under the specified key
+    for (let i = lineIndex; i >= 0; i--) {
+        const line = document.lineAt(i).text.trim();
+        // If we find the specified key, we know we're inside it
+        if (line.startsWith(`${key}:`)) {
+            return true;
+        }
+        // If we find another top-level key, we know we've left the specified section
+        if (line.match(/^[A-Za-z0-9_]+:/)) {
+            return false;
+        }
+    }
+    return false;
 }
 
 /**
@@ -115,55 +119,63 @@ export function isInsideKey(document: vscode.TextDocument, lineIndex: number, ke
  * @param position - The position in the document
  * @returns The word before the given position
  */
-export function getWordBeforePosition(document: vscode.TextDocument, position: vscode.Position, offset: number = 0): string {
-	const lineText = document.lineAt(position.line).text.substring(0, position.character);
-	const words = lineText.trim().split(/\s+/);
-	return words.length > 0+offset ? words[words.length - 1+offset] : '';
+export function getWordBeforePosition(
+    document: vscode.TextDocument,
+    position: vscode.Position,
+    offset: number = 0,
+): string {
+    const lineText = document.lineAt(position.line).text.substring(0, position.character);
+    const words = lineText.trim().split(/\s+/);
+    return words.length > 0 + offset ? words[words.length - 1 + offset] : '';
 }
 
-
-export function getMechanicLine(document: vscode.TextDocument, lineIndex: number): Map<string, string> {
-	const mechanicMap = new Map<string, string>();
-	const line = document.lineAt(lineIndex).text.trim();
-	const matches = line.match(/- (\S*)(\s+@\S*)?(\s+~\S*)?(\s+\?~?!?\S*)*/);
-	if (matches) {
-		const mechanic = matches[1];
-		const targeter = matches[2];
-		const trigger = matches[3];
-		const conditions = matches[4];
-		mechanicMap.set('mechanic', mechanic);
-		if (targeter) {
-			mechanicMap.set('targeter', targeter.trim());
-		}
-		if (trigger) {
-			mechanicMap.set('trigger', trigger.trim());
-		}
-		if (conditions) {
-			mechanicMap.set('conditions', conditions.trim());
-		}
-		
-	}
-	return mechanicMap;
+export function getMechanicLine(
+    document: vscode.TextDocument,
+    lineIndex: number,
+): Map<string, string> {
+    const mechanicMap = new Map<string, string>();
+    const line = document.lineAt(lineIndex).text.trim();
+    const matches = line.match(/- (\S*)(\s+@\S*)?(\s+~\S*)?(\s+\?~?!?\S*)*/);
+    if (matches) {
+        const mechanic = matches[1];
+        const targeter = matches[2];
+        const trigger = matches[3];
+        const conditions = matches[4];
+        mechanicMap.set('mechanic', mechanic);
+        if (targeter) {
+            mechanicMap.set('targeter', targeter.trim());
+        }
+        if (trigger) {
+            mechanicMap.set('trigger', trigger.trim());
+        }
+        if (conditions) {
+            mechanicMap.set('conditions', conditions.trim());
+        }
+    }
+    return mechanicMap;
 }
 
-export function previousSpecialSymbol(document: vscode.TextDocument, position: vscode.Position): string {
-	const line = document.lineAt(position.line).text;
-	const text = line.substring(0, position.character);
-	const matches = text.match(/(\S)[\w\s:]*$/);
-	if (matches) {
-		return matches[1];
-	}
-	return '';
+export function previousSpecialSymbol(
+    document: vscode.TextDocument,
+    position: vscode.Position,
+): string {
+    const line = document.lineAt(position.line).text;
+    const text = line.substring(0, position.character);
+    const matches = text.match(/(\S)[\w\s:]*$/);
+    if (matches) {
+        return matches[1];
+    }
+    return '';
 }
 
 export function previousSymbol(document: vscode.TextDocument, position: vscode.Position): string {
-	const line = document.lineAt(position.line).text;
-	const text = line.substring(0, position.character);
-	const matches = text.match(/([^\w:])[\w:]*$/);
-	if (matches) {
-		return matches[1];
-	}
-	return '';
+    const line = document.lineAt(position.line).text;
+    const text = line.substring(0, position.character);
+    const matches = text.match(/([^\w:])[\w:]*$/);
+    if (matches) {
+        return matches[1];
+    }
+    return '';
 }
 
 export function isAfterComment(document: vscode.TextDocument, position: vscode.Position): boolean {

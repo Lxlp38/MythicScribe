@@ -1,19 +1,34 @@
-import * as vscode from "vscode";
-import { EnumDataset, EnumInfo, MechanicDataset, newEnumDetail, ObjectInfo, ObjectType } from "../objectInfos";
-import { fetchEnumDatasetFromLink, fetchMechanicDatasetFromLink, loadDatasets, loadLocalEnumDataset, loadLocalMechanicDataset } from "./datasets";
-import { ctx } from "../MythicScribe";
+import * as vscode from 'vscode';
+
+import {
+    EnumDataset,
+    EnumInfo,
+    MechanicDataset,
+    newEnumDetail,
+    ObjectInfo,
+    ObjectType,
+} from '../objectInfos';
+import {
+    fetchEnumDatasetFromLink,
+    fetchMechanicDatasetFromLink,
+    loadDatasets,
+    loadLocalEnumDataset,
+    loadLocalMechanicDataset,
+} from './datasets';
+import { ctx } from '../MythicScribe';
+import { logError } from '../utils/logger';
 
 export enum CustomDatasetElementType {
-    MECHANIC = "Mechanic",
-    CONDITION = "Condition",
-    TRIGGER = "Trigger",
-    TARGETER = "Targeter",
-    ENUM = "Enum",
+    MECHANIC = 'Mechanic',
+    CONDITION = 'Condition',
+    TRIGGER = 'Trigger',
+    TARGETER = 'Targeter',
+    ENUM = 'Enum',
 }
 
 export enum CustomDatasetSource {
-    LOCALFILE = "Local File",
-    LINK = "Link",
+    LOCALFILE = 'Local File',
+    LINK = 'Link',
 }
 
 export interface CustomDataset {
@@ -22,22 +37,28 @@ export interface CustomDataset {
     pathOrUrl: string;
 }
 
-
 export async function addCustomDataset() {
-
-    const scope = await vscode.window.showQuickPick([
-        { label: "Global", target: vscode.ConfigurationTarget.Global },
-        { label: "Workspace", target: vscode.ConfigurationTarget.Workspace },
-    ], {
-        placeHolder: "Select the scope for which you want to add the custom dataset",
-    }).then(selection => selection?.target);
+    const scope = await vscode.window
+        .showQuickPick(
+            [
+                { label: 'Global', target: vscode.ConfigurationTarget.Global },
+                {
+                    label: 'Workspace',
+                    target: vscode.ConfigurationTarget.Workspace,
+                },
+            ],
+            {
+                placeHolder: 'Select the scope for which you want to add the custom dataset',
+            },
+        )
+        .then((selection) => selection?.target);
 
     if (!scope) {
         return;
     }
 
     const elementType = await vscode.window.showQuickPick(Object.values(CustomDatasetElementType), {
-        placeHolder: "Select an element type",
+        placeHolder: 'Select an element type',
     });
 
     if (!elementType) {
@@ -45,7 +66,7 @@ export async function addCustomDataset() {
     }
 
     const source = await vscode.window.showQuickPick(Object.values(CustomDatasetSource), {
-        placeHolder: "Select a source",
+        placeHolder: 'Select a source',
     });
 
     if (!source) {
@@ -58,14 +79,14 @@ export async function addCustomDataset() {
 
     const fileUri = await vscode.window.showOpenDialog({
         canSelectMany: false,
-        openLabel: "Select a file",
+        openLabel: 'Select a file',
         filters: {
-            "JSON Files": ["json"],
+            'JSON Files': ['json'],
         },
     });
 
     if (!fileUri || fileUri.length === 0) {
-        vscode.window.showInformationMessage("No file selected.");
+        vscode.window.showInformationMessage('No file selected.');
         return;
     }
 
@@ -75,7 +96,7 @@ export async function addCustomDataset() {
     for (const uri of fileUri) {
         try {
             const fileContent = await vscode.workspace.fs.readFile(uri);
-            const data = Buffer.from(fileContent).toString("utf8");
+            const data = Buffer.from(fileContent).toString('utf8');
 
             if (elementType === CustomDatasetElementType.ENUM) {
                 const enumDataset = JSON.parse(data) as EnumDataset;
@@ -83,8 +104,7 @@ export async function addCustomDataset() {
                     vscode.window.showErrorMessage(`Error parsing file content.`);
                     continue;
                 }
-            }
-            else {
+            } else {
                 const mechanicdataset = JSON.parse(data) as MechanicDataset;
                 if (!mechanicdataset) {
                     vscode.window.showErrorMessage(`Error parsing file content.`);
@@ -103,20 +123,22 @@ export async function addCustomDataset() {
             elementType as CustomDatasetElementType,
             source as CustomDatasetSource,
             uri.toString(),
-            scope
+            scope,
         );
     }
 }
 
-
-export async function addCustomDatasetFromLink(elementtype: string, scope: vscode.ConfigurationTarget) {
+export async function addCustomDatasetFromLink(
+    elementtype: string,
+    scope: vscode.ConfigurationTarget,
+) {
     const pathOrUrl = await vscode.window.showInputBox({
-        placeHolder: "Enter a path or URL",
-        prompt: "Enter a path or URL",
+        placeHolder: 'Enter a path or URL',
+        prompt: 'Enter a path or URL',
     });
 
     if (!pathOrUrl) {
-        vscode.window.showInformationMessage("No path or URL provided.");
+        vscode.window.showInformationMessage('No path or URL provided.');
         return;
     }
 
@@ -129,19 +151,25 @@ export async function addCustomDatasetFromLink(elementtype: string, scope: vscod
             elementtype as CustomDatasetElementType,
             CustomDatasetSource.LINK,
             uri.toString(),
-            scope
+            scope,
         );
 
         vscode.window.showInformationMessage(`Successfully added dataset from: ${uri.toString()}`);
     } catch (err) {
+        logError(err);
         vscode.window.showErrorMessage(`Invalid URL or path: ${pathOrUrl}`);
     }
 }
 
-async function finalizeCustomDatasetAddition(elementType: CustomDatasetElementType, source: CustomDatasetSource, pathOrUrl: string, scope: vscode.ConfigurationTarget) {
+async function finalizeCustomDatasetAddition(
+    elementType: CustomDatasetElementType,
+    source: CustomDatasetSource,
+    pathOrUrl: string,
+    scope: vscode.ConfigurationTarget,
+) {
     const [config, existingMappings] = getCustomDatasetConfiguration();
     existingMappings.push({ elementType, source, pathOrUrl });
-    await config.update("customDatasets", existingMappings, scope);
+    await config.update('customDatasets', existingMappings, scope);
 
     vscode.window.showInformationMessage(`Mapping added: ${elementType} -> ${pathOrUrl}`);
 
@@ -150,33 +178,35 @@ async function finalizeCustomDatasetAddition(elementType: CustomDatasetElementTy
 }
 
 export function getCustomDatasetConfiguration(): [vscode.WorkspaceConfiguration, CustomDataset[]] {
-    const config = vscode.workspace.getConfiguration("MythicScribe");
-    const existingMappings = config.get<CustomDataset[]>("customDatasets") || [];
+    const config = vscode.workspace.getConfiguration('MythicScribe');
+    const existingMappings = config.get<CustomDataset[]>('customDatasets') || [];
 
     return [config, existingMappings];
 }
 
 export async function loadCustomDatasets() {
     const customDatasets = getCustomDatasetConfiguration()[1];
-    console.log("Custom datasets:", customDatasets);
 
     for (const entry in customDatasets) {
         const dataset = customDatasets[entry];
         if (dataset.elementType === CustomDatasetElementType.ENUM) {
-            const fileName = dataset.pathOrUrl.split('/').reverse()[0].replace('.json', '').toUpperCase();
+            const fileName = dataset.pathOrUrl
+                .split('/')
+                .reverse()[0]
+                .replace('.json', '')
+                .toUpperCase();
             EnumInfo[fileName] = newEnumDetail(null, false);
             if (dataset.source === CustomDatasetSource.LOCALFILE) {
-                EnumInfo[fileName].dataset = await loadLocalEnumDataset(decodeURIComponent(vscode.Uri.parse(dataset.pathOrUrl).path));
-            }
-            else if (dataset.source === CustomDatasetSource.LINK) {
+                EnumInfo[fileName].dataset = await loadLocalEnumDataset(
+                    decodeURIComponent(vscode.Uri.parse(dataset.pathOrUrl).path),
+                );
+            } else if (dataset.source === CustomDatasetSource.LINK) {
                 EnumInfo[fileName].dataset = await fetchEnumDatasetFromLink(dataset.pathOrUrl);
             }
-        }
-        else {
+        } else {
             if (dataset.source === CustomDatasetSource.LOCALFILE) {
                 await loadLocalCustomDataset(dataset);
-            }
-            else if (dataset.source === CustomDatasetSource.LINK) {
+            } else if (dataset.source === CustomDatasetSource.LINK) {
                 await loadLinkCustomDataset(dataset);
             }
         }

@@ -1,5 +1,10 @@
-
-export function generateNumbersInRange(min: number, max: number, step: number, float: boolean = false, start: number | null = null): string[] {
+export function generateNumbersInRange(
+    min: number,
+    max: number,
+    step: number,
+    float: boolean = false,
+    start: number | null = null,
+): string[] {
     const result = [];
 
     if (start) {
