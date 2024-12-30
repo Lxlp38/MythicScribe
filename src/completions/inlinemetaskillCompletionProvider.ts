@@ -1,6 +1,6 @@
 import * as vscode from 'vscode';
 import * as yamlutils from '../utils/yamlutils';
-import { keyAliases } from '../../objectInfos';
+import { keyAliases } from '../objectInfos';
 
 
 export function inlineMetaskillCompletionProvider(){

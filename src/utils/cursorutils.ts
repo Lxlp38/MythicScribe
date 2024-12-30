@@ -1,6 +1,6 @@
 import * as vscode from 'vscode';
 import { getAttributeDataByName, getMechanicDataByName } from './mechanicutils';
-import { ObjectInfo, ObjectType } from '../../objectInfos';
+import { ObjectInfo, ObjectType } from '../objectInfos';
 
 /**
  * Function to find the object linked to an unbalanced '{' in the format object{attribute1=value1;attribute2=value2}

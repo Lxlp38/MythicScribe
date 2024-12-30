@@ -1,15 +1,16 @@
 import * as vscode from 'vscode';
-import { MobFileObjects } from '../../../schemas/mobFileObjects';
+import { ItemFileObjects } from '../../schemas/itemfileObjects';
 import { generateFileCompletion } from '../../utils/completionhelper';
 
-export function mobFileCompletionProvider() {
+export function itemFileCompletionProvider(){
     return vscode.languages.registerCompletionItemProvider(
         ['mythicscript', 'yaml'],
         {
             async provideCompletionItems(document: vscode.TextDocument, position: vscode.Position, _token: vscode.CancellationToken, context: vscode.CompletionContext) {
-
-                return generateFileCompletion(document, position, context, MobFileObjects);
+    
+                return generateFileCompletion(document, position, context, ItemFileObjects);
             }
         }, "\n"
     );
 }
+

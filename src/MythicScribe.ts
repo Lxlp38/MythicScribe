@@ -1,30 +1,30 @@
 import * as vscode from 'vscode';
 
-import * as config from './imports/utils/configutils';
+import * as config from './utils/configutils';
 
-import { getFormatter } from './imports/formatter/formatter';
+import { getFormatter } from './formatter/formatter';
 
-import { hoverProvider } from './imports/hovers/hoverprovider';
+import { hoverProvider } from './hovers/hoverprovider';
 
-import { inlineConditionCompletionProvider } from './imports/completions/inlineconditionCompletionProvider';
-import { mechanicCompletionProvider } from './imports/completions/mechanicsCompletionProvider';
-import { conditionCompletionProvider } from './imports/completions/conditionsCompletionProvider';
-import { targeterCompletionProvider } from './imports/completions/targeterCompletionProvider';
-import { attributeCompletionProvider, attributeValueCompletionProvider } from './imports/completions/attributeCompletionProvider';
-import { inlineMetaskillCompletionProvider } from './imports/completions/inlinemetaskillCompletionProvider';
+import { inlineConditionCompletionProvider } from './completions/inlineconditionCompletionProvider';
+import { mechanicCompletionProvider } from './completions/mechanicsCompletionProvider';
+import { conditionCompletionProvider } from './completions/conditionsCompletionProvider';
+import { targeterCompletionProvider } from './completions/targeterCompletionProvider';
+import { attributeCompletionProvider, attributeValueCompletionProvider } from './completions/attributeCompletionProvider';
+import { inlineMetaskillCompletionProvider } from './completions/inlinemetaskillCompletionProvider';
 
-import { mechaniclineCompletionProvider } from './imports/completions/mechaniclineCompletionProvider';
+import { mechaniclineCompletionProvider } from './completions/mechaniclineCompletionProvider';
 
 
-import { removeBracketsTextListener } from './imports/textchanges/bracketsremover';
-import { shortcutsProvider } from './imports/textchanges/shortcuts';
-import { loadDatasets } from './datasets';
+import { removeBracketsTextListener } from './textchanges/bracketsremover';
+import { shortcutsProvider } from './textchanges/shortcuts';
+import { loadDatasets } from './datasets/datasets';
 
-import { metaskillFileCompletionProvider } from './imports/completions/filecompletions/metaskillfileCompletionProvider';
-import { mobFileCompletionProvider } from './imports/completions/filecompletions/mobfileCompletionProvider';
-import { itemFileCompletionProvider } from './imports/completions/filecompletions/itemfileCompletionProvider';
-import { addCustomDataset } from './customDatasets';
-import { triggerfileCompletionProvider } from './imports/completions/filecompletions/triggerfileCompletionProvider';
+import { metaskillFileCompletionProvider } from './completions/filecompletions/metaskillfileCompletionProvider';
+import { mobFileCompletionProvider } from './completions/filecompletions/mobfileCompletionProvider';
+import { itemFileCompletionProvider } from './completions/filecompletions/itemfileCompletionProvider';
+import { addCustomDataset } from './datasets/customDatasets';
+import { triggerfileCompletionProvider } from './completions/filecompletions/triggerfileCompletionProvider';
 import { keyAliases, ObjectType, TriggerType } from './objectInfos';
 
 export let ctx: vscode.ExtensionContext;

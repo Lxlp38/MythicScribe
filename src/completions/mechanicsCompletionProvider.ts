@@ -1,6 +1,6 @@
 import * as vscode from 'vscode';
 import * as yamlutils from '../utils/yamlutils';
-import { keyAliases, Mechanic, ObjectInfo, ObjectType } from '../../objectInfos';
+import { keyAliases, Mechanic, ObjectInfo, ObjectType } from '../objectInfos';
 import { listCompletion } from '../utils/completionhelper';
 
 

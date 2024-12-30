@@ -1,4 +1,5 @@
-import { FileObjectMap, FileObjectTypes, generateNumbersInRange } from '../objectInfos';
+import { generateNumbersInRange } from '../utils/schemautils';
+import { FileObjectMap, FileObjectTypes } from '../objectInfos';
 
 
 export const MetaskillFileObjects: FileObjectMap = {

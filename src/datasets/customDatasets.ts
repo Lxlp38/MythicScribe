@@ -1,7 +1,7 @@
 import * as vscode from "vscode";
-import { EnumDataset, EnumInfo, MechanicDataset, newEnumDetail, ObjectInfo, ObjectType } from "./objectInfos";
+import { EnumDataset, EnumInfo, MechanicDataset, newEnumDetail, ObjectInfo, ObjectType } from "../objectInfos";
 import { fetchEnumDatasetFromLink, fetchMechanicDatasetFromLink, loadDatasets, loadLocalEnumDataset, loadLocalMechanicDataset } from "./datasets";
-import { ctx } from "./MythicScribe";
+import { ctx } from "../MythicScribe";
 
 export enum CustomDatasetElementType {
     MECHANIC = "Mechanic",

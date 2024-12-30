@@ -1,4 +1,4 @@
-import { Attribute, Mechanic, ObjectInfo, ObjectType } from '../../objectInfos';
+import { Attribute, Mechanic, ObjectInfo, ObjectType } from '../objectInfos';
 
 
 function includesIgnoreCase(arr: string[], value: string) {

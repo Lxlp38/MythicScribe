@@ -1,8 +1,8 @@
 import * as vscode from 'vscode';
-import * as yamlutils from '../../utils/yamlutils';
-import { keyAliases, Mechanic, ObjectInfo, ObjectType } from '../../../objectInfos';
+import { keyAliases, Mechanic, ObjectInfo, ObjectType } from '../../objectInfos';
+import { TriggerType } from '../../objectInfos';
 import { checkShouldComplete } from '../../utils/completionhelper';
-import { TriggerType } from '../../../objectInfos';
+import * as yamlutils from '../../utils/yamlutils';
 
 export function triggerfileCompletionProvider(type: TriggerType, parentKey: string[] = keyAliases.Skills) {
     return vscode.languages.registerCompletionItemProvider(

@@ -1,10 +1,10 @@
 import * as vscode from 'vscode';
-import * as yamlutils from '../utils/yamlutils';
-import { ObjectType, keyAliases, EnumInfo, ObjectInfo, Attribute, Mechanic, EnumDatasetValue } from '../../objectInfos';
-import { getAllAttributes, getMechanicDataByName } from '../utils/mechanicutils';
-import { getObjectLinkedToAttribute } from '../utils/cursorutils';
+import { ObjectType, keyAliases, EnumInfo, ObjectInfo, Attribute, Mechanic, EnumDatasetValue } from '../objectInfos';
 import { checkShouldComplete } from '../utils/completionhelper';
+import * as yamlutils from '../utils/yamlutils';
+import { getAllAttributes, getMechanicDataByName } from '../utils/mechanicutils';
 import { getAttributeAliasUsedInCompletions } from '../utils/configutils';
+import { getObjectLinkedToAttribute } from '../utils/cursorutils';
 
 
 export function attributeCompletionProvider() {

@@ -1,7 +1,7 @@
 import * as vscode from 'vscode';
 import * as yamlutils from './yamlutils';
 import { previousSymbol } from './yamlutils';
-import { EnumDatasetValue, EnumInfo, FileObject, FileObjectMap, FileObjectTypes, Mechanic, MechanicDataset } from '../../objectInfos';
+import { FileObjectMap, MechanicDataset, Mechanic, FileObject, FileObjectTypes, EnumInfo, EnumDatasetValue } from '../objectInfos';
 
 
 export async function generateFileCompletion(document: vscode.TextDocument, position: vscode.Position, context: vscode.CompletionContext, type: FileObjectMap): Promise<vscode.CompletionItem[] | undefined> {

@@ -1,5 +1,5 @@
 import * as vscode from 'vscode';
-import { enableSubscriptions, disableSubscriptions, enableSkillfileSubscriptions, disableSkillfileSubscriptions, enableMobfileSubscriptions, disableMobfileSubscriptions, enableItemFileSubscriptions, disableItemFileSubscriptions } from '../../MythicScribe';
+import { enableSubscriptions, disableSubscriptions, enableSkillfileSubscriptions, disableSkillfileSubscriptions, enableMobfileSubscriptions, disableMobfileSubscriptions, enableItemFileSubscriptions, disableItemFileSubscriptions } from '../MythicScribe';
 
 
 function resetFileChecks() {

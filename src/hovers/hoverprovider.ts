@@ -1,8 +1,8 @@
 import * as vscode from 'vscode';
-import { keyAliases, ObjectType, Mechanic, Attribute, FileObjectMap, FileObjectTypes } from '../../objectInfos';
-import { ItemFileObjects } from '../../schemas/itemfileObjects';
-import { MobFileObjects } from '../../schemas/mobFileObjects';
-import { MetaskillFileObjects } from '../../schemas/metaskillFileObjects';
+import { keyAliases, ObjectType, Mechanic, Attribute, FileObjectMap, FileObjectTypes } from '../objectInfos';
+import { ItemFileObjects } from '../schemas/itemfileObjects';
+import { MobFileObjects } from '../schemas/mobFileObjects';
+import { MetaskillFileObjects } from '../schemas/metaskillFileObjects';
 import * as yamlutils from '../utils/yamlutils';
 import { isItemFile, isMetaskillFile, isMobFile } from '../utils/configutils';
 import { getCursorSkills, getCursorObject } from '../utils/cursorutils';

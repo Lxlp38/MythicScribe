@@ -1,6 +1,6 @@
 import * as vscode from 'vscode';
-import * as config from './imports/utils/configutils';
-import { EnumInfo, EnumDataset, EnumDetail, Mechanic, MechanicDataset, ObjectInfo, ObjectType, newEnumDetail } from './objectInfos';
+import * as config from '../utils/configutils';
+import { EnumInfo, EnumDataset, EnumDetail, Mechanic, MechanicDataset, ObjectInfo, ObjectType, newEnumDetail } from '../objectInfos';
 import { loadCustomDatasets } from './customDatasets';
 
 
