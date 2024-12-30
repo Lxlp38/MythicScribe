@@ -1,7 +1,7 @@
 import * as vscode from 'vscode';
 
 import { keyAliases, Mechanic, ObjectInfo, ObjectType, TriggerType } from '../../objectInfos';
-import { checkShouldComplete } from '../../utils/completionhelper';
+import { checkShouldPrefixComplete } from '../../utils/completionhelper';
 import * as yamlutils from '../../utils/yamlutils';
 
 export function triggerfileCompletionProvider(
@@ -22,7 +22,7 @@ export function triggerfileCompletionProvider(
                     return undefined;
                 }
 
-                if (!checkShouldComplete(document, position, context, ['~'])) {
+                if (!checkShouldPrefixComplete(document, position, context, ['~'])) {
                     return undefined;
                 }
 

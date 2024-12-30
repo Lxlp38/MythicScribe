@@ -1,6 +1,5 @@
 import * as vscode from 'vscode';
 
-import * as yamlutils from '../utils/yamlutils';
 import { ObjectInfo, ObjectType, keyAliases } from '../objectInfos';
 import { addMechanicCompletions, checkShouldComplete } from '../utils/completionhelper';
 
@@ -14,15 +13,15 @@ export function inlineConditionCompletionProvider() {
                 _token: vscode.CancellationToken,
                 context: vscode.CompletionContext,
             ) {
-                const keys = yamlutils.getParentKeys(document, position);
-                if (!keyAliases.Skills.includes(keys[0])) {
+                if (
+                    !checkShouldComplete(document, position, context, keyAliases.Skills, [
+                        '?',
+                        '!',
+                        '~',
+                    ])
+                ) {
                     return undefined;
                 }
-
-                if (!checkShouldComplete(document, position, context, ['?', '!', '~'])) {
-                    return undefined;
-                }
-
                 const completionItems: vscode.CompletionItem[] = [];
 
                 const charBefore0 = document.getText(

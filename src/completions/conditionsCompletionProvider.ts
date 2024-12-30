@@ -3,7 +3,7 @@ import * as vscode from 'vscode';
 import * as yamlutils from '../utils/yamlutils';
 import { keyAliases, ObjectInfo, ObjectType } from '../objectInfos';
 import { ConditionActions } from '../schemas/conditionActions';
-import { addMechanicCompletions } from '../utils/completionhelper';
+import { addMechanicCompletions, checkShouldKeyComplete } from '../utils/completionhelper';
 
 export function conditionCompletionProvider() {
     return vscode.languages.registerCompletionItemProvider(
@@ -15,8 +15,7 @@ export function conditionCompletionProvider() {
                 _token: vscode.CancellationToken,
                 context: vscode.CompletionContext,
             ) {
-                const keys = yamlutils.getParentKeys(document, position);
-                if (!keyAliases.Conditions.includes(keys[0])) {
+                if (!checkShouldKeyComplete(document, position, keyAliases.Conditions)) {
                     return undefined;
                 }
 

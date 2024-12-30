@@ -1,8 +1,7 @@
 import * as vscode from 'vscode';
 
-import * as yamlutils from '../utils/yamlutils';
 import { Mechanic, ObjectInfo, ObjectType } from '../objectInfos';
-import { listCompletion } from '../utils/completionhelper';
+import { checkShouldKeyComplete, listCompletion } from '../utils/completionhelper';
 
 export function mechanicCompletionProvider(
     type: ObjectType,
@@ -18,7 +17,7 @@ export function mechanicCompletionProvider(
                 _token: vscode.CancellationToken,
                 context: vscode.CompletionContext,
             ) {
-                if (!keyAliases.includes(yamlutils.getParentKeys(document, position)[0])) {
+                if (!checkShouldKeyComplete(document, position, keyAliases)) {
                     return undefined;
                 }
 

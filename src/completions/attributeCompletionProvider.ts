@@ -9,7 +9,7 @@ import {
     Mechanic,
     EnumDatasetValue,
 } from '../objectInfos';
-import { checkShouldComplete } from '../utils/completionhelper';
+import { checkShouldPrefixComplete } from '../utils/completionhelper';
 import * as yamlutils from '../utils/yamlutils';
 import { getAllAttributes, getMechanicDataByName } from '../utils/mechanicutils';
 import { getAttributeAliasUsedInCompletions } from '../utils/configutils';
@@ -25,7 +25,7 @@ export function attributeCompletionProvider() {
                 _token: vscode.CancellationToken,
                 context: vscode.CompletionContext,
             ) {
-                if (!checkShouldComplete(document, position, context, ['{', ';'])) {
+                if (!checkShouldPrefixComplete(document, position, context, ['{', ';'])) {
                     return undefined;
                 }
 
@@ -122,7 +122,7 @@ export function attributeValueCompletionProvider() {
                 token: vscode.CancellationToken,
                 context: vscode.CompletionContext,
             ) {
-                if (!checkShouldComplete(document, position, context, ['=', ','])) {
+                if (!checkShouldPrefixComplete(document, position, context, ['=', ','])) {
                     return undefined;
                 }
 

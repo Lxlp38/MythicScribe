@@ -74,6 +74,31 @@ export function checkShouldComplete(
     document: vscode.TextDocument,
     position: vscode.Position,
     context: vscode.CompletionContext,
+    keylist: string[],
+    symbol: string[],
+) {
+    return (
+        checkShouldKeyComplete(document, position, keylist) &&
+        checkShouldPrefixComplete(document, position, context, symbol)
+    );
+}
+
+export function checkShouldKeyComplete(
+    document: vscode.TextDocument,
+    position: vscode.Position,
+    keylist: string[],
+) {
+    const keys = yamlutils.getParentKeys(document, position);
+    if (!keylist.includes(keys[0])) {
+        return false;
+    }
+    return true;
+}
+
+export function checkShouldPrefixComplete(
+    document: vscode.TextDocument,
+    position: vscode.Position,
+    context: vscode.CompletionContext,
     symbol: string[],
 ): boolean {
     if (yamlutils.isAfterComment(document, position)) {
