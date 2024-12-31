@@ -1,7 +1,7 @@
 {
   "name": "mythicscribe",
   "displayName": "MythicScribe",
-  "version": "1.4.0",
+  "version": "1.5.0",
   "icon": "assets/icon.png",
   "description": "Offers support for MythicMobs scripting",
   "license": "SEE LICENSE IN LICENSE.txt",
@@ -237,10 +237,12 @@
   "scripts": {
     "compile": "npm run lint && npm run check-types && node esbuild.js",
     "check-types": "tsc --noEmit",
-    "watch": "npm-run-all -p watch:*",
-    "watch:esbuild": "node esbuild.js --watch",
-    "watch:tsc": "tsc --noEmit --watch --project tsconfig.json",
-    "lint": "cls && eslint src/ --fix && echo 'Linting done.'",
+    "w": "npm-run-all -p watch:*",
+    "watch:clear": "nodemon --quiet --watch src --ext ts --exec cls",
+    "watch:esbuild": "nodemon --quiet --watch src --ext ts --exec node esbuild.js",
+    "watch:tsc": "nodemon --quiet --watch src --ext ts --exec tsc --noEmit --project tsconfig.json",
+    "watch:lint": "nodemon --quiet --watch src --ext ts --exec eslint src/ --fix --cache",
+    "lint": "cls && eslint src/ --fix --cache && echo 'Linting done.'",
     "vscode:prepublish": "npm run package",
     "package": "npm run check-types && node esbuild.js --production",
     "build": "node esbuild.js",
@@ -261,6 +263,7 @@
     "eslint-plugin-import": "^2.31.0",
     "eslint-plugin-prettier": "^5.2.1",
     "eslint-plugin-promise": "^7.2.1",
+    "nodemon": "^3.1.9",
     "npm-run-all": "^4.1.5",
     "prettier": "^3.4.2",
     "typescript": "^5.6.2"

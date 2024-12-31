@@ -107,6 +107,21 @@
     },
     {
         "plugin": "MythicMobs",
+        "class": "BreakDoorGoal",
+        "extends": "WrappedPathfindingGoal",
+        "implements": [
+            "PathfinderHolder"
+        ],
+        "name": [
+            "breakDoor",
+            "breakDoors"
+        ],
+        "description": "Causes the mob to break down doors it runs into",
+        "link": "https://git.lumine.io/mythiccraft/MythicMobs/-/wikis/Mobs/ai/goals/BreakDoor",
+        "attributes": []
+    },
+    {
+        "plugin": "MythicMobs",
         "class": "BreedGoal",
         "extends": "Animal",
         "implements": [
@@ -133,6 +148,32 @@
     },
     {
         "plugin": "MythicMobs",
+        "class": "ClearGoal",
+        "extends": "WrappedPathfindingGoal",
+        "name": [
+            "clear"
+        ],
+        "description": "Clears all of the mob's AI",
+        "link": "https://git.lumine.io/mythiccraft/MythicMobs/-/wikis/Mobs/Custom-AI",
+        "attributes": []
+    },
+    {
+        "plugin": "MythicMobs",
+        "class": "CreeperSwellGoal",
+        "extends": "WrappedPathfindingGoal",
+        "implements": [
+            "PathfinderHolder"
+        ],
+        "name": [
+            "creeperswell",
+            "creeperexplode"
+        ],
+        "description": "Makes a creeper want to explode on its target",
+        "link": "https://git.lumine.io/mythiccraft/MythicMobs/-/wikis/Mobs/ai/goals/CreeperSwell",
+        "attributes": []
+    },
+    {
+        "plugin": "MythicMobs",
         "class": "CrossbowAttackGoal",
         "extends": "WrappedPathfindingGoal",
         "implements": [
@@ -141,7 +182,7 @@
         "name": [
             "crossbowAttack"
         ],
-        "description": null,
+        "description": "Attack with a crossbow. Only Piglins and Pillagers can use crossbowAttack goal as long as they're holding a crossbow.",
         "link": "https://git.lumine.io/mythiccraft/MythicMobs/-/wikis/Mobs/ai/goals/crossbowattack",
         "attributes": []
     },
@@ -172,6 +213,20 @@
                 "default_value": ""
             }
         ]
+    },
+    {
+        "plugin": "MythicMobs",
+        "class": "EatGrassGoal",
+        "extends": "WrappedPathfindingGoal",
+        "implements": [
+            "PathfinderHolder"
+        ],
+        "name": [
+            "eatGrass"
+        ],
+        "description": "Makes the mob, occasionally, eat grass.",
+        "link": "https://git.lumine.io/mythiccraft/MythicMobs/-/wikis/Mobs/ai/goals/EatGrass",
+        "attributes": []
     },
     {
         "plugin": "MythicMobs",
@@ -498,6 +553,195 @@
     },
     {
         "plugin": "MythicMobs",
+        "class": "FloatGoal",
+        "extends": "WrappedPathfindingGoal",
+        "implements": [
+            "PathfinderHolder"
+        ],
+        "name": [
+            "float"
+        ],
+        "description": "Makes the mob swim in water/not",
+        "link": "https://git.lumine.io/mythiccraft/MythicMobs/-/wikis/Mobs/ai/goals/Float",
+        "attributes": []
+    },
+    {
+        "plugin": "MythicMobs",
+        "class": "FollowPathGoal",
+        "extends": "Pathfinder",
+        "implements": [
+            "PathfindingGoal"
+        ],
+        "name": [
+            "followRoute",
+            "followPath"
+        ],
+        "description": "Makes the mob follow a specific path, one time only.",
+        "link": "https://git.lumine.io/mythiccraft/MythicMobs/-/wikis/Mobs/ai/goals/FollowRoute",
+        "attributes": [
+            {
+                "name": [
+                    "points",
+                    "p"
+                ],
+                "type": "LocationList",
+                "description": "The points of the path, in a x1,y1,z1;x2,y2,z2;x3,y3,z3; syntax",
+                "link": "https://git.lumine.io/mythiccraft/MythicMobs/-/wikis/Mobs/ai/goals/FollowRoute",
+                "default_value": ""
+            },
+            {
+                "name": [
+                    "speed",
+                    "s"
+                ],
+                "type": "Float",
+                "description": "The speed of the movement",
+                "link": "https://git.lumine.io/mythiccraft/MythicMobs/-/wikis/Mobs/ai/goals/FollowRoute",
+                "default_value": ""
+            },
+            {
+                "name": [
+                    "tolerance",
+                    "t"
+                ],
+                "type": "Double",
+                "description": "The minimum distance the mob must be from a point before moving to the next one",
+                "link": "https://git.lumine.io/mythiccraft/MythicMobs/-/wikis/Mobs/ai/goals/FollowRoute",
+                "default_value": "3"
+            }
+        ]
+    },
+    {
+        "plugin": "MythicMobs",
+        "class": "GoToLocationGoal",
+        "extends": "Pathfinder",
+        "implements": [
+            "PathfindingGoal"
+        ],
+        "name": [
+            "goToLocation",
+            "goto"
+        ],
+        "description": "Makes the mob go to the specified location. Notice: Followrange must more than the distance between location and mob",
+        "link": "https://git.lumine.io/mythiccraft/MythicMobs/-/wikis/Mobs/ai/goals/GoToLocation",
+        "attributes": []
+    },
+    {
+        "plugin": "MythicMobs",
+        "class": "GoToOwnerGoal",
+        "extends": "Pathfinder",
+        "implements": [
+            "PathfindingGoal"
+        ],
+        "name": [
+            "goToOwner"
+        ],
+        "description": "Makes the mob move towards its [owner](https://git.lumine.io/mythiccraft/MythicMobs/-/wikis/Skills/Targeters/Owner) when beyond a certain distance.  \n[Followrange](https://git.lumine.io/mythiccraft/MythicMobs/-/wikis/Mobs/Options#followrange) must be more than the distance between the owner and the mob)",
+        "link": "https://git.lumine.io/mythiccraft/MythicMobs/-/wikis/Mobs/ai/goals/GoToOwner",
+        "attributes": [
+            {
+                "name": [
+                    "followrange",
+                    "fr",
+                    "r",
+                    "maxrange"
+                ],
+                "type": "Double",
+                "description": "Distance after which the mob will start to follow the owner",
+                "link": "https://git.lumine.io/mythiccraft/MythicMobs/-/wikis/Mobs/ai/goals/GoToOwner",
+                "default_value": "4"
+            },
+            {
+                "name": [
+                    "minrange",
+                    "mr"
+                ],
+                "type": "Double",
+                "description": "Distance in which the mob will stop following the owner",
+                "link": "https://git.lumine.io/mythiccraft/MythicMobs/-/wikis/Mobs/ai/goals/GoToOwner",
+                "default_value": "4"
+            },
+            {
+                "name": [
+                    "speed",
+                    "s"
+                ],
+                "type": "Float",
+                "description": "Speed of the movement",
+                "link": "https://git.lumine.io/mythiccraft/MythicMobs/-/wikis/Mobs/ai/goals/GoToOwner",
+                "default_value": "1.0"
+            },
+            {
+                "name": [
+                    "droptarget",
+                    "dt"
+                ],
+                "type": "Boolean",
+                "description": "Whether the current target should be dropped when the mob starts following the owner",
+                "link": "https://git.lumine.io/mythiccraft/MythicMobs/-/wikis/Mobs/ai/goals/GoToOwner",
+                "default_value": "true"
+            }
+        ]
+    },
+    {
+        "plugin": "MythicMobs",
+        "class": "GoToParentGoal",
+        "extends": "Pathfinder",
+        "implements": [
+            "PathfindingGoal"
+        ],
+        "name": [
+            "goToParent"
+        ],
+        "description": "Makes the mob move towards its [parent](https://git.lumine.io/mythiccraft/MythicMobs/-/wikis/Skills/Targeters/Parent) when beyond a certain distance.  \n[Followrange](https://git.lumine.io/mythiccraft/MythicMobs/-/wikis/Mobs/Options#followrange) must be more than the distance between the owner and the mob)",
+        "link": "https://git.lumine.io/mythiccraft/MythicMobs/-/wikis/Mobs/ai/goals/GoToParent",
+        "attributes": [
+            {
+                "name": [
+                    "followrange",
+                    "fr",
+                    "r",
+                    "maxrange"
+                ],
+                "type": "Double",
+                "description": "Distance after which the mob will start to follow the parent",
+                "link": "https://git.lumine.io/mythiccraft/MythicMobs/-/wikis/Mobs/ai/goals/GoToParent",
+                "default_value": "4"
+            },
+            {
+                "name": [
+                    "minrange",
+                    "mr"
+                ],
+                "type": "Double",
+                "description": "Distance in which the mob will stop following the parent",
+                "link": "https://git.lumine.io/mythiccraft/MythicMobs/-/wikis/Mobs/ai/goals/GoToParent",
+                "default_value": "4"
+            },
+            {
+                "name": [
+                    "speed",
+                    "s"
+                ],
+                "type": "Float",
+                "description": "Speed of the movement",
+                "link": "https://git.lumine.io/mythiccraft/MythicMobs/-/wikis/Mobs/ai/goals/GoToParent",
+                "default_value": "1.0"
+            },
+            {
+                "name": [
+                    "droptarget",
+                    "dt"
+                ],
+                "type": "Boolean",
+                "description": "Whether the current target should be dropped when the mob starts following the parent",
+                "link": "https://git.lumine.io/mythiccraft/MythicMobs/-/wikis/Mobs/ai/goals/GoToParent",
+                "default_value": "true"
+            }
+        ]
+    },
+    {
+        "plugin": "MythicMobs",
         "class": "GoToSpawnLocationGoal",
         "extends": "Pathfinder",
         "implements": [
@@ -507,7 +751,7 @@
             "goToSpawnLocation",
             "goToSpawn"
         ],
-        "description": null,
+        "description": "Makes the mob travel to its original spawn location.",
         "link": "https://git.lumine.io/mythiccraft/MythicMobs/-/wikis/Mobs/ai/goals/gotospawn",
         "attributes": [
             {
@@ -726,7 +970,7 @@
             "moveToBlock",
             "gotoblock"
         ],
-        "description": null,
+        "description": "Makes the mob move towards the specified block type.",
         "link": "https://git.lumine.io/mythiccraft/MythicMobs/-/wikis/Mobs/ai/goals/movetoblock",
         "attributes": [
             {
@@ -738,7 +982,8 @@
                 "type": "String",
                 "description": "The block type to target",
                 "link": "https://git.lumine.io/mythiccraft/MythicMobs/-/wikis/Mobs/ai/goals/movetoblock",
-                "default_value": ""
+                "default_value": "IRON_ORE",
+                "enum": "Material"
             },
             {
                 "name": [
@@ -750,7 +995,7 @@
                 "type": "Integer",
                 "description": "The radius in which to search for the block",
                 "link": "https://git.lumine.io/mythiccraft/MythicMobs/-/wikis/Mobs/ai/goals/movetoblock",
-                "default_value": ""
+                "default_value": "8"
             },
             {
                 "name": [
@@ -764,7 +1009,7 @@
                 "type": "Integer",
                 "description": "The y radius in which to search for the block",
                 "link": "https://git.lumine.io/mythiccraft/MythicMobs/-/wikis/Mobs/ai/goals/movetoblock",
-                "default_value": ""
+                "default_value": "2"
             },
             {
                 "name": [
@@ -774,7 +1019,7 @@
                 "type": "Double",
                 "description": "The speed of movement",
                 "link": "https://git.lumine.io/mythiccraft/MythicMobs/-/wikis/Mobs/ai/goals/movetoblock",
-                "default_value": ""
+                "default_value": "0.9"
             }
         ]
     },
@@ -829,5 +1074,222 @@
                 "default_value": "0.9"
             }
         ]
+    },
+    {
+        "plugin": "MythicMobs",
+        "class": "MoveTowardsConditionalGoal",
+        "extends": "WrappedPathfindingGoal",
+        "implements": [
+            "PathfinderHolder"
+        ],
+        "name": [
+            "moveTowardsTarget"
+        ],
+        "description": "Causes the mob to move towards its target",
+        "link": "https://git.lumine.io/mythiccraft/MythicMobs/-/wikis/Mobs/ai/goals/MoveTowardsTarget",
+        "attributes": [
+            {
+                "name": [
+                    "maxrange",
+                    "range",
+                    "r"
+                ],
+                "type": "Float",
+                "description": "The max range in which to engage this behavior",
+                "link": "https://git.lumine.io/mythiccraft/MythicMobs/-/wikis/Mobs/ai/goals/MoveTowardsTarget",
+                "default_value": "32.0"
+            }
+        ]
+    },
+    {
+        "plugin": "MythicMobs",
+        "class": "MoveTowardsRestrictionGoal",
+        "extends": "WrappedPathfindingGoal",
+        "implements": [
+            "PathfinderHolder"
+        ],
+        "name": [
+            "moveTowardsRestriction"
+        ],
+        "description": "Make a mob move towards its \"Restriction Point\" for some Entities (for instance, the village of a Villager)",
+        "link": "https://git.lumine.io/mythiccraft/MythicMobs/-/wikis/Mobs/ai/goals/MoveTowardsRestriction",
+        "attributes": []
+    },
+    {
+        "plugin": "MythicMobs",
+        "class": "OpenDoorGoal",
+        "extends": "WrappedPathfindingGoal",
+        "implements": [
+            "PathfinderHolder"
+        ],
+        "name": [
+            "openDoor",
+            "openDoors"
+        ],
+        "description": "The mob will open doors it runs into and close the door behind it",
+        "link": "https://git.lumine.io/mythiccraft/MythicMobs/-/wikis/Mobs/ai/goals/OpenDoor",
+        "attributes": []
+    },
+    {
+        "plugin": "MythicMobs",
+        "class": "PanicGoal",
+        "extends": "WrappedPathfindingGoal",
+        "implements": [
+            "PathfinderHolder"
+        ],
+        "name": [
+            "panic",
+            "panicWhenOnFire"
+        ],
+        "description": "Run around panicking when on fire and look for water",
+        "link": "https://git.lumine.io/mythiccraft/MythicMobs/-/wikis/Mobs/ai/goals/Panic",
+        "attributes": []
+    },
+    {
+        "plugin": "MythicMobs",
+        "class": "PatrolGoal",
+        "extends": "Pathfinder",
+        "implements": [
+            "PathfindingGoal"
+        ],
+        "name": [
+            "patrolRoute",
+            "patrol"
+        ],
+        "description": "Makes the mob follow a specific route, back and forth, multiple times",
+        "link": "https://git.lumine.io/mythiccraft/MythicMobs/-/wikis/Mobs/ai/goals/Patrol",
+        "attributes": [
+            {
+                "name": [
+                    "points",
+                    "p"
+                ],
+                "type": "LocationList",
+                "description": "The points of the route, in a x1,y1,z1;x2,y2,z2;x3,y3,z3; syntax",
+                "link": "https://git.lumine.io/mythiccraft/MythicMobs/-/wikis/Mobs/ai/goals/Patrol",
+                "default_value": ""
+            },
+            {
+                "name": [
+                    "speed",
+                    "s"
+                ],
+                "type": "Float",
+                "description": "The speed of the movement",
+                "link": "https://git.lumine.io/mythiccraft/MythicMobs/-/wikis/Mobs/ai/goals/Patrol",
+                "default_value": "1"
+            },
+            {
+                "name": [
+                    "tolerance",
+                    "t"
+                ],
+                "type": "Double",
+                "description": "The minimum distance the mob must be from a point before moving to the next one",
+                "link": "https://git.lumine.io/mythiccraft/MythicMobs/-/wikis/Mobs/ai/goals/Patrol",
+                "default_value": "3"
+            }
+        ]
+    },
+    {
+        "plugin": "MythicMobs",
+        "class": "RandomFlyGoal",
+        "extends": "WrappedPathfindingGoal",
+        "implements": [
+            "PathfinderHolder"
+        ],
+        "name": [
+            "randomFly"
+        ],
+        "description": "Fly around randomly",
+        "link": "https://git.lumine.io/mythiccraft/MythicMobs/-/wikis/Mobs/ai/goals/RandomFly",
+        "attributes": []
+    },
+    {
+        "plugin": "MythicMobs",
+        "class": "RandomLookAroundGoal",
+        "extends": "WrappedPathfindingGoal",
+        "implements": [
+            "PathfinderHolder"
+        ],
+        "name": [
+            "randomLookAround",
+            "lookAround"
+        ],
+        "description": "The mob will randomly look around",
+        "link": "https://git.lumine.io/mythiccraft/MythicMobs/-/wikis/Mobs/ai/goals/RandomLookAround",
+        "attributes": []
+    },
+    {
+        "plugin": "MythicMobs",
+        "class": "RandomNodGoal",
+        "extends": "Pathfinder",
+        "implements": [
+            "PathfindingGoal"
+        ],
+        "name": [
+            "randomNod"
+        ],
+        "description": "Makes the mob randomly nod their head",
+        "link": "https://git.lumine.io/mythiccraft/MythicMobs/-/wikis/Mobs/ai/goals/RandomNod",
+        "attributes": []
+    },
+    {
+        "plugin": "MythicMobs",
+        "class": "RandomStrollGoal",
+        "extends": "WrappedPathfindingGoal",
+        "implements": [
+            "PathfinderHolder"
+        ],
+        "name": [
+            "randomStroll"
+        ],
+        "description": "The mob will randomly walk around",
+        "link": "https://git.lumine.io/mythiccraft/MythicMobs/-/wikis/Mobs/ai/goals/RandomStroll",
+        "attributes": []
+    },
+    {
+        "plugin": "MythicMobs",
+        "class": "RestrictSunGoal",
+        "extends": "WrappedPathfindingGoal",
+        "implements": [
+            "PathfinderHolder"
+        ],
+        "name": [
+            "restrictSun",
+            "avoidSun",
+            "avoidSunlight"
+        ],
+        "description": "Will prevent the mob from entering sunlight",
+        "link": "https://git.lumine.io/mythiccraft/MythicMobs/-/wikis/Mobs/ai/goals/RestrictSun",
+        "attributes": []
+    },
+    {
+        "plugin": "MythicMobs",
+        "class": "SpiderAttackGoal",
+        "extends": "WrappedPathfindingGoal",
+        "implements": [
+            "PathfinderHolder"
+        ],
+        "name": [
+            "spiderAttack"
+        ],
+        "description": "Uses the attack a spider would",
+        "link": "https://git.lumine.io/mythiccraft/MythicMobs/-/wikis/Mobs/ai/goals/SpiderAttack",
+        "attributes": []
+    },
+    {
+        "plugin": "MythicMobs",
+        "class": "ZombieAttackGoal",
+        "extends": "WrappedPathfindingGoal",
+        "implements": [
+            "PathfinderHolder"
+        ],
+        "name": [
+            "zombieAttack"
+        ],
+        "description": "Zombie melee attack",
+        "link": "https://git.lumine.io/mythiccraft/MythicMobs/-/wikis/Mobs/ai/goals/ZombieAttack",
+        "attributes": []
     }
 ]

@@ -136,21 +136,21 @@ export const EnumInfo: EnumInfo = {
     ADDTRADE_ACTION: newEnumDetail('mythic/mechanicScoped/addtrade_action.json', false),
     DISPLAYTRANSFORMATION_ACTION: newEnumDetail(
         'mythic/mechanicScoped/displaytransformation_action.json',
-        false,
+        false
     ),
     PROJECTILE_BULLETTYPE: newEnumDetail('mythic/mechanicScoped/projectile_bullettype.json', false),
     PROJECTILE_TYPE: newEnumDetail('mythic/mechanicScoped/projectile_type.json', false),
     PROJECTILE_HIGHACCURACYMODE: newEnumDetail(
         'mythic/mechanicScoped/projectile_highaccuracymode.json',
-        false,
+        false
     ),
     MODIFYPROJECTILE_ACTION: newEnumDetail(
         'mythic/mechanicScoped/modifyprojectile_action.json',
-        false,
+        false
     ),
     MODIFYPROJECTILE_TRAIT: newEnumDetail(
         'mythic/mechanicScoped/modifyprojectile_trait.json',
-        false,
+        false
     ),
     SETMAXHEALTH_MODE: newEnumDetail('mythic/mechanicScoped/setmaxhealth_mode.json', false),
     SHOOT_TYPE: newEnumDetail('mythic/mechanicScoped/shoot_type.json', false),
@@ -201,6 +201,7 @@ export const keyAliases = {
     ],
     Conditions: ['Conditions', 'TriggerConditions', 'TargetConditions'],
     AITargetSelectors: ['AITargetSelectors'],
+    AIGoalSelectors: ['AIGoalSelectors'],
 };
 
 export enum TriggerType {

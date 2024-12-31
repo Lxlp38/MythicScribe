@@ -58,6 +58,8 @@ export function hoverProvider() {
                 return getHoverForMechanicLike(ObjectType.CONDITION, document, position);
             } else if (keyAliases.AITargetSelectors.includes(keys[0])) {
                 return getHoverForMechanicLike(ObjectType.AITARGET, document, position);
+            } else if (keyAliases.AIGoalSelectors.includes(keys[0])) {
+                return getHoverForMechanicLike(ObjectType.AIGOAL, document, position);
             }
 
             return null;
@@ -68,7 +70,7 @@ export function hoverProvider() {
 async function getHoverForMechanicLike(
     oType: ObjectType,
     document: vscode.TextDocument,
-    position: vscode.Position,
+    position: vscode.Position
 ): Promise<vscode.Hover | undefined> {
     const result = getCursorObject(oType, document, position);
     if (!result) {
@@ -122,7 +124,7 @@ ${mechanic.description}
 
             // Append the attribute details as a row in the table
             hoverContent.appendMarkdown(
-                `| ${attributeName ? `\`${attributeName}\`` : ''} | ${attributeAliases ? `\`${attributeAliases}\`` : ''} | ${attributeDescription ? attributeDescription : ''} | ${defaultValue ? `\`${defaultValue}\`` : ''} | ${attributeType ? `\`${attributeType}\`` : ''} |\n`,
+                `| ${attributeName ? `\`${attributeName}\`` : ''} | ${attributeAliases ? `\`${attributeAliases}\`` : ''} | ${attributeDescription ? attributeDescription : ''} | ${defaultValue ? `\`${defaultValue}\`` : ''} | ${attributeType ? `\`${attributeType}\`` : ''} |\n`
             );
         });
     }
@@ -130,7 +132,7 @@ ${mechanic.description}
     hoverContent.appendMarkdown(`\n\n##### Plugin: ${mechanic.plugin}\n\n---`);
 
     hoverContent.appendMarkdown(
-        `\n\n[Get More Information By Visiting Its Wiki Page](${mechanic.link})`,
+        `\n\n[Get More Information By Visiting Its Wiki Page](${mechanic.link})`
     );
 
     // Enable support for links
@@ -169,7 +171,7 @@ async function getHoverForAttribute(attribute: Attribute): Promise<vscode.Hover>
 function getMinimalHover(
     title: string,
     description: string | undefined,
-    link: string | undefined,
+    link: string | undefined
 ): vscode.Hover {
     const hoverContent = new vscode.MarkdownString(`
 ## [${title}](${link})
@@ -182,7 +184,7 @@ ${description ? description : 'No description provided.'}`);
 function getHoverForFileElement(
     keys: string[],
     type: FileObjectMap,
-    link: string | undefined,
+    link: string | undefined
 ): vscode.Hover | undefined {
     const key = keys[0];
     keys = keys.slice(1);

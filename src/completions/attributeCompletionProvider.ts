@@ -23,20 +23,20 @@ export function attributeCompletionProvider() {
                 document: vscode.TextDocument,
                 position: vscode.Position,
                 _token: vscode.CancellationToken,
-                context: vscode.CompletionContext,
+                context: vscode.CompletionContext
             ) {
                 if (!checkShouldPrefixComplete(document, position, context, ['{', ';'])) {
                     return undefined;
                 }
 
                 const charBefore = document.getText(
-                    new vscode.Range(position.translate(0, -2), position),
+                    new vscode.Range(position.translate(0, -2), position)
                 );
                 if (charBefore === ';;' || charBefore === '{;') {
                     const edit = new vscode.WorkspaceEdit();
                     edit.delete(
                         document.uri,
-                        new vscode.Range(position.translate(0, -1), position),
+                        new vscode.Range(position.translate(0, -1), position)
                     );
                     await vscode.workspace.applyEdit(edit);
                     vscode.commands.executeCommand('editor.action.triggerSuggest');
@@ -66,7 +66,7 @@ export function attributeCompletionProvider() {
 
                     if (attributeAliasUsedInCompletions === 'shorter') {
                         mainname = attribute.name.reduce((a: string, b: string) =>
-                            a.length < b.length ? a : b,
+                            a.length < b.length ? a : b
                         );
                         aliases = [mainname];
                         attribute.name.forEach((name: string) => {
@@ -80,7 +80,7 @@ export function attributeCompletionProvider() {
                     const attributeEnum = attribute.enum ? attribute.enum.toUpperCase() : null;
                     const completionItem = new vscode.CompletionItem(
                         mainname,
-                        vscode.CompletionItemKind.Field,
+                        vscode.CompletionItemKind.Field
                     );
                     completionItem.label = `${aliases.join(', ')}`;
                     completionItem.detail = `${attribute.description}`;
@@ -88,7 +88,7 @@ export function attributeCompletionProvider() {
 
                     if (attributeType === 'Boolean') {
                         completionItem.insertText = new vscode.SnippetString(
-                            mainname + '=' + '${1|true,false|}',
+                            mainname + '=' + '${1|true,false|}'
                         );
                     } else if (attributeEnum && Object.keys(EnumInfo).includes(attributeEnum)) {
                         completionItem.insertText = new vscode.SnippetString(mainname + '=');
@@ -108,7 +108,7 @@ export function attributeCompletionProvider() {
             },
         },
         '{',
-        ';',
+        ';'
     );
 }
 
@@ -120,7 +120,7 @@ export function attributeValueCompletionProvider() {
                 document: vscode.TextDocument,
                 position: vscode.Position,
                 token: vscode.CancellationToken,
-                context: vscode.CompletionContext,
+                context: vscode.CompletionContext
             ) {
                 if (!checkShouldPrefixComplete(document, position, context, ['=', ','])) {
                     return undefined;
@@ -145,7 +145,7 @@ export function attributeValueCompletionProvider() {
                 }
 
                 const attributeInfo = getAllAttributes(mechanic, type).find(
-                    (attr: { name: string[] }) => attr.name.includes(attribute),
+                    (attr: { name: string[] }) => attr.name.includes(attribute)
                 );
 
                 if (!attributeInfo) {
@@ -153,7 +153,7 @@ export function attributeValueCompletionProvider() {
                 }
 
                 const charBefore0 = document.getText(
-                    new vscode.Range(position.translate(0, -1), position),
+                    new vscode.Range(position.translate(0, -1), position)
                 );
 
                 const attributeType = attributeInfo.type;
@@ -168,23 +168,23 @@ export function attributeValueCompletionProvider() {
 
                 if (attributeType === 'Boolean') {
                     completionItems.push(
-                        new vscode.CompletionItem('true', vscode.CompletionItemKind.Value),
+                        new vscode.CompletionItem('true', vscode.CompletionItemKind.Value)
                     );
                     completionItems.push(
-                        new vscode.CompletionItem('false', vscode.CompletionItemKind.Value),
+                        new vscode.CompletionItem('false', vscode.CompletionItemKind.Value)
                     );
                 } else if (attributeEnum && Object.keys(EnumInfo).includes(attributeEnum)) {
                     Object.entries(EnumInfo[attributeEnum].dataset).forEach(
                         ([key, value]: [string, unknown]) => {
                             const completionItem = new vscode.CompletionItem(
                                 key,
-                                vscode.CompletionItemKind.Value,
+                                vscode.CompletionItemKind.Value
                             );
                             if (isEnumDatasetValue(value)) {
                                 completionItem.detail = `${(value as EnumDatasetValue).description}`;
                             }
                             completionItems.push(completionItem);
-                        },
+                        }
                     );
                 } else {
                     return undefined;
@@ -194,7 +194,7 @@ export function attributeValueCompletionProvider() {
             },
         },
         '=',
-        ',',
+        ','
     );
     return attributeValueCompletionProvider;
 }
@@ -211,7 +211,7 @@ function isEnumDatasetValue(value: unknown): value is EnumDatasetValue {
 function searchForLinkedObject(
     document: vscode.TextDocument,
     position: vscode.Position,
-    keys: string[],
+    keys: string[]
 ): [Mechanic, ObjectType] | null {
     let mechanic,
         type = null;
@@ -226,7 +226,7 @@ function searchForLinkedObject(
     } else if (object.startsWith('?')) {
         mechanic = getMechanicDataByName(
             object.replace('?', '').replace('!', '').replace('~', ''),
-            ObjectType.CONDITION,
+            ObjectType.CONDITION
         );
         type = ObjectType.INLINECONDITION;
     } else if (keyAliases.Conditions.includes(keys[0])) {
@@ -235,6 +235,9 @@ function searchForLinkedObject(
     } else if (keyAliases.AITargetSelectors.includes(keys[0])) {
         mechanic = getMechanicDataByName(object, ObjectType.AITARGET);
         type = ObjectType.AITARGET;
+    } else if (keyAliases.AIGoalSelectors.includes(keys[0])) {
+        mechanic = getMechanicDataByName(object, ObjectType.AIGOAL);
+        type = ObjectType.AIGOAL;
     } else {
         mechanic = getMechanicDataByName(object, ObjectType.MECHANIC);
         type = ObjectType.MECHANIC;

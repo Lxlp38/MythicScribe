@@ -20,6 +20,7 @@ let targetersDatasetPath: vscode.Uri;
 let conditionsDatasetPath: vscode.Uri;
 let triggersDatasetPath: vscode.Uri;
 let aitargetsDatasetPath: vscode.Uri;
+let aigoalsDatasetPath: vscode.Uri;
 
 let ctx: vscode.ExtensionContext;
 
@@ -36,6 +37,7 @@ export async function loadDatasets(context: vscode.ExtensionContext) {
     conditionsDatasetPath = vscode.Uri.joinPath(context.extensionUri, 'data', 'conditions');
     triggersDatasetPath = vscode.Uri.joinPath(context.extensionUri, 'data', 'triggers');
     aitargetsDatasetPath = vscode.Uri.joinPath(context.extensionUri, 'data', 'aitargets');
+    aigoalsDatasetPath = vscode.Uri.joinPath(context.extensionUri, 'data', 'aigoals');
 
     if (config.datasetSource() === 'GitHub') {
         await checkGithubDatasets(context);
@@ -74,7 +76,7 @@ async function fetchLatestCommitHash(): Promise<string | null> {
 
 // Function to fetch the JSON data from GitHub
 async function fetchJsonFromGithub(
-    filename: string,
+    filename: string
 ): Promise<MechanicDataset | EnumDataset | unknown | null> {
     try {
         const response = await fetch(`${GITHUB_BASE_URL}${filename}`);
@@ -128,7 +130,7 @@ function getVersionSpecificDatasetPath(enumdetail: EnumDetail): string {
             'data',
             'versions',
             version as string,
-            enumdetail.path,
+            enumdetail.path
         ).fsPath;
     }
     return vscode.Uri.joinPath(ctx.extensionUri, 'data', enumdetail.path).fsPath;
@@ -146,6 +148,7 @@ async function loadLocalDatasets() {
         await loadDatasetFromLocalDirectory(triggersDatasetPath);
     ObjectInfo[ObjectType.AITARGET].dataset =
         await loadDatasetFromLocalDirectory(aitargetsDatasetPath);
+    ObjectInfo[ObjectType.AIGOAL].dataset = await loadDatasetFromLocalDirectory(aigoalsDatasetPath);
 }
 
 async function checkGithubDatasets(context: vscode.ExtensionContext) {
@@ -165,6 +168,7 @@ async function checkGithubDatasets(context: vscode.ExtensionContext) {
         const conditionsData = await loadDatasetFromGithubDirectory('conditions');
         const triggersData = await loadDatasetFromGithubDirectory('triggers');
         const aitargetsData = await loadDatasetFromGithubDirectory('aitargets');
+        const aigoalsData = await loadDatasetFromGithubDirectory('aigoals');
 
         // Check if the data was successfully fetched
         if (mechanicsData && targetersData && conditionsData) {
@@ -174,12 +178,13 @@ async function checkGithubDatasets(context: vscode.ExtensionContext) {
             globalState.update('conditionsDataset', conditionsData);
             globalState.update('triggersDataset', triggersData);
             globalState.update('aitargetsDataset', aitargetsData);
+            globalState.update('aigoalsDataset', aigoalsData);
 
             globalState.update('latestCommitHash', latestCommitHash);
         } else {
             // Fallback to globalState or local datasets if fetch failed
             logger.logError(
-                'No connection with GitHub could be enstablished. Using globalState or local datasets as a fallback',
+                'No connection with GitHub could be enstablished. Using globalState or local datasets as a fallback'
             );
             loadLocalDatasets();
         }
@@ -207,13 +212,16 @@ async function loadGithubDatasets(context: vscode.ExtensionContext) {
     ObjectInfo[ObjectType.AITARGET].dataset =
         globalState.get('aitargetsDataset') ||
         (await loadDatasetFromLocalDirectory(aitargetsDatasetPath));
+    ObjectInfo[ObjectType.AIGOAL].dataset =
+        globalState.get('aigoalsDataset') ||
+        (await loadDatasetFromLocalDirectory(aigoalsDatasetPath));
 }
 
 async function loadEnumDatasets() {
     for (const key in EnumInfo) {
         if (EnumInfo[key].path) {
             EnumInfo[key].dataset = await loadLocalEnumDataset(
-                getVersionSpecificDatasetPath(EnumInfo[key]),
+                getVersionSpecificDatasetPath(EnumInfo[key])
             );
         }
     }
@@ -253,6 +261,7 @@ async function updateDatasetMaps() {
         mapDataset(ObjectInfo[ObjectType.CONDITION]),
         mapDataset(ObjectInfo[ObjectType.TRIGGER]),
         mapDataset(ObjectInfo[ObjectType.AITARGET]),
+        mapDataset(ObjectInfo[ObjectType.AIGOAL]),
     ]);
 
     ObjectInfo[ObjectType.INLINECONDITION].dataset = ObjectInfo[ObjectType.CONDITION].dataset;
@@ -323,7 +332,7 @@ async function loadDatasetFromLocalDirectory(directoryPath: vscode.Uri): Promise
 }
 
 async function loadDatasetFromGithubDirectory(
-    directoryUrl: string,
+    directoryUrl: string
 ): Promise<MechanicDataset | EnumDataset | unknown[] | null> {
     try {
         // Fetch directory contents to get a list of files

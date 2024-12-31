@@ -45,7 +45,7 @@ export function activate(context: vscode.ExtensionContext) {
 
     // Commands
     context.subscriptions.push(
-        vscode.commands.registerCommand('MythicScribe.addCustomDataset', addCustomDataset),
+        vscode.commands.registerCommand('MythicScribe.addCustomDataset', addCustomDataset)
     );
 
     // Formatter
@@ -105,14 +105,19 @@ export function enableMobfileSubscriptions() {
     const toEnable = [];
 
     if (config.enableFileSpecificSuggestions()) {
-        toEnable.push(mobFileCompletionProvider());
-        toEnable.push(triggerfileCompletionProvider(TriggerType.MOB));
         toEnable.push(
+            mobFileCompletionProvider(),
+            triggerfileCompletionProvider(TriggerType.MOB),
             mechanicCompletionProvider(
                 ObjectType.AITARGET,
                 keyAliases.AITargetSelectors,
-                'WrappedPathfindingGoal',
+                'WrappedPathfindingGoal'
             ),
+            mechanicCompletionProvider(
+                ObjectType.AIGOAL,
+                keyAliases.AIGoalSelectors,
+                'WrappedPathfindingGoal'
+            )
         );
     }
 
@@ -152,7 +157,7 @@ export function enableSkillfileSubscriptions() {
                     '`Accept Completions on Enter` is enabled. Would you like to disable it?',
                     'Yes',
                     'No',
-                    "Don't ask again",
+                    "Don't ask again"
                 )
                 .then((selection) => {
                     if (selection === 'Yes') {
@@ -161,7 +166,7 @@ export function enableSkillfileSubscriptions() {
                             .update(
                                 'acceptSuggestionOnEnter',
                                 'off',
-                                vscode.ConfigurationTarget.Workspace,
+                                vscode.ConfigurationTarget.Workspace
                             );
                         toEnable.push(metaskillFileCompletionProvider());
                     } else if (selection === "Don't ask again") {
@@ -170,7 +175,7 @@ export function enableSkillfileSubscriptions() {
                             .update(
                                 'disableAcceptSuggestionOnEnter',
                                 false,
-                                vscode.ConfigurationTarget.Workspace,
+                                vscode.ConfigurationTarget.Workspace
                             );
                     }
                     return;

@@ -1545,20 +1545,6 @@
         "attributes": [
             {
                 "name": [
-                    "type",
-                    "t",
-                    "item",
-                    "i",
-                    "material",
-                    "m"
-                ],
-                "type": "String",
-                "description": "The item to check for",
-                "link": "https://git.lumine.io/mythiccraft/MythicMobs/-/wikis/Skills/Conditions/hasItem",
-                "default_value": "DIRT"
-            },
-            {
-                "name": [
                     "amount",
                     "a"
                 ],
@@ -1566,6 +1552,23 @@
                 "description": "The amount to check for",
                 "link": "https://git.lumine.io/mythiccraft/MythicMobs/-/wikis/Skills/Conditions/hasItem",
                 "default_value": ">0"
+            },
+            {
+                "name": [
+                    "types",
+                    "type",
+                    "t",
+                    "material",
+                    "mat",
+                    "m",
+                    "item",
+                    "i"
+                ],
+                "type": "StringList",
+                "description": "The item to check for",
+                "link": "https://git.lumine.io/mythiccraft/MythicMobs/-/wikis/Skills/Conditions/hasItem",
+                "default_value": "DIRT",
+                "enum": "Material"
             }
         ]
     },
