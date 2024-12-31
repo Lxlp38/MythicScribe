@@ -34,7 +34,7 @@ function addNewlinesInInlineMetaskills(text: string): string {
     const uuid = Math.random().toString(36).substring(2);
     const placeholder = `/*MYTHICSCRIBE_COMMENT_${uuid}*/`;
 
-    let comments: string[] = [];
+    const comments: string[] = [];
 
     // Preserve the comments by replacing them temporarily with a placeholder
     const textWithPlaceholders = text.replace(placeholder, '').replace(/#.*?(?=\n)/g, (match) => {
@@ -52,7 +52,7 @@ function addNewlinesInInlineMetaskills(text: string): string {
         .replace(/(?<=[;{])\s*([^\s;{]*)=\s*\[\s*/gm, '\n$1=\[\n')
         .replace(/(?<=[^"])\s*\]\s*([;}])/gm, '\n]$1');
     comments.reverse(); // Reverse the comments to restore them in the order they were added
-    return formattedText.replaceAll(placeholder, (_match) => {
+    return formattedText.replaceAll(placeholder, () => {
         return comments.pop() || ''; // Restore the comments by replacing the placeholder
     });
 }

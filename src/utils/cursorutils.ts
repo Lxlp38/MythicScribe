@@ -41,8 +41,6 @@ export function getObjectLinkedToAttribute(
 
                 return null; // No object found before '{'
             }
-        } else if (char === '[' || char === ']') {
-            return null;
         }
     }
 
