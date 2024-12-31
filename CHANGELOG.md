@@ -2,7 +2,7 @@
 
 ## [1.5.0]
 
-## Added
+### Added
 - MythicEntity Enum And Completions
 - AITargets Completions and Hovers
 - AIGoals Completions and Hovers
@@ -10,18 +10,18 @@
 - Added Enums to Custom Datasets: new Enum files can be registered to use for your other Custom Datasets.
   - The "Lamba Enum Datasets" feature already allows you to put arbitrary values as the attribute's enum in order to create a quick dataset, but with Custom Enum Datasets you can also add descriptions to the values, while also being able to reference the same Enum Dataset from multiple attributes if need be
 
-## Changed
+### Changed
 - Refactor of how Enums are handled in order to allow for a dynamic addition
 - Changed VSCode compatible version from 1.94 to 1.93 to allow compatibility with Cursor
 
-## Fixed
+### Fixed
 - Hovers and attribute completions not showing up (or showing up incorrectly in some instances) for attributes that are not on the same line as the mechanic/targeter/condition they reference
 - Targeters can now autocomplete and show hovers when used as the value of an attribute
 
 
 ## [1.4.0]
 
-## Added
+### Added
 - "Format Document" Feature.
   - Should be good to use, but let me know if it behaves wrongly
   - Will also change document indentation based on the `editor.tabSize` config
@@ -31,11 +31,12 @@
   - Block triggers only will be displayed when inside CustomBlockSkills
 - Multiple datasets and associated autocompletions for mechanic attributes
 
-## Fixed
+### Fixed
 - Attribute values completions not working on invocation 
 - MechanicLine completions popping up after a comment. For now this has been patched by detecting the presence of the "#" or the "<#" characters on the same line before the cursor position 
 - Skill mechanics written in the skill:MetaSkill syntax now get autocompletions
 - Autocompletions for list completions showing elements already put in the line (for instance, suggesting to put another mechanic on a line that already has one)
+
 
 ## [1.3.0]
 
