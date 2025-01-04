@@ -1,4 +1,4 @@
-import { generateNumbersInRange } from '../utils/schemautils';
+import { addFileObjectAliases, generateNumbersInRange } from '../utils/schemautils';
 import { FileObjectMap, FileObjectTypes } from '../objectInfos';
 
 export const ItemFileObjects: FileObjectMap = {
@@ -571,3 +571,9 @@ export const ItemFileObjects: FileObjectMap = {
         },
     },
 };
+
+addFileObjectAliases(ItemFileObjects, {
+    Material: ['Id'],
+    CustomModelData: ['Model'],
+    Group: ['ItemType'],
+});

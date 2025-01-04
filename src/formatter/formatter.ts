@@ -30,7 +30,6 @@ export function getFormatter() {
 function addNewlinesInInlineMetaskills(text: string): string {
     const INDENTATION_LEVEL = getDefaultIndentation();
     const USED_INDENTATION = getUsedIndentation(text);
-    console.log(INDENTATION_LEVEL, USED_INDENTATION);
 
     const uuid = Math.random().toString(36).substring(2);
     const placeholder = `/*MYTHICSCRIBE_COMMENT_${uuid}*/`;

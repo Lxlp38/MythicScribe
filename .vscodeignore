@@ -15,3 +15,5 @@ node_modules/**
 demos/**
 esbuild.js
 .eslintcache
+.idea/**
+qodana.yaml

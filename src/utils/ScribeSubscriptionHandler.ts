@@ -33,16 +33,19 @@ export enum FileSubscriptionType {
     SHORTCUTS = 'shortcuts',
 }
 
+type SubscriptionFunction = () => vscode.Disposable;
+type SubscriptionCondition = () => boolean;
+
 export class ScribeSubscriptionHandler {
     private subscriptions: vscode.Disposable[] = [];
     private context: vscode.ExtensionContext;
-    private functions: (() => vscode.Disposable)[] = [];
-    private enableConditions: (() => boolean)[] = [];
+    private functions: SubscriptionFunction[] = [];
+    private enableConditions: SubscriptionCondition[] = [];
 
     constructor(
         context: vscode.ExtensionContext,
-        functions: (() => vscode.Disposable)[],
-        conditions: (() => boolean)[] = []
+        functions: SubscriptionFunction[],
+        conditions: SubscriptionCondition[] = []
     ) {
         this.context = context;
         this.functions = functions;
