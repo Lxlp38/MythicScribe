@@ -16,7 +16,7 @@ export async function generateFileCompletion(
     document: vscode.TextDocument,
     position: vscode.Position,
     context: vscode.CompletionContext,
-    type: FileObjectMap,
+    type: FileObjectMap
 ): Promise<vscode.CompletionItem[] | undefined> {
     if (yamlutils.isEmptyLine(document, position.line)) {
         return fileCompletions(document, position, type);
@@ -30,7 +30,7 @@ export async function generateFileCompletion(
 export function listCompletion(
     document: vscode.TextDocument,
     position: vscode.Position,
-    context: vscode.CompletionContext,
+    context: vscode.CompletionContext
 ): string | undefined {
     let space = ' ';
 
@@ -75,7 +75,7 @@ export function checkShouldComplete(
     position: vscode.Position,
     context: vscode.CompletionContext,
     keylist: string[],
-    symbol: string[],
+    symbol: string[]
 ) {
     return (
         checkShouldKeyComplete(document, position, keylist) &&
@@ -86,7 +86,7 @@ export function checkShouldComplete(
 export function checkShouldKeyComplete(
     document: vscode.TextDocument,
     position: vscode.Position,
-    keylist: string[],
+    keylist: string[]
 ) {
     const keys = yamlutils.getParentKeys(document, position);
     if (!keylist.includes(keys[0])) {
@@ -99,7 +99,7 @@ export function checkShouldPrefixComplete(
     document: vscode.TextDocument,
     position: vscode.Position,
     context: vscode.CompletionContext,
-    symbol: string[],
+    symbol: string[]
 ): boolean {
     if (yamlutils.isAfterComment(document, position)) {
         return false;
@@ -124,13 +124,13 @@ export function checkShouldPrefixComplete(
 
 export function addMechanicCompletions(
     target: MechanicDataset,
-    completionItems: vscode.CompletionItem[],
+    completionItems: vscode.CompletionItem[]
 ) {
     target.forEach((item: Mechanic) => {
         item.name.forEach((name: string) => {
             const completionItem = new vscode.CompletionItem(
                 name,
-                vscode.CompletionItemKind.Function,
+                vscode.CompletionItemKind.Function
             );
             completionItem.detail = `${item.description}`;
             completionItem.kind = vscode.CompletionItemKind.Function;
@@ -148,7 +148,7 @@ export function addMechanicCompletions(
 export function fileCompletions(
     document: vscode.TextDocument,
     position: vscode.Position,
-    objectmap: FileObjectMap,
+    objectmap: FileObjectMap
 ): vscode.CompletionItem[] | undefined {
     const keys = yamlutils.getParentKeys(document, position).reverse();
 
@@ -181,7 +181,7 @@ export function fileCompletions(
 function fileCompletionFindNodesOnLevel(
     objectmap: FileObjectMap,
     keys: string[],
-    level: number,
+    level: number
 ): [FileObjectMap | FileObject, number] | null {
     if (keys.length === 0) {
         return [objectmap, level];
@@ -196,7 +196,7 @@ function fileCompletionFindNodesOnLevel(
             const result = fileCompletionFindNodesOnLevel(
                 selectedObject.keys,
                 keys.slice(1),
-                level + 1,
+                level + 1
             );
             return result;
         }
@@ -215,7 +215,7 @@ function fileCompletionFindNodesOnLevel(
 // Completes the key itself
 function fileCompletionForFileObjectMap(
     objectMap: FileObjectMap,
-    indentation: string,
+    indentation: string
 ): vscode.CompletionItem[] {
     const completionItems: vscode.CompletionItem[] = [];
 
@@ -224,19 +224,19 @@ function fileCompletionForFileObjectMap(
         completionItem.kind = vscode.CompletionItemKind.File;
         if (value.type === FileObjectTypes.LIST) {
             completionItem.insertText = new vscode.SnippetString(
-                indentation + key + ':\n' + indentation + '- $0',
+                indentation + key + ':\n' + indentation + '- $0'
             );
         } else if (value.type === FileObjectTypes.BOOLEAN) {
             completionItem.insertText = new vscode.SnippetString(
-                indentation + key + ': ${1|true,false|}$0',
+                indentation + key + ': ${1|true,false|}$0'
             );
         } else if (value.type === FileObjectTypes.KEY) {
             completionItem.insertText = new vscode.SnippetString(
-                indentation + key + ':\n' + indentation + '  $0',
+                indentation + key + ':\n' + indentation + '  $0'
             );
         } else if (value.type === FileObjectTypes.KEY_LIST) {
             completionItem.insertText = new vscode.SnippetString(
-                indentation + key + ':\n' + indentation + '  $1: $2$0',
+                indentation + key + ':\n' + indentation + '  $1: $2$0'
             );
         } else {
             completionItem.insertText = new vscode.SnippetString(indentation + key + ': $0');
@@ -256,7 +256,7 @@ function fileCompletionForFileObjectMap(
 // Completes the key's values prefix on newline
 function fileCompletionForFileObject(
     object: FileObject,
-    indentation: string,
+    indentation: string
 ): vscode.CompletionItem[] {
     const completionItems: vscode.CompletionItem[] = [];
 
@@ -271,7 +271,7 @@ function fileCompletionForFileObject(
     } else if (object.type === FileObjectTypes.KEY_LIST) {
         const completionItem = new vscode.CompletionItem(
             'New Key',
-            vscode.CompletionItemKind.Snippet,
+            vscode.CompletionItemKind.Snippet
         );
         completionItem.insertText = new vscode.SnippetString(indentation + '$1: $2');
         completionItem.command = {
@@ -306,7 +306,7 @@ export async function getCompletionForInvocation(
     document: vscode.TextDocument,
     position: vscode.Position,
     context: vscode.CompletionContext,
-    type: FileObjectMap,
+    type: FileObjectMap
 ): Promise<vscode.CompletionItem[] | undefined> {
     const keys = yamlutils.getParentKeys(document, position, true).reverse();
     if (yamlutils.isKey(document, position.line)) {
@@ -314,11 +314,12 @@ export async function getCompletionForInvocation(
     } else if (yamlutils.isList(document, position.line)) {
         return getListObjectCompletion(keys.slice(1), type, document, position, context);
     }
+    return undefined;
 }
 
 async function getKeyObjectCompletion(
     keys: string[],
-    type: FileObjectMap,
+    type: FileObjectMap
 ): Promise<vscode.CompletionItem[] | undefined> {
     const object = getObjectInTree(keys, type);
     if (!object) {
@@ -331,7 +332,7 @@ async function getKeyObjectCompletion(
         Object.entries(dataset).forEach(([item, value]) => {
             const completionItem = new vscode.CompletionItem(
                 item,
-                vscode.CompletionItemKind.EnumMember,
+                vscode.CompletionItemKind.EnumMember
             );
             completionItem.kind = vscode.CompletionItemKind.EnumMember;
             completionItem.detail = value.description;
@@ -347,7 +348,7 @@ async function getKeyObjectCompletion(
         object.values.forEach((value) => {
             const completionItem = new vscode.CompletionItem(
                 value,
-                vscode.CompletionItemKind.EnumMember,
+                vscode.CompletionItemKind.EnumMember
             );
             completionItem.sortText = value.toString().padStart(4, '0');
             completionItem.kind = vscode.CompletionItemKind.EnumMember;
@@ -356,6 +357,7 @@ async function getKeyObjectCompletion(
         });
         return completionItems;
     }
+    return undefined;
 }
 
 function getListObjectCompletion(
@@ -363,7 +365,7 @@ function getListObjectCompletion(
     type: FileObjectMap,
     document: vscode.TextDocument,
     position: vscode.Position,
-    context: vscode.CompletionContext,
+    context: vscode.CompletionContext
 ): vscode.CompletionItem[] | undefined {
     const object = getObjectInTree(keys, type);
     if (!object) {
@@ -380,13 +382,13 @@ function getListObjectCompletion(
         Object.entries(dataset).forEach(([item, value]) => {
             const completionItem = new vscode.CompletionItem(
                 item,
-                vscode.CompletionItemKind.EnumMember,
+                vscode.CompletionItemKind.EnumMember
             );
             completionItem.kind = vscode.CompletionItemKind.EnumMember;
             completionItem.detail = value.description;
             if (object.values) {
                 completionItem.insertText = new vscode.SnippetString(
-                    space + item + ' ${1|' + object.values.join(',') + '|}',
+                    space + item + ' ${1|' + object.values.join(',') + '|}'
                 );
             } else {
                 completionItem.insertText = new vscode.SnippetString(space + item);
@@ -395,4 +397,5 @@ function getListObjectCompletion(
         });
         return completionItems;
     }
+    return undefined;
 }

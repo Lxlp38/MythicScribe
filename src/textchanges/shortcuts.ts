@@ -35,7 +35,7 @@ export function shortcutsProvider() {
                 if (snippet) {
                     editor.insertSnippet(
                         snippet,
-                        new vscode.Range(position.translate(0, -match[0].length), position),
+                        new vscode.Range(position.translate(0, -match[0].length), position)
                     );
                 }
                 break;
@@ -51,7 +51,7 @@ interface MechanicShortcut {
 
 const mechanicShortcuts: { [key: string]: MechanicShortcut } = {
     setvariable: {
-        regex: /(?<=-\s)(c|t|w|g|s)\.(?:(i|f|d|s)\.)?([\w_-]*)=$/,
+        regex: /(?<=-\s)([ctwgs])\.(?:([ifds])\.)?([\w_-]*)=$/,
         function: shortcutSetVariable,
     },
 };

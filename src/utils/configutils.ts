@@ -1,15 +1,7 @@
 import * as vscode from 'vscode';
 
-import {
-    enableSubscriptions,
-    disableSubscriptions,
-    enableSkillfileSubscriptions,
-    disableSkillfileSubscriptions,
-    enableMobfileSubscriptions,
-    disableMobfileSubscriptions,
-    enableItemFileSubscriptions,
-    disableItemFileSubscriptions,
-} from '../MythicScribe';
+import { subscriptionsMap } from '../MythicScribe';
+import { FileSubscriptionType } from './ScribeSubscriptionHandler';
 
 function resetFileChecks() {
     isEnabled = false;
@@ -48,10 +40,15 @@ export function updateEnabled(document: vscode.TextDocument) {
     if (isEnabled !== checkEnabled(document)) {
         isEnabled = checkEnabled(document);
         if (isEnabled) {
-            enableSubscriptions();
+            subscriptionsMap[FileSubscriptionType.GLOBAL].enableAll();
+            subscriptionsMap[FileSubscriptionType.TEXT_CHANGES].enableAll();
+            subscriptionsMap[FileSubscriptionType.SHORTCUTS].enableAll();
         } else {
-            disableSubscriptions();
+            for (const key in subscriptionsMap) {
+                subscriptionsMap[key as FileSubscriptionType].disposeAll();
+            }
             resetFileChecks();
+            return;
         }
     }
 
@@ -64,9 +61,9 @@ export function updateEnabled(document: vscode.TextDocument) {
     if (isMetaskillFile !== checkMetaskillFile(document)) {
         isMetaskillFile = checkMetaskillFile(document);
         if (isMetaskillFile) {
-            enableSkillfileSubscriptions();
+            subscriptionsMap[FileSubscriptionType.SKILL].enableAll();
         } else {
-            disableSkillfileSubscriptions();
+            subscriptionsMap[FileSubscriptionType.SKILL].disposeAll();
         }
     }
 
@@ -74,9 +71,9 @@ export function updateEnabled(document: vscode.TextDocument) {
     if (isMobFile !== checkMobFile(document)) {
         isMobFile = checkMobFile(document);
         if (isMobFile) {
-            enableMobfileSubscriptions();
+            subscriptionsMap[FileSubscriptionType.MOB].enableAll();
         } else {
-            disableMobfileSubscriptions();
+            subscriptionsMap[FileSubscriptionType.MOB].disposeAll();
         }
     }
 
@@ -84,9 +81,9 @@ export function updateEnabled(document: vscode.TextDocument) {
     if (isItemFile !== checkItemFile(document)) {
         isItemFile = checkItemFile(document);
         if (isItemFile) {
-            enableItemFileSubscriptions();
+            subscriptionsMap[FileSubscriptionType.ITEM].enableAll();
         } else {
-            disableItemFileSubscriptions();
+            subscriptionsMap[FileSubscriptionType.ITEM].disposeAll();
         }
     }
 }
@@ -131,18 +128,23 @@ export function checkItemFile(document: vscode.TextDocument): boolean {
     return checkFile(document, regex);
 }
 
-export function enableEmptyBracketsAutomaticRemoval() {
-    return vscode.workspace
-        .getConfiguration('MythicScribe')
-        .get('enableEmptyBracketsAutomaticRemoval');
+export function enableEmptyBracketsAutomaticRemoval(): boolean {
+    return (
+        vscode.workspace
+            .getConfiguration('MythicScribe')
+            .get('enableEmptyBracketsAutomaticRemoval') || true
+    );
 }
 
-export function enableFileSpecificSuggestions() {
-    return vscode.workspace.getConfiguration('MythicScribe').get('enableFileSpecificSuggestions');
+export function enableFileSpecificSuggestions(): boolean {
+    return (
+        vscode.workspace.getConfiguration('MythicScribe').get('enableFileSpecificSuggestions') ||
+        true
+    );
 }
 
-export function enableShortcuts() {
-    return vscode.workspace.getConfiguration('MythicScribe').get('enableShortcuts');
+export function enableShortcuts(): boolean {
+    return vscode.workspace.getConfiguration('MythicScribe').get('enableShortcuts') || true;
 }
 
 export function datasetSource() {
@@ -179,7 +181,7 @@ export function minecraftVersion() {
         // Update the value only in the defined scope
         config.update('minecraftVersion', undefined, target);
         vscode.window.showWarningMessage(
-            'Invalid MythicScribe.minecraftVersion configuration value detected. Resetting to "latest".',
+            'Invalid MythicScribe.minecraftVersion configuration value detected. Resetting to "latest".'
         );
         return 'latest';
     }

@@ -12,7 +12,7 @@ export function getUpstreamKey(document: vscode.TextDocument, lineIndex: number)
 export function getParentKeys(
     document: vscode.TextDocument,
     position: vscode.Position,
-    getLineKey: boolean = false,
+    getLineKey: boolean = false
 ): string[] {
     const keys: string[] = [];
     const lineIndex = position.line;
@@ -51,7 +51,7 @@ export function getDefaultIndentation(): number {
 }
 
 export function getUsedIndentation(text: string): number {
-    const match = text.match(/^[^:]+:\n(\s+)\S/m);
+    const match = text.match(/^[^:]+:\s*?\n(\s+)\S/m);
     if (match) {
         return match[1].length;
     }
@@ -92,7 +92,7 @@ export function getKey(document: vscode.TextDocument, lineIndex: number): string
 export function isInsideKey(
     document: vscode.TextDocument,
     lineIndex: number,
-    key: string,
+    key: string
 ): boolean {
     if (isKey(document, lineIndex)) {
         return false;
@@ -122,7 +122,7 @@ export function isInsideKey(
 export function getWordBeforePosition(
     document: vscode.TextDocument,
     position: vscode.Position,
-    offset: number = 0,
+    offset: number = 0
 ): string {
     const lineText = document.lineAt(position.line).text.substring(0, position.character);
     const words = lineText.trim().split(/\s+/);
@@ -131,7 +131,7 @@ export function getWordBeforePosition(
 
 export function getMechanicLine(
     document: vscode.TextDocument,
-    lineIndex: number,
+    lineIndex: number
 ): Map<string, string> {
     const mechanicMap = new Map<string, string>();
     const line = document.lineAt(lineIndex).text.trim();
@@ -157,7 +157,7 @@ export function getMechanicLine(
 
 export function previousSpecialSymbol(
     document: vscode.TextDocument,
-    position: vscode.Position,
+    position: vscode.Position
 ): string {
     const line = document.lineAt(position.line).text;
     const text = line.substring(0, position.character);

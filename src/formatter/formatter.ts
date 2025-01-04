@@ -17,7 +17,7 @@ export function getFormatter() {
             // Replace entire document with the newly formatted text
             const fullRange = new vscode.Range(
                 new vscode.Position(0, 0),
-                document.lineAt(document.lineCount - 1).range.end,
+                document.lineAt(document.lineCount - 1).range.end
             );
 
             textEdits.push(vscode.TextEdit.replace(fullRange, formattedText));
@@ -30,6 +30,7 @@ export function getFormatter() {
 function addNewlinesInInlineMetaskills(text: string): string {
     const INDENTATION_LEVEL = getDefaultIndentation();
     const USED_INDENTATION = getUsedIndentation(text);
+    console.log(INDENTATION_LEVEL, USED_INDENTATION);
 
     const uuid = Math.random().toString(36).substring(2);
     const placeholder = `/*MYTHICSCRIBE_COMMENT_${uuid}*/`;
@@ -44,7 +45,7 @@ function addNewlinesInInlineMetaskills(text: string): string {
 
     // Process the text with all the cool replacements
     const formattedText = textWithPlaceholders
-        .replace(/^([^\S\r\n]*)([\w_\-\d]+):/gm, (_match, p1, p2) => {
+        .replace(/^([^\S\r\n]*)([\w_\-]+):/gm, (_match, p1, p2) => {
             const indent = Math.floor(p1.length / USED_INDENTATION);
             const affix = '' + ' '.repeat(indent * INDENTATION_LEVEL);
             return `${affix}${p2}:`;

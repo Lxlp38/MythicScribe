@@ -119,7 +119,7 @@ export function attributeValueCompletionProvider() {
             async provideCompletionItems(
                 document: vscode.TextDocument,
                 position: vscode.Position,
-                token: vscode.CancellationToken,
+                _token: vscode.CancellationToken,
                 context: vscode.CompletionContext
             ) {
                 if (!checkShouldPrefixComplete(document, position, context, ['=', ','])) {

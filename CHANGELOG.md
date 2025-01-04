@@ -1,5 +1,11 @@
 # Changelog
 
+## [Unreleased]
+
+### Fixed
+- Error with the formatter's indentation when the config file actual indentation is 1
+
+
 ## [1.5.0]
 
 ### Added

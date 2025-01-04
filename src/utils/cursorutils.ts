@@ -11,11 +11,11 @@ import { ObjectInfo, ObjectType } from '../objectInfos';
  */
 export function getObjectLinkedToAttribute(
     document: vscode.TextDocument,
-    position: vscode.Position,
+    position: vscode.Position
 ): string | null {
     // Get the text from the beginning of the document to the current position
     const textBeforeAttribute = document.getText(
-        new vscode.Range(new vscode.Position(0, 0), position),
+        new vscode.Range(new vscode.Position(0, 0), position)
     );
 
     let openBraceCount = 0;
@@ -49,7 +49,7 @@ export function getObjectLinkedToAttribute(
 
 export function getAttributeLinkedToValue(
     document: vscode.TextDocument,
-    position: vscode.Position,
+    position: vscode.Position
 ): string | null {
     const textBeforeValue = document.getText(new vscode.Range(new vscode.Position(0, 0), position));
     const attributeMatch = textBeforeValue.match(/[{;]\s*\b(\w+)\b=[^;]*$/);
@@ -62,7 +62,7 @@ export function getAttributeLinkedToValue(
 export function fetchCursorSkills(
     document: vscode.TextDocument,
     position: vscode.Position,
-    type: ObjectType,
+    type: ObjectType
 ) {
     const maybeMechanic = document.getWordRangeAtPosition(position, ObjectInfo[type].regex);
     if (maybeMechanic) {
@@ -86,7 +86,7 @@ export function getCursorSkills(document: vscode.TextDocument, position: vscode.
     }
     const maybeAttribute = document.getWordRangeAtPosition(position, /\w+(?=\s*=)/s);
     const textBeforePosition = document.getText(
-        new vscode.Range(new vscode.Position(0, 0), position.translate(0, 1)),
+        new vscode.Range(new vscode.Position(0, 0), position.translate(0, 1))
     );
     const maybeAttributeMatch = textBeforePosition.match(/(?<=[{;]\s*)(\w+)$/gm);
     if (maybeAttribute && maybeAttributeMatch) {
@@ -107,7 +107,7 @@ export function getCursorSkills(document: vscode.TextDocument, position: vscode.
         if (object.startsWith('?')) {
             const condition = getMechanicDataByName(
                 object.replace('?', '').replace('!', '').replace('~', ''),
-                ObjectType.CONDITION,
+                ObjectType.CONDITION
             );
             return condition
                 ? [
@@ -124,12 +124,13 @@ export function getCursorSkills(document: vscode.TextDocument, position: vscode.
               ]
             : null;
     }
+    return null;
 }
 
 export function getCursorObject(
     type: ObjectType,
     document: vscode.TextDocument,
-    position: vscode.Position,
+    position: vscode.Position
 ) {
     const maybeCondition = fetchCursorSkills(document, position, type);
     if (maybeCondition) {

@@ -199,4 +199,5 @@ function getHoverForFileElement(
         const newobject = object.keys;
         return getHoverForFileElement(keys, newobject, object.link);
     }
+    return undefined;
 }
