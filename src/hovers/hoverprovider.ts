@@ -8,30 +8,20 @@ import {
     FileObjectMap,
     FileObjectTypes,
 } from '../objectInfos';
-import { ItemFileObjects } from '../schemas/itemfileObjects';
-import { MobFileObjects } from '../schemas/mobFileObjects';
-import { MetaskillFileObjects } from '../schemas/metaskillFileObjects';
 import * as yamlutils from '../utils/yamlutils';
-import { isItemFile, isMetaskillFile, isMobFile } from '../utils/configutils';
 import { getCursorSkills, getCursorObject } from '../utils/cursorutils';
 
-export function hoverProvider() {
+type KeyDependantMechanicLikeHover = { keys: string[]; type: ObjectType };
+
+export function hoverProvider(
+    fileobject: FileObjectMap,
+    ...keydependencies: KeyDependantMechanicLikeHover[]
+) {
     return vscode.languages.registerHoverProvider(['mythicscript', 'yaml'], {
         provideHover(document: vscode.TextDocument, position: vscode.Position) {
             const keys = yamlutils.getParentKeys(document, position);
 
-            if (yamlutils.isKey(document, position.line) === true) {
-                const fileobject = isMetaskillFile
-                    ? MetaskillFileObjects
-                    : isMobFile
-                      ? MobFileObjects
-                      : isItemFile
-                        ? ItemFileObjects
-                        : undefined;
-                if (!fileobject) {
-                    return undefined;
-                }
-
+            if (yamlutils.isKey(document, position.line)) {
                 const key = yamlutils.getKey(document, position.line);
                 keys.reverse();
                 keys.push(key);
@@ -54,14 +44,12 @@ export function hoverProvider() {
                 }
 
                 return getHover(obj as Mechanic, type as ObjectType);
-            } else if (keyAliases.Conditions.includes(keys[0])) {
-                return getHoverForMechanicLike(ObjectType.CONDITION, document, position);
-            } else if (keyAliases.AITargetSelectors.includes(keys[0])) {
-                return getHoverForMechanicLike(ObjectType.AITARGET, document, position);
-            } else if (keyAliases.AIGoalSelectors.includes(keys[0])) {
-                return getHoverForMechanicLike(ObjectType.AIGOAL, document, position);
             }
-
+            for (const keydependency of keydependencies) {
+                if (keydependency.keys.includes(keys[0])) {
+                    return getHoverForMechanicLike(keydependency.type, document, position);
+                }
+            }
             return null;
         },
     });

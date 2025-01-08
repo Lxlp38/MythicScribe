@@ -1,6 +1,6 @@
 import * as vscode from 'vscode';
 
-import { isEnabled } from '../utils/configutils';
+import { isEnabled } from '../subscriptions/SubscriptionHelper';
 
 export function shortcutsProvider() {
     return vscode.workspace.onDidChangeTextDocument((event) => {

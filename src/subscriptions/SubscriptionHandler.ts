@@ -9,7 +9,7 @@ import {
     enableEmptyBracketsAutomaticRemoval,
     enableFileSpecificSuggestions,
     enableShortcuts,
-} from './configutils';
+} from '../utils/configutils';
 import { metaskillFileCompletionProvider } from '../completions/filecompletions/metaskillfileCompletionProvider';
 import {
     attributeCompletionProvider,
@@ -23,32 +23,51 @@ import { targeterCompletionProvider } from '../completions/targeterCompletionPro
 import { hoverProvider } from '../hovers/hoverprovider';
 import { removeBracketsTextListener } from '../textchanges/bracketsremover';
 import { shortcutsProvider } from '../textchanges/shortcuts';
-
-export enum FileSubscriptionType {
-    GLOBAL = 'global',
-    MOB = 'mob',
-    SKILL = 'skill',
-    ITEM = 'item',
-    TEXT_CHANGES = 'text_changes',
-    SHORTCUTS = 'shortcuts',
-}
+import { ItemFileObjects } from '../schemas/itemfileObjects';
+import { MobFileObjects } from '../schemas/mobFileObjects';
+import { MetaskillFileObjects } from '../schemas/metaskillFileObjects';
 
 type SubscriptionFunction = () => vscode.Disposable;
 type SubscriptionCondition = () => boolean;
 
+export class ScribeSubscriptionMap {
+    static instance: ScribeSubscriptionMap;
+
+    public global: GlobalSubscriptionHandler;
+    public mob: MobScribeSubscriptionHandler;
+    public skill: SkillScribeSubscriptionHandler;
+    public item: ItemScribeSubscriptionHandler;
+
+    constructor(context: vscode.ExtensionContext) {
+        this.global = new GlobalSubscriptionHandler(context);
+        this.mob = new MobScribeSubscriptionHandler(context);
+        this.skill = new SkillScribeSubscriptionHandler(context);
+        this.item = new ItemScribeSubscriptionHandler(context);
+        ScribeSubscriptionMap.instance = this;
+    }
+
+    disposeAll() {
+        this.global.disposeAll();
+        this.mob.disposeAll();
+        this.skill.disposeAll();
+        this.item.disposeAll();
+    }
+}
+
 export class ScribeSubscriptionHandler {
     private subscriptions: vscode.Disposable[] = [];
     private context: vscode.ExtensionContext;
-    private functions: SubscriptionFunction[] = [];
+    private subscriptionFunctions: SubscriptionFunction[] = [];
     private enableConditions: SubscriptionCondition[] = [];
+    private childSubscriptionHandlers: ScribeSubscriptionHandler[] = [];
 
     constructor(
         context: vscode.ExtensionContext,
-        functions: SubscriptionFunction[],
+        subscriptionFunctions: SubscriptionFunction[],
         conditions: SubscriptionCondition[] = []
     ) {
         this.context = context;
-        this.functions = functions;
+        this.subscriptionFunctions = subscriptionFunctions;
         this.enableConditions = conditions;
     }
 
@@ -59,22 +78,36 @@ export class ScribeSubscriptionHandler {
 
     enableAll() {
         this.disposeAll();
+
+        this.childSubscriptionHandlers.forEach((handler) => {
+            handler.enableAll();
+        });
+
         if (this.enableConditions.every((condition) => condition())) {
-            this.functions.forEach((func) => {
+            this.subscriptionFunctions.forEach((func) => {
                 this.enable(func());
             });
         }
     }
 
     disposeAll() {
+        this.childSubscriptionHandlers.forEach((handler) => {
+            handler.disposeAll();
+        });
+
         this.subscriptions.forEach((subscription) => {
             subscription.dispose();
         });
+
         this.subscriptions.length = 0;
+    }
+
+    addChildSubscriptionHandler(...handler: ScribeSubscriptionHandler[]) {
+        this.childSubscriptionHandlers.push(...handler);
     }
 }
 
-export class ItemScribeSubscriptionHandler extends ScribeSubscriptionHandler {
+class ItemScribeSubscriptionHandler extends ScribeSubscriptionHandler {
     constructor(context: vscode.ExtensionContext) {
         super(
             context,
@@ -83,13 +116,14 @@ export class ItemScribeSubscriptionHandler extends ScribeSubscriptionHandler {
                 () => triggerfileCompletionProvider(TriggerType.ITEM, ['Skills']),
                 () => triggerfileCompletionProvider(TriggerType.FURNITURE, ['FurnitureSkills']),
                 () => triggerfileCompletionProvider(TriggerType.BLOCK, ['CustomBlockSkills']),
+                () => hoverProvider(ItemFileObjects),
             ],
             [enableFileSpecificSuggestions]
         );
     }
 }
 
-export class MobScribeSubscriptionHandler extends ScribeSubscriptionHandler {
+class MobScribeSubscriptionHandler extends ScribeSubscriptionHandler {
     constructor(context: vscode.ExtensionContext) {
         super(
             context,
@@ -108,45 +142,66 @@ export class MobScribeSubscriptionHandler extends ScribeSubscriptionHandler {
                         keyAliases.AIGoalSelectors,
                         'WrappedPathfindingGoal'
                     ),
+                () =>
+                    hoverProvider(
+                        MobFileObjects,
+                        { keys: keyAliases.AIGoalSelectors, type: ObjectType.AIGOAL },
+                        { keys: keyAliases.AITargetSelectors, type: ObjectType.AITARGET }
+                    ),
             ],
             [enableFileSpecificSuggestions]
         );
     }
 }
 
-export class SkillScribeSubscriptionHandler extends ScribeSubscriptionHandler {
+class SkillScribeSubscriptionHandler extends ScribeSubscriptionHandler {
     constructor(context: vscode.ExtensionContext) {
-        super(context, [metaskillFileCompletionProvider], [enableFileSpecificSuggestions]);
+        super(
+            context,
+            [
+                metaskillFileCompletionProvider,
+                () => conditionCompletionProvider(),
+                () =>
+                    hoverProvider(MetaskillFileObjects, {
+                        keys: keyAliases.Conditions,
+                        type: ObjectType.CONDITION,
+                    }),
+            ],
+            [enableFileSpecificSuggestions]
+        );
     }
 }
 
-export class GlobalSubscriptionHandler extends ScribeSubscriptionHandler {
+class GlobalSubscriptionHandler extends ScribeSubscriptionHandler {
     constructor(context: vscode.ExtensionContext) {
         super(
             context,
             [
                 () => attributeCompletionProvider(),
                 () => attributeValueCompletionProvider(),
-                () => conditionCompletionProvider(),
                 () => inlineConditionCompletionProvider(),
                 () => inlineMetaskillCompletionProvider(),
                 () => mechaniclineCompletionProvider(),
                 () => mechanicCompletionProvider(ObjectType.MECHANIC, keyAliases.Skills, ''),
                 () => targeterCompletionProvider(),
-                () => hoverProvider(),
             ],
             []
+        );
+
+        this.addChildSubscriptionHandler(
+            new ShortcutsSubscriptionHandler(context),
+            new TextChangesSubscriptionHandler(context)
         );
     }
 }
 
-export class TextChangesSubscriptionHandler extends ScribeSubscriptionHandler {
+class TextChangesSubscriptionHandler extends ScribeSubscriptionHandler {
     constructor(context: vscode.ExtensionContext) {
         super(context, [() => removeBracketsTextListener()], [enableEmptyBracketsAutomaticRemoval]);
     }
 }
 
-export class ShortcutsSubscriptionHandler extends ScribeSubscriptionHandler {
+class ShortcutsSubscriptionHandler extends ScribeSubscriptionHandler {
     constructor(context: vscode.ExtensionContext) {
         super(context, [() => shortcutsProvider()], [enableShortcuts]);
     }
