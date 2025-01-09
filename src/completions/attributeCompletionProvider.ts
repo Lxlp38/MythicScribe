@@ -1,14 +1,7 @@
 import * as vscode from 'vscode';
 
-import {
-    ObjectType,
-    keyAliases,
-    EnumInfo,
-    ObjectInfo,
-    Attribute,
-    Mechanic,
-    EnumDatasetValue,
-} from '../objectInfos';
+import { ObjectType, keyAliases, ObjectInfo, Attribute, Mechanic } from '../objectInfos';
+import { EnumDatasetValue, ScribeEnumHandler } from '../datasets/ScribeEnum';
 import { checkShouldPrefixComplete } from '../utils/completionhelper';
 import * as yamlutils from '../utils/yamlutils';
 import { getAllAttributes, getMechanicDataByName } from '../utils/mechanicutils';
@@ -90,7 +83,7 @@ export function attributeCompletionProvider() {
                         completionItem.insertText = new vscode.SnippetString(
                             mainname + '=' + '${1|true,false|}'
                         );
-                    } else if (attributeEnum && Object.keys(EnumInfo).includes(attributeEnum)) {
+                    } else if (attributeEnum && ScribeEnumHandler.getEnum(attributeEnum)) {
                         completionItem.insertText = new vscode.SnippetString(mainname + '=');
                         completionItem.command = {
                             command: 'editor.action.triggerSuggest',
@@ -173,19 +166,19 @@ export function attributeValueCompletionProvider() {
                     completionItems.push(
                         new vscode.CompletionItem('false', vscode.CompletionItemKind.Value)
                     );
-                } else if (attributeEnum && Object.keys(EnumInfo).includes(attributeEnum)) {
-                    Object.entries(EnumInfo[attributeEnum].dataset).forEach(
-                        ([key, value]: [string, unknown]) => {
-                            const completionItem = new vscode.CompletionItem(
-                                key,
-                                vscode.CompletionItemKind.Value
-                            );
-                            if (isEnumDatasetValue(value)) {
-                                completionItem.detail = `${(value as EnumDatasetValue).description}`;
-                            }
-                            completionItems.push(completionItem);
-                        }
-                    );
+                } else if (attributeEnum) {
+                    const enumData = ScribeEnumHandler.getEnum(attributeEnum);
+                    if (!enumData) {
+                        return undefined;
+                    }
+                    enumData.getDataset().forEach((value: EnumDatasetValue, key: string) => {
+                        const completionItem = new vscode.CompletionItem(
+                            key,
+                            vscode.CompletionItemKind.Value
+                        );
+                        completionItem.detail = `${(value as EnumDatasetValue).description}`;
+                        completionItems.push(completionItem);
+                    });
                 } else {
                     return undefined;
                 }
@@ -197,15 +190,6 @@ export function attributeValueCompletionProvider() {
         ','
     );
     return attributeValueCompletionProvider;
-}
-
-function isEnumDatasetValue(value: unknown): value is EnumDatasetValue {
-    return (
-        typeof value === 'object' &&
-        value !== null &&
-        'description' in value &&
-        typeof (value as { description: unknown }).description === 'string'
-    );
 }
 
 function searchForLinkedObject(

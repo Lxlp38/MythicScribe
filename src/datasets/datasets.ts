@@ -2,16 +2,8 @@ import * as vscode from 'vscode';
 
 import * as config from '../utils/configutils';
 import * as logger from '../utils/logger';
-import {
-    EnumInfo,
-    EnumDataset,
-    EnumDetail,
-    Mechanic,
-    MechanicDataset,
-    ObjectInfo,
-    ObjectType,
-    newEnumDetail,
-} from '../objectInfos';
+import { Mechanic, MechanicDataset, ObjectInfo, ObjectType } from '../objectInfos';
+import { EnumDatasetValue, ScribeEnumHandler } from './ScribeEnum';
 import { loadCustomDatasets } from './customDatasets';
 
 // Define the paths to your local datasets
@@ -22,16 +14,12 @@ let triggersDatasetPath: vscode.Uri;
 let aitargetsDatasetPath: vscode.Uri;
 let aigoalsDatasetPath: vscode.Uri;
 
-let ctx: vscode.ExtensionContext;
-
 // GitHub URL to fetch data from
 const GITHUB_BASE_URL = 'https://raw.githubusercontent.com/Lxlp38/MythicScribe/master/data/';
 const GITHUB_API_COMMITS_URL = 'https://api.github.com/repos/Lxlp38/MythicScribe/commits?path=data';
 
 // Function to load datasets, check globalState, and update if necessary
 export async function loadDatasets(context: vscode.ExtensionContext) {
-    ctx = context;
-
     mechanicsDatasetPath = vscode.Uri.joinPath(context.extensionUri, 'data', 'mechanics');
     targetersDatasetPath = vscode.Uri.joinPath(context.extensionUri, 'data', 'targeters');
     conditionsDatasetPath = vscode.Uri.joinPath(context.extensionUri, 'data', 'conditions');
@@ -46,13 +34,13 @@ export async function loadDatasets(context: vscode.ExtensionContext) {
     }
 
     await Promise.all([
-        checkForLambaEnum(ObjectInfo[ObjectType.MECHANIC].dataset),
-        checkForLambaEnum(ObjectInfo[ObjectType.TARGETER].dataset),
-        checkForLambaEnum(ObjectInfo[ObjectType.CONDITION].dataset),
-        checkForLambaEnum(ObjectInfo[ObjectType.TRIGGER].dataset),
+        checkForLambdaEnum(ObjectInfo[ObjectType.MECHANIC].dataset),
+        checkForLambdaEnum(ObjectInfo[ObjectType.TARGETER].dataset),
+        checkForLambdaEnum(ObjectInfo[ObjectType.CONDITION].dataset),
+        checkForLambdaEnum(ObjectInfo[ObjectType.TRIGGER].dataset),
     ]);
 
-    await Promise.all([loadEnumDatasets(), loadCustomDatasets()]);
+    await loadCustomDatasets();
 
     updateDatasets();
     return;
@@ -75,9 +63,7 @@ async function fetchLatestCommitHash(): Promise<string | null> {
 }
 
 // Function to fetch the JSON data from GitHub
-async function fetchJsonFromGithub(
-    filename: string
-): Promise<MechanicDataset | EnumDataset | unknown | null> {
+async function fetchJsonFromGithub(filename: string): Promise<MechanicDataset | unknown | null> {
     try {
         const response = await fetch(`${GITHUB_BASE_URL}${filename}`);
         if (response.ok) {
@@ -105,35 +91,20 @@ export async function fetchMechanicDatasetFromLink(link: string): Promise<Mechan
     }
 }
 
-export async function fetchEnumDatasetFromLink(link: string): Promise<EnumDataset> {
+export async function fetchEnumDatasetFromLink(
+    link: string
+): Promise<Map<string, EnumDatasetValue>> {
     try {
         const response = await fetch(link);
         if (response.ok) {
-            return (await response.json()) as EnumDataset;
+            return (await response.json()) as Map<string, EnumDatasetValue>;
         } else {
             throw new Error(`Failed to fetch enum dataset from link: ${link}`);
         }
     } catch (error) {
         logger.logError(error);
-        return {};
+        return new Map<string, EnumDatasetValue>();
     }
-}
-
-function getVersionSpecificDatasetPath(enumdetail: EnumDetail): string {
-    if (enumdetail.path === null) {
-        return 'null';
-    }
-    if (enumdetail.volatile) {
-        const version = config.minecraftVersion();
-        return vscode.Uri.joinPath(
-            ctx.extensionUri,
-            'data',
-            'versions',
-            version as string,
-            enumdetail.path
-        ).fsPath;
-    }
-    return vscode.Uri.joinPath(ctx.extensionUri, 'data', enumdetail.path).fsPath;
 }
 
 async function loadLocalDatasets() {
@@ -217,41 +188,19 @@ async function loadGithubDatasets(context: vscode.ExtensionContext) {
         (await loadDatasetFromLocalDirectory(aigoalsDatasetPath));
 }
 
-async function loadEnumDatasets() {
-    for (const key in EnumInfo) {
-        if (EnumInfo[key].path) {
-            EnumInfo[key].dataset = await loadLocalEnumDataset(
-                getVersionSpecificDatasetPath(EnumInfo[key])
-            );
-        }
-    }
-}
-
-async function checkForLambaEnum(dataset: MechanicDataset) {
+async function checkForLambdaEnum(dataset: MechanicDataset) {
     for (const mechanic of dataset) {
         for (const attribute of mechanic.attributes) {
             if (attribute.enum && attribute.enum.includes(',')) {
                 const values = attribute.enum.split(',');
-                await addLambdaEnumDataset(attribute.enum, values);
+                ScribeEnumHandler.addLambdaEnum(attribute.enum, values);
             }
         }
     }
 }
-async function addLambdaEnumDataset(key: string, values: string[]) {
-    const newEnum = newEnumDetail(null, false);
-    newEnum.dataset = values.reduce((acc, curr) => {
-        acc[curr] = { description: '' };
-        return acc;
-    }, {} as EnumDataset);
-
-    EnumInfo[key.toUpperCase()] = newEnum;
-
-    //console.log(`Added Lambda Enum Dataset: ${key}`);
-}
 
 export async function updateDatasets() {
     updateDatasetMaps();
-    updateDatasetEnums();
 }
 
 async function updateDatasetMaps() {
@@ -268,16 +217,6 @@ async function updateDatasetMaps() {
     ObjectInfo[ObjectType.INLINECONDITION].datasetMap = ObjectInfo[ObjectType.CONDITION].datasetMap;
     ObjectInfo[ObjectType.INLINECONDITION].datasetClassMap =
         ObjectInfo[ObjectType.CONDITION].datasetClassMap;
-}
-
-async function updateDatasetEnums() {
-    for (const key in EnumInfo) {
-        const list: string[] = [];
-        for (const item of Object.keys(EnumInfo[key].dataset)) {
-            list.push(item);
-        }
-        EnumInfo[key].commalist = list.join(',');
-    }
 }
 
 async function mapDataset(object: ObjectInfo) {
@@ -303,14 +242,16 @@ export async function loadLocalMechanicDataset(datasetPath: string): Promise<Mec
     }
 }
 
-export async function loadLocalEnumDataset(datasetPath: string): Promise<EnumDataset> {
+export async function loadLocalEnumDataset(
+    datasetPath: string
+): Promise<Map<string, EnumDatasetValue>> {
     try {
         const fileUri = vscode.Uri.file(datasetPath);
         const fileData = await vscode.workspace.fs.readFile(fileUri);
         return JSON.parse(Buffer.from(fileData).toString('utf8'));
     } catch (error) {
         logger.logError(error, `Error reading local dataset: ${datasetPath}`);
-        return {};
+        return new Map<string, EnumDatasetValue>();
     }
 }
 
@@ -333,7 +274,7 @@ async function loadDatasetFromLocalDirectory(directoryPath: vscode.Uri): Promise
 
 async function loadDatasetFromGithubDirectory(
     directoryUrl: string
-): Promise<MechanicDataset | EnumDataset | unknown[] | null> {
+): Promise<MechanicDataset | unknown[] | null> {
     try {
         // Fetch directory contents to get a list of files
         const response = await fetch(`${GITHUB_BASE_URL}${directoryUrl}`);

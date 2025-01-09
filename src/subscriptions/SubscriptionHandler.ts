@@ -32,18 +32,23 @@ type SubscriptionCondition = () => boolean;
 
 export class ScribeSubscriptionMap {
     static instance: ScribeSubscriptionMap;
+    static getInstance(context: vscode.ExtensionContext) {
+        if (!ScribeSubscriptionMap.instance) {
+            ScribeSubscriptionMap.instance = new ScribeSubscriptionMap(context);
+        }
+        return ScribeSubscriptionMap.instance;
+    }
 
     public global: GlobalSubscriptionHandler;
     public mob: MobScribeSubscriptionHandler;
     public skill: SkillScribeSubscriptionHandler;
     public item: ItemScribeSubscriptionHandler;
 
-    constructor(context: vscode.ExtensionContext) {
+    private constructor(context: vscode.ExtensionContext) {
         this.global = new GlobalSubscriptionHandler(context);
         this.mob = new MobScribeSubscriptionHandler(context);
         this.skill = new SkillScribeSubscriptionHandler(context);
         this.item = new ItemScribeSubscriptionHandler(context);
-        ScribeSubscriptionMap.instance = this;
     }
 
     disposeAll() {

@@ -5,13 +5,15 @@ import { getFormatter } from './formatter/formatter';
 import { loadDatasets } from './datasets/datasets';
 import { addCustomDataset } from './datasets/customDatasets';
 import { ScribeSubscriptionMap } from './subscriptions/SubscriptionHandler';
+import { ScribeEnumHandler } from './datasets/ScribeEnum';
 
 export let ctx: vscode.ExtensionContext;
 
 export function activate(context: vscode.ExtensionContext) {
     ctx = context;
 
-    new ScribeSubscriptionMap(context);
+    ScribeSubscriptionMap.getInstance(context);
+    ScribeEnumHandler.createInstance(context);
 
     // Datasets
     loadDatasets(context);

@@ -1,20 +1,8 @@
 import * as vscode from 'vscode';
 
-import {
-    EnumDataset,
-    EnumInfo,
-    MechanicDataset,
-    newEnumDetail,
-    ObjectInfo,
-    ObjectType,
-} from '../objectInfos';
-import {
-    fetchEnumDatasetFromLink,
-    fetchMechanicDatasetFromLink,
-    loadDatasets,
-    loadLocalEnumDataset,
-    loadLocalMechanicDataset,
-} from './datasets';
+import { MechanicDataset, ObjectInfo, ObjectType } from '../objectInfos';
+import { ScribeEnumHandler, StaticScribeEnum, WebScribeEnum } from './ScribeEnum';
+import { fetchMechanicDatasetFromLink, loadDatasets, loadLocalMechanicDataset } from './datasets';
 import { ctx } from '../MythicScribe';
 import { logError } from '../utils/logger';
 
@@ -49,7 +37,7 @@ export async function addCustomDataset() {
             ],
             {
                 placeHolder: 'Select the scope for which you want to add the custom dataset',
-            },
+            }
         )
         .then((selection) => selection?.target);
 
@@ -99,7 +87,7 @@ export async function addCustomDataset() {
             const data = Buffer.from(fileContent).toString('utf8');
 
             if (elementType === CustomDatasetElementType.ENUM) {
-                const enumDataset = JSON.parse(data) as EnumDataset;
+                const enumDataset = JSON.parse(data);
                 if (!enumDataset) {
                     vscode.window.showErrorMessage(`Error parsing file content.`);
                     continue;
@@ -123,14 +111,14 @@ export async function addCustomDataset() {
             elementType as CustomDatasetElementType,
             source as CustomDatasetSource,
             uri.toString(),
-            scope,
+            scope
         );
     }
 }
 
 export async function addCustomDatasetFromLink(
     elementtype: string,
-    scope: vscode.ConfigurationTarget,
+    scope: vscode.ConfigurationTarget
 ) {
     const pathOrUrl = await vscode.window.showInputBox({
         placeHolder: 'Enter a path or URL',
@@ -151,7 +139,7 @@ export async function addCustomDatasetFromLink(
             elementtype as CustomDatasetElementType,
             CustomDatasetSource.LINK,
             uri.toString(),
-            scope,
+            scope
         );
 
         vscode.window.showInformationMessage(`Successfully added dataset from: ${uri.toString()}`);
@@ -165,7 +153,7 @@ async function finalizeCustomDatasetAddition(
     elementType: CustomDatasetElementType,
     source: CustomDatasetSource,
     pathOrUrl: string,
-    scope: vscode.ConfigurationTarget,
+    scope: vscode.ConfigurationTarget
 ) {
     const [config, existingMappings] = getCustomDatasetConfiguration();
     existingMappings.push({ elementType, source, pathOrUrl });
@@ -195,13 +183,14 @@ export async function loadCustomDatasets() {
                 .reverse()[0]
                 .replace('.json', '')
                 .toUpperCase();
-            EnumInfo[fileName] = newEnumDetail(null, false);
             if (dataset.source === CustomDatasetSource.LOCALFILE) {
-                EnumInfo[fileName].dataset = await loadLocalEnumDataset(
-                    decodeURIComponent(vscode.Uri.parse(dataset.pathOrUrl).path),
+                ScribeEnumHandler.addEnum(
+                    StaticScribeEnum,
+                    fileName,
+                    decodeURIComponent(vscode.Uri.parse(dataset.pathOrUrl).path)
                 );
             } else if (dataset.source === CustomDatasetSource.LINK) {
-                EnumInfo[fileName].dataset = await fetchEnumDatasetFromLink(dataset.pathOrUrl);
+                ScribeEnumHandler.addEnum(WebScribeEnum, fileName, dataset.pathOrUrl);
             }
         } else {
             if (dataset.source === CustomDatasetSource.LOCALFILE) {

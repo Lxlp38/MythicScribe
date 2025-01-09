@@ -69,97 +69,6 @@ export const ObjectInfo: { [key in ObjectType]: ObjectInfo } = {
     [ObjectType.AIGOAL]: newObjectInfo(/(?<=\s- )[\w:]+/gm),
 };
 
-interface EnumInfo {
-    [key: string]: EnumDetail;
-}
-
-export interface EnumDetail {
-    readonly path: string | null;
-    readonly volatile?: boolean; //Whether the path to the enum depends on the selected minecraft version
-    dataset: EnumDataset;
-    commalist: string;
-}
-
-export interface EnumDataset {
-    [key: string]: EnumDatasetValue;
-}
-
-export interface EnumDatasetValue {
-    description?: string;
-    name?: string[];
-}
-
-export function newEnumDetail(path: string | null = null, volatile: boolean = true): EnumDetail {
-    return {
-        path: path,
-        volatile: volatile,
-        dataset: {},
-        commalist: '',
-    };
-}
-
-export const EnumInfo: EnumInfo = {
-    SOUND: newEnumDetail('minecraft/sounds.json'),
-
-    AUDIENCE: newEnumDetail('mythic/audiences.json', false),
-    EQUIPSLOT: newEnumDetail('mythic/equipslot.json', false),
-    PARTICLE: newEnumDetail('mythic/particles.json', false),
-    STATMODIFIER: newEnumDetail('mythic/statsmodifiers.json', false),
-    SHAPE: newEnumDetail('mythic/shape.json', false),
-    FLUID: newEnumDetail('mythic/fluid.json', false),
-    GLOWCOLOR: newEnumDetail('mythic/glowcolor.json', false),
-    SCOREACTION: newEnumDetail('mythic/scoreaction.json', false),
-    VARIABLESCOPE: newEnumDetail('mythic/variablescope.json', false),
-    MYTHICENTITY: newEnumDetail('mythic/mythicentity.json', false),
-    PAPERATTRIBUTEOPERATION: newEnumDetail('mythic/attributesoperations.json', false),
-
-    PAPERATTRIBUTE: newEnumDetail('paper/attributes.json'),
-    BARCOLOR: newEnumDetail('paper/barcolor.json'),
-    BARSTYLE: newEnumDetail('paper/barstyle.json'),
-    DAMAGECAUSE: newEnumDetail('paper/damagecause.json'),
-    DYE: newEnumDetail('paper/dye.json'),
-    MATERIAL: newEnumDetail('paper/material.json'),
-    BLOCKFACE: newEnumDetail('paper/blockface.json'),
-    ENDERDRAGONPHASE: newEnumDetail('paper/enderdragonphase.json'),
-    DRAGONBATTLERESPAWNPHASE: newEnumDetail('paper/dragonbattlerespawnphase.json'),
-    POTIONEFFECTTYPE: newEnumDetail('paper/potioneffecttype.json'),
-    WORLDENVIRONMENT: newEnumDetail('paper/worldenvironment.json'),
-    ENTITYTYPE: newEnumDetail('paper/entitytype.json'),
-    GAMEMODE: newEnumDetail('paper/gamemode.json'),
-    SPAWNREASON: newEnumDetail('paper/spawnreason.json'),
-    ENCHANTMENT: newEnumDetail('paper/enchantment.json'),
-    ITEMFLAG: newEnumDetail('paper/itemflag.json'),
-    SOUNDCATEGORY: newEnumDetail('paper/soundcategory.json'),
-    FIREWORKEFFECTTYPE: newEnumDetail('paper/fireworkeffecttype.json'),
-    FLUIDCOLLISIONMODE: newEnumDetail('paper/fluidcollisionmode.json'),
-
-    ADDTRADE_ACTION: newEnumDetail('mythic/mechanicScoped/addtrade_action.json', false),
-    DISPLAYTRANSFORMATION_ACTION: newEnumDetail(
-        'mythic/mechanicScoped/displaytransformation_action.json',
-        false
-    ),
-    PROJECTILE_BULLETTYPE: newEnumDetail('mythic/mechanicScoped/projectile_bullettype.json', false),
-    PROJECTILE_TYPE: newEnumDetail('mythic/mechanicScoped/projectile_type.json', false),
-    PROJECTILE_HIGHACCURACYMODE: newEnumDetail(
-        'mythic/mechanicScoped/projectile_highaccuracymode.json',
-        false
-    ),
-    MODIFYPROJECTILE_ACTION: newEnumDetail(
-        'mythic/mechanicScoped/modifyprojectile_action.json',
-        false
-    ),
-    MODIFYPROJECTILE_TRAIT: newEnumDetail(
-        'mythic/mechanicScoped/modifyprojectile_trait.json',
-        false
-    ),
-    SETMAXHEALTH_MODE: newEnumDetail('mythic/mechanicScoped/setmaxhealth_mode.json', false),
-    SHOOT_TYPE: newEnumDetail('mythic/mechanicScoped/shoot_type.json', false),
-    SHOOTFIREBALL_TYPE: newEnumDetail('mythic/mechanicScoped/shootfireball_type.json', false),
-    THREAT_MODE: newEnumDetail('mythic/mechanicScoped/threat_mode.json', false),
-    TIME_MODE: newEnumDetail('mythic/mechanicScoped/time_mode.json', false),
-    VELOCITY_MODE: newEnumDetail('mythic/mechanicScoped/velocity_mode.json', false),
-};
-
 export enum FileObjectTypes {
     BOOLEAN = 'boolean',
     STRING = 'string',
@@ -186,7 +95,7 @@ export interface FileObject {
     link?: string;
     description?: string;
     keys?: FileObjectMap;
-    dataset?: keyof typeof EnumInfo;
+    dataset?: string;
     values?: string[];
 }
 
