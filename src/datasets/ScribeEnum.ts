@@ -2,23 +2,22 @@ import * as vscode from 'vscode';
 
 import { minecraftVersion } from '../utils/configutils';
 import { loadLocalEnumDataset, fetchEnumDatasetFromLink } from './datasets';
+import { AbstractScribeHandler } from '../handlers/AbstractScribeHandler';
 
-export class ScribeEnumHandler {
-    static instance: ScribeEnumHandler;
-    static createInstance(context: vscode.ExtensionContext): ScribeEnumHandler {
-        if (!ScribeEnumHandler.instance) {
-            ScribeEnumHandler.instance = new ScribeEnumHandler(context);
-        }
-        return ScribeEnumHandler.instance;
+export class ScribeEnumHandler extends AbstractScribeHandler {
+    static createInstance(): AbstractScribeHandler {
+        return new ScribeEnumHandler();
     }
-
-    static context: vscode.ExtensionContext;
-    static enums = new Map<string, ScribeEnum>();
     static version = minecraftVersion();
 
-    private constructor(context: vscode.ExtensionContext) {
-        ScribeEnumHandler.context = context;
+    private static enums = new Map<string, AbstractScribeEnum>();
 
+    private constructor() {
+        super();
+        this.initializeEnums();
+    }
+
+    private initializeEnums(): void {
         ScribeEnumHandler.addEnum(VolatileScribeEnum, 'SOUND', 'minecraft/sounds.json');
 
         ScribeEnumHandler.addEnum(LocalScribeEnum, 'AUDIENCE', 'mythic/audiences.json');
@@ -148,12 +147,12 @@ export class ScribeEnumHandler {
         );
     }
 
-    static getEnum(identifier: string): ScribeEnum | undefined {
+    static getEnum(identifier: string): AbstractScribeEnum | undefined {
         return ScribeEnumHandler.enums.get(identifier.toUpperCase());
     }
 
     static async addEnum(
-        oclass: new (identifier: string, path: string) => ScribeEnum,
+        oclass: new (identifier: string, path: string) => AbstractScribeEnum,
         identifier: string,
         path: string
     ) {
@@ -171,7 +170,7 @@ export class ScribeEnumHandler {
     }
 }
 
-abstract class ScribeEnum {
+abstract class AbstractScribeEnum {
     readonly identifier: string;
     readonly path: string;
     protected dataset: Map<string, EnumDatasetValue> = new Map<string, EnumDatasetValue>();
@@ -193,7 +192,7 @@ abstract class ScribeEnum {
     }
 }
 
-export class StaticScribeEnum extends ScribeEnum {
+export class StaticScribeEnum extends AbstractScribeEnum {
     constructor(identifier: string, path: string) {
         super(identifier, path);
         loadLocalEnumDataset(path).then((data) => {
@@ -216,7 +215,7 @@ class VolatileScribeEnum extends LocalScribeEnum {
         super(identifier, 'versions/' + ScribeEnumHandler.version + '/' + path);
     }
 }
-export class WebScribeEnum extends ScribeEnum {
+export class WebScribeEnum extends AbstractScribeEnum {
     constructor(identifier: string, path: string) {
         super(identifier, path);
         fetchEnumDatasetFromLink(path).then((data) => {
@@ -226,7 +225,7 @@ export class WebScribeEnum extends ScribeEnum {
         });
     }
 }
-export class LambdaScribeEnum extends ScribeEnum {
+export class LambdaScribeEnum extends AbstractScribeEnum {
     constructor(key: string, values: string[]) {
         super(key, '');
         const val = values.reduce((acc: { [key: string]: EnumDatasetValue }, curr) => {

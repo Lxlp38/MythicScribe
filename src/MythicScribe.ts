@@ -4,16 +4,20 @@ import * as resetFileChecks from './subscriptions/SubscriptionHelper';
 import { getFormatter } from './formatter/formatter';
 import { loadDatasets } from './datasets/datasets';
 import { addCustomDataset } from './datasets/customDatasets';
-import { ScribeSubscriptionMap } from './subscriptions/SubscriptionHandler';
+import { ScribeSubscriptionHandler } from './subscriptions/SubscriptionHandler';
 import { ScribeEnumHandler } from './datasets/ScribeEnum';
+import { AbstractScribeHandler } from './handlers/AbstractScribeHandler';
+import { ScribeMechanicHandler } from './datasets/ScribeMechanics';
 
 export let ctx: vscode.ExtensionContext;
 
 export function activate(context: vscode.ExtensionContext) {
     ctx = context;
 
-    ScribeSubscriptionMap.getInstance(context);
-    ScribeEnumHandler.createInstance(context);
+    AbstractScribeHandler.context = context;
+    ScribeMechanicHandler.getInstance();
+    ScribeSubscriptionHandler.getInstance();
+    ScribeEnumHandler.getInstance();
 
     // Datasets
     loadDatasets(context);

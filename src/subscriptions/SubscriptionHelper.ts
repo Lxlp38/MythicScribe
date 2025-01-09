@@ -7,7 +7,14 @@ import {
     checkMobFile,
     checkItemFile,
 } from '../utils/configutils';
-import { ScribeSubscriptionHandler, ScribeSubscriptionMap } from './SubscriptionHandler';
+import {
+    AbstractScribeSubscription,
+    GlobalSubscriptionHandler,
+    ItemScribeSubscription,
+    MobScribeSubscription,
+    ScribeSubscriptionHandler,
+    SkillScribeSubscription,
+} from './SubscriptionHandler';
 
 function resetFileChecks() {
     isEnabled = false;
@@ -24,8 +31,7 @@ export const extensionEnabler = vscode.window.onDidChangeActiveTextEditor((edito
     if (!editor) {
         return;
     }
-    const document = editor.document;
-    updateEnabled(document);
+    updateEnabled(editor.document);
 });
 
 export async function checkIfMythicScriptFile(document: vscode.TextDocument) {
@@ -41,7 +47,7 @@ export async function checkIfMythicScriptFile(document: vscode.TextDocument) {
 function fileSpecificEnabler(
     flag: boolean,
     newflagvalue: boolean,
-    handler: ScribeSubscriptionHandler
+    handler: AbstractScribeSubscription
 ): boolean {
     if (flag !== newflagvalue) {
         if (newflagvalue) {
@@ -61,9 +67,9 @@ export function updateEnabled(document: vscode.TextDocument) {
     if (isEnabled !== checkEnabled(document)) {
         isEnabled = checkEnabled(document);
         if (isEnabled) {
-            ScribeSubscriptionMap.instance.global.enableAll();
+            GlobalSubscriptionHandler.getInstance<GlobalSubscriptionHandler>().enableAll();
         } else {
-            ScribeSubscriptionMap.instance.disposeAll();
+            ScribeSubscriptionHandler.disposeAll();
             resetFileChecks();
             return;
         }
@@ -77,16 +83,16 @@ export function updateEnabled(document: vscode.TextDocument) {
     isMetaskillFile = fileSpecificEnabler(
         isMetaskillFile,
         checkMetaskillFile(document),
-        ScribeSubscriptionMap.instance.skill
+        SkillScribeSubscription.getInstance<SkillScribeSubscription>()
     );
     isMobFile = fileSpecificEnabler(
         isMobFile,
         checkMobFile(document),
-        ScribeSubscriptionMap.instance.mob
+        MobScribeSubscription.getInstance<MobScribeSubscription>()
     );
     isItemFile = fileSpecificEnabler(
         isItemFile,
         checkItemFile(document),
-        ScribeSubscriptionMap.instance.item
+        ItemScribeSubscription.getInstance<ItemScribeSubscription>()
     );
 }
