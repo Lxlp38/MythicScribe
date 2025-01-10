@@ -11,11 +11,11 @@ export function metaskillFileCompletionProvider() {
                 document: vscode.TextDocument,
                 position: vscode.Position,
                 _token: vscode.CancellationToken,
-                context: vscode.CompletionContext,
+                context: vscode.CompletionContext
             ) {
                 return generateFileCompletion(document, position, context, MetaskillFileObjects);
             },
         },
-        '\n',
+        '\n'
     );
 }

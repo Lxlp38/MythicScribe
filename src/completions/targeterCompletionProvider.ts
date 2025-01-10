@@ -1,6 +1,7 @@
 import * as vscode from 'vscode';
 
-import { keyAliases, ObjectInfo, ObjectType } from '../objectInfos';
+import { keyAliases } from '../objectInfos';
+import { ScribeTargeterRegistry } from '../datasets/ScribeMechanic';
 import { addMechanicCompletions, checkShouldComplete } from '../utils/completionhelper';
 
 export function targeterCompletionProvider() {
@@ -11,7 +12,7 @@ export function targeterCompletionProvider() {
                 document: vscode.TextDocument,
                 position: vscode.Position,
                 _token: vscode.CancellationToken,
-                context: vscode.CompletionContext,
+                context: vscode.CompletionContext
             ) {
                 if (!checkShouldComplete(document, position, context, keyAliases.Skills, ['@'])) {
                     return undefined;
@@ -19,11 +20,14 @@ export function targeterCompletionProvider() {
 
                 const completionItems: vscode.CompletionItem[] = [];
 
-                addMechanicCompletions(ObjectInfo[ObjectType.TARGETER].dataset, completionItems);
+                addMechanicCompletions(
+                    ScribeTargeterRegistry.getInstance<ScribeTargeterRegistry>().getMechanics(),
+                    completionItems
+                );
 
                 return completionItems;
             },
         },
-        '@',
+        '@'
     );
 }

@@ -1,10 +1,19 @@
 import * as vscode from 'vscode';
 
-import { ObjectType, keyAliases, ObjectInfo, Attribute, Mechanic } from '../objectInfos';
+import { keyAliases } from '../objectInfos';
+import {
+    Attribute,
+    MythicAttribute,
+    MythicMechanic,
+    ScribeAIGoalRegistry,
+    ScribeAITargetRegistry,
+    ScribeConditionRegistry,
+    ScribeMechanicRegistry,
+    ScribeTargeterRegistry,
+} from '../datasets/ScribeMechanic';
 import { EnumDatasetValue, ScribeEnumHandler } from '../datasets/ScribeEnum';
 import { checkShouldPrefixComplete } from '../utils/completionhelper';
 import * as yamlutils from '../utils/yamlutils';
-import { getAllAttributes, getMechanicDataByName } from '../utils/mechanicutils';
 import { getAttributeAliasUsedInCompletions } from '../utils/configutils';
 import { getObjectLinkedToAttribute } from '../utils/cursorutils';
 
@@ -44,9 +53,9 @@ export function attributeCompletionProvider() {
                 if (!result) {
                     return null;
                 }
-                const [mechanic, type] = result;
+                const mechanic = result;
 
-                const attributes = getAllAttributes(mechanic, type);
+                const attributes = mechanic.getAttributes();
                 let index = 10000;
 
                 const attributeAliasUsedInCompletions = getAttributeAliasUsedInCompletions();
@@ -70,7 +79,7 @@ export function attributeCompletionProvider() {
                     }
 
                     const attributeType = attribute.type;
-                    const attributeEnum = attribute.enum ? attribute.enum.toUpperCase() : null;
+                    const attributeEnum = attribute.enum ? attribute.enum.toLowerCase() : null;
                     const completionItem = new vscode.CompletionItem(
                         mainname,
                         vscode.CompletionItemKind.Field
@@ -126,20 +135,18 @@ export function attributeValueCompletionProvider() {
                 if (!result) {
                     return null;
                 }
-                const [mechanic, type] = result;
+                const mechanic = result;
 
                 const attribute = document
                     .getText(new vscode.Range(new vscode.Position(position.line, 0), position))
-                    .match(ObjectInfo[ObjectType.ATTRIBUTE].regex)
+                    .match(MythicAttribute.regex)
                     ?.pop();
 
                 if (!attribute) {
                     return null;
                 }
 
-                const attributeInfo = getAllAttributes(mechanic, type).find(
-                    (attr: { name: string[] }) => attr.name.includes(attribute)
-                );
+                const attributeInfo = mechanic.getAttributeByName(attribute);
 
                 if (!attributeInfo) {
                     return null;
@@ -150,7 +157,7 @@ export function attributeValueCompletionProvider() {
                 );
 
                 const attributeType = attributeInfo.type;
-                const attributeEnum = attributeInfo.enum ? attributeInfo.enum.toUpperCase() : null;
+                const attributeEnum = attributeInfo.enum ? attributeInfo.enum.toLowerCase() : null;
                 const attributeList = attributeInfo.list;
 
                 if (charBefore0 === ',') {
@@ -196,43 +203,41 @@ function searchForLinkedObject(
     document: vscode.TextDocument,
     position: vscode.Position,
     keys: string[]
-): [Mechanic, ObjectType] | null {
-    let mechanic,
-        type = null;
+): MythicMechanic | null {
+    let mechanic: MythicMechanic | undefined;
 
     const object = getObjectLinkedToAttribute(document, position);
     if (!object) {
         return null;
     }
     if (object.startsWith('@')) {
-        mechanic = getMechanicDataByName(object.replace('@', ''), ObjectType.TARGETER);
-        type = ObjectType.TARGETER;
+        const type = ScribeTargeterRegistry.getInstance<ScribeTargeterRegistry>();
+        mechanic = type.getMechanicByName(object.replace('@', ''));
     } else if (object.startsWith('?')) {
-        mechanic = getMechanicDataByName(
-            object.replace('?', '').replace('!', '').replace('~', ''),
-            ObjectType.CONDITION
+        const type = ScribeConditionRegistry.getInstance<ScribeConditionRegistry>();
+        mechanic = type.getMechanicByName(
+            object.replace('?', '').replace('!', '').replace('~', '')
         );
-        type = ObjectType.INLINECONDITION;
     } else if (keyAliases.Conditions.includes(keys[0])) {
-        mechanic = getMechanicDataByName(object, ObjectType.CONDITION);
-        type = ObjectType.CONDITION;
+        const type = ScribeConditionRegistry.getInstance<ScribeConditionRegistry>();
+        mechanic = type.getMechanicByName(object);
     } else if (keyAliases.AITargetSelectors.includes(keys[0])) {
-        mechanic = getMechanicDataByName(object, ObjectType.AITARGET);
-        type = ObjectType.AITARGET;
+        const type = ScribeAITargetRegistry.getInstance<ScribeAITargetRegistry>();
+        mechanic = type.getMechanicByName(object);
     } else if (keyAliases.AIGoalSelectors.includes(keys[0])) {
-        mechanic = getMechanicDataByName(object, ObjectType.AIGOAL);
-        type = ObjectType.AIGOAL;
+        const type = ScribeAIGoalRegistry.getInstance<ScribeAIGoalRegistry>();
+        mechanic = type.getMechanicByName(object);
     } else {
-        mechanic = getMechanicDataByName(object, ObjectType.MECHANIC);
-        type = ObjectType.MECHANIC;
+        const type = ScribeMechanicRegistry.getInstance<ScribeMechanicRegistry>();
+        mechanic = type.getMechanicByName(object);
 
         if (!mechanic && object.startsWith('skill:')) {
-            mechanic = getMechanicDataByName('skill', ObjectType.MECHANIC);
+            mechanic = type.getMechanicByName('skill');
         }
     }
     if (!mechanic) {
         return null;
     }
 
-    return [mechanic, type];
+    return mechanic;
 }

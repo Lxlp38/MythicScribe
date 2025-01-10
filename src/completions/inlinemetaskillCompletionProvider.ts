@@ -14,7 +14,7 @@ export function inlineMetaskillCompletionProvider() {
                 }
 
                 const lastTwoChars = document.getText(
-                    new vscode.Range(position.translate(0, -2), position),
+                    new vscode.Range(position.translate(0, -2), position)
                 );
                 if (lastTwoChars !== '=[') {
                     return undefined;
@@ -27,12 +27,12 @@ export function inlineMetaskillCompletionProvider() {
 
                 const completionItem = new vscode.CompletionItem(
                     'Inline Metaskill',
-                    vscode.CompletionItemKind.Function,
+                    vscode.CompletionItemKind.Function
                 );
                 completionItem.detail = 'Generate the syntax for an inline metaskill';
                 completionItem.kind = vscode.CompletionItemKind.Function;
                 completionItem.insertText = new vscode.SnippetString(
-                    '\n' + indentation + '- $0\n' + indentation,
+                    '\n' + indentation + '- $0\n' + indentation
                 );
                 completionItem.command = {
                     command: 'editor.action.triggerSuggest',
@@ -42,6 +42,6 @@ export function inlineMetaskillCompletionProvider() {
                 return [completionItem];
             },
         },
-        '[',
+        '['
     );
 }

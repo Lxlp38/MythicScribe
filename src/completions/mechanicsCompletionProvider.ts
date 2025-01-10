@@ -1,12 +1,12 @@
 import * as vscode from 'vscode';
 
-import { Mechanic, ObjectInfo, ObjectType } from '../objectInfos';
+import { MythicMechanic, ScribeMechanicRegistry } from '../datasets/ScribeMechanic';
 import { checkShouldKeyComplete, listCompletion } from '../utils/completionhelper';
 
 export function mechanicCompletionProvider(
-    type: ObjectType,
+    registry: ScribeMechanicRegistry,
     keyAliases: string[],
-    defaultextend: string,
+    defaultextend: string
 ) {
     return vscode.languages.registerCompletionItemProvider(
         ['mythicscript', 'yaml'],
@@ -15,7 +15,7 @@ export function mechanicCompletionProvider(
                 document: vscode.TextDocument,
                 position: vscode.Position,
                 _token: vscode.CancellationToken,
-                context: vscode.CompletionContext,
+                context: vscode.CompletionContext
             ) {
                 if (!checkShouldKeyComplete(document, position, keyAliases)) {
                     return undefined;
@@ -27,23 +27,22 @@ export function mechanicCompletionProvider(
                 }
 
                 const completionItems: vscode.CompletionItem[] = [];
-
-                ObjectInfo[type].dataset.forEach((item: Mechanic) => {
+                registry.getMechanics().forEach((item: MythicMechanic) => {
                     item.name.forEach((name: string) => {
                         const completionItem = new vscode.CompletionItem(
                             name,
-                            vscode.CompletionItemKind.Function,
+                            vscode.CompletionItemKind.Function
                         );
                         completionItem.detail = `${item.description}`;
                         completionItem.kind = vscode.CompletionItemKind.Function;
                         if (
-                            (!item.attributes || item.attributes.length === 0) &&
+                            (!item.getAttributes() || item.getAttributes().length === 0) &&
                             item.extends === defaultextend
                         ) {
                             completionItem.insertText = new vscode.SnippetString(space + name);
                         } else {
                             completionItem.insertText = new vscode.SnippetString(
-                                space + name + '{$0}',
+                                space + name + '{$0}'
                             );
                         }
                         completionItem.command = {
@@ -57,6 +56,6 @@ export function mechanicCompletionProvider(
             },
         },
         '-',
-        ' ',
+        ' '
     );
 }

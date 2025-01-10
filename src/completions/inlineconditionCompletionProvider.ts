@@ -1,6 +1,7 @@
 import * as vscode from 'vscode';
 
-import { ObjectInfo, ObjectType, keyAliases } from '../objectInfos';
+import { keyAliases } from '../objectInfos';
+import { ScribeConditionRegistry } from '../datasets/ScribeMechanic';
 import { addMechanicCompletions, checkShouldComplete } from '../utils/completionhelper';
 
 export function inlineConditionCompletionProvider() {
@@ -11,7 +12,7 @@ export function inlineConditionCompletionProvider() {
                 document: vscode.TextDocument,
                 position: vscode.Position,
                 _token: vscode.CancellationToken,
-                context: vscode.CompletionContext,
+                context: vscode.CompletionContext
             ) {
                 if (
                     !checkShouldComplete(document, position, context, keyAliases.Skills, [
@@ -25,12 +26,12 @@ export function inlineConditionCompletionProvider() {
                 const completionItems: vscode.CompletionItem[] = [];
 
                 const charBefore0 = document.getText(
-                    new vscode.Range(position.translate(0, -1), position),
+                    new vscode.Range(position.translate(0, -1), position)
                 );
                 switch (charBefore0) {
                     case '?': {
                         const charBefore1 = document.getText(
-                            new vscode.Range(position.translate(0, -2), position),
+                            new vscode.Range(position.translate(0, -2), position)
                         );
                         if (charBefore1 !== ' ?') {
                             return undefined;
@@ -39,7 +40,7 @@ export function inlineConditionCompletionProvider() {
                         ['~', '~!', '!'].forEach((item: string) => {
                             const completionItem = new vscode.CompletionItem(
                                 item,
-                                vscode.CompletionItemKind.Function,
+                                vscode.CompletionItemKind.Function
                             );
                             completionItem.kind = vscode.CompletionItemKind.Function;
                             completionItem.command = {
@@ -53,14 +54,14 @@ export function inlineConditionCompletionProvider() {
                     }
                     case '~': {
                         const charBefore2 = document.getText(
-                            new vscode.Range(position.translate(0, -3), position),
+                            new vscode.Range(position.translate(0, -3), position)
                         );
                         if (charBefore2 !== ' ?~') {
                             return undefined;
                         }
                         const completionItem = new vscode.CompletionItem(
                             '!',
-                            vscode.CompletionItemKind.Function,
+                            vscode.CompletionItemKind.Function
                         );
                         completionItem.kind = vscode.CompletionItemKind.Function;
                         completionItem.command = {
@@ -73,7 +74,7 @@ export function inlineConditionCompletionProvider() {
                     }
                     case '!': {
                         const charBefore3 = document.getText(
-                            new vscode.Range(position.translate(0, -3), position),
+                            new vscode.Range(position.translate(0, -3), position)
                         );
                         if (charBefore3 !== ' ?!' && charBefore3 !== '?~!') {
                             return undefined;
@@ -82,13 +83,16 @@ export function inlineConditionCompletionProvider() {
                     }
                 }
 
-                addMechanicCompletions(ObjectInfo[ObjectType.CONDITION].dataset, completionItems);
+                addMechanicCompletions(
+                    ScribeConditionRegistry.getInstance<ScribeConditionRegistry>().getMechanics(),
+                    completionItems
+                );
 
                 return completionItems;
             },
         },
         '?',
         '!',
-        '~',
+        '~'
     );
 }

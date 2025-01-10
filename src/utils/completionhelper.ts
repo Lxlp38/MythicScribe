@@ -2,14 +2,9 @@ import * as vscode from 'vscode';
 
 import * as yamlutils from './yamlutils';
 import { previousSymbol } from './yamlutils';
-import {
-    FileObjectMap,
-    MechanicDataset,
-    Mechanic,
-    FileObject,
-    FileObjectTypes,
-} from '../objectInfos';
-import { ScribeEnumHandler } from '../datasets/ScribeEnum';
+import { FileObjectMap, FileObject, FileObjectTypes } from '../objectInfos';
+import { MythicMechanic } from '../datasets/ScribeMechanic';
+import { EnumDatasetValue, ScribeEnumHandler } from '../datasets/ScribeEnum';
 
 export async function generateFileCompletion(
     document: vscode.TextDocument,
@@ -122,10 +117,10 @@ export function checkShouldPrefixComplete(
 }
 
 export function addMechanicCompletions(
-    target: MechanicDataset,
+    target: MythicMechanic[],
     completionItems: vscode.CompletionItem[]
 ) {
-    target.forEach((item: Mechanic) => {
+    target.forEach((item: MythicMechanic) => {
         item.name.forEach((name: string) => {
             const completionItem = new vscode.CompletionItem(
                 name,
@@ -332,12 +327,7 @@ async function getKeyObjectCompletion(
             return undefined;
         }
         dataset.getDataset().forEach((item, value) => {
-            const completionItem = new vscode.CompletionItem(
-                value,
-                vscode.CompletionItemKind.EnumMember
-            );
-            completionItem.kind = vscode.CompletionItemKind.EnumMember;
-            completionItem.detail = item.description;
+            const completionItem = getSharedObjectCompletion(item, value);
             completionItem.insertText = new vscode.SnippetString(value);
             completionItems.push(completionItem);
         });
@@ -385,12 +375,7 @@ function getListObjectCompletion(
             return undefined;
         }
         dataset.getDataset().forEach((item, value) => {
-            const completionItem = new vscode.CompletionItem(
-                value,
-                vscode.CompletionItemKind.EnumMember
-            );
-            completionItem.kind = vscode.CompletionItemKind.EnumMember;
-            completionItem.detail = item.description;
+            const completionItem = getSharedObjectCompletion(item, value);
             if (object.values) {
                 completionItem.insertText = new vscode.SnippetString(
                     space + value + ' ${1|' + object.values.join(',') + '|}'
@@ -403,4 +388,11 @@ function getListObjectCompletion(
         return completionItems;
     }
     return undefined;
+}
+
+function getSharedObjectCompletion(item: EnumDatasetValue, value: string) {
+    const completionItem = new vscode.CompletionItem(value, vscode.CompletionItemKind.EnumMember);
+    completionItem.kind = vscode.CompletionItemKind.EnumMember;
+    completionItem.detail = item.description;
+    return completionItem;
 }

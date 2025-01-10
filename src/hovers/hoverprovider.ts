@@ -1,17 +1,16 @@
 import * as vscode from 'vscode';
 
+import { keyAliases, FileObjectMap, FileObjectTypes } from '../objectInfos';
 import {
-    keyAliases,
-    ObjectType,
-    Mechanic,
     Attribute,
-    FileObjectMap,
-    FileObjectTypes,
-} from '../objectInfos';
+    MythicAttribute,
+    AbstractScribeMechanicRegistry,
+    MythicMechanic,
+} from '../datasets/ScribeMechanic';
 import * as yamlutils from '../utils/yamlutils';
 import { getCursorSkills, getCursorObject } from '../utils/cursorutils';
 
-type KeyDependantMechanicLikeHover = { keys: string[]; type: ObjectType };
+type KeyDependantMechanicLikeHover = { keys: string[]; registry: AbstractScribeMechanicRegistry };
 
 export function hoverProvider(
     fileobject: FileObjectMap,
@@ -34,20 +33,20 @@ export function hoverProvider(
                 if (!result) {
                     return null;
                 }
-                const [obj, type] = result;
+                const obj = result;
 
                 if (!obj) {
                     return null;
                 }
-                if (type === ObjectType.ATTRIBUTE) {
+                if (obj instanceof MythicAttribute) {
                     return getHoverForAttribute(obj as Attribute);
                 }
 
-                return getHover(obj as Mechanic, type as ObjectType);
+                return getHover(obj);
             }
             for (const keydependency of keydependencies) {
                 if (keydependency.keys.includes(keys[0])) {
-                    return getHoverForMechanicLike(keydependency.type, document, position);
+                    return getHoverForMechanicLike(keydependency.registry, document, position);
                 }
             }
             return null;
@@ -56,33 +55,33 @@ export function hoverProvider(
 }
 
 async function getHoverForMechanicLike(
-    oType: ObjectType,
+    registry: AbstractScribeMechanicRegistry,
     document: vscode.TextDocument,
     position: vscode.Position
 ): Promise<vscode.Hover | undefined> {
-    const result = getCursorObject(oType, document, position);
+    const result = getCursorObject(registry, document, position);
     if (!result) {
         return undefined;
     }
-    const [obj, type] = result;
+    const obj = result;
 
     if (!obj) {
         return undefined;
     }
-    if (type === ObjectType.ATTRIBUTE) {
+    if (obj instanceof MythicAttribute) {
         return getHoverForAttribute(obj as Attribute);
     }
 
-    return getHover(obj as Mechanic, type as ObjectType);
+    return getHover(obj);
 }
 
-async function getHover(mechanic: Mechanic, type: ObjectType): Promise<vscode.Hover | undefined> {
+async function getHover(mechanic: MythicMechanic): Promise<vscode.Hover | undefined> {
     // Combine the mechanic names into a comma-separated string for the mechanic's names
     const mechanicNames = mechanic.name.join(', ');
 
     // Start building the hover content for the mechanic
     const hoverContent = new vscode.MarkdownString(`
-### [${type}](${mechanic.link})
+### [${mechanic.registry.type}](${mechanic.link})
 [\`${mechanicNames}\`](${mechanic.link})
 
 
@@ -92,9 +91,9 @@ ${mechanic.description}
 ---
 
 `);
-
+    const mechanicAttributes = mechanic.getMyAttributes();
     // Check if there are any attributes to display in the table
-    if (mechanic.attributes && mechanic.attributes.length > 0) {
+    if (mechanicAttributes && mechanicAttributes.length > 0) {
         // Add headers for the attribute table
         hoverContent.appendMarkdown(`\n\n`);
         hoverContent.appendMarkdown(`
@@ -103,7 +102,7 @@ ${mechanic.description}
 `);
 
         // Add each attribute to the table
-        mechanic.attributes.forEach((attribute: Attribute) => {
+        mechanicAttributes.forEach((attribute: MythicAttribute) => {
             const attributeName = attribute.name[0]; // First element as the primary name
             const attributeAliases = attribute.name.slice(1).join(', ') || ''; // Remaining names as aliases
             const attributeDescription = attribute.description || 'No description provided.';

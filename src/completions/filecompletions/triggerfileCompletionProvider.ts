@@ -1,12 +1,13 @@
 import * as vscode from 'vscode';
 
-import { keyAliases, Mechanic, ObjectInfo, ObjectType, TriggerType } from '../../objectInfos';
+import { keyAliases, TriggerType } from '../../objectInfos';
+import { MythicMechanic, ScribeTriggerRegistry } from '../../datasets/ScribeMechanic';
 import { checkShouldPrefixComplete } from '../../utils/completionhelper';
 import * as yamlutils from '../../utils/yamlutils';
 
 export function triggerfileCompletionProvider(
     type: TriggerType,
-    parentKey: string[] = keyAliases.Skills,
+    parentKey: string[] = keyAliases.Skills
 ) {
     return vscode.languages.registerCompletionItemProvider(
         ['mythicscript', 'yaml'],
@@ -15,7 +16,7 @@ export function triggerfileCompletionProvider(
                 document: vscode.TextDocument,
                 position: vscode.Position,
                 _token: vscode.CancellationToken,
-                context: vscode.CompletionContext,
+                context: vscode.CompletionContext
             ) {
                 const keys = yamlutils.getParentKeys(document, position);
                 if (!parentKey.includes(keys[0])) {
@@ -28,15 +29,16 @@ export function triggerfileCompletionProvider(
 
                 const completionItems: vscode.CompletionItem[] = [];
 
-                ObjectInfo[ObjectType.TRIGGER].dataset
-                    .filter((item: Mechanic) => {
+                ScribeTriggerRegistry.getInstance<ScribeTriggerRegistry>()
+                    .getMechanics()
+                    .filter((item: MythicMechanic) => {
                         return item.implements && item.implements.includes(type.toString());
                     })
-                    .forEach((item: Mechanic) => {
+                    .forEach((item: MythicMechanic) => {
                         item.name.forEach((name: string) => {
                             const completionItem = new vscode.CompletionItem(
                                 name,
-                                vscode.CompletionItemKind.Function,
+                                vscode.CompletionItemKind.Function
                             );
                             completionItem.detail = `${item.description}`;
                             completionItem.kind = vscode.CompletionItemKind.Function;
@@ -51,6 +53,6 @@ export function triggerfileCompletionProvider(
                 return completionItems;
             },
         },
-        '~',
+        '~'
     );
 }

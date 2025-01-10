@@ -14,10 +14,12 @@ export class ScribeEnumHandler extends AbstractScribeHandler {
 
     private constructor() {
         super();
-        this.initializeEnums();
+        ScribeEnumHandler.initializeEnums();
     }
 
-    private initializeEnums(): void {
+    static initializeEnums(): void {
+        ScribeEnumHandler.emptyDatasets();
+
         ScribeEnumHandler.addEnum(VolatileScribeEnum, 'SOUND', 'minecraft/sounds.json');
 
         ScribeEnumHandler.addEnum(LocalScribeEnum, 'AUDIENCE', 'mythic/audiences.json');
@@ -148,7 +150,7 @@ export class ScribeEnumHandler extends AbstractScribeHandler {
     }
 
     static getEnum(identifier: string): AbstractScribeEnum | undefined {
-        return ScribeEnumHandler.enums.get(identifier.toUpperCase());
+        return ScribeEnumHandler.enums.get(identifier.toLowerCase());
     }
 
     static async addEnum(
@@ -156,16 +158,16 @@ export class ScribeEnumHandler extends AbstractScribeHandler {
         identifier: string,
         path: string
     ) {
-        const enumObject = new oclass(identifier.toUpperCase(), path);
-        ScribeEnumHandler.enums.set(identifier.toUpperCase(), enumObject);
+        const enumObject = new oclass(identifier.toLowerCase(), path);
+        ScribeEnumHandler.enums.set(identifier.toLowerCase(), enumObject);
     }
 
     static async addLambdaEnum(key: string, values: string[]) {
-        const enumObject = new LambdaScribeEnum(key.toUpperCase(), values);
-        ScribeEnumHandler.enums.set(key.toUpperCase(), enumObject);
+        const enumObject = new LambdaScribeEnum(key.toLowerCase(), values);
+        ScribeEnumHandler.enums.set(key.toLowerCase(), enumObject);
     }
 
-    static removeAllEnums(): void {
+    static emptyDatasets(): void {
         ScribeEnumHandler.enums.clear();
     }
 }

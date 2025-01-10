@@ -1,9 +1,14 @@
 import * as vscode from 'vscode';
 
-import { MechanicDataset, ObjectInfo, ObjectType } from '../objectInfos';
+import {
+    MechanicDataset,
+    ScribeConditionRegistry,
+    ScribeMechanicRegistry,
+    ScribeTargeterRegistry,
+    ScribeTriggerRegistry,
+} from './ScribeMechanic';
 import { ScribeEnumHandler, StaticScribeEnum, WebScribeEnum } from './ScribeEnum';
 import { fetchMechanicDatasetFromLink, loadDatasets, loadLocalMechanicDataset } from './datasets';
-import { ctx } from '../MythicScribe';
 import { logError } from '../utils/logger';
 
 export enum CustomDatasetElementType {
@@ -162,7 +167,7 @@ async function finalizeCustomDatasetAddition(
     vscode.window.showInformationMessage(`Mapping added: ${elementType} -> ${pathOrUrl}`);
 
     // Reload the datasets
-    await loadDatasets(ctx);
+    loadDatasets();
 }
 
 export function getCustomDatasetConfiguration(): [vscode.WorkspaceConfiguration, CustomDataset[]] {
@@ -182,7 +187,7 @@ export async function loadCustomDatasets() {
                 .split('/')
                 .reverse()[0]
                 .replace('.json', '')
-                .toUpperCase();
+                .toLowerCase();
             if (dataset.source === CustomDatasetSource.LOCALFILE) {
                 ScribeEnumHandler.addEnum(
                     StaticScribeEnum,
@@ -207,16 +212,24 @@ async function loadLocalCustomDataset(dataset: CustomDataset) {
     if (localDataset) {
         switch (dataset.elementType) {
             case CustomDatasetElementType.MECHANIC:
-                ObjectInfo[ObjectType.MECHANIC].dataset.push(...localDataset);
+                ScribeMechanicRegistry.getInstance<ScribeMechanicRegistry>().addMechanic(
+                    ...localDataset
+                );
                 break;
             case CustomDatasetElementType.TARGETER:
-                ObjectInfo[ObjectType.TARGETER].dataset.push(...localDataset);
+                ScribeTargeterRegistry.getInstance<ScribeTargeterRegistry>().addMechanic(
+                    ...localDataset
+                );
                 break;
             case CustomDatasetElementType.CONDITION:
-                ObjectInfo[ObjectType.CONDITION].dataset.push(...localDataset);
+                ScribeConditionRegistry.getInstance<ScribeConditionRegistry>().addMechanic(
+                    ...localDataset
+                );
                 break;
             case CustomDatasetElementType.TRIGGER:
-                ObjectInfo[ObjectType.TRIGGER].dataset.push(...localDataset);
+                ScribeTriggerRegistry.getInstance<ScribeTriggerRegistry>().addMechanic(
+                    ...localDataset
+                );
                 break;
         }
     }
@@ -227,16 +240,22 @@ async function loadLinkCustomDataset(dataset: CustomDataset) {
     if (fileData) {
         switch (dataset.elementType) {
             case CustomDatasetElementType.MECHANIC:
-                ObjectInfo[ObjectType.MECHANIC].dataset.push(...fileData);
+                ScribeMechanicRegistry.getInstance<ScribeMechanicRegistry>().addMechanic(
+                    ...fileData
+                );
                 break;
             case CustomDatasetElementType.TARGETER:
-                ObjectInfo[ObjectType.TARGETER].dataset.push(...fileData);
+                ScribeTargeterRegistry.getInstance<ScribeTargeterRegistry>().addMechanic(
+                    ...fileData
+                );
                 break;
             case CustomDatasetElementType.CONDITION:
-                ObjectInfo[ObjectType.CONDITION].dataset.push(...fileData);
+                ScribeConditionRegistry.getInstance<ScribeConditionRegistry>().addMechanic(
+                    ...fileData
+                );
                 break;
             case CustomDatasetElementType.TRIGGER:
-                ObjectInfo[ObjectType.TRIGGER].dataset.push(...fileData);
+                ScribeTriggerRegistry.getInstance<ScribeTriggerRegistry>().addMechanic(...fileData);
                 break;
         }
     }

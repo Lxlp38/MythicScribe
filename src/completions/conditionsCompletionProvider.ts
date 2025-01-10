@@ -1,7 +1,8 @@
 import * as vscode from 'vscode';
 
 import * as yamlutils from '../utils/yamlutils';
-import { keyAliases, ObjectInfo, ObjectType } from '../objectInfos';
+import { keyAliases } from '../objectInfos';
+import { ScribeConditionRegistry } from '../datasets/ScribeMechanic';
 import { ConditionActions } from '../schemas/conditionActions';
 import { addMechanicCompletions, checkShouldKeyComplete } from '../utils/completionhelper';
 
@@ -13,21 +14,21 @@ export function conditionCompletionProvider() {
                 document: vscode.TextDocument,
                 position: vscode.Position,
                 _token: vscode.CancellationToken,
-                context: vscode.CompletionContext,
+                context: vscode.CompletionContext
             ) {
                 if (!checkShouldKeyComplete(document, position, keyAliases.Conditions)) {
                     return undefined;
                 }
 
                 const charBefore = document.getText(
-                    new vscode.Range(position.translate(0, -2), position),
+                    new vscode.Range(position.translate(0, -2), position)
                 );
                 if (charBefore[1] === '{') {
                     return undefined;
                 }
 
                 const lineBefore = document.getText(
-                    new vscode.Range(position.with({ character: 0 }), position),
+                    new vscode.Range(position.with({ character: 0 }), position)
                 );
                 const wordBefore = yamlutils.getWordBeforePosition(document, position);
 
@@ -36,7 +37,7 @@ export function conditionCompletionProvider() {
                 const completionItems: vscode.CompletionItem[] = [];
                 //let conditionAction = null;
                 const lastIsConditionAction = Object.keys(ConditionActions).includes(
-                    yamlutils.getWordBeforePosition(document, position),
+                    yamlutils.getWordBeforePosition(document, position)
                 );
                 if (lastIsConditionAction) {
                     //conditionAction = yamlutils.getWordBeforePosition(document, position);
@@ -71,7 +72,7 @@ export function conditionCompletionProvider() {
 
                 const openBraceCompletion = new vscode.CompletionItem(
                     '(',
-                    vscode.CompletionItemKind.Function,
+                    vscode.CompletionItemKind.Function
                 );
                 openBraceCompletion.kind = vscode.CompletionItemKind.Function;
                 openBraceCompletion.insertText = new vscode.SnippetString(space + '( $0 )');
@@ -86,7 +87,7 @@ export function conditionCompletionProvider() {
                 if (openBraceCount > closeBraceCount) {
                     const closeBraceCompletion = new vscode.CompletionItem(
                         ')',
-                        vscode.CompletionItemKind.Function,
+                        vscode.CompletionItemKind.Function
                     );
                     closeBraceCompletion.kind = vscode.CompletionItemKind.Function;
                     closeBraceCompletion.insertText = new vscode.SnippetString(') $0');
@@ -97,7 +98,10 @@ export function conditionCompletionProvider() {
                     completionItems.push(closeBraceCompletion);
                 }
 
-                addMechanicCompletions(ObjectInfo[ObjectType.CONDITION].dataset, completionItems);
+                addMechanicCompletions(
+                    ScribeConditionRegistry.getInstance<ScribeConditionRegistry>().getMechanics(),
+                    completionItems
+                );
 
                 return completionItems;
             },
@@ -107,7 +111,7 @@ export function conditionCompletionProvider() {
         '(',
         '|',
         '&',
-        ')',
+        ')'
     );
 }
 

@@ -1,7 +1,13 @@
 import * as vscode from 'vscode';
 
-import { getAttributeDataByName, getMechanicDataByName } from './mechanicutils';
-import { ObjectInfo, ObjectType } from '../objectInfos';
+import {
+    AbstractScribeMechanicRegistry,
+    ScribeConditionRegistry,
+    ScribeInlineConditionRegistry,
+    ScribeMechanicRegistry,
+    ScribeTargeterRegistry,
+    ScribeTriggerRegistry,
+} from '../datasets/ScribeMechanic';
 
 /**
  * Function to find the object linked to an unbalanced '{' in the format object{attribute1=value1;attribute2=value2}
@@ -62,22 +68,22 @@ export function getAttributeLinkedToValue(
 export function fetchCursorSkills(
     document: vscode.TextDocument,
     position: vscode.Position,
-    type: ObjectType
+    registry: AbstractScribeMechanicRegistry
 ) {
-    const maybeMechanic = document.getWordRangeAtPosition(position, ObjectInfo[type].regex);
+    const maybeMechanic = document.getWordRangeAtPosition(position, registry.regex);
     if (maybeMechanic) {
         const mechanic = document.getText(maybeMechanic);
-        return [getMechanicDataByName(mechanic, type), type];
+        return registry.getMechanicByName(mechanic);
     }
     return null;
 }
 
 export function getCursorSkills(document: vscode.TextDocument, position: vscode.Position) {
     for (const objectType of [
-        ObjectType.MECHANIC,
-        ObjectType.TARGETER,
-        ObjectType.TRIGGER,
-        ObjectType.INLINECONDITION,
+        ScribeMechanicRegistry.getInstance<ScribeMechanicRegistry>(),
+        ScribeTargeterRegistry.getInstance<ScribeTargeterRegistry>(),
+        ScribeTriggerRegistry.getInstance<ScribeTriggerRegistry>(),
+        ScribeInlineConditionRegistry.getInstance<ScribeInlineConditionRegistry>(),
     ]) {
         const maybeObject = fetchCursorSkills(document, position, objectType);
         if (maybeObject) {
@@ -96,58 +102,47 @@ export function getCursorSkills(document: vscode.TextDocument, position: vscode.
             return null;
         }
         if (object.startsWith('@')) {
-            const targeter = getMechanicDataByName(object.replace('@', ''), ObjectType.TARGETER);
-            return targeter
-                ? [
-                      getAttributeDataByName(targeter, attribute, ObjectType.TARGETER),
-                      ObjectType.ATTRIBUTE,
-                  ]
-                : null;
+            const targeter =
+                ScribeTargeterRegistry.getInstance<ScribeTargeterRegistry>().getMechanicByName(
+                    object.replace('@', '')
+                );
+            return targeter ? targeter.getAttributeByName(attribute) : null;
         }
         if (object.startsWith('?')) {
-            const condition = getMechanicDataByName(
-                object.replace('?', '').replace('!', '').replace('~', ''),
-                ObjectType.CONDITION
-            );
-            return condition
-                ? [
-                      getAttributeDataByName(condition, attribute, ObjectType.CONDITION),
-                      ObjectType.ATTRIBUTE,
-                  ]
-                : null;
+            const condition =
+                ScribeConditionRegistry.getInstance<ScribeConditionRegistry>().getMechanicByName(
+                    object.replace('?', '').replace('!', '').replace('~', '')
+                );
+            return condition ? condition.getAttributeByName(attribute) : null;
         }
-        const mechanic = getMechanicDataByName(object, ObjectType.MECHANIC);
-        return mechanic
-            ? [
-                  getAttributeDataByName(mechanic, attribute, ObjectType.MECHANIC),
-                  ObjectType.ATTRIBUTE,
-              ]
-            : null;
+        const mechanic =
+            ScribeMechanicRegistry.getInstance<ScribeMechanicRegistry>().getMechanicByName(object);
+        return mechanic ? mechanic.getAttributeByName(attribute) : null;
     }
     return null;
 }
 
 export function getCursorObject(
-    type: ObjectType,
+    registry: AbstractScribeMechanicRegistry,
     document: vscode.TextDocument,
     position: vscode.Position
 ) {
-    const maybeCondition = fetchCursorSkills(document, position, type);
+    const maybeCondition = fetchCursorSkills(document, position, registry);
     if (maybeCondition) {
         return maybeCondition;
     }
     const maybeAttribute = document.getWordRangeAtPosition(position, /(?<=[{;])\w+/gm);
     if (maybeAttribute) {
-        const attribute = document.getText(maybeAttribute);
         const object = getObjectLinkedToAttribute(document, position);
         if (!object) {
             return null;
         }
-        const mechanic = getMechanicDataByName(object, type);
+        const mechanic = registry.getMechanicByName(object);
         if (!mechanic) {
             return null;
         }
-        return [getAttributeDataByName(mechanic, attribute, type), ObjectType.ATTRIBUTE];
+        const attribute = document.getText(maybeAttribute);
+        return mechanic.getAttributeByName(attribute);
     }
     return null;
 }

@@ -1,49 +1,25 @@
 import * as vscode from 'vscode';
 
-import * as config from '../utils/configutils';
 import * as logger from '../utils/logger';
-import { Mechanic, MechanicDataset, ObjectInfo, ObjectType } from '../objectInfos';
+import {
+    Mechanic,
+    MechanicDataset,
+    ScribeAIGoalRegistry,
+    ScribeAITargetRegistry,
+    ScribeConditionRegistry,
+    ScribeMechanicRegistry,
+    ScribeMechanicHandler,
+    ScribeTargeterRegistry,
+    ScribeTriggerRegistry,
+} from './ScribeMechanic';
 import { EnumDatasetValue, ScribeEnumHandler } from './ScribeEnum';
-import { loadCustomDatasets } from './customDatasets';
-
-// Define the paths to your local datasets
-let mechanicsDatasetPath: vscode.Uri;
-let targetersDatasetPath: vscode.Uri;
-let conditionsDatasetPath: vscode.Uri;
-let triggersDatasetPath: vscode.Uri;
-let aitargetsDatasetPath: vscode.Uri;
-let aigoalsDatasetPath: vscode.Uri;
 
 // GitHub URL to fetch data from
 const GITHUB_BASE_URL = 'https://raw.githubusercontent.com/Lxlp38/MythicScribe/master/data/';
 const GITHUB_API_COMMITS_URL = 'https://api.github.com/repos/Lxlp38/MythicScribe/commits?path=data';
 
-// Function to load datasets, check globalState, and update if necessary
-export async function loadDatasets(context: vscode.ExtensionContext) {
-    mechanicsDatasetPath = vscode.Uri.joinPath(context.extensionUri, 'data', 'mechanics');
-    targetersDatasetPath = vscode.Uri.joinPath(context.extensionUri, 'data', 'targeters');
-    conditionsDatasetPath = vscode.Uri.joinPath(context.extensionUri, 'data', 'conditions');
-    triggersDatasetPath = vscode.Uri.joinPath(context.extensionUri, 'data', 'triggers');
-    aitargetsDatasetPath = vscode.Uri.joinPath(context.extensionUri, 'data', 'aitargets');
-    aigoalsDatasetPath = vscode.Uri.joinPath(context.extensionUri, 'data', 'aigoals');
-
-    if (config.datasetSource() === 'GitHub') {
-        await checkGithubDatasets(context);
-    } else {
-        await loadLocalDatasets();
-    }
-
-    await Promise.all([
-        checkForLambdaEnum(ObjectInfo[ObjectType.MECHANIC].dataset),
-        checkForLambdaEnum(ObjectInfo[ObjectType.TARGETER].dataset),
-        checkForLambdaEnum(ObjectInfo[ObjectType.CONDITION].dataset),
-        checkForLambdaEnum(ObjectInfo[ObjectType.TRIGGER].dataset),
-    ]);
-
-    await loadCustomDatasets();
-
-    updateDatasets();
-    return;
+export async function loadDatasets() {
+    Promise.all([ScribeEnumHandler.initializeEnums(), ScribeMechanicHandler.loadDatasets()]);
 }
 
 // Function to fetch the latest commit hash from GitHub
@@ -107,23 +83,30 @@ export async function fetchEnumDatasetFromLink(
     }
 }
 
-async function loadLocalDatasets() {
+export async function loadLocalDatasets() {
     // Load datasets from local files
-    ObjectInfo[ObjectType.MECHANIC].dataset =
-        await loadDatasetFromLocalDirectory(mechanicsDatasetPath);
-    ObjectInfo[ObjectType.TARGETER].dataset =
-        await loadDatasetFromLocalDirectory(targetersDatasetPath);
-    ObjectInfo[ObjectType.CONDITION].dataset =
-        await loadDatasetFromLocalDirectory(conditionsDatasetPath);
-    ObjectInfo[ObjectType.TRIGGER].dataset =
-        await loadDatasetFromLocalDirectory(triggersDatasetPath);
-    ObjectInfo[ObjectType.AITARGET].dataset =
-        await loadDatasetFromLocalDirectory(aitargetsDatasetPath);
-    ObjectInfo[ObjectType.AIGOAL].dataset = await loadDatasetFromLocalDirectory(aigoalsDatasetPath);
+    ScribeMechanicRegistry.getInstance<ScribeMechanicRegistry>().addMechanic(
+        ...(await loadDatasetFromLocalDirectory(ScribeMechanicHandler.pathMap.mechanic))
+    );
+    ScribeTargeterRegistry.getInstance<ScribeTargeterRegistry>().addMechanic(
+        ...(await loadDatasetFromLocalDirectory(ScribeMechanicHandler.pathMap.targeter))
+    );
+    ScribeConditionRegistry.getInstance<ScribeConditionRegistry>().addMechanic(
+        ...(await loadDatasetFromLocalDirectory(ScribeMechanicHandler.pathMap.condition))
+    );
+    ScribeTriggerRegistry.getInstance<ScribeTriggerRegistry>().addMechanic(
+        ...(await loadDatasetFromLocalDirectory(ScribeMechanicHandler.pathMap.trigger))
+    );
+    ScribeAITargetRegistry.getInstance<ScribeAITargetRegistry>().addMechanic(
+        ...(await loadDatasetFromLocalDirectory(ScribeMechanicHandler.pathMap.aitarget))
+    );
+    ScribeAIGoalRegistry.getInstance<ScribeAIGoalRegistry>().addMechanic(
+        ...(await loadDatasetFromLocalDirectory(ScribeMechanicHandler.pathMap.aigoal))
+    );
 }
 
-async function checkGithubDatasets(context: vscode.ExtensionContext) {
-    const globalState = context.globalState;
+export async function checkGithubDatasets() {
+    const globalState = ScribeMechanicHandler.context.globalState;
 
     // Fetch the latest commit hash from GitHub
     const latestCommitHash = await fetchLatestCommitHash();
@@ -142,7 +125,14 @@ async function checkGithubDatasets(context: vscode.ExtensionContext) {
         const aigoalsData = await loadDatasetFromGithubDirectory('aigoals');
 
         // Check if the data was successfully fetched
-        if (mechanicsData && targetersData && conditionsData) {
+        if (
+            mechanicsData &&
+            targetersData &&
+            conditionsData &&
+            triggersData &&
+            aitargetsData &&
+            aigoalsData
+        ) {
             // Save datasets to globalState
             globalState.update('mechanicsDataset', mechanicsData);
             globalState.update('targetersDataset', targetersData);
@@ -161,74 +151,37 @@ async function checkGithubDatasets(context: vscode.ExtensionContext) {
         }
     }
 
-    loadGithubDatasets(context);
+    loadGithubDatasets();
 }
 
-async function loadGithubDatasets(context: vscode.ExtensionContext) {
-    const globalState = context.globalState;
+async function loadGithubDatasets() {
+    const globalState = ScribeMechanicHandler.context.globalState;
 
     // Load datasets from globalState or fallback to local datasets if necessary
-    ObjectInfo[ObjectType.MECHANIC].dataset =
-        globalState.get('mechanicsDataset') ||
-        (await loadDatasetFromLocalDirectory(mechanicsDatasetPath));
-    ObjectInfo[ObjectType.TARGETER].dataset =
-        globalState.get('targetersDataset') ||
-        (await loadDatasetFromLocalDirectory(targetersDatasetPath));
-    ObjectInfo[ObjectType.CONDITION].dataset =
-        globalState.get('conditionsDataset') ||
-        (await loadDatasetFromLocalDirectory(conditionsDatasetPath));
-    ObjectInfo[ObjectType.TRIGGER].dataset =
-        globalState.get('triggersDataset') ||
-        (await loadDatasetFromLocalDirectory(triggersDatasetPath));
-    ObjectInfo[ObjectType.AITARGET].dataset =
-        globalState.get('aitargetsDataset') ||
-        (await loadDatasetFromLocalDirectory(aitargetsDatasetPath));
-    ObjectInfo[ObjectType.AIGOAL].dataset =
-        globalState.get('aigoalsDataset') ||
-        (await loadDatasetFromLocalDirectory(aigoalsDatasetPath));
-}
-
-async function checkForLambdaEnum(dataset: MechanicDataset) {
-    for (const mechanic of dataset) {
-        for (const attribute of mechanic.attributes) {
-            if (attribute.enum && attribute.enum.includes(',')) {
-                const values = attribute.enum.split(',');
-                ScribeEnumHandler.addLambdaEnum(attribute.enum, values);
-            }
-        }
-    }
-}
-
-export async function updateDatasets() {
-    updateDatasetMaps();
-}
-
-async function updateDatasetMaps() {
-    Promise.all([
-        mapDataset(ObjectInfo[ObjectType.MECHANIC]),
-        mapDataset(ObjectInfo[ObjectType.TARGETER]),
-        mapDataset(ObjectInfo[ObjectType.CONDITION]),
-        mapDataset(ObjectInfo[ObjectType.TRIGGER]),
-        mapDataset(ObjectInfo[ObjectType.AITARGET]),
-        mapDataset(ObjectInfo[ObjectType.AIGOAL]),
-    ]);
-
-    ObjectInfo[ObjectType.INLINECONDITION].dataset = ObjectInfo[ObjectType.CONDITION].dataset;
-    ObjectInfo[ObjectType.INLINECONDITION].datasetMap = ObjectInfo[ObjectType.CONDITION].datasetMap;
-    ObjectInfo[ObjectType.INLINECONDITION].datasetClassMap =
-        ObjectInfo[ObjectType.CONDITION].datasetClassMap;
-}
-
-async function mapDataset(object: ObjectInfo) {
-    object.datasetMap = new Map<string, Mechanic>();
-    object.datasetClassMap = new Map<string, Mechanic>();
-
-    for (const mechanic of object.dataset) {
-        for (const name of mechanic.name) {
-            object.datasetMap.set(name.toLowerCase(), mechanic);
-        }
-        object.datasetClassMap.set(mechanic.class.toLowerCase(), mechanic);
-    }
+    ScribeMechanicRegistry.getInstance<ScribeMechanicRegistry>().addMechanic(
+        ...((globalState.get('mechanicsDataset') as MechanicDataset) ||
+            (await loadDatasetFromLocalDirectory(ScribeMechanicHandler.pathMap.mechanic)))
+    );
+    ScribeMechanicRegistry.getInstance<ScribeMechanicRegistry>().addMechanic(
+        ...((globalState.get('targetersDataset') as MechanicDataset) ||
+            (await loadDatasetFromLocalDirectory(ScribeMechanicHandler.pathMap.targeter)))
+    );
+    ScribeMechanicRegistry.getInstance<ScribeMechanicRegistry>().addMechanic(
+        ...((globalState.get('conditionsDataset') as MechanicDataset) ||
+            (await loadDatasetFromLocalDirectory(ScribeMechanicHandler.pathMap.condition)))
+    );
+    ScribeMechanicRegistry.getInstance<ScribeMechanicRegistry>().addMechanic(
+        ...((globalState.get('triggersDataset') as MechanicDataset) ||
+            (await loadDatasetFromLocalDirectory(ScribeMechanicHandler.pathMap.trigger)))
+    );
+    ScribeMechanicRegistry.getInstance<ScribeMechanicRegistry>().addMechanic(
+        ...((globalState.get('aitargetsDataset') as MechanicDataset) ||
+            (await loadDatasetFromLocalDirectory(ScribeMechanicHandler.pathMap.aitarget)))
+    );
+    ScribeMechanicRegistry.getInstance<ScribeMechanicRegistry>().addMechanic(
+        ...((globalState.get('aigoalsDataset') as MechanicDataset) ||
+            (await loadDatasetFromLocalDirectory(ScribeMechanicHandler.pathMap.aigoal)))
+    );
 }
 
 export async function loadLocalMechanicDataset(datasetPath: string): Promise<MechanicDataset> {
@@ -274,7 +227,7 @@ async function loadDatasetFromLocalDirectory(directoryPath: vscode.Uri): Promise
 
 async function loadDatasetFromGithubDirectory(
     directoryUrl: string
-): Promise<MechanicDataset | unknown[] | null> {
+): Promise<MechanicDataset | null> {
     try {
         // Fetch directory contents to get a list of files
         const response = await fetch(`${GITHUB_BASE_URL}${directoryUrl}`);
@@ -285,7 +238,7 @@ async function loadDatasetFromGithubDirectory(
         const files: { name: string }[] = (await response.json()) as {
             name: string;
         }[];
-        const combinedDataset: unknown[] = [];
+        const combinedDataset: Mechanic[] = [];
 
         // Loop through each file in the directory
         for (const file of files) {
@@ -298,7 +251,7 @@ async function loadDatasetFromGithubDirectory(
                     if (Array.isArray(fileData)) {
                         combinedDataset.push(...fileData);
                     } else {
-                        combinedDataset.push(fileData);
+                        combinedDataset.push(fileData as Mechanic);
                     }
                 }
             }

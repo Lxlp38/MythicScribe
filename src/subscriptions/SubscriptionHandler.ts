@@ -1,7 +1,13 @@
 import * as vscode from 'vscode';
 
 import { itemFileCompletionProvider } from '../completions/filecompletions/itemfileCompletionProvider';
-import { keyAliases, ObjectType, TriggerType } from '../objectInfos';
+import { keyAliases, TriggerType } from '../objectInfos';
+import {
+    ScribeAIGoalRegistry,
+    ScribeAITargetRegistry,
+    ScribeConditionRegistry,
+    ScribeMechanicRegistry,
+} from '../datasets/ScribeMechanic';
 import { triggerfileCompletionProvider } from '../completions/filecompletions/triggerfileCompletionProvider';
 import { mobFileCompletionProvider } from '../completions/filecompletions/mobfileCompletionProvider';
 import { mechanicCompletionProvider } from '../completions/mechanicsCompletionProvider';
@@ -133,21 +139,27 @@ export class MobScribeSubscription extends AbstractScribeSubscription {
                 () => mobFileCompletionProvider(),
                 () =>
                     mechanicCompletionProvider(
-                        ObjectType.AITARGET,
+                        ScribeAITargetRegistry.getInstance<ScribeAITargetRegistry>(),
                         keyAliases.AITargetSelectors,
                         'WrappedPathfindingGoal'
                     ),
                 () =>
                     mechanicCompletionProvider(
-                        ObjectType.AIGOAL,
+                        ScribeAIGoalRegistry.getInstance<ScribeAIGoalRegistry>(),
                         keyAliases.AIGoalSelectors,
                         'WrappedPathfindingGoal'
                     ),
                 () =>
                     hoverProvider(
                         MobFileObjects,
-                        { keys: keyAliases.AIGoalSelectors, type: ObjectType.AIGOAL },
-                        { keys: keyAliases.AITargetSelectors, type: ObjectType.AITARGET }
+                        {
+                            keys: keyAliases.AIGoalSelectors,
+                            registry: ScribeAIGoalRegistry.getInstance<ScribeAIGoalRegistry>(),
+                        },
+                        {
+                            keys: keyAliases.AITargetSelectors,
+                            registry: ScribeAITargetRegistry.getInstance<ScribeAITargetRegistry>(),
+                        }
                     ),
             ],
             [enableFileSpecificSuggestions]
@@ -168,7 +180,7 @@ export class SkillScribeSubscription extends AbstractScribeSubscription {
                 () =>
                     hoverProvider(MetaskillFileObjects, {
                         keys: keyAliases.Conditions,
-                        type: ObjectType.CONDITION,
+                        registry: ScribeConditionRegistry.getInstance<ScribeConditionRegistry>(),
                     }),
             ],
             [enableFileSpecificSuggestions]
@@ -189,7 +201,12 @@ export class GlobalSubscriptionHandler extends AbstractScribeSubscription {
                 () => inlineConditionCompletionProvider(),
                 () => inlineMetaskillCompletionProvider(),
                 () => mechaniclineCompletionProvider(),
-                () => mechanicCompletionProvider(ObjectType.MECHANIC, keyAliases.Skills, ''),
+                () =>
+                    mechanicCompletionProvider(
+                        ScribeMechanicRegistry.getInstance<ScribeMechanicRegistry>(),
+                        keyAliases.Skills,
+                        ''
+                    ),
                 () => targeterCompletionProvider(),
             ],
             []
