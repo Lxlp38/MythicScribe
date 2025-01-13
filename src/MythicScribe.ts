@@ -3,7 +3,6 @@ import * as vscode from 'vscode';
 import * as resetFileChecks from './subscriptions/SubscriptionHelper';
 import { getFormatter } from './formatter/formatter';
 import { addCustomDataset } from './datasets/customDatasets';
-import { ScribeSubscriptionHandler } from './subscriptions/SubscriptionHandler';
 import { ScribeMechanicHandler } from './datasets/ScribeMechanic';
 import { ScribeEnumHandler } from './datasets/ScribeEnum';
 
@@ -13,7 +12,6 @@ export function activate(context: vscode.ExtensionContext) {
     ctx = context;
 
     ScribeEnumHandler.initializeEnums();
-    ScribeSubscriptionHandler;
     ScribeMechanicHandler.loadDatasets();
 
     // Datasets
