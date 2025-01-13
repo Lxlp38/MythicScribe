@@ -1,8 +1,8 @@
 import * as vscode from 'vscode';
 
 import { keyAliases } from '../objectInfos';
-import { ScribeConditionRegistry } from '../datasets/ScribeMechanic';
 import { addMechanicCompletions, checkShouldComplete } from '../utils/completionhelper';
+import { ScribeMechanicHandler } from '../datasets/ScribeMechanic';
 
 export function inlineConditionCompletionProvider() {
     return vscode.languages.registerCompletionItemProvider(
@@ -84,7 +84,7 @@ export function inlineConditionCompletionProvider() {
                 }
 
                 addMechanicCompletions(
-                    ScribeConditionRegistry.getInstance<ScribeConditionRegistry>().getMechanics(),
+                    ScribeMechanicHandler.registry.condition.getMechanics(),
                     completionItems
                 );
 

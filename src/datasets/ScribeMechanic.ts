@@ -1,10 +1,10 @@
 import * as vscode from 'vscode';
 
-import { AbstractScribeHandler } from '../handlers/AbstractScribeHandler';
 import { datasetSource } from '../utils/configutils';
 import { checkGithubDatasets, loadLocalDatasets } from './datasets';
 import { ScribeEnumHandler } from './ScribeEnum';
 import { loadCustomDatasets } from './customDatasets';
+import { ctx } from '../MythicScribe';
 
 export enum ObjectType {
     MECHANIC = 'Mechanic',
@@ -17,52 +17,9 @@ export enum ObjectType {
     AIGOAL = 'AIGoal',
 }
 
-export class ScribeMechanicHandler extends AbstractScribeHandler {
-    static pathMap: {
-        mechanic: vscode.Uri;
-        targeter: vscode.Uri;
-        condition: vscode.Uri;
-        trigger: vscode.Uri;
-        aitarget: vscode.Uri;
-        aigoal: vscode.Uri;
-    };
-
-    static createInstance(): AbstractScribeHandler {
-        return new ScribeMechanicHandler();
-    }
-
-    protected constructor() {
-        super();
-        ScribeMechanicHandler.pathMap = getPathMap(AbstractScribeHandler.context.extensionUri);
-        ScribeMechanicHandler.loadDatasets();
-    }
-
-    static async loadDatasets() {
-        ScribeMechanicHandler.emptyDatasets();
-
-        if (datasetSource() === 'GitHub') {
-            await checkGithubDatasets();
-        } else {
-            await loadLocalDatasets();
-        }
-        await loadCustomDatasets();
-    }
-
-    static emptyDatasets() {
-        Promise.all([
-            ScribeMechanicRegistry.getInstance<ScribeMechanicRegistry>().emptyDatasets(),
-            ScribeTargeterRegistry.getInstance<ScribeTargeterRegistry>().emptyDatasets(),
-            ScribeConditionRegistry.getInstance<ScribeConditionRegistry>().emptyDatasets(),
-            ScribeTriggerRegistry.getInstance<ScribeTriggerRegistry>().emptyDatasets(),
-            ScribeAITargetRegistry.getInstance<ScribeAITargetRegistry>().emptyDatasets(),
-            ScribeAIGoalRegistry.getInstance<ScribeAIGoalRegistry>().emptyDatasets(),
-        ]);
-    }
-}
-
 export type MechanicDataset = Mechanic[];
 
-export abstract class AbstractScribeMechanicRegistry extends AbstractScribeHandler {
+export abstract class AbstractScribeMechanicRegistry {
     readonly regex: RegExp = /null/;
     readonly type: ObjectType = ObjectType.MECHANIC;
     private mechanics: MythicMechanic[] = [];
@@ -102,67 +59,42 @@ export abstract class AbstractScribeMechanicRegistry extends AbstractScribeHandl
         this.mechanicsClassMap.clear();
     }
 }
-export class ScribeMechanicRegistry extends AbstractScribeMechanicRegistry {
+class ScribeMechanicRegistry extends AbstractScribeMechanicRegistry {
     readonly regex: RegExp = /(?<=\s- )[\w:]+/gm;
     readonly type: ObjectType = ObjectType.MECHANIC;
-    protected static createInstance(): ScribeMechanicRegistry {
-        return new ScribeMechanicRegistry();
-    }
 }
-export class ScribeTargeterRegistry extends AbstractScribeMechanicRegistry {
+class ScribeTargeterRegistry extends AbstractScribeMechanicRegistry {
     readonly regex: RegExp = /(?<=[\s=]@)[\w:]+/gm;
     readonly type: ObjectType = ObjectType.TARGETER;
-    protected static createInstance(): ScribeTargeterRegistry {
-        return new ScribeTargeterRegistry();
-    }
 }
-export class ScribeConditionRegistry extends AbstractScribeMechanicRegistry {
+class ScribeConditionRegistry extends AbstractScribeMechanicRegistry {
     readonly regex: RegExp = /(?<=[\s\|\&][-\(\|\&\)] )[\w:]+/gm;
     readonly type: ObjectType = ObjectType.CONDITION;
-    protected static createInstance(): ScribeConditionRegistry {
-        return new ScribeConditionRegistry();
-    }
 }
-export class ScribeInlineConditionRegistry extends ScribeConditionRegistry {
+class ScribeInlineConditionRegistry extends ScribeConditionRegistry {
     readonly regex: RegExp = /(?<=\s(\?)|(\?!)|(\?~)|(\?~!))[\w:]+/gm;
     readonly type: ObjectType = ObjectType.INLINECONDITION;
-    protected static createInstance(): ScribeInlineConditionRegistry {
-        return new ScribeInlineConditionRegistry();
-    }
     getMechanics(): MythicMechanic[] {
-        return ScribeConditionRegistry.getInstance<ScribeConditionRegistry>().getMechanics();
+        return ScribeMechanicHandler.registry.condition.getMechanics();
     }
     getMechanicByName(name: string): MythicMechanic | undefined {
-        return ScribeConditionRegistry.getInstance<ScribeConditionRegistry>().getMechanicByName(
-            name
-        );
+        return ScribeMechanicHandler.registry.condition.getMechanicByName(name);
     }
     getMechanicByClass(name: string): MythicMechanic | undefined {
-        return ScribeConditionRegistry.getInstance<ScribeConditionRegistry>().getMechanicByClass(
-            name
-        );
+        return ScribeMechanicHandler.registry.condition.getMechanicByClass(name);
     }
 }
-export class ScribeTriggerRegistry extends AbstractScribeMechanicRegistry {
+class ScribeTriggerRegistry extends AbstractScribeMechanicRegistry {
     readonly regex: RegExp = /(?<=\s~)on[\w:]+/gm;
     readonly type: ObjectType = ObjectType.TRIGGER;
-    protected static createInstance(): ScribeTriggerRegistry {
-        return new ScribeTriggerRegistry();
-    }
 }
-export class ScribeAITargetRegistry extends AbstractScribeMechanicRegistry {
+class ScribeAITargetRegistry extends AbstractScribeMechanicRegistry {
     readonly regex: RegExp = /(?<=\s- )[\w:]+/gm;
     readonly type: ObjectType = ObjectType.AITARGET;
-    protected static createInstance(): ScribeAITargetRegistry {
-        return new ScribeAITargetRegistry();
-    }
 }
-export class ScribeAIGoalRegistry extends AbstractScribeMechanicRegistry {
+class ScribeAIGoalRegistry extends AbstractScribeMechanicRegistry {
     readonly regex: RegExp = /(?<=\s- )[\w:]+/gm;
     readonly type: ObjectType = ObjectType.AIGOAL;
-    protected static createInstance(): ScribeAIGoalRegistry {
-        return new ScribeAIGoalRegistry();
-    }
 }
 
 export interface Mechanic {
@@ -305,3 +237,41 @@ function getPathMap(extensionUri: vscode.Uri) {
         aigoal: vscode.Uri.joinPath(extensionUri, 'data', 'aigoals'),
     };
 }
+
+export const ScribeMechanicHandler = {
+    get pathMap() {
+        return getPathMap(ctx.extensionUri);
+    },
+
+    registry: {
+        mechanic: new ScribeMechanicRegistry(),
+        targeter: new ScribeTargeterRegistry(),
+        condition: new ScribeConditionRegistry(),
+        inlinecondition: new ScribeInlineConditionRegistry(),
+        trigger: new ScribeTriggerRegistry(),
+        aitarget: new ScribeAITargetRegistry(),
+        aigoal: new ScribeAIGoalRegistry(),
+    },
+
+    async loadDatasets() {
+        ScribeMechanicHandler.emptyDatasets();
+
+        if (datasetSource() === 'GitHub') {
+            await checkGithubDatasets();
+        } else {
+            await loadLocalDatasets();
+        }
+        await loadCustomDatasets();
+    },
+
+    emptyDatasets() {
+        Promise.all([
+            ScribeMechanicHandler.registry.mechanic.emptyDatasets(),
+            ScribeMechanicHandler.registry.targeter.emptyDatasets(),
+            ScribeMechanicHandler.registry.condition.emptyDatasets(),
+            ScribeMechanicHandler.registry.trigger.emptyDatasets(),
+            ScribeMechanicHandler.registry.aitarget.emptyDatasets(),
+            ScribeMechanicHandler.registry.aigoal.emptyDatasets(),
+        ]);
+    },
+};

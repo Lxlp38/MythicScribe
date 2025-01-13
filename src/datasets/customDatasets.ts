@@ -1,12 +1,6 @@
 import * as vscode from 'vscode';
 
-import {
-    MechanicDataset,
-    ScribeConditionRegistry,
-    ScribeMechanicRegistry,
-    ScribeTargeterRegistry,
-    ScribeTriggerRegistry,
-} from './ScribeMechanic';
+import { MechanicDataset, ScribeMechanicHandler } from './ScribeMechanic';
 import { ScribeEnumHandler, StaticScribeEnum, WebScribeEnum } from './ScribeEnum';
 import { fetchMechanicDatasetFromLink, loadDatasets, loadLocalMechanicDataset } from './datasets';
 import { logError } from '../utils/logger';
@@ -212,24 +206,16 @@ async function loadLocalCustomDataset(dataset: CustomDataset) {
     if (localDataset) {
         switch (dataset.elementType) {
             case CustomDatasetElementType.MECHANIC:
-                ScribeMechanicRegistry.getInstance<ScribeMechanicRegistry>().addMechanic(
-                    ...localDataset
-                );
+                ScribeMechanicHandler.registry.mechanic.addMechanic(...localDataset);
                 break;
             case CustomDatasetElementType.TARGETER:
-                ScribeTargeterRegistry.getInstance<ScribeTargeterRegistry>().addMechanic(
-                    ...localDataset
-                );
+                ScribeMechanicHandler.registry.targeter.addMechanic(...localDataset);
                 break;
             case CustomDatasetElementType.CONDITION:
-                ScribeConditionRegistry.getInstance<ScribeConditionRegistry>().addMechanic(
-                    ...localDataset
-                );
+                ScribeMechanicHandler.registry.condition.addMechanic(...localDataset);
                 break;
             case CustomDatasetElementType.TRIGGER:
-                ScribeTriggerRegistry.getInstance<ScribeTriggerRegistry>().addMechanic(
-                    ...localDataset
-                );
+                ScribeMechanicHandler.registry.trigger.addMechanic(...localDataset);
                 break;
         }
     }
@@ -240,22 +226,16 @@ async function loadLinkCustomDataset(dataset: CustomDataset) {
     if (fileData) {
         switch (dataset.elementType) {
             case CustomDatasetElementType.MECHANIC:
-                ScribeMechanicRegistry.getInstance<ScribeMechanicRegistry>().addMechanic(
-                    ...fileData
-                );
+                ScribeMechanicHandler.registry.mechanic.addMechanic(...fileData);
                 break;
             case CustomDatasetElementType.TARGETER:
-                ScribeTargeterRegistry.getInstance<ScribeTargeterRegistry>().addMechanic(
-                    ...fileData
-                );
+                ScribeMechanicHandler.registry.targeter.addMechanic(...fileData);
                 break;
             case CustomDatasetElementType.CONDITION:
-                ScribeConditionRegistry.getInstance<ScribeConditionRegistry>().addMechanic(
-                    ...fileData
-                );
+                ScribeMechanicHandler.registry.condition.addMechanic(...fileData);
                 break;
             case CustomDatasetElementType.TRIGGER:
-                ScribeTriggerRegistry.getInstance<ScribeTriggerRegistry>().addMechanic(...fileData);
+                ScribeMechanicHandler.registry.trigger.addMechanic(...fileData);
                 break;
         }
     }

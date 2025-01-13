@@ -1,7 +1,7 @@
 import * as vscode from 'vscode';
 
 import { keyAliases, TriggerType } from '../../objectInfos';
-import { MythicMechanic, ScribeTriggerRegistry } from '../../datasets/ScribeMechanic';
+import { MythicMechanic, ScribeMechanicHandler } from '../../datasets/ScribeMechanic';
 import { checkShouldPrefixComplete } from '../../utils/completionhelper';
 import * as yamlutils from '../../utils/yamlutils';
 
@@ -29,7 +29,7 @@ export function triggerfileCompletionProvider(
 
                 const completionItems: vscode.CompletionItem[] = [];
 
-                ScribeTriggerRegistry.getInstance<ScribeTriggerRegistry>()
+                ScribeMechanicHandler.registry.trigger
                     .getMechanics()
                     .filter((item: MythicMechanic) => {
                         return item.implements && item.implements.includes(type.toString());

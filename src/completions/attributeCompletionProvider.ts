@@ -5,11 +5,7 @@ import {
     Attribute,
     MythicAttribute,
     MythicMechanic,
-    ScribeAIGoalRegistry,
-    ScribeAITargetRegistry,
-    ScribeConditionRegistry,
-    ScribeMechanicRegistry,
-    ScribeTargeterRegistry,
+    ScribeMechanicHandler,
 } from '../datasets/ScribeMechanic';
 import { EnumDatasetValue, ScribeEnumHandler } from '../datasets/ScribeEnum';
 import { checkShouldPrefixComplete } from '../utils/completionhelper';
@@ -211,24 +207,24 @@ function searchForLinkedObject(
         return null;
     }
     if (object.startsWith('@')) {
-        const type = ScribeTargeterRegistry.getInstance<ScribeTargeterRegistry>();
+        const type = ScribeMechanicHandler.registry.targeter;
         mechanic = type.getMechanicByName(object.replace('@', ''));
     } else if (object.startsWith('?')) {
-        const type = ScribeConditionRegistry.getInstance<ScribeConditionRegistry>();
+        const type = ScribeMechanicHandler.registry.condition;
         mechanic = type.getMechanicByName(
             object.replace('?', '').replace('!', '').replace('~', '')
         );
     } else if (keyAliases.Conditions.includes(keys[0])) {
-        const type = ScribeConditionRegistry.getInstance<ScribeConditionRegistry>();
+        const type = ScribeMechanicHandler.registry.condition;
         mechanic = type.getMechanicByName(object);
     } else if (keyAliases.AITargetSelectors.includes(keys[0])) {
-        const type = ScribeAITargetRegistry.getInstance<ScribeAITargetRegistry>();
+        const type = ScribeMechanicHandler.registry.aitarget;
         mechanic = type.getMechanicByName(object);
     } else if (keyAliases.AIGoalSelectors.includes(keys[0])) {
-        const type = ScribeAIGoalRegistry.getInstance<ScribeAIGoalRegistry>();
+        const type = ScribeMechanicHandler.registry.aigoal;
         mechanic = type.getMechanicByName(object);
     } else {
-        const type = ScribeMechanicRegistry.getInstance<ScribeMechanicRegistry>();
+        const type = ScribeMechanicHandler.registry.mechanic;
         mechanic = type.getMechanicByName(object);
 
         if (!mechanic && object.startsWith('skill:')) {

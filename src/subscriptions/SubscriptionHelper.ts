@@ -7,14 +7,7 @@ import {
     checkMobFile,
     checkItemFile,
 } from '../utils/configutils';
-import {
-    AbstractScribeSubscription,
-    GlobalSubscriptionHandler,
-    ItemScribeSubscription,
-    MobScribeSubscription,
-    ScribeSubscriptionHandler,
-    SkillScribeSubscription,
-} from './SubscriptionHandler';
+import { AbstractScribeSubscription, ScribeSubscriptionHandler } from './SubscriptionHandler';
 
 function resetFileChecks() {
     isEnabled = false;
@@ -67,7 +60,7 @@ export function updateEnabled(document: vscode.TextDocument) {
     if (isEnabled !== checkEnabled(document)) {
         isEnabled = checkEnabled(document);
         if (isEnabled) {
-            GlobalSubscriptionHandler.getInstance<GlobalSubscriptionHandler>().enableAll();
+            ScribeSubscriptionHandler.registry.global.enableAll();
         } else {
             ScribeSubscriptionHandler.disposeAll();
             resetFileChecks();
@@ -83,16 +76,16 @@ export function updateEnabled(document: vscode.TextDocument) {
     isMetaskillFile = fileSpecificEnabler(
         isMetaskillFile,
         checkMetaskillFile(document),
-        SkillScribeSubscription.getInstance<SkillScribeSubscription>()
+        ScribeSubscriptionHandler.registry.skill
     );
     isMobFile = fileSpecificEnabler(
         isMobFile,
         checkMobFile(document),
-        MobScribeSubscription.getInstance<MobScribeSubscription>()
+        ScribeSubscriptionHandler.registry.mob
     );
     isItemFile = fileSpecificEnabler(
         isItemFile,
         checkItemFile(document),
-        ItemScribeSubscription.getInstance<ItemScribeSubscription>()
+        ScribeSubscriptionHandler.registry.item
     );
 }

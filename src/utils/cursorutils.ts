@@ -1,13 +1,6 @@
 import * as vscode from 'vscode';
 
-import {
-    AbstractScribeMechanicRegistry,
-    ScribeConditionRegistry,
-    ScribeInlineConditionRegistry,
-    ScribeMechanicRegistry,
-    ScribeTargeterRegistry,
-    ScribeTriggerRegistry,
-} from '../datasets/ScribeMechanic';
+import { AbstractScribeMechanicRegistry, ScribeMechanicHandler } from '../datasets/ScribeMechanic';
 
 /**
  * Function to find the object linked to an unbalanced '{' in the format object{attribute1=value1;attribute2=value2}
@@ -80,10 +73,10 @@ export function fetchCursorSkills(
 
 export function getCursorSkills(document: vscode.TextDocument, position: vscode.Position) {
     for (const objectType of [
-        ScribeMechanicRegistry.getInstance<ScribeMechanicRegistry>(),
-        ScribeTargeterRegistry.getInstance<ScribeTargeterRegistry>(),
-        ScribeTriggerRegistry.getInstance<ScribeTriggerRegistry>(),
-        ScribeInlineConditionRegistry.getInstance<ScribeInlineConditionRegistry>(),
+        ScribeMechanicHandler.registry.mechanic,
+        ScribeMechanicHandler.registry.targeter,
+        ScribeMechanicHandler.registry.trigger,
+        ScribeMechanicHandler.registry.inlinecondition,
     ]) {
         const maybeObject = fetchCursorSkills(document, position, objectType);
         if (maybeObject) {
@@ -102,21 +95,18 @@ export function getCursorSkills(document: vscode.TextDocument, position: vscode.
             return null;
         }
         if (object.startsWith('@')) {
-            const targeter =
-                ScribeTargeterRegistry.getInstance<ScribeTargeterRegistry>().getMechanicByName(
-                    object.replace('@', '')
-                );
+            const targeter = ScribeMechanicHandler.registry.targeter.getMechanicByName(
+                object.replace('@', '')
+            );
             return targeter ? targeter.getAttributeByName(attribute) : null;
         }
         if (object.startsWith('?')) {
-            const condition =
-                ScribeConditionRegistry.getInstance<ScribeConditionRegistry>().getMechanicByName(
-                    object.replace('?', '').replace('!', '').replace('~', '')
-                );
+            const condition = ScribeMechanicHandler.registry.condition.getMechanicByName(
+                object.replace('?', '').replace('!', '').replace('~', '')
+            );
             return condition ? condition.getAttributeByName(attribute) : null;
         }
-        const mechanic =
-            ScribeMechanicRegistry.getInstance<ScribeMechanicRegistry>().getMechanicByName(object);
+        const mechanic = ScribeMechanicHandler.registry.mechanic.getMechanicByName(object);
         return mechanic ? mechanic.getAttributeByName(attribute) : null;
     }
     return null;

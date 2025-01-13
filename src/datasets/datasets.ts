@@ -1,18 +1,9 @@
 import * as vscode from 'vscode';
 
 import * as logger from '../utils/logger';
-import {
-    Mechanic,
-    MechanicDataset,
-    ScribeAIGoalRegistry,
-    ScribeAITargetRegistry,
-    ScribeConditionRegistry,
-    ScribeMechanicRegistry,
-    ScribeMechanicHandler,
-    ScribeTargeterRegistry,
-    ScribeTriggerRegistry,
-} from './ScribeMechanic';
+import { Mechanic, MechanicDataset, ScribeMechanicHandler } from './ScribeMechanic';
 import { EnumDatasetValue, ScribeEnumHandler } from './ScribeEnum';
+import { ctx } from '../MythicScribe';
 
 // GitHub URL to fetch data from
 const GITHUB_BASE_URL = 'https://raw.githubusercontent.com/Lxlp38/MythicScribe/master/data/';
@@ -85,28 +76,28 @@ export async function fetchEnumDatasetFromLink(
 
 export async function loadLocalDatasets() {
     // Load datasets from local files
-    ScribeMechanicRegistry.getInstance<ScribeMechanicRegistry>().addMechanic(
+    ScribeMechanicHandler.registry.mechanic.addMechanic(
         ...(await loadDatasetFromLocalDirectory(ScribeMechanicHandler.pathMap.mechanic))
     );
-    ScribeTargeterRegistry.getInstance<ScribeTargeterRegistry>().addMechanic(
+    ScribeMechanicHandler.registry.targeter.addMechanic(
         ...(await loadDatasetFromLocalDirectory(ScribeMechanicHandler.pathMap.targeter))
     );
-    ScribeConditionRegistry.getInstance<ScribeConditionRegistry>().addMechanic(
+    ScribeMechanicHandler.registry.condition.addMechanic(
         ...(await loadDatasetFromLocalDirectory(ScribeMechanicHandler.pathMap.condition))
     );
-    ScribeTriggerRegistry.getInstance<ScribeTriggerRegistry>().addMechanic(
+    ScribeMechanicHandler.registry.trigger.addMechanic(
         ...(await loadDatasetFromLocalDirectory(ScribeMechanicHandler.pathMap.trigger))
     );
-    ScribeAITargetRegistry.getInstance<ScribeAITargetRegistry>().addMechanic(
+    ScribeMechanicHandler.registry.aitarget.addMechanic(
         ...(await loadDatasetFromLocalDirectory(ScribeMechanicHandler.pathMap.aitarget))
     );
-    ScribeAIGoalRegistry.getInstance<ScribeAIGoalRegistry>().addMechanic(
+    ScribeMechanicHandler.registry.aigoal.addMechanic(
         ...(await loadDatasetFromLocalDirectory(ScribeMechanicHandler.pathMap.aigoal))
     );
 }
 
 export async function checkGithubDatasets() {
-    const globalState = ScribeMechanicHandler.context.globalState;
+    const globalState = ctx.globalState;
 
     // Fetch the latest commit hash from GitHub
     const latestCommitHash = await fetchLatestCommitHash();
@@ -155,30 +146,30 @@ export async function checkGithubDatasets() {
 }
 
 async function loadGithubDatasets() {
-    const globalState = ScribeMechanicHandler.context.globalState;
+    const globalState = ctx.globalState;
 
     // Load datasets from globalState or fallback to local datasets if necessary
-    ScribeMechanicRegistry.getInstance<ScribeMechanicRegistry>().addMechanic(
+    ScribeMechanicHandler.registry.mechanic.addMechanic(
         ...((globalState.get('mechanicsDataset') as MechanicDataset) ||
             (await loadDatasetFromLocalDirectory(ScribeMechanicHandler.pathMap.mechanic)))
     );
-    ScribeMechanicRegistry.getInstance<ScribeMechanicRegistry>().addMechanic(
+    ScribeMechanicHandler.registry.mechanic.addMechanic(
         ...((globalState.get('targetersDataset') as MechanicDataset) ||
             (await loadDatasetFromLocalDirectory(ScribeMechanicHandler.pathMap.targeter)))
     );
-    ScribeMechanicRegistry.getInstance<ScribeMechanicRegistry>().addMechanic(
+    ScribeMechanicHandler.registry.mechanic.addMechanic(
         ...((globalState.get('conditionsDataset') as MechanicDataset) ||
             (await loadDatasetFromLocalDirectory(ScribeMechanicHandler.pathMap.condition)))
     );
-    ScribeMechanicRegistry.getInstance<ScribeMechanicRegistry>().addMechanic(
+    ScribeMechanicHandler.registry.mechanic.addMechanic(
         ...((globalState.get('triggersDataset') as MechanicDataset) ||
             (await loadDatasetFromLocalDirectory(ScribeMechanicHandler.pathMap.trigger)))
     );
-    ScribeMechanicRegistry.getInstance<ScribeMechanicRegistry>().addMechanic(
+    ScribeMechanicHandler.registry.mechanic.addMechanic(
         ...((globalState.get('aitargetsDataset') as MechanicDataset) ||
             (await loadDatasetFromLocalDirectory(ScribeMechanicHandler.pathMap.aitarget)))
     );
-    ScribeMechanicRegistry.getInstance<ScribeMechanicRegistry>().addMechanic(
+    ScribeMechanicHandler.registry.mechanic.addMechanic(
         ...((globalState.get('aigoalsDataset') as MechanicDataset) ||
             (await loadDatasetFromLocalDirectory(ScribeMechanicHandler.pathMap.aigoal)))
     );

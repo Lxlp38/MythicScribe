@@ -2,9 +2,9 @@ import * as vscode from 'vscode';
 
 import * as yamlutils from '../utils/yamlutils';
 import { keyAliases } from '../objectInfos';
-import { ScribeConditionRegistry } from '../datasets/ScribeMechanic';
 import { ConditionActions } from '../schemas/conditionActions';
 import { addMechanicCompletions, checkShouldKeyComplete } from '../utils/completionhelper';
+import { ScribeMechanicHandler } from '../datasets/ScribeMechanic';
 
 export function conditionCompletionProvider() {
     return vscode.languages.registerCompletionItemProvider(
@@ -99,7 +99,7 @@ export function conditionCompletionProvider() {
                 }
 
                 addMechanicCompletions(
-                    ScribeConditionRegistry.getInstance<ScribeConditionRegistry>().getMechanics(),
+                    ScribeMechanicHandler.registry.condition.getMechanics(),
                     completionItems
                 );
 

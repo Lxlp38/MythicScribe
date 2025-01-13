@@ -2,12 +2,6 @@ import * as vscode from 'vscode';
 
 import { itemFileCompletionProvider } from '../completions/filecompletions/itemfileCompletionProvider';
 import { keyAliases, TriggerType } from '../objectInfos';
-import {
-    ScribeAIGoalRegistry,
-    ScribeAITargetRegistry,
-    ScribeConditionRegistry,
-    ScribeMechanicRegistry,
-} from '../datasets/ScribeMechanic';
 import { triggerfileCompletionProvider } from '../completions/filecompletions/triggerfileCompletionProvider';
 import { mobFileCompletionProvider } from '../completions/filecompletions/mobfileCompletionProvider';
 import { mechanicCompletionProvider } from '../completions/mechanicsCompletionProvider';
@@ -32,32 +26,13 @@ import { shortcutsProvider } from '../textchanges/shortcuts';
 import { ItemFileObjects } from '../schemas/itemfileObjects';
 import { MobFileObjects } from '../schemas/mobFileObjects';
 import { MetaskillFileObjects } from '../schemas/metaskillFileObjects';
-import { AbstractScribeHandler } from '../handlers/AbstractScribeHandler';
+import { ScribeMechanicHandler } from '../datasets/ScribeMechanic';
+import { ctx } from '../MythicScribe';
 
 type SubscriptionFunction = () => vscode.Disposable;
 type SubscriptionCondition = () => boolean;
 
-export class ScribeSubscriptionHandler extends AbstractScribeHandler {
-    static createInstance(): AbstractScribeHandler {
-        return new ScribeSubscriptionHandler();
-    }
-
-    private constructor() {
-        super();
-        GlobalSubscriptionHandler.getInstance();
-        MobScribeSubscription.getInstance();
-        SkillScribeSubscription.getInstance();
-        ItemScribeSubscription.getInstance();
-    }
-
-    static disposeAll() {
-        GlobalSubscriptionHandler.getInstance<GlobalSubscriptionHandler>().disposeAll();
-        MobScribeSubscription.getInstance<MobScribeSubscription>().disposeAll();
-        SkillScribeSubscription.getInstance<SkillScribeSubscription>().disposeAll();
-    }
-}
-
-export abstract class AbstractScribeSubscription extends AbstractScribeHandler {
+export abstract class AbstractScribeSubscription {
     private subscriptions: vscode.Disposable[] = [];
     private subscriptionFunctions: SubscriptionFunction[] = [];
     private enableConditions: SubscriptionCondition[] = [];
@@ -67,14 +42,13 @@ export abstract class AbstractScribeSubscription extends AbstractScribeHandler {
         subscriptionFunctions: SubscriptionFunction[],
         conditions: SubscriptionCondition[] = []
     ) {
-        super();
         this.subscriptionFunctions = subscriptionFunctions;
         this.enableConditions = conditions;
     }
 
     enable(subscription: vscode.Disposable) {
         this.subscriptions.push(subscription);
-        ScribeSubscriptionHandler.context.subscriptions.push(subscription);
+        ctx.subscriptions.push(subscription);
     }
 
     enableAll() {
@@ -108,12 +82,8 @@ export abstract class AbstractScribeSubscription extends AbstractScribeHandler {
     }
 }
 
-export class ItemScribeSubscription extends AbstractScribeSubscription {
-    static createInstance(): ItemScribeSubscription {
-        return new ItemScribeSubscription();
-    }
-
-    private constructor() {
+class ItemScribeSubscription extends AbstractScribeSubscription {
+    constructor() {
         super(
             [
                 itemFileCompletionProvider,
@@ -127,25 +97,21 @@ export class ItemScribeSubscription extends AbstractScribeSubscription {
     }
 }
 
-export class MobScribeSubscription extends AbstractScribeSubscription {
-    static createInstance(): MobScribeSubscription {
-        return new MobScribeSubscription();
-    }
-
-    private constructor() {
+class MobScribeSubscription extends AbstractScribeSubscription {
+    constructor() {
         super(
             [
                 () => triggerfileCompletionProvider(TriggerType.MOB, ['Skills']),
                 () => mobFileCompletionProvider(),
                 () =>
                     mechanicCompletionProvider(
-                        ScribeAITargetRegistry.getInstance<ScribeAITargetRegistry>(),
+                        ScribeMechanicHandler.registry.aitarget,
                         keyAliases.AITargetSelectors,
                         'WrappedPathfindingGoal'
                     ),
                 () =>
                     mechanicCompletionProvider(
-                        ScribeAIGoalRegistry.getInstance<ScribeAIGoalRegistry>(),
+                        ScribeMechanicHandler.registry.aigoal,
                         keyAliases.AIGoalSelectors,
                         'WrappedPathfindingGoal'
                     ),
@@ -154,11 +120,11 @@ export class MobScribeSubscription extends AbstractScribeSubscription {
                         MobFileObjects,
                         {
                             keys: keyAliases.AIGoalSelectors,
-                            registry: ScribeAIGoalRegistry.getInstance<ScribeAIGoalRegistry>(),
+                            registry: ScribeMechanicHandler.registry.aigoal,
                         },
                         {
                             keys: keyAliases.AITargetSelectors,
-                            registry: ScribeAITargetRegistry.getInstance<ScribeAITargetRegistry>(),
+                            registry: ScribeMechanicHandler.registry.aitarget,
                         }
                     ),
             ],
@@ -167,12 +133,8 @@ export class MobScribeSubscription extends AbstractScribeSubscription {
     }
 }
 
-export class SkillScribeSubscription extends AbstractScribeSubscription {
-    static createInstance(): SkillScribeSubscription {
-        return new SkillScribeSubscription();
-    }
-
-    private constructor() {
+class SkillScribeSubscription extends AbstractScribeSubscription {
+    constructor() {
         super(
             [
                 metaskillFileCompletionProvider,
@@ -180,7 +142,7 @@ export class SkillScribeSubscription extends AbstractScribeSubscription {
                 () =>
                     hoverProvider(MetaskillFileObjects, {
                         keys: keyAliases.Conditions,
-                        registry: ScribeConditionRegistry.getInstance<ScribeConditionRegistry>(),
+                        registry: ScribeMechanicHandler.registry.condition,
                     }),
             ],
             [enableFileSpecificSuggestions]
@@ -188,12 +150,8 @@ export class SkillScribeSubscription extends AbstractScribeSubscription {
     }
 }
 
-export class GlobalSubscriptionHandler extends AbstractScribeSubscription {
-    static createInstance(): GlobalSubscriptionHandler {
-        return new GlobalSubscriptionHandler();
-    }
-
-    private constructor() {
+class GlobalSubscriptionHandler extends AbstractScribeSubscription {
+    constructor() {
         super(
             [
                 () => attributeCompletionProvider(),
@@ -203,7 +161,7 @@ export class GlobalSubscriptionHandler extends AbstractScribeSubscription {
                 () => mechaniclineCompletionProvider(),
                 () =>
                     mechanicCompletionProvider(
-                        ScribeMechanicRegistry.getInstance<ScribeMechanicRegistry>(),
+                        ScribeMechanicHandler.registry.mechanic,
                         keyAliases.Skills,
                         ''
                     ),
@@ -213,28 +171,35 @@ export class GlobalSubscriptionHandler extends AbstractScribeSubscription {
         );
 
         this.addChildSubscriptionHandler(
-            ShortcutsSubscriptionHandler.getInstance(),
-            TextChangesSubscriptionHandler.getInstance()
+            new ShortcutsSubscriptionHandler(),
+            new TextChangesSubscriptionHandler()
         );
     }
 }
 
 class TextChangesSubscriptionHandler extends AbstractScribeSubscription {
-    static createInstance(): TextChangesSubscriptionHandler {
-        return new TextChangesSubscriptionHandler();
-    }
-
-    private constructor() {
+    constructor() {
         super([() => removeBracketsTextListener()], [enableEmptyBracketsAutomaticRemoval]);
     }
 }
 
 class ShortcutsSubscriptionHandler extends AbstractScribeSubscription {
-    static createInstance(): ShortcutsSubscriptionHandler {
-        return new ShortcutsSubscriptionHandler();
-    }
-
-    private constructor() {
+    constructor() {
         super([() => shortcutsProvider()], [enableShortcuts]);
     }
 }
+
+export const ScribeSubscriptionHandler = {
+    registry: {
+        global: new GlobalSubscriptionHandler(),
+        mob: new MobScribeSubscription(),
+        skill: new SkillScribeSubscription(),
+        item: new ItemScribeSubscription(),
+    },
+
+    disposeAll() {
+        Object.values(this.registry).forEach((handler) => {
+            handler.disposeAll();
+        });
+    },
+};

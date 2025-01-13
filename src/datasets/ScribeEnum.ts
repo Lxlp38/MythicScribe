@@ -2,175 +2,7 @@ import * as vscode from 'vscode';
 
 import { minecraftVersion } from '../utils/configutils';
 import { loadLocalEnumDataset, fetchEnumDatasetFromLink } from './datasets';
-import { AbstractScribeHandler } from '../handlers/AbstractScribeHandler';
-
-export class ScribeEnumHandler extends AbstractScribeHandler {
-    static createInstance(): AbstractScribeHandler {
-        return new ScribeEnumHandler();
-    }
-    static version = minecraftVersion();
-
-    private static enums = new Map<string, AbstractScribeEnum>();
-
-    private constructor() {
-        super();
-        ScribeEnumHandler.initializeEnums();
-    }
-
-    static initializeEnums(): void {
-        ScribeEnumHandler.emptyDatasets();
-
-        ScribeEnumHandler.addEnum(VolatileScribeEnum, 'SOUND', 'minecraft/sounds.json');
-
-        ScribeEnumHandler.addEnum(LocalScribeEnum, 'AUDIENCE', 'mythic/audiences.json');
-        ScribeEnumHandler.addEnum(LocalScribeEnum, 'EQUIPSLOT', 'mythic/equipslot.json');
-        ScribeEnumHandler.addEnum(LocalScribeEnum, 'PARTICLE', 'mythic/particles.json');
-        ScribeEnumHandler.addEnum(LocalScribeEnum, 'STATMODIFIER', 'mythic/statsmodifiers.json');
-        ScribeEnumHandler.addEnum(LocalScribeEnum, 'SHAPE', 'mythic/shape.json');
-        ScribeEnumHandler.addEnum(LocalScribeEnum, 'FLUID', 'mythic/fluid.json');
-        ScribeEnumHandler.addEnum(LocalScribeEnum, 'GLOWCOLOR', 'mythic/glowcolor.json');
-        ScribeEnumHandler.addEnum(LocalScribeEnum, 'SCOREACTION', 'mythic/scoreaction.json');
-        ScribeEnumHandler.addEnum(LocalScribeEnum, 'VARIABLESCOPE', 'mythic/variablescope.json');
-        ScribeEnumHandler.addEnum(LocalScribeEnum, 'MYTHICENTITY', 'mythic/mythicentity.json');
-        ScribeEnumHandler.addEnum(
-            LocalScribeEnum,
-            'PAPERATTRIBUTEOPERATION',
-            'mythic/attributesoperations.json'
-        );
-
-        ScribeEnumHandler.addEnum(VolatileScribeEnum, 'PAPERATTRIBUTE', 'paper/attributes.json');
-        ScribeEnumHandler.addEnum(VolatileScribeEnum, 'BARCOLOR', 'paper/barcolor.json');
-        ScribeEnumHandler.addEnum(VolatileScribeEnum, 'BARSTYLE', 'paper/barstyle.json');
-        ScribeEnumHandler.addEnum(VolatileScribeEnum, 'DAMAGECAUSE', 'paper/damagecause.json');
-        ScribeEnumHandler.addEnum(VolatileScribeEnum, 'DYE', 'paper/dye.json');
-        ScribeEnumHandler.addEnum(VolatileScribeEnum, 'MATERIAL', 'paper/material.json');
-        ScribeEnumHandler.addEnum(VolatileScribeEnum, 'BLOCKFACE', 'paper/blockface.json');
-        ScribeEnumHandler.addEnum(
-            VolatileScribeEnum,
-            'ENDERDRAGONPHASE',
-            'paper/enderdragonphase.json'
-        );
-        ScribeEnumHandler.addEnum(
-            VolatileScribeEnum,
-            'DRAGONBATTLERESPAWNPHASE',
-            'paper/dragonbattlerespawnphase.json'
-        );
-        ScribeEnumHandler.addEnum(
-            VolatileScribeEnum,
-            'POTIONEFFECTTYPE',
-            'paper/potioneffecttype.json'
-        );
-        ScribeEnumHandler.addEnum(
-            VolatileScribeEnum,
-            'WORLDENVIRONMENT',
-            'paper/worldenvironment.json'
-        );
-        ScribeEnumHandler.addEnum(VolatileScribeEnum, 'ENTITYTYPE', 'paper/entitytype.json');
-        ScribeEnumHandler.addEnum(VolatileScribeEnum, 'GAMEMODE', 'paper/gamemode.json');
-        ScribeEnumHandler.addEnum(VolatileScribeEnum, 'SPAWNREASON', 'paper/spawnreason.json');
-        ScribeEnumHandler.addEnum(VolatileScribeEnum, 'ENCHANTMENT', 'paper/enchantment.json');
-        ScribeEnumHandler.addEnum(VolatileScribeEnum, 'ITEMFLAG', 'paper/itemflag.json');
-        ScribeEnumHandler.addEnum(VolatileScribeEnum, 'SOUNDCATEGORY', 'paper/soundcategory.json');
-        ScribeEnumHandler.addEnum(
-            VolatileScribeEnum,
-            'FIREWORKEFFECTTYPE',
-            'paper/fireworkeffecttype.json'
-        );
-        ScribeEnumHandler.addEnum(
-            VolatileScribeEnum,
-            'FLUIDCOLLISIONMODE',
-            'paper/fluidcollisionmode.json'
-        );
-
-        ScribeEnumHandler.addEnum(
-            LocalScribeEnum,
-            'ADDTRADE_ACTION',
-            'mythic/mechanicScoped/addtrade_action.json'
-        );
-        ScribeEnumHandler.addEnum(
-            LocalScribeEnum,
-            'DISPLAYTRANSFORMATION_ACTION',
-            'mythic/mechanicScoped/displaytransformation_action.json'
-        );
-        ScribeEnumHandler.addEnum(
-            LocalScribeEnum,
-            'PROJECTILE_BULLETTYPE',
-            'mythic/mechanicScoped/projectile_bullettype.json'
-        );
-        ScribeEnumHandler.addEnum(
-            LocalScribeEnum,
-            'PROJECTILE_TYPE',
-            'mythic/mechanicScoped/projectile_type.json'
-        );
-        ScribeEnumHandler.addEnum(
-            LocalScribeEnum,
-            'PROJECTILE_HIGHACCURACYMODE',
-            'mythic/mechanicScoped/projectile_highaccuracymode.json'
-        );
-        ScribeEnumHandler.addEnum(
-            LocalScribeEnum,
-            'MODIFYPROJECTILE_ACTION',
-            'mythic/mechanicScoped/modifyprojectile_action.json'
-        );
-        ScribeEnumHandler.addEnum(
-            LocalScribeEnum,
-            'MODIFYPROJECTILE_TRAIT',
-            'mythic/mechanicScoped/modifyprojectile_trait.json'
-        );
-        ScribeEnumHandler.addEnum(
-            LocalScribeEnum,
-            'SETMAXHEALTH_MODE',
-            'mythic/mechanicScoped/setmaxhealth_mode.json'
-        );
-        ScribeEnumHandler.addEnum(
-            LocalScribeEnum,
-            'SHOOT_TYPE',
-            'mythic/mechanicScoped/shoot_type.json'
-        );
-        ScribeEnumHandler.addEnum(
-            LocalScribeEnum,
-            'SHOOTFIREBALL_TYPE',
-            'mythic/mechanicScoped/shootfireball_type.json'
-        );
-        ScribeEnumHandler.addEnum(
-            LocalScribeEnum,
-            'THREAT_MODE',
-            'mythic/mechanicScoped/threat_mode.json'
-        );
-        ScribeEnumHandler.addEnum(
-            LocalScribeEnum,
-            'TIME_MODE',
-            'mythic/mechanicScoped/time_mode.json'
-        );
-        ScribeEnumHandler.addEnum(
-            LocalScribeEnum,
-            'VELOCITY_MODE',
-            'mythic/mechanicScoped/velocity_mode.json'
-        );
-    }
-
-    static getEnum(identifier: string): AbstractScribeEnum | undefined {
-        return ScribeEnumHandler.enums.get(identifier.toLowerCase());
-    }
-
-    static async addEnum(
-        oclass: new (identifier: string, path: string) => AbstractScribeEnum,
-        identifier: string,
-        path: string
-    ) {
-        const enumObject = new oclass(identifier.toLowerCase(), path);
-        ScribeEnumHandler.enums.set(identifier.toLowerCase(), enumObject);
-    }
-
-    static async addLambdaEnum(key: string, values: string[]) {
-        const enumObject = new LambdaScribeEnum(key.toLowerCase(), values);
-        ScribeEnumHandler.enums.set(key.toLowerCase(), enumObject);
-    }
-
-    static emptyDatasets(): void {
-        ScribeEnumHandler.enums.clear();
-    }
-}
+import { ctx } from '../MythicScribe';
 
 abstract class AbstractScribeEnum {
     readonly identifier: string;
@@ -206,10 +38,7 @@ export class StaticScribeEnum extends AbstractScribeEnum {
 }
 class LocalScribeEnum extends StaticScribeEnum {
     constructor(identifier: string, path: string) {
-        super(
-            identifier,
-            vscode.Uri.joinPath(ScribeEnumHandler.context.extensionUri, 'data', path).fsPath
-        );
+        super(identifier, vscode.Uri.joinPath(ctx.extensionUri, 'data', path).fsPath);
     }
 }
 class VolatileScribeEnum extends LocalScribeEnum {
@@ -243,3 +72,102 @@ export interface EnumDatasetValue {
     description?: string;
     name?: string[];
 }
+
+export const ScribeEnumHandler = {
+    version: minecraftVersion(),
+    enums: new Map<string, AbstractScribeEnum>(),
+
+    enumDefinitions: [
+        {
+            clazz: VolatileScribeEnum,
+            items: [
+                ['SOUND', 'minecraft/sounds.json'],
+                ['PAPERATTRIBUTE', 'paper/attributes.json'],
+                ['BARCOLOR', 'paper/barcolor.json'],
+                ['BARSTYLE', 'paper/barstyle.json'],
+                ['DAMAGECAUSE', 'paper/damagecause.json'],
+                ['DYE', 'paper/dye.json'],
+                ['MATERIAL', 'paper/material.json'],
+                ['BLOCKFACE', 'paper/blockface.json'],
+                ['ENDERDRAGONPHASE', 'paper/enderdragonphase.json'],
+                ['DRAGONBATTLERESPAWNPHASE', 'paper/dragonbattlerespawnphase.json'],
+                ['POTIONEFFECTTYPE', 'paper/potioneffecttype.json'],
+                ['WORLDENVIRONMENT', 'paper/worldenvironment.json'],
+                ['ENTITYTYPE', 'paper/entitytype.json'],
+                ['GAMEMODE', 'paper/gamemode.json'],
+                ['SPAWNREASON', 'paper/spawnreason.json'],
+                ['ENCHANTMENT', 'paper/enchantment.json'],
+                ['ITEMFLAG', 'paper/itemflag.json'],
+                ['SOUNDCATEGORY', 'paper/soundcategory.json'],
+                ['FIREWORKEFFECTTYPE', 'paper/fireworkeffecttype.json'],
+                ['FLUIDCOLLISIONMODE', 'paper/fluidcollisionmode.json'],
+            ],
+        },
+        {
+            clazz: LocalScribeEnum,
+            items: [
+                ['AUDIENCE', 'mythic/audiences.json'],
+                ['EQUIPSLOT', 'mythic/equipslot.json'],
+                ['PARTICLE', 'mythic/particles.json'],
+                ['STATMODIFIER', 'mythic/statsmodifiers.json'],
+                ['SHAPE', 'mythic/shape.json'],
+                ['FLUID', 'mythic/fluid.json'],
+                ['GLOWCOLOR', 'mythic/glowcolor.json'],
+                ['SCOREACTION', 'mythic/scoreaction.json'],
+                ['VARIABLESCOPE', 'mythic/variablescope.json'],
+                ['MYTHICENTITY', 'mythic/mythicentity.json'],
+                ['PAPERATTRIBUTEOPERATION', 'mythic/attributesoperations.json'],
+                ['ADDTRADE_ACTION', 'mythic/mechanicScoped/addtrade_action.json'],
+                [
+                    'DISPLAYTRANSFORMATION_ACTION',
+                    'mythic/mechanicScoped/displaytransformation_action.json',
+                ],
+                ['PROJECTILE_BULLETTYPE', 'mythic/mechanicScoped/projectile_bullettype.json'],
+                ['PROJECTILE_TYPE', 'mythic/mechanicScoped/projectile_type.json'],
+                [
+                    'PROJECTILE_HIGHACCURACYMODE',
+                    'mythic/mechanicScoped/projectile_highaccuracymode.json',
+                ],
+                ['MODIFYPROJECTILE_ACTION', 'mythic/mechanicScoped/modifyprojectile_action.json'],
+                ['MODIFYPROJECTILE_TRAIT', 'mythic/mechanicScoped/modifyprojectile_trait.json'],
+                ['SETMAXHEALTH_MODE', 'mythic/mechanicScoped/setmaxhealth_mode.json'],
+                ['SHOOT_TYPE', 'mythic/mechanicScoped/shoot_type.json'],
+                ['SHOOTFIREBALL_TYPE', 'mythic/mechanicScoped/shootfireball_type.json'],
+                ['THREAT_MODE', 'mythic/mechanicScoped/threat_mode.json'],
+                ['TIME_MODE', 'mythic/mechanicScoped/time_mode.json'],
+                ['VELOCITY_MODE', 'mythic/mechanicScoped/velocity_mode.json'],
+            ],
+        },
+    ],
+
+    initializeEnums(): void {
+        ScribeEnumHandler.emptyDatasets();
+        this.enumDefinitions.forEach(({ clazz, items }) => {
+            items.forEach(([identifier, path]) => {
+                this.addEnum(clazz, identifier, path);
+            });
+        });
+    },
+
+    getEnum(identifier: string): AbstractScribeEnum | undefined {
+        return ScribeEnumHandler.enums.get(identifier.toLowerCase());
+    },
+
+    async addEnum(
+        oclass: new (identifier: string, path: string) => AbstractScribeEnum,
+        identifier: string,
+        path: string
+    ) {
+        const enumObject = new oclass(identifier.toLowerCase(), path);
+        ScribeEnumHandler.enums.set(identifier.toLowerCase(), enumObject);
+    },
+
+    async addLambdaEnum(key: string, values: string[]) {
+        const enumObject = new LambdaScribeEnum(key.toLowerCase(), values);
+        ScribeEnumHandler.enums.set(key.toLowerCase(), enumObject);
+    },
+
+    emptyDatasets(): void {
+        ScribeEnumHandler.enums.clear();
+    },
+};
