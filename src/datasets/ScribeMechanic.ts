@@ -1,6 +1,6 @@
 import * as vscode from 'vscode';
 
-import { datasetSource } from '../utils/configutils';
+import { checkEnabledPlugin, datasetSource, finallySetEnabledPlugins } from '../utils/configutils';
 import { checkGithubDatasets, loadLocalDatasets } from './datasets';
 import { ScribeEnumHandler } from './ScribeEnum';
 import { loadCustomDatasets } from './customDatasets';
@@ -28,6 +28,9 @@ export abstract class AbstractScribeMechanicRegistry {
 
     async addMechanic(...mechanic: Mechanic[]) {
         mechanic.forEach((m) => {
+            if (!checkEnabledPlugin(m.plugin)) {
+                return;
+            }
             const mythicMechanic = new MythicMechanic(m, this);
             this.mechanics.push(mythicMechanic);
             m.name.forEach((name) => {
@@ -262,6 +265,7 @@ export const ScribeMechanicHandler = {
             await loadLocalDatasets();
         }
         await loadCustomDatasets();
+        finallySetEnabledPlugins();
     },
 
     emptyDatasets() {

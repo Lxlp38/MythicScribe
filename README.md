@@ -36,6 +36,7 @@ It provides hover text with information about the pointed object and offers auto
   - [Syntax Highlighting](#syntax-highlighting)
   - [Autocompletions](#autocompletions)
   - [Hover Information](#hover-informations)
+  - [Formatter](#formatter)
 - [Extension Settings](#extension-settings)
 - [Known Issues](#known-issues)
 - [Credits and Acknowledgements](#credits-and-acknowledgements)
@@ -52,6 +53,8 @@ It provides hover text with information about the pointed object and offers auto
 ### Hover Information
 ![Hover Demo](https://raw.githubusercontent.com/Lxlp38/MythicScribe/refs/heads/master/demos/hover-demo.gif)
 
+### Formatter
+![Formatter Demo](https://raw.githubusercontent.com/Lxlp38/MythicScribe/refs/heads/master/demos/formatter-demo.gif)
 
 # Extension Settings
 
@@ -69,7 +72,7 @@ It provides hover text with information about the pointed object and offers auto
 * `MythicScribe.disableAcceptSuggestionOnEnter`: Whether the reminder to disable `editor.acceptSuggestionOnEnter` should be shown
 * `MythicScribe.attributeAliasUsedInCompletions`: Which attribute alias to use for completions. Defaults to `main`
 * `MythicScribe.customDatasets`: Which Custom Dataset to load and from where
-
+* `MythicScribe.enabledPlugins`: Enable / Disable specific plugins' datasets. Plugin names are added automatically
 
 # Extension Commands
 
@@ -78,7 +81,7 @@ It provides hover text with information about the pointed object and offers auto
 
 # Known Issues
 
-* When `editor.acceptSuggestionOnEnter` is not `off` and `MythicScribe.enableFileSpecificSuggestions` is enabled, all the completions on newline *will* stop users from comfortably add spacing in their metaskills and the likes. For this reason, it is recommended to set this configuration to `off`. The extension will still try to warn the user about this if the `MythicScribe.disableAcceptSuggestionOnEnter` configuration is active
+* When `editor.acceptSuggestionOnEnter` is not `off` and `MythicScribe.enableFileSpecificSuggestions` is enabled, all the completions on newline *will* stop users from comfortably add spacing in their metaskills and the likes. For this reason, it is recommended to keep this configuration to `off`
 
 
 # Credits and Acknowledgements

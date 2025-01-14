@@ -1,10 +1,10 @@
 import * as vscode from 'vscode';
 
-import { MythicMechanic, ScribeMechanicRegistry } from '../datasets/ScribeMechanic';
+import { MythicMechanic, AbstractScribeMechanicRegistry } from '../datasets/ScribeMechanic';
 import { checkShouldKeyComplete, listCompletion } from '../utils/completionhelper';
 
 export function mechanicCompletionProvider(
-    registry: ScribeMechanicRegistry,
+    registry: AbstractScribeMechanicRegistry,
     keyAliases: string[],
     defaultextend: string
 ) {

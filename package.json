@@ -230,6 +230,19 @@
             ]
           },
           "default": []
+        },
+        "MythicScribe.enabledPlugins": {
+          "additionalProperties": {
+            "type": "boolean"
+          },
+          "default": {
+            "MythicMobs": true,
+            "ModelEngine": true,
+            "MythicCrucible": true
+          },
+          "description": "Enable / Disable specific plugins' datasets",
+          "title": "Enabled Plugins",
+          "type": "object"
         }
       }
     }

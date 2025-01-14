@@ -2,6 +2,12 @@
 
 ## [Unreleased]
 
+### Added
+- `MythicScribe.enabledPlugins` configuration to set enabled / disabled datasets based on the plugin implementing them 
+
+### Changed
+- Refactor of how Mechanics/Enums and Subscriptions are handled
+
 ### Fixed
 - Error with the formatter's indentation when the config file actual indentation is 1
 

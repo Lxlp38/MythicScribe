@@ -100,3 +100,42 @@ export function minecraftVersion() {
 
     return config.get<string>('minecraftVersion');
 }
+
+function getEnabledPlugins(): { [key: string]: boolean } {
+    const config = vscode.workspace.getConfiguration('MythicScribe');
+    return config.get<{ [key: string]: boolean }>('enabledPlugins') || {};
+}
+
+let enabledPluginsCacheWasModified = false;
+const enabledPluginsCache: { [key: string]: boolean | undefined } = getEnabledPlugins();
+async function setEnabledPlugin(plugin: string, enabled: boolean = true) {
+    enabledPluginsCache[plugin] = enabled;
+    enabledPluginsCacheWasModified = true;
+}
+
+export async function finallySetEnabledPlugins() {
+    if (enabledPluginsCacheWasModified) {
+        vscode.workspace
+            .getConfiguration('MythicScribe')
+            .update('enabledPlugins', enabledPluginsCache);
+        enabledPluginsCacheWasModified = false;
+    }
+}
+
+export function checkEnabledPlugin(plugin: string) {
+    if (enabledPluginsCache[plugin] !== undefined) {
+        return enabledPluginsCache[plugin];
+    }
+
+    const enabledPlugins = getEnabledPlugins();
+    const maybePlugin = enabledPlugins[plugin];
+
+    if (maybePlugin === undefined) {
+        setEnabledPlugin(plugin, true);
+        enabledPluginsCache[plugin] = true;
+        return true;
+    }
+
+    enabledPluginsCache[plugin] = maybePlugin;
+    return maybePlugin;
+}
