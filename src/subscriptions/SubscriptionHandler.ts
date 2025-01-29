@@ -1,16 +1,13 @@
 import * as vscode from 'vscode';
 
-import { itemFileCompletionProvider } from '../completions/filecompletions/itemfileCompletionProvider';
 import { keyAliases, TriggerType } from '../objectInfos';
 import { triggerfileCompletionProvider } from '../completions/filecompletions/triggerfileCompletionProvider';
-import { mobFileCompletionProvider } from '../completions/filecompletions/mobfileCompletionProvider';
 import { mechanicCompletionProvider } from '../completions/mechanicsCompletionProvider';
 import {
     enableEmptyBracketsAutomaticRemoval,
     enableFileSpecificSuggestions,
     enableShortcuts,
 } from '../utils/configutils';
-import { metaskillFileCompletionProvider } from '../completions/filecompletions/metaskillfileCompletionProvider';
 import {
     attributeCompletionProvider,
     attributeValueCompletionProvider,
@@ -28,6 +25,7 @@ import { MobFileObjects } from '../schemas/mobFileObjects';
 import { MetaskillFileObjects } from '../schemas/metaskillFileObjects';
 import { ScribeMechanicHandler } from '../datasets/ScribeMechanic';
 import { ctx } from '../MythicScribe';
+import { genericFileCompletionProvider } from '../completions/filecompletions/genericFileCompletionProvider';
 
 type SubscriptionFunction = () => vscode.Disposable;
 type SubscriptionCondition = () => boolean;
@@ -86,7 +84,7 @@ class ItemScribeSubscription extends AbstractScribeSubscription {
     constructor() {
         super(
             [
-                itemFileCompletionProvider,
+                () => genericFileCompletionProvider(ItemFileObjects),
                 () => triggerfileCompletionProvider(TriggerType.ITEM, ['Skills']),
                 () => triggerfileCompletionProvider(TriggerType.FURNITURE, ['FurnitureSkills']),
                 () => triggerfileCompletionProvider(TriggerType.BLOCK, ['CustomBlockSkills']),
@@ -102,7 +100,7 @@ class MobScribeSubscription extends AbstractScribeSubscription {
         super(
             [
                 () => triggerfileCompletionProvider(TriggerType.MOB, ['Skills']),
-                () => mobFileCompletionProvider(),
+                () => genericFileCompletionProvider(MobFileObjects),
                 () =>
                     mechanicCompletionProvider(
                         ScribeMechanicHandler.registry.aitarget,
@@ -137,7 +135,7 @@ class SkillScribeSubscription extends AbstractScribeSubscription {
     constructor() {
         super(
             [
-                metaskillFileCompletionProvider,
+                () => genericFileCompletionProvider(MetaskillFileObjects),
                 () => conditionCompletionProvider(),
                 () =>
                     hoverProvider(MetaskillFileObjects, {

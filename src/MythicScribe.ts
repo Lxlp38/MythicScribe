@@ -1,6 +1,6 @@
 import * as vscode from 'vscode';
 
-import * as resetFileChecks from './subscriptions/SubscriptionHelper';
+import * as SubscriptionHelper from './subscriptions/SubscriptionHelper';
 import { getFormatter } from './formatter/formatter';
 import { addCustomDataset } from './datasets/customDatasets';
 import { ScribeMechanicHandler } from './datasets/ScribeMechanic';
@@ -17,7 +17,7 @@ export function activate(context: vscode.ExtensionContext) {
     // Datasets
     context.subscriptions.push(
         // Subscription Handler
-        resetFileChecks.extensionEnabler,
+        SubscriptionHelper.extensionEnabler,
 
         // Commands
         vscode.commands.registerCommand('MythicScribe.addCustomDataset', addCustomDataset),
@@ -27,7 +27,7 @@ export function activate(context: vscode.ExtensionContext) {
     );
 
     if (vscode.window.activeTextEditor) {
-        resetFileChecks.updateEnabled(vscode.window.activeTextEditor.document);
+        SubscriptionHelper.updateEnabled(vscode.window.activeTextEditor.document);
     }
 }
 

@@ -54,7 +54,7 @@
 
 ### Added
 - Custom Datasets (Experimental!) Feature: you can specify a file on your system or an url online as a new dataset for mechanics/conditions/targeters/triggers. This means that:
-  - As an user: you can add your custom metaskill as a new mechanic (skill:yourcustommetaskill) and put the skill parameters as attributes in order to get yuor metaskill to autocomplete
+  - As an user: you can add your custom metaskill as a new mechanic (skill:yourCustomMetaSkill) and put the skill parameters as attributes in order to get your metaskill to autocomplete
   - As a plugin developer: you can make datasets for your mythicmobs extension and make your users use it (or, well, another choice would be to make a pull request and put the dataset directly on the MythicScribe repo)
 - New datasets can be added either
   - Via the config `MythicScribe.customDatasets`
@@ -82,7 +82,7 @@
 - Yaml files not having autocompletions and hovers when the mythicscript syntax was disabled
 
 ### Removed
-- Removed <> from autoclosing pairs and highlighted brackets
+- Removed <> from auto-closing pairs and highlighted brackets
 
 
 ## [1.2.0]
@@ -119,7 +119,7 @@
 ## [1.1.0]
 
 ### Added
-- Autocompletions on invocations for file enums (For instance, now an Item File's Id will complete as a list of materials also when pression ctrl + space)
+- Autocompletions on invocations for file enums (For instance, now an Item File's Id will complete as a list of materials also when pressing ctrl + space)
 - DamageCause completion for DamageModifiers
 - Config to set which datasets to use, based on minecraft version (apply to spigot ones and sounds)
   - `MythicScribe.minecraftVersion` is the config
@@ -135,7 +135,7 @@
 - Default setting for mythicscript language regarding editor.tabSize (now 2) and editor.insertSpaces (now true)
 
 ### Fixed
-- Curly brackets autoclosing too late inside attribute values
+- Curly brackets auto-closing too late inside attribute values
 
 ## [1.0.1]
 
@@ -197,11 +197,11 @@
 ### Changed
 - Updated the way the mechanics/targeters/conditions are fetched from the dataset
 - Condition Actions suggestions have been improved
-- Default regexs for file specific features now check for the presence of a / or \ before and after the directory name
+- Default regexes for file specific features now check for the presence of a / or \ before and after the directory name
 
 ### Fixed
 - Small issue with the shortcuts regex
-- GitHub dataset not being correctly loaded for hover informations
+- GitHub dataset not being correctly loaded for hover information
 
 
 ## [0.1.1]

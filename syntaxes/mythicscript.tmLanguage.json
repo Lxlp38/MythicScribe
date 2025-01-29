@@ -193,11 +193,11 @@
                 },
                 {
                     "name": "constant.character.escape.mythicscript",
-                    "match": "(?<==)([\\w:]+)(?={)"
+                    "match": "(?<==)\\s*([\\w:]+)(?={)"
                 },
                 {
                     "name": "string.unquoted.mythicscript",
-                    "match": "(?<=[=,\\>])[\\.\\w\\-\\: ]+(?=[,;\\<\\}])"
+                    "match": "(?<=[=,\\>])\\s*[\\.\\w\\-\\: ]+(?=[,;\\<\\}])"
                 }
             ]
         },
