@@ -38,6 +38,7 @@ export const keyAliases = {
         'CustomBlockSkills',
     ],
     Conditions: ['Conditions', 'TriggerConditions', 'TargetConditions'],
+    DroptableConditions: ['Conditions', 'TriggerConditions'],
     AITargetSelectors: ['AITargetSelectors'],
     AIGoalSelectors: ['AIGoalSelectors'],
 };

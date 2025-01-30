@@ -30,16 +30,16 @@ A Visual Studio Code extension that connects your MythicMobs configurations with
 It provides hover text with information about the pointed object and offers autocompletions for some of its syntax
 </div>
 
-# Table of Contents
-
 - [Features](#features)
-  - [Syntax Highlighting](#syntax-highlighting)
-  - [Autocompletions](#autocompletions)
-  - [Hover Information](#hover-informations)
-  - [Formatter](#formatter)
+    - [Syntax Highlighting](#syntax-highlighting)
+    - [Autocompletions](#autocompletions)
+    - [Hover Information](#hover-information)
+    - [Formatter](#formatter)
 - [Extension Settings](#extension-settings)
+- [Extension Commands](#extension-commands)
 - [Known Issues](#known-issues)
 - [Credits and Acknowledgements](#credits-and-acknowledgements)
+
 
 # Features
 
@@ -56,13 +56,15 @@ It provides hover text with information about the pointed object and offers auto
 ### Formatter
 ![Formatter Demo](https://raw.githubusercontent.com/Lxlp38/MythicScribe/refs/heads/master/demos/formatter-demo.gif)
 
+
 # Extension Settings
 
 * `MythicScribe.alwaysEnabled`: When enabled, the extension will no longer do any check to see if a document is a MythicMobs one
-* `MythicScribe.regexForMythicmobsFile`: Determines which files are recognized as MythicMobs files based on a custom regex
-* `MythicScribe.regexForMetaskillFile`: Determines which files are recognized as Metaskills files based on a custom regex
-* `MythicScribe.regexForMobFile`: Determines which files are recognized as Mobs files based on a custom regex
-* `MythicScribe.regexForItemFile`: Determines which files are recognized as Items files based on a custom regex
+* `MythicScribe.fileRegex.MythicMobs`: Determines which files are recognized as MythicMobs files based on a custom regex
+* `MythicScribe.fileRegex.Metaskill`: Determines which files are recognized as Metaskill files based on a custom regex
+* `MythicScribe.fileRegex.Mob`: Determines which files are recognized as Mob files based on a custom regex
+* `MythicScribe.fileRegex.Item`: Determines which files are recognized as Item files based on a custom regex
+* `MythicScribe.fileRegex.Droptable`: Determines which files are recognized as Droptable files based on a custom regex
 * `MythicScribe.enableMythicScriptSyntax`: Whether the extension should automatically convert the document types from yaml to MythicScript if it's recognized as a MythicMobs file. This does not change the file or its extension in any way, while also enabling mythic-specific syntax highlighting
 * `MythicScribe.datasetSource`: Which dataset to use. `GitHub` or `Local`
 * `MythicScribe.minecraftVersion`: Specify the minecraft version whose datasets to use 
@@ -73,6 +75,7 @@ It provides hover text with information about the pointed object and offers auto
 * `MythicScribe.attributeAliasUsedInCompletions`: Which attribute alias to use for completions. Defaults to `main`
 * `MythicScribe.customDatasets`: Which Custom Dataset to load and from where
 * `MythicScribe.enabledPlugins`: Enable / Disable specific plugins' datasets. Plugin names are added automatically
+
 
 # Extension Commands
 
@@ -86,4 +89,3 @@ It provides hover text with information about the pointed object and offers auto
 
 # Credits and Acknowledgements
 - [@maecy](https://twitter.com/maecy_official?s=21&t=ZBZ5BDKcoa6LYFwgd690_A), for creating and providing this extension's ⭐awesome⭐ icon and the [Stellius Team](https://stellius.net/) in general for the collaboration!
-- [Amy](https://discordapp.com/users/958391444840775720), for setting up the discord server and managing it

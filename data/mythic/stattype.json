@@ -1,0 +1,14 @@
+{
+    "STATIC" : {
+        "description" : "A static value. Does nothing on its own, but can be referenced via placeholders."
+    },
+    "DAMAGE_BONUS" : {
+        "description" : "This stat adds a flat amount of bonus damage"
+    },
+    "DAMAGE_MODIFIER" : {
+        "description" : "Modifies the damage using a formula"
+    },
+    "PROC" : {
+        "description" : "A chance to execute skills"
+    }
+}

@@ -3,10 +3,15 @@
 ## [Unreleased]
 
 ### Added
-- `MythicScribe.enabledPlugins` configuration to set enabled / disabled datasets based on the plugin implementing them 
+- `MythicScribe.enabledPlugins` configuration to set enabled / disabled datasets based on the plugin implementing them
+- Hovers and Completions for Droptables
+  - `MythicScribe.fileRegex.Droptable` configuration to define a regex to recognize Droptable files
+- Hover and Completions for Stat Files
+  - `MythicScribe.fileRegex.Stat` configuration to define a regex to recognize Stat files
 
 ### Changed
 - Refactor of how Mechanics/Enums and Subscriptions are handled
+- Regexes for files can now be found in the `MythicScribe.fileRegex` configuration. Old configurations for this are deprecated and automatically migrated
 
 ### Fixed
 - Error with the formatter's indentation when the config file actual indentation is 1

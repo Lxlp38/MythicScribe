@@ -5,39 +5,33 @@ export function isAlwaysEnabled() {
     return vscode.workspace.getConfiguration('MythicScribe').get('alwaysEnabled');
 }
 
-function checkFile(document: vscode.TextDocument, regex: string | undefined): boolean {
+export enum fileRegexProperties {
+    MYTHICMOBS = 'fileRegex.MythicMobs',
+    METASKILL = 'fileRegex.Metaskill',
+    MOB = 'fileRegex.Mob',
+    ITEM = 'fileRegex.Item',
+    DROPTABLE = 'fileRegex.Droptable',
+    STAT = 'fileRegex.Stat',
+}
+
+function checkFileRegex(document: vscode.TextDocument, regex: string | undefined): boolean {
     const path = document.uri.fsPath;
     if (regex && new RegExp(regex).test(path)) {
         return true;
     }
     return false;
 }
-export function checkEnabled(document: vscode.TextDocument): boolean {
+export function checkFileEnabled(document: vscode.TextDocument, configKey: string): boolean {
+    const regex: string | undefined = vscode.workspace
+        .getConfiguration('MythicScribe')
+        .get<string>(configKey);
+    return checkFileRegex(document, regex);
+}
+export function checkMythicMobsFile(document: vscode.TextDocument): boolean {
     if (isAlwaysEnabled()) {
         return true;
     }
-    const regex: string | undefined = vscode.workspace
-        .getConfiguration('MythicScribe')
-        .get<string>('regexForMythicmobsFile');
-    return checkFile(document, regex);
-}
-export function checkMetaskillFile(document: vscode.TextDocument): boolean {
-    const regex: string | undefined = vscode.workspace
-        .getConfiguration('MythicScribe')
-        .get<string>('regexForMetaskillFile');
-    return checkFile(document, regex);
-}
-export function checkMobFile(document: vscode.TextDocument): boolean {
-    const regex: string | undefined = vscode.workspace
-        .getConfiguration('MythicScribe')
-        .get<string>('regexForMobFile');
-    return checkFile(document, regex);
-}
-export function checkItemFile(document: vscode.TextDocument): boolean {
-    const regex: string | undefined = vscode.workspace
-        .getConfiguration('MythicScribe')
-        .get<string>('regexForItemFile');
-    return checkFile(document, regex);
+    return checkFileEnabled(document, fileRegexProperties.MYTHICMOBS);
 }
 
 export function enableEmptyBracketsAutomaticRemoval(): boolean {

@@ -1,7 +1,7 @@
 {
   "name": "mythicscribe",
   "displayName": "MythicScribe",
-  "version": "1.5.0",
+  "version": "1.5.0-dev",
   "icon": "assets/icon.png",
   "description": "Offers support for MythicMobs scripting",
   "license": "SEE LICENSE IN LICENSE.txt",
@@ -127,24 +127,28 @@
           "description": "The version of Minecraft that the extension should use for autocompletions."
         },
         "MythicScribe.regexForMythicmobsFile": {
+          "deprecationMessage": "This key is deprecated. Please use 'MythicScribe.fileRegex' instead.",
           "title": "Regex for MythicMobs File",
           "type": "string",
           "default": "[\\\\\\/][Mm]ythic[Mm]obs[\\\\\\/]",
           "description": "The regex used against each document's file path: if it matches, the document will be considered as being a MythicMobs one, enabling this extension."
         },
         "MythicScribe.regexForMetaskillFile": {
+          "deprecationMessage": "This key is deprecated. Please use 'MythicScribe.fileRegex' instead.",
           "title": "Regex for MythicMobs Metaskills",
           "type": "string",
           "default": "[\\\\\\/][Ss]kills[\\\\\\/]",
           "description": "The regex used against each document's file path: if it matches, the document will be considered as being a Metaskills one, enabling Metaskill files functionalities."
         },
         "MythicScribe.regexForMobFile": {
+          "deprecationMessage": "This key is deprecated. Please use 'MythicScribe.fileRegex' instead.",
           "title": "Regex for MythicMobs Mobs",
           "type": "string",
           "default": "[\\\\\\/][Mm]obs[\\\\\\/]",
           "description": "The regex used against each document's file path: if it matches, the document will be considered as being a Mob one, enabling Mob files functionalities."
         },
         "MythicScribe.regexForItemFile": {
+          "deprecationMessage": "This key is deprecated. Please use 'MythicScribe.fileRegex' instead.",
           "title": "Regex for MythicMobs Items",
           "type": "string",
           "default": "[\\\\\\/][Ii]tems[\\\\\\/]",
@@ -243,6 +247,46 @@
           "description": "Enable / Disable specific plugins' datasets",
           "title": "Enabled Plugins",
           "type": "object"
+        },
+        "MythicScribe.fileRegex": {
+          "type": "object",
+          "properties": {
+            "MythicMobs": {
+              "type": "string",
+              "description": "Regex to identify a generic MythicMobs files."
+            },
+            "Mob": {
+              "type": "string",
+              "description": "Regex to identify Mob files."
+            },
+            "Item": {
+              "type": "string",
+              "description": "Regex to identify Item files."
+            },
+            "Metaskill": {
+              "type": "string",
+              "description": "Regex to identify Metaskill files."
+            },
+            "Droptable": {
+              "type": "string",
+              "description": "Regex to identify Droptable files."
+            },
+            "Stat": {
+              "type": "string",
+              "description": "Regex to identify Stat files."
+            }
+          },
+          "default": {
+            "MythicMobs": "[\\\\\\/][Mm]ythic[Mm]obs[\\\\\\/]",
+            "Mob": "[\\\\\\/][Mm]obs[\\\\\\/]",
+            "Item": "[\\\\\\/][Ii]tems[\\\\\\/]",
+            "Metaskill": "[\\\\\\/][Ss]kills[\\\\\\/]",
+            "Droptable": "[\\\\\\/][Dd]rop[Tt]ables[\\\\\\/]",
+            "Stat": "[\\\\\\/]stats.((yaml)|(yml)|(txt))"
+          },
+          "additionalProperties": false,
+          "description": "Regexes used against each document's file path: if it matches, the document will be considered as being a specific type of file, enabling specific functionalities.",
+          "title": "File Type Recognition Regexes"
         }
       }
     }

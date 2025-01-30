@@ -26,6 +26,8 @@ import { MetaskillFileObjects } from '../schemas/metaskillFileObjects';
 import { ScribeMechanicHandler } from '../datasets/ScribeMechanic';
 import { ctx } from '../MythicScribe';
 import { genericFileCompletionProvider } from '../completions/filecompletions/genericFileCompletionProvider';
+import { DroptableFileObject } from '../schemas/droptableFileObjects';
+import { StatFileObjects } from '../schemas/statfileObjects';
 
 type SubscriptionFunction = () => vscode.Disposable;
 type SubscriptionCondition = () => boolean;
@@ -187,12 +189,43 @@ class ShortcutsSubscriptionHandler extends AbstractScribeSubscription {
     }
 }
 
+class DroptableSubscriptionHandler extends AbstractScribeSubscription {
+    constructor() {
+        super(
+            [
+                () => genericFileCompletionProvider(DroptableFileObject),
+                () =>
+                    hoverProvider(DroptableFileObject, {
+                        keys: keyAliases.DroptableConditions,
+                        registry: ScribeMechanicHandler.registry.condition,
+                    }),
+                () => conditionCompletionProvider(),
+            ],
+            [enableFileSpecificSuggestions]
+        );
+    }
+}
+
+class StatSubscriptionHandler extends AbstractScribeSubscription {
+    constructor() {
+        super(
+            [
+                () => genericFileCompletionProvider(StatFileObjects),
+                () => hoverProvider(StatFileObjects),
+            ],
+            [enableFileSpecificSuggestions]
+        );
+    }
+}
+
 export const ScribeSubscriptionHandler = {
     registry: {
         global: new GlobalSubscriptionHandler(),
         mob: new MobScribeSubscription(),
         skill: new SkillScribeSubscription(),
         item: new ItemScribeSubscription(),
+        droptable: new DroptableSubscriptionHandler(),
+        stat: new StatSubscriptionHandler(),
     },
 
     disposeAll() {

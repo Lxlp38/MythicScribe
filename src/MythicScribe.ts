@@ -5,11 +5,14 @@ import { getFormatter } from './formatter/formatter';
 import { addCustomDataset } from './datasets/customDatasets';
 import { ScribeMechanicHandler } from './datasets/ScribeMechanic';
 import { ScribeEnumHandler } from './datasets/ScribeEnum';
+import { migrate } from './migration/migration';
 
 export let ctx: vscode.ExtensionContext;
 
 export function activate(context: vscode.ExtensionContext) {
     ctx = context;
+
+    migrate();
 
     ScribeEnumHandler.initializeEnums();
     ScribeMechanicHandler.loadDatasets();

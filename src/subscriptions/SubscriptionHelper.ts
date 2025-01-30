@@ -1,11 +1,10 @@
 import * as vscode from 'vscode';
 
 import {
-    checkEnabled,
+    checkMythicMobsFile,
     enableMythicScriptSyntax,
-    checkMetaskillFile,
-    checkMobFile,
-    checkItemFile,
+    checkFileEnabled,
+    fileRegexProperties,
 } from '../utils/configutils';
 import { AbstractScribeSubscription, ScribeSubscriptionHandler } from './SubscriptionHandler';
 
@@ -14,11 +13,15 @@ function resetFileChecks() {
     isMetaskillFile = false;
     isMobFile = false;
     isItemFile = false;
+    isDroptableFile = false;
+    isStatFile = false;
 }
 export let isEnabled = false;
 export let isMetaskillFile = false;
 export let isMobFile = false;
 export let isItemFile = false;
+export let isDroptableFile = false;
+export let isStatFile = false;
 
 export const extensionEnabler = vscode.window.onDidChangeActiveTextEditor((editor) => {
     if (!editor) {
@@ -31,7 +34,7 @@ export async function checkIfMythicScriptFile(document: vscode.TextDocument) {
     if (document.languageId !== 'yaml') {
         return;
     }
-    if (checkEnabled(document)) {
+    if (checkMythicMobsFile(document)) {
         vscode.languages.setTextDocumentLanguage(document, 'mythicscript');
     }
 }
@@ -57,8 +60,8 @@ export function updateEnabled(document: vscode.TextDocument) {
         checkIfMythicScriptFile(document);
     }
 
-    if (isEnabled !== checkEnabled(document)) {
-        isEnabled = checkEnabled(document);
+    if (isEnabled !== checkMythicMobsFile(document)) {
+        isEnabled = checkMythicMobsFile(document);
         if (isEnabled) {
             ScribeSubscriptionHandler.registry.global.enableAll();
         } else {
@@ -75,17 +78,27 @@ export function updateEnabled(document: vscode.TextDocument) {
 
     isMetaskillFile = fileSpecificEnabler(
         isMetaskillFile,
-        checkMetaskillFile(document),
+        checkFileEnabled(document, fileRegexProperties.METASKILL),
         ScribeSubscriptionHandler.registry.skill
     );
     isMobFile = fileSpecificEnabler(
         isMobFile,
-        checkMobFile(document),
+        checkFileEnabled(document, fileRegexProperties.MOB),
         ScribeSubscriptionHandler.registry.mob
     );
     isItemFile = fileSpecificEnabler(
         isItemFile,
-        checkItemFile(document),
+        checkFileEnabled(document, fileRegexProperties.ITEM),
         ScribeSubscriptionHandler.registry.item
+    );
+    isDroptableFile = fileSpecificEnabler(
+        isDroptableFile,
+        checkFileEnabled(document, fileRegexProperties.DROPTABLE),
+        ScribeSubscriptionHandler.registry.droptable
+    );
+    isStatFile = fileSpecificEnabler(
+        isStatFile,
+        checkFileEnabled(document, fileRegexProperties.STAT),
+        ScribeSubscriptionHandler.registry.stat
     );
 }
