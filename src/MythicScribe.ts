@@ -6,13 +6,14 @@ import { addCustomDataset } from './datasets/customDatasets';
 import { ScribeMechanicHandler } from './datasets/ScribeMechanic';
 import { ScribeEnumHandler } from './datasets/ScribeEnum';
 import { migrate } from './migration/migration';
+import { logInfo } from './utils/logger';
 
 export let ctx: vscode.ExtensionContext;
 
 export function activate(context: vscode.ExtensionContext) {
     ctx = context;
 
-    migrate();
+    checkExtensionVersion();
 
     ScribeEnumHandler.initializeEnums();
     ScribeMechanicHandler.loadDatasets();
@@ -35,3 +36,13 @@ export function activate(context: vscode.ExtensionContext) {
 }
 
 export function deactivate() {}
+
+export function checkExtensionVersion() {
+    const version = vscode.extensions.getExtension('lxlp.mythicscribe')?.packageJSON.version;
+    const savedVersion = ctx.globalState.get<string>('extensionVersion');
+    if (version && version !== savedVersion) {
+        logInfo(`Updated MythicScribe to version ${version}`);
+        ctx.globalState.update('extensionVersion', version);
+        migrate();
+    }
+}

@@ -7,3 +7,7 @@ export function logError(error: unknown, message: string = 'An error occurred') 
         vscode.window.showErrorMessage(message, String(error));
     }
 }
+
+export function logInfo(message: string) {
+    vscode.window.showInformationMessage(message);
+}

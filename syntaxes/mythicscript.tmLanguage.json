@@ -197,7 +197,11 @@
                 },
                 {
                     "name": "string.unquoted.mythicscript",
-                    "match": "(?<=[=,\\>])\\s*[\\.\\w\\-\\: ]+(?=[,;\\<\\}])"
+                    "match": "(?<=[=,\\>])\\s*[\\.\\w\\-\\:]+(?=[,;\\<\\}])"
+                },
+                {
+                    "name": "string.unquoted.mythicscript",
+                    "match": "\\s*[\\.\\w\\-\\:]+(?=,)"
                 }
             ]
         },

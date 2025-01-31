@@ -1,4 +1,5 @@
 import typescriptEslint from '@typescript-eslint/eslint-plugin';
+// eslint-disable-next-line import/no-unresolved
 import tsParser from '@typescript-eslint/parser';
 import eslintPluginImport from 'eslint-plugin-import';
 import eslintPluginPromise from 'eslint-plugin-promise';
@@ -64,12 +65,7 @@ export default [
             'import/order': [
                 'warn',
                 {
-                    groups: [
-                        'builtin',
-                        'external',
-                        'internal',
-                        ['parent', 'sibling', 'index'],
-                    ],
+                    groups: ['builtin', 'external', 'internal', ['parent', 'sibling', 'index']],
                     'newlines-between': 'always',
                 },
             ],

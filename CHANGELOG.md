@@ -15,6 +15,7 @@
 
 ### Fixed
 - Error with the formatter's indentation when the config file actual indentation is 1
+- Syntax error when a list of attribute values is spread across multiple lines
 
 
 ## [1.5.0]
