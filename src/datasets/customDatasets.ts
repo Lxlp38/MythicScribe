@@ -5,7 +5,7 @@ import { ScribeEnumHandler, StaticScribeEnum, WebScribeEnum } from './ScribeEnum
 import { fetchMechanicDatasetFromLink, loadDatasets, loadLocalMechanicDataset } from './datasets';
 import { logError } from '../utils/logger';
 
-export enum CustomDatasetElementType {
+enum CustomDatasetElementType {
     MECHANIC = 'Mechanic',
     CONDITION = 'Condition',
     TRIGGER = 'Trigger',
@@ -13,12 +13,12 @@ export enum CustomDatasetElementType {
     ENUM = 'Enum',
 }
 
-export enum CustomDatasetSource {
+enum CustomDatasetSource {
     LOCALFILE = 'Local File',
     LINK = 'Link',
 }
 
-export interface CustomDataset {
+interface CustomDataset {
     elementType: CustomDatasetElementType;
     source: CustomDatasetSource;
     pathOrUrl: string;
@@ -115,10 +115,7 @@ export async function addCustomDataset() {
     }
 }
 
-export async function addCustomDatasetFromLink(
-    elementtype: string,
-    scope: vscode.ConfigurationTarget
-) {
+async function addCustomDatasetFromLink(elementtype: string, scope: vscode.ConfigurationTarget) {
     const pathOrUrl = await vscode.window.showInputBox({
         placeHolder: 'Enter a path or URL',
         prompt: 'Enter a path or URL',
@@ -164,7 +161,7 @@ async function finalizeCustomDatasetAddition(
     loadDatasets();
 }
 
-export function getCustomDatasetConfiguration(): [vscode.WorkspaceConfiguration, CustomDataset[]] {
+function getCustomDatasetConfiguration(): [vscode.WorkspaceConfiguration, CustomDataset[]] {
     const config = vscode.workspace.getConfiguration('MythicScribe');
     const existingMappings = config.get<CustomDataset[]>('customDatasets') || [];
 
@@ -173,70 +170,62 @@ export function getCustomDatasetConfiguration(): [vscode.WorkspaceConfiguration,
 
 export async function loadCustomDatasets() {
     const customDatasets = getCustomDatasetConfiguration()[1];
+    customDatasets.forEach(async (entry) => {
+        await processCustomDatasetEntry(entry);
+    });
+}
 
-    for (const entry in customDatasets) {
-        const dataset = customDatasets[entry];
-        if (dataset.elementType === CustomDatasetElementType.ENUM) {
-            const fileName = dataset.pathOrUrl
-                .split('/')
-                .reverse()[0]
-                .replace('.json', '')
-                .toLowerCase();
-            if (dataset.source === CustomDatasetSource.LOCALFILE) {
-                ScribeEnumHandler.addEnum(
-                    StaticScribeEnum,
-                    fileName,
-                    decodeURIComponent(vscode.Uri.parse(dataset.pathOrUrl).path)
-                );
-            } else if (dataset.source === CustomDatasetSource.LINK) {
-                ScribeEnumHandler.addEnum(WebScribeEnum, fileName, dataset.pathOrUrl);
-            }
-        } else {
-            if (dataset.source === CustomDatasetSource.LOCALFILE) {
-                await loadLocalCustomDataset(dataset);
-            } else if (dataset.source === CustomDatasetSource.LINK) {
-                await loadLinkCustomDataset(dataset);
-            }
-        }
+async function processCustomDatasetEntry(entry: CustomDataset) {
+    if (entry.elementType === CustomDatasetElementType.ENUM) {
+        const fileName = entry.pathOrUrl.split('/').reverse()[0].replace('.json', '').toLowerCase();
+        const clazz =
+            entry.source === CustomDatasetSource.LOCALFILE ? StaticScribeEnum : WebScribeEnum;
+        ScribeEnumHandler.addEnum(
+            clazz,
+            fileName,
+            decodeURIComponent(vscode.Uri.parse(entry.pathOrUrl).path)
+        );
+    } else if (entry.source === CustomDatasetSource.LOCALFILE) {
+        const localDataset = await loadLocalMechanicDataset(entry.pathOrUrl);
+        processMechanicDatasetEntry(localDataset, entry.elementType);
+    } else if (entry.source === CustomDatasetSource.LINK) {
+        const fileData = await fetchMechanicDatasetFromLink(entry.pathOrUrl);
+        processMechanicDatasetEntry(fileData, entry.elementType);
     }
 }
 
-async function loadLocalCustomDataset(dataset: CustomDataset) {
-    const localDataset = await loadLocalMechanicDataset(dataset.pathOrUrl);
-    if (localDataset) {
-        switch (dataset.elementType) {
+async function processMechanicDatasetEntry(entry: MechanicDataset, type: CustomDatasetElementType) {
+    if (entry) {
+        switch (type) {
             case CustomDatasetElementType.MECHANIC:
-                ScribeMechanicHandler.registry.mechanic.addMechanic(...localDataset);
+                ScribeMechanicHandler.registry.mechanic.addMechanic(...entry);
                 break;
             case CustomDatasetElementType.TARGETER:
-                ScribeMechanicHandler.registry.targeter.addMechanic(...localDataset);
+                ScribeMechanicHandler.registry.targeter.addMechanic(...entry);
                 break;
             case CustomDatasetElementType.CONDITION:
-                ScribeMechanicHandler.registry.condition.addMechanic(...localDataset);
+                ScribeMechanicHandler.registry.condition.addMechanic(...entry);
                 break;
             case CustomDatasetElementType.TRIGGER:
-                ScribeMechanicHandler.registry.trigger.addMechanic(...localDataset);
+                ScribeMechanicHandler.registry.trigger.addMechanic(...entry);
                 break;
         }
     }
 }
 
-async function loadLinkCustomDataset(dataset: CustomDataset) {
-    const fileData = await fetchMechanicDatasetFromLink(dataset.pathOrUrl);
-    if (fileData) {
-        switch (dataset.elementType) {
-            case CustomDatasetElementType.MECHANIC:
-                ScribeMechanicHandler.registry.mechanic.addMechanic(...fileData);
-                break;
-            case CustomDatasetElementType.TARGETER:
-                ScribeMechanicHandler.registry.targeter.addMechanic(...fileData);
-                break;
-            case CustomDatasetElementType.CONDITION:
-                ScribeMechanicHandler.registry.condition.addMechanic(...fileData);
-                break;
-            case CustomDatasetElementType.TRIGGER:
-                ScribeMechanicHandler.registry.trigger.addMechanic(...fileData);
-                break;
-        }
-    }
-}
+// async function loadBundleDataset(dataset: CustomDataset) {
+//     try {
+//         const fileUri = vscode.Uri.file(dataset.pathOrUrl);
+//         const fileContent = await vscode.workspace.fs.readFile(fileUri);
+//         const configData: CustomDataset[] = JSON.parse(Buffer.from(fileContent).toString('utf8'));
+
+//         for (const entry of configData) {
+//             await processCustomDatasetEntry(entry);
+//         }
+
+//         vscode.window.showInformationMessage(`Bundle dataset loaded from ${dataset.pathOrUrl}`);
+//     } catch (error) {
+//         logError(error);
+//         vscode.window.showErrorMessage(`Failed to load bundle dataset from ${dataset.pathOrUrl}`);
+//     }
+// }

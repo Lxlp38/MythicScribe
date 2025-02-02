@@ -210,7 +210,8 @@
                   "Mechanic",
                   "Condition",
                   "Trigger",
-                  "Targeter"
+                  "Targeter",
+                  "Enum"
                 ],
                 "description": "The type of element to associate."
               },
@@ -230,7 +231,7 @@
             "required": [
               "elementType",
               "source",
-              "path"
+              "pathOrUrl"
             ]
           },
           "default": []
