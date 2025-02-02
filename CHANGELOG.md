@@ -8,10 +8,38 @@
   - `MythicScribe.fileRegex.Droptable` configuration to define a regex to recognize Droptable files
 - Hover and Completions for Stat Files
   - `MythicScribe.fileRegex.Stat` configuration to define a regex to recognize Stat files
+- "Bundle" Custom Datasets
+  - A Bundle json can contain references to any number of other custom dataset types
+  - When a Bundle is imported as a File and not as a Link, the path of other File-sourced datasets is interpreted as "relative" to the Bundle's location 
+
+```json
+[
+    {
+        "elementType": "Mechanic",
+        "source": "File",
+        "pathOrUrl": "test.json"
+    },
+    {
+        "elementType": "Enum",
+        "source": "File",
+        "pathOrUrl": "testenum.json"
+    },
+    {
+        "elementType": "Mechanic",
+        "source": "Link",
+        "pathOrUrl": "https://raw.githubusercontent.com/Lxlp38/LxMythicUtilities/refs/heads/main/Datasets/LxMythicUtilitiesMechanics.json"
+    }
+]
+```
+> Bundle.json Example  
+> Given that the Bundle is imported as a File, then "test.json" and "testenum.json" will ne fetched from the same directory the bundle is in  
+> Of course, you can add ".." and other/directories/toYourFile.json  
+> You can also specify a "Link" source to fetch datasets from a link  
 
 ### Changed
 - Refactor of how Mechanics/Enums and Subscriptions are handled
 - Regexes for files can now be found in the `MythicScribe.fileRegex` configuration. Old configurations for this are deprecated and automatically migrated
+- "Local File" value inside customDatasets configurations is now called "File". When the old value is detected, it is automatically migrated
 
 ### Fixed
 - Error with the formatter's indentation when the config file actual indentation is 1

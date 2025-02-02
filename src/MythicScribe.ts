@@ -14,6 +14,7 @@ export function activate(context: vscode.ExtensionContext) {
     ctx = context;
 
     checkExtensionVersion();
+    migrate();
 
     ScribeEnumHandler.initializeEnums();
     ScribeMechanicHandler.loadDatasets();
@@ -43,6 +44,5 @@ export function checkExtensionVersion() {
     if (version && version !== savedVersion) {
         logInfo(`Updated MythicScribe to version ${version}`);
         ctx.globalState.update('extensionVersion', version);
-        migrate();
     }
 }

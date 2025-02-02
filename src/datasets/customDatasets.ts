@@ -1,11 +1,15 @@
+import path from 'path';
+
 import * as vscode from 'vscode';
 
 import { MechanicDataset, ScribeMechanicHandler } from './ScribeMechanic';
 import { ScribeEnumHandler, StaticScribeEnum, WebScribeEnum } from './ScribeEnum';
 import { fetchMechanicDatasetFromLink, loadDatasets, loadLocalMechanicDataset } from './datasets';
 import { logError } from '../utils/logger';
+import { changeCustomDatasetsSource } from '../migration/migration';
 
 enum CustomDatasetElementType {
+    BUNDLE = 'Bundle',
     MECHANIC = 'Mechanic',
     CONDITION = 'Condition',
     TRIGGER = 'Trigger',
@@ -14,7 +18,7 @@ enum CustomDatasetElementType {
 }
 
 enum CustomDatasetSource {
-    LOCALFILE = 'Local File',
+    FILE = 'File',
     LINK = 'Link',
 }
 
@@ -170,25 +174,32 @@ function getCustomDatasetConfiguration(): [vscode.WorkspaceConfiguration, Custom
 
 export async function loadCustomDatasets() {
     const customDatasets = getCustomDatasetConfiguration()[1];
-    customDatasets.forEach(async (entry) => {
+    for (const entry of customDatasets) {
+        if (isOutdatedDataset(entry)) {
+            await changeCustomDatasetsSource('customDatasets', 'Local File', 'File');
+            break;
+        }
+    }
+    for (const entry of customDatasets) {
         await processCustomDatasetEntry(entry);
-    });
+    }
 }
 
 async function processCustomDatasetEntry(entry: CustomDataset) {
-    if (entry.elementType === CustomDatasetElementType.ENUM) {
+    if (entry.elementType === CustomDatasetElementType.BUNDLE) {
+        await loadBundleDataset(entry);
+    } else if (entry.elementType === CustomDatasetElementType.ENUM) {
         const fileName = entry.pathOrUrl.split('/').reverse()[0].replace('.json', '').toLowerCase();
-        const clazz =
-            entry.source === CustomDatasetSource.LOCALFILE ? StaticScribeEnum : WebScribeEnum;
+        const clazz = isFileSource(entry.source) ? StaticScribeEnum : WebScribeEnum;
         ScribeEnumHandler.addEnum(
             clazz,
             fileName,
             decodeURIComponent(vscode.Uri.parse(entry.pathOrUrl).path)
         );
-    } else if (entry.source === CustomDatasetSource.LOCALFILE) {
+    } else if (isFileSource(entry.source)) {
         const localDataset = await loadLocalMechanicDataset(entry.pathOrUrl);
         processMechanicDatasetEntry(localDataset, entry.elementType);
-    } else if (entry.source === CustomDatasetSource.LINK) {
+    } else if (isLinkSource(entry.source)) {
         const fileData = await fetchMechanicDatasetFromLink(entry.pathOrUrl);
         processMechanicDatasetEntry(fileData, entry.elementType);
     }
@@ -213,19 +224,32 @@ async function processMechanicDatasetEntry(entry: MechanicDataset, type: CustomD
     }
 }
 
-// async function loadBundleDataset(dataset: CustomDataset) {
-//     try {
-//         const fileUri = vscode.Uri.file(dataset.pathOrUrl);
-//         const fileContent = await vscode.workspace.fs.readFile(fileUri);
-//         const configData: CustomDataset[] = JSON.parse(Buffer.from(fileContent).toString('utf8'));
+async function loadBundleDataset(dataset: CustomDataset) {
+    try {
+        const fileUri = vscode.Uri.parse(dataset.pathOrUrl);
+        const fileContent = await vscode.workspace.fs.readFile(fileUri);
+        const configData: CustomDataset[] = JSON.parse(Buffer.from(fileContent).toString('utf8'));
 
-//         for (const entry of configData) {
-//             await processCustomDatasetEntry(entry);
-//         }
+        for (const entry of configData) {
+            if (isFileSource(entry.source)) {
+                const datasetDirUri = vscode.Uri.file(path.dirname(fileUri.fsPath));
+                const entryUri = vscode.Uri.joinPath(datasetDirUri, entry.pathOrUrl);
+                entry.pathOrUrl = entryUri.toString();
+            }
+            await processCustomDatasetEntry(entry);
+        }
+    } catch (error) {
+        logError(error);
+    }
+}
 
-//         vscode.window.showInformationMessage(`Bundle dataset loaded from ${dataset.pathOrUrl}`);
-//     } catch (error) {
-//         logError(error);
-//         vscode.window.showErrorMessage(`Failed to load bundle dataset from ${dataset.pathOrUrl}`);
-//     }
-// }
+function isFileSource(source: CustomDatasetSource) {
+    return source === CustomDatasetSource.FILE;
+}
+function isLinkSource(source: CustomDatasetSource) {
+    return source === CustomDatasetSource.LINK;
+}
+
+function isOutdatedDataset(dataset: CustomDataset) {
+    return dataset.source.toString() === 'Local File';
+}

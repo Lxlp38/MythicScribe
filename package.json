@@ -207,6 +207,7 @@
               "elementType": {
                 "type": "string",
                 "enum": [
+                  "Bundle",
                   "Mechanic",
                   "Condition",
                   "Trigger",
@@ -219,7 +220,7 @@
                 "type": "string",
                 "enum": [
                   "Link",
-                  "Local File"
+                  "File"
                 ],
                 "description": "The source of the dataset."
               },
