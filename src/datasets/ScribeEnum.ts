@@ -119,6 +119,7 @@ export const ScribeEnumHandler = {
                 ['PAPERATTRIBUTEOPERATION', 'mythic/attributesoperations.json'],
                 ['STATTYPE', 'mythic/stattype.json'],
                 ['STATEXECUTIONPOINT', 'mythic/statexecutionpoint.json'],
+                ['ITEMRARITY', 'mythic/itemrarity.json'],
                 ['ADDTRADE_ACTION', 'mythic/mechanicScoped/addtrade_action.json'],
                 [
                     'DISPLAYTRANSFORMATION_ACTION',

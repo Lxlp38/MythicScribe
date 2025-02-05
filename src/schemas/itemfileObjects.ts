@@ -29,6 +29,11 @@ export const ItemFileObjects: FileObjectMap = {
         link: 'https://git.lumine.io/mythiccraft/MythicMobs/-/wikis/Items/Items#custommodeldata',
         description: 'Sets the CustomModelData tag on the item',
     },
+    MaxDurability: {
+        type: FileObjectTypes.INTEGER,
+        link: 'https://git.lumine.io/mythiccraft/MythicMobs/-/wikis/Items/Items#maxdurability',
+        description: 'Sets the maximum durability of the item',
+    },
     Durability: {
         type: FileObjectTypes.INTEGER,
         link: 'https://git.lumine.io/mythiccraft/MythicMobs/-/wikis/Items/Items#durability',
@@ -71,10 +76,89 @@ export const ItemFileObjects: FileObjectMap = {
         values: generateNumbersInRange(1, 12, 1),
     },
     Options: {
-        type: FileObjectTypes.KEY_LIST,
+        type: FileObjectTypes.KEY,
         link: 'https://git.lumine.io/mythiccraft/MythicMobs/-/wikis/Items/Items#options',
         description:
             'A special field that includes various item options, such as color or append type',
+        keys: {
+            Repairable: {
+                type: FileObjectTypes.BOOLEAN,
+                link: 'https://git.lumine.io/mythiccraft/MythicMobs/-/wikis/Items/Options#repairable',
+                description:
+                    'Sets the repair cost of the item to maximum, making it completely uneditable in anvils and/or enchantment tables. Defaults to false.',
+            },
+            RepairCost: {
+                type: FileObjectTypes.INTEGER,
+                link: 'https://git.lumine.io/mythiccraft/MythicMobs/-/wikis/Items/Options#repaircost',
+                description:
+                    'Sets the repair cost of the item. If set to less than 0, the vanilla one will be used. Defaults to -1.',
+            },
+            Unbreakable: {
+                type: FileObjectTypes.BOOLEAN,
+                link: 'https://git.lumine.io/mythiccraft/MythicMobs/-/wikis/Items/Options#unbreakable',
+                description:
+                    'Sets the unbreakable tag on the item. Items with this set to true will not lose durability. Defaults to false.',
+            },
+            Glint: {
+                type: FileObjectTypes.BOOLEAN,
+                link: 'https://git.lumine.io/mythiccraft/MythicMobs/-/wikis/Items/Options#glint',
+                description:
+                    'Adds the enchantment glint visual effect to an item. Defaults to false.',
+            },
+            HideFlags: {
+                type: FileObjectTypes.BOOLEAN,
+                link: 'https://git.lumine.io/mythiccraft/MythicMobs/-/wikis/Items/Options#hideflags',
+                description:
+                    "Hides all the item flags, making things like enchants not visible in the item's lore. Defaults to false.",
+            },
+            PreventStacking: {
+                type: FileObjectTypes.BOOLEAN,
+                link: 'https://git.lumine.io/mythiccraft/MythicMobs/-/wikis/Items/Options#preventstacking',
+                description: 'Prevents the item from stacking to similar items. Defaults to false.',
+            },
+            Consumable: {
+                type: FileObjectTypes.KEY,
+                link: 'https://git.lumine.io/mythiccraft/MythicMobs/-/wikis/Items/Options#consumable',
+                description:
+                    'Allows item to be eaten. Includes customizable animations and sounds.',
+                keys: {
+                    ConsumeSeconds: {
+                        type: FileObjectTypes.INTEGER,
+                    },
+                    HasParticles: {
+                        type: FileObjectTypes.BOOLEAN,
+                    },
+                    Animation: {
+                        type: FileObjectTypes.STRING,
+                    },
+                    Sound: {
+                        type: FileObjectTypes.STRING,
+                    },
+                },
+            },
+            ItemModel: {
+                type: FileObjectTypes.STRING,
+                link: 'https://git.lumine.io/mythiccraft/MythicMobs/-/wikis/Items/Options#itemmodel',
+                description: 'The model that should be applied to the item.',
+            },
+            Player: {
+                type: FileObjectTypes.STRING,
+                link: 'https://git.lumine.io/mythiccraft/MythicMobs/-/wikis/Items/Options#player',
+                description:
+                    'Sets the texture of the player head. The value must be the IGN of the target player.',
+            },
+            SkinTexture: {
+                type: FileObjectTypes.STRING,
+                link: 'https://git.lumine.io/mythiccraft/MythicMobs/-/wikis/Items/Options#skintexture',
+                description: 'Sets the texture of the player head using a SkinURL.',
+            },
+            Color: {
+                type: FileObjectTypes.STRING,
+                link: 'https://git.lumine.io/mythiccraft/MythicMobs/-/wikis/Items/Options#color',
+                description:
+                    'Dyes the armor piece to a color according to RGB settings or a predefined color.',
+            },
+        },
     },
     Enchantments: {
         type: FileObjectTypes.LIST,
@@ -128,11 +212,26 @@ export const ItemFileObjects: FileObjectMap = {
         description:
             'Adds custom NBT tags to items for data storage or compatibility with other plugins',
     },
-    ArmorTrimNBT: {
-        type: FileObjectTypes.KEY_LIST,
-        link: 'https://git.lumine.io/mythiccraft/MythicMobs/-/wikis/Items/Items#armor-trim-nbt',
+    Trim: {
+        type: FileObjectTypes.KEY,
+        link: 'https://git.lumine.io/mythiccraft/MythicMobs/-/wikis/Items/Items#key',
         description:
             'Sets custom armor trim for items, like iron chestplates, with specified materials and patterns',
+        keys: {
+            Material: {
+                type: FileObjectTypes.ENUM,
+                dataset: 'MATERIAL',
+            },
+            Pattern: {
+                type: FileObjectTypes.STRING,
+            },
+        },
+    },
+    Rarity: {
+        type: FileObjectTypes.ENUM,
+        dataset: 'ITEMRARITY',
+        link: 'https://git.lumine.io/mythiccraft/MythicMobs/-/wikis/Items/Items#rarity',
+        description: 'Sets the rarity of the item',
     },
     Firework: {
         type: FileObjectTypes.KEY,
@@ -197,10 +296,6 @@ export const ItemFileObjects: FileObjectMap = {
             },
             CanAlwaysEat: {
                 type: FileObjectTypes.BOOLEAN,
-            },
-            Effects: {
-                type: FileObjectTypes.LIST,
-                dataset: 'POTIONEFFECTTYPE',
             },
         },
     },
