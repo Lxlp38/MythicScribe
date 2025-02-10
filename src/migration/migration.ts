@@ -56,7 +56,7 @@ export async function changeCustomDatasetsSource(
     }
 }
 
-export async function migrate() {
+export async function doVersionSpecificMigrations() {
     await Promise.all([
         migrateConfiguration('regexForMythicmobsFile', 'fileRegex', 'MythicMobs'),
         migrateConfiguration('regexForMobFile', 'fileRegex', 'Mob'),

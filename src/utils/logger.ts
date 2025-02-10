@@ -11,3 +11,12 @@ export function logError(error: unknown, message: string = 'An error occurred') 
 export function logInfo(message: string) {
     vscode.window.showInformationMessage(message);
 }
+
+export function showInfoMessageWithOptions(message: string, options: { [key: string]: string }) {
+    vscode.window.showInformationMessage(message, ...Object.keys(options)).then((selection) => {
+        if (selection && options[selection]) {
+            vscode.env.openExternal(vscode.Uri.parse(options[selection]));
+        }
+        return;
+    });
+}

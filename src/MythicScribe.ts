@@ -5,21 +5,23 @@ import { getFormatter } from './formatter/formatter';
 import { addCustomDataset } from './datasets/customDatasets';
 import { ScribeMechanicHandler } from './datasets/ScribeMechanic';
 import { ScribeEnumHandler } from './datasets/ScribeEnum';
-import { migrate } from './migration/migration';
-import { logInfo } from './utils/logger';
+import { doVersionSpecificMigrations } from './migration/migration';
+import { showInfoMessageWithOptions } from './utils/logger';
 
 export let ctx: vscode.ExtensionContext;
 
-export function activate(context: vscode.ExtensionContext) {
+export async function activate(context: vscode.ExtensionContext) {
     ctx = context;
 
-    checkExtensionVersion();
-    migrate();
+    // Check if the extension has been updated
+    if (checkExtensionVersion()) {
+        // Run migrations if so
+        await doVersionSpecificMigrations();
+    }
 
     ScribeEnumHandler.initializeEnums();
     ScribeMechanicHandler.loadDatasets();
 
-    // Datasets
     context.subscriptions.push(
         // Subscription Handler
         SubscriptionHelper.extensionEnabler,
@@ -38,11 +40,19 @@ export function activate(context: vscode.ExtensionContext) {
 
 export function deactivate() {}
 
-export function checkExtensionVersion() {
-    const version = vscode.extensions.getExtension('lxlp.mythicscribe')?.packageJSON.version;
+function checkExtensionVersion(): boolean {
+    const version = ctx.extension.packageJSON.version;
     const savedVersion = ctx.globalState.get<string>('extensionVersion');
     if (version && version !== savedVersion) {
-        logInfo(`Updated MythicScribe to version ${version}`);
+        const checkExtensionVersionOptions: { [key: string]: string } = {
+            'Check Changelogs': 'https://github.com/Lxlp38/MythicScribe/blob/master/CHANGELOG.md',
+        };
+        showInfoMessageWithOptions(
+            `Updated MythicScribe to version ${version}`,
+            checkExtensionVersionOptions
+        );
         ctx.globalState.update('extensionVersion', version);
+        return true;
     }
+    return false;
 }

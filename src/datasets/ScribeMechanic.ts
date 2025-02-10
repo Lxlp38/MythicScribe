@@ -56,7 +56,7 @@ export abstract class AbstractScribeMechanicRegistry {
         return this.mechanicsClassMap.get(name.toLowerCase());
     }
 
-    async emptyDatasets() {
+    emptyDatasets() {
         this.mechanics = [];
         this.mechanicsNameMap.clear();
         this.mechanicsClassMap.clear();
@@ -269,13 +269,8 @@ export const ScribeMechanicHandler = {
     },
 
     emptyDatasets() {
-        Promise.all([
-            ScribeMechanicHandler.registry.mechanic.emptyDatasets(),
-            ScribeMechanicHandler.registry.targeter.emptyDatasets(),
-            ScribeMechanicHandler.registry.condition.emptyDatasets(),
-            ScribeMechanicHandler.registry.trigger.emptyDatasets(),
-            ScribeMechanicHandler.registry.aitarget.emptyDatasets(),
-            ScribeMechanicHandler.registry.aigoal.emptyDatasets(),
-        ]);
+        Object.values(ScribeMechanicHandler.registry).forEach((registry) =>
+            registry.emptyDatasets()
+        );
     },
 };
