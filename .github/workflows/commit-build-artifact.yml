@@ -1,0 +1,40 @@
+name: Build VSIX and Upload Artifact
+
+on:
+  push:
+    branches:
+      - '*'
+
+permissions:
+  contents: read
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v3
+
+      - name: Set up Node.js
+        uses: actions/setup-node@v3
+        with:
+          node-version: '18'
+
+      - name: Install dependencies
+        run: npm install
+
+      - name: Build the extension
+        run: npm run build
+
+      - name: Package the VSCode extension (.vsix)
+        run: npm run buildtag
+
+      - name: List files after packaging
+        run: ls -al
+
+      - name: Upload .vsix as artifact
+        uses: actions/upload-artifact@v3
+        with:
+          name: 'mythicscribe.vsix'
+          path: '*.vsix'
