@@ -34,7 +34,7 @@ jobs:
         run: ls -al
 
       - name: Upload .vsix as artifact
-        uses: actions/upload-artifact@v3
+        uses: actions/upload-artifact@v4
         with:
           name: 'mythicscribe.vsix'
           path: '*.vsix'
