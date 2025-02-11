@@ -899,6 +899,16 @@
                 "description": "Should the part match the `partid` completely",
                 "link": "https://git.lumine.io/mythiccraft/model-engine-4/-/wikis/Skills/Mechanics/Glow",
                 "default_value": "true"
+            },
+            {
+                "name": [
+                    "c",
+                    "child"
+                ],
+                "type": "Boolean",
+                "description": "The color in hex.<br>If not set, it will either glow as white or the team color of the base entity",
+                "link": "https://git.lumine.io/mythiccraft/model-engine-4/-/wikis/Skills/Mechanics/Glow",
+                "default_value": ""
             }
         ]
     },
@@ -1605,7 +1615,7 @@
                     "mode"
                 ],
                 "type": "PlaceholderString",
-                "description": "The controller mode specific to the target",
+                "description": "The controller mode specific to the target. Also works when driver=false for Meta Controllers",
                 "link": "https://git.lumine.io/mythiccraft/model-engine-4/-/wikis/Skills/Mechanics/MountModel",
                 "default_value": "walking"
             },
@@ -2315,7 +2325,7 @@
                     "ov",
                     "override"
                 ],
-                "type": "String",
+                "type": "PlaceholderBoolean",
                 "description": "Forced override mode of the animation.<br>If not set, the mechanic use default override mode",
                 "link": "https://git.lumine.io/mythiccraft/model-engine-4/-/wikis/Skills/Mechanics/State",
                 "default_value": ""
@@ -2666,6 +2676,16 @@
                 "description": "Should the part match the `partid` completely",
                 "link": "https://git.lumine.io/mythiccraft/model-engine-4/-/wikis/Skills/Mechanics/Tint",
                 "default_value": "true"
+            },
+            {
+                "name": [
+                    "c",
+                    "child"
+                ],
+                "type": "Boolean",
+                "description": "The color in hex",
+                "link": "https://git.lumine.io/mythiccraft/model-engine-4/-/wikis/Skills/Mechanics/Tint",
+                "default_value": "FFFFFF or FF6666 (damagetint = true)"
             }
         ]
     },

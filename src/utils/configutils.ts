@@ -65,7 +65,7 @@ export function getAttributeAliasUsedInCompletions() {
     return vscode.workspace.getConfiguration('MythicScribe').get('attributeAliasUsedInCompletions');
 }
 
-const MinecraftVersions = ['latest', '1.21.1', '1.20.6', '1.20.5', '1.20.4', '1.19.4'];
+const MinecraftVersions = ['latest', '1.21.3', '1.21.1', '1.20.6', '1.20.5', '1.20.4', '1.19.4'];
 export function minecraftVersion() {
     const config = vscode.workspace.getConfiguration('MythicScribe');
     const inspected = config.inspect<string>('minecraftVersion');

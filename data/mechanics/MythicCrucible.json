@@ -147,6 +147,42 @@
     },
     {
         "plugin": "MythicCrucible",
+        "class": "ConsumeItemMechanic",
+        "extends": "SkillMechanic",
+        "implements": [
+            "INoTargetSkill"
+        ],
+        "name": [
+            "consumeitem"
+        ],
+        "description": "Removes some items from the casting player's inventory",
+        "link": "https://git.lumine.io/mythiccraft/mythiccrucible/-/wikis/Skills/Mechanics/Consumeitem",
+        "attributes": [
+            {
+                "name": [
+                    "item",
+                    "i"
+                ],
+                "type": "String",
+                "description": "The item to remove",
+                "link": "https://git.lumine.io/mythiccraft/mythiccrucible/-/wikis/Skills/Mechanics/Consumeitem",
+                "default_value": "STONE",
+                "enum": "Material"
+            },
+            {
+                "name": [
+                    "amount",
+                    "a"
+                ],
+                "type": "Integer",
+                "description": "The amount to remove",
+                "link": "https://git.lumine.io/mythiccraft/mythiccrucible/-/wikis/Skills/Mechanics/Consumeitem",
+                "default_value": "1"
+            }
+        ]
+    },
+    {
+        "plugin": "MythicCrucible",
         "class": "DealCustomDurabilityMechanic",
         "extends": "SkillMechanic",
         "implements": [
@@ -154,7 +190,6 @@
         ],
         "name": [
             "dealCustomDurability",
-            "dealDura",
             "customDura"
         ],
         "description": "Modifies the custom durability of the held item.",
@@ -317,7 +352,19 @@
         ],
         "description": "Reparses the lore in your item config",
         "link": "https://git.lumine.io/mythiccraft/mythiccrucible/-/wikis/Skills/Mechanics/UpdateLore",
-        "attributes": []
+        "attributes": [
+            {
+                "name": [
+                    "equipslot",
+                    "slot",
+                    "s"
+                ],
+                "type": null,
+                "description": "The [slot](https://git.lumine.io/mythiccraft/mythiccrucible/-/wikis/../../../MythicMobs/-/wikis/Skills/EquipSlot) to target",
+                "link": "https://git.lumine.io/mythiccraft/mythiccrucible/-/wikis/Skills/Mechanics/UpdateLore",
+                "default_value": ""
+            }
+        ]
     },
     {
         "plugin": "MythicCrucible",

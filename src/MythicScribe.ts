@@ -20,6 +20,8 @@ export async function activate(context: vscode.ExtensionContext) {
     }
 
     ScribeEnumHandler.initializeEnums();
+
+    ScribeMechanicHandler.setPathMap(context.extensionUri);
     ScribeMechanicHandler.loadDatasets();
 
     context.subscriptions.push(

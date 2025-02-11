@@ -1540,7 +1540,7 @@
         "name": [
             "HasItem"
         ],
-        "description": "Tests if the target player or an item container has exactly the given number of the given material.",
+        "description": "Tests if the target player or an item container has exactly the given number of the given material.  \nUses the [Item Matcher](https://git.lumine.io/mythiccraft/MythicMobs/-/wikis/Items/Item-Matcher)",
         "link": "https://git.lumine.io/mythiccraft/MythicMobs/-/wikis/Skills/Conditions/hasItem",
         "attributes": [
             {
@@ -1555,6 +1555,17 @@
             },
             {
                 "name": [
+                    "strict",
+                    "exact",
+                    "e"
+                ],
+                "type": "Boolean",
+                "description": "Whether the matcher should more strictly match the target item",
+                "link": "https://git.lumine.io/mythiccraft/MythicMobs/-/wikis/Items/Item-Matcher",
+                "default_value": "false"
+            },
+            {
+                "name": [
                     "types",
                     "type",
                     "t",
@@ -1565,10 +1576,9 @@
                     "i"
                 ],
                 "type": "StringList",
-                "description": "The item to check for",
-                "link": "https://git.lumine.io/mythiccraft/MythicMobs/-/wikis/Skills/Conditions/hasItem",
-                "default_value": "DIRT",
-                "enum": "Material"
+                "description": "The items to match. Can be a list",
+                "link": "https://git.lumine.io/mythiccraft/MythicMobs/-/wikis/Items/Item-Matcher",
+                "default_value": "DIRT"
             }
         ]
     },
@@ -1892,9 +1902,20 @@
         "name": [
             "holding"
         ],
-        "description": "Checks if the target is holding a given material",
+        "description": "Checks if the target is holding a given material.  \nUses the [Item Matcher](https://git.lumine.io/mythiccraft/MythicMobs/-/wikis/Items/Item-Matcher)",
         "link": "https://git.lumine.io/mythiccraft/MythicMobs/-/wikis/Skills/Conditions/holding",
         "attributes": [
+            {
+                "name": [
+                    "strict",
+                    "exact",
+                    "e"
+                ],
+                "type": "Boolean",
+                "description": "Whether the matcher should more strictly match the target item",
+                "link": "https://git.lumine.io/mythiccraft/MythicMobs/-/wikis/Items/Item-Matcher",
+                "default_value": "false"
+            },
             {
                 "name": [
                     "types",
@@ -1907,9 +1928,9 @@
                     "i"
                 ],
                 "type": "StringList",
-                "description": "A material, MythicItem or MMOItems internal id to check for",
-                "link": "https://git.lumine.io/mythiccraft/MythicMobs/-/wikis/Skills/Conditions/holding",
-                "default_value": ""
+                "description": "The items to match. Can be a list",
+                "link": "https://git.lumine.io/mythiccraft/MythicMobs/-/wikis/Items/Item-Matcher",
+                "default_value": "DIRT"
             }
         ]
     },
@@ -2348,9 +2369,20 @@
         "name": [
             "itemType"
         ],
-        "description": "Checks against the material of the item that triggered the skill.  \nWildcards (`*_SWORD`) and item tags (`#arrows`)",
+        "description": "Checks against the material of the item that triggered the skill.  \nUses the [Item Matcher](https://git.lumine.io/mythiccraft/MythicMobs/-/wikis/Items/Item-Matcher)",
         "link": "https://git.lumine.io/mythiccraft/MythicMobs/-/wikis/Skills/Conditions/ItemType",
         "attributes": [
+            {
+                "name": [
+                    "strict",
+                    "exact",
+                    "e"
+                ],
+                "type": "Boolean",
+                "description": "Whether the matcher should more strictly match the target item",
+                "link": "https://git.lumine.io/mythiccraft/MythicMobs/-/wikis/Items/Item-Matcher",
+                "default_value": "false"
+            },
             {
                 "name": [
                     "types",
@@ -2363,8 +2395,8 @@
                     "i"
                 ],
                 "type": "StringList",
-                "description": "A list of [materials](https://hub.spigotmc.org/javadocs/bukkit/org/bukkit/Material.html) to check against",
-                "link": "https://git.lumine.io/mythiccraft/MythicMobs/-/wikis/Skills/Conditions/ItemType",
+                "description": "The items to match. Can be a list",
+                "link": "https://git.lumine.io/mythiccraft/MythicMobs/-/wikis/Items/Item-Matcher",
                 "default_value": "DIRT"
             }
         ]
@@ -2614,6 +2646,16 @@
                 "description": "The object to check against",
                 "link": "https://git.lumine.io/mythiccraft/MythicMobs/-/wikis/Skills/Conditions/LookingAt",
                 "default_value": ""
+            },
+            {
+                "name": [
+                    "distance",
+                    "d"
+                ],
+                "type": "PlaceholderInteger",
+                "description": "The distance of the generated raytrace. If the mob lookup behaves strangely, you can try to change this value",
+                "link": "https://git.lumine.io/mythiccraft/MythicMobs/-/wikis/Skills/Conditions/LookingAt",
+                "default_value": "5"
             }
         ]
     },
@@ -3637,7 +3679,7 @@
             "region",
             "inregion"
         ],
-        "description": "Checks if the target is within the given WorldGuard region.",
+        "description": "Checks if the target is within the given WorldGuard region.\n\n> When creating a region via the `/rg create` command the name will *always* be lowercase, regardless of what you wrote in the command. So, when you need to check against such a region via this condition, remember to write its name in lowercase too",
         "link": "https://git.lumine.io/mythiccraft/MythicMobs/-/wikis/Skills/Conditions/region",
         "attributes": [
             {
@@ -4499,7 +4541,7 @@
             "wielding",
             "iswielding"
         ],
-        "description": "This condition checks if the target entity is wearing the selected item.",
+        "description": "This condition checks if the target entity is wearing the selected item.  \nUses the [Item Matcher](https://git.lumine.io/mythiccraft/MythicMobs/-/wikis/Items/Item-Matcher)",
         "link": "https://git.lumine.io/mythiccraft/MythicMobs/-/wikis/Skills/Conditions/wearing",
         "attributes": [
             {
@@ -4509,10 +4551,21 @@
                     "s"
                 ],
                 "type": "String",
-                "description": "The item slot to check.",
+                "description": "The [item slot](https://git.lumine.io/mythiccraft/MythicMobs/-/wikis/Skills/EquipSlot) to check.",
                 "link": "https://git.lumine.io/mythiccraft/MythicMobs/-/wikis/Skills/Conditions/wearing",
                 "default_value": "HEAD",
                 "enum": "EquipSlot"
+            },
+            {
+                "name": [
+                    "strict",
+                    "exact",
+                    "e"
+                ],
+                "type": "Boolean",
+                "description": "Whether the matcher should more strictly match the target item",
+                "link": "https://git.lumine.io/mythiccraft/MythicMobs/-/wikis/Items/Item-Matcher",
+                "default_value": "false"
             },
             {
                 "name": [
@@ -4526,8 +4579,8 @@
                     "i"
                 ],
                 "type": "StringList",
-                "description": "A material or MythicItem name to check for. Also supports MMOItems in the format mmoitems.TYPE.ID",
-                "link": "https://git.lumine.io/mythiccraft/MythicMobs/-/wikis/Skills/Conditions/wearing",
+                "description": "The items to match. Can be a list",
+                "link": "https://git.lumine.io/mythiccraft/MythicMobs/-/wikis/Items/Item-Matcher",
                 "default_value": "DIRT"
             }
         ]

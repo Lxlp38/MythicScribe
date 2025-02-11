@@ -38,6 +38,18 @@
     },
     {
         "plugin": "MythicCrucible",
+        "class": "FurnitureNearOriginTargeter",
+        "extends": "FurnitureInRadiusTargeter",
+        "name": [
+            "furnitureNearOrigin",
+            "FNO"
+        ],
+        "description": "Targets all the furniture in a radius around the origin",
+        "link": "https://git.lumine.io/mythiccraft/mythiccrucible/-/wikis/Skills/Targeters/FurnitureNearOrigin",
+        "attributes": []
+    },
+    {
+        "plugin": "MythicCrucible",
         "class": "FurnitureTargeter",
         "extends": "SkillTargeter",
         "implements": [

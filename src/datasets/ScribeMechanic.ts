@@ -4,7 +4,6 @@ import { checkEnabledPlugin, datasetSource, finallySetEnabledPlugins } from '../
 import { checkGithubDatasets, loadLocalDatasets } from './datasets';
 import { ScribeEnumHandler } from './ScribeEnum';
 import { loadCustomDatasets } from './customDatasets';
-import { ctx } from '../MythicScribe';
 
 export enum ObjectType {
     MECHANIC = 'Mechanic',
@@ -230,21 +229,17 @@ export class MythicAttribute {
     }
 }
 
-function getPathMap(extensionUri: vscode.Uri) {
-    return {
-        mechanic: vscode.Uri.joinPath(extensionUri, 'data', 'mechanics'),
-        targeter: vscode.Uri.joinPath(extensionUri, 'data', 'targeters'),
-        condition: vscode.Uri.joinPath(extensionUri, 'data', 'conditions'),
-        trigger: vscode.Uri.joinPath(extensionUri, 'data', 'triggers'),
-        aitarget: vscode.Uri.joinPath(extensionUri, 'data', 'aitargets'),
-        aigoal: vscode.Uri.joinPath(extensionUri, 'data', 'aigoals'),
-    };
+interface PathMap {
+    mechanic: vscode.Uri;
+    targeter: vscode.Uri;
+    condition: vscode.Uri;
+    trigger: vscode.Uri;
+    aitarget: vscode.Uri;
+    aigoal: vscode.Uri;
 }
 
 export const ScribeMechanicHandler = {
-    get pathMap() {
-        return getPathMap(ctx.extensionUri);
-    },
+    pathMap: {} as PathMap,
 
     registry: {
         mechanic: new ScribeMechanicRegistry(),
@@ -254,6 +249,17 @@ export const ScribeMechanicHandler = {
         trigger: new ScribeTriggerRegistry(),
         aitarget: new ScribeAITargetRegistry(),
         aigoal: new ScribeAIGoalRegistry(),
+    },
+
+    setPathMap(extensionUri: vscode.Uri) {
+        this.pathMap = {
+            mechanic: vscode.Uri.joinPath(extensionUri, 'data', 'mechanics'),
+            targeter: vscode.Uri.joinPath(extensionUri, 'data', 'targeters'),
+            condition: vscode.Uri.joinPath(extensionUri, 'data', 'conditions'),
+            trigger: vscode.Uri.joinPath(extensionUri, 'data', 'triggers'),
+            aitarget: vscode.Uri.joinPath(extensionUri, 'data', 'aitargets'),
+            aigoal: vscode.Uri.joinPath(extensionUri, 'data', 'aigoals'),
+        };
     },
 
     async loadDatasets() {

@@ -709,9 +709,9 @@
                     "limit"
                 ],
                 "type": "PlaceholderInteger",
-                "description": "The limit to the targeted entities/locations after the sort is applied",
+                "description": "The limit to the targeted entities/locations after the skip is applied, if >0",
                 "link": "https://git.lumine.io/mythiccraft/MythicMobs/-/wikis/Skills/Targeters#common-entity-targeters-attributes",
-                "default_value": ""
+                "default_value": "0"
             },
             {
                 "name": [
@@ -722,6 +722,16 @@
                 "description": "How to sort the targeted entities/locations",
                 "link": "https://git.lumine.io/mythiccraft/MythicMobs/-/wikis/Skills/Targeters#common-entity-targeters-attributes",
                 "default_value": ""
+            },
+            {
+                "name": [
+                    "skipTargetsUpToIndex",
+                    "stuti"
+                ],
+                "type": "PlaceholderInteger",
+                "description": "skips the first `n` targets of the targeter after the sort is applied, if >0",
+                "link": "https://git.lumine.io/mythiccraft/MythicMobs/-/wikis/Skills/Targeters#common-entity-targeters-attributes",
+                "default_value": "0"
             },
             {
                 "name": [
@@ -1091,10 +1101,10 @@
                 "name": [
                     "limit"
                 ],
-                "type": "Integer",
-                "description": "The limit to the targeted entities/locations after the sort is applied",
+                "type": "PlaceholderInteger",
+                "description": "The limit to the targeted entities/locations after the skip is applied, if >0",
                 "link": "https://git.lumine.io/mythiccraft/MythicMobs/-/wikis/Skills/Targeters#common-location-targeters-attributes",
-                "default_value": ""
+                "default_value": "0"
             },
             {
                 "name": [
@@ -1105,6 +1115,16 @@
                 "description": "How to sort the targeted entities/locations",
                 "link": "https://git.lumine.io/mythiccraft/MythicMobs/-/wikis/Skills/Targeters#common-location-targeters-attributes",
                 "default_value": ""
+            },
+            {
+                "name": [
+                    "skipTargetsUpToIndex",
+                    "stuti"
+                ],
+                "type": "PlaceholderInteger",
+                "description": "skips the first `n` targets of the targeter after the sort is applied, if >0",
+                "link": "https://git.lumine.io/mythiccraft/MythicMobs/-/wikis/Skills/Targeters#common-location-targeters-attributes",
+                "default_value": "0"
             }
         ]
     },
@@ -1654,6 +1674,17 @@
     },
     {
         "plugin": "MythicMobs",
+        "class": "OwnerLocationTargeter",
+        "extends": "ILocationSelector",
+        "name": [
+            "ownerlocation"
+        ],
+        "description": "Targets the location of the [owner](https://git.lumine.io/mythiccraft/MythicMobs/-/wikis/Skills/Targeters/Owner) of the casting mob",
+        "link": "https://git.lumine.io/mythiccraft/MythicMobs/-/wikis/Skills/Targeters/Ownerlocation",
+        "attributes": []
+    },
+    {
+        "plugin": "MythicMobs",
         "class": "OwnerTargeter",
         "extends": "IEntitySelector",
         "name": [
@@ -1661,6 +1692,18 @@
         ],
         "description": "Targets the Owner of the casting mob.  \nThe Owner can be set via the [SetOwner](https://git.lumine.io/mythiccraft/MythicMobs/-/wikis/Skills/mechanics/setowner) mechanic.",
         "link": "https://git.lumine.io/mythiccraft/MythicMobs/-/wikis/Skills/Targeters/Owner",
+        "attributes": []
+    },
+    {
+        "plugin": "MythicMobs",
+        "class": "ParentLocationTargeter",
+        "extends": "ILocationSelector",
+        "name": [
+            "parentlocation",
+            "summonerlocation"
+        ],
+        "description": "Targets the location of the [parent](https://git.lumine.io/mythiccraft/MythicMobs/-/wikis/Skills/Targeters/Parent) of the casting mob",
+        "link": "https://git.lumine.io/mythiccraft/MythicMobs/-/wikis/Skills/Targeters/ParentLocation",
         "attributes": []
     },
     {
@@ -1855,7 +1898,8 @@
         "extends": "IEntitySelector",
         "name": [
             "PlayersNearOrigin",
-            "PlayersNearSource"
+            "PlayersNearSource",
+            "PNO"
         ],
         "description": "Targets all players in the given radius around the origin of the metaskill.",
         "link": "https://git.lumine.io/mythiccraft/MythicMobs/-/wikis/Skills/Targeters/PlayersNearOrigin",
@@ -2068,6 +2112,16 @@
                 "description": "The minimum amount of space between selected targets",
                 "link": "https://git.lumine.io/mythiccraft/MythicMobs/-/wikis/Skills/Targeters/RandomLocationsNearTargets",
                 "default_value": "0"
+            },
+            {
+                "name": [
+                    "onsurface",
+                    "surface"
+                ],
+                "type": "Boolean",
+                "description": "Whether the selected location should be on a surface that is not air",
+                "link": "https://git.lumine.io/mythiccraft/MythicMobs/-/wikis/Skills/Targeters/RandomLocationsNearTargets",
+                "default_value": "false"
             }
         ]
     },

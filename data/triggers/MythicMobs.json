@@ -251,7 +251,8 @@
         "name": [
             "onDropcombat",
             "onLeavecombat",
-            "onCombatdrop"
+            "onCombatdrop",
+            "onExitcombat"
         ],
         "description": "Executes the skill when the mob drops combat.\n\n> **REQUIRES [ThreatTables](https://git.lumine.io/mythiccraft/MythicMobs/-/wikis/Mobs/ThreatTables) to be enabled**  \n\n> There is no associated [@trigger](https://git.lumine.io/mythiccraft/MythicMobs/-/wikis/Skills/Targeters/Trigger)",
         "link": "https://git.lumine.io/mythiccraft/MythicMobs/-/wikis/Skills/Triggers/onDropCombat",

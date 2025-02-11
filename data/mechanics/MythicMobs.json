@@ -3395,7 +3395,7 @@
             "fillContainer",
             "populateContainer"
         ],
-        "description": "Fills a chest with a list of items, or a [droptable](https://git.lumine.io/mythiccraft/MythicMobs/-/wikis/Items/Drops#drop-tables)",
+        "description": "Fills a chest with a list of items, or a [droptable](https://git.lumine.io/mythiccraft/MythicMobs/-/wikis/drops/DropTables)",
         "link": "https://git.lumine.io/mythiccraft/MythicMobs/-/wikis/Skills/Mechanics/fillChest",
         "attributes": [
             {
@@ -5606,7 +5606,7 @@
             "onblockplace",
             "onplaceblock"
         ],
-        "description": "Applies an aura to the target that triggers a skill when they break a block",
+        "description": "Applies an aura to the target that triggers a skill when they place a block",
         "link": "https://git.lumine.io/mythiccraft/MythicMobs/-/wikis/Skills/Mechanics/onblockplace",
         "attributes": [
             {
@@ -7117,7 +7117,7 @@
                     "ticks",
                     "t"
                 ],
-                "type": "Integer",
+                "type": "PlaceholderInteger",
                 "description": "For how many ticks this effect will last",
                 "link": "https://git.lumine.io/mythiccraft/MythicMobs/-/wikis/Skills/Mechanics/ParticleOrbital",
                 "default_value": "100"
@@ -9689,6 +9689,25 @@
             },
             {
                 "name": [
+                    "bulletbrightness",
+                    "bulletbrightnessblock"
+                ],
+                "type": "Integer",
+                "description": "The bullet's brightness",
+                "link": "https://git.lumine.io/mythiccraft/MythicMobs/-/wikis/Skills/Mechanics/projectile",
+                "default_value": "-1"
+            },
+            {
+                "name": [
+                    "bulletbrightnesssky"
+                ],
+                "type": "Integer",
+                "description": "The bullet's sky light brightness",
+                "link": "https://git.lumine.io/mythiccraft/MythicMobs/-/wikis/Skills/Mechanics/projectile",
+                "default_value": "bulletbrightness"
+            },
+            {
+                "name": [
                     "backgroundcolor",
                     "color"
                 ],
@@ -10546,6 +10565,21 @@
     },
     {
         "plugin": "MythicMobs",
+        "class": "ResetAIMechanic",
+        "extends": "SkillMechanic",
+        "implements": [
+            "INoTargetSkill"
+        ],
+        "name": [
+            "resetai",
+            "resetaigoals"
+        ],
+        "description": "Attempts to resets the AI of a casting mob to the base type's default.",
+        "link": "https://git.lumine.io/mythiccraft/MythicMobs/-/wikis/Skills/Mechanics/ResetAI",
+        "attributes": []
+    },
+    {
+        "plugin": "MythicMobs",
         "class": "RotateTowardsMechanic",
         "extends": "SkillMechanic",
         "implements": [
@@ -11066,7 +11100,7 @@
                     "mat",
                     "m"
                 ],
-                "type": "String",
+                "type": "PlaceholderString",
                 "description": "The item to use. If not set, the mechanic will remove the item from the entity instead",
                 "link": "https://git.lumine.io/mythiccraft/MythicMobs/-/wikis/Skills/Mechanics/setDisplayEntityItem",
                 "default_value": "AIR",
@@ -13777,6 +13811,71 @@
     },
     {
         "plugin": "MythicMobs",
+        "class": "StealItemMechanic",
+        "extends": "SkillMechanic",
+        "implements": [
+            "ITargetedEntitySkill"
+        ],
+        "name": [
+            "stealitem",
+            "steal",
+            "stealitems",
+            "itemsteal"
+        ],
+        "description": "Steals an item from the target and puts it in the mob's hand",
+        "link": "https://git.lumine.io/mythiccraft/MythicMobs/-/wikis/Skills/Mechanics/StealItem",
+        "attributes": [
+            {
+                "name": [
+                    "amount",
+                    "a"
+                ],
+                "type": "PlaceholderInteger",
+                "description": "The amount to steal",
+                "link": "https://git.lumine.io/mythiccraft/MythicMobs/-/wikis/Skills/Mechanics/StealItem",
+                "default_value": "1"
+            },
+            {
+                "name": [
+                    "dropchance",
+                    "dc"
+                ],
+                "type": "PlaceholderFloat",
+                "description": "Sets the chance for the stolen item to be dropped upon death",
+                "link": "https://git.lumine.io/mythiccraft/MythicMobs/-/wikis/Skills/Mechanics/StealItem",
+                "default_value": "0.0"
+            },
+            {
+                "name": [
+                    "strict",
+                    "exact",
+                    "e"
+                ],
+                "type": "Boolean",
+                "description": "Whether the matcher should more strictly match the target item",
+                "link": "https://git.lumine.io/mythiccraft/MythicMobs/-/wikis/Items/Item-Matcher",
+                "default_value": "false"
+            },
+            {
+                "name": [
+                    "types",
+                    "type",
+                    "t",
+                    "material",
+                    "mat",
+                    "m",
+                    "item",
+                    "i"
+                ],
+                "type": "StringList",
+                "description": "The items to match. Can be a list",
+                "link": "https://git.lumine.io/mythiccraft/MythicMobs/-/wikis/Items/Item-Matcher",
+                "default_value": "DIRT"
+            }
+        ]
+    },
+    {
+        "plugin": "MythicMobs",
         "class": "StopSoundEffect",
         "extends": "SkillMechanic",
         "implements": [
@@ -14506,7 +14605,7 @@
             "takeitems",
             "itemtake"
         ],
-        "description": "Removes the specified amount of an item from the target player's inventory",
+        "description": "Removes the specified amount of an item from the target player's inventory.  \nUses the [Item Matcher](https://git.lumine.io/mythiccraft/MythicMobs/-/wikis/Items/Item-Matcher)",
         "link": "https://git.lumine.io/mythiccraft/MythicMobs/-/wikis/Skills/Mechanics/takeitem",
         "attributes": [
             {
@@ -14521,29 +14620,29 @@
             },
             {
                 "name": [
+                    "strict",
                     "exact",
                     "e"
                 ],
                 "type": "Boolean",
-                "description": "Whether the name of the item should match exactly to the specified one",
-                "link": "https://git.lumine.io/mythiccraft/MythicMobs/-/wikis/Skills/Mechanics/takeitem",
-                "default_value": "true"
+                "description": "Whether the matcher should more strictly match the target item",
+                "link": "https://git.lumine.io/mythiccraft/MythicMobs/-/wikis/Items/Item-Matcher",
+                "default_value": "false"
             },
             {
                 "name": [
-                    "item",
-                    "i",
+                    "types",
                     "type",
                     "t",
                     "material",
                     "mat",
                     "m",
-                    "mi",
-                    "mythicitem"
+                    "item",
+                    "i"
                 ],
-                "type": "String",
-                "description": "The item, or material, to remove",
-                "link": "https://git.lumine.io/mythiccraft/MythicMobs/-/wikis/Skills/Mechanics/takeitem",
+                "type": "StringList",
+                "description": "The items to match. Can be a list",
+                "link": "https://git.lumine.io/mythiccraft/MythicMobs/-/wikis/Items/Item-Matcher",
                 "default_value": "DIRT"
             }
         ]
@@ -15151,7 +15250,7 @@
             "piston"
         ],
         "description": "Toggles a piston at the target location",
-        "link": "https://git.lumine.io/mythiccraft/MythicMobs/-/wikis/Skills/Mechanics/TogglePiston",
+        "link": "https://git.lumine.io/mythiccraft/MythicMobs/-/wikis/Skills/Mechanics/togglepiston",
         "attributes": []
     },
     {
@@ -15853,6 +15952,44 @@
                 "description": "If greater than 0, will undo the paste operation after that amount of ticks has elapsed",
                 "link": "https://git.lumine.io/mythiccraft/MythicMobs/-/wikis/Skills/Mechanics/fawepaste",
                 "default_value": "0"
+            }
+        ]
+    },
+    {
+        "plugin": "MythicMobs",
+        "class": "WEReplaceMechanic",
+        "extends": "SkillMechanic",
+        "implements": [
+            "INoTargetSkill"
+        ],
+        "name": [
+            "worldEditReplace",
+            "weReplace"
+        ],
+        "description": "Replaces blocks in a region using WorldEdit. Needs a [@region](https://git.lumine.io/mythiccraft/MythicMobs/-/wikis/Skills/Targeters/Region) or similar targeter\n\n> **This is a [Premium-Only](Premium-Features) mechanic!**",
+        "link": "https://git.lumine.io/mythiccraft/MythicMobs/-/wikis/Skills/Mechanics/WorldEditReplace",
+        "attributes": [
+            {
+                "name": [
+                    "from",
+                    "f"
+                ],
+                "type": "PlaceholderString",
+                "description": "The material to replace",
+                "link": "https://git.lumine.io/mythiccraft/MythicMobs/-/wikis/Skills/Mechanics/WorldEditReplace",
+                "default_value": "AIR",
+                "enum": "MATERIAL"
+            },
+            {
+                "name": [
+                    "to",
+                    "t"
+                ],
+                "type": "PlaceholderString",
+                "description": "The material to set in place of the replaced one",
+                "link": "https://git.lumine.io/mythiccraft/MythicMobs/-/wikis/Skills/Mechanics/WorldEditReplace",
+                "default_value": "AIR",
+                "enum": "MATERIAL"
             }
         ]
     },
