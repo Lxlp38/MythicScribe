@@ -8,42 +8,52 @@ export function getFormatter() {
             const textEdits: vscode.TextEdit[] = [];
             const text = document.getText();
 
-            // First step: Add newlines at specific points
-            const modifiedText = addNewlinesInInlineMetaskills(text);
+            // Tokenize comments
+            const [textWithPlaceholders, comments] = tokenizeComments(text);
 
-            // Second step: Apply additional formatting rules
-            const formattedText = formatMythicScript(modifiedText);
+            // Add newlines in inline metaskills
+            const textWithNewlines = addNewlinesInInlineMetaskills(textWithPlaceholders);
+
+            // Apply additional formatting rules
+            const formattedText = formatMythicScript(textWithNewlines);
+
+            // Restore comments
+            const textWithRestoredComments = restoreComments(formattedText, comments);
 
             // Replace entire document with the newly formatted text
-            const fullRange = new vscode.Range(
-                new vscode.Position(0, 0),
-                document.lineAt(document.lineCount - 1).range.end
-            );
+            const fullRange = document.validateRange(new vscode.Range(0, 0, document.lineCount, 0));
 
-            textEdits.push(vscode.TextEdit.replace(fullRange, formattedText));
+            textEdits.push(vscode.TextEdit.replace(fullRange, textWithRestoredComments));
 
             return textEdits;
         },
     });
 }
 
-function addNewlinesInInlineMetaskills(text: string): string {
-    const INDENTATION_LEVEL = getDefaultIndentation();
-    const USED_INDENTATION = getUsedIndentation(text);
-
-    const uuid = Math.random().toString(36).substring(2);
-    const placeholder = `/*MYTHICSCRIBE_COMMENT_${uuid}*/`;
-
+const placeholder = `/*__MYTHICSCRIBE_COMMENT__*/`;
+function tokenizeComments(text: string): [string, string[]] {
     const comments: string[] = [];
 
     // Preserve the comments by replacing them temporarily with a placeholder
-    const textWithPlaceholders = text.replace(placeholder, '').replace(/#.*?(?=\n)/g, (match) => {
+    const textWithPlaceholders = text.replace(/#.*?(?=\n|$)/g, (match) => {
         comments.push(match); // Store the comment
         return placeholder; // Replace the comment so it doesn't fuck up later on
     });
 
+    return [textWithPlaceholders, comments];
+}
+
+function restoreComments(text: string, comments: string[]): string {
+    comments.reverse();
+    return text.replaceAll(placeholder, () => comments.pop() || '');
+}
+
+function addNewlinesInInlineMetaskills(text: string): string {
+    const INDENTATION_LEVEL = getDefaultIndentation();
+    const USED_INDENTATION = getUsedIndentation(text);
+
     // Process the text with all the cool replacements
-    const formattedText = textWithPlaceholders
+    const formattedText = text
         .replace(/^([^\S\r\n]*)([\w_\-]+):/gm, (_match, p1, p2) => {
             const indent = Math.floor(p1.length / USED_INDENTATION);
             const affix = '' + ' '.repeat(indent * INDENTATION_LEVEL);
@@ -51,10 +61,7 @@ function addNewlinesInInlineMetaskills(text: string): string {
         })
         .replace(/(?<=[;{])\s*([^\s;{]*)=\s*\[\s*/gm, '\n$1=\[\n')
         .replace(/(?<=[^"])\s*\]\s*([;}])/gm, '\n]$1');
-    comments.reverse(); // Reverse the comments to restore them in the order they were added
-    return formattedText.replaceAll(placeholder, () => {
-        return comments.pop() || ''; // Restore the comments by replacing the placeholder
-    });
+    return formattedText;
 }
 
 function formatMythicScript(text: string): string {
