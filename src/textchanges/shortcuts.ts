@@ -1,7 +1,5 @@
 import * as vscode from 'vscode';
 
-import { isEnabled } from '../subscriptions/SubscriptionHelper';
-
 export function shortcutsProvider() {
     return vscode.workspace.onDidChangeTextDocument((event) => {
         const editor = vscode.window.activeTextEditor;
@@ -10,9 +8,6 @@ export function shortcutsProvider() {
         }
 
         const document = event.document;
-        if (!isEnabled) {
-            return;
-        }
 
         const changes = event.contentChanges;
         if (changes.length === 0) {

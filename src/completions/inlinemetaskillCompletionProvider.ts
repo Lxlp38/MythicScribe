@@ -2,6 +2,7 @@ import * as vscode from 'vscode';
 
 import * as yamlutils from '../utils/yamlutils';
 import { keyAliases } from '../objectInfos';
+import { retriggerCompletionsCommand } from '../utils/completionhelper';
 
 export function inlineMetaskillCompletionProvider() {
     return vscode.languages.registerCompletionItemProvider(
@@ -34,10 +35,7 @@ export function inlineMetaskillCompletionProvider() {
                 completionItem.insertText = new vscode.SnippetString(
                     '\n' + indentation + '- $0\n' + indentation
                 );
-                completionItem.command = {
-                    command: 'editor.action.triggerSuggest',
-                    title: 'Re-trigger completions...',
-                };
+                completionItem.command = retriggerCompletionsCommand;
 
                 return [completionItem];
             },

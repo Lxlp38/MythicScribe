@@ -3,7 +3,11 @@ import * as vscode from 'vscode';
 import * as yamlutils from '../utils/yamlutils';
 import { keyAliases } from '../objectInfos';
 import { ConditionActions } from '../schemas/conditionActions';
-import { addMechanicCompletions, checkShouldKeyComplete } from '../utils/completionhelper';
+import {
+    addMechanicCompletions,
+    checkShouldKeyComplete,
+    retriggerCompletionsCommand,
+} from '../utils/completionhelper';
 import { ScribeMechanicHandler } from '../datasets/ScribeMechanic';
 
 export function conditionCompletionProvider() {
@@ -76,10 +80,7 @@ export function conditionCompletionProvider() {
                 );
                 openBraceCompletion.kind = vscode.CompletionItemKind.Function;
                 openBraceCompletion.insertText = new vscode.SnippetString(space + '( $0 )');
-                openBraceCompletion.command = {
-                    command: 'editor.action.triggerSuggest',
-                    title: 'Re-trigger completions...',
-                };
+                openBraceCompletion.command = retriggerCompletionsCommand;
                 completionItems.push(openBraceCompletion);
 
                 const openBraceCount = (document.getText().match(/\(/g) || []).length;
@@ -91,10 +92,7 @@ export function conditionCompletionProvider() {
                     );
                     closeBraceCompletion.kind = vscode.CompletionItemKind.Function;
                     closeBraceCompletion.insertText = new vscode.SnippetString(') $0');
-                    closeBraceCompletion.command = {
-                        command: 'editor.action.triggerSuggest',
-                        title: 'Re-trigger completions...',
-                    };
+                    closeBraceCompletion.command = retriggerCompletionsCommand;
                     completionItems.push(closeBraceCompletion);
                 }
 
@@ -119,17 +117,11 @@ function addOperatorsToConditionLine(completionItems: vscode.CompletionItem[]) {
     const completionItem1 = new vscode.CompletionItem('&&', vscode.CompletionItemKind.Function);
     completionItem1.kind = vscode.CompletionItemKind.Function;
     completionItem1.insertText = new vscode.SnippetString('&& $0');
-    completionItem1.command = {
-        command: 'editor.action.triggerSuggest',
-        title: 'Re-trigger completions...',
-    };
+    completionItem1.command = retriggerCompletionsCommand;
     const completionItem2 = new vscode.CompletionItem('||', vscode.CompletionItemKind.Function);
     completionItem2.kind = vscode.CompletionItemKind.Function;
     completionItem2.insertText = new vscode.SnippetString('|| $0');
-    completionItem2.command = {
-        command: 'editor.action.triggerSuggest',
-        title: 'Re-trigger completions...',
-    };
+    completionItem2.command = retriggerCompletionsCommand;
     completionItems.push(completionItem1);
     completionItems.push(completionItem2);
 }
@@ -139,10 +131,7 @@ function addConditionActionsToConditionLine(completionItems: vscode.CompletionIt
         const completionItem = new vscode.CompletionItem(key, vscode.CompletionItemKind.Function);
         completionItem.kind = vscode.CompletionItemKind.Function;
         completionItem.insertText = new vscode.SnippetString(key + ' $0');
-        completionItem.command = {
-            command: 'editor.action.triggerSuggest',
-            title: 'Re-trigger completions...',
-        };
+        completionItem.command = retriggerCompletionsCommand;
         completionItems.push(completionItem);
     });
 }

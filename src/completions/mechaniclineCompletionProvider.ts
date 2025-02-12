@@ -4,6 +4,7 @@ import * as yamlutils from '../utils/yamlutils';
 import { isMetaskillFile } from '../subscriptions/SubscriptionHelper';
 import { getMechanicLine } from '../utils/yamlutils';
 import { keyAliases } from '../objectInfos';
+import { retriggerCompletionsCommand } from '../utils/completionhelper';
 
 export function mechaniclineCompletionProvider() {
     return vscode.languages.registerCompletionItemProvider(
@@ -44,10 +45,7 @@ export function mechaniclineCompletionProvider() {
                 );
                 completionItem.detail = 'Add a condition to the mechanic line';
                 completionItem.kind = vscode.CompletionItemKind.Function;
-                completionItem.command = {
-                    command: 'editor.action.triggerSuggest',
-                    title: 'Re-trigger completions...',
-                };
+                completionItem.command = retriggerCompletionsCommand;
                 completionItems.push(completionItem);
 
                 if (mechanicLine.has('condition')) {
@@ -61,10 +59,7 @@ export function mechaniclineCompletionProvider() {
                     );
                     completionItem.detail = 'Add a targeter to the mechanic line';
                     completionItem.kind = vscode.CompletionItemKind.Function;
-                    completionItem.command = {
-                        command: 'editor.action.triggerSuggest',
-                        title: 'Re-trigger completions...',
-                    };
+                    completionItem.command = retriggerCompletionsCommand;
                     completionItems.push(completionItem);
                 }
 
@@ -75,10 +70,7 @@ export function mechaniclineCompletionProvider() {
                     );
                     completionItem.detail = 'Add a trigger to the mechanic line';
                     completionItem.kind = vscode.CompletionItemKind.Function;
-                    completionItem.command = {
-                        command: 'editor.action.triggerSuggest',
-                        title: 'Re-trigger completions...',
-                    };
+                    completionItem.command = retriggerCompletionsCommand;
                     completionItems.push(completionItem);
                 }
 

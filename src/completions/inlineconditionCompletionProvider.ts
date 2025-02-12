@@ -1,7 +1,11 @@
 import * as vscode from 'vscode';
 
 import { keyAliases } from '../objectInfos';
-import { addMechanicCompletions, checkShouldComplete } from '../utils/completionhelper';
+import {
+    addMechanicCompletions,
+    checkShouldComplete,
+    retriggerCompletionsCommand,
+} from '../utils/completionhelper';
 import { ScribeMechanicHandler } from '../datasets/ScribeMechanic';
 
 export function inlineConditionCompletionProvider() {
@@ -43,10 +47,7 @@ export function inlineConditionCompletionProvider() {
                                 vscode.CompletionItemKind.Function
                             );
                             completionItem.kind = vscode.CompletionItemKind.Function;
-                            completionItem.command = {
-                                command: 'editor.action.triggerSuggest',
-                                title: 'Re-trigger completions...',
-                            };
+                            completionItem.command = retriggerCompletionsCommand;
                             completionItem.sortText = '0';
                             completionItems.push(completionItem);
                         });
@@ -64,10 +65,7 @@ export function inlineConditionCompletionProvider() {
                             vscode.CompletionItemKind.Function
                         );
                         completionItem.kind = vscode.CompletionItemKind.Function;
-                        completionItem.command = {
-                            command: 'editor.action.triggerSuggest',
-                            title: 'Re-trigger completions...',
-                        };
+                        completionItem.command = retriggerCompletionsCommand;
                         completionItem.sortText = '0';
                         completionItems.push(completionItem);
                         break;

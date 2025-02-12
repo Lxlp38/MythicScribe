@@ -6,6 +6,12 @@ import { FileObjectMap, FileObject, FileObjectTypes } from '../objectInfos';
 import { MythicMechanic } from '../datasets/ScribeMechanic';
 import { EnumDatasetValue, ScribeEnumHandler } from '../datasets/ScribeEnum';
 
+export const retriggerCompletionsCommand: vscode.Command = {
+    command: 'editor.action.triggerSuggest',
+    title: 'Re-trigger completions...',
+};
+
+// Generates completions for normal mythic schemas
 export async function generateFileCompletion(
     document: vscode.TextDocument,
     position: vscode.Position,
@@ -21,6 +27,14 @@ export async function generateFileCompletion(
     return undefined;
 }
 
+/**
+ * Determines the appropriate space character to be used for list completion in a YAML document.
+ *
+ * @param document - The text document in which the completion is being triggered.
+ * @param position - The position in the document where the completion is being triggered.
+ * @param context - The context in which the completion is being triggered.
+ * @returns A string containing a space character if appropriate, or `undefined` if no completion should be provided.
+ */
 export function listCompletion(
     document: vscode.TextDocument,
     position: vscode.Position,
@@ -129,10 +143,7 @@ export function addMechanicCompletions(
             completionItem.detail = `${item.description}`;
             completionItem.kind = vscode.CompletionItemKind.Function;
             completionItem.insertText = new vscode.SnippetString(name + '{$0}');
-            completionItem.command = {
-                command: 'editor.action.triggerSuggest',
-                title: 'Re-trigger completions...',
-            };
+            completionItem.command = retriggerCompletionsCommand;
             completionItems.push(completionItem);
         });
     });
@@ -237,10 +248,7 @@ function fileCompletionForFileObjectMap(
         }
 
         completionItem.detail = value.description;
-        completionItem.command = {
-            command: 'editor.action.triggerSuggest',
-            title: 'Re-trigger completions...',
-        };
+        completionItem.command = retriggerCompletionsCommand;
         completionItems.push(completionItem);
     });
 
@@ -257,10 +265,7 @@ function fileCompletionForFileObject(
     if (object.type === FileObjectTypes.LIST) {
         const completionItem = new vscode.CompletionItem('-', vscode.CompletionItemKind.Snippet);
         completionItem.insertText = new vscode.SnippetString(indentation + '- $0');
-        completionItem.command = {
-            command: 'editor.action.triggerSuggest',
-            title: 'Re-trigger completions...',
-        };
+        completionItem.command = retriggerCompletionsCommand;
         completionItems.push(completionItem);
     } else if (object.type === FileObjectTypes.KEY_LIST) {
         const completionItem = new vscode.CompletionItem(
@@ -268,10 +273,7 @@ function fileCompletionForFileObject(
             vscode.CompletionItemKind.Snippet
         );
         completionItem.insertText = new vscode.SnippetString(indentation + '$1: $2');
-        completionItem.command = {
-            command: 'editor.action.triggerSuggest',
-            title: 'Re-trigger completions...',
-        };
+        completionItem.command = retriggerCompletionsCommand;
         completionItems.push(completionItem);
     }
 
@@ -327,7 +329,7 @@ async function getKeyObjectCompletion(
             return undefined;
         }
         dataset.getDataset().forEach((item, value) => {
-            const completionItem = getSharedObjectCompletion(item, value);
+            const completionItem = getEnumCompletion(item, value);
             completionItem.insertText = new vscode.SnippetString(value);
             completionItems.push(completionItem);
         });
@@ -370,18 +372,15 @@ function getListObjectCompletion(
             return undefined;
         }
         const dataset = ScribeEnumHandler.getEnum(object.dataset);
-        const completionItems: vscode.CompletionItem[] = [];
         if (!dataset) {
             return undefined;
         }
+        const completionItems: vscode.CompletionItem[] = [];
         dataset.getDataset().forEach((item, value) => {
-            const completionItem = getSharedObjectCompletion(item, value);
+            const completionItem = getEnumCompletion(item, value);
+            completionItem.insertText = new vscode.SnippetString(space + value);
             if (object.values) {
-                completionItem.insertText = new vscode.SnippetString(
-                    space + value + ' ${1|' + object.values.join(',') + '|}'
-                );
-            } else {
-                completionItem.insertText = new vscode.SnippetString(space + value);
+                completionItem.insertText.appendText(' ').appendChoice(object.values);
             }
             completionItems.push(completionItem);
         });
@@ -390,9 +389,8 @@ function getListObjectCompletion(
     return undefined;
 }
 
-function getSharedObjectCompletion(item: EnumDatasetValue, value: string) {
+function getEnumCompletion(item: EnumDatasetValue, value: string) {
     const completionItem = new vscode.CompletionItem(value, vscode.CompletionItemKind.EnumMember);
-    completionItem.kind = vscode.CompletionItemKind.EnumMember;
     completionItem.detail = item.description;
     return completionItem;
 }

@@ -2,8 +2,8 @@ name: Build and Release Extension
 
 on:
   push:
-    tags:
-      - '*' # Trigger on any tag push
+    tags-ignore:
+      - 'dev'  # Ignore the dev tag
 
 permissions:
   contents: write

@@ -1,7 +1,11 @@
 import * as vscode from 'vscode';
 
 import { MythicMechanic, AbstractScribeMechanicRegistry } from '../datasets/ScribeMechanic';
-import { checkShouldKeyComplete, listCompletion } from '../utils/completionhelper';
+import {
+    checkShouldKeyComplete,
+    listCompletion,
+    retriggerCompletionsCommand,
+} from '../utils/completionhelper';
 
 export function mechanicCompletionProvider(
     registry: AbstractScribeMechanicRegistry,
@@ -45,10 +49,7 @@ export function mechanicCompletionProvider(
                                 space + name + '{$0}'
                             );
                         }
-                        completionItem.command = {
-                            command: 'editor.action.triggerSuggest',
-                            title: 'Re-trigger completions...',
-                        };
+                        completionItem.command = retriggerCompletionsCommand;
                         completionItems.push(completionItem);
                     });
                 });

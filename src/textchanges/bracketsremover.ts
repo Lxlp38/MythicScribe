@@ -1,5 +1,7 @@
 import * as vscode from 'vscode';
 
+import { retriggerCompletionsCommand } from '../utils/completionhelper';
+
 let lastexecutiontime = 0;
 
 export function removeBracketsTextListener() {
@@ -37,7 +39,7 @@ export function removeBracketsTextListener() {
 
             vscode.workspace.applyEdit(workspaceEdit).then((success) => {
                 if (success) {
-                    vscode.commands.executeCommand('editor.action.triggerSuggest');
+                    vscode.commands.executeCommand(retriggerCompletionsCommand.command);
                 }
                 return success;
             });

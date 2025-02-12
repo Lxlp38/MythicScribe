@@ -8,7 +8,7 @@ import {
     ScribeMechanicHandler,
 } from '../datasets/ScribeMechanic';
 import { EnumDatasetValue, ScribeEnumHandler } from '../datasets/ScribeEnum';
-import { checkShouldPrefixComplete } from '../utils/completionhelper';
+import { checkShouldPrefixComplete, retriggerCompletionsCommand } from '../utils/completionhelper';
 import * as yamlutils from '../utils/yamlutils';
 import { getAttributeAliasUsedInCompletions } from '../utils/configutils';
 import { getObjectLinkedToAttribute } from '../utils/cursorutils';
@@ -37,7 +37,7 @@ export function attributeCompletionProvider() {
                         new vscode.Range(position.translate(0, -1), position)
                     );
                     await vscode.workspace.applyEdit(edit);
-                    vscode.commands.executeCommand('editor.action.triggerSuggest');
+                    vscode.commands.executeCommand(retriggerCompletionsCommand.command);
                     return undefined;
                 } else if (charBefore === '- ') {
                     return undefined;
@@ -90,10 +90,7 @@ export function attributeCompletionProvider() {
                         );
                     } else if (attributeEnum && ScribeEnumHandler.getEnum(attributeEnum)) {
                         completionItem.insertText = new vscode.SnippetString(mainname + '=');
-                        completionItem.command = {
-                            command: 'editor.action.triggerSuggest',
-                            title: 'Re-trigger completions...',
-                        };
+                        completionItem.command = retriggerCompletionsCommand;
                     } else {
                         completionItem.insertText = new vscode.SnippetString(mainname + '=');
                     }
