@@ -1,4 +1,4 @@
-name: Build VSIX and Upload Artifact
+name: Upload Dev Build and Commit Artifact
 
 on:
   push:
@@ -6,7 +6,7 @@ on:
       - '*'
 
 permissions:
-  contents: read
+  contents: write
 
 jobs:
   build:
@@ -33,8 +33,27 @@ jobs:
       - name: List files after packaging
         run: ls -al
 
-      - name: Upload .vsix as artifact
+      - name: Upload .vsix as an artifact
         uses: actions/upload-artifact@v4
         with:
           name: 'mythicscribe.vsix'
           path: '*.vsix'
+
+      - name: Generate release body
+        id: generate_body
+        run: |
+          RELEASE_BODY=$(echo -e "The latest dev build, generated from the latest commit.\n\nEach commit also generates an artifact via the associated action. So, if you want to fetch a specific version, it is also possible to fetch that instead.\n\n**Build Information:**\n- Commit: $GITHUB_SHA\n- Build Date: $(date +"%Y-%m-%dT%H:%M:%SZ")")
+          echo "release_body=$RELEASE_BODY" >> $GITHUB_OUTPUT
+  
+      - name: Update Release
+        uses: softprops/action-gh-release@v1
+        with:
+          tag_name: dev
+          name: Dev Build
+          body: ${{ steps.generate_body.outputs.release_body }}
+          generate_release_notes: true
+          prerelease: true
+          files: |
+            *.vsix
+          token: ${{ secrets.GITHUB_TOKEN }}
+    
