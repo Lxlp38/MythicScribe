@@ -46,11 +46,27 @@ export abstract class AbstractScribeSubscription {
         this.enableConditions = conditions;
     }
 
+    /**
+     * Enables a subscription by adding it to the subscriptions list and the context's subscriptions.
+     *
+     * @param subscription - The subscription to be enabled and added to the lists.
+     */
     enable(subscription: vscode.Disposable) {
         this.subscriptions.push(subscription);
         ctx.subscriptions.push(subscription);
     }
 
+    /**
+     * Enables all subscriptions by first disposing of all existing subscriptions,
+     * then enabling all child subscription handlers, and finally enabling the
+     * subscription functions if all enable conditions are met.
+     *
+     * @remarks
+     * - This method first calls `disposeAll` to clear any existing subscriptions.
+     * - It then iterates over `childSubscriptionHandlers` and calls `enableAll` on each handler.
+     * - If all `enableConditions` return true, it iterates over `subscriptionFunctions`
+     *   and calls `enable` on the result of each function.
+     */
     enableAll() {
         this.disposeAll();
 
@@ -65,6 +81,14 @@ export abstract class AbstractScribeSubscription {
         }
     }
 
+    /**
+     * Disposes of all child subscription handlers and subscriptions.
+     *
+     * This method iterates over all child subscription handlers and calls their
+     * `disposeAll` method to ensure they are properly disposed of. It then iterates
+     * over all subscriptions and calls their `dispose` method to release any resources
+     * they may be holding. Finally, it clears the subscriptions array.
+     */
     disposeAll() {
         this.childSubscriptionHandlers.forEach((handler) => {
             handler.disposeAll();
@@ -77,6 +101,11 @@ export abstract class AbstractScribeSubscription {
         this.subscriptions.length = 0;
     }
 
+    /**
+     * Adds one or more child subscription handlers to the current subscription handler.
+     *
+     * @param {...AbstractScribeSubscription[]} handler - The subscription handlers to be added.
+     */
     addChildSubscriptionHandler(...handler: AbstractScribeSubscription[]) {
         this.childSubscriptionHandlers.push(...handler);
     }

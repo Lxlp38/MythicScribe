@@ -35,7 +35,7 @@ export async function generateFileCompletion(
  * @param context - The context in which the completion is being triggered.
  * @returns A string containing a space character if appropriate, or `undefined` if no completion should be provided.
  */
-export function listCompletion(
+export function getListCompletionNeededSpaces(
     document: vscode.TextDocument,
     position: vscode.Position,
     context: vscode.CompletionContext
@@ -86,12 +86,23 @@ export function checkShouldComplete(
     symbol: string[]
 ) {
     return (
-        checkShouldKeyComplete(document, position, keylist) &&
-        checkShouldPrefixComplete(document, position, context, symbol)
+        !yamlutils.isAfterComment(document, position) &&
+        checkShouldKeyCompleteExec(document, position, keylist) &&
+        checkShouldPrefixCompleteExec(document, position, context, symbol)
     );
 }
 
 export function checkShouldKeyComplete(
+    document: vscode.TextDocument,
+    position: vscode.Position,
+    keylist: string[]
+) {
+    if (yamlutils.isAfterComment(document, position)) {
+        return false;
+    }
+    return checkShouldKeyCompleteExec(document, position, keylist);
+}
+function checkShouldKeyCompleteExec(
     document: vscode.TextDocument,
     position: vscode.Position,
     keylist: string[]
@@ -104,6 +115,17 @@ export function checkShouldKeyComplete(
 }
 
 export function checkShouldPrefixComplete(
+    document: vscode.TextDocument,
+    position: vscode.Position,
+    context: vscode.CompletionContext,
+    symbol: string[]
+) {
+    if (yamlutils.isAfterComment(document, position)) {
+        return false;
+    }
+    return checkShouldPrefixCompleteExec(document, position, context, symbol);
+}
+function checkShouldPrefixCompleteExec(
     document: vscode.TextDocument,
     position: vscode.Position,
     context: vscode.CompletionContext,
@@ -345,7 +367,6 @@ async function getKeyObjectCompletion(
                 vscode.CompletionItemKind.EnumMember
             );
             completionItem.sortText = value.toString().padStart(4, '0');
-            completionItem.kind = vscode.CompletionItemKind.EnumMember;
             completionItem.insertText = new vscode.SnippetString(value);
             completionItems.push(completionItem);
         });
@@ -367,7 +388,7 @@ function getListObjectCompletion(
     }
 
     if (object.type === FileObjectTypes.LIST && object.dataset) {
-        const space = listCompletion(document, position, context);
+        const space = getListCompletionNeededSpaces(document, position, context);
         if (space === undefined) {
             return undefined;
         }

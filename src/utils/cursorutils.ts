@@ -46,6 +46,13 @@ export function getObjectLinkedToAttribute(
     return null; // No unbalanced opening brace found
 }
 
+/**
+ * Retrieves the attribute name linked to a value at a given position in a document.
+ *
+ * @param document - The text document to search within.
+ * @param position - The position in the document to search up to.
+ * @returns The attribute name if found, otherwise `null`.
+ */
 export function getAttributeLinkedToValue(
     document: vscode.TextDocument,
     position: vscode.Position
@@ -58,6 +65,14 @@ export function getAttributeLinkedToValue(
     return null;
 }
 
+/**
+ * Fetches the mechanic skill at the given cursor position within the document.
+ *
+ * @param document - The text document in which to search for the mechanic skill.
+ * @param position - The position of the cursor within the document.
+ * @param registry - The registry containing the mechanics and their corresponding regex patterns.
+ * @returns The mechanic skill found at the cursor position, or null if no mechanic is found.
+ */
 export function fetchCursorSkills(
     document: vscode.TextDocument,
     position: vscode.Position,
@@ -71,6 +86,17 @@ export function fetchCursorSkills(
     return null;
 }
 
+/**
+ * Retrieves the skill or attribute at the given cursor position within the document.
+ *
+ * This function checks various types of objects (mechanics, targeters, triggers, inline conditions)
+ * to determine if the cursor is positioned over a skill. If no skill is found, it then checks for
+ * attributes and attempts to link them to the corresponding object.
+ *
+ * @param document - The text document being edited.
+ * @param position - The position of the cursor within the document.
+ * @returns The skill or attribute at the cursor position, or `null` if none is found.
+ */
 export function getCursorSkills(document: vscode.TextDocument, position: vscode.Position) {
     for (const objectType of [
         ScribeMechanicHandler.registry.mechanic,
@@ -112,6 +138,16 @@ export function getCursorSkills(document: vscode.TextDocument, position: vscode.
     return null;
 }
 
+/**
+ * Retrieves the cursor object based on the current position in the document.
+ * It first attempts to fetch cursor skills, and if not found, it tries to fetch
+ * an attribute linked to an object.
+ *
+ * @param registry - The registry containing the mechanics.
+ * @param document - The text document where the cursor is located.
+ * @param position - The position of the cursor in the document.
+ * @returns The cursor object if found, otherwise null.
+ */
 export function getCursorObject(
     registry: AbstractScribeMechanicRegistry,
     document: vscode.TextDocument,

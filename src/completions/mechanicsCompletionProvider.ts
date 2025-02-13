@@ -3,7 +3,7 @@ import * as vscode from 'vscode';
 import { MythicMechanic, AbstractScribeMechanicRegistry } from '../datasets/ScribeMechanic';
 import {
     checkShouldKeyComplete,
-    listCompletion,
+    getListCompletionNeededSpaces,
     retriggerCompletionsCommand,
 } from '../utils/completionhelper';
 
@@ -25,7 +25,7 @@ export function mechanicCompletionProvider(
                     return undefined;
                 }
 
-                const space = listCompletion(document, position, context);
+                const space = getListCompletionNeededSpaces(document, position, context);
                 if (space === undefined) {
                     return undefined;
                 }
@@ -48,8 +48,8 @@ export function mechanicCompletionProvider(
                             completionItem.insertText = new vscode.SnippetString(
                                 space + name + '{$0}'
                             );
+                            completionItem.command = retriggerCompletionsCommand;
                         }
-                        completionItem.command = retriggerCompletionsCommand;
                         completionItems.push(completionItem);
                     });
                 });

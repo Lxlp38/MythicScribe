@@ -29,7 +29,7 @@ jobs:
         run: |
           VERSION=${GITHUB_REF#refs/tags/}
           VERSION=${VERSION#v}  # Remove leading 'v' if present
-          echo "VERSION=$VERSION" >> $GITHUB_ENV
+          echo "$VERSION" >> $GITHUB_OUTPUT
 
       # Step 4: Install jq
       - name: Install jq
@@ -59,8 +59,8 @@ jobs:
       - name: Rename .vsix file
         run: |
           FILE=$(ls *.vsix)
-          if [ "$FILE" != "mythicscribe-${{ env.VERSION }}.vsix" ]; then
-            mv "$FILE" "mythicscribe-${{ env.VERSION }}.vsix"
+          if [ "$FILE" != "mythicscribe-${{ steps.extract_version.outputs.VERSION }}.vsix" ]; then
+            mv "$FILE" "mythicscribe-${{ steps.extract_version.outputs.VERSION }}.vsix"
           else
             echo "File is already named correctly: $FILE"
           fi
@@ -69,6 +69,6 @@ jobs:
       - name: Create release and upload .vsix
         uses: softprops/action-gh-release@c95fe1489396fe8a9eb87c0abf8aa5b2ef267fda
         with:
-          files: './mythicscribe-${{ env.VERSION }}.vsix'
+          files: './mythicscribe-${{ steps.extract_version.outputs.VERSION }}.vsix'
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}

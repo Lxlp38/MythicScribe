@@ -27,9 +27,15 @@ export const extensionEnabler = vscode.window.onDidChangeActiveTextEditor((edito
     if (!editor) {
         return;
     }
-    updateEnabled(editor.document);
+    updateSubscriptions(editor.document);
 });
 
+/**
+ * Checks if the given document is a MythicMobs script file and changes its language mode to 'mythicscript' if it is.
+ *
+ * @param document - The text document to check.
+ * @returns A promise that resolves when the check is complete.
+ */
 export async function checkIfMythicScriptFile(document: vscode.TextDocument) {
     if (document.languageId !== 'yaml') {
         return;
@@ -38,8 +44,15 @@ export async function checkIfMythicScriptFile(document: vscode.TextDocument) {
         vscode.languages.setTextDocumentLanguage(document, 'mythicscript');
     }
 }
-// Updates the enabled features
 
+/**
+ * Enables or disables a subscriptions based on the provided flag values.
+ *
+ * @param flag - The current state of the flag.
+ * @param newflagvalue - The new state to set the flag to.
+ * @param handler - The subscription handler that manages the subscriptions.
+ * @returns The new state of the flag.
+ */
 function fileSpecificEnabler(
     flag: boolean,
     newflagvalue: boolean,
@@ -55,7 +68,20 @@ function fileSpecificEnabler(
     return newflagvalue;
 }
 
-export function updateEnabled(document: vscode.TextDocument) {
+/**
+ * Updates the state of various subscriptions based on the provided document.
+ *
+ * This function performs the following steps:
+ * 1. Checks if MythicScript syntax is enabled and verifies if the document is a MythicScript file.
+ * 2. Updates the global enabled state based on whether the document is a MythicMobs file.
+ * 3. If the global enabled state changes, it enables or disposes all subscriptions accordingly.
+ * 4. If the extension is disabled, it exits early.
+ * 5. Otherwise, it checks and updates the enabled state for specific file types (Metaskill, Mob, Item, Droptable, Stat)
+ *    and enables or disables the corresponding subscriptions.
+ *
+ * @param document - The text document to check and update subscriptions for.
+ */
+export function updateSubscriptions(document: vscode.TextDocument) {
     if (enableMythicScriptSyntax()) {
         checkIfMythicScriptFile(document);
     }

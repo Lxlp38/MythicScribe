@@ -36,7 +36,7 @@ export async function activate(context: vscode.ExtensionContext) {
     );
 
     if (vscode.window.activeTextEditor) {
-        SubscriptionHelper.updateEnabled(vscode.window.activeTextEditor.document);
+        SubscriptionHelper.updateSubscriptions(vscode.window.activeTextEditor.document);
     }
 }
 

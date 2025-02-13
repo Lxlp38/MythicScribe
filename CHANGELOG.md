@@ -45,6 +45,8 @@
 - Error with the formatter's indentation when the config file actual indentation is 1
 - Syntax error when a list of attribute values is spread across multiple lines
 - Error with text formatting where comments could still end up being formatted, with some of the text spilling over the commented line
+- Error where completions would continue to be shown repeatedly when accepting completions on mechanic-like objects that do not have attributes
+- Completions being activated even when after a comment in some cases
 
 
 ## [1.5.0]
