@@ -1,7 +1,7 @@
 {
   "name": "mythicscribe",
   "displayName": "MythicScribe",
-  "version": "1.5.0-dev",
+  "version": "1.6.0-dev",
   "icon": "assets/icon.png",
   "description": "Offers support for MythicMobs scripting",
   "license": "SEE LICENSE IN LICENSE.txt",
