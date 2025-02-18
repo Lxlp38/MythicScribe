@@ -20,7 +20,7 @@ suite('Logger', () => {
             logError(error);
 
             sinon.assert.calledOnce(showErrorMessageStub);
-            sinon.assert.calledWith(showErrorMessageStub, 'An error occurred: ' + error.message);
+            sinon.assert.calledWith(showErrorMessageStub, 'An error occurred:\n' + error);
         });
 
         test('should log custom message when error is an instance of Error', () => {
@@ -29,7 +29,7 @@ suite('Logger', () => {
             logError(error, customMessage);
 
             sinon.assert.calledOnce(showErrorMessageStub);
-            sinon.assert.calledWith(showErrorMessageStub, customMessage + error.message);
+            sinon.assert.calledWith(showErrorMessageStub, customMessage + '\n' + error);
         });
 
         test('should log error message when error is not an instance of Error', () => {
@@ -37,7 +37,7 @@ suite('Logger', () => {
             logError(error);
 
             sinon.assert.calledOnce(showErrorMessageStub);
-            sinon.assert.calledWith(showErrorMessageStub, 'An error occurred: ', String(error));
+            sinon.assert.calledWith(showErrorMessageStub, 'An error occurred:\n' + String(error));
         });
 
         test('should log custom message when error is not an instance of Error', () => {

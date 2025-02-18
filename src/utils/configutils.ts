@@ -1,5 +1,7 @@
 import * as vscode from 'vscode';
 
+import { logWarning } from './logger';
+
 // Check for enabled features
 export function isAlwaysEnabled() {
     return vscode.workspace.getConfiguration('MythicScribe').get('alwaysEnabled');
@@ -86,7 +88,7 @@ export function minecraftVersion() {
 
         // Update the value only in the defined scope
         config.update('minecraftVersion', undefined, target);
-        vscode.window.showWarningMessage(
+        logWarning(
             'Invalid MythicScribe.minecraftVersion configuration value detected. Resetting to "latest".'
         );
         return 'latest';

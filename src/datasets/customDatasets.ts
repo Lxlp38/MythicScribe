@@ -28,20 +28,16 @@ interface CustomDataset {
     pathOrUrl: string;
 }
 
+const validConfigurationTargets = [
+    { label: 'Global', target: vscode.ConfigurationTarget.Global },
+    { label: 'Workspace', target: vscode.ConfigurationTarget.Workspace },
+];
+
 export async function addCustomDataset() {
     const scope = await vscode.window
-        .showQuickPick(
-            [
-                { label: 'Global', target: vscode.ConfigurationTarget.Global },
-                {
-                    label: 'Workspace',
-                    target: vscode.ConfigurationTarget.Workspace,
-                },
-            ],
-            {
-                placeHolder: 'Select the scope for which you want to add the custom dataset',
-            }
-        )
+        .showQuickPick(validConfigurationTargets, {
+            placeHolder: 'Select the scope for which you want to add the custom dataset',
+        })
         .then((selection) => selection?.target);
 
     if (!scope) {
@@ -77,7 +73,7 @@ export async function addCustomDataset() {
     });
 
     if (!fileUri || fileUri.length === 0) {
-        vscode.window.showInformationMessage('No file selected.');
+        logInfo('No file selected.');
         return;
     }
 
@@ -92,20 +88,20 @@ export async function addCustomDataset() {
             if (elementType === CustomDatasetElementType.ENUM) {
                 const enumDataset = JSON.parse(data);
                 if (!enumDataset) {
-                    vscode.window.showErrorMessage(`Error parsing file content.`);
+                    logError(`Error parsing file content.`);
                     continue;
                 }
             } else {
                 const mechanicdataset = JSON.parse(data) as MechanicDataset;
                 if (!mechanicdataset) {
-                    vscode.window.showErrorMessage(`Error parsing file content.`);
+                    logError(`Error parsing file content.`);
                     continue;
                 }
             }
-            vscode.window.showInformationMessage(`File content loaded successfully.`);
+            logInfo(`File content loaded successfully.`);
             validPaths.push(uri);
         } catch (err) {
-            vscode.window.showErrorMessage(`Error reading file: ${err}`);
+            logError(`Error reading file: ${err}`);
         }
     }
 
@@ -120,15 +116,9 @@ export async function addCustomDataset() {
 }
 
 export async function removeCustomDataset() {
-    const scope = await vscode.window.showQuickPick(
-        [
-            { label: 'Global', target: vscode.ConfigurationTarget.Global },
-            { label: 'Workspace', target: vscode.ConfigurationTarget.Workspace },
-        ],
-        {
-            placeHolder: 'Select the scope from which you want to remove the custom dataset',
-        }
-    );
+    const scope = await vscode.window.showQuickPick(validConfigurationTargets, {
+        placeHolder: 'Select the scope from which you want to remove the custom dataset',
+    });
 
     const [config, existingMappings] = getCustomDatasetConfiguration(scope?.target);
 
@@ -164,15 +154,9 @@ export async function removeCustomDataset() {
 }
 
 export async function createBundleDataset() {
-    const scope = await vscode.window.showQuickPick(
-        [
-            { label: 'Global', target: vscode.ConfigurationTarget.Global },
-            { label: 'Workspace', target: vscode.ConfigurationTarget.Workspace },
-        ],
-        {
-            placeHolder: 'Select the scope for which you want to create the bundle',
-        }
-    );
+    const scope = await vscode.window.showQuickPick(validConfigurationTargets, {
+        placeHolder: 'Select the scope for which you want to create the bundle',
+    });
 
     const [config, existingMappings] = getCustomDatasetConfiguration(scope?.target);
 
@@ -260,7 +244,7 @@ async function addCustomDatasetFromLink(elementtype: string, scope: vscode.Confi
     });
 
     if (!pathOrUrl) {
-        vscode.window.showInformationMessage('No path or URL provided.');
+        logInfo('No path or URL provided.');
         return;
     }
 
@@ -276,10 +260,10 @@ async function addCustomDatasetFromLink(elementtype: string, scope: vscode.Confi
             scope
         );
 
-        vscode.window.showInformationMessage(`Successfully added dataset from: ${uri.toString()}`);
+        logInfo(`Successfully added dataset from: ${uri.toString()}`);
     } catch (err) {
         logError(err);
-        vscode.window.showErrorMessage(`Invalid URL or path: ${pathOrUrl}`);
+        logError(`Invalid URL or path: ${pathOrUrl}`);
     }
 }
 
@@ -293,7 +277,7 @@ async function finalizeCustomDatasetAddition(
     existingMappings.push({ elementType, source, pathOrUrl });
     await config.update('customDatasets', existingMappings, scope);
 
-    vscode.window.showInformationMessage(`Mapping added: ${elementType} -> ${pathOrUrl}`);
+    logInfo(`Mapping added: ${elementType} -> ${pathOrUrl}`);
 
     // Reload the datasets
     loadDatasets();
@@ -352,22 +336,18 @@ async function processCustomDatasetEntry(entry: CustomDataset) {
     }
 }
 
-async function processMechanicDatasetEntry(entry: MechanicDataset, type: CustomDatasetElementType) {
-    if (entry) {
-        switch (type) {
-            case CustomDatasetElementType.MECHANIC:
-                ScribeMechanicHandler.registry.mechanic.addMechanic(...entry);
-                break;
-            case CustomDatasetElementType.TARGETER:
-                ScribeMechanicHandler.registry.targeter.addMechanic(...entry);
-                break;
-            case CustomDatasetElementType.CONDITION:
-                ScribeMechanicHandler.registry.condition.addMechanic(...entry);
-                break;
-            case CustomDatasetElementType.TRIGGER:
-                ScribeMechanicHandler.registry.trigger.addMechanic(...entry);
-                break;
-        }
+const CustomDatasetElementTypeAssociationMap = {
+    [CustomDatasetElementType.MECHANIC]: () => ScribeMechanicHandler.registry.mechanic,
+    [CustomDatasetElementType.TARGETER]: () => ScribeMechanicHandler.registry.targeter,
+    [CustomDatasetElementType.CONDITION]: () => ScribeMechanicHandler.registry.condition,
+    [CustomDatasetElementType.TRIGGER]: () => ScribeMechanicHandler.registry.trigger,
+};
+async function processMechanicDatasetEntry(
+    entry: MechanicDataset,
+    type: keyof typeof CustomDatasetElementTypeAssociationMap
+) {
+    if (entry && type in CustomDatasetElementTypeAssociationMap) {
+        CustomDatasetElementTypeAssociationMap[type]().addMechanic(...entry);
     }
 }
 
