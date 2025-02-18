@@ -1,9 +1,50 @@
 import * as sinon from 'sinon';
 import * as vscode from 'vscode';
 
-import { logError, logInfo, showInfoMessageWithOptions } from '../../utils/logger';
+import * as logger from '../../utils/logger';
 
 suite('Logger', () => {
+    suite('logMetadata', () => {
+        let clock: sinon.SinonFakeTimers;
+        let updateStub: sinon.SinonStub;
+
+        setup(() => {
+            clock = sinon.useFakeTimers();
+            updateStub = sinon.stub(logger.logsProvider, 'update');
+        });
+
+        teardown(() => {
+            clock.restore();
+            updateStub.restore();
+            logger.logs.length = 0; // Clear logs after each test
+        });
+
+        test('should log message with default log type', () => {
+            const message = 'Test message';
+            logger.logMetadata(message);
+
+            const timestamp = new Date().toISOString();
+            const expectedMessage = `[${timestamp}] DEBUG: Test message`;
+
+            sinon.assert.match(logger.logs[0], expectedMessage);
+        });
+
+        test('should log message with specified log type', () => {
+            const message = 'Test message';
+            logger.logMetadata(message, logger.LogType.INFO);
+
+            const timestamp = new Date().toISOString();
+            const expectedMessage = `[${timestamp}] INFO: Test message`;
+
+            sinon.assert.match(logger.logs[0], expectedMessage);
+        });
+
+        test('should not update logs provider if log file is not open', () => {
+            logger.logMetadata('Test message');
+
+            sinon.assert.notCalled(updateStub);
+        });
+    });
     suite('logError', () => {
         let showErrorMessageStub: sinon.SinonStub;
 
@@ -17,7 +58,7 @@ suite('Logger', () => {
 
         test('should log error message when error is an instance of Error', () => {
             const error = new Error('Test error');
-            logError(error);
+            logger.logError(error);
 
             sinon.assert.calledOnce(showErrorMessageStub);
             sinon.assert.calledWith(showErrorMessageStub, 'An error occurred:\n' + error);
@@ -26,7 +67,7 @@ suite('Logger', () => {
         test('should log custom message when error is an instance of Error', () => {
             const error = new Error('Test error');
             const customMessage = 'Custom message: ';
-            logError(error, customMessage);
+            logger.logError(error, customMessage);
 
             sinon.assert.calledOnce(showErrorMessageStub);
             sinon.assert.calledWith(showErrorMessageStub, customMessage + '\n' + error);
@@ -34,7 +75,7 @@ suite('Logger', () => {
 
         test('should log error message when error is not an instance of Error', () => {
             const error = 'Test error string';
-            logError(error);
+            logger.logError(error);
 
             sinon.assert.calledOnce(showErrorMessageStub);
             sinon.assert.calledWith(showErrorMessageStub, 'An error occurred:\n' + String(error));
@@ -43,10 +84,10 @@ suite('Logger', () => {
         test('should log custom message when error is not an instance of Error', () => {
             const error = 'Test error string';
             const customMessage = 'Custom message: ';
-            logError(error, customMessage);
+            logger.logError(error, customMessage);
 
             sinon.assert.calledOnce(showErrorMessageStub);
-            sinon.assert.calledWith(showErrorMessageStub, customMessage, String(error));
+            sinon.assert.calledWith(showErrorMessageStub, customMessage + '\n' + String(error));
         });
     });
 
@@ -63,7 +104,7 @@ suite('Logger', () => {
 
         test('should log informational message', () => {
             const message = 'Test info message';
-            logInfo(message);
+            logger.logInfo(message);
 
             sinon.assert.calledOnce(showInformationMessageStub);
             sinon.assert.calledWith(showInformationMessageStub, message);
@@ -88,7 +129,7 @@ suite('Logger', () => {
             const message = 'Test message';
             const options = { Option1: 'https://example.com/1', Option2: 'https://example.com/2' };
 
-            showInfoMessageWithOptions(message, options);
+            logger.showInfoMessageWithOptions(message, options);
 
             sinon.assert.calledOnce(showInformationMessageStub);
             sinon.assert.calledWith(showInformationMessageStub, message, 'Option1', 'Option2');
@@ -100,7 +141,7 @@ suite('Logger', () => {
 
             showInformationMessageStub.resolves('Option1');
 
-            await showInfoMessageWithOptions(message, options);
+            await logger.showInfoMessageWithOptions(message, options);
 
             sinon.assert.calledOnce(openExternalStub);
             sinon.assert.calledWith(openExternalStub, vscode.Uri.parse('https://example.com/1'));
@@ -112,7 +153,7 @@ suite('Logger', () => {
 
             showInformationMessageStub.resolves(undefined);
 
-            await showInfoMessageWithOptions(message, options);
+            await logger.showInfoMessageWithOptions(message, options);
 
             sinon.assert.notCalled(openExternalStub);
         });

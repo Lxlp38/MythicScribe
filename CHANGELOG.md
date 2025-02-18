@@ -11,6 +11,7 @@
 - "Bundle" Custom Datasets
   - A Bundle json can contain references to any number of other custom dataset types
   - When a Bundle is imported as a File and not as a Link, the path of other File-sourced datasets is interpreted as "relative" to the Bundle's location
+- `Open Logs` command to open the Extension's logs. For debugging purposes
 - `Remove Custom Dataset` command to remove a Custom Dataset without having to edit the settings file
 - `Create Bundle Dataset` command to create a Bundle Dataset based on other Custom Datasets you have previously added
 

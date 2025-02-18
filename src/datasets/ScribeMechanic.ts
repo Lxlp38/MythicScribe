@@ -4,6 +4,7 @@ import { checkEnabledPlugin, datasetSource, finallySetEnabledPlugins } from '../
 import { checkGithubDatasets, loadLocalDatasets } from './datasets';
 import { ScribeEnumHandler } from './ScribeEnum';
 import { loadCustomDatasets } from './customDatasets';
+import { logDebug } from '../utils/logger';
 
 export enum ObjectType {
     MECHANIC = 'Mechanic',
@@ -37,6 +38,10 @@ export abstract class AbstractScribeMechanicRegistry {
             });
             this.mechanicsClassMap.set(m.class.toLowerCase(), mythicMechanic);
         });
+        const uniquePlugins = Array.from(new Set(mechanic.map((m) => m.plugin))).sort();
+        logDebug(
+            `Added ${mechanic.length} ${this.type}s. The registered Plugins are: ${uniquePlugins.join(', ')}`
+        );
     }
 
     regexMatches(text: string): boolean {
@@ -278,5 +283,6 @@ export const ScribeMechanicHandler = {
         Object.values(ScribeMechanicHandler.registry).forEach((registry) =>
             registry.emptyDatasets()
         );
+        logDebug('Mechanic Datasets emptied');
     },
 };

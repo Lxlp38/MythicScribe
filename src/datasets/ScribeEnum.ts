@@ -3,6 +3,7 @@ import * as vscode from 'vscode';
 import { minecraftVersion } from '../utils/configutils';
 import { loadLocalEnumDataset, fetchEnumDatasetFromLink } from './datasets';
 import { ctx } from '../MythicScribe';
+import { logDebug } from '../utils/logger';
 
 abstract class AbstractScribeEnum {
     readonly identifier: string;
@@ -163,14 +164,17 @@ export const ScribeEnumHandler = {
     ) {
         const enumObject = new oclass(identifier.toLowerCase(), path);
         ScribeEnumHandler.enums.set(identifier.toLowerCase(), enumObject);
+        logDebug(`Added Enum ${identifier}`);
     },
 
     async addLambdaEnum(key: string, values: string[]) {
         const enumObject = new LambdaScribeEnum(key.toLowerCase(), values);
         ScribeEnumHandler.enums.set(key.toLowerCase(), enumObject);
+        logDebug(`Added Lambda Enum ${key}`);
     },
 
     emptyDatasets(): void {
         ScribeEnumHandler.enums.clear();
+        logDebug('Emptied Enum Datasets');
     },
 };

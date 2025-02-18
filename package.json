@@ -62,6 +62,11 @@
         "command": "MythicScribe.createBundleDataset",
         "title": "Create Bundle Dataset",
         "category": "MythicScribe"
+      },
+      {
+        "command": "MythicScribe.openLogs",
+        "title": "Open Logs",
+        "category": "MythicScribe"
       }
     ],
     "languages": [

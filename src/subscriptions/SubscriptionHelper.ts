@@ -86,8 +86,9 @@ export function updateSubscriptions(document: vscode.TextDocument) {
         checkIfMythicScriptFile(document);
     }
 
-    if (isEnabled !== checkMythicMobsFile(document)) {
-        isEnabled = checkMythicMobsFile(document);
+    const isMythicFile = checkMythicMobsFile(document);
+    if (isEnabled !== isMythicFile) {
+        isEnabled = isMythicFile;
         if (isEnabled) {
             ScribeSubscriptionHandler.registry.global.enableAll();
         } else {

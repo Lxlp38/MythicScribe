@@ -15,10 +15,12 @@ export async function loadDatasets() {
 
 // Function to fetch the latest commit hash from GitHub
 async function fetchLatestCommitHash(): Promise<string | null> {
+    logger.logDebug('Fetching latest commit hash from GitHub');
     try {
         const response = await fetch(GITHUB_API_COMMITS_URL);
         const data = await response.json();
         if (Array.isArray(data) && data.length > 0 && typeof data[0].sha === 'string') {
+            logger.logDebug('Latest commit hash fetched: ' + data[0].sha);
             return data[0].sha;
         } else {
             throw new Error('Unexpected data format');
@@ -31,6 +33,7 @@ async function fetchLatestCommitHash(): Promise<string | null> {
 
 // Function to fetch the JSON data from GitHub
 async function fetchJsonFromGithub(filename: string): Promise<MechanicDataset | unknown | null> {
+    logger.logDebug(`Fetching ${filename} from GitHub`);
     try {
         const response = await fetch(`${GITHUB_BASE_URL}${filename}`);
         if (response.ok) {
@@ -45,6 +48,7 @@ async function fetchJsonFromGithub(filename: string): Promise<MechanicDataset | 
 }
 
 export async function fetchMechanicDatasetFromLink(link: string): Promise<MechanicDataset> {
+    logger.logDebug(`Fetching mechanic dataset from link: ${link}`);
     try {
         const response = await fetch(link);
         if (response.ok) {
@@ -61,6 +65,7 @@ export async function fetchMechanicDatasetFromLink(link: string): Promise<Mechan
 export async function fetchEnumDatasetFromLink(
     link: string
 ): Promise<Map<string, EnumDatasetValue>> {
+    logger.logDebug(`Fetching enum dataset from link: ${link}`);
     try {
         const response = await fetch(link);
         if (response.ok) {
@@ -75,6 +80,7 @@ export async function fetchEnumDatasetFromLink(
 }
 
 export async function loadLocalDatasets() {
+    logger.logDebug('Loading local datasets');
     // Load datasets from local files
     ScribeMechanicHandler.registry.mechanic.addMechanic(
         ...(await loadDatasetFromLocalDirectory(ScribeMechanicHandler.pathMap.mechanic))
@@ -97,6 +103,7 @@ export async function loadLocalDatasets() {
 }
 
 export async function checkGithubDatasets() {
+    logger.logDebug('Checking GitHub datasets');
     const globalState = ctx.globalState;
 
     // Fetch the latest commit hash from GitHub
@@ -146,6 +153,7 @@ export async function checkGithubDatasets() {
 }
 
 async function loadGithubDatasets() {
+    logger.logDebug('Loading GitHub datasets');
     const globalState = ctx.globalState;
 
     // Load datasets from globalState or fallback to local datasets if necessary
@@ -153,29 +161,30 @@ async function loadGithubDatasets() {
         ...((globalState.get('mechanicsDataset') as MechanicDataset) ||
             (await loadDatasetFromLocalDirectory(ScribeMechanicHandler.pathMap.mechanic)))
     );
-    ScribeMechanicHandler.registry.mechanic.addMechanic(
+    ScribeMechanicHandler.registry.targeter.addMechanic(
         ...((globalState.get('targetersDataset') as MechanicDataset) ||
             (await loadDatasetFromLocalDirectory(ScribeMechanicHandler.pathMap.targeter)))
     );
-    ScribeMechanicHandler.registry.mechanic.addMechanic(
+    ScribeMechanicHandler.registry.condition.addMechanic(
         ...((globalState.get('conditionsDataset') as MechanicDataset) ||
             (await loadDatasetFromLocalDirectory(ScribeMechanicHandler.pathMap.condition)))
     );
-    ScribeMechanicHandler.registry.mechanic.addMechanic(
+    ScribeMechanicHandler.registry.trigger.addMechanic(
         ...((globalState.get('triggersDataset') as MechanicDataset) ||
             (await loadDatasetFromLocalDirectory(ScribeMechanicHandler.pathMap.trigger)))
     );
-    ScribeMechanicHandler.registry.mechanic.addMechanic(
+    ScribeMechanicHandler.registry.aitarget.addMechanic(
         ...((globalState.get('aitargetsDataset') as MechanicDataset) ||
             (await loadDatasetFromLocalDirectory(ScribeMechanicHandler.pathMap.aitarget)))
     );
-    ScribeMechanicHandler.registry.mechanic.addMechanic(
+    ScribeMechanicHandler.registry.aigoal.addMechanic(
         ...((globalState.get('aigoalsDataset') as MechanicDataset) ||
             (await loadDatasetFromLocalDirectory(ScribeMechanicHandler.pathMap.aigoal)))
     );
 }
 
 export async function loadLocalMechanicDataset(datasetPath: string): Promise<MechanicDataset> {
+    logger.logDebug(`Loading local mechanic dataset: ${datasetPath}`);
     try {
         const fileUri = vscode.Uri.parse(datasetPath);
         const fileData = await vscode.workspace.fs.readFile(fileUri);
@@ -189,6 +198,7 @@ export async function loadLocalMechanicDataset(datasetPath: string): Promise<Mec
 export async function loadLocalEnumDataset(
     datasetPath: string
 ): Promise<Map<string, EnumDatasetValue>> {
+    logger.logDebug(`Loading local enum dataset: ${datasetPath}`);
     try {
         const fileUri = vscode.Uri.file(datasetPath);
         const fileData = await vscode.workspace.fs.readFile(fileUri);
@@ -200,6 +210,7 @@ export async function loadLocalEnumDataset(
 }
 
 async function loadDatasetFromLocalDirectory(directoryPath: vscode.Uri): Promise<MechanicDataset> {
+    logger.logDebug(`Loading dataset from local directory: ${directoryPath.fsPath}`);
     const combinedDataset: MechanicDataset = [];
     const files = await vscode.workspace.fs.readDirectory(vscode.Uri.file(directoryPath.fsPath));
 
@@ -210,6 +221,7 @@ async function loadDatasetFromLocalDirectory(directoryPath: vscode.Uri): Promise
             const parsedData: MechanicDataset = JSON.parse(Buffer.from(fileData).toString('utf8'));
 
             combinedDataset.push(...parsedData);
+            logger.logDebug(`Loaded ${file} from ${directoryPath.fsPath}`);
         }
     }
 
@@ -219,6 +231,7 @@ async function loadDatasetFromLocalDirectory(directoryPath: vscode.Uri): Promise
 async function loadDatasetFromGithubDirectory(
     directoryUrl: string
 ): Promise<MechanicDataset | null> {
+    logger.logDebug(`Loading dataset from GitHub directory: ${directoryUrl}`);
     try {
         // Fetch directory contents to get a list of files
         const response = await fetch(`${GITHUB_BASE_URL}${directoryUrl}`);
