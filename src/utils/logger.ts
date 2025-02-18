@@ -6,7 +6,7 @@ import * as vscode from 'vscode';
  * @param error - The error object or value to log. If it's an instance of `Error`, its message will be included.
  * @param message - An optional custom message to display before the error message. Defaults to 'An error occurred'.
  */
-export function logError(error: unknown, message: string = 'An error occurred') {
+export function logError(error: unknown, message: string = 'An error occurred: ') {
     if (error instanceof Error) {
         vscode.window.showErrorMessage(message + error.message);
     } else {

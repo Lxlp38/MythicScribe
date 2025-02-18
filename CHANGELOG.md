@@ -8,34 +8,79 @@
   - `MythicScribe.fileRegex.Droptable` configuration to define a regex to recognize Droptable files
 - Hover and Completions for Stat Files
   - `MythicScribe.fileRegex.Stat` configuration to define a regex to recognize Stat files
-- `Remove Custom Dataset` command to remove a custom dataset without having to edit the settings file
 - "Bundle" Custom Datasets
   - A Bundle json can contain references to any number of other custom dataset types
   - When a Bundle is imported as a File and not as a Link, the path of other File-sourced datasets is interpreted as "relative" to the Bundle's location
+- `Remove Custom Dataset` command to remove a Custom Dataset without having to edit the settings file
+- `Create Bundle Dataset` command to create a Bundle Dataset based on other Custom Datasets you have previously added
 
+#### Example Bundle 1: Bundle.json
 ```json
 [
     {
         "elementType": "Mechanic",
         "source": "File",
-        "pathOrUrl": "test.json"
+        "pathOrUrl": "./test.json"
     },
     {
         "elementType": "Enum",
         "source": "File",
-        "pathOrUrl": "testenum.json"
+        "pathOrUrl": "./testenum.json"
     },
     {
-        "elementType": "Mechanic",
+        "elementType": "Bundle",
         "source": "Link",
-        "pathOrUrl": "https://raw.githubusercontent.com/Lxlp38/LxMythicUtilities/refs/heads/main/Datasets/LxMythicUtilitiesMechanics.json"
+        "pathOrUrl": "https://raw.githubusercontent.com/Lxlp38/LxMythicUtilities/refs/heads/main/Datasets/LxMythicUtilities_DatasetBundle.json"
     }
 ]
 ```
 > Bundle.json Example  
-> Given that the Bundle is imported as a File, then "test.json" and "testenum.json" will ne fetched from the same directory the bundle is in  
-> Of course, you can add ".." and other/directories/toYourFile.json  
-> You can also specify a "Link" source to fetch datasets from a link  
+> You can specify a "File" Source to fetch dataset from a local json file.
+> You can specify a "Link" source to fetch datasets from a link. The link must lead to a raw json object.  
+> If the path starts with a `.`, it will be treated as a relative path for both local files and links. For instance, "./test.json" and "./testenum.json" will be fetched from the same directory the bundle is in  
+> When a path is detected as being relative, its source will be considered to be the same to the bundle's. So, if the bundle is a local file, the relative path will be calculated from the bundle's location on the machine. If the bundle is a link, the relative path will be appended to the bundle's link directory
+>> Of course, you can add ".." and other/directories/toYourFile.json  
+
+> You can use the `Create Bundle Dataset` command to create a bundle dataset from other datasets you have imported  
+
+#### Example Bundle 2: LxMythicUtilities_DatasetBundle.json
+```json
+[
+    {
+        "elementType": "Mechanic",
+        "source": "Link",
+        "pathOrUrl": "./Mechanics/LxMythicUtilitiesMechanics.json"
+    },
+    {
+        "elementType": "Enum",
+        "source": "Link",
+        "pathOrUrl": "./Enums/LxMythicUtilities_Enum_TableMechanic_Mode.json"
+    },
+    {
+        "elementType": "Enum",
+        "source": "Link",
+        "pathOrUrl": "./Enums/LxMythicUtilities_Enum_UtilityChangeItemStack_Operation.json"
+    },
+    {
+        "elementType": "Enum",
+        "source": "Link",
+        "pathOrUrl": "./Enums/LxMythicUtilities_Enum_UtilityRelocationAlign_Mode.json"
+    }
+]
+```
+```
+📦Datasets
+ ┣ 📂Enums
+ ┃ ┣ 📜LxMythicUtilities_Enum_TableMechanic_Mode.json
+ ┃ ┣ 📜LxMythicUtilities_Enum_UtilityChangeItemStack_Operation.json
+ ┃ ┗ 📜LxMythicUtilities_Enum_UtilityRelocationAlign_Mode.json
+ ┣ 📂Mechanics
+ ┃ ┗ 📜LxMythicUtilitiesMechanics.json
+ ┗ 📜LxMythicUtilities_DatasetBundle.json
+```
+> This is the bundle that is being imported as a link from the Bundle.json Example
+> While it could use absolute paths just as well, it is using relative paths for its links
+> This means that it will work both if you import it like Bundle.json is doing, as a link, or if you clone the whole repository and import it as a local file, since the relative paths will resolve correctly in both cases 
 
 ### Changed
 - Refactor of how Mechanics/Enums and Subscriptions are handled

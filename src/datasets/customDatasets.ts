@@ -337,12 +337,12 @@ async function processCustomDatasetEntry(entry: CustomDataset) {
         await loadBundleDataset(entry);
     } else if (entry.elementType === CustomDatasetElementType.ENUM) {
         const fileName = entry.pathOrUrl.split('/').reverse()[0].replace('.json', '').toLowerCase();
-        const clazz = isFileSource(entry.source) ? StaticScribeEnum : WebScribeEnum;
-        ScribeEnumHandler.addEnum(
-            clazz,
-            fileName,
-            decodeURIComponent(vscode.Uri.parse(entry.pathOrUrl).path)
-        );
+        const ifFileSource = isFileSource(entry.source);
+        const clazz = ifFileSource ? StaticScribeEnum : WebScribeEnum;
+        const path = ifFileSource
+            ? decodeURIComponent(vscode.Uri.parse(entry.pathOrUrl).path)
+            : entry.pathOrUrl;
+        ScribeEnumHandler.addEnum(clazz, fileName, path);
     } else if (isFileSource(entry.source)) {
         const localDataset = await loadLocalMechanicDataset(entry.pathOrUrl);
         processMechanicDatasetEntry(localDataset, entry.elementType);
@@ -373,15 +373,29 @@ async function processMechanicDatasetEntry(entry: MechanicDataset, type: CustomD
 
 async function loadBundleDataset(dataset: CustomDataset) {
     try {
+        const configData: CustomDataset[] = [];
         const fileUri = vscode.Uri.parse(dataset.pathOrUrl);
-        const fileContent = await vscode.workspace.fs.readFile(fileUri);
-        const configData: CustomDataset[] = JSON.parse(Buffer.from(fileContent).toString('utf8'));
+
+        if (isFileSource(dataset.source)) {
+            const fileContent = await vscode.workspace.fs.readFile(fileUri);
+            configData.push(
+                ...((JSON.parse(Buffer.from(fileContent).toString('utf8')) as CustomDataset[]) ||
+                    [])
+            );
+        } else if (isLinkSource(dataset.source)) {
+            const response = await fetch(dataset.pathOrUrl);
+            const jsonData = (await response.json()) as CustomDataset[];
+            configData.push(...jsonData);
+        }
 
         for (const entry of configData) {
-            if (isFileSource(entry.source)) {
-                const datasetDirUri = vscode.Uri.file(path.dirname(fileUri.fsPath));
+            if (isRelativePath(entry.pathOrUrl)) {
+                const datasetDirUri = isFileSource(entry.source)
+                    ? vscode.Uri.file(path.dirname(fileUri.fsPath))
+                    : vscode.Uri.parse(path.dirname(fileUri.toString()));
                 const entryUri = vscode.Uri.joinPath(datasetDirUri, entry.pathOrUrl);
                 entry.pathOrUrl = entryUri.toString();
+                entry.source = dataset.source;
             }
             await processCustomDatasetEntry(entry);
         }
@@ -395,6 +409,10 @@ function isFileSource(source: CustomDatasetSource) {
 }
 function isLinkSource(source: CustomDatasetSource) {
     return source === CustomDatasetSource.LINK;
+}
+
+function isRelativePath(path: string) {
+    return path.startsWith('.');
 }
 
 function isOutdatedDataset(dataset: CustomDataset) {
