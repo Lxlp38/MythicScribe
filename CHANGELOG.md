@@ -40,6 +40,7 @@
 - Refactor of how Mechanics/Enums and Subscriptions are handled
 - Regexes for files can now be found in the `MythicScribe.fileRegex` configuration. Old configurations for this are deprecated and automatically migrated
 - "Local File" value inside customDatasets configurations is now called "File". When the old value is detected, it is automatically migrated
+- Formatter now removes whitespace from empty lines  
 
 ### Fixed
 - Error with the formatter's indentation when the config file actual indentation is 1

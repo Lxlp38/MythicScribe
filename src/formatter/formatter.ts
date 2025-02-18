@@ -94,11 +94,16 @@ function formatMythicScript(text: string): string {
 
         let formattedText = line;
 
-        // Step 1: Trim trailing whitespace
+        // Trim trailing whitespace
         formattedText = formattedText.trimEnd();
 
-        // Step 2: Fix indentation for YAML-like arrays under specific keys
-        if (formattedText.match(/^\s*-\s/) || insideInline !== 0) {
+        // Remove spaces from empty lines
+        if (formattedText.trim() === '') {
+            formattedText = '';
+        }
+
+        // Fix indentation for YAML-like arrays under specific keys
+        else if (formattedText.match(/^\s*-\s/) || insideInline !== 0) {
             if (lineIndentation !== lastKeyIndent) {
                 formattedText =
                     ' '.repeat(lastKeyIndent * INDENTATION_LEVEL) + formattedText.trim();
