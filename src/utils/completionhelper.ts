@@ -1,7 +1,7 @@
 import * as vscode from 'vscode';
 
 import * as yamlutils from './yamlutils';
-import { previousSymbol } from './yamlutils';
+import { previousSpecialSymbol, previousSymbol } from './yamlutils';
 import { FileObjectMap, FileObject, FileObjectTypes } from '../objectInfos';
 import { MythicMechanic } from '../datasets/ScribeMechanic';
 import { EnumDatasetValue, ScribeEnumHandler } from '../datasets/ScribeEnum';
@@ -40,17 +40,21 @@ export function getListCompletionNeededSpaces(
     position: vscode.Position,
     context: vscode.CompletionContext
 ): string | undefined {
-    let space = ' ';
-
     const line = document.lineAt(position.line).text;
     if (line.match(/^\s*-\s*\S+\s/gm)) {
         return undefined;
     }
 
     if (context.triggerCharacter === undefined) {
-        const specialSymbol = yamlutils.previousSpecialSymbol(document, position);
+        const specialSymbol = previousSpecialSymbol(document, position);
         if (specialSymbol !== '-') {
             return undefined;
+        }
+        const charBefore = document.getText(new vscode.Range(position.translate(0, -1), position));
+        if (charBefore === '-') {
+            return ' ';
+        } else {
+            return '';
         }
     } else {
         const charBefore2 = document.getText(new vscode.Range(position.translate(0, -2), position));
@@ -63,19 +67,10 @@ export function getListCompletionNeededSpaces(
         context.triggerKind === vscode.CompletionTriggerKind.TriggerCharacter &&
         context.triggerCharacter === ' '
     ) {
-        space = '';
+        return '';
     }
 
-    if (context.triggerCharacter === undefined) {
-        const charBefore = document.getText(new vscode.Range(position.translate(0, -1), position));
-        if (charBefore === '-') {
-            space = ' ';
-        } else {
-            space = '';
-        }
-    }
-
-    return space;
+    return ' ';
 }
 
 export function checkShouldComplete(
@@ -131,10 +126,6 @@ function checkShouldPrefixCompleteExec(
     context: vscode.CompletionContext,
     symbol: string[]
 ): boolean {
-    if (yamlutils.isAfterComment(document, position)) {
-        return false;
-    }
-
     // called via invocation
     if (context.triggerKind === vscode.CompletionTriggerKind.Invoke) {
         const mypreviousSpecialSymbol = previousSymbol(document, position);

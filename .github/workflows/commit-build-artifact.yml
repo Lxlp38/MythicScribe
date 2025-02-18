@@ -39,6 +39,11 @@ jobs:
           name: 'mythicscribe.vsix'
           path: '*.vsix'
 
+      - name: Update tag to latest commit
+        run: |
+          git tag -f dev
+          git push origin -f dev  
+
       - name: Generate release body
         id: generate_body
         run: |

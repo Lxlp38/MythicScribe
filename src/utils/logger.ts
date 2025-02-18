@@ -32,11 +32,15 @@ export function logInfo(message: string) {
  * The function shows an information message with the provided options. When an option is selected,
  * it opens the corresponding URL in the default web browser.
  */
-export function showInfoMessageWithOptions(message: string, options: { [key: string]: string }) {
-    vscode.window.showInformationMessage(message, ...Object.keys(options)).then((selection) => {
-        if (selection && options[selection]) {
-            vscode.env.openExternal(vscode.Uri.parse(options[selection]));
+export async function showInfoMessageWithOptions(
+    message: string,
+    options: { [key: string]: string }
+) {
+    const optionKeys = Object.keys(options);
+    return vscode.window.showInformationMessage(message, ...optionKeys).then((selected) => {
+        if (selected) {
+            return vscode.env.openExternal(vscode.Uri.parse(options[selected]));
         }
-        return;
+        return undefined;
     });
 }

@@ -2,7 +2,7 @@ import * as vscode from 'vscode';
 
 import { logInfo } from '../utils/logger';
 
-async function migrateConfiguration(oldKey: string, newkey: string, newProperty: string) {
+export async function migrateConfiguration(oldKey: string, newkey: string, newProperty: string) {
     const config = vscode.workspace.getConfiguration('MythicScribe');
     const inspected = config.inspect(oldKey);
 

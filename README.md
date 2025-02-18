@@ -38,6 +38,7 @@ It provides hover text with information about the pointed object and offers auto
 - [Extension Settings](#extension-settings)
 - [Extension Commands](#extension-commands)
 - [Known Issues](#known-issues)
+- [Dev Builds](#dev-builds)
 - [Credits and Acknowledgements](#credits-and-acknowledgements)
 
 
@@ -85,6 +86,13 @@ It provides hover text with information about the pointed object and offers auto
 # Known Issues
 
 * When `editor.acceptSuggestionOnEnter` is not `off` and `MythicScribe.enableFileSpecificSuggestions` is enabled, all the completions on newline *will* stop users from comfortably add spacing in their metaskills and the likes. For this reason, it is recommended to keep this configuration set to `off`
+
+
+# Dev Builds
+
+You can download Dev Builds from the [Github Repository](https://github.com/Lxlp38/MythicScribe) in the following ways
+- The latest dev build is available on the [Dev Build Release](https://github.com/Lxlp38/MythicScribe/releases/tag/dev), always updated to the latest commit.
+- A build is generated as an artifact and made public for each commit, for a duration of 90 days. You can download it from the commit's associated [Action](https://github.com/Lxlp38/MythicScribe/actions/workflows/commit-build-artifact.yml)
 
 
 # Credits and Acknowledgements

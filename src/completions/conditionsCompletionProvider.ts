@@ -39,12 +39,10 @@ export function conditionCompletionProvider() {
                 let space = ' ';
 
                 const completionItems: vscode.CompletionItem[] = [];
-                //let conditionAction = null;
                 const lastIsConditionAction = Object.keys(ConditionActions).includes(
                     yamlutils.getWordBeforePosition(document, position)
                 );
                 if (lastIsConditionAction) {
-                    //conditionAction = yamlutils.getWordBeforePosition(document, position);
                     addOperatorsToConditionLine(completionItems);
                     return completionItems;
                 }

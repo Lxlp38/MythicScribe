@@ -16,7 +16,6 @@ export function getObjectLinkedToAttribute(
     const textBeforeAttribute = document.getText(
         new vscode.Range(new vscode.Position(0, 0), position)
     );
-
     let openBraceCount = 0;
 
     // Traverse backwards through the text before the position
@@ -31,7 +30,6 @@ export function getObjectLinkedToAttribute(
             if (openBraceCount < 0) {
                 // Get the text before the '{' which should be the object
                 const textBeforeBrace = textBeforeAttribute.substring(0, i).trim();
-
                 // Use a regex to find the object name before the '{'
                 const objectMatch = textBeforeBrace.match(/(?<=[ =])([@~]|(\?~?!?))?[\w:]+$/); // Match the last word before the brace
                 if (objectMatch && objectMatch[0]) {
@@ -58,7 +56,7 @@ export function getAttributeLinkedToValue(
     position: vscode.Position
 ): string | null {
     const textBeforeValue = document.getText(new vscode.Range(new vscode.Position(0, 0), position));
-    const attributeMatch = textBeforeValue.match(/[{;]\s*\b(\w+)\b=[^;]*$/);
+    const attributeMatch = textBeforeValue.match(/[{;]\s*\b(\w+)\b\s*=[^;]*$/);
     if (attributeMatch && attributeMatch[1]) {
         return attributeMatch[1];
     }

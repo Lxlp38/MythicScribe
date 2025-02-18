@@ -185,12 +185,20 @@ export function isInsideKey(
  */
 export function getWordBeforePosition(
     document: vscode.TextDocument,
-    position: vscode.Position,
-    offset: number = 0
+    position: vscode.Position
 ): string {
+    // Get the text of the line up to the cursor position
     const lineText = document.lineAt(position.line).text.substring(0, position.character);
+    // Split the line into words based on whitespace
     const words = lineText.trim().split(/\s+/);
-    return words.length > 0 + offset ? words[words.length - 1 + offset] : '';
+    // Calculate the target index
+    const targetIndex = words.length - 1;
+    // Ensure the target index is valid
+    if (targetIndex >= 0 && targetIndex < words.length) {
+        return words[targetIndex];
+    }
+    // Return an empty string if the index is invalid
+    return '';
 }
 
 /**
@@ -245,7 +253,7 @@ export function previousSpecialSymbol(
 ): string {
     const line = document.lineAt(position.line).text;
     const text = line.substring(0, position.character);
-    const matches = text.match(/(\S)[\w\s:]*$/);
+    const matches = text.match(/([^\w\s:])[\w\s:]*$/);
     if (matches) {
         return matches[1];
     }

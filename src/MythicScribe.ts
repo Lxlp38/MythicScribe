@@ -42,7 +42,7 @@ export async function activate(context: vscode.ExtensionContext) {
 
 export function deactivate() {}
 
-function checkExtensionVersion(): boolean {
+export function checkExtensionVersion(): boolean {
     const version = ctx.extension.packageJSON.version;
     const savedVersion = ctx.globalState.get<string>('extensionVersion');
     if (version && version !== savedVersion) {
