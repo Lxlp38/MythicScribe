@@ -52,6 +52,11 @@
         "command": "MythicScribe.addCustomDataset",
         "title": "Add Custom Dataset",
         "category": "MythicScribe"
+      },
+      {
+        "command": "MythicScribe.removeCustomDataset",
+        "title": "Remove Custom Dataset",
+        "category": "MythicScribe"
       }
     ],
     "languages": [

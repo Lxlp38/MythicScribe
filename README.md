@@ -81,6 +81,7 @@ It provides hover text with information about the pointed object and offers auto
 # Extension Commands
 
 * `MythicScribe.addCustomDataset`: Add a Custom Dataset from either a local path a link
+* `MythicScribe.removeCustomDataset`: Removes one or multiple Custom Datasets
 
 
 # Known Issues

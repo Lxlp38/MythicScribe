@@ -8,6 +8,7 @@
   - `MythicScribe.fileRegex.Droptable` configuration to define a regex to recognize Droptable files
 - Hover and Completions for Stat Files
   - `MythicScribe.fileRegex.Stat` configuration to define a regex to recognize Stat files
+- `Remove Custom Dataset` command to remove a custom dataset without having to edit the settings file
 - "Bundle" Custom Datasets
   - A Bundle json can contain references to any number of other custom dataset types
   - When a Bundle is imported as a File and not as a Link, the path of other File-sourced datasets is interpreted as "relative" to the Bundle's location

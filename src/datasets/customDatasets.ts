@@ -5,7 +5,7 @@ import * as vscode from 'vscode';
 import { MechanicDataset, ScribeMechanicHandler } from './ScribeMechanic';
 import { ScribeEnumHandler, StaticScribeEnum, WebScribeEnum } from './ScribeEnum';
 import { fetchMechanicDatasetFromLink, loadDatasets, loadLocalMechanicDataset } from './datasets';
-import { logError } from '../utils/logger';
+import { logError, logInfo } from '../utils/logger';
 import { changeCustomDatasetsSource } from '../migration/migration';
 
 enum CustomDatasetElementType {
@@ -119,6 +119,50 @@ export async function addCustomDataset() {
     }
 }
 
+export async function removeCustomDataset() {
+    const scope = await vscode.window.showQuickPick(
+        [
+            { label: 'Global', target: vscode.ConfigurationTarget.Global },
+            { label: 'Workspace', target: vscode.ConfigurationTarget.Workspace },
+        ],
+        {
+            placeHolder: 'Select the scope from which you want to remove the custom dataset',
+        }
+    );
+
+    const [config, existingMappings] = getCustomDatasetConfiguration(scope?.target);
+
+    const datasets = await vscode.window
+        .showQuickPick(
+            existingMappings.map((mapping) => ({
+                label: `${mapping.elementType} ${vscode.Uri.parse(mapping.pathOrUrl).path.split('/').reverse()[0]} -> ${vscode.Uri.parse(mapping.pathOrUrl).path}`,
+                description: `Source: ${mapping.source}`,
+                mapping,
+            })),
+            {
+                placeHolder: 'Select a dataset to remove',
+                canPickMany: true,
+            }
+        )
+        .then((selection) => selection?.map((item) => item.mapping));
+
+    if (!datasets) {
+        return;
+    }
+
+    datasets.forEach(async (dataset) => {
+        const index = existingMappings.indexOf(dataset);
+        existingMappings.splice(index, 1);
+
+        await config.update('customDatasets', existingMappings, scope?.target);
+
+        logInfo(`Mapping removed: ${dataset.elementType} -> ${dataset.pathOrUrl}`);
+    });
+
+    // Reload the datasets
+    loadDatasets();
+}
+
 async function addCustomDatasetFromLink(elementtype: string, scope: vscode.ConfigurationTarget) {
     const pathOrUrl = await vscode.window.showInputBox({
         placeHolder: 'Enter a path or URL',
@@ -165,8 +209,21 @@ async function finalizeCustomDatasetAddition(
     loadDatasets();
 }
 
-function getCustomDatasetConfiguration(): [vscode.WorkspaceConfiguration, CustomDataset[]] {
+function getCustomDatasetConfiguration(
+    scope?: vscode.ConfigurationTarget
+): [vscode.WorkspaceConfiguration, CustomDataset[]] {
     const config = vscode.workspace.getConfiguration('MythicScribe');
+
+    if (scope) {
+        const inspect = config.inspect<CustomDataset[]>('customDatasets');
+        switch (scope) {
+            case vscode.ConfigurationTarget.Global:
+                return [config, inspect?.globalValue || []];
+            case vscode.ConfigurationTarget.Workspace:
+                return [config, inspect?.workspaceValue || []];
+        }
+    }
+
     const existingMappings = config.get<CustomDataset[]>('customDatasets') || [];
 
     return [config, existingMappings];
