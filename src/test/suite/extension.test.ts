@@ -10,7 +10,7 @@ import { waitForMythicScript } from '..';
 
 suite('Extension Test Suite', () => {
     vscode.window.showInformationMessage('Start all tests.');
-    let extension = vscode.extensions.getExtension('Lxlp.mythicscribe')!;
+    const extension = vscode.extensions.getExtension('Lxlp.mythicscribe')!;
 
     test('Extension should be present', () => {
         assert.ok(extension);

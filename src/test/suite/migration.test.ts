@@ -15,8 +15,8 @@ suite('Config Migration', () => {
             inspect: () => ({ key: 'someKey' }),
             get: () => ({}),
             update: () => Promise.resolve(),
-            has: function (_section: string): boolean {
-                throw new Error('Function not implemented.');
+            has: function (section): boolean {
+                throw new Error('Function not implemented: has(' + section + ')');
             },
         });
         inspectStub = sinon.stub();
@@ -90,19 +90,19 @@ suite('Config Migration', () => {
                 update: updateStub,
             });
 
-            await migrateConfiguration('oldKey', 'newKey', 'newProperty');
+            await migrateConfiguration('oldKey2', 'newKey2', 'newProperty2');
 
             assert.strictEqual(updateStub.callCount, 2);
             assert.strictEqual(
                 updateStub.calledWith(
-                    'newKey',
-                    { newProperty: 'workspaceValue' },
+                    'newKey2',
+                    { newProperty2: 'workspaceValue' },
                     vscode.ConfigurationTarget.Workspace
                 ),
                 true
             );
             assert.strictEqual(
-                updateStub.calledWith('oldKey', undefined, vscode.ConfigurationTarget.Workspace),
+                updateStub.calledWith('oldKey2', undefined, vscode.ConfigurationTarget.Workspace),
                 true
             );
         });

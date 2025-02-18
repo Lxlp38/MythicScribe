@@ -99,8 +99,8 @@ suite('CompletionHelper', () => {
     });
     suite('checkShouldComplete', () => {
         let document: vscode.TextDocument;
-        let keylist = ['key1', 'key2'];
-        let symbols = ['^', '+'];
+        const keylist = ['key1', 'key2'];
+        const symbols = ['^', '+'];
 
         setup(() => {
             document = getStubDocument(['']);

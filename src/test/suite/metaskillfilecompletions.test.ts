@@ -18,7 +18,7 @@ suite('Metaskill File Completions', () => {
 
     suite('Completions Checker', () => {
         let completions: vscode.CompletionList | undefined;
-        let editor = vscode.window.activeTextEditor;
+        const editor = vscode.window.activeTextEditor;
 
         test('Should provide completions for MythicScript', async () => {
             const position = new vscode.Position(0, 0);
