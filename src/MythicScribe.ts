@@ -2,7 +2,11 @@ import * as vscode from 'vscode';
 
 import * as SubscriptionHelper from './subscriptions/SubscriptionHelper';
 import { getFormatter } from './formatter/formatter';
-import { addCustomDataset, removeCustomDataset } from './datasets/customDatasets';
+import {
+    addCustomDataset,
+    createBundleDataset,
+    removeCustomDataset,
+} from './datasets/customDatasets';
 import { ScribeMechanicHandler } from './datasets/ScribeMechanic';
 import { ScribeEnumHandler } from './datasets/ScribeEnum';
 import { doVersionSpecificMigrations } from './migration/migration';
@@ -31,6 +35,7 @@ export async function activate(context: vscode.ExtensionContext) {
         // Commands
         vscode.commands.registerCommand('MythicScribe.addCustomDataset', addCustomDataset),
         vscode.commands.registerCommand('MythicScribe.removeCustomDataset', removeCustomDataset),
+        vscode.commands.registerCommand('MythicScribe.createBundleDataset', createBundleDataset),
 
         // Formatter
         getFormatter()

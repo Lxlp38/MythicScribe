@@ -82,7 +82,7 @@ It provides hover text with information about the pointed object and offers auto
 
 * `MythicScribe.addCustomDataset`: Add a Custom Dataset from either a local path a link
 * `MythicScribe.removeCustomDataset`: Removes one or multiple Custom Datasets
-
+* `MythicScribe.createBundleDataset`: Create a Bundle Dataset based on other Custom Datasets you have previously added
 
 # Known Issues
 

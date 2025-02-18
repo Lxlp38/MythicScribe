@@ -57,6 +57,11 @@
         "command": "MythicScribe.removeCustomDataset",
         "title": "Remove Custom Dataset",
         "category": "MythicScribe"
+      },
+      {
+        "command": "MythicScribe.createBundleDataset",
+        "title": "Create Bundle Dataset",
+        "category": "MythicScribe"
       }
     ],
     "languages": [

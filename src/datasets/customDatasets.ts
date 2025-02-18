@@ -163,6 +163,96 @@ export async function removeCustomDataset() {
     loadDatasets();
 }
 
+export async function createBundleDataset() {
+    const scope = await vscode.window.showQuickPick(
+        [
+            { label: 'Global', target: vscode.ConfigurationTarget.Global },
+            { label: 'Workspace', target: vscode.ConfigurationTarget.Workspace },
+        ],
+        {
+            placeHolder: 'Select the scope for which you want to create the bundle',
+        }
+    );
+
+    const [config, existingMappings] = getCustomDatasetConfiguration(scope?.target);
+
+    const datasets = await vscode.window.showQuickPick(
+        existingMappings.map((mapping) => ({
+            label: `${mapping.elementType} ${vscode.Uri.parse(mapping.pathOrUrl).path.split('/').reverse()[0]} -> ${vscode.Uri.parse(mapping.pathOrUrl).path}`,
+            description: `Source: ${mapping.source}`,
+            mapping,
+        })),
+        {
+            placeHolder: 'Select datasets to bundle',
+            canPickMany: true,
+        }
+    );
+
+    if (!datasets) {
+        return;
+    }
+
+    const bundlePath = await vscode.window.showSaveDialog({
+        filters: {
+            'JSON Files': ['json'],
+        },
+    });
+
+    if (!bundlePath) {
+        return;
+    }
+
+    const bundleData = datasets.map((dataset) => {
+        if (dataset.mapping.source === CustomDatasetSource.FILE) {
+            const bundleDir = path.dirname(bundlePath.fsPath);
+            const relativePath = path.relative(
+                bundleDir,
+                vscode.Uri.parse(dataset.mapping.pathOrUrl).fsPath
+            );
+            return { ...dataset.mapping, pathOrUrl: relativePath };
+        }
+        return dataset.mapping;
+    });
+
+    const shoudReplaceSelectedCustomDatasetsWithBundle = await vscode.window.showQuickPick(
+        [
+            { label: 'Yes', value: true },
+            { label: 'No', value: false },
+        ],
+        {
+            placeHolder: 'Replace selected custom datasets with the new bundle?',
+        }
+    );
+
+    try {
+        await vscode.workspace.fs.writeFile(
+            bundlePath,
+            Buffer.from(JSON.stringify(bundleData, null, 2), 'utf8')
+        );
+        logInfo(`Bundle created at: ${bundlePath.fsPath}`);
+    } catch (err) {
+        logError(`Error creating bundle: ${err}`);
+        return;
+    }
+
+    if (shoudReplaceSelectedCustomDatasetsWithBundle?.value) {
+        for (const dataset of datasets) {
+            const index = existingMappings.indexOf(dataset.mapping);
+            if (index !== -1) {
+                existingMappings.splice(index, 1);
+            }
+        }
+        existingMappings.push({
+            elementType: CustomDatasetElementType.BUNDLE,
+            source: CustomDatasetSource.FILE,
+            pathOrUrl: bundlePath.toString(),
+        });
+        await config.update('customDatasets', existingMappings, scope?.target);
+        logInfo('Selected custom datasets replaced with the new bundle');
+        loadDatasets();
+    }
+}
+
 async function addCustomDatasetFromLink(elementtype: string, scope: vscode.ConfigurationTarget) {
     const pathOrUrl = await vscode.window.showInputBox({
         placeHolder: 'Enter a path or URL',
