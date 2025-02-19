@@ -18,14 +18,14 @@ export async function activate(context: vscode.ExtensionContext) {
     ctx = context;
     logDebug('Extension Activated');
 
+    setEdcsUri();
+
     // Check if the extension has been updated
     if (checkExtensionVersion()) {
         // Run migrations if so
         logDebug('Running migrations');
         await Promise.all([doVersionSpecificMigrations(), clearExtensionDatasetsClonedStorage()]);
     }
-
-    setEdcsUri();
 
     loadDatasets();
 
