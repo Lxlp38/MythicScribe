@@ -70,12 +70,14 @@ export const logsProvider = new LogsProvider();
  * @param message - An optional custom message to display before the error message. Defaults to 'An error occurred'.
  */
 export function logError(error: unknown, message: string = 'An error occurred:') {
-    logMetadata(message, LogType.ERROR);
+    let finalMessage: string;
     if (error instanceof Error) {
-        vscode.window.showErrorMessage(message + '\n' + error);
+        finalMessage = message + '\n' + error.message + '\n' + error.stack;
     } else {
-        vscode.window.showErrorMessage(message + '\n' + String(error));
+        finalMessage = message + '\n' + String(error);
     }
+    vscode.window.showErrorMessage(finalMessage);
+    logMetadata(finalMessage, LogType.ERROR);
 }
 
 /**

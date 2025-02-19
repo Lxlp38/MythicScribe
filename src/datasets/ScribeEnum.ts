@@ -1,11 +1,11 @@
 import * as vscode from 'vscode';
 
 import { minecraftVersion } from '../utils/configutils';
-import { loadLocalEnumDataset, fetchEnumDatasetFromLink } from './datasets';
+import { ScribeClonableFile, fetchJsonFromLocalFile, fetchJsonFromURL } from './datasets';
 import { ctx } from '../MythicScribe';
 import { logDebug } from '../utils/logger';
 
-abstract class AbstractScribeEnum {
+export abstract class AbstractScribeEnum {
     readonly identifier: string;
     readonly path: string;
     protected dataset: Map<string, EnumDatasetValue> = new Map<string, EnumDatasetValue>();
@@ -25,21 +25,27 @@ abstract class AbstractScribeEnum {
     getDataset(): Map<string, EnumDatasetValue> {
         return this.dataset;
     }
+    updateDataset(data: Enum[]): void {
+        this.dataset = new Map(Object.entries(data));
+        this.updateCommaList();
+    }
 }
 
 export class StaticScribeEnum extends AbstractScribeEnum {
     constructor(identifier: string, path: string) {
         super(identifier, path);
-        loadLocalEnumDataset(path).then((data) => {
-            this.dataset = new Map(Object.entries(data));
-            this.updateCommaList();
-            return;
-        });
+        fetchJsonFromLocalFile<Enum>(vscode.Uri.file(path)).then((data) =>
+            this.updateDataset(data)
+        );
     }
 }
-class LocalScribeEnum extends StaticScribeEnum {
+class LocalScribeEnum extends AbstractScribeEnum {
     constructor(identifier: string, path: string) {
-        super(identifier, vscode.Uri.joinPath(ctx.extensionUri, 'data', path).fsPath);
+        const localPath = vscode.Uri.joinPath(ctx.extensionUri, 'data', path).fsPath;
+        super(identifier, localPath);
+        new ScribeClonableFile<Enum>(vscode.Uri.file(localPath))
+            .get()
+            .then((data) => this.updateDataset(data));
     }
 }
 class VolatileScribeEnum extends LocalScribeEnum {
@@ -50,14 +56,10 @@ class VolatileScribeEnum extends LocalScribeEnum {
 export class WebScribeEnum extends AbstractScribeEnum {
     constructor(identifier: string, path: string) {
         super(identifier, path);
-        fetchEnumDatasetFromLink(path).then((data) => {
-            this.dataset = new Map(Object.entries(data));
-            this.updateCommaList();
-            return;
-        });
+        fetchJsonFromURL<Enum>(path).then((data) => this.updateDataset(data));
     }
 }
-export class LambdaScribeEnum extends AbstractScribeEnum {
+class LambdaScribeEnum extends AbstractScribeEnum {
     constructor(key: string, values: string[]) {
         super(key, '');
         const val = values.reduce((acc: { [key: string]: EnumDatasetValue }, curr) => {
@@ -69,6 +71,9 @@ export class LambdaScribeEnum extends AbstractScribeEnum {
     }
 }
 
+export interface Enum {
+    [key: string]: EnumDatasetValue;
+}
 export interface EnumDatasetValue {
     description?: string;
     name?: string[];

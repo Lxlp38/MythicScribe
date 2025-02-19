@@ -1,6 +1,26 @@
 import * as vscode from 'vscode';
 
-import { logWarning } from './logger';
+import { logDebug, logWarning } from './logger';
+
+const configCache = {
+    enableMythicScriptSyntax: undefined as boolean | undefined,
+    datasetSource: undefined as string | undefined,
+    attributeAliasUsedInCompletions: undefined as string | undefined,
+};
+function resetConfigCache() {
+    logDebug('Resetting config cache');
+    for (const key in configCache) {
+        if (configCache.hasOwnProperty(key)) {
+            configCache[key as keyof typeof configCache] = undefined;
+        }
+    }
+}
+export const configHandler = vscode.workspace.onDidChangeConfiguration((e) => {
+    if (e.affectsConfiguration('MythicScribe')) {
+        logDebug('MythicScribe configuration changed');
+        resetConfigCache();
+    }
+});
 
 // Check for enabled features
 export function isAlwaysEnabled() {
@@ -56,25 +76,40 @@ export function enableShortcuts(): boolean {
 }
 
 export function datasetSource() {
-    return vscode.workspace.getConfiguration('MythicScribe').get('dataset');
+    if (configCache.datasetSource === undefined) {
+        configCache.datasetSource = vscode.workspace
+            .getConfiguration('MythicScribe')
+            .get('datasetSource');
+    }
+    return configCache.datasetSource;
 }
 
 export function enableMythicScriptSyntax() {
-    return vscode.workspace.getConfiguration('MythicScribe').get('enableMythicScriptSyntax');
+    if (configCache.enableMythicScriptSyntax === undefined) {
+        configCache.enableMythicScriptSyntax = vscode.workspace
+            .getConfiguration('MythicScribe')
+            .get('enableMythicScriptSyntax');
+    }
+    return configCache.enableMythicScriptSyntax;
 }
 
 export function getAttributeAliasUsedInCompletions() {
-    return vscode.workspace.getConfiguration('MythicScribe').get('attributeAliasUsedInCompletions');
+    if (configCache.attributeAliasUsedInCompletions === undefined) {
+        configCache.attributeAliasUsedInCompletions = vscode.workspace
+            .getConfiguration('MythicScribe')
+            .get('attributeAliasUsedInCompletions');
+    }
+    return configCache.attributeAliasUsedInCompletions;
 }
 
 const MinecraftVersions = ['latest', '1.21.3', '1.21.1', '1.20.6', '1.20.5', '1.20.4', '1.19.4'];
 export function minecraftVersion() {
     const config = vscode.workspace.getConfiguration('MythicScribe');
-    const inspected = config.inspect<string>('minecraftVersion');
     const value = config.get<string>('minecraftVersion');
 
     // Check if the value is invalid
     if (typeof value !== 'string' || !MinecraftVersions.includes(value)) {
+        const inspected = config.inspect<string>('minecraftVersion');
         let target: vscode.ConfigurationTarget | undefined;
 
         // Determine the scope where the value is defined

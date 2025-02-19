@@ -56,38 +56,35 @@ suite('Logger', () => {
             showErrorMessageStub.restore();
         });
 
-        test('should log error message when error is an instance of Error', () => {
+        test('should log error message with default message', () => {
             const error = new Error('Test error');
             logger.logError(error);
 
+            const expectedMessage = `An error occurred:\n${error.message}\n${error.stack}`;
+
             sinon.assert.calledOnce(showErrorMessageStub);
-            sinon.assert.calledWith(showErrorMessageStub, 'An error occurred:\n' + error);
+            sinon.assert.calledWith(showErrorMessageStub, expectedMessage);
         });
 
-        test('should log custom message when error is an instance of Error', () => {
+        test('should log error message with custom message', () => {
             const error = new Error('Test error');
-            const customMessage = 'Custom message: ';
+            const customMessage = 'Custom error message';
             logger.logError(error, customMessage);
 
+            const expectedMessage = `${customMessage}\n${error.message}\n${error.stack}`;
+
             sinon.assert.calledOnce(showErrorMessageStub);
-            sinon.assert.calledWith(showErrorMessageStub, customMessage + '\n' + error);
+            sinon.assert.calledWith(showErrorMessageStub, expectedMessage);
         });
 
-        test('should log error message when error is not an instance of Error', () => {
-            const error = 'Test error string';
+        test('should log non-error object', () => {
+            const error = 'Test string error';
             logger.logError(error);
 
-            sinon.assert.calledOnce(showErrorMessageStub);
-            sinon.assert.calledWith(showErrorMessageStub, 'An error occurred:\n' + String(error));
-        });
-
-        test('should log custom message when error is not an instance of Error', () => {
-            const error = 'Test error string';
-            const customMessage = 'Custom message: ';
-            logger.logError(error, customMessage);
+            const expectedMessage = `An error occurred:\n${error}`;
 
             sinon.assert.calledOnce(showErrorMessageStub);
-            sinon.assert.calledWith(showErrorMessageStub, customMessage + '\n' + String(error));
+            sinon.assert.calledWith(showErrorMessageStub, expectedMessage);
         });
     });
 

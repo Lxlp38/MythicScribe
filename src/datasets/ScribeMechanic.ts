@@ -1,10 +1,12 @@
 import * as vscode from 'vscode';
 
-import { checkEnabledPlugin, datasetSource, finallySetEnabledPlugins } from '../utils/configutils';
-import { checkGithubDatasets, loadLocalDatasets } from './datasets';
+import { checkEnabledPlugin, finallySetEnabledPlugins } from '../utils/configutils';
 import { ScribeEnumHandler } from './ScribeEnum';
 import { loadCustomDatasets } from './customDatasets';
 import { logDebug } from '../utils/logger';
+import { ctx } from '../MythicScribe';
+import { fetchAllFilesInDirectory } from '../utils/uriutils';
+import { ScribeClonableFile } from './datasets';
 
 export enum ObjectType {
     MECHANIC = 'Mechanic',
@@ -22,9 +24,14 @@ export type MechanicDataset = Mechanic[];
 export abstract class AbstractScribeMechanicRegistry {
     readonly regex: RegExp = /null/;
     readonly type: ObjectType = ObjectType.MECHANIC;
+    readonly folder: string = 'null';
     private mechanics: MythicMechanic[] = [];
     private mechanicsNameMap: Map<string, MythicMechanic> = new Map();
     private mechanicsClassMap: Map<string, MythicMechanic> = new Map();
+
+    get localPath(): string {
+        return vscode.Uri.joinPath(ctx.extensionUri, 'data', this.folder).toString();
+    }
 
     async addMechanic(...mechanic: Mechanic[]) {
         mechanic.forEach((m) => {
@@ -65,18 +72,28 @@ export abstract class AbstractScribeMechanicRegistry {
         this.mechanicsNameMap.clear();
         this.mechanicsClassMap.clear();
     }
+
+    async loadDataset() {
+        const direcoryFiles = await fetchAllFilesInDirectory(vscode.Uri.parse(this.localPath));
+        const files = direcoryFiles.map((file) => new ScribeClonableFile<Mechanic>(file));
+        files.forEach((file) => file.get().then((data) => this.addMechanic(...data)));
+        return;
+    }
 }
 class ScribeMechanicRegistry extends AbstractScribeMechanicRegistry {
     readonly regex: RegExp = /(?<=\s- )[\w:]+/gm;
     readonly type: ObjectType = ObjectType.MECHANIC;
+    readonly folder: string = 'mechanics';
 }
 class ScribeTargeterRegistry extends AbstractScribeMechanicRegistry {
     readonly regex: RegExp = /(?<=[\s=]@)[\w:]+/gm;
     readonly type: ObjectType = ObjectType.TARGETER;
+    readonly folder: string = 'targeters';
 }
 class ScribeConditionRegistry extends AbstractScribeMechanicRegistry {
     readonly regex: RegExp = /(?<=[\s\|\&][-\(\|\&\)] )[\w:]+/gm;
     readonly type: ObjectType = ObjectType.CONDITION;
+    readonly folder: string = 'conditions';
 }
 class ScribeInlineConditionRegistry extends ScribeConditionRegistry {
     readonly regex: RegExp = /(?<=\s(\?)|(\?!)|(\?~)|(\?~!))[\w:]+/gm;
@@ -90,18 +107,24 @@ class ScribeInlineConditionRegistry extends ScribeConditionRegistry {
     getMechanicByClass(name: string): MythicMechanic | undefined {
         return ScribeMechanicHandler.registry.condition.getMechanicByClass(name);
     }
+    async loadDataset(): Promise<void> {
+        return;
+    }
 }
 class ScribeTriggerRegistry extends AbstractScribeMechanicRegistry {
     readonly regex: RegExp = /(?<=\s~)on[\w:]+/gm;
     readonly type: ObjectType = ObjectType.TRIGGER;
+    readonly folder: string = 'triggers';
 }
 class ScribeAITargetRegistry extends AbstractScribeMechanicRegistry {
     readonly regex: RegExp = /(?<=\s- )[\w:]+/gm;
     readonly type: ObjectType = ObjectType.AITARGET;
+    readonly folder: string = 'aitargets';
 }
 class ScribeAIGoalRegistry extends AbstractScribeMechanicRegistry {
     readonly regex: RegExp = /(?<=\s- )[\w:]+/gm;
     readonly type: ObjectType = ObjectType.AIGOAL;
+    readonly folder: string = 'aigoals';
 }
 
 export interface Mechanic {
@@ -234,18 +257,7 @@ export class MythicAttribute {
     }
 }
 
-interface PathMap {
-    mechanic: vscode.Uri;
-    targeter: vscode.Uri;
-    condition: vscode.Uri;
-    trigger: vscode.Uri;
-    aitarget: vscode.Uri;
-    aigoal: vscode.Uri;
-}
-
 export const ScribeMechanicHandler = {
-    pathMap: {} as PathMap,
-
     registry: {
         mechanic: new ScribeMechanicRegistry(),
         targeter: new ScribeTargeterRegistry(),
@@ -256,25 +268,12 @@ export const ScribeMechanicHandler = {
         aigoal: new ScribeAIGoalRegistry(),
     },
 
-    setPathMap(extensionUri: vscode.Uri) {
-        this.pathMap = {
-            mechanic: vscode.Uri.joinPath(extensionUri, 'data', 'mechanics'),
-            targeter: vscode.Uri.joinPath(extensionUri, 'data', 'targeters'),
-            condition: vscode.Uri.joinPath(extensionUri, 'data', 'conditions'),
-            trigger: vscode.Uri.joinPath(extensionUri, 'data', 'triggers'),
-            aitarget: vscode.Uri.joinPath(extensionUri, 'data', 'aitargets'),
-            aigoal: vscode.Uri.joinPath(extensionUri, 'data', 'aigoals'),
-        };
-    },
-
     async loadDatasets() {
         ScribeMechanicHandler.emptyDatasets();
-
-        if (datasetSource() === 'GitHub') {
-            await checkGithubDatasets();
-        } else {
-            await loadLocalDatasets();
-        }
+        const promises = Object.values(ScribeMechanicHandler.registry).map((registry) =>
+            registry.loadDataset()
+        );
+        await Promise.all(promises);
         await loadCustomDatasets();
         finallySetEnabledPlugins();
     },

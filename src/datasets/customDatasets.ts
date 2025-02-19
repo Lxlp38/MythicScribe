@@ -2,9 +2,9 @@ import path from 'path';
 
 import * as vscode from 'vscode';
 
-import { MechanicDataset, ScribeMechanicHandler } from './ScribeMechanic';
+import { Mechanic, MechanicDataset, ScribeMechanicHandler } from './ScribeMechanic';
 import { ScribeEnumHandler, StaticScribeEnum, WebScribeEnum } from './ScribeEnum';
-import { fetchMechanicDatasetFromLink, loadDatasets, loadLocalMechanicDataset } from './datasets';
+import { fetchJsonFromLocalFile, fetchJsonFromURL, loadDatasets } from './datasets';
 import { logDebug, logError, logInfo } from '../utils/logger';
 import { changeCustomDatasetsSource } from '../migration/migration';
 
@@ -367,10 +367,12 @@ async function processCustomDatasetEntry(entry: CustomDataset) {
             : entry.pathOrUrl;
         ScribeEnumHandler.addEnum(clazz, fileName, path);
     } else if (isFileSource(entry.source)) {
-        const localDataset = await loadLocalMechanicDataset(entry.pathOrUrl);
+        const localDataset = await fetchJsonFromLocalFile<Mechanic>(
+            vscode.Uri.parse(entry.pathOrUrl)
+        );
         processMechanicDatasetEntry(localDataset, entry.elementType);
     } else if (isLinkSource(entry.source)) {
-        const fileData = await fetchMechanicDatasetFromLink(entry.pathOrUrl);
+        const fileData = await fetchJsonFromURL<Mechanic>(entry.pathOrUrl);
         processMechanicDatasetEntry(fileData, entry.elementType);
     }
 }

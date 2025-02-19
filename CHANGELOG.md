@@ -88,6 +88,7 @@
 - Regexes for files can now be found in the `MythicScribe.fileRegex` configuration. Old configurations for this are deprecated and automatically migrated
 - "Local File" value inside customDatasets configurations is now called "File". When the old value is detected, it is automatically migrated
 - Formatter now removes whitespace from empty lines  
+- Datasets: Now both Mechanics and Enums can be downloaded and cached from the Repository when using the GitHub dataset source.
 
 ### Fixed
 - Error with the formatter's indentation when the config file actual indentation is 1
@@ -95,6 +96,7 @@
 - Error with text formatting where comments could still end up being formatted, with some of the text spilling over the commented line
 - Error where completions would continue to be shown repeatedly when accepting completions on mechanic-like objects that do not have attributes
 - Completions being activated even when after a comment in some cases
+- Fixed many errors with the GitHub dataset source option
 
 
 ## [1.5.0]

@@ -7,10 +7,10 @@ import {
     createBundleDataset,
     removeCustomDataset,
 } from './datasets/customDatasets';
-import { ScribeMechanicHandler } from './datasets/ScribeMechanic';
-import { ScribeEnumHandler } from './datasets/ScribeEnum';
 import { doVersionSpecificMigrations } from './migration/migration';
 import { logDebug, logsProvider, openLogs, showInfoMessageWithOptions } from './utils/logger';
+import { clearExtensionDatasetsClonedStorage, loadDatasets, setEdcsUri } from './datasets/datasets';
+import { configHandler } from './utils/configutils';
 
 export let ctx: vscode.ExtensionContext;
 
@@ -22,17 +22,22 @@ export async function activate(context: vscode.ExtensionContext) {
     if (checkExtensionVersion()) {
         // Run migrations if so
         logDebug('Running migrations');
-        await doVersionSpecificMigrations();
+        await Promise.all([doVersionSpecificMigrations(), clearExtensionDatasetsClonedStorage()]);
     }
 
-    ScribeEnumHandler.initializeEnums();
+    setEdcsUri();
 
-    ScribeMechanicHandler.setPathMap(context.extensionUri);
-    ScribeMechanicHandler.loadDatasets();
+    loadDatasets();
 
     context.subscriptions.push(
+        // Logger
+        vscode.workspace.registerTextDocumentContentProvider('mythicscribelogs', logsProvider),
+
         // Subscription Handler
         SubscriptionHelper.extensionEnabler,
+
+        // Config Handler
+        configHandler,
 
         // Commands
         vscode.commands.registerCommand('MythicScribe.addCustomDataset', addCustomDataset),
@@ -41,10 +46,7 @@ export async function activate(context: vscode.ExtensionContext) {
         vscode.commands.registerCommand('MythicScribe.openLogs', openLogs),
 
         // Formatter
-        getFormatter(),
-
-        // Logger
-        vscode.workspace.registerTextDocumentContentProvider('mythicscribelogs', logsProvider)
+        getFormatter()
     );
 
     if (vscode.window.activeTextEditor) {
