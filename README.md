@@ -9,7 +9,7 @@
     <a href="https://www.codefactor.io/repository/github/lxlp38/mythicscribe/overview/master">
       <img src="https://www.codefactor.io/repository/github/lxlp38/mythicscribe/badge/master" alt="CodeFactor" />
     </a>
-    <a href="https://github.com/Lxlp38/MythicScribe/blob/main/LICENSE.txt">
+    <a href="https://github.com/Lxlp38/MythicScribe/blob/master/LICENSE.txt">
       <img alt="GitHub License" src="https://img.shields.io/github/license/Lxlp38/MythicScribe">
     </a>
 </div>

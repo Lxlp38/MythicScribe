@@ -24,7 +24,7 @@ enum CustomDatasetSource {
 
 interface CustomDataset {
     elementType: CustomDatasetElementType;
-    source: CustomDatasetSource;
+    source?: CustomDatasetSource;
     pathOrUrl: string;
 }
 
@@ -429,10 +429,10 @@ async function loadBundleDataset(dataset: CustomDataset) {
     }
 }
 
-function isFileSource(source: CustomDatasetSource) {
+function isFileSource(source?: CustomDatasetSource) {
     return source === CustomDatasetSource.FILE;
 }
-function isLinkSource(source: CustomDatasetSource) {
+function isLinkSource(source?: CustomDatasetSource) {
     return source === CustomDatasetSource.LINK;
 }
 
@@ -441,5 +441,5 @@ function isRelativePath(path: string) {
 }
 
 function isOutdatedDataset(dataset: CustomDataset) {
-    return dataset.source.toString() === 'Local File';
+    return (dataset.source?.toString() || '') === 'Local File';
 }

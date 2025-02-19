@@ -20,12 +20,10 @@
 [
     {
         "elementType": "Mechanic",
-        "source": "File",
         "pathOrUrl": "./test.json"
     },
     {
         "elementType": "Enum",
-        "source": "File",
         "pathOrUrl": "./testenum.json"
     },
     {
@@ -38,9 +36,9 @@
 > Bundle.json Example  
 > You can specify a "File" Source to fetch dataset from a local json file.
 > You can specify a "Link" source to fetch datasets from a link. The link must lead to a raw json object.  
-> If the path starts with a `.`, it will be treated as a relative path for both local files and links. For instance, "./test.json" and "./testenum.json" will be fetched from the same directory the bundle is in  
+> If the path starts with a `.`, it will be treated as a relative path, and will not require a source to be specified. For instance, "./test.json" and "./testenum.json" will be fetched from the same directory the bundle is in.
 > When a path is detected as being relative, its source will be considered to be the same to the bundle's. So, if the bundle is a local file, the relative path will be calculated from the bundle's location on the machine. If the bundle is a link, the relative path will be appended to the bundle's link directory
->> Of course, you can add ".." and other/directories/toYourFile.json  
+>> Of course, you can add ".." and other/directories/toYourFile.json like you would do with any other relative path
 
 > You can use the `Create Bundle Dataset` command to create a bundle dataset from other datasets you have imported  
 
@@ -49,22 +47,18 @@
 [
     {
         "elementType": "Mechanic",
-        "source": "Link",
         "pathOrUrl": "./Mechanics/LxMythicUtilitiesMechanics.json"
     },
     {
         "elementType": "Enum",
-        "source": "Link",
         "pathOrUrl": "./Enums/LxMythicUtilities_Enum_TableMechanic_Mode.json"
     },
     {
         "elementType": "Enum",
-        "source": "Link",
         "pathOrUrl": "./Enums/LxMythicUtilities_Enum_UtilityChangeItemStack_Operation.json"
     },
     {
         "elementType": "Enum",
-        "source": "Link",
         "pathOrUrl": "./Enums/LxMythicUtilities_Enum_UtilityRelocationAlign_Mode.json"
     }
 ]
