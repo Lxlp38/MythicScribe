@@ -10546,7 +10546,19 @@
         ],
         "description": "Removes the targeted entity from existence. Does not work on players.",
         "link": "https://git.lumine.io/mythiccraft/MythicMobs/-/wikis/Skills/Mechanics/remove",
-        "attributes": []
+        "attributes": [
+            {
+                "name": [
+                    "onremoveskill",
+                    "onremove",
+                    "then"
+                ],
+                "type": "String",
+                "description": "The Metaskill to execute once an entity is removed",
+                "link": "https://git.lumine.io/mythiccraft/MythicMobs/-/wikis/Skills/Mechanics/remove",
+                "default_value": ""
+            }
+        ]
     },
     {
         "plugin": "MythicMobs",
@@ -13844,6 +13856,17 @@
                 "description": "Sets the chance for the stolen item to be dropped upon death",
                 "link": "https://git.lumine.io/mythiccraft/MythicMobs/-/wikis/Skills/Mechanics/StealItem",
                 "default_value": "0.0"
+            },
+            {
+                "name": [
+                    "onstealskill",
+                    "onsteal",
+                    "then"
+                ],
+                "type": "String",
+                "description": "The Metaskill to execute once an item is successfully stolen",
+                "link": "https://git.lumine.io/mythiccraft/MythicMobs/-/wikis/Skills/Mechanics/StealItem",
+                "default_value": ""
             },
             {
                 "name": [

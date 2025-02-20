@@ -401,8 +401,10 @@ function getListObjectCompletion(
     return undefined;
 }
 
-function getEnumCompletion(item: EnumDatasetValue, value: string) {
-    const completionItem = new vscode.CompletionItem(value, vscode.CompletionItemKind.EnumMember);
-    completionItem.detail = item.description;
+export function getEnumCompletion(item: EnumDatasetValue, value: string) {
+    const completionItem = new vscode.CompletionItem(value, vscode.CompletionItemKind.Enum);
+    if (item.description) {
+        completionItem.detail = item.description;
+    }
     return completionItem;
 }

@@ -147,6 +147,85 @@
     },
     {
         "plugin": "MythicCrucible",
+        "class": "ConsumeItemDurabilityMechanic",
+        "extends": "ItemMechanic",
+        "implements": [
+            "ITargetedEntitySkill"
+        ],
+        "name": [
+            "consumeitemdurability",
+            "consumedurability"
+        ],
+        "description": "Consume the durability of an item",
+        "link": "https://git.lumine.io/mythiccraft/mythiccrucible/-/wikis/Skills/Mechanics/ConsumeItemDurability",
+        "attributes": [
+            {
+                "name": [
+                    "amount",
+                    "a"
+                ],
+                "type": "Integer",
+                "description": "Amount to consume",
+                "link": "https://git.lumine.io/mythiccraft/mythiccrucible/-/wikis/Skills/Mechanics/ConsumeItemDurability",
+                "default_value": "1"
+            },
+            {
+                "name": [
+                    "breakitem",
+                    "b",
+                    "break"
+                ],
+                "type": "Boolean",
+                "description": "Whether the item can break because of this mechanic",
+                "link": "https://git.lumine.io/mythiccraft/mythiccrucible/-/wikis/Skills/Mechanics/ConsumeItemDurability",
+                "default_value": "true"
+            },
+            {
+                "name": [
+                    "breaksound",
+                    "s"
+                ],
+                "type": "String",
+                "description": "The sound to emit if the item were to break",
+                "link": "https://git.lumine.io/mythiccraft/mythiccrucible/-/wikis/Skills/Mechanics/ConsumeItemDurability",
+                "default_value": "entity.item.break ",
+                "enum": "Sound"
+            },
+            {
+                "name": [
+                    "breakvolume",
+                    "v"
+                ],
+                "type": "Float",
+                "description": "The volume of the break sound",
+                "link": "https://git.lumine.io/mythiccraft/mythiccrucible/-/wikis/Skills/Mechanics/ConsumeItemDurability",
+                "default_value": "1.0"
+            },
+            {
+                "name": [
+                    "breakpitch",
+                    "p"
+                ],
+                "type": "Float",
+                "description": "The pitch of the break sound",
+                "link": "https://git.lumine.io/mythiccraft/mythiccrucible/-/wikis/Skills/Mechanics/ConsumeItemDurability",
+                "default_value": "1.0"
+            },
+            {
+                "name": [
+                    "equipslot",
+                    "slot",
+                    "s"
+                ],
+                "type": null,
+                "description": "The sound to emit if the item were to break",
+                "link": "https://git.lumine.io/mythiccraft/mythiccrucible/-/wikis/Skills/Mechanics/ConsumeItemDurability",
+                "default_value": "entity.item.break "
+            }
+        ]
+    },
+    {
+        "plugin": "MythicCrucible",
         "class": "ConsumeItemMechanic",
         "extends": "SkillMechanic",
         "implements": [

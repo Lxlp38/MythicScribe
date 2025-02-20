@@ -90,7 +90,8 @@
 - Error with text formatting where comments could still end up being formatted, with some of the text spilling over the commented line
 - Error where completions would continue to be shown repeatedly when accepting completions on mechanic-like objects that do not have attributes
 - Completions being activated even when after a comment in some cases
-- Fixed many errors with the GitHub dataset source option
+- Many errors with the GitHub dataset source option
+- Some enums not displaying their aliases for their values, if they had any. Only applies to particle and equipslot
 
 
 ## [1.5.0]

@@ -1,202 +1,579 @@
 {
-    "poof": null,
-    "explosion": null,
-    "explosion_emitter": null,
-    "firework": null,
-    "bubble": null,
-    "splash": null,
-    "fishing": null,
-    "underwater": null,
-    "suspended_depth": null,
-    "crit": null,
-    "enchanted_hit": null,
-    "smoke": null,
-    "large_smoke": null,
-    "effect": null,
-    "instant_effect": null,
-    "entity_effect": [
-        [
-            "color",
-            "c",
-            "The color of the particle",
-            "#FF0000"
+    "poof": {
+        "name": [
+            "explosion_normal",
+            "explode",
+            "explosion",
+            "explosion_small"
         ]
-    ],
-    "spell_mob_ambient": null,
-    "witch": null,
-    "dripping_water": null,
-    "dripping_lava": null,
-    "angry_villager": null,
-    "happy_villager": null,
-    "mycelium": null,
-    "note": null,
-    "portal": null,
-    "enchant": null,
-    "flame": null,
-    "lava": null,
-    "cloud": null,
-    "dust": [
-        [
-            "color",
-            "c",
-            "The color of the particle",
-            "#FF0000"
+    },
+    "explosion": {
+        "name": [
+            "explosion_large",
+            "largeexplode",
+            "largeexplosion"
+        ]
+    },
+    "explosion_emitter": {
+        "name": [
+            "explosion_huge",
+            "hugeexplode",
+            "hugeexplosion"
+        ]
+    },
+    "firework": {
+        "name": [
+            "fireworks",
+            "fireworks_spark",
+            "fireworksspark"
+        ]
+    },
+    "bubble": {
+        "name": [
+            "water_bubble"
+        ]
+    },
+    "splash": {
+        "name": [
+            "water_splash"
+        ]
+    },
+    "fishing": {
+        "name": [
+            "water_wake",
+            "wake"
+        ]
+    },
+    "underwater": {
+        "name": [
+            "suspended"
+        ]
+    },
+    "suspended_depth": {
+        "name": [
+            "underwater",
+            "depthsuspend"
+        ]
+    },
+    "crit": {},
+    "enchanted_hit": {
+        "name": [
+            "crit_magic",
+            "magiccrit"
+        ]
+    },
+    "smoke": {
+        "name": [
+            "smoke_normal"
+        ]
+    },
+    "large_smoke": {
+        "name": [
+            "smoke_large",
+            "largesmoke"
+        ]
+    },
+    "effect": {
+        "name": [
+            "spell"
+        ]
+    },
+    "instant_effect": {
+        "name": [
+            "spell_instant",
+            "instant_spell"
+        ]
+    },
+    "entity_effect": {
+        "attributes": [
+            {
+                "name": [
+                    "color",
+                    "c"
+                ],
+                "description": "The color of the particle",
+                "default": "#FF0000",
+                "type": "String",
+                "link": "https://git.lumine.io/mythiccraft/MythicMobs/-/wikis/Skills/Mechanics/Particle/Particle-Types#color"
+            }
         ],
-        [
-            "size",
-            "",
-            "The size of the particle",
-            "1"
+        "name": [
+            "spell_mob",
+            "mob_spell"
         ]
-    ],
-    "item_snowball": null,
-    "item_slime": null,
-    "heart": null,
-    "barrier": null,
-    "item": [
-        [
-            "material",
-            "m",
-            "The material the itemstack particle will be based on",
-            "STONE"
+    },
+    "spell_mob_ambient": {
+        "name": [
+            "ambient_entity_effect",
+            "mob_spell_ambient"
         ]
-    ],
-    "block": [
-        [
-            "material",
-            "m",
-            "The material the blockdata particle will be based on",
-            "STONE"
+    },
+    "witch": {
+        "name": [
+            "spell_witch",
+            "witch_magic"
         ]
-    ],
-    "block_dust": null,
-    "rain": null,
-    "elder_guardian": null,
-    "dragon_breath": null,
-    "end_rod": null,
-    "damage_indicator": null,
-    "sweep_attack": null,
-    "falling_dust": [
-        [
-            "material",
-            "m",
-            "The material the blockdata particle will be based on",
-            "STONE"
+    },
+    "dripping_water": {
+        "name": [
+            "drip_water",
+            "dripwater"
         ]
-    ],
-    "totem_of_undying": null,
-    "spit": null,
-    "squid_ink": null,
-    "bubble_pop": null,
-    "current_down": null,
-    "bubble_column_up": null,
-    "nautilus": null,
-    "dolphin": null,
-    "composter": null,
-    "falling_lava": null,
-    "falling_water": null,
-    "flash": null,
-    "landing_lava": null,
-    "sneeze": null,
-    "snowflake": null,
-    "campfire_cosy_smoke": null,
-    "campfire_signal_smoke": null,
-    "dripping_honey": null,
-    "falling_honey": null,
-    "falling_nectar": null,
-    "landing_honey": null,
-    "ash": null,
-    "white_ash": null,
-    "crimson_spore": null,
-    "soul_fire_flame": null,
-    "warped_spore": null,
-    "dripping_obsidian_tear": null,
-    "falling_obsidian_tear": null,
-    "landing_obsidian_tear": null,
-    "soul": null,
-    "dripping_dripstone_lava": null,
-    "dripping_dripstone_water": null,
-    "dust_color_transition": [
-        [
-            "color",
-            "c, color1, c1, fromcolor, fc",
-            "The color the particles starts as",
-            "#FF0000"
+    },
+    "dripping_lava": {
+        "name": [
+            "drip_lava",
+            "driplava"
+        ]
+    },
+    "angry_villager": {
+        "name": [
+            "villager_angry",
+            "angryvillager"
+        ]
+    },
+    "happy_villager": {
+        "name": [
+            "villager_happy",
+            "happyvillager"
+        ]
+    },
+    "mycelium": {
+        "name": [
+            "town_aura",
+            "townaura"
+        ]
+    },
+    "note": {},
+    "portal": {},
+    "enchant": {
+        "name": [
+            "enchantment_table",
+            "enchantmenttable",
+            "enchantingtable"
+        ]
+    },
+    "flame": {},
+    "lava": {},
+    "cloud": {},
+    "dust": {
+        "attributes": [
+            {
+                "name": [
+                    "color",
+                    "c"
+                ],
+                "description": "The color of the particle",
+                "default": "#FF0000",
+                "type": "String",
+                "link": "https://git.lumine.io/mythiccraft/MythicMobs/-/wikis/Skills/Mechanics/Particle/Particle-Types#dust"
+            },
+            {
+                "name": [
+                    "size"
+                ],
+                "description": "The size of the particle",
+                "default": "1",
+                "type": "Integer",
+                "link": "https://git.lumine.io/mythiccraft/MythicMobs/-/wikis/Skills/Mechanics/Particle/Particle-Types#dust"
+            }
         ],
-        [
-            "color2",
-            "c2, tocolor, tc",
-            "The color the particles transitions to",
-            "#0000FF"
+        "name": [
+            "red_dust",
+            "reddust",
+            "redstone"
+        ]
+    },
+    "item_snowball": {
+        "name": [
+            "snowball",
+            "snowballpoof"
+        ]
+    },
+    "item_slime": {
+        "name": [
+            "slime"
+        ]
+    },
+    "heart": {},
+    "barrier": {},
+    "item": {
+        "attributes": [
+            {
+                "name": [
+                    "material",
+                    "m"
+                ],
+                "description": "The material the itemstack particle will be based on",
+                "default": "STONE",
+                "type": "String",
+                "link": "https://git.lumine.io/mythiccraft/MythicMobs/-/wikis/Skills/Mechanics/Particle/Particle-Types#itemstack",
+                "enum": "Material"
+            }
         ],
-        [
-            "size",
-            "",
-            "The size of the particle",
-            "1"
+        "name": [
+            "item_crack",
+            "icon_crack",
+            "itemcrack"
         ]
-    ],
-    "electric_spark": null,
-    "falling_dripstone_lava": null,
-    "falling_dripstone_water": null,
-    "glow": null,
-    "glow_squid_ink": null,
-    "light": null,
-    "reverse_portal": null,
-    "scrape": null,
-    "small_flame": null,
-    "vibration": null,
-    "wax_off": null,
-    "wax_on": null,
-    "falling_spore_blossom": null,
-    "spore_blossom_air": null,
-    "block_marker": [
-        [
-            "material",
-            "m",
-            "The material the blockdata particle will be based on",
-            "STONE"
+    },
+    "block": {
+        "attributes": [
+            {
+                "name": [
+                    "material",
+                    "m"
+                ],
+                "description": "The material the blockdata particle will be based on",
+                "default": "STONE",
+                "type": "String",
+                "link": "https://git.lumine.io/mythiccraft/MythicMobs/-/wikis/Skills/Mechanics/Particle/Particle-Types#blockdata",
+                "enum": "Material"
+            }
+        ],
+        "name": [
+            "block_crack",
+            "blockcrack"
         ]
-    ],
-    "sculk_soul": null,
-    "shriek": null,
-    "sculk_charge": [
-        [
-            "rotation",
-            "rot, r",
-            "The rotation of the particle",
-            "0"
+    },
+    "block_dust": {
+        "name": [
+            "dust",
+            "blockdust"
         ]
-    ],
-    "sculk_charge_pop": [
-        [
-            "rotation",
-            "rot, r",
-            "The rotation of the particle",
-            "0"
+    },
+    "rain": {
+        "name": [
+            "water_drop",
+            "droplet"
         ]
-    ],
-    "sonic_boom": null,
-    "cherry_leaves": null,
-    "egg_crack": null,
-    "white_smoke": null,
-    "dust_plume": null,
-    "gust": null,
-    "gust_emitter_small": null,
-    "gust_emitter_large": null,
-    "small_gust": null,
-    "trial_spawner_detection": null,
-    "trial_spawner_detection_ominous": null,
-    "trial_omen": null,
-    "dust_pillar": [
-        [
-            "material",
-            "m",
-            "The material the blockdata particle will be based on",
-            "STONE"
+    },
+    "elder_guardian": {
+        "name": [
+            "mob_appearance",
+            "mobappearance"
         ]
-    ],
-    "vault_connection": null,
-    "ominous_spawning": null,
-    "raid_omen": null
+    },
+    "dragon_breath": {
+        "name": [
+            "dragonbreath"
+        ]
+    },
+    "end_rod": {
+        "name": [
+            "endrod"
+        ]
+    },
+    "damage_indicator": {
+        "name": [
+            "damageindicator"
+        ]
+    },
+    "sweep_attack": {
+        "name": [
+            "sweepattack"
+        ]
+    },
+    "falling_dust": {
+        "attributes": [
+            {
+                "name": [
+                    "material",
+                    "m"
+                ],
+                "description": "The material the blockdata particle will be based on",
+                "default": "STONE",
+                "type": "String",
+                "link": "https://git.lumine.io/mythiccraft/MythicMobs/-/wikis/Skills/Mechanics/Particle/Particle-Types#blockdata",
+                "enum": "Material"
+            }
+        ],
+        "name": [
+            "fallingdust"
+        ]
+    },
+    "totem_of_undying": {
+        "name": [
+            "totem"
+        ]
+    },
+    "spit": {},
+    "squid_ink": {
+        "name": [
+            "squidink"
+        ]
+    },
+    "bubble_pop": {
+        "name": [
+            "bubblepop"
+        ]
+    },
+    "current_down": {
+        "name": [
+            "currentdown"
+        ]
+    },
+    "bubble_column_up": {
+        "name": [
+            "bubblecolumn",
+            "bubble_column"
+        ]
+    },
+    "nautilus": {},
+    "dolphin": {},
+    "composter": {},
+    "falling_lava": {
+        "name": [
+            "fallinglava"
+        ]
+    },
+    "falling_water": {
+        "name": [
+            "fallingwater"
+        ]
+    },
+    "flash": {},
+    "landing_lava": {
+        "name": [
+            "landinglava"
+        ]
+    },
+    "sneeze": {},
+    "snowflake": {},
+    "campfire_cosy_smoke": {
+        "name": [
+            "campfire_cosy",
+            "campfire_cozy_smoke",
+            "campfire_cozy",
+            "campfire"
+        ]
+    },
+    "campfire_signal_smoke": {
+        "name": [
+            "campfire_signal"
+        ]
+    },
+    "dripping_honey": {
+        "name": [
+            "drippinghoney"
+        ]
+    },
+    "falling_honey": {
+        "name": [
+            "fallinghoney"
+        ]
+    },
+    "falling_nectar": {
+        "name": [
+            "fallingnectar"
+        ]
+    },
+    "landing_honey": {
+        "name": [
+            "landinghoney"
+        ]
+    },
+    "ash": {},
+    "white_ash": {},
+    "crimson_spore": {
+        "name": [
+            "crimson_spores",
+            "crimsonspore",
+            "crimsonspores"
+        ]
+    },
+    "soul_fire_flame": {
+        "name": [
+            "soulfireflame",
+            "soulfire",
+            "soulflame"
+        ]
+    },
+    "warped_spore": {
+        "name": [
+            "warped_spores",
+            "warpedspore",
+            "warpedspores"
+        ]
+    },
+    "dripping_obsidian_tear": {
+        "name": [
+            "dropping_obsidian_tear",
+            "drippingobsidiantear"
+        ]
+    },
+    "falling_obsidian_tear": {
+        "name": [
+            "fallingobsidiantear"
+        ]
+    },
+    "landing_obsidian_tear": {
+        "name": [
+            "landingobsidiantear"
+        ]
+    },
+    "soul": {},
+    "dripping_dripstone_lava": {
+        "name": [
+            "dropping_dripstone_lava"
+        ]
+    },
+    "dripping_dripstone_water": {
+        "name": [
+            "dropping_dripstone_water"
+        ]
+    },
+    "dust_color_transition": {
+        "attributes": [
+            {
+                "name": [
+                    "color",
+                    "c",
+                    "color1",
+                    "c1",
+                    "fromcolor",
+                    "fc"
+                ],
+                "description": "The color the particles starts as",
+                "default": "#FF0000",
+                "type": "String",
+                "link": "https://git.lumine.io/mythiccraft/MythicMobs/-/wikis/Skills/Mechanics/Particle/Particle-Types#dust"
+            },
+            {
+                "name": [
+                    "color2",
+                    "c2",
+                    "tocolor",
+                    "tc"
+                ],
+                "description": "The color the particles transitions to",
+                "default": "#0000FF",
+                "type": "String",
+                "link": "https://git.lumine.io/mythiccraft/MythicMobs/-/wikis/Skills/Mechanics/Particle/Particle-Types#dust"
+            },
+            {
+                "name": [
+                    "size"
+                ],
+                "description": "The size of the particle",
+                "default": "1",
+                "type": "Integer",
+                "link": "https://git.lumine.io/mythiccraft/MythicMobs/-/wikis/Skills/Mechanics/Particle/Particle-Types#dust"
+            }
+        ],
+        "name": [
+            "dustcolortransition",
+            "dustcolor"
+        ]
+    },
+    "electric_spark": {
+        "name": [
+            "electricspark",
+            "spark"
+        ]
+    },
+    "falling_dripstone_lava": {},
+    "falling_dripstone_water": {},
+    "glow": {},
+    "glow_squid_ink": {
+        "name": [
+            "glowingink",
+            "glowink",
+            "glowsquid"
+        ]
+    },
+    "light": {},
+    "reverse_portal": {},
+    "scrape": {},
+    "small_flame": {},
+    "vibration": {},
+    "wax_off": {},
+    "wax_on": {},
+    "falling_spore_blossom": {},
+    "spore_blossom_air": {},
+    "block_marker": {
+        "attributes": [
+            {
+                "name": [
+                    "material",
+                    "m"
+                ],
+                "description": "The material the blockdata particle will be based on",
+                "default": "STONE",
+                "type": "String",
+                "link": "https://git.lumine.io/mythiccraft/MythicMobs/-/wikis/Skills/Mechanics/Particle/Particle-Types#blockdata",
+                "enum": "Material"
+            }
+        ]
+    },
+    "sculk_soul": {},
+    "shriek": {},
+    "sculk_charge": {
+        "attributes": [
+            {
+                "name": [
+                    "rotation",
+                    "rot",
+                    "r"
+                ],
+                "description": "The rotation of the particle",
+                "default": "0",
+                "type": "Integer",
+                "link": "https://git.lumine.io/mythiccraft/MythicMobs/-/wikis/Skills/Mechanics/Particle/Particle-Types/Sculk_Charge"
+            }
+        ]
+    },
+    "sculk_charge_pop": {
+        "attributes": [
+            {
+                "name": [
+                    "rotation",
+                    "rot",
+                    "r"
+                ],
+                "description": "The rotation of the particle",
+                "default": "0",
+                "type": "Integer",
+                "link": "https://git.lumine.io/mythiccraft/MythicMobs/-/wikis/Skills/Mechanics/Particle/Particle-Types/Sculk_Charge_Pop"
+            }
+        ]
+    },
+    "sonic_boom": {},
+    "cherry_leaves": {},
+    "egg_crack": {},
+    "white_smoke": {},
+    "dust_plume": {},
+    "gust": {},
+    "gust_emitter_small": {},
+    "gust_emitter_large": {
+        "name": [
+            "large_gust"
+        ]
+    },
+    "small_gust": {
+        "name": [
+            "gust_small"
+        ]
+    },
+    "trial_spawner_detection": {},
+    "trial_spawner_detection_ominous": {},
+    "trial_omen": {},
+    "dust_pillar": {
+        "attributes": [
+            {
+                "name": [
+                    "material",
+                    "m"
+                ],
+                "description": "The material the blockdata particle will be based on",
+                "default": "STONE",
+                "type": "String",
+                "link": "https://git.lumine.io/mythiccraft/MythicMobs/-/wikis/Skills/Mechanics/Particle/Particle-Types#blockdata",
+                "enum": "Material"
+            }
+        ]
+    },
+    "vault_connection": {},
+    "ominous_spawning": {},
+    "raid_omen": {}
 }

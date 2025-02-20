@@ -4,6 +4,7 @@ import { minecraftVersion } from '../utils/configutils';
 import { ScribeClonableFile, fetchJsonFromLocalFile, fetchJsonFromURL } from './datasets';
 import { ctx } from '../MythicScribe';
 import { logDebug } from '../utils/logger';
+import { Attribute } from './ScribeMechanic';
 
 export abstract class AbstractScribeEnum {
     readonly identifier: string;
@@ -27,6 +28,13 @@ export abstract class AbstractScribeEnum {
     }
     updateDataset(data: Enum[]): void {
         this.dataset = new Map(Object.entries(data));
+        this.dataset.forEach((value) => {
+            if (value.name) {
+                value.name.forEach((name) => {
+                    this.dataset.set(name, value);
+                });
+            }
+        });
         this.updateCommaList();
     }
 }
@@ -77,6 +85,7 @@ export interface Enum {
 export interface EnumDatasetValue {
     description?: string;
     name?: string[];
+    attributes?: Attribute[];
 }
 
 export const ScribeEnumHandler = {

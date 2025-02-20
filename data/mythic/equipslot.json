@@ -1,6 +1,6 @@
 {
     "HEAD": {
-        "names": [
+        "name": [
             "HEAD",
             "4",
             "HELMET",
@@ -11,7 +11,7 @@
     },
     "CHEST":
     {
-        "names":
+        "name":
         [
             "CHEST",
             "3",
@@ -23,7 +23,7 @@
     },
     "LEGS":
     {
-        "names":
+        "name":
         [
             "LEGS",
             "2",
@@ -34,7 +34,7 @@
     },
     "FEET":
     {
-        "names":
+        "name":
         [
             "FEET",
             "1",
@@ -45,7 +45,7 @@
     },
     "HAND":
     {
-        "names":
+        "name":
         [
             "HAND",
             "0",
@@ -56,7 +56,7 @@
     },
     "OFFHAND":
     {
-        "names":
+        "name":
         [
             "OFFHAND",
             "5",

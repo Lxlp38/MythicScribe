@@ -8,7 +8,11 @@ import {
     ScribeMechanicHandler,
 } from '../datasets/ScribeMechanic';
 import { EnumDatasetValue, ScribeEnumHandler } from '../datasets/ScribeEnum';
-import { checkShouldPrefixComplete, retriggerCompletionsCommand } from '../utils/completionhelper';
+import {
+    checkShouldPrefixComplete,
+    getEnumCompletion,
+    retriggerCompletionsCommand,
+} from '../utils/completionhelper';
 import * as yamlutils from '../utils/yamlutils';
 import { getAttributeAliasUsedInCompletions } from '../utils/configutils';
 import { getObjectLinkedToAttribute } from '../utils/cursorutils';
@@ -172,11 +176,7 @@ export function attributeValueCompletionProvider() {
                         return undefined;
                     }
                     enumData.getDataset().forEach((value: EnumDatasetValue, key: string) => {
-                        const completionItem = new vscode.CompletionItem(
-                            key,
-                            vscode.CompletionItemKind.Value
-                        );
-                        completionItem.detail = `${(value as EnumDatasetValue).description}`;
+                        const completionItem = getEnumCompletion(value, key);
                         completionItems.push(completionItem);
                     });
                 } else {

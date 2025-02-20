@@ -301,7 +301,7 @@
         "name": [
             "changepart"
         ],
-        "description": "Change the model of a rendering bone to use a different model.",
+        "description": "Change the model of a rendering bone to use a different model.\n\nThe bones affected by this mechanic must either directly contain cubes or be a [rendered ghost bone](https://git.lumine.io/mythiccraft/model-engine-4/-/wikis/Modeling/Bone-Behaviors#ghost)",
         "link": "https://git.lumine.io/mythiccraft/model-engine-4/-/wikis/Skills/Mechanics/ChangePart",
         "attributes": [
             {
