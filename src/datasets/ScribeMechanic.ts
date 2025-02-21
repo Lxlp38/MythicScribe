@@ -182,7 +182,7 @@ export class MythicMechanic {
         if (!this.hasAlreadyInheritedAttributes) {
             this.inheritAttributes();
         }
-        return this.attributesNameMap.get(name.toLowerCase());
+        return this.attributesNameMap.get(name.trim().toLowerCase());
     }
 
     private inheritAttributes() {
@@ -225,7 +225,7 @@ export interface Attribute {
 }
 
 export class MythicAttribute {
-    static readonly regex = /(?<=[{;])\w+(?==)/gm;
+    static readonly regex = /(?<=[{;])\s*\w+(?=\s*=)/gm;
     readonly mechanic: MythicMechanic;
     readonly name: string[];
     readonly type: string;

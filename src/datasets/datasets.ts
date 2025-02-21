@@ -136,7 +136,13 @@ async function initializeExtensionDatasetsClonedStorage() {
 
 export async function clearExtensionDatasetsClonedStorage() {
     logger.logDebug('Clearing extension datasets cloned storage');
-    await vscode.workspace.fs.delete(edcsUri, { recursive: true });
+    const exists = await vscode.workspace.fs.stat(edcsUri).then(
+        () => true,
+        () => false
+    );
+    if (exists) {
+        await vscode.workspace.fs.delete(edcsUri, { recursive: true });
+    }
     await initializeExtensionDatasetsClonedStorage();
 }
 

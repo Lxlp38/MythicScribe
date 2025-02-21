@@ -10,14 +10,14 @@ import { AbstractScribeMechanicRegistry, ScribeMechanicHandler } from '../datase
  */
 export function getObjectLinkedToAttribute(
     document: vscode.TextDocument,
-    position: vscode.Position
+    position: vscode.Position,
+    maxSearchLine: number
 ): string | null {
     // Get the text from the beginning of the document to the current position
     const textBeforeAttribute = document.getText(
-        new vscode.Range(new vscode.Position(0, 0), position)
+        new vscode.Range(new vscode.Position(maxSearchLine, 0), position)
     );
     let openBraceCount = 0;
-
     // Traverse backwards through the text before the position
     for (let i = textBeforeAttribute.length - 1; i >= 0; i--) {
         const char = textBeforeAttribute[i];
@@ -53,9 +53,12 @@ export function getObjectLinkedToAttribute(
  */
 export function getAttributeLinkedToValue(
     document: vscode.TextDocument,
-    position: vscode.Position
+    position: vscode.Position,
+    maxSearchLine: number
 ): string | null {
-    const textBeforeValue = document.getText(new vscode.Range(new vscode.Position(0, 0), position));
+    const textBeforeValue = document.getText(
+        new vscode.Range(new vscode.Position(maxSearchLine, 0), position)
+    );
     const attributeMatch = textBeforeValue.match(/[{;]\s*\b(\w+)\b\s*=[^;]*$/);
     if (attributeMatch && attributeMatch[1]) {
         return attributeMatch[1];
@@ -95,7 +98,11 @@ export function fetchCursorSkills(
  * @param position - The position of the cursor within the document.
  * @returns The skill or attribute at the cursor position, or `null` if none is found.
  */
-export function getCursorSkills(document: vscode.TextDocument, position: vscode.Position) {
+export function getCursorSkills(
+    document: vscode.TextDocument,
+    position: vscode.Position,
+    maxline: number
+) {
     for (const objectType of [
         ScribeMechanicHandler.registry.mechanic,
         ScribeMechanicHandler.registry.targeter,
@@ -114,7 +121,7 @@ export function getCursorSkills(document: vscode.TextDocument, position: vscode.
     const maybeAttributeMatch = textBeforePosition.match(/(?<=[{;]\s*)(\w+)$/gm);
     if (maybeAttribute && maybeAttributeMatch) {
         const attribute = document.getText(maybeAttribute);
-        const object = getObjectLinkedToAttribute(document, position);
+        const object = getObjectLinkedToAttribute(document, position, maxline);
         if (!object || object.startsWith('~')) {
             return null;
         }
@@ -149,7 +156,8 @@ export function getCursorSkills(document: vscode.TextDocument, position: vscode.
 export function getCursorObject(
     registry: AbstractScribeMechanicRegistry,
     document: vscode.TextDocument,
-    position: vscode.Position
+    position: vscode.Position,
+    maxline: number
 ) {
     const maybeCondition = fetchCursorSkills(document, position, registry);
     if (maybeCondition) {
@@ -157,7 +165,7 @@ export function getCursorObject(
     }
     const maybeAttribute = document.getWordRangeAtPosition(position, /(?<=[{;])\w+/gm);
     if (maybeAttribute) {
-        const object = getObjectLinkedToAttribute(document, position);
+        const object = getObjectLinkedToAttribute(document, position, maxline);
         if (!object) {
             return null;
         }

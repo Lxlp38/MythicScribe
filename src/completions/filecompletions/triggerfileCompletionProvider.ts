@@ -22,7 +22,7 @@ export function triggerfileCompletionProvider(
                 context: vscode.CompletionContext
             ) {
                 const keys = yamlutils.getParentKeys(document, position);
-                if (!parentKey.includes(keys[0])) {
+                if (!parentKey.includes(keys[0][0])) {
                     return undefined;
                 }
 

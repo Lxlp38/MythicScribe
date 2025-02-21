@@ -1,20 +1,30 @@
 import * as vscode from 'vscode';
 
+const yamlkeyregex = /^\s*[^:\s]+:/;
+
+export type YamlKey = [string, number];
+export function getKeyNameFromYamlKey(keys: YamlKey[]): string[] {
+    return keys.map(([key]) => key);
+}
+
 /**
- * Retrieves the key from the nearest preceding YAML key-value pair in the document.
+ * Retrieves the key and its position from the nearest upstream YAML key in a document.
  *
  * @param document - The text document to search within.
  * @param lineIndex - The line index to start searching from.
- * @returns The key of the nearest preceding YAML key-value pair, or an empty string if none is found.
+ * @returns A tuple containing the key as a string and its position as a `vscode.Position`, or `undefined` if no key is found.
  */
-export function getUpstreamKey(document: vscode.TextDocument, lineIndex: number): string {
+export function getUpstreamKey(
+    document: vscode.TextDocument,
+    lineIndex: number
+): YamlKey | undefined {
     for (let i = lineIndex; i >= 0; i--) {
         const line = document.lineAt(i).text.trim();
-        if (line.match(/^[A-Za-z0-9_]+:/)) {
-            return line.split(':')[0];
+        if (line.match(yamlkeyregex)) {
+            return [line.split(':')[0].trim(), i];
         }
     }
-    return '';
+    return;
 }
 /**
  * Retrieves the parent keys of a YAML document at a given position.
@@ -28,8 +38,8 @@ export function getParentKeys(
     document: vscode.TextDocument,
     position: vscode.Position,
     getLineKey: boolean = false
-): string[] {
-    const keys: string[] = [];
+): YamlKey[] {
+    const keys: YamlKey[] = [];
     const lineIndex = position.line;
 
     let currentIndent = getIndentation(document.lineAt(lineIndex).text); // Get the indentation of the current line
@@ -37,17 +47,17 @@ export function getParentKeys(
     if (!isKey(document, lineIndex)) {
         currentIndent += 1;
     } else if (getLineKey) {
-        keys.push(getKey(document, lineIndex));
+        keys.push([getKey(document, lineIndex), lineIndex]);
     }
 
     for (let i = lineIndex; i >= 0; i--) {
         const line = document.lineAt(i).text.trim();
-        if (line.match(/^\s*[^:\s]+:/)) {
+        if (line.match(yamlkeyregex)) {
             const lineIndent = getIndentation(document.lineAt(i).text); // Get the indentation of this line
 
             // If the line has a lower (less) indentation, it is a parent
             if (lineIndent < currentIndent) {
-                keys.push(line.split(':')[0]); // Add the key without the colon
+                keys.push([line.split(':')[0], i]); // Add the key without the colon
                 currentIndent = lineIndent; // Update current indentation to this parent's level
             }
         }
@@ -115,7 +125,7 @@ export function isEmptyLine(document: vscode.TextDocument, lineIndex: number): b
 export function isKey(document: vscode.TextDocument, lineIndex: number): boolean {
     const line = document.lineAt(lineIndex).text.trim();
     // If we are inside a key, we're not inside the Skills section
-    if (line.match(/^\s*[^:\s]+:/)) {
+    if (line.match(yamlkeyregex)) {
         return true;
     }
 
@@ -170,7 +180,7 @@ export function isInsideKey(
             return true;
         }
         // If we find another top-level key, we know we've left the specified section
-        if (line.match(/^[A-Za-z0-9_]+:/)) {
+        if (line.match(yamlkeyregex)) {
             return false;
         }
     }

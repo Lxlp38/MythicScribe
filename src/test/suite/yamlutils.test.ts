@@ -51,7 +51,10 @@ suite('YAML Utils', () => {
 
             position = new vscode.Position(2, 0); // Position at 'child1: value1'
             const keys = getParentKeys(document, position);
-            assert.deepStrictEqual(keys, ['parent1', 'root']);
+            assert.deepStrictEqual(keys, [
+                ['parent1', 1],
+                ['root', 0],
+            ]);
         });
 
         test('getParentKeys should include current line key if getLineKey is true', () => {
@@ -61,7 +64,11 @@ suite('YAML Utils', () => {
 
             position = new vscode.Position(2, 0); // Position at 'child1: value1'
             const keys = getParentKeys(document, position, true);
-            assert.deepStrictEqual(keys, ['child1', 'parent1', 'root']);
+            assert.deepStrictEqual(keys, [
+                ['child1', 2],
+                ['parent1', 1],
+                ['root', 0],
+            ]);
         });
 
         test('getParentKeys should return empty array if no parent keys are found', () => {

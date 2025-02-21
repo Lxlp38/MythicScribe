@@ -23,13 +23,17 @@ export function hoverProvider(
             if (yamlutils.isKey(document, position.line)) {
                 const key = yamlutils.getKey(document, position.line);
                 keys.reverse();
-                keys.push(key);
+                keys.push([key, position.line]);
 
-                return getHoverForFileElement(keys.slice(1), fileobject, undefined);
+                return getHoverForFileElement(
+                    yamlutils.getKeyNameFromYamlKey(keys.slice(1)),
+                    fileobject,
+                    undefined
+                );
             }
 
-            if (keyAliases.Skills.includes(keys[0])) {
-                const result = getCursorSkills(document, position);
+            if (keyAliases.Skills.includes(keys[0][0])) {
+                const result = getCursorSkills(document, position, keys[0][1]);
                 if (!result) {
                     return null;
                 }
@@ -45,8 +49,13 @@ export function hoverProvider(
                 return getHover(obj);
             }
             for (const keydependency of keydependencies) {
-                if (keydependency.keys.includes(keys[0])) {
-                    return getHoverForMechanicLike(keydependency.registry, document, position);
+                if (keydependency.keys.includes(keys[0][0])) {
+                    return getHoverForMechanicLike(
+                        keydependency.registry,
+                        document,
+                        position,
+                        keys[0][1]
+                    );
                 }
             }
             return null;
@@ -57,9 +66,10 @@ export function hoverProvider(
 async function getHoverForMechanicLike(
     registry: AbstractScribeMechanicRegistry,
     document: vscode.TextDocument,
-    position: vscode.Position
+    position: vscode.Position,
+    maxline: number
 ): Promise<vscode.Hover | undefined> {
-    const result = getCursorObject(registry, document, position);
+    const result = getCursorObject(registry, document, position, maxline);
     if (!result) {
         return undefined;
     }

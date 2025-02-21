@@ -83,6 +83,7 @@
 - "Local File" value inside customDatasets configurations is now called "File". When the old value is detected, it is automatically migrated
 - Formatter now removes whitespace from empty lines  
 - Datasets: Now both Mechanics and Enums can be downloaded and cached from the Repository when using the GitHub dataset source.
+- Slightly increased performances when operation on very big files
 
 ### Fixed
 - Error with the formatter's indentation when the config file actual indentation is 1
@@ -92,7 +93,7 @@
 - Completions being activated even when after a comment in some cases
 - Many errors with the GitHub dataset source option
 - Some enums not displaying their aliases for their values, if they had any. Only applies to particle and equipslot
-
+- Attributes' values completions not working when the attribute was on a different line from its mechanic
 
 ## [1.5.0]
 

@@ -14,19 +14,9 @@ export async function ensureComponentsExist(uri: vscode.Uri): Promise<void> {
     async function fileExistancePipeline() {
         const parentDir = vscode.Uri.file(path.dirname(uri.fsPath));
         await ensureDirectoryExists(parentDir);
-
         await ensureFileExists(uri);
     }
-
-    try {
-        const stat = await vscode.workspace.fs.stat(uri);
-
-        if (stat.type === vscode.FileType.Directory) {
-            await ensureDirectoryExists(uri);
-        } else if (stat.type === vscode.FileType.File) {
-            await fileExistancePipeline();
-        }
-    } catch (error) {
+    await vscode.workspace.fs.stat(uri).then(null, async (error) => {
         if (error instanceof vscode.FileSystemError) {
             const isDirectory = uri.fsPath.endsWith(path.sep);
 
@@ -40,7 +30,7 @@ export async function ensureComponentsExist(uri: vscode.Uri): Promise<void> {
         } else {
             logError(error, 'Error while ensuring components exist');
         }
-    }
+    });
 }
 
 /**

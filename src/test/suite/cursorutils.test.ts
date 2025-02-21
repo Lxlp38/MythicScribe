@@ -27,7 +27,7 @@ suite('Cursor Utils', () => {
             );
             position = new vscode.Position(0, 40);
 
-            const result = getObjectLinkedToAttribute(document, position);
+            const result = getObjectLinkedToAttribute(document, position, 0);
             assert.strictEqual(result, null);
         });
 
@@ -37,7 +37,7 @@ suite('Cursor Utils', () => {
             );
             position = new vscode.Position(0, 20);
 
-            const result = getObjectLinkedToAttribute(document, position);
+            const result = getObjectLinkedToAttribute(document, position, 0);
             assert.strictEqual(result, 'object');
         });
 
@@ -45,7 +45,7 @@ suite('Cursor Utils', () => {
             (document.getText as sinon.SinonStub).returns('{attribute1=value1;attribute2=value2');
             position = new vscode.Position(0, 20);
 
-            const result = getObjectLinkedToAttribute(document, position);
+            const result = getObjectLinkedToAttribute(document, position, 0);
             assert.strictEqual(result, null);
         });
 
@@ -53,7 +53,7 @@ suite('Cursor Utils', () => {
             (document.getText as sinon.SinonStub).returns('- outer{- inner{attribute1=value1;');
             position = new vscode.Position(0, 30);
 
-            const result = getObjectLinkedToAttribute(document, position);
+            const result = getObjectLinkedToAttribute(document, position, 0);
             assert.strictEqual(result, 'inner');
         });
 
@@ -63,7 +63,7 @@ suite('Cursor Utils', () => {
             );
             position = new vscode.Position(0, 40);
 
-            const result = getObjectLinkedToAttribute(document, position);
+            const result = getObjectLinkedToAttribute(document, position, 0);
             assert.strictEqual(result, 'object2');
         });
     });
@@ -72,7 +72,7 @@ suite('Cursor Utils', () => {
             (document.getText as sinon.SinonStub).returns('object{value1;value2');
             position = new vscode.Position(0, 20);
 
-            const result = getAttributeLinkedToValue(document, position);
+            const result = getAttributeLinkedToValue(document, position, 0);
             assert.strictEqual(result, null);
         });
 
@@ -82,7 +82,7 @@ suite('Cursor Utils', () => {
             );
             position = new vscode.Position(0, 30);
 
-            const result = getAttributeLinkedToValue(document, position);
+            const result = getAttributeLinkedToValue(document, position, 0);
             assert.strictEqual(result, 'attribute2');
         });
 
@@ -90,7 +90,7 @@ suite('Cursor Utils', () => {
             (document.getText as sinon.SinonStub).returns('object{value1');
             position = new vscode.Position(0, 10);
 
-            const result = getAttributeLinkedToValue(document, position);
+            const result = getAttributeLinkedToValue(document, position, 0);
             assert.strictEqual(result, null);
         });
 
@@ -100,7 +100,7 @@ suite('Cursor Utils', () => {
             );
             position = new vscode.Position(0, 50);
 
-            const result = getAttributeLinkedToValue(document, position);
+            const result = getAttributeLinkedToValue(document, position, 0);
             assert.strictEqual(result, 'attribute3');
         });
 
@@ -110,7 +110,7 @@ suite('Cursor Utils', () => {
             );
             position = new vscode.Position(0, 40);
 
-            const result = getAttributeLinkedToValue(document, position);
+            const result = getAttributeLinkedToValue(document, position, 0);
             assert.strictEqual(result, 'attribute2');
         });
     });

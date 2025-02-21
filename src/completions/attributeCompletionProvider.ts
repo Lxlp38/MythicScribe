@@ -49,11 +49,15 @@ export function attributeCompletionProvider() {
 
                 const keys = yamlutils.getParentKeys(document, position);
 
-                const result = searchForLinkedObject(document, position, keys);
-                if (!result) {
+                const mechanic = searchForLinkedObject(
+                    document,
+                    position,
+                    yamlutils.getKeyNameFromYamlKey(keys),
+                    keys[0][1]
+                );
+                if (!mechanic) {
                     return null;
                 }
-                const mechanic = result;
 
                 const attributes = mechanic.getAttributes();
                 let index = 10000;
@@ -128,14 +132,17 @@ export function attributeValueCompletionProvider() {
                 const keys = yamlutils.getParentKeys(document, position);
                 const completionItems: vscode.CompletionItem[] = [];
 
-                const result = searchForLinkedObject(document, position, keys);
-                if (!result) {
+                const mechanic = searchForLinkedObject(
+                    document,
+                    position,
+                    yamlutils.getKeyNameFromYamlKey(keys),
+                    keys[0][1]
+                );
+                if (!mechanic) {
                     return null;
                 }
-                const mechanic = result;
-
                 const attribute = document
-                    .getText(new vscode.Range(new vscode.Position(position.line, 0), position))
+                    .getText(new vscode.Range(new vscode.Position(keys[0][1], 0), position))
                     .match(MythicAttribute.regex)
                     ?.pop();
 
@@ -195,11 +202,12 @@ export function attributeValueCompletionProvider() {
 function searchForLinkedObject(
     document: vscode.TextDocument,
     position: vscode.Position,
-    keys: string[]
+    keys: string[],
+    maxSearchLine: number
 ): MythicMechanic | null {
     let mechanic: MythicMechanic | undefined;
 
-    const object = getObjectLinkedToAttribute(document, position);
+    const object = getObjectLinkedToAttribute(document, position, maxSearchLine);
     if (!object) {
         return null;
     }

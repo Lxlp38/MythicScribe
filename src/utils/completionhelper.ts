@@ -103,7 +103,7 @@ function checkShouldKeyCompleteExec(
     keylist: string[]
 ) {
     const keys = yamlutils.getParentKeys(document, position);
-    if (!keylist.includes(keys[0])) {
+    if (!keylist.includes(keys[0][0])) {
         return false;
     }
     return true;
@@ -174,7 +174,11 @@ export function fileCompletions(
         return undefined;
     }
 
-    const result = fileCompletionFindNodesOnLevel(objectmap, keys.slice(1), 1);
+    const result = fileCompletionFindNodesOnLevel(
+        objectmap,
+        yamlutils.getKeyNameFromYamlKey(keys).slice(1),
+        1
+    );
     if (!result) {
         return undefined;
     }
@@ -317,7 +321,9 @@ export async function getCompletionForInvocation(
     context: vscode.CompletionContext,
     type: FileObjectMap
 ): Promise<vscode.CompletionItem[] | undefined> {
-    const keys = yamlutils.getParentKeys(document, position, true).reverse();
+    const keys = yamlutils.getKeyNameFromYamlKey(
+        yamlutils.getParentKeys(document, position, true).reverse()
+    );
     if (yamlutils.isKey(document, position.line)) {
         return getKeyObjectCompletion(keys.slice(1), type);
     } else if (yamlutils.isList(document, position.line)) {
