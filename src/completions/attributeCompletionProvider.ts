@@ -1,13 +1,8 @@
 import * as vscode from 'vscode';
 
 import { keyAliases } from '../objectInfos';
-import {
-    Attribute,
-    MythicAttribute,
-    MythicMechanic,
-    ScribeMechanicHandler,
-} from '../datasets/ScribeMechanic';
-import { EnumDatasetValue, ScribeEnumHandler } from '../datasets/ScribeEnum';
+import { MythicAttribute, MythicMechanic, ScribeMechanicHandler } from '../datasets/ScribeMechanic';
+import { EnumDatasetValue } from '../datasets/ScribeEnum';
 import {
     checkShouldPrefixComplete,
     getEnumCompletion,
@@ -66,7 +61,7 @@ export function attributeCompletionProvider() {
 
                 const completionItems: vscode.CompletionItem[] = [];
 
-                attributes.forEach((attribute: Attribute) => {
+                attributes.forEach((attribute: MythicAttribute) => {
                     let mainname = attribute.name[0];
                     let aliases = attribute.name;
 
@@ -83,7 +78,7 @@ export function attributeCompletionProvider() {
                     }
 
                     const attributeType = attribute.type;
-                    const attributeEnum = attribute.enum ? attribute.enum.toLowerCase() : null;
+                    const attributeEnum = attribute.enum;
                     const completionItem = new vscode.CompletionItem(
                         mainname,
                         vscode.CompletionItemKind.Field
@@ -96,7 +91,7 @@ export function attributeCompletionProvider() {
                         completionItem.insertText = new vscode.SnippetString(
                             mainname + '=' + '${1|true,false|}'
                         );
-                    } else if (attributeEnum && ScribeEnumHandler.getEnum(attributeEnum)) {
+                    } else if (attributeEnum) {
                         completionItem.insertText = new vscode.SnippetString(mainname + '=');
                         completionItem.command = retriggerCompletionsCommand;
                     } else {
@@ -161,7 +156,7 @@ export function attributeValueCompletionProvider() {
                 );
 
                 const attributeType = attributeInfo.type;
-                const attributeEnum = attributeInfo.enum ? attributeInfo.enum.toLowerCase() : null;
+                const attributeEnum = attributeInfo.enum ? attributeInfo.enum : null;
                 const attributeList = attributeInfo.list;
 
                 if (charBefore0 === ',') {
@@ -178,11 +173,10 @@ export function attributeValueCompletionProvider() {
                         new vscode.CompletionItem('false', vscode.CompletionItemKind.Value)
                     );
                 } else if (attributeEnum) {
-                    const enumData = ScribeEnumHandler.getEnum(attributeEnum);
-                    if (!enumData) {
+                    if (!attributeEnum) {
                         return undefined;
                     }
-                    enumData.getDataset().forEach((value: EnumDatasetValue, key: string) => {
+                    attributeEnum.getDataset().forEach((value: EnumDatasetValue, key: string) => {
                         const completionItem = getEnumCompletion(value, key);
                         completionItems.push(completionItem);
                     });

@@ -153,7 +153,8 @@ export const ItemFileObjects: FileObjectMap = {
                 description: 'Sets the texture of the player head using a SkinURL.',
             },
             Color: {
-                type: FileObjectTypes.STRING,
+                type: FileObjectTypes.ENUM,
+                dataset: 'RGBCOLOR',
                 link: 'https://git.lumine.io/mythiccraft/MythicMobs/-/wikis/Items/Options#color',
                 description:
                     'Dyes the armor piece to a color according to RGB settings or a predefined color.',
@@ -497,7 +498,8 @@ export const ItemFileObjects: FileObjectMap = {
                 type: FileObjectTypes.BOOLEAN,
             },
             Color: {
-                type: FileObjectTypes.STRING,
+                dataset: 'RGBCOLOR',
+                type: FileObjectTypes.ENUM,
             },
             Colorable: {
                 type: FileObjectTypes.BOOLEAN,
@@ -631,10 +633,12 @@ export const ItemFileObjects: FileObjectMap = {
         description: 'Default drop settings for this item',
         keys: {
             DropGlowColor: {
-                type: FileObjectTypes.STRING,
+                dataset: 'COLOR',
+                type: FileObjectTypes.ENUM,
             },
             DropBeamColor: {
-                type: FileObjectTypes.STRING,
+                dataset: 'COLOR',
+                type: FileObjectTypes.ENUM,
             },
             DropLootsplosion: {
                 type: FileObjectTypes.BOOLEAN,
@@ -652,7 +656,8 @@ export const ItemFileObjects: FileObjectMap = {
                 type: FileObjectTypes.INTEGER,
             },
             DropVFXColor: {
-                type: FileObjectTypes.STRING,
+                dataset: 'COLOR',
+                type: FileObjectTypes.ENUM,
             },
             DropBillboarding: {
                 type: FileObjectTypes.STRING,

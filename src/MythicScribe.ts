@@ -11,6 +11,7 @@ import { doVersionSpecificMigrations } from './migration/migration';
 import { logDebug, logsProvider, openLogs, showInfoMessageWithOptions } from './utils/logger';
 import { clearExtensionDatasetsClonedStorage, loadDatasets, setEdcsUri } from './datasets/datasets';
 import { configHandler } from './utils/configutils';
+import { scribeColorProvider } from './color/colorprovider';
 
 export let ctx: vscode.ExtensionContext;
 
@@ -46,7 +47,10 @@ export async function activate(context: vscode.ExtensionContext) {
         vscode.commands.registerCommand('MythicScribe.openLogs', openLogs),
 
         // Formatter
-        getFormatter()
+        getFormatter(),
+
+        // Color Provider
+        vscode.languages.registerColorProvider('mythicscript', scribeColorProvider)
     );
 
     if (vscode.window.activeTextEditor) {

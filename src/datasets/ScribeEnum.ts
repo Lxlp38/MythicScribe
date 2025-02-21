@@ -5,12 +5,14 @@ import { ScribeClonableFile, fetchJsonFromLocalFile, fetchJsonFromURL } from './
 import { ctx } from '../MythicScribe';
 import { logDebug } from '../utils/logger';
 import { Attribute } from './ScribeMechanic';
+import { insertColor } from '../color/colorprovider';
 
 export abstract class AbstractScribeEnum {
     readonly identifier: string;
     readonly path: string;
     protected dataset: Map<string, EnumDatasetValue> = new Map<string, EnumDatasetValue>();
     protected commalist: string = '';
+    protected addedAttributes: Attribute[] = [];
 
     constructor(identifier: string, path: string) {
         this.identifier = identifier;
@@ -26,16 +28,29 @@ export abstract class AbstractScribeEnum {
     getDataset(): Map<string, EnumDatasetValue> {
         return this.dataset;
     }
+    getAttributes(): Attribute[] {
+        return this.addedAttributes;
+    }
     updateDataset(data: Enum[]): void {
         this.dataset = new Map(Object.entries(data));
+        const attributeMap = new Map<string, Attribute>();
         this.dataset.forEach((value) => {
             if (value.name) {
                 value.name.forEach((name) => {
                     this.dataset.set(name, value);
                 });
             }
+            if (value.attributes) {
+                for (const attribute of value.attributes) {
+                    attributeMap.set(attribute.name.join(','), attribute);
+                }
+            }
         });
         this.updateCommaList();
+        if (attributeMap.size > 0) {
+            this.addedAttributes = Array.from(attributeMap.values());
+            logDebug(`Enum ${this.identifier} added ${attributeMap.size} attributes`);
+        }
     }
 }
 
@@ -76,6 +91,18 @@ class LambdaScribeEnum extends AbstractScribeEnum {
         }, {});
         this.dataset = new Map(Object.entries(val));
         this.updateCommaList();
+    }
+}
+
+class ScriptedEnum extends AbstractScribeEnum {
+    private func: () => void;
+    constructor(identifier: string, func: () => void) {
+        super(identifier, '');
+        this.func = func;
+    }
+    getDataset(): Map<string, EnumDatasetValue> {
+        this.func();
+        return new Map();
     }
 }
 
@@ -165,6 +192,8 @@ export const ScribeEnumHandler = {
                 this.addEnum(clazz, identifier, path);
             });
         });
+        this.addScriptedEnum('Color', insertColor);
+        this.addScriptedEnum('RGBColor', () => insertColor(undefined, '255,255,255'));
     },
 
     getEnum(identifier: string): AbstractScribeEnum | undefined {
@@ -181,10 +210,28 @@ export const ScribeEnumHandler = {
         logDebug(`Added Enum ${identifier}`);
     },
 
-    async addLambdaEnum(key: string, values: string[]) {
+    addLambdaEnum(key: string, values: string[]) {
+        const maybeEnum = ScribeEnumHandler.enums.get(key.toLowerCase());
+        if (maybeEnum) {
+            logDebug(`lamba Enum ${key} already exists`);
+            return maybeEnum;
+        }
         const enumObject = new LambdaScribeEnum(key.toLowerCase(), values);
         ScribeEnumHandler.enums.set(key.toLowerCase(), enumObject);
         logDebug(`Added Lambda Enum ${key}`);
+        return enumObject;
+    },
+
+    addScriptedEnum(key: string, func: () => void) {
+        const maybeEnum = ScribeEnumHandler.enums.get(key.toLowerCase());
+        if (maybeEnum) {
+            logDebug(`Scripted Enum ${key} already exists`);
+            return maybeEnum;
+        }
+        const enumObject = new ScriptedEnum(key.toLowerCase(), func);
+        ScribeEnumHandler.enums.set(key.toLowerCase(), enumObject);
+        logDebug(`Added Scripted Enum ${key}`);
+        return enumObject;
     },
 
     emptyDatasets(): void {

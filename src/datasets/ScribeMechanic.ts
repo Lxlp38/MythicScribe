@@ -1,7 +1,7 @@
 import * as vscode from 'vscode';
 
 import { checkEnabledPlugin, finallySetEnabledPlugins } from '../utils/configutils';
-import { ScribeEnumHandler } from './ScribeEnum';
+import { AbstractScribeEnum, ScribeEnumHandler } from './ScribeEnum';
 import { loadCustomDatasets } from './customDatasets';
 import { logDebug } from '../utils/logger';
 import { ctx } from '../MythicScribe';
@@ -150,7 +150,7 @@ export class MythicMechanic {
     readonly link: string;
 
     protected myAttributes: MythicAttribute[] = [];
-    protected attributes: MythicAttribute[];
+    protected attributes: MythicAttribute[] = [];
     protected attributesNameMap: Map<string, MythicAttribute> = new Map();
     private hasAlreadyInheritedAttributes: boolean = false;
 
@@ -163,7 +163,7 @@ export class MythicMechanic {
         this.name = mechanic.name;
         this.description = mechanic.description;
         this.link = mechanic.link;
-        this.attributes = mechanic.attributes.map((a) => new MythicAttribute(a, this));
+        mechanic.attributes.map((a) => this.addAttribute(a));
         this.myAttributes = this.attributes;
     }
 
@@ -176,6 +176,12 @@ export class MythicMechanic {
             this.inheritAttributes();
         }
         return this.attributes;
+    }
+
+    public addAttribute(attribute: Attribute) {
+        const newAttribute = new MythicAttribute(attribute, this);
+        this.attributes.push(newAttribute);
+        this.addAttributeToNameMap(newAttribute);
     }
 
     public getAttributeByName(name: string): MythicAttribute | undefined {
@@ -205,11 +211,18 @@ export class MythicMechanic {
 
     private finalizeAttributes() {
         this.attributes.forEach((attr) => {
-            attr.name.forEach((name) => {
-                this.attributesNameMap.set(name.toLowerCase(), attr);
-            });
+            this.addAttributeToNameMap(attr);
         });
         this.hasAlreadyInheritedAttributes = true;
+    }
+
+    private addAttributeToNameMap(attribute: MythicAttribute) {
+        attribute.name.forEach((name) => {
+            if (this.attributesNameMap.has(name.toLowerCase())) {
+                return;
+            }
+            this.attributesNameMap.set(name.toLowerCase(), attribute);
+        });
     }
 }
 
@@ -229,7 +242,7 @@ export class MythicAttribute {
     readonly mechanic: MythicMechanic;
     readonly name: string[];
     readonly type: string;
-    readonly enum?: string;
+    readonly enum?: AbstractScribeEnum;
     readonly list?: boolean;
     readonly description: string;
     readonly link: string;
@@ -240,19 +253,20 @@ export class MythicAttribute {
         this.mechanic = mechanic;
         this.name = attribute.name;
         this.type = attribute.type;
-        this.enum = attribute.enum;
         this.list = attribute.list;
         this.description = attribute.description;
         this.default_value = attribute.default_value;
         this.inheritable = attribute.inheritable;
         this.link = mechanic.link;
-        this.checkForLambdaEnum();
-    }
 
-    private async checkForLambdaEnum() {
-        if (this.enum && this.enum.includes(',')) {
-            const values = this.enum.split(',');
-            ScribeEnumHandler.addLambdaEnum(this.enum, values);
+        this.enum = attribute.enum
+            ? attribute.enum.includes(',')
+                ? ScribeEnumHandler.addLambdaEnum(attribute.enum, attribute.enum.split(','))
+                : ScribeEnumHandler.getEnum(attribute.enum)
+            : undefined;
+
+        if (this.enum) {
+            this.enum.getAttributes().forEach((attr) => mechanic.addAttribute(attr));
         }
     }
 }

@@ -125,8 +125,8 @@ export async function loadDatasets() {
         }
         await initializeExtensionDatasetsClonedStorage();
     }
-
-    await Promise.all([ScribeEnumHandler.initializeEnums(), ScribeMechanicHandler.loadDatasets()]);
+    ScribeEnumHandler.initializeEnums();
+    await ScribeMechanicHandler.loadDatasets();
 }
 
 async function initializeExtensionDatasetsClonedStorage() {

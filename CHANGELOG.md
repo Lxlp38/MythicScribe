@@ -3,6 +3,7 @@
 ## [Unreleased]
 
 ### Added
+- Color Picker for the relevant attributes and options. Also added special "Color" and "RGBColor" enums
 - `MythicScribe.enabledPlugins` configuration to set enabled / disabled datasets based on the plugin implementing them
 - Hovers and Completions for Droptables
   - `MythicScribe.fileRegex.Droptable` configuration to define a regex to recognize Droptable files
@@ -14,6 +15,25 @@
 - `Open Logs` command to open the Extension's logs. For debugging purposes
 - `Remove Custom Dataset` command to remove a Custom Dataset without having to edit the settings file
 - `Create Bundle Dataset` command to create a Bundle Dataset based on other Custom Datasets you have previously added
+
+### Changed
+- Refactor of how Mechanics/Enums and Subscriptions are handled
+- Regexes for files can now be found in the `MythicScribe.fileRegex` configuration. Old configurations for this are deprecated and automatically migrated
+- "Local File" value inside customDatasets configurations is now called "File". When the old value is detected, it is automatically migrated
+- Formatter now removes whitespace from empty lines  
+- Datasets: Now both Mechanics and Enums can be downloaded and cached from the Repository when using the GitHub dataset source.
+- Slightly increased performances when operation on very big files
+
+### Fixed
+- Error with the formatter's indentation when the config file actual indentation is 1
+- Syntax error when a list of attribute values is spread across multiple lines
+- Error with text formatting where comments could still end up being formatted, with some of the text spilling over the commented line
+- Error where completions would continue to be shown repeatedly when accepting completions on mechanic-like objects that do not have attributes
+- Completions being activated even when after a comment in some cases
+- Many errors with the GitHub dataset source option
+- Some enums not displaying their aliases for their values, if they had any. Only applies to particle and equipslot
+- Attributes' values completions not working when the attribute was on a different line from its mechanic
+
 
 #### Example Bundle 1: Bundle.json
 ```json
@@ -77,23 +97,6 @@
 > While it could use absolute paths just as well, it is using relative paths for its links
 > This means that it will work both if you import it like Bundle.json is doing, as a link, or if you clone the whole repository and import it as a local file, since the relative paths will resolve correctly in both cases 
 
-### Changed
-- Refactor of how Mechanics/Enums and Subscriptions are handled
-- Regexes for files can now be found in the `MythicScribe.fileRegex` configuration. Old configurations for this are deprecated and automatically migrated
-- "Local File" value inside customDatasets configurations is now called "File". When the old value is detected, it is automatically migrated
-- Formatter now removes whitespace from empty lines  
-- Datasets: Now both Mechanics and Enums can be downloaded and cached from the Repository when using the GitHub dataset source.
-- Slightly increased performances when operation on very big files
-
-### Fixed
-- Error with the formatter's indentation when the config file actual indentation is 1
-- Syntax error when a list of attribute values is spread across multiple lines
-- Error with text formatting where comments could still end up being formatted, with some of the text spilling over the commented line
-- Error where completions would continue to be shown repeatedly when accepting completions on mechanic-like objects that do not have attributes
-- Completions being activated even when after a comment in some cases
-- Many errors with the GitHub dataset source option
-- Some enums not displaying their aliases for their values, if they had any. Only applies to particle and equipslot
-- Attributes' values completions not working when the attribute was on a different line from its mechanic
 
 ## [1.5.0]
 

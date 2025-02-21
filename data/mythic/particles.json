@@ -94,7 +94,8 @@
                 "description": "The color of the particle",
                 "default": "#FF0000",
                 "type": "String",
-                "link": "https://git.lumine.io/mythiccraft/MythicMobs/-/wikis/Skills/Mechanics/Particle/Particle-Types#color"
+                "link": "https://git.lumine.io/mythiccraft/MythicMobs/-/wikis/Skills/Mechanics/Particle/Particle-Types",
+                "enum": "Color"
             }
         ],
         "name": [
@@ -166,7 +167,8 @@
                 "description": "The color of the particle",
                 "default": "#FF0000",
                 "type": "String",
-                "link": "https://git.lumine.io/mythiccraft/MythicMobs/-/wikis/Skills/Mechanics/Particle/Particle-Types#dust"
+                "link": "https://git.lumine.io/mythiccraft/MythicMobs/-/wikis/Skills/Mechanics/Particle/Particle-Types",
+                "enum": "Color"
             },
             {
                 "name": [
@@ -175,7 +177,7 @@
                 "description": "The size of the particle",
                 "default": "1",
                 "type": "Integer",
-                "link": "https://git.lumine.io/mythiccraft/MythicMobs/-/wikis/Skills/Mechanics/Particle/Particle-Types#dust"
+                "link": "https://git.lumine.io/mythiccraft/MythicMobs/-/wikis/Skills/Mechanics/Particle/Particle-Types"
             }
         ],
         "name": [
@@ -207,7 +209,7 @@
                 "description": "The material the itemstack particle will be based on",
                 "default": "STONE",
                 "type": "String",
-                "link": "https://git.lumine.io/mythiccraft/MythicMobs/-/wikis/Skills/Mechanics/Particle/Particle-Types#itemstack",
+                "link": "https://git.lumine.io/mythiccraft/MythicMobs/-/wikis/Skills/Mechanics/Particle/Particle-Types",
                 "enum": "Material"
             }
         ],
@@ -227,7 +229,7 @@
                 "description": "The material the blockdata particle will be based on",
                 "default": "STONE",
                 "type": "String",
-                "link": "https://git.lumine.io/mythiccraft/MythicMobs/-/wikis/Skills/Mechanics/Particle/Particle-Types#blockdata",
+                "link": "https://git.lumine.io/mythiccraft/MythicMobs/-/wikis/Skills/Mechanics/Particle/Particle-Types",
                 "enum": "Material"
             }
         ],
@@ -284,7 +286,7 @@
                 "description": "The material the blockdata particle will be based on",
                 "default": "STONE",
                 "type": "String",
-                "link": "https://git.lumine.io/mythiccraft/MythicMobs/-/wikis/Skills/Mechanics/Particle/Particle-Types#blockdata",
+                "link": "https://git.lumine.io/mythiccraft/MythicMobs/-/wikis/Skills/Mechanics/Particle/Particle-Types",
                 "enum": "Material"
             }
         ],
@@ -437,7 +439,8 @@
                 "description": "The color the particles starts as",
                 "default": "#FF0000",
                 "type": "String",
-                "link": "https://git.lumine.io/mythiccraft/MythicMobs/-/wikis/Skills/Mechanics/Particle/Particle-Types#dust"
+                "link": "https://git.lumine.io/mythiccraft/MythicMobs/-/wikis/Skills/Mechanics/Particle/Particle-Types",
+                "enum": "Color"
             },
             {
                 "name": [
@@ -449,7 +452,8 @@
                 "description": "The color the particles transitions to",
                 "default": "#0000FF",
                 "type": "String",
-                "link": "https://git.lumine.io/mythiccraft/MythicMobs/-/wikis/Skills/Mechanics/Particle/Particle-Types#dust"
+                "link": "https://git.lumine.io/mythiccraft/MythicMobs/-/wikis/Skills/Mechanics/Particle/Particle-Types",
+                "enum": "Color"
             },
             {
                 "name": [
@@ -458,7 +462,7 @@
                 "description": "The size of the particle",
                 "default": "1",
                 "type": "Integer",
-                "link": "https://git.lumine.io/mythiccraft/MythicMobs/-/wikis/Skills/Mechanics/Particle/Particle-Types#dust"
+                "link": "https://git.lumine.io/mythiccraft/MythicMobs/-/wikis/Skills/Mechanics/Particle/Particle-Types"
             }
         ],
         "name": [
@@ -501,7 +505,7 @@
                 "description": "The material the blockdata particle will be based on",
                 "default": "STONE",
                 "type": "String",
-                "link": "https://git.lumine.io/mythiccraft/MythicMobs/-/wikis/Skills/Mechanics/Particle/Particle-Types#blockdata",
+                "link": "https://git.lumine.io/mythiccraft/MythicMobs/-/wikis/Skills/Mechanics/Particle/Particle-Types",
                 "enum": "Material"
             }
         ]
@@ -519,7 +523,7 @@
                 "description": "The rotation of the particle",
                 "default": "0",
                 "type": "Integer",
-                "link": "https://git.lumine.io/mythiccraft/MythicMobs/-/wikis/Skills/Mechanics/Particle/Particle-Types/Sculk_Charge"
+                "link": "https://git.lumine.io/mythiccraft/MythicMobs/-/wikis/Skills/Mechanics/Particle/Particle-Types/Sculk_Charge_Pop"
             }
         ]
     },
@@ -568,7 +572,7 @@
                 "description": "The material the blockdata particle will be based on",
                 "default": "STONE",
                 "type": "String",
-                "link": "https://git.lumine.io/mythiccraft/MythicMobs/-/wikis/Skills/Mechanics/Particle/Particle-Types#blockdata",
+                "link": "https://git.lumine.io/mythiccraft/MythicMobs/-/wikis/Skills/Mechanics/Particle/Particle-Types",
                 "enum": "Material"
             }
         ]
