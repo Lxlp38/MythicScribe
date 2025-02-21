@@ -330,6 +330,17 @@ suite('YAML Utils', () => {
             const result = isAfterComment(document, position);
             assert.strictEqual(result, false);
         });
+
+        test('isAfterComment should not consider a comment a # if it is after another non whitespace character', () => {
+            lines = ['root: value', '  parent1: value1# comment', '    child1: value1'];
+            (document.lineAt as sinon.SinonStub).callsFake((index: number) => ({
+                text: lines[index],
+            }));
+
+            position = new vscode.Position(1, 25); // Position after 'value1 #comment'
+            const result = isAfterComment(document, position);
+            assert.strictEqual(result, false);
+        });
     });
     suite('isEmptyLine', () => {
         test('isEmptyLine should return true for an empty line', () => {

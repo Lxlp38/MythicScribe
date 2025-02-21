@@ -296,5 +296,5 @@ export function previousSymbol(document: vscode.TextDocument, position: vscode.P
  */
 export function isAfterComment(document: vscode.TextDocument, position: vscode.Position): boolean {
     const textBeforePosition = document.lineAt(position.line).text.substring(0, position.character);
-    return textBeforePosition.includes('#');
+    return /\s#/.test(textBeforePosition);
 }
