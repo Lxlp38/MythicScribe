@@ -7,8 +7,7 @@ class ScribeColorProvider implements vscode.DocumentColorProvider {
         return new vscode.Range(startPos, endPos);
     }
     provideDocumentColors(
-        document: vscode.TextDocument,
-        _token: vscode.CancellationToken
+        document: vscode.TextDocument
     ): vscode.ProviderResult<vscode.ColorInformation[]> {
         const colorHexRegex = /(?<=\S)#[A-Fa-f0-9]{6}/g;
         const colorRgbRegex = /(\d{1,3}),(\d{1,3}),(\d{1,3})/g;
@@ -49,9 +48,7 @@ class ScribeColorProvider implements vscode.DocumentColorProvider {
     }
 
     provideColorPresentations(
-        color: vscode.Color,
-        _context: { document: vscode.TextDocument; range: vscode.Range },
-        _token: vscode.CancellationToken
+        color: vscode.Color
     ): vscode.ProviderResult<vscode.ColorPresentation[]> {
         // Convert the color to a hex string
         const toHex = (value: number) => {
