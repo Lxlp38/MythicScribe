@@ -11,6 +11,7 @@ export class Logger {
         this.outputChannel = vscode.window.createOutputChannel(outputChannelName, 'log');
         this.logLevel = defaultLogLevel;
         addConfigChangeFunction(this.updateLogLevel.bind(this));
+        this.debug('Logger initialized with a default log level of', LogLevel[defaultLogLevel]);
     }
 
     setLogLevel(logLevel: LogLevel): void {
@@ -36,6 +37,12 @@ export class Logger {
             const timestamp = new Date().toISOString();
             const levelString = LogLevel[level];
             this.outputChannel.appendLine(`${timestamp} [${levelString}] ${message}`);
+        }
+    }
+
+    trace(...message: string[]): void {
+        for (const msg of message) {
+            this.log(msg, LogLevel.Trace);
         }
     }
 

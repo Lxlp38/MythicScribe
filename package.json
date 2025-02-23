@@ -314,7 +314,8 @@
             "error",
             "warn",
             "info",
-            "debug"
+            "debug",
+            "trace"
           ],
           "default": "debug",
           "description": "The level of logging to use for MythicScribe."

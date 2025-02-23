@@ -128,6 +128,8 @@ export function getLogLevel() {
                 return vscode.LogLevel.Info;
             case 'debug':
                 return vscode.LogLevel.Debug;
+            case 'trace':
+                return vscode.LogLevel.Trace;
             default:
                 return vscode.LogLevel.Debug;
         }

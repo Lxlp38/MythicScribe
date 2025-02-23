@@ -207,7 +207,7 @@ export const ScribeEnumHandler = {
     ) {
         const enumObject = new oclass(identifier.toLowerCase(), path);
         ScribeEnumHandler.enums.set(identifier.toLowerCase(), enumObject);
-        ScribeLogger.debug(`Added Enum ${identifier}`);
+        ScribeLogger.debug(`Added Enum ${identifier.toLowerCase()}`);
     },
 
     addLambdaEnum(key: string, values: string[]) {

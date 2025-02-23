@@ -36,7 +36,7 @@ export class ScribeClonableFile<T> {
         this.localUri = uri;
         this.githubUri = vscode.Uri.parse(convertLocalPathToGitHubUrl(this.relativePath, true));
         this.edcsUri = vscode.Uri.joinPath(edcsUri, this.relativePath);
-        ScribeLogger.debug(
+        ScribeLogger.trace(
             'ScribeClonableFile',
             JSON.stringify({
                 relativePath: this.relativePath,
