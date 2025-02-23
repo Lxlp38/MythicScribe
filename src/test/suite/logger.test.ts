@@ -1,50 +1,10 @@
 import * as sinon from 'sinon';
 import * as vscode from 'vscode';
+import { LogLevel } from 'vscode';
 
 import * as logger from '../../utils/logger';
 
 suite('Logger', () => {
-    suite('logMetadata', () => {
-        let clock: sinon.SinonFakeTimers;
-        let updateStub: sinon.SinonStub;
-
-        setup(() => {
-            clock = sinon.useFakeTimers();
-            updateStub = sinon.stub(logger.logsProvider, 'update');
-        });
-
-        teardown(() => {
-            clock.restore();
-            updateStub.restore();
-            logger.logs.length = 0; // Clear logs after each test
-        });
-
-        test('should log message with default log type', () => {
-            const message = 'Test message';
-            logger.logMetadata(message);
-
-            const timestamp = new Date().toISOString();
-            const expectedMessage = `[${timestamp}] DEBUG: Test message`;
-
-            sinon.assert.match(logger.logs[0], expectedMessage);
-        });
-
-        test('should log message with specified log type', () => {
-            const message = 'Test message';
-            logger.logMetadata(message, logger.LogType.INFO);
-
-            const timestamp = new Date().toISOString();
-            const expectedMessage = `[${timestamp}] INFO: Test message`;
-
-            sinon.assert.match(logger.logs[0], expectedMessage);
-        });
-
-        test('should not update logs provider if log file is not open', () => {
-            logger.logMetadata('Test message');
-
-            sinon.assert.notCalled(updateStub);
-        });
-    });
     suite('logError', () => {
         let showErrorMessageStub: sinon.SinonStub;
 
@@ -153,6 +113,102 @@ suite('Logger', () => {
             await logger.showInfoMessageWithOptions(message, options);
 
             sinon.assert.notCalled(openExternalStub);
+        });
+    });
+    suite('logMetadata', () => {
+        let logChannel: vscode.LogOutputChannel;
+        let appendStub: sinon.SinonStub;
+        let debugStub: sinon.SinonStub;
+        let infoStub: sinon.SinonStub;
+        let warnStub: sinon.SinonStub;
+        let errorStub: sinon.SinonStub;
+
+        setup(() => {
+            // Create a mock LogOutputChannel
+            logChannel = {
+                append: () => {},
+                debug: () => {},
+                info: () => {},
+                warn: () => {},
+                error: () => {},
+                trace: () => {},
+                show: () => {},
+                clear: () => {},
+                dispose: () => {},
+                name: 'Mythic Scribe Logs',
+                logLevel: LogLevel.Trace,
+                onDidChangeLogLevel: new vscode.EventEmitter<LogLevel>().event,
+                hide: () => {},
+                appendLine: () => {},
+                replace: () => {},
+            };
+
+            // Stub the methods
+            appendStub = sinon.stub(logChannel, 'append');
+            debugStub = sinon.stub(logChannel, 'debug');
+            infoStub = sinon.stub(logChannel, 'info');
+            warnStub = sinon.stub(logChannel, 'warn');
+            errorStub = sinon.stub(logChannel, 'error');
+
+            // Replace the logFunction array with the stubbed methods
+            logger.logFunction[0] = () => {};
+            logger.logFunction[1] = appendStub;
+            logger.logFunction[2] = debugStub;
+            logger.logFunction[3] = infoStub;
+            logger.logFunction[4] = warnStub;
+            logger.logFunction[5] = errorStub;
+        });
+
+        teardown(() => {
+            sinon.restore();
+        });
+
+        test('should log a message with LogLevel.Trace', () => {
+            const message = 'Test trace message';
+            logger.logMetadata(message, LogLevel.Trace);
+
+            sinon.assert.calledOnce(appendStub);
+            sinon.assert.calledWith(appendStub, message);
+        });
+
+        test('should log a message with LogLevel.Debug', () => {
+            const message = 'Test debug message';
+            logger.logMetadata(message, LogLevel.Debug);
+
+            sinon.assert.calledOnce(debugStub);
+            sinon.assert.calledWith(debugStub, message);
+        });
+
+        test('should log a message with LogLevel.Info', () => {
+            const message = 'Test info message';
+            logger.logMetadata(message, LogLevel.Info);
+
+            sinon.assert.calledOnce(infoStub);
+            sinon.assert.calledWith(infoStub, message);
+        });
+
+        test('should log a message with LogLevel.Warning', () => {
+            const message = 'Test warning message';
+            logger.logMetadata(message, LogLevel.Warning);
+
+            sinon.assert.calledOnce(warnStub);
+            sinon.assert.calledWith(warnStub, message);
+        });
+
+        test('should log a message with LogLevel.Error', () => {
+            const message = 'Test error message';
+            logger.logMetadata(message, LogLevel.Error);
+
+            sinon.assert.calledOnce(errorStub);
+            sinon.assert.calledWith(errorStub, message);
+        });
+
+        test('should default to LogLevel.Trace if no type is provided', () => {
+            const message = 'Test default trace message';
+            logger.logMetadata(message);
+
+            sinon.assert.calledOnce(appendStub);
+            sinon.assert.calledWith(appendStub, message);
         });
     });
 });

@@ -8,7 +8,7 @@ import {
     removeCustomDataset,
 } from './datasets/customDatasets';
 import { doVersionSpecificMigrations } from './migration/migration';
-import { logDebug, logsProvider, openLogs, showInfoMessageWithOptions } from './utils/logger';
+import { logDebug, openLogs, showInfoMessageWithOptions } from './utils/logger';
 import { clearExtensionDatasetsClonedStorage, loadDatasets, setEdcsUri } from './datasets/datasets';
 import { configHandler } from './utils/configutils';
 import { scribeColorProvider } from './color/colorprovider';
@@ -31,9 +31,6 @@ export async function activate(context: vscode.ExtensionContext) {
     loadDatasets();
 
     context.subscriptions.push(
-        // Logger
-        vscode.workspace.registerTextDocumentContentProvider('mythicscribelogs', logsProvider),
-
         // Subscription Handler
         SubscriptionHelper.extensionEnabler,
 

@@ -1,35 +1,30 @@
 import * as vscode from 'vscode';
+import { LogLevel } from 'vscode';
 
-export const logs: string[] = [];
+const logChannel: vscode.LogOutputChannel = vscode.window.createOutputChannel(
+    'Mythic Scribe Logs',
+    {
+        log: true,
+    }
+);
 
-export enum LogType {
-    INFO = 'INFO',
-    WARNING = 'WARNING',
-    ERROR = 'ERROR',
-    DEBUG = 'DEBUG',
-}
-
-const virtualLogsUri = vscode.Uri.parse('mythicscribelogs:/Logs.log');
-let updateTimeout: NodeJS.Timeout;
-export let isLogFileOpen = false;
+export const logFunction = [
+    () => {},
+    logChannel.append.bind(logChannel),
+    logChannel.debug.bind(logChannel),
+    logChannel.info.bind(logChannel),
+    logChannel.warn.bind(logChannel),
+    logChannel.error.bind(logChannel),
+];
 
 /**
- * Logs a message with metadata including a timestamp and log type.
+ * Logs a message with metadata including a timestamp and log level.
  *
  * @param message - The message to log.
- * @param type - The type of log message. Defaults to `LogType.DEBUG`.
+ * @param type - The log level of the message. Defaults to `LogLevel.Trace`.
  */
-export function logMetadata(message: string, type: LogType = LogType.DEBUG) {
-    const timestamp = new Date().toISOString();
-    const formattedMessage = `[${timestamp}] ${type}: ${message}`;
-    logs.push(formattedMessage);
-    if (!isLogFileOpen) {
-        return;
-    }
-    clearTimeout(updateTimeout);
-    updateTimeout = setTimeout(() => {
-        logsProvider.update(vscode.Uri.parse('mythicscribelogs:/Logs.log'));
-    }, 500);
+export function logMetadata(message: string, type: LogLevel = LogLevel.Trace) {
+    logFunction[type](message);
 }
 
 /**
@@ -42,27 +37,8 @@ export function logMetadata(message: string, type: LogType = LogType.DEBUG) {
  * @returns {Promise<void>} A promise that resolves when the logs are opened.
  */
 export async function openLogs(): Promise<void> {
-    logsProvider.update(virtualLogsUri);
-    vscode.window.showTextDocument(virtualLogsUri, { preview: false }).then(() => {
-        isLogFileOpen = true;
-        return;
-    });
+    logChannel.show();
 }
-
-class LogsProvider implements vscode.TextDocumentContentProvider {
-    private _onDidChange = new vscode.EventEmitter<vscode.Uri>();
-    onDidChange?: vscode.Event<vscode.Uri> = this._onDidChange.event;
-
-    provideTextDocumentContent(): vscode.ProviderResult<string> {
-        return logs.join('\n');
-    }
-
-    public update(uri: vscode.Uri) {
-        this._onDidChange.fire(uri);
-    }
-}
-export const logsProvider = new LogsProvider();
-
 /**
  * Logs an error message to the Visual Studio Code error message window.
  *
@@ -77,7 +53,7 @@ export function logError(error: unknown, message: string = 'An error occurred:')
         finalMessage = message + '\n' + String(error);
     }
     vscode.window.showErrorMessage(finalMessage);
-    logMetadata(finalMessage, LogType.ERROR);
+    logMetadata(finalMessage, LogLevel.Error);
 }
 
 /**
@@ -86,7 +62,7 @@ export function logError(error: unknown, message: string = 'An error occurred:')
  * @param message - The warning message to be displayed.
  */
 export function logWarning(message: string) {
-    logMetadata(message, LogType.WARNING);
+    logMetadata(message, LogLevel.Warning);
     vscode.window.showWarningMessage(message);
 }
 
@@ -96,12 +72,12 @@ export function logWarning(message: string) {
  * @param message - The message to be displayed.
  */
 export function logInfo(message: string) {
-    logMetadata(message, LogType.INFO);
+    logMetadata(message, LogLevel.Info);
     vscode.window.showInformationMessage(message);
 }
 
 export function logDebug(...message: string[]) {
-    logMetadata(message.join(' '), LogType.DEBUG);
+    logMetadata(message.join(' '), LogLevel.Debug);
 }
 
 /**
@@ -117,11 +93,11 @@ export async function showInfoMessageWithOptions(
     message: string,
     options: { [key: string]: string }
 ) {
-    logMetadata(message, LogType.DEBUG);
+    logMetadata(message, LogLevel.Info);
     const optionKeys = Object.keys(options);
     return vscode.window.showInformationMessage(message, ...optionKeys).then((selected) => {
         if (selected) {
-            logMetadata(`Opened ${options[selected]}`, LogType.DEBUG);
+            logMetadata(`Opened ${options[selected]}`, LogLevel.Info);
             return vscode.env.openExternal(vscode.Uri.parse(options[selected]));
         }
         return undefined;
