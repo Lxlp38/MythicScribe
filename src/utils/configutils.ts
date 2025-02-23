@@ -1,23 +1,38 @@
 import * as vscode from 'vscode';
 
-import { logDebug, logWarning } from './logger';
+import { ScribeLogger } from './logger';
 
 const configCache = {
     enableMythicScriptSyntax: undefined as boolean | undefined,
     datasetSource: undefined as string | undefined,
     attributeAliasUsedInCompletions: undefined as string | undefined,
 };
+
+let configChangeFunctionCallbacks: (() => void)[] | undefined;
+function getConfigChangeFunctionCallbacks() {
+    if (configChangeFunctionCallbacks === undefined) {
+        configChangeFunctionCallbacks = [];
+    }
+    return configChangeFunctionCallbacks;
+}
+export function addConfigChangeFunction(callback: () => void) {
+    getConfigChangeFunctionCallbacks().push(callback);
+}
+
 function resetConfigCache() {
-    logDebug('Resetting config cache');
+    ScribeLogger.debug('Resetting config cache');
     for (const key in configCache) {
         if (configCache.hasOwnProperty(key)) {
             configCache[key as keyof typeof configCache] = undefined;
         }
     }
+    for (const callback of getConfigChangeFunctionCallbacks()) {
+        callback();
+    }
 }
 export const configHandler = vscode.workspace.onDidChangeConfiguration((e) => {
     if (e.affectsConfiguration('MythicScribe')) {
-        logDebug('MythicScribe configuration changed');
+        ScribeLogger.debug('MythicScribe configuration changed');
         resetConfigCache();
     }
 });
@@ -102,6 +117,29 @@ export function getAttributeAliasUsedInCompletions() {
     return configCache.attributeAliasUsedInCompletions;
 }
 
+export function getLogLevel() {
+    function fromStringToNumber(string: string) {
+        switch (string) {
+            case 'error':
+                return vscode.LogLevel.Error;
+            case 'warn':
+                return vscode.LogLevel.Warning;
+            case 'info':
+                return vscode.LogLevel.Info;
+            case 'debug':
+                return vscode.LogLevel.Debug;
+            default:
+                return vscode.LogLevel.Debug;
+        }
+    }
+
+    const returnValue = vscode.workspace.getConfiguration('MythicScribe').get('logLevel');
+    if (typeof returnValue === 'string') {
+        return fromStringToNumber(returnValue);
+    }
+    return undefined;
+}
+
 const MinecraftVersions = ['latest', '1.21.3', '1.21.1', '1.20.6', '1.20.5', '1.20.4', '1.19.4'];
 export function minecraftVersion() {
     const config = vscode.workspace.getConfiguration('MythicScribe');
@@ -123,7 +161,7 @@ export function minecraftVersion() {
 
         // Update the value only in the defined scope
         config.update('minecraftVersion', undefined, target);
-        logWarning(
+        ScribeLogger.warn(
             'Invalid MythicScribe.minecraftVersion configuration value detected. Resetting to "latest".'
         );
         return 'latest';

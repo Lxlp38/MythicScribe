@@ -1,31 +1,87 @@
 import * as vscode from 'vscode';
 import { LogLevel } from 'vscode';
 
-const logChannel: vscode.LogOutputChannel = vscode.window.createOutputChannel(
-    'Mythic Scribe Logs',
-    {
-        log: true,
+import { addConfigChangeFunction, getLogLevel } from './configutils';
+
+export class Logger {
+    private outputChannel: vscode.OutputChannel;
+    private logLevel: LogLevel;
+
+    constructor(outputChannelName: string, defaultLogLevel: LogLevel = LogLevel.Info) {
+        this.outputChannel = vscode.window.createOutputChannel(outputChannelName, 'log');
+        this.logLevel = defaultLogLevel;
+        addConfigChangeFunction(this.updateLogLevel.bind(this));
     }
-);
 
-export const logFunction = [
-    () => {},
-    logChannel.append.bind(logChannel),
-    logChannel.debug.bind(logChannel),
-    logChannel.info.bind(logChannel),
-    logChannel.warn.bind(logChannel),
-    logChannel.error.bind(logChannel),
-];
+    setLogLevel(logLevel: LogLevel): void {
+        this.logLevel = logLevel;
+    }
 
-/**
- * Logs a message with metadata including a timestamp and log level.
- *
- * @param message - The message to log.
- * @param type - The log level of the message. Defaults to `LogLevel.Trace`.
- */
-export function logMetadata(message: string, type: LogLevel = LogLevel.Trace) {
-    logFunction[type](message);
+    updateLogLevel(): void {
+        this.debug('Log level update has been called');
+        const logLevel = getLogLevel();
+        if (logLevel !== undefined) {
+            this.debug(
+                `Updating log level from`,
+                LogLevel[this.logLevel],
+                'to',
+                LogLevel[logLevel]
+            );
+            this.setLogLevel(logLevel);
+        }
+    }
+
+    log(message: string, level: LogLevel = LogLevel.Info): void {
+        if (level >= this.logLevel) {
+            const timestamp = new Date().toISOString();
+            const levelString = LogLevel[level];
+            this.outputChannel.appendLine(`${timestamp} [${levelString}] ${message}`);
+        }
+    }
+
+    debug(...message: string[]): void {
+        this.log(message.join(' '), LogLevel.Debug);
+    }
+
+    info(message: string): void {
+        this.log(message, LogLevel.Info);
+        vscode.window.showInformationMessage(message);
+    }
+
+    warn(message: string): void {
+        this.log(message, LogLevel.Warning);
+        vscode.window.showWarningMessage(message);
+    }
+
+    error(error: unknown, message: string = 'An error occurred:'): void {
+        let finalMessage: string;
+        if (error instanceof Error) {
+            finalMessage = message + '\n' + error.message + '\n' + error.stack;
+            this.processError(message, error);
+        } else {
+            finalMessage = message + '\n' + String(error);
+            this.processError(finalMessage);
+        }
+        vscode.window.showErrorMessage(finalMessage);
+    }
+
+    private processError(message: string, error?: Error) {
+        this.log(message, LogLevel.Error);
+        if (!error) {
+            return;
+        }
+        this.log(error.message, LogLevel.Error);
+        if (error.stack) {
+            this.log(error.stack, LogLevel.Error);
+        }
+    }
+
+    show(): void {
+        this.outputChannel.show();
+    }
 }
+
+export const ScribeLogger = new Logger('MythicScribe', getLogLevel() || LogLevel.Debug);
 
 /**
  * Opens the logs by updating the logs provider and displaying the logs in a text document.
@@ -37,47 +93,7 @@ export function logMetadata(message: string, type: LogLevel = LogLevel.Trace) {
  * @returns {Promise<void>} A promise that resolves when the logs are opened.
  */
 export async function openLogs(): Promise<void> {
-    logChannel.show();
-}
-/**
- * Logs an error message to the Visual Studio Code error message window.
- *
- * @param error - The error object or value to log. If it's an instance of `Error`, its message will be included.
- * @param message - An optional custom message to display before the error message. Defaults to 'An error occurred'.
- */
-export function logError(error: unknown, message: string = 'An error occurred:') {
-    let finalMessage: string;
-    if (error instanceof Error) {
-        finalMessage = message + '\n' + error.message + '\n' + error.stack;
-    } else {
-        finalMessage = message + '\n' + String(error);
-    }
-    vscode.window.showErrorMessage(finalMessage);
-    logMetadata(finalMessage, LogLevel.Error);
-}
-
-/**
- * Displays a warning message to the user.
- *
- * @param message - The warning message to be displayed.
- */
-export function logWarning(message: string) {
-    logMetadata(message, LogLevel.Warning);
-    vscode.window.showWarningMessage(message);
-}
-
-/**
- * Displays an informational message to the user.
- *
- * @param message - The message to be displayed.
- */
-export function logInfo(message: string) {
-    logMetadata(message, LogLevel.Info);
-    vscode.window.showInformationMessage(message);
-}
-
-export function logDebug(...message: string[]) {
-    logMetadata(message.join(' '), LogLevel.Debug);
+    ScribeLogger.show();
 }
 
 /**
@@ -93,11 +109,11 @@ export async function showInfoMessageWithOptions(
     message: string,
     options: { [key: string]: string }
 ) {
-    logMetadata(message, LogLevel.Info);
+    ScribeLogger.info(message);
     const optionKeys = Object.keys(options);
     return vscode.window.showInformationMessage(message, ...optionKeys).then((selected) => {
         if (selected) {
-            logMetadata(`Opened ${options[selected]}`, LogLevel.Info);
+            ScribeLogger.info(`Opened ${options[selected]}`);
             return vscode.env.openExternal(vscode.Uri.parse(options[selected]));
         }
         return undefined;

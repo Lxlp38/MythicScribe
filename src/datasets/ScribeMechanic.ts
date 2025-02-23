@@ -3,7 +3,7 @@ import * as vscode from 'vscode';
 import { checkEnabledPlugin, finallySetEnabledPlugins } from '../utils/configutils';
 import { AbstractScribeEnum, ScribeEnumHandler } from './ScribeEnum';
 import { loadCustomDatasets } from './customDatasets';
-import { logDebug } from '../utils/logger';
+import { ScribeLogger } from '../utils/logger';
 import { ctx } from '../MythicScribe';
 import { fetchAllFilesInDirectory } from '../utils/uriutils';
 import { ScribeClonableFile } from './datasets';
@@ -46,7 +46,7 @@ export abstract class AbstractScribeMechanicRegistry {
             this.mechanicsClassMap.set(m.class.toLowerCase(), mythicMechanic);
         });
         const uniquePlugins = Array.from(new Set(mechanic.map((m) => m.plugin))).sort();
-        logDebug(
+        ScribeLogger.debug(
             `Added ${mechanic.length} ${this.type}s. The registered Plugins are: ${uniquePlugins.join(', ')}`
         );
     }
@@ -296,6 +296,6 @@ export const ScribeMechanicHandler = {
         Object.values(ScribeMechanicHandler.registry).forEach((registry) =>
             registry.emptyDatasets()
         );
-        logDebug('Mechanic Datasets emptied');
+        ScribeLogger.debug('Mechanic Datasets emptied');
     },
 };

@@ -28,7 +28,6 @@ import { ctx } from '../MythicScribe';
 import { genericFileCompletionProvider } from '../completions/filecompletions/genericFileCompletionProvider';
 import { DroptableFileObject } from '../schemas/droptableFileObjects';
 import { StatFileObjects } from '../schemas/statfileObjects';
-import { logDebug } from '../utils/logger';
 
 type SubscriptionFunction = () => vscode.Disposable;
 type SubscriptionCondition = () => boolean;
@@ -70,7 +69,6 @@ export abstract class AbstractScribeSubscription {
      */
     enableAll() {
         this.disposeAll();
-        logDebug('Enabling all subscriptions for', this.constructor.name);
         this.childSubscriptionHandlers.forEach((handler) => {
             handler.enableAll();
         });
@@ -98,7 +96,6 @@ export abstract class AbstractScribeSubscription {
         if (this.subscriptions.length === 0) {
             return;
         }
-        logDebug('Disposing all subscriptions for', this.constructor.name);
         this.subscriptions.forEach((subscription) => {
             subscription.dispose();
         });

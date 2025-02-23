@@ -76,6 +76,7 @@ It provides hover text with information about the pointed object and offers auto
 * `MythicScribe.attributeAliasUsedInCompletions`: Which attribute alias to use for completions. Defaults to `main`
 * `MythicScribe.customDatasets`: Which Custom Dataset to load and from where
 * `MythicScribe.enabledPlugins`: Enable / Disable specific plugins' datasets. Plugin names are added automatically
+* `MythicScribe.logLevel`: Set the Extension's log level
 
 
 # Extension Commands

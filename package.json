@@ -306,6 +306,19 @@
           "description": "Regexes used against each document's file path: if it matches, the document will be considered as being a specific type of file, enabling specific functionalities.",
           "title": "File Type Recognition Regexes"
         }
+        ,
+        "MythicScribe.logLevel": {
+          "title": "Log Level",
+          "type": "string",
+          "enum": [
+            "error",
+            "warn",
+            "info",
+            "debug"
+          ],
+          "default": "debug",
+          "description": "The level of logging to use for MythicScribe."
+        }
       }
     }
   },
