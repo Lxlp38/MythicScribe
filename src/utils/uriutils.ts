@@ -12,7 +12,7 @@ import { GITHUB_BASE_URL } from '../datasets/datasets';
  */
 export async function ensureComponentsExist(uri: vscode.Uri): Promise<void> {
     async function fileExistancePipeline() {
-        const parentDir = vscode.Uri.file(path.dirname(uri.fsPath));
+        const parentDir = vscode.Uri.joinPath(uri, '..');
         await ensureDirectoryExists(parentDir);
         await ensureFileExists(uri);
     }
@@ -74,7 +74,8 @@ const extensionRoot = vscode.extensions.getExtension('lxlp.mythicscribe')!.exten
  * @returns The relative path from the extension root to the given local path.
  */
 export function getRelativePath(localPath: string): string {
-    return path.relative(extensionRoot, localPath);
+    const relativePath = localPath.replace(extensionRoot, '');
+    return relativePath;
 }
 
 /**
@@ -123,5 +124,15 @@ export async function fetchAllFilesInDirectory(directorypath: vscode.Uri): Promi
 export async function isFileEmpty(uri: vscode.Uri) {
     return vscode.workspace.fs.stat(uri).then((stat) => {
         return stat.size === 0;
+    });
+}
+
+
+export function logFileTree(uri: vscode.Uri) {
+    vscode.workspace.fs.readDirectory(uri).then((files) => {
+        files.forEach((file) => {
+            const [name, type] = file;
+            ScribeLogger.debug(name, type.toString());
+        });
     });
 }

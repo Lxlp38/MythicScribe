@@ -3,6 +3,7 @@
 const fs = require('fs');
 const path = require('path'); // Add this line to import the 'path' module
 
+const polyfill = require('@esbuild-plugins/node-globals-polyfill');
 const esbuild = require('esbuild');
 
 const production = process.argv.includes('--production');
@@ -53,20 +54,44 @@ async function main() {
         sourcemap: !production,
         sourcesContent: false,
         platform: 'node',
-        outdir: 'out',
+        outdir: 'out/node',
+        external: ['vscode'],
+        logLevel: 'silent',
+        plugins: [esbuildProblemMatcherPlugin, copyFixturesPlugin],
+    });
+    const web = await esbuild.context({
+        entryPoints: ['src/MythicScribe.ts'],
+        bundle: true,
+        format: 'cjs',
+        minify: production,
+        sourcemap: !production,
+        sourcesContent: false,
+        platform: 'browser',
+        outfile: 'out/web/MythicScribe.js',
         external: ['vscode'],
         logLevel: 'silent',
         plugins: [
-            /* add to the end of plugins array */
             esbuildProblemMatcherPlugin,
-            copyFixturesPlugin,
+            polyfill.NodeGlobalsPolyfillPlugin({
+                process: true,
+                buffer: true,
+            }),
         ],
+        alias: {
+            path: 'path-browserify',
+        },
+        define: {
+            global: 'globalThis',
+        },
     });
+
     if (watch) {
         await ctx.watch();
     } else {
         await ctx.rebuild();
         await ctx.dispose();
+        await web.rebuild();
+        await web.dispose();
     }
 }
 

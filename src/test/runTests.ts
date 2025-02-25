@@ -7,7 +7,7 @@ async function main() {
     console.log('Running tests...');
     try {
         // The folder containing the extension's package.json
-        const extensionDevelopmentPath = path.resolve(__dirname, '../../');
+        const extensionDevelopmentPath = path.resolve(__dirname, '../../../');
 
         // The path to the test runner script
         const extensionTestsPath = path.resolve(__dirname, './index');

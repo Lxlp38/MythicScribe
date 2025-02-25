@@ -23,7 +23,7 @@ suite('Extension Test Suite', () => {
 
     test('Extension should provide MythicScript syntax highlighting', async () => {
         const uri = vscode.Uri.file(
-            path.resolve(__dirname, '../fixtures/mythicmobs/skills/testskill.yml')
+            path.resolve(__dirname, '../../../test/fixtures/mythicmobs/skills/testskill.yml')
         );
         const document = await vscode.workspace.openTextDocument(uri);
         await vscode.window.showTextDocument(document);
@@ -43,7 +43,7 @@ suite('Extension Test Suite', () => {
 
     test('Extension should provide completions for MythicScript', async () => {
         const uri = vscode.Uri.file(
-            path.resolve(__dirname, '../fixtures/mythicmobs/skills/testskill.yml')
+            path.resolve(__dirname, '../../../test/fixtures/mythicmobs/skills/testskill.yml')
         );
         const document = await vscode.workspace.openTextDocument(uri);
 

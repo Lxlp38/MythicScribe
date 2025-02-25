@@ -25,6 +25,7 @@ export abstract class AbstractScribeMechanicRegistry {
     readonly regex: RegExp = /null/;
     readonly type: ObjectType = ObjectType.MECHANIC;
     readonly folder: string = 'null';
+    readonly files: string[] = [];
     private mechanics: MythicMechanic[] = [];
     private mechanicsNameMap: Map<string, MythicMechanic> = new Map();
     private mechanicsClassMap: Map<string, MythicMechanic> = new Map();
@@ -74,7 +75,10 @@ export abstract class AbstractScribeMechanicRegistry {
     }
 
     async loadDataset() {
-        const direcoryFiles = await fetchAllFilesInDirectory(vscode.Uri.parse(this.localPath));
+        //const direcoryFiles = await fetchAllFilesInDirectory(vscode.Uri.parse(this.localPath));
+        const direcoryFiles = this.files.map((file) =>
+            vscode.Uri.joinPath(ctx.extensionUri, 'data', this.folder, file + '.json')
+        );
         const files = direcoryFiles.map((file) => new ScribeClonableFile<Mechanic>(file));
         files.forEach((file) => file.get().then((data) => this.addMechanic(...data)));
         return;
@@ -84,16 +88,19 @@ class ScribeMechanicRegistry extends AbstractScribeMechanicRegistry {
     readonly regex: RegExp = /(?<=\s- )[\w:]+/gm;
     readonly type: ObjectType = ObjectType.MECHANIC;
     readonly folder: string = 'mechanics';
+    readonly files = ['MythicMobs', 'MythicCrucible', 'ModelEngine'];
 }
 class ScribeTargeterRegistry extends AbstractScribeMechanicRegistry {
     readonly regex: RegExp = /(?<=[\s=]@)[\w:]+/gm;
     readonly type: ObjectType = ObjectType.TARGETER;
     readonly folder: string = 'targeters';
+    readonly files = ['MythicMobs', 'MythicCrucible', 'ModelEngine'];
 }
 class ScribeConditionRegistry extends AbstractScribeMechanicRegistry {
     readonly regex: RegExp = /(?<=[\s\|\&][-\(\|\&\)] )[\w:]+/gm;
     readonly type: ObjectType = ObjectType.CONDITION;
     readonly folder: string = 'conditions';
+    readonly files = ['MythicMobs', 'ModelEngine'];
 }
 class ScribeInlineConditionRegistry extends ScribeConditionRegistry {
     readonly regex: RegExp = /(?<=\s(\?)|(\?!)|(\?~)|(\?~!))[\w:]+/gm;
@@ -115,16 +122,19 @@ class ScribeTriggerRegistry extends AbstractScribeMechanicRegistry {
     readonly regex: RegExp = /(?<=\s~)on[\w:]+/gm;
     readonly type: ObjectType = ObjectType.TRIGGER;
     readonly folder: string = 'triggers';
+    readonly files = ['MythicMobs', 'MythicCrucible'];
 }
 class ScribeAITargetRegistry extends AbstractScribeMechanicRegistry {
     readonly regex: RegExp = /(?<=\s- )[\w:]+/gm;
     readonly type: ObjectType = ObjectType.AITARGET;
     readonly folder: string = 'aitargets';
+    readonly files = ['MythicMobs'];
 }
 class ScribeAIGoalRegistry extends AbstractScribeMechanicRegistry {
     readonly regex: RegExp = /(?<=\s- )[\w:]+/gm;
     readonly type: ObjectType = ObjectType.AIGOAL;
     readonly folder: string = 'aigoals';
+    readonly files = ['MythicMobs'];
 }
 
 export interface Mechanic {

@@ -15,5 +15,5 @@
 		 "noUnusedParameters": true,  /* Report errors on unused parameters. */
 	},
 	"exclude": ["node_modules"],
-	"include": ["src/**/*", "src/test/**/*"] // Explicitly include test files
+	"include": ["src/**/*", "src/test/**/*"]
 }

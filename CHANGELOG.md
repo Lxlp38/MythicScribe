@@ -3,6 +3,7 @@
 ## [Unreleased]
 
 ### Added
+- VSCode-Web Compatibility
 - Color Picker for the relevant attributes and options. Also added special "Color" and "RGBColor" enums
 - `MythicScribe.enabledPlugins` configuration to set enabled / disabled datasets based on the plugin implementing them
 - Hovers and Completions for Droptables
@@ -12,9 +13,10 @@
 - "Bundle" Custom Datasets
   - A Bundle json can contain references to any number of other custom dataset types
   - When a Bundle is imported as a File and not as a Link, the path of other File-sourced datasets is interpreted as "relative" to the Bundle's location
-- `Open Logs` command to open the Extension's logs. For debugging purposes
 - `Remove Custom Dataset` command to remove a Custom Dataset without having to edit the settings file
 - `Create Bundle Dataset` command to create a Bundle Dataset based on other Custom Datasets you have previously added
+- `Load Datasets` command to reload the datasets manually
+- `Open Logs` command to open the Extension's logs. For debugging purposes
 
 ### Changed
 - Refactor of how Mechanics/Enums and Subscriptions are handled
@@ -22,7 +24,7 @@
 - "Local File" value inside customDatasets configurations is now called "File". When the old value is detected, it is automatically migrated
 - Formatter now removes whitespace from empty lines  
 - Datasets: Now both Mechanics and Enums can be downloaded and cached from the Repository when using the GitHub dataset source.
-- Slightly increased performances when operation on very big files
+- Slightly increased performances when operating on very big files
 
 ### Fixed
 - Error with the formatter's indentation when the config file actual indentation is 1

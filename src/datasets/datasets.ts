@@ -64,12 +64,8 @@ export class ScribeClonableFile<T> {
 
             const data = await fetchJsonFromURL<T>(this.githubUri.toString());
             if (data) {
-                await ensureComponentsExist(this.edcsUri);
-                await vscode.workspace.fs.writeFile(
-                    this.edcsUri,
-                    Buffer.from(JSON.stringify(data))
-                );
-                ScribeLogger.debug('Updated EDCS:', this.edcsUri.fsPath);
+                ScribeLogger.debug("Feched data:", data.length.toString());
+                this.updateEDCS(data);
                 return data;
             }
             ScribeLogger.debug(
@@ -79,6 +75,12 @@ export class ScribeClonableFile<T> {
             );
         }
         return fetchJsonFromLocalFile<T>(this.localUri);
+    }
+
+    private async updateEDCS(data: T[]) {
+        await ensureComponentsExist(this.edcsUri);
+        await vscode.workspace.fs.writeFile(this.edcsUri, Buffer.from(JSON.stringify(data)));
+        ScribeLogger.debug('Updated EDCS:', this.edcsUri.fsPath);
     }
 
     async getModifiedTime(uri: vscode.Uri): Promise<number | null> {
@@ -180,12 +182,12 @@ export async function fetchJsonFromURL<T>(url: string): Promise<T[]> {
 }
 
 export async function fetchJsonFromLocalFile<T>(filepath: vscode.Uri): Promise<T[]> {
-    ScribeLogger.debug(`Fetching JSON data from local file: ${filepath.fsPath}`);
+    ScribeLogger.debug(`Fetching JSON data from local file: ${filepath}`);
     try {
         const fileData = await vscode.workspace.fs.readFile(filepath);
         return JSON.parse(Buffer.from(fileData).toString('utf8'));
     } catch (error) {
-        ScribeLogger.error(error);
+        ScribeLogger.error(error, `Couldn't fetch JSON data from local file ${filepath}`);
         return [];
     }
 }

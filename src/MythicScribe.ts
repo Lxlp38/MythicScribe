@@ -12,12 +12,16 @@ import { ScribeLogger, openLogs, showInfoMessageWithOptions } from './utils/logg
 import { clearExtensionDatasetsClonedStorage, loadDatasets, setEdcsUri } from './datasets/datasets';
 import { configHandler } from './utils/configutils';
 import { scribeColorProvider } from './color/colorprovider';
+import { logFileTree } from './utils/uriutils';
 
 export let ctx: vscode.ExtensionContext;
 
 export async function activate(context: vscode.ExtensionContext) {
     ctx = context;
     ScribeLogger.debug('Extension Activated');
+
+    ScribeLogger.debug('Setting up log file tree', context.extensionUri.toString());
+    logFileTree(context.extensionUri);
 
     setEdcsUri();
 
@@ -42,6 +46,7 @@ export async function activate(context: vscode.ExtensionContext) {
         vscode.commands.registerCommand('MythicScribe.removeCustomDataset', removeCustomDataset),
         vscode.commands.registerCommand('MythicScribe.createBundleDataset', createBundleDataset),
         vscode.commands.registerCommand('MythicScribe.openLogs', openLogs),
+        vscode.commands.registerCommand('MythicScribe.loadDatasets', loadDatasets),
 
         // Formatter
         getFormatter(),
