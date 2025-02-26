@@ -1,8 +1,8 @@
 import * as vscode from 'vscode';
 
 import { minecraftVersion } from '../utils/configutils';
-import { ScribeClonableFile, fetchJsonFromLocalFile, fetchJsonFromURL } from './datasets';
-import { ctx } from '../MythicScribe';
+import { ScribeCloneableFile, fetchJsonFromLocalFile, fetchJsonFromURL } from './datasets';
+import { ctx } from '../../MythicScribe';
 import { ScribeLogger } from '../utils/logger';
 import { Attribute } from './ScribeMechanic';
 import { insertColor } from '../color/colorprovider';
@@ -66,7 +66,7 @@ class LocalScribeEnum extends AbstractScribeEnum {
     constructor(identifier: string, path: string) {
         const localPath = vscode.Uri.joinPath(ctx.extensionUri, 'data', path).fsPath;
         super(identifier, localPath);
-        new ScribeClonableFile<Enum>(vscode.Uri.file(localPath))
+        new ScribeCloneableFile<Enum>(vscode.Uri.file(localPath))
             .get()
             .then((data) => this.updateDataset(data));
     }

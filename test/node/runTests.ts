@@ -11,7 +11,7 @@ async function main() {
 
         // The path to the test runner script
         const extensionTestsPath = path.resolve(__dirname, './index');
-
+        console.log(extensionDevelopmentPath, extensionTestsPath);
         // Run the tests
         await runTests({
             extensionDevelopmentPath,

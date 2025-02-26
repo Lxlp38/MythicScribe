@@ -35,7 +35,7 @@ function tokenizeComments(text: string): [string, string[]] {
     const comments: string[] = [];
 
     // Preserve the comments by replacing them temporarily with a placeholder
-    const textWithPlaceholders = text.replace(/#.*?(?=\n|$)/g, (match) => {
+    const textWithPlaceholders = text.replace(/(?<=\s)#.*?(?=\n|$)/g, (match) => {
         comments.push(match); // Store the comment
         return placeholder; // Replace the comment so it doesn't fuck up later on
     });
@@ -88,7 +88,7 @@ function formatMythicScript(text: string): string {
         lastKeyIndent += pre_squarebracketindent;
 
         const lineIndentation = line.indexOf(line.trim()) / INDENTATION_LEVEL;
-        if (line.replace(/#.*$/gm, '').trim().endsWith(':')) {
+        if (line.replaceAll(placeholder, '').trim().endsWith(':')) {
             lastKeyIndent = lineIndentation;
         }
 

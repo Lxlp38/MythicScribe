@@ -17,7 +17,7 @@ const copyFixturesPlugin = {
             if (production) {
                 return;
             }
-            const srcDir = path.resolve(__dirname, 'src/test/fixtures');
+            const srcDir = path.resolve(__dirname, 'test/fixtures');
             const outDir = path.resolve(__dirname, 'out/test/fixtures');
 
             // Ensure the output directory exists
@@ -38,12 +38,15 @@ async function main() {
         fs.rmSync(outDir, { recursive: true, force: true });
     }
 
-    const entryPoints = ['src/MythicScribe.ts'];
+    const entryPoints = [{ in: 'src/MythicScribe.ts', out: 'MythicScribe' }];
     if (!production) {
-        entryPoints.push('src/test/runTests.ts');
-        entryPoints.push('src/test/index.ts');
-        const testSuiteDir = path.resolve(__dirname, 'src/test/suite');
-        const testFiles = fs.readdirSync(testSuiteDir).map((file) => path.join(testSuiteDir, file));
+        entryPoints.push({ in: 'test/node/runTests.ts', out: 'test/runTests' });
+        entryPoints.push({ in: 'test/node/index.ts', out: 'test/index' });
+        const testSuiteDir = path.resolve(__dirname, 'test/node/suite');
+        const testFiles = fs.readdirSync(testSuiteDir).map((file) => ({
+            in: path.join(testSuiteDir, file),
+            out: path.join('test/suite', file.replace(/\.ts$/, '')),
+        }));
         entryPoints.push(...testFiles);
     }
     const ctx = await esbuild.context({
@@ -58,6 +61,13 @@ async function main() {
         external: ['vscode'],
         logLevel: 'silent',
         plugins: [esbuildProblemMatcherPlugin, copyFixturesPlugin],
+        alias: {
+            path: 'path-browserify',
+            '@declarations': '@node',
+        },
+        define: {
+            'process.env.RUNTIME_ENV': JSON.stringify('node'),
+        },
     });
     const web = await esbuild.context({
         entryPoints: ['src/MythicScribe.ts'],
@@ -79,9 +89,11 @@ async function main() {
         ],
         alias: {
             path: 'path-browserify',
+            '@declarations': '@web',
         },
         define: {
             global: 'globalThis',
+            'process.env.RUNTIME_ENV': JSON.stringify('web'),
         },
     });
 

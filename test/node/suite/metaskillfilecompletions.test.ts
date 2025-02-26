@@ -4,12 +4,12 @@ import path from 'path';
 import * as vscode from 'vscode';
 
 import { getDocumentLastPosition, waitForMythicScript } from '..';
-import { MetaskillFileObjects } from '../../schemas/metaskillFileObjects';
+import { MetaskillFileObjects } from '../../../src/common/schemas/metaskillFileObjects';
 
 suite('Metaskill File Completions', () => {
     setup(async () => {
         const uri = vscode.Uri.file(
-            path.resolve(__dirname, '../fixtures/mythicmobs/skills/testskill.yml')
+            path.resolve(__dirname, '../../../test/fixtures/mythicmobs/skills/testskill.yml')
         );
         const document = await vscode.workspace.openTextDocument(uri);
         await vscode.window.showTextDocument(document);

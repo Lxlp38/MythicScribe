@@ -127,12 +127,12 @@ export async function isFileEmpty(uri: vscode.Uri) {
     });
 }
 
-
 export function logFileTree(uri: vscode.Uri) {
     vscode.workspace.fs.readDirectory(uri).then((files) => {
         files.forEach((file) => {
             const [name, type] = file;
             ScribeLogger.debug(name, type.toString());
         });
+        return;
     });
 }

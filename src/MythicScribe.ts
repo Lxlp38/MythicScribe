@@ -1,27 +1,27 @@
 import * as vscode from 'vscode';
 
-import * as SubscriptionHelper from './subscriptions/SubscriptionHelper';
-import { getFormatter } from './formatter/formatter';
+import * as SubscriptionHelper from './common/subscriptions/SubscriptionHelper';
+import { getFormatter } from './common/formatter/formatter';
 import {
     addCustomDataset,
     createBundleDataset,
     removeCustomDataset,
-} from './datasets/customDatasets';
-import { doVersionSpecificMigrations } from './migration/migration';
-import { ScribeLogger, openLogs, showInfoMessageWithOptions } from './utils/logger';
-import { clearExtensionDatasetsClonedStorage, loadDatasets, setEdcsUri } from './datasets/datasets';
-import { configHandler } from './utils/configutils';
-import { scribeColorProvider } from './color/colorprovider';
-import { logFileTree } from './utils/uriutils';
+} from './common/datasets/customDatasets';
+import { doVersionSpecificMigrations } from './common/migration/migration';
+import { ScribeLogger, openLogs, showInfoMessageWithOptions } from './common/utils/logger';
+import {
+    clearExtensionDatasetsClonedStorage,
+    loadDatasets,
+    setEdcsUri,
+} from './common/datasets/datasets';
+import { configHandler } from './common/utils/configutils';
+import { scribeColorProvider } from './common/color/colorprovider';
 
 export let ctx: vscode.ExtensionContext;
 
 export async function activate(context: vscode.ExtensionContext) {
     ctx = context;
     ScribeLogger.debug('Extension Activated');
-
-    ScribeLogger.debug('Setting up log file tree', context.extensionUri.toString());
-    logFileTree(context.extensionUri);
 
     setEdcsUri();
 

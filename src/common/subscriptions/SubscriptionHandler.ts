@@ -24,7 +24,7 @@ import { ItemFileObjects } from '../schemas/itemfileObjects';
 import { MobFileObjects } from '../schemas/mobFileObjects';
 import { MetaskillFileObjects } from '../schemas/metaskillFileObjects';
 import { ScribeMechanicHandler } from '../datasets/ScribeMechanic';
-import { ctx } from '../MythicScribe';
+import { ctx } from '../../MythicScribe';
 import { genericFileCompletionProvider } from '../completions/filecompletions/genericFileCompletionProvider';
 import { DroptableFileObject } from '../schemas/droptableFileObjects';
 import { StatFileObjects } from '../schemas/statfileObjects';

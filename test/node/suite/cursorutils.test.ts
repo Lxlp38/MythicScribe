@@ -7,8 +7,8 @@ import {
     getObjectLinkedToAttribute,
     getAttributeLinkedToValue,
     fetchCursorSkills,
-} from '../../utils/cursorutils';
-import { AbstractScribeMechanicRegistry } from '../../datasets/ScribeMechanic';
+} from '../../../src/common/utils/cursorutils';
+import { AbstractScribeMechanicRegistry } from '../../../src/common/datasets/ScribeMechanic';
 
 suite('Cursor Utils', () => {
     let document: vscode.TextDocument;

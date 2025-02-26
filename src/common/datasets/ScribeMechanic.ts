@@ -1,12 +1,19 @@
 import * as vscode from 'vscode';
+// eslint-disable-next-line import/no-unresolved
+import { getDirectoryFiles } from '@declarations/datasets/ScribeMechanic';
 
 import { checkEnabledPlugin, finallySetEnabledPlugins } from '../utils/configutils';
 import { AbstractScribeEnum, ScribeEnumHandler } from './ScribeEnum';
 import { loadCustomDatasets } from './customDatasets';
 import { ScribeLogger } from '../utils/logger';
-import { ctx } from '../MythicScribe';
-import { fetchAllFilesInDirectory } from '../utils/uriutils';
-import { ScribeClonableFile } from './datasets';
+import { ctx } from '../../MythicScribe';
+import { ScribeCloneableFile } from './datasets';
+
+// console.log(process.env.RUNTIME_ENV);
+// const getDirectoryFiles = (process.env.RUNTIME_ENV) === 'node'
+//         ? require('../../node/datasets/ScribeMechanic').getDirectoryFiles
+//         : require('../../web/datasets/ScribeMechanic').getDirectoryFiles;
+//const getDirectoryFiles: (registry: AbstractScribeMechanicRegistry) => vscode.Uri[] = require(`../../${process.env.RUNTIME_ENV}/datasets/ScribeMechanic`).getDirectoryFiles
 
 export enum ObjectType {
     MECHANIC = 'Mechanic',
@@ -75,11 +82,12 @@ export abstract class AbstractScribeMechanicRegistry {
     }
 
     async loadDataset() {
-        //const direcoryFiles = await fetchAllFilesInDirectory(vscode.Uri.parse(this.localPath));
-        const direcoryFiles = this.files.map((file) =>
-            vscode.Uri.joinPath(ctx.extensionUri, 'data', this.folder, file + '.json')
-        );
-        const files = direcoryFiles.map((file) => new ScribeClonableFile<Mechanic>(file));
+        //const directoryFiles = await fetchAllFilesInDirectory(vscode.Uri.parse(this.localPath));
+        // const directoryFiles = this.files.map((file) =>
+        //     vscode.Uri.joinPath(ctx.extensionUri, 'data', this.folder, file + '.json')
+        // );
+        const directoryFiles: vscode.Uri[] = await getDirectoryFiles(this);
+        const files = directoryFiles.map((file) => new ScribeCloneableFile<Mechanic>(file));
         files.forEach((file) => file.get().then((data) => this.addMechanic(...data)));
         return;
     }

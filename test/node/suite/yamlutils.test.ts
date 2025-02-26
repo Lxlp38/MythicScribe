@@ -11,7 +11,7 @@ import {
     previousSymbol,
     isAfterComment,
     isEmptyLine,
-} from '../../utils/yamlutils';
+} from '../../../src/common/utils/yamlutils';
 
 suite('YAML Utils', () => {
     let document: vscode.TextDocument;

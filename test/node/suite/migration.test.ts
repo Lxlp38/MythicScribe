@@ -3,7 +3,7 @@ import * as assert from 'assert';
 import * as vscode from 'vscode';
 import * as sinon from 'sinon';
 
-import { migrateConfiguration, changeCustomDatasetsSource } from '../../migration/migration';
+import { migrateConfiguration, changeCustomDatasetsSource } from '../../../src/common/migration/migration';
 
 suite('Config Migration', () => {
     let getConfigurationStub: sinon.SinonStub;

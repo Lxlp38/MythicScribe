@@ -3,7 +3,7 @@ import * as vscode from 'vscode';
 import { ScribeLogger } from '../utils/logger';
 import { ScribeMechanicHandler } from './ScribeMechanic';
 import { ScribeEnumHandler } from './ScribeEnum';
-import { ctx } from '../MythicScribe';
+import { ctx } from '../../MythicScribe';
 import {
     convertLocalPathToGitHubUrl,
     ensureComponentsExist,
@@ -25,7 +25,7 @@ export function setEdcsUri() {
     edcsUri = vscode.Uri.joinPath(ctx.globalStorageUri, 'extensionDatasetsClonedStorage/');
 }
 
-export class ScribeClonableFile<T> {
+export class ScribeCloneableFile<T> {
     relativePath: string;
     localUri: vscode.Uri;
     githubUri: vscode.Uri;
@@ -37,7 +37,7 @@ export class ScribeClonableFile<T> {
         this.githubUri = vscode.Uri.parse(convertLocalPathToGitHubUrl(this.relativePath, true));
         this.edcsUri = vscode.Uri.joinPath(edcsUri, this.relativePath);
         ScribeLogger.trace(
-            'ScribeClonableFile',
+            'ScribeCloneableFile',
             JSON.stringify({
                 relativePath: this.relativePath,
                 localUri: this.localUri.fsPath,
@@ -64,7 +64,7 @@ export class ScribeClonableFile<T> {
 
             const data = await fetchJsonFromURL<T>(this.githubUri.toString());
             if (data) {
-                ScribeLogger.debug("Feched data:", data.length.toString());
+                ScribeLogger.debug('Feched data:', data.length.toString());
                 this.updateEDCS(data);
                 return data;
             }
@@ -166,10 +166,11 @@ async function fetchLatestCommitHash(): Promise<string | null> {
     }
 }
 
-export async function fetchJsonFromURL<T>(url: string): Promise<T[]> {
+export async function fetchJsonFromURL<T>(url: string | vscode.Uri): Promise<T[]> {
     ScribeLogger.debug(`Fetching JSON data from URL: ${url}`);
+    const actualurl = typeof url === 'string' ? url : url.toString();
     try {
-        const response = await fetch(url);
+        const response = await fetch(actualurl);
         if (response.ok) {
             return (await response.json()) as T[];
         } else {

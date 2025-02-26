@@ -9,10 +9,10 @@ import {
     retriggerCompletionsCommand,
     addMechanicCompletions,
     fileCompletions,
-} from '../../utils/completionhelper';
+} from '../../../src/common/utils/completionhelper';
 import { getStubDocument } from '..';
-import { MythicMechanic } from '../../datasets/ScribeMechanic';
-import { FileObjectMap, FileObjectTypes } from '../../objectInfos';
+import { MythicMechanic } from '../../../src/common/datasets/ScribeMechanic';
+import { FileObjectMap, FileObjectTypes } from '../../../src/common/objectInfos';
 
 suite('CompletionHelper', () => {
     suite('getListCompletionNeededSpaces', () => {
