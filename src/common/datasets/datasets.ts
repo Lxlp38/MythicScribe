@@ -166,11 +166,10 @@ async function fetchLatestCommitHash(): Promise<string | null> {
     }
 }
 
-export async function fetchJsonFromURL<T>(url: string | vscode.Uri): Promise<T[]> {
+export async function fetchJsonFromURL<T>(url: string): Promise<T[]> {
     ScribeLogger.debug(`Fetching JSON data from URL: ${url}`);
-    const actualurl = typeof url === 'string' ? url : url.toString();
     try {
-        const response = await fetch(actualurl);
+        const response = await fetch(url);
         if (response.ok) {
             return (await response.json()) as T[];
         } else {

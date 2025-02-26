@@ -51,24 +51,28 @@ export abstract class AbstractScribeEnum {
             this.addedAttributes = Array.from(attributeMap.values());
             ScribeLogger.debug(`Enum ${this.identifier} added ${attributeMap.size} attributes`);
         }
+        ScribeLogger.debug(
+            `Mapped Enum ${this.identifier.toLowerCase()}`,
+            'with',
+            this.getDataset().size.toString(),
+            'entries'
+        );
     }
 }
 
 export class StaticScribeEnum extends AbstractScribeEnum {
     constructor(identifier: string, path: string) {
         super(identifier, path);
-        fetchJsonFromLocalFile<Enum>(vscode.Uri.file(path)).then((data) =>
+        fetchJsonFromLocalFile<Enum>(vscode.Uri.parse(path)).then((data) =>
             this.updateDataset(data)
         );
     }
 }
 class LocalScribeEnum extends AbstractScribeEnum {
     constructor(identifier: string, path: string) {
-        const localPath = vscode.Uri.joinPath(ctx.extensionUri, 'data', path).fsPath;
-        super(identifier, localPath);
-        new ScribeCloneableFile<Enum>(vscode.Uri.file(localPath))
-            .get()
-            .then((data) => this.updateDataset(data));
+        const localPath = vscode.Uri.joinPath(ctx.extensionUri, 'data', path);
+        super(identifier, localPath.fsPath);
+        new ScribeCloneableFile<Enum>(localPath).get().then((data) => this.updateDataset(data));
     }
 }
 class VolatileScribeEnum extends LocalScribeEnum {
@@ -207,7 +211,7 @@ export const ScribeEnumHandler = {
     ) {
         const enumObject = new oclass(identifier.toLowerCase(), path);
         ScribeEnumHandler.enums.set(identifier.toLowerCase(), enumObject);
-        ScribeLogger.debug(`Added Enum ${identifier.toLowerCase()}`);
+        ScribeLogger.debug(`Registered Enum ${identifier}`);
     },
 
     addLambdaEnum(key: string, values: string[]) {
@@ -218,7 +222,7 @@ export const ScribeEnumHandler = {
         }
         const enumObject = new LambdaScribeEnum(key.toLowerCase(), values);
         ScribeEnumHandler.enums.set(key.toLowerCase(), enumObject);
-        ScribeLogger.debug(`Added Lambda Enum ${key}`);
+        ScribeLogger.debug(`Registered Lambda Enum ${key}`);
         return enumObject;
     },
 
@@ -230,7 +234,7 @@ export const ScribeEnumHandler = {
         }
         const enumObject = new ScriptedEnum(key.toLowerCase(), func);
         ScribeEnumHandler.enums.set(key.toLowerCase(), enumObject);
-        ScribeLogger.debug(`Added Scripted Enum ${key}`);
+        ScribeLogger.debug(`Registered Scripted Enum ${key}`);
         return enumObject;
     },
 

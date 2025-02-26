@@ -339,6 +339,10 @@ function getCustomDatasetConfiguration(
     return [config, existingMappings];
 }
 
+const customMechanicCache: {
+    data: Mechanic[];
+    type: keyof typeof CustomDatasetElementTypeAssociationMap;
+}[] = [];
 export async function loadCustomDatasets() {
     ScribeLogger.debug('loading custom datasets');
     const customDatasets = getCustomDatasetConfiguration()[1];
@@ -352,6 +356,9 @@ export async function loadCustomDatasets() {
     for (const entry of customDatasets) {
         await processCustomDatasetEntry(entry);
     }
+    for (const entry of customMechanicCache) {
+        processMechanicDatasetEntry(entry.data, entry.type);
+    }
 }
 
 async function processCustomDatasetEntry(entry: CustomDataset) {
@@ -362,18 +369,16 @@ async function processCustomDatasetEntry(entry: CustomDataset) {
         const fileName = entry.pathOrUrl.split('/').reverse()[0].replace('.json', '').toLowerCase();
         const ifFileSource = isFileSource(entry.source);
         const clazz = ifFileSource ? StaticScribeEnum : WebScribeEnum;
-        const path = ifFileSource
-            ? decodeURIComponent(vscode.Uri.parse(entry.pathOrUrl).path)
-            : entry.pathOrUrl;
+        const path = ifFileSource ? vscode.Uri.parse(entry.pathOrUrl).path : entry.pathOrUrl;
         ScribeEnumHandler.addEnum(clazz, fileName, path);
     } else if (isFileSource(entry.source)) {
         const localDataset = await fetchJsonFromLocalFile<Mechanic>(
             vscode.Uri.parse(entry.pathOrUrl)
         );
-        processMechanicDatasetEntry(localDataset, entry.elementType);
+        customMechanicCache.push({ data: localDataset, type: entry.elementType });
     } else if (isLinkSource(entry.source)) {
         const fileData = await fetchJsonFromURL<Mechanic>(entry.pathOrUrl);
-        processMechanicDatasetEntry(fileData, entry.elementType);
+        customMechanicCache.push({ data: fileData, type: entry.elementType });
     }
 }
 
