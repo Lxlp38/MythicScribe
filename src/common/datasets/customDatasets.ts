@@ -10,11 +10,13 @@ import { changeCustomDatasetsSource } from '../migration/migration';
 
 enum CustomDatasetElementType {
     BUNDLE = 'Bundle',
+    ENUM = 'Enum',
     MECHANIC = 'Mechanic',
     CONDITION = 'Condition',
     TRIGGER = 'Trigger',
     TARGETER = 'Targeter',
-    ENUM = 'Enum',
+    AIGOAL = 'AIGoal',
+    AITARGETER = 'AITarget',
 }
 
 enum CustomDatasetSource {
@@ -387,6 +389,8 @@ const CustomDatasetElementTypeAssociationMap = {
     [CustomDatasetElementType.TARGETER]: () => ScribeMechanicHandler.registry.targeter,
     [CustomDatasetElementType.CONDITION]: () => ScribeMechanicHandler.registry.condition,
     [CustomDatasetElementType.TRIGGER]: () => ScribeMechanicHandler.registry.trigger,
+    [CustomDatasetElementType.AIGOAL]: () => ScribeMechanicHandler.registry.aigoal,
+    [CustomDatasetElementType.AITARGETER]: () => ScribeMechanicHandler.registry.aitarget,
 };
 async function processMechanicDatasetEntry(
     entry: MechanicDataset,
