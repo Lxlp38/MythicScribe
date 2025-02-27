@@ -472,7 +472,8 @@ export const ItemFileObjects: FileObjectMap = {
                 type: FileObjectTypes.INTEGER,
             },
             Type: {
-                type: FileObjectTypes.STRING,
+                type: FileObjectTypes.ENUM,
+                dataset: 'FURNITURETYPE',
             },
             Health: {
                 type: FileObjectTypes.INTEGER,
@@ -505,7 +506,12 @@ export const ItemFileObjects: FileObjectMap = {
                 type: FileObjectTypes.BOOLEAN,
             },
             Placement: {
-                type: FileObjectTypes.STRING,
+                type: FileObjectTypes.ENUM,
+                dataset: 'FURNITUREPLACEMENT',
+            },
+            Orientation: {
+                type: FileObjectTypes.ENUM,
+                dataset: 'FURNITUREORIENTATION',
             },
             Diagonalable: {
                 type: FileObjectTypes.BOOLEAN,

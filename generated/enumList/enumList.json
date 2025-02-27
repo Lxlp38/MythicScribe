@@ -1,0 +1,252 @@
+[
+  {
+    "id": "paperattributeoperation",
+    "path": "mythic/attributesoperations.json",
+    "volatile": false
+  },
+  {
+    "id": "audience",
+    "path": "mythic/audiences.json",
+    "volatile": false
+  },
+  {
+    "id": "equipslot",
+    "path": "mythic/equipslot.json",
+    "volatile": false
+  },
+  {
+    "id": "fluid",
+    "path": "mythic/fluid.json",
+    "volatile": false
+  },
+  {
+    "id": "furnitureorientation",
+    "path": "mythic/furnitureorientation.json",
+    "volatile": false
+  },
+  {
+    "id": "furnitureplacement",
+    "path": "mythic/furnitureplacement.json",
+    "volatile": false
+  },
+  {
+    "id": "furnituretype",
+    "path": "mythic/furnituretype.json",
+    "volatile": false
+  },
+  {
+    "id": "glowcolor",
+    "path": "mythic/glowcolor.json",
+    "volatile": false
+  },
+  {
+    "id": "itemrarity",
+    "path": "mythic/itemrarity.json",
+    "volatile": false
+  },
+  {
+    "id": "mythicentity",
+    "path": "mythic/mythicentity.json",
+    "volatile": false
+  },
+  {
+    "id": "particle",
+    "path": "mythic/particles.json",
+    "volatile": false
+  },
+  {
+    "id": "scoreaction",
+    "path": "mythic/scoreaction.json",
+    "volatile": false
+  },
+  {
+    "id": "shape",
+    "path": "mythic/shape.json",
+    "volatile": false
+  },
+  {
+    "id": "statexecutionpoint",
+    "path": "mythic/statexecutionpoint.json",
+    "volatile": false
+  },
+  {
+    "id": "statmodifier",
+    "path": "mythic/statsmodifiers.json",
+    "volatile": false
+  },
+  {
+    "id": "stattype",
+    "path": "mythic/stattype.json",
+    "volatile": false
+  },
+  {
+    "id": "variablescope",
+    "path": "mythic/variablescope.json",
+    "volatile": false
+  },
+  {
+    "id": "addtrade_action",
+    "path": "mythic/mechanicScoped/addtrade_action.json",
+    "volatile": false
+  },
+  {
+    "id": "displaytransformation_action",
+    "path": "mythic/mechanicScoped/displaytransformation_action.json",
+    "volatile": false
+  },
+  {
+    "id": "modifyprojectile_action",
+    "path": "mythic/mechanicScoped/modifyprojectile_action.json",
+    "volatile": false
+  },
+  {
+    "id": "modifyprojectile_trait",
+    "path": "mythic/mechanicScoped/modifyprojectile_trait.json",
+    "volatile": false
+  },
+  {
+    "id": "projectile_bullettype",
+    "path": "mythic/mechanicScoped/projectile_bullettype.json",
+    "volatile": false
+  },
+  {
+    "id": "projectile_highaccuracymode",
+    "path": "mythic/mechanicScoped/projectile_highaccuracymode.json",
+    "volatile": false
+  },
+  {
+    "id": "projectile_type",
+    "path": "mythic/mechanicScoped/projectile_type.json",
+    "volatile": false
+  },
+  {
+    "id": "setmaxhealth_mode",
+    "path": "mythic/mechanicScoped/setmaxhealth_mode.json",
+    "volatile": false
+  },
+  {
+    "id": "shoot_type",
+    "path": "mythic/mechanicScoped/shoot_type.json",
+    "volatile": false
+  },
+  {
+    "id": "shootfireball_type",
+    "path": "mythic/mechanicScoped/shootfireball_type.json",
+    "volatile": false
+  },
+  {
+    "id": "threat_mode",
+    "path": "mythic/mechanicScoped/threat_mode.json",
+    "volatile": false
+  },
+  {
+    "id": "time_mode",
+    "path": "mythic/mechanicScoped/time_mode.json",
+    "volatile": false
+  },
+  {
+    "id": "velocity_mode",
+    "path": "mythic/mechanicScoped/velocity_mode.json",
+    "volatile": false
+  },
+  {
+    "id": "sound",
+    "path": "minecraft/sounds.json",
+    "volatile": true
+  },
+  {
+    "id": "paperattribute",
+    "path": "paper/attributes.json",
+    "volatile": true
+  },
+  {
+    "id": "barcolor",
+    "path": "paper/barcolor.json",
+    "volatile": true
+  },
+  {
+    "id": "barstyle",
+    "path": "paper/barstyle.json",
+    "volatile": true
+  },
+  {
+    "id": "blockface",
+    "path": "paper/blockface.json",
+    "volatile": true
+  },
+  {
+    "id": "damagecause",
+    "path": "paper/damagecause.json",
+    "volatile": true
+  },
+  {
+    "id": "dragonbattlerespawnphase",
+    "path": "paper/dragonbattlerespawnphase.json",
+    "volatile": true
+  },
+  {
+    "id": "dye",
+    "path": "paper/dye.json",
+    "volatile": true
+  },
+  {
+    "id": "enchantment",
+    "path": "paper/enchantment.json",
+    "volatile": true
+  },
+  {
+    "id": "enderdragonphase",
+    "path": "paper/enderdragonphase.json",
+    "volatile": true
+  },
+  {
+    "id": "entitytype",
+    "path": "paper/entitytype.json",
+    "volatile": true
+  },
+  {
+    "id": "fireworkeffecttype",
+    "path": "paper/fireworkeffecttype.json",
+    "volatile": true
+  },
+  {
+    "id": "fluidcollisionmode",
+    "path": "paper/fluidcollisionmode.json",
+    "volatile": true
+  },
+  {
+    "id": "gamemode",
+    "path": "paper/gamemode.json",
+    "volatile": true
+  },
+  {
+    "id": "itemflag",
+    "path": "paper/itemflag.json",
+    "volatile": true
+  },
+  {
+    "id": "material",
+    "path": "paper/material.json",
+    "volatile": true
+  },
+  {
+    "id": "potioneffecttype",
+    "path": "paper/potioneffecttype.json",
+    "volatile": true
+  },
+  {
+    "id": "soundcategory",
+    "path": "paper/soundcategory.json",
+    "volatile": true
+  },
+  {
+    "id": "spawnreason",
+    "path": "paper/spawnreason.json",
+    "volatile": true
+  },
+  {
+    "id": "worldenvironment",
+    "path": "paper/worldenvironment.json",
+    "volatile": true
+  }
+]

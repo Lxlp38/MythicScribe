@@ -1,0 +1,26 @@
+{
+    "ITEM_FRAME": {
+        "description": "The furniture will be handled as an item frame",
+        "name": [
+            "ITEMFRAME",
+            "FRAME"
+        ]
+    }
+    ,
+    "ARMOR_STAND": {
+        "description": "The furniture will be handled as an armor stand",
+        "name": [
+            "ARMORSTAND",
+            "STAND"
+        ]
+    },
+    "MODEL_ENGINE": {
+        "description": "The furniture will be handled as a model engine",
+        "name": [
+            "ME",
+            "MEG",
+            "MODEL",
+            "MODELENGINE"
+        ]
+    }
+}

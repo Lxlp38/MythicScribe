@@ -18,3 +18,5 @@ esbuild.js
 .eslintcache
 .idea/**
 qodana.yaml
+scripts/**
+generated/**

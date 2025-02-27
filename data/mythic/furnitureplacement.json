@@ -1,0 +1,17 @@
+{
+    "FLOOR": {
+        "description": "The item is to be placed like a block, on the ground or off the side face of a block"
+    },
+    "HANGING": {
+        "description": "The item is to be placed like an item frame or painting, against a wall"
+    },
+    "CEILING": {
+        "description": "The item is to be placed like glow berries, from a ceiling"
+    },
+    "WALL": {
+        "description": "Similar to hanging, except the item orientation (the invisible frame) is in the same orientation as FLOOR (on the bottom face of the block, facing up)"
+    },
+    "ANY": {
+        "description": "The item can be placed in any of the aforementioned placements options"
+    }
+}

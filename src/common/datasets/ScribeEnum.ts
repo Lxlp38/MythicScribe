@@ -6,6 +6,7 @@ import { ctx } from '../../MythicScribe';
 import { ScribeLogger } from '../utils/logger';
 import { Attribute } from './ScribeMechanic';
 import { insertColor } from '../color/colorprovider';
+import { local, volatile } from './enumSources';
 
 export abstract class AbstractScribeEnum {
     readonly identifier: string;
@@ -126,74 +127,25 @@ export const ScribeEnumHandler = {
     enumDefinitions: [
         {
             clazz: VolatileScribeEnum,
-            items: [
-                ['SOUND', 'minecraft/sounds.json'],
-                ['PAPERATTRIBUTE', 'paper/attributes.json'],
-                ['BARCOLOR', 'paper/barcolor.json'],
-                ['BARSTYLE', 'paper/barstyle.json'],
-                ['DAMAGECAUSE', 'paper/damagecause.json'],
-                ['DYE', 'paper/dye.json'],
-                ['MATERIAL', 'paper/material.json'],
-                ['BLOCKFACE', 'paper/blockface.json'],
-                ['ENDERDRAGONPHASE', 'paper/enderdragonphase.json'],
-                ['DRAGONBATTLERESPAWNPHASE', 'paper/dragonbattlerespawnphase.json'],
-                ['POTIONEFFECTTYPE', 'paper/potioneffecttype.json'],
-                ['WORLDENVIRONMENT', 'paper/worldenvironment.json'],
-                ['ENTITYTYPE', 'paper/entitytype.json'],
-                ['GAMEMODE', 'paper/gamemode.json'],
-                ['SPAWNREASON', 'paper/spawnreason.json'],
-                ['ENCHANTMENT', 'paper/enchantment.json'],
-                ['ITEMFLAG', 'paper/itemflag.json'],
-                ['SOUNDCATEGORY', 'paper/soundcategory.json'],
-                ['FIREWORKEFFECTTYPE', 'paper/fireworkeffecttype.json'],
-                ['FLUIDCOLLISIONMODE', 'paper/fluidcollisionmode.json'],
-            ],
+            items: volatile,
         },
         {
             clazz: LocalScribeEnum,
-            items: [
-                ['AUDIENCE', 'mythic/audiences.json'],
-                ['EQUIPSLOT', 'mythic/equipslot.json'],
-                ['PARTICLE', 'mythic/particles.json'],
-                ['STATMODIFIER', 'mythic/statsmodifiers.json'],
-                ['SHAPE', 'mythic/shape.json'],
-                ['FLUID', 'mythic/fluid.json'],
-                ['GLOWCOLOR', 'mythic/glowcolor.json'],
-                ['SCOREACTION', 'mythic/scoreaction.json'],
-                ['VARIABLESCOPE', 'mythic/variablescope.json'],
-                ['MYTHICENTITY', 'mythic/mythicentity.json'],
-                ['PAPERATTRIBUTEOPERATION', 'mythic/attributesoperations.json'],
-                ['STATTYPE', 'mythic/stattype.json'],
-                ['STATEXECUTIONPOINT', 'mythic/statexecutionpoint.json'],
-                ['ITEMRARITY', 'mythic/itemrarity.json'],
-                ['ADDTRADE_ACTION', 'mythic/mechanicScoped/addtrade_action.json'],
-                [
-                    'DISPLAYTRANSFORMATION_ACTION',
-                    'mythic/mechanicScoped/displaytransformation_action.json',
-                ],
-                ['PROJECTILE_BULLETTYPE', 'mythic/mechanicScoped/projectile_bullettype.json'],
-                ['PROJECTILE_TYPE', 'mythic/mechanicScoped/projectile_type.json'],
-                [
-                    'PROJECTILE_HIGHACCURACYMODE',
-                    'mythic/mechanicScoped/projectile_highaccuracymode.json',
-                ],
-                ['MODIFYPROJECTILE_ACTION', 'mythic/mechanicScoped/modifyprojectile_action.json'],
-                ['MODIFYPROJECTILE_TRAIT', 'mythic/mechanicScoped/modifyprojectile_trait.json'],
-                ['SETMAXHEALTH_MODE', 'mythic/mechanicScoped/setmaxhealth_mode.json'],
-                ['SHOOT_TYPE', 'mythic/mechanicScoped/shoot_type.json'],
-                ['SHOOTFIREBALL_TYPE', 'mythic/mechanicScoped/shootfireball_type.json'],
-                ['THREAT_MODE', 'mythic/mechanicScoped/threat_mode.json'],
-                ['TIME_MODE', 'mythic/mechanicScoped/time_mode.json'],
-                ['VELOCITY_MODE', 'mythic/mechanicScoped/velocity_mode.json'],
-            ],
+            items: local,
         },
     ],
 
     initializeEnums(): void {
         ScribeEnumHandler.emptyDatasets();
         this.enumDefinitions.forEach(({ clazz, items }) => {
-            items.forEach(([identifier, path]) => {
-                this.addEnum(clazz, identifier, path);
+            items.forEach((item) => {
+                if (Array.isArray(item)) {
+                    const [identifier, path] = item;
+                    this.addEnum(clazz, identifier, path);
+                } else {
+                    const identifier = item.split('/').pop()!.split('.')[0];
+                    this.addEnum(clazz, identifier, item);
+                }
             });
         });
         this.addScriptedEnum('Color', insertColor);
