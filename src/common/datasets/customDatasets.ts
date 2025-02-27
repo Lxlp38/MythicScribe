@@ -355,18 +355,17 @@ export async function loadCustomDatasets() {
             break;
         }
     }
-    for (const entry of customDatasets) {
-        await processCustomDatasetEntry(entry);
-    }
+    const promises = customDatasets.map((entry) => processCustomDatasetEntry(entry));
+    await Promise.all(promises);
     for (const entry of customMechanicCache) {
         processMechanicDatasetEntry(entry.data, entry.type);
     }
 }
 
-async function processCustomDatasetEntry(entry: CustomDataset) {
+async function processCustomDatasetEntry(entry: CustomDataset, stack?: string[]) {
     ScribeLogger.debug('Processing custom dataset entry:', entry.pathOrUrl);
     if (entry.elementType === CustomDatasetElementType.BUNDLE) {
-        await loadBundleDataset(entry);
+        await loadBundleDataset(entry, stack);
     } else if (entry.elementType === CustomDatasetElementType.ENUM) {
         const fileName = entry.pathOrUrl.split('/').reverse()[0].replace('.json', '').toLowerCase();
         const ifFileSource = isFileSource(entry.source);
@@ -401,8 +400,16 @@ async function processMechanicDatasetEntry(
     }
 }
 
-async function loadBundleDataset(dataset: CustomDataset) {
+async function loadBundleDataset(dataset: CustomDataset, stack: string[] = ['MythicScribe']) {
     ScribeLogger.debug('Loading bundle dataset:', dataset.pathOrUrl);
+
+    if (stack.includes(dataset.pathOrUrl)) {
+        stack.push(dataset.pathOrUrl);
+        ScribeLogger.error(stack.join(' -> '), 'Circular reference detected in Bundle:');
+        return;
+    }
+    stack.push(dataset.pathOrUrl);
+
     try {
         const configData: CustomDataset[] = [];
         const fileUri = vscode.Uri.parse(dataset.pathOrUrl);
@@ -431,7 +438,7 @@ async function loadBundleDataset(dataset: CustomDataset) {
                 entry.source = dataset.source;
                 ScribeLogger.debug('Resolved relative path:', entry.pathOrUrl);
             }
-            await processCustomDatasetEntry(entry);
+            await processCustomDatasetEntry(entry, stack);
         }
     } catch (error) {
         ScribeLogger.error(error);
