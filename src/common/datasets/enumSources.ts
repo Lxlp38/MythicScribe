@@ -1,4 +1,4 @@
-export const volatile = [
+export const volatileEnums = [
     ['SOUND', 'minecraft/sounds.json'],
     ['PAPERATTRIBUTE', 'paper/attributes.json'],
     'paper/barcolor.json',
@@ -21,7 +21,7 @@ export const volatile = [
     'paper/worldenvironment.json',
 ];
 
-export const local = [
+export const localEnums = [
     ['PAPERATTRIBUTEOPERATION', 'mythic/attributesoperations.json'],
     ['AUDIENCE', 'mythic/audiences.json'],
     'mythic/equipslot.json',
@@ -53,3 +53,8 @@ export const local = [
     'mythic/mechanicScoped/time_mode.json',
     'mythic/mechanicScoped/velocity_mode.json',
 ];
+
+export enum scriptedEnums {
+    Color = 'Color',
+    RGBColor = 'RGBColor',
+}

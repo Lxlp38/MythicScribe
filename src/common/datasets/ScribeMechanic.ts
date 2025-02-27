@@ -1,9 +1,8 @@
 import * as vscode from 'vscode';
 import { getDirectoryFiles } from '@declarations/datasets/ScribeMechanic';
 
-import { checkEnabledPlugin, finallySetEnabledPlugins } from '../utils/configutils';
+import { checkEnabledPlugin } from '../utils/configutils';
 import { AbstractScribeEnum, ScribeEnumHandler } from './ScribeEnum';
-import { loadCustomDatasets } from './customDatasets';
 import { ScribeLogger } from '../utils/logger';
 import { ctx } from '../../MythicScribe';
 import { ScribeCloneableFile } from './datasets';
@@ -159,7 +158,10 @@ export class MythicMechanic {
     protected myAttributes: MythicAttribute[] = [];
     protected attributes: MythicAttribute[] = [];
     protected attributesNameMap: Map<string, MythicAttribute> = new Map();
+
     private hasAlreadyInheritedAttributes: boolean = false;
+
+    public enumAddedAttributesCache: string[] = [];
 
     constructor(mechanic: Mechanic, registry: AbstractScribeMechanicRegistry) {
         this.registry = registry;
@@ -272,9 +274,28 @@ export class MythicAttribute {
                 : ScribeEnumHandler.getEnum(attribute.enum)
             : undefined;
 
-        if (this.enum) {
-            this.enum.getAttributes().forEach((attr) => mechanic.addAttribute(attr));
+        this.addEnumAttributesToMechanic(this.enum, mechanic);
+    }
+
+    private addEnumAttributesToMechanic(
+        scribeEnum: AbstractScribeEnum | undefined,
+        mechanic: MythicMechanic
+    ) {
+        if (!scribeEnum) {
+            return;
         }
+        const attributes = scribeEnum.getAttributes();
+        if (attributes.length === 0) {
+            return;
+        }
+        if (mechanic.enumAddedAttributesCache.includes(scribeEnum.identifier)) {
+            ScribeLogger.debug(
+                `Enum ${scribeEnum.identifier} has already added attributes to the mechanic ${mechanic.class}`
+            );
+            return;
+        }
+        mechanic.enumAddedAttributesCache.push(scribeEnum.identifier);
+        scribeEnum.getAttributes().forEach((attr) => mechanic.addAttribute(attr));
     }
 }
 
@@ -289,14 +310,12 @@ export const ScribeMechanicHandler = {
         aigoal: new ScribeAIGoalRegistry(),
     },
 
-    async loadDatasets() {
+    async loadMechanicDatasets() {
         ScribeMechanicHandler.emptyDatasets();
         const promises = Object.values(ScribeMechanicHandler.registry).map((registry) =>
             registry.loadDataset()
         );
         await Promise.all(promises);
-        await loadCustomDatasets();
-        finallySetEnabledPlugins();
     },
 
     emptyDatasets() {

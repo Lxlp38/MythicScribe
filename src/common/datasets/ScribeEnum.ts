@@ -6,7 +6,7 @@ import { ctx } from '../../MythicScribe';
 import { ScribeLogger } from '../utils/logger';
 import { Attribute } from './ScribeMechanic';
 import { insertColor } from '../color/colorprovider';
-import { local, volatile } from './enumSources';
+import { localEnums, scriptedEnums, volatileEnums } from './enumSources';
 
 export abstract class AbstractScribeEnum {
     readonly identifier: string;
@@ -127,15 +127,15 @@ export const ScribeEnumHandler = {
     enumDefinitions: [
         {
             clazz: VolatileScribeEnum,
-            items: volatile,
+            items: volatileEnums,
         },
         {
             clazz: LocalScribeEnum,
-            items: local,
+            items: localEnums,
         },
     ],
 
-    initializeEnums(): void {
+    loadEnumDatasets(): void {
         ScribeEnumHandler.emptyDatasets();
         this.enumDefinitions.forEach(({ clazz, items }) => {
             items.forEach((item) => {
@@ -148,15 +148,15 @@ export const ScribeEnumHandler = {
                 }
             });
         });
-        this.addScriptedEnum('Color', insertColor);
-        this.addScriptedEnum('RGBColor', () => insertColor(undefined, '255,255,255'));
+        this.addScriptedEnum(scriptedEnums.Color, insertColor);
+        this.addScriptedEnum(scriptedEnums.RGBColor, () => insertColor(undefined, '255,255,255'));
     },
 
     getEnum(identifier: string): AbstractScribeEnum | undefined {
         return ScribeEnumHandler.enums.get(identifier.toLowerCase());
     },
 
-    async addEnum(
+    addEnum(
         oclass: new (identifier: string, path: string) => AbstractScribeEnum,
         identifier: string,
         path: string
@@ -169,7 +169,7 @@ export const ScribeEnumHandler = {
     addLambdaEnum(key: string, values: string[]) {
         const maybeEnum = ScribeEnumHandler.enums.get(key.toLowerCase());
         if (maybeEnum) {
-            ScribeLogger.debug(`lamba Enum ${key} already exists`);
+            ScribeLogger.debug(`Lambda Enum ${key} already exists`);
             return maybeEnum;
         }
         const enumObject = new LambdaScribeEnum(key.toLowerCase(), values);

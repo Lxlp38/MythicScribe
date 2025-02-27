@@ -48,3 +48,5 @@ potioneffecttype
 soundcategory
 spawnreason
 worldenvironment
+color
+rgbcolor

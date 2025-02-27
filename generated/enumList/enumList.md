@@ -1,199 +1,207 @@
 # `paperattributeoperation`
 ### Path: `mythic/attributesoperations.json`
-### Volatile: `false`
+### Type: `Static`
 
 # `audience`
 ### Path: `mythic/audiences.json`
-### Volatile: `false`
+### Type: `Static`
 
 # `equipslot`
 ### Path: `mythic/equipslot.json`
-### Volatile: `false`
+### Type: `Static`
 
 # `fluid`
 ### Path: `mythic/fluid.json`
-### Volatile: `false`
+### Type: `Static`
 
 # `furnitureorientation`
 ### Path: `mythic/furnitureorientation.json`
-### Volatile: `false`
+### Type: `Static`
 
 # `furnitureplacement`
 ### Path: `mythic/furnitureplacement.json`
-### Volatile: `false`
+### Type: `Static`
 
 # `furnituretype`
 ### Path: `mythic/furnituretype.json`
-### Volatile: `false`
+### Type: `Static`
 
 # `glowcolor`
 ### Path: `mythic/glowcolor.json`
-### Volatile: `false`
+### Type: `Static`
 
 # `itemrarity`
 ### Path: `mythic/itemrarity.json`
-### Volatile: `false`
+### Type: `Static`
 
 # `mythicentity`
 ### Path: `mythic/mythicentity.json`
-### Volatile: `false`
+### Type: `Static`
 
 # `particle`
 ### Path: `mythic/particles.json`
-### Volatile: `false`
+### Type: `Static`
 
 # `scoreaction`
 ### Path: `mythic/scoreaction.json`
-### Volatile: `false`
+### Type: `Static`
 
 # `shape`
 ### Path: `mythic/shape.json`
-### Volatile: `false`
+### Type: `Static`
 
 # `statexecutionpoint`
 ### Path: `mythic/statexecutionpoint.json`
-### Volatile: `false`
+### Type: `Static`
 
 # `statmodifier`
 ### Path: `mythic/statsmodifiers.json`
-### Volatile: `false`
+### Type: `Static`
 
 # `stattype`
 ### Path: `mythic/stattype.json`
-### Volatile: `false`
+### Type: `Static`
 
 # `variablescope`
 ### Path: `mythic/variablescope.json`
-### Volatile: `false`
+### Type: `Static`
 
 # `addtrade_action`
 ### Path: `mythic/mechanicScoped/addtrade_action.json`
-### Volatile: `false`
+### Type: `Static`
 
 # `displaytransformation_action`
 ### Path: `mythic/mechanicScoped/displaytransformation_action.json`
-### Volatile: `false`
+### Type: `Static`
 
 # `modifyprojectile_action`
 ### Path: `mythic/mechanicScoped/modifyprojectile_action.json`
-### Volatile: `false`
+### Type: `Static`
 
 # `modifyprojectile_trait`
 ### Path: `mythic/mechanicScoped/modifyprojectile_trait.json`
-### Volatile: `false`
+### Type: `Static`
 
 # `projectile_bullettype`
 ### Path: `mythic/mechanicScoped/projectile_bullettype.json`
-### Volatile: `false`
+### Type: `Static`
 
 # `projectile_highaccuracymode`
 ### Path: `mythic/mechanicScoped/projectile_highaccuracymode.json`
-### Volatile: `false`
+### Type: `Static`
 
 # `projectile_type`
 ### Path: `mythic/mechanicScoped/projectile_type.json`
-### Volatile: `false`
+### Type: `Static`
 
 # `setmaxhealth_mode`
 ### Path: `mythic/mechanicScoped/setmaxhealth_mode.json`
-### Volatile: `false`
+### Type: `Static`
 
 # `shoot_type`
 ### Path: `mythic/mechanicScoped/shoot_type.json`
-### Volatile: `false`
+### Type: `Static`
 
 # `shootfireball_type`
 ### Path: `mythic/mechanicScoped/shootfireball_type.json`
-### Volatile: `false`
+### Type: `Static`
 
 # `threat_mode`
 ### Path: `mythic/mechanicScoped/threat_mode.json`
-### Volatile: `false`
+### Type: `Static`
 
 # `time_mode`
 ### Path: `mythic/mechanicScoped/time_mode.json`
-### Volatile: `false`
+### Type: `Static`
 
 # `velocity_mode`
 ### Path: `mythic/mechanicScoped/velocity_mode.json`
-### Volatile: `false`
+### Type: `Static`
 
 # `sound`
 ### Path: `minecraft/sounds.json`
-### Volatile: `true`
+### Type: `Volatile`
 
 # `paperattribute`
 ### Path: `paper/attributes.json`
-### Volatile: `true`
+### Type: `Volatile`
 
 # `barcolor`
 ### Path: `paper/barcolor.json`
-### Volatile: `true`
+### Type: `Volatile`
 
 # `barstyle`
 ### Path: `paper/barstyle.json`
-### Volatile: `true`
+### Type: `Volatile`
 
 # `blockface`
 ### Path: `paper/blockface.json`
-### Volatile: `true`
+### Type: `Volatile`
 
 # `damagecause`
 ### Path: `paper/damagecause.json`
-### Volatile: `true`
+### Type: `Volatile`
 
 # `dragonbattlerespawnphase`
 ### Path: `paper/dragonbattlerespawnphase.json`
-### Volatile: `true`
+### Type: `Volatile`
 
 # `dye`
 ### Path: `paper/dye.json`
-### Volatile: `true`
+### Type: `Volatile`
 
 # `enchantment`
 ### Path: `paper/enchantment.json`
-### Volatile: `true`
+### Type: `Volatile`
 
 # `enderdragonphase`
 ### Path: `paper/enderdragonphase.json`
-### Volatile: `true`
+### Type: `Volatile`
 
 # `entitytype`
 ### Path: `paper/entitytype.json`
-### Volatile: `true`
+### Type: `Volatile`
 
 # `fireworkeffecttype`
 ### Path: `paper/fireworkeffecttype.json`
-### Volatile: `true`
+### Type: `Volatile`
 
 # `fluidcollisionmode`
 ### Path: `paper/fluidcollisionmode.json`
-### Volatile: `true`
+### Type: `Volatile`
 
 # `gamemode`
 ### Path: `paper/gamemode.json`
-### Volatile: `true`
+### Type: `Volatile`
 
 # `itemflag`
 ### Path: `paper/itemflag.json`
-### Volatile: `true`
+### Type: `Volatile`
 
 # `material`
 ### Path: `paper/material.json`
-### Volatile: `true`
+### Type: `Volatile`
 
 # `potioneffecttype`
 ### Path: `paper/potioneffecttype.json`
-### Volatile: `true`
+### Type: `Volatile`
 
 # `soundcategory`
 ### Path: `paper/soundcategory.json`
-### Volatile: `true`
+### Type: `Volatile`
 
 # `spawnreason`
 ### Path: `paper/spawnreason.json`
-### Volatile: `true`
+### Type: `Volatile`
 
 # `worldenvironment`
 ### Path: `paper/worldenvironment.json`
-### Volatile: `true`
+### Type: `Volatile`
+
+# `color`
+### Path: `null`
+### Type: `Scripted`
+
+# `rgbcolor`
+### Path: `null`
+### Type: `Scripted`

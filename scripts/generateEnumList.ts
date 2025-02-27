@@ -1,13 +1,20 @@
 import * as fs from 'fs';
 import * as path from 'path';
-import { local, volatile } from '../src/common/datasets/enumSources';
+import { localEnums, volatileEnums, scriptedEnums } from '../src/common/datasets/enumSources';
 
-interface enumInfo { id: string, path: string, volatile: boolean }
+interface enumInfo { id: string, path: string, type: string }
+
+enum EnumType {
+    Static = 'Static',
+    Volatile = 'Volatile',
+    Scripted = 'Scripted'
+}
 
 export function generateEnumList() {
     const enums: enumInfo[] = [];
-    iterateOverEnum(enums, local, false);
-    iterateOverEnum(enums, volatile, true);
+    iterateOverEnum(enums, localEnums, EnumType.Static);
+    iterateOverEnum(enums, volatileEnums, EnumType.Volatile);
+    iterateOverEnum(enums, Object.keys(scriptedEnums), EnumType.Scripted);
 
     const outputPath = path.join(__dirname, '../generated/enumList/enumList');
     const outputPath_md = outputPath + '.md';
@@ -17,7 +24,7 @@ export function generateEnumList() {
     const mdFileContent = enums
         .map(
             (value) =>
-                `# \`${value.id}\`\n### Path: \`${value.path}\`\n### Volatile: \`${value.volatile}\``
+                `# \`${value.id}\`\n### Path: \`${value.type === EnumType.Scripted ? 'null' : value.path}\`\n### Type: \`${value.type}\``
         )
         .join('\n\n');
     
@@ -27,15 +34,16 @@ export function generateEnumList() {
     fs.writeFileSync(outputPath_txt, enums.map((value) => value.id).join('\n'), 'utf8');
 }
 
-function iterateOverEnum(list: enumInfo[], source: (string | string[])[], vol: boolean) {
+function iterateOverEnum(list: enumInfo[], source: (string | string[])[], type: string) {
     source.forEach((item) => {
         if (Array.isArray(item)) {
             const identifier = item[0];
             const path = item[1];
-            list.push({ id: identifier.toLowerCase(), path, volatile: vol });
+            list.push({ id: identifier.toLowerCase(), path, type: type });
         } else {
-            const identifier = item.split('/').pop()!.split('.')[0];
-            list.push({ id: identifier.toLowerCase(), path: item, volatile: vol });
+            let identifier = item.split('/').pop();
+            identifier = identifier ? identifier.split('.')[0] : item;
+            list.push({ id: identifier.toLowerCase(), path: item, type: type });
         }
     });
 }

@@ -10,7 +10,8 @@ import {
     getRelativePath,
     isFileEmpty,
 } from '../utils/uriutils';
-import { datasetSource } from '../utils/configutils';
+import { datasetSource, finallySetEnabledPlugins } from '../utils/configutils';
+import { loadCustomDatasets } from './customDatasets';
 
 // GitHub URL to fetch data from
 export const GITHUB_BASE_URL = 'https://raw.githubusercontent.com/Lxlp38/MythicScribe/master/';
@@ -127,8 +128,9 @@ export async function loadDatasets() {
         }
         await initializeExtensionDatasetsClonedStorage();
     }
-    ScribeEnumHandler.initializeEnums();
-    await ScribeMechanicHandler.loadDatasets();
+    ScribeEnumHandler.loadEnumDatasets();
+    await Promise.all([ScribeMechanicHandler.loadMechanicDatasets(), loadCustomDatasets()]);
+    finallySetEnabledPlugins();
 }
 
 async function initializeExtensionDatasetsClonedStorage() {
