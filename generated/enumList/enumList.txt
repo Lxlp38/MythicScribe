@@ -50,3 +50,8 @@ spawnreason
 worldenvironment
 color
 rgbcolor
+boolean
+mechanic
+targeter
+trigger
+condition

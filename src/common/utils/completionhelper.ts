@@ -145,7 +145,8 @@ function checkShouldPrefixCompleteExec(
 
 export function addMechanicCompletions(
     target: MythicMechanic[],
-    completionItems: vscode.CompletionItem[]
+    completionItems: vscode.CompletionItem[],
+    defaultExtend?: string
 ) {
     target.forEach((item: MythicMechanic) => {
         item.name.forEach((name: string) => {
@@ -155,8 +156,17 @@ export function addMechanicCompletions(
             );
             completionItem.detail = `${item.description}`;
             completionItem.kind = vscode.CompletionItemKind.Function;
-            completionItem.insertText = new vscode.SnippetString(name + '{$0}');
-            completionItem.command = retriggerCompletionsCommand;
+            if (
+                item.getMyAttributes().length === 0 &&
+                item.extends &&
+                defaultExtend &&
+                item.extends === defaultExtend
+            ) {
+                completionItem.insertText = new vscode.SnippetString(name);
+            } else {
+                completionItem.insertText = new vscode.SnippetString(name + '{$0}');
+                completionItem.command = retriggerCompletionsCommand;
+            }
             completionItems.push(completionItem);
         });
     });

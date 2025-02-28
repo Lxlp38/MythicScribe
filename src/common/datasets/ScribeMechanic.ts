@@ -26,6 +26,7 @@ export abstract class AbstractScribeMechanicRegistry {
     readonly type: ObjectType = ObjectType.MECHANIC;
     readonly folder: string = 'null';
     readonly files: string[] = [];
+    readonly defaultExtend: string | undefined = undefined;
     private mechanics: MythicMechanic[] = [];
     private mechanicsNameMap: Map<string, MythicMechanic> = new Map();
     private mechanicsClassMap: Map<string, MythicMechanic> = new Map();
@@ -49,7 +50,11 @@ export abstract class AbstractScribeMechanicRegistry {
                 this.mechanicsNameMap.set(name.toLowerCase(), mythicMechanic);
             });
             this.mechanicsClassMap.set(m.class.toLowerCase(), mythicMechanic);
-            addMechanicCompletions([mythicMechanic], this.mechanicCompletionsCache);
+            addMechanicCompletions(
+                [mythicMechanic],
+                this.mechanicCompletionsCache,
+                this.defaultExtend
+            );
         });
         const uniquePlugins = Array.from(new Set(mechanic.map((m) => m.plugin))).sort();
         Log.debug(
@@ -131,12 +136,14 @@ class ScribeAITargetRegistry extends AbstractScribeMechanicRegistry {
     readonly type: ObjectType = ObjectType.AITARGET;
     readonly folder: string = 'aitargets';
     readonly files = ['MythicMobs'];
+    readonly defaultExtend: string = 'WrappedPathfindingGoal';
 }
 class ScribeAIGoalRegistry extends AbstractScribeMechanicRegistry {
     readonly regex: RegExp = /(?<=\s- )[\w:]+/gm;
     readonly type: ObjectType = ObjectType.AIGOAL;
     readonly folder: string = 'aigoals';
     readonly files = ['MythicMobs'];
+    readonly defaultExtend: string = 'WrappedPathfindingGoal';
 }
 
 export interface Mechanic {

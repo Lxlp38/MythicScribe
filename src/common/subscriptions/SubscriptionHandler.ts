@@ -137,14 +137,12 @@ class MobScribeSubscription extends AbstractScribeSubscription {
                 () =>
                     mechanicCompletionProvider(
                         ScribeMechanicHandler.registry.aitarget,
-                        keyAliases.AITargetSelectors,
-                        'WrappedPathfindingGoal'
+                        keyAliases.AITargetSelectors
                     ),
                 () =>
                     mechanicCompletionProvider(
                         ScribeMechanicHandler.registry.aigoal,
-                        keyAliases.AIGoalSelectors,
-                        'WrappedPathfindingGoal'
+                        keyAliases.AIGoalSelectors
                     ),
                 () =>
                     hoverProvider(
@@ -193,8 +191,7 @@ class GlobalSubscriptionHandler extends AbstractScribeSubscription {
                 () =>
                     mechanicCompletionProvider(
                         ScribeMechanicHandler.registry.mechanic,
-                        keyAliases.Skills,
-                        ''
+                        keyAliases.Skills
                     ),
                 () => targeterCompletionProvider(),
             ],

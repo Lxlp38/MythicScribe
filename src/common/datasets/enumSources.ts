@@ -57,4 +57,9 @@ export const localEnums = [
 export enum scriptedEnums {
     Color = 'Color',
     RGBColor = 'RGBColor',
+    Boolean = 'Boolean',
+    Mechanic = 'Mechanic',
+    Targeter = 'Targeter',
+    Trigger = 'Trigger',
+    Condition = 'Condition',
 }

@@ -258,5 +258,30 @@
     "id": "rgbcolor",
     "path": "RGBColor",
     "type": "Scripted"
+  },
+  {
+    "id": "boolean",
+    "path": "Boolean",
+    "type": "Scripted"
+  },
+  {
+    "id": "mechanic",
+    "path": "Mechanic",
+    "type": "Scripted"
+  },
+  {
+    "id": "targeter",
+    "path": "Targeter",
+    "type": "Scripted"
+  },
+  {
+    "id": "trigger",
+    "path": "Trigger",
+    "type": "Scripted"
+  },
+  {
+    "id": "condition",
+    "path": "Condition",
+    "type": "Scripted"
   }
 ]

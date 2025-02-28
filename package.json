@@ -328,7 +328,7 @@
     }
   },
   "scripts": {
-    "compile": "npm run lint && npm run check-types && node esbuild.js",
+    "compile": "npm run lint && npm run check-types && node esbuild.js && npm run scripts",
     "check-types": "tsc --noEmit",
     "w": "npm-run-all -p watch:*",
     "watch:clear": "nodemon --quiet --watch src --ext ts --exec cls",
@@ -338,11 +338,11 @@
     "lint": "cls && eslint src/ --fix --cache && echo 'Linting done.'",
     "vscode:prepublish": "npm run package",
     "package": "npm run check-types && node esbuild.js --production",
-    "build": "node esbuild.js",
+    "build": "npm run compile",
     "buildtag": "npx @vscode/vsce package",
     "pretest": "npm run compile",
     "test": "node ./out/node/test/runTests.js",
-    "openweb": "vscode-test-web --extensionPath .",
+    "openweb": "npm run compile && vscode-test-web --extensionPath .",
     "scripts": "npx ts-node ./scripts/runScripts.ts"
   },
   "devDependencies": {

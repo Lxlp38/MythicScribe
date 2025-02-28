@@ -4,7 +4,7 @@ import { minecraftVersion } from '../utils/configutils';
 import { ScribeCloneableFile, fetchJsonFromLocalFile, fetchJsonFromURL } from './datasets';
 import { ctx } from '../../MythicScribe';
 import { Log } from '../utils/logger';
-import { Attribute } from './ScribeMechanic';
+import { AbstractScribeMechanicRegistry, Attribute, ScribeMechanicHandler } from './ScribeMechanic';
 import { insertColor } from '../color/colorprovider';
 import { localEnums, scriptedEnums, volatileEnums } from './enumSources';
 
@@ -100,13 +100,16 @@ class LambdaScribeEnum extends AbstractScribeEnum {
 }
 
 class ScriptedEnum extends AbstractScribeEnum {
-    private func: () => void;
-    constructor(identifier: string, func: () => void) {
+    private func: () => Map<string, EnumDatasetValue> | void;
+    constructor(identifier: string, func: () => Map<string, EnumDatasetValue> | void) {
         super(identifier, '');
         this.func = func;
     }
     getDataset(): Map<string, EnumDatasetValue> {
-        this.func();
+        const ret = this.func();
+        if (ret) {
+            return ret;
+        }
         return new Map();
     }
 }
@@ -148,8 +151,22 @@ export const ScribeEnumHandler = {
                 }
             });
         });
+
+        this.addLambdaEnum(scriptedEnums.Boolean, ['true', 'false']);
         this.addScriptedEnum(scriptedEnums.Color, insertColor);
         this.addScriptedEnum(scriptedEnums.RGBColor, () => insertColor(undefined, '255,255,255'));
+        this.addScriptedEnum(scriptedEnums.Mechanic, () =>
+            fromMechanicRegistryToEnum(ScribeMechanicHandler.registry.mechanic)
+        );
+        this.addScriptedEnum(scriptedEnums.Targeter, () =>
+            fromMechanicRegistryToEnum(ScribeMechanicHandler.registry.targeter)
+        );
+        this.addScriptedEnum(scriptedEnums.Trigger, () =>
+            fromMechanicRegistryToEnum(ScribeMechanicHandler.registry.trigger)
+        );
+        this.addScriptedEnum(scriptedEnums.Condition, () =>
+            fromMechanicRegistryToEnum(ScribeMechanicHandler.registry.condition)
+        );
     },
 
     getEnum(identifier: string): AbstractScribeEnum | undefined {
@@ -195,3 +212,13 @@ export const ScribeEnumHandler = {
         Log.debug('Emptied Enum Datasets');
     },
 };
+
+function fromMechanicRegistryToEnum(registry: AbstractScribeMechanicRegistry) {
+    const mechanics: Map<string, EnumDatasetValue> = new Map();
+    registry.getMechanics().forEach((mechanic) => {
+        mechanic.name.forEach((name) => {
+            mechanics.set(name, { description: mechanic.description });
+        });
+    });
+    return mechanics;
+}

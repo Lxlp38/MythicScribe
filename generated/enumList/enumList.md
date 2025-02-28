@@ -205,3 +205,23 @@
 # `rgbcolor`
 ### Path: `null`
 ### Type: `Scripted`
+
+# `boolean`
+### Path: `null`
+### Type: `Scripted`
+
+# `mechanic`
+### Path: `null`
+### Type: `Scripted`
+
+# `targeter`
+### Path: `null`
+### Type: `Scripted`
+
+# `trigger`
+### Path: `null`
+### Type: `Scripted`
+
+# `condition`
+### Path: `null`
+### Type: `Scripted`
