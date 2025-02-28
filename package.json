@@ -328,14 +328,14 @@
     }
   },
   "scripts": {
-    "compile": "npm run lint && npm run check-types && node esbuild.js && npm run scripts",
+    "compile": "npm run check-types && node esbuild.js && npm run scripts",
     "check-types": "tsc --noEmit",
     "w": "npm-run-all -p watch:*",
     "watch:clear": "nodemon --quiet --watch src --ext ts --exec cls",
     "watch:esbuild": "nodemon --quiet --watch src --ext ts --exec node esbuild.js",
     "watch:tsc": "nodemon --quiet --watch src --ext ts --exec tsc --noEmit",
     "watch:lint": "nodemon --quiet --watch src --ext ts --exec eslint src/ --fix --cache",
-    "lint": "cls && eslint src/ --fix --cache && echo 'Linting done.'",
+    "lint": "eslint src/ --fix --cache && echo 'Linting done.'",
     "vscode:prepublish": "npm run package",
     "package": "npm run check-types && node esbuild.js --production",
     "build": "npm run compile",
