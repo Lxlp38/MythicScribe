@@ -328,7 +328,7 @@
     }
   },
   "scripts": {
-    "compile": "npm run check-types && node esbuild.js && npm run scripts",
+    "compile": "npm run check-types && node esbuild.js",
     "check-types": "tsc --noEmit",
     "w": "npm-run-all -p watch:*",
     "watch:clear": "nodemon --quiet --watch src --ext ts --exec cls",

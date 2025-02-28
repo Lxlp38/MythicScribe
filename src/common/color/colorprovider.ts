@@ -7,7 +7,8 @@ interface DecorationMap {
 const decorationTypeMap = new Map<string, vscode.TextEditorDecorationType>();
 
 class ScribeColorProvider implements vscode.DocumentColorProvider {
-    readonly colorRegex = /(?<=\S)#[A-Fa-f0-9]{6}|(?<=Color: )(\d{1,3}),(\d{1,3}),(\d{1,3})/g;
+    readonly colorRegex =
+        /(?<=\S)#[A-Fa-f0-9]{6}(?![A-Fa-f0-9])|(?<=Color: )(\d{1,3}),(\d{1,3}),(\d{1,3})/g;
     private oldDecorations = new Map<string, DecorationMap>();
     private textEditorNeedsUpdate: boolean = false;
     private oldDecorationsMap = new Map<string, Map<string, DecorationMap>>();

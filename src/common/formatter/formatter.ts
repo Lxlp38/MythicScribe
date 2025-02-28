@@ -35,7 +35,7 @@ function tokenizeComments(text: string): [string, string[]] {
     const comments: string[] = [];
 
     // Preserve the comments by replacing them temporarily with a placeholder
-    const textWithPlaceholders = text.replace(/(?<=\s)#.*?(?=\n|$)/g, (match) => {
+    const textWithPlaceholders = text.replace(/(?<=\s)#.*?(?=\n|$)/gm, (match) => {
         comments.push(match); // Store the comment
         return placeholder; // Replace the comment so it doesn't fuck up later on
     });
