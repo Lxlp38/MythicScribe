@@ -88,7 +88,7 @@ export class Logger {
     }
 }
 
-export const ScribeLogger = new Logger('MythicScribe', getLogLevel() || LogLevel.Debug);
+export const Log = new Logger('MythicScribe', getLogLevel() || LogLevel.Debug);
 
 /**
  * Opens the logs by updating the logs provider and displaying the logs in a text document.
@@ -100,7 +100,7 @@ export const ScribeLogger = new Logger('MythicScribe', getLogLevel() || LogLevel
  * @returns {Promise<void>} A promise that resolves when the logs are opened.
  */
 export async function openLogs(): Promise<void> {
-    ScribeLogger.show();
+    Log.show();
 }
 
 /**
@@ -116,11 +116,11 @@ export async function showInfoMessageWithOptions(
     message: string,
     options: { [key: string]: string }
 ) {
-    ScribeLogger.info(message);
+    Log.info(message);
     const optionKeys = Object.keys(options);
     return vscode.window.showInformationMessage(message, ...optionKeys).then((selected) => {
         if (selected) {
-            ScribeLogger.info(`Opened ${options[selected]}`);
+            Log.info(`Opened ${options[selected]}`);
             return vscode.env.openExternal(vscode.Uri.parse(options[selected]));
         }
         return undefined;

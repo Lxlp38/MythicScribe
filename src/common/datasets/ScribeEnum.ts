@@ -3,7 +3,7 @@ import * as vscode from 'vscode';
 import { minecraftVersion } from '../utils/configutils';
 import { ScribeCloneableFile, fetchJsonFromLocalFile, fetchJsonFromURL } from './datasets';
 import { ctx } from '../../MythicScribe';
-import { ScribeLogger } from '../utils/logger';
+import { Log } from '../utils/logger';
 import { Attribute } from './ScribeMechanic';
 import { insertColor } from '../color/colorprovider';
 import { localEnums, scriptedEnums, volatileEnums } from './enumSources';
@@ -50,9 +50,9 @@ export abstract class AbstractScribeEnum {
         this.updateCommaList();
         if (attributeMap.size > 0) {
             this.addedAttributes = Array.from(attributeMap.values());
-            ScribeLogger.debug(`Enum ${this.identifier} added ${attributeMap.size} attributes`);
+            Log.debug(`Enum ${this.identifier} added ${attributeMap.size} attributes`);
         }
-        ScribeLogger.debug(
+        Log.debug(
             `Mapped Enum ${this.identifier.toLowerCase()}`,
             'with',
             this.getDataset().size.toString(),
@@ -163,35 +163,35 @@ export const ScribeEnumHandler = {
     ) {
         const enumObject = new oclass(identifier.toLowerCase(), path);
         ScribeEnumHandler.enums.set(identifier.toLowerCase(), enumObject);
-        ScribeLogger.debug(`Registered Enum ${identifier}`);
+        Log.debug(`Registered Enum ${identifier}`);
     },
 
     addLambdaEnum(key: string, values: string[]) {
         const maybeEnum = ScribeEnumHandler.enums.get(key.toLowerCase());
         if (maybeEnum) {
-            ScribeLogger.debug(`Lambda Enum ${key} already exists`);
+            Log.debug(`Lambda Enum ${key} already exists`);
             return maybeEnum;
         }
         const enumObject = new LambdaScribeEnum(key.toLowerCase(), values);
         ScribeEnumHandler.enums.set(key.toLowerCase(), enumObject);
-        ScribeLogger.debug(`Registered Lambda Enum ${key}`);
+        Log.debug(`Registered Lambda Enum ${key}`);
         return enumObject;
     },
 
     addScriptedEnum(key: string, func: () => void) {
         const maybeEnum = ScribeEnumHandler.enums.get(key.toLowerCase());
         if (maybeEnum) {
-            ScribeLogger.debug(`Scripted Enum ${key} already exists`);
+            Log.debug(`Scripted Enum ${key} already exists`);
             return maybeEnum;
         }
         const enumObject = new ScriptedEnum(key.toLowerCase(), func);
         ScribeEnumHandler.enums.set(key.toLowerCase(), enumObject);
-        ScribeLogger.debug(`Registered Scripted Enum ${key}`);
+        Log.debug(`Registered Scripted Enum ${key}`);
         return enumObject;
     },
 
     emptyDatasets(): void {
         ScribeEnumHandler.enums.clear();
-        ScribeLogger.debug('Emptied Enum Datasets');
+        Log.debug('Emptied Enum Datasets');
     },
 };

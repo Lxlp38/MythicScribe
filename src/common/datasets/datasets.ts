@@ -1,6 +1,6 @@
 import * as vscode from 'vscode';
 
-import { ScribeLogger } from '../utils/logger';
+import { Log } from '../utils/logger';
 import { ScribeMechanicHandler } from './ScribeMechanic';
 import { ScribeEnumHandler } from './ScribeEnum';
 import { ctx } from '../../MythicScribe';
@@ -26,6 +26,9 @@ export function setEdcsUri() {
     edcsUri = vscode.Uri.joinPath(ctx.globalStorageUri, 'extensionDatasetsClonedStorage/');
 }
 
+const datasetsLoadedEventEmitter = new vscode.EventEmitter<void>();
+export const onDatasetsLoaded = datasetsLoadedEventEmitter.event;
+
 export class ScribeCloneableFile<T> {
     relativePath: string;
     localUri: vscode.Uri;
@@ -37,7 +40,7 @@ export class ScribeCloneableFile<T> {
         this.localUri = uri;
         this.githubUri = vscode.Uri.parse(convertLocalPathToGitHubUrl(this.relativePath, true));
         this.edcsUri = vscode.Uri.joinPath(edcsUri, this.relativePath);
-        ScribeLogger.trace(
+        Log.trace(
             'ScribeCloneableFile',
             JSON.stringify({
                 relativePath: this.relativePath,
@@ -56,20 +59,16 @@ export class ScribeCloneableFile<T> {
                 if (!empty) {
                     return fetchJsonFromLocalFile<T>(this.edcsUri);
                 }
-                ScribeLogger.debug(
-                    'EDCS for',
-                    this.edcsUri.fsPath,
-                    'is empty, fetching data from GitHub'
-                );
+                Log.debug('EDCS for', this.edcsUri.fsPath, 'is empty, fetching data from GitHub');
             }
 
             const data = await fetchJsonFromURL<T>(this.githubUri.toString());
             if (data) {
-                ScribeLogger.debug('Feched data:', data.length.toString());
+                Log.debug('Feched data:', data.length.toString());
                 this.updateEDCS(data);
                 return data;
             }
-            ScribeLogger.debug(
+            Log.debug(
                 'Failed to fetch data from GitHub for',
                 this.githubUri.fsPath,
                 'returning local data'
@@ -81,7 +80,7 @@ export class ScribeCloneableFile<T> {
     private async updateEDCS(data: T[]) {
         await ensureComponentsExist(this.edcsUri);
         await vscode.workspace.fs.writeFile(this.edcsUri, Buffer.from(JSON.stringify(data)));
-        ScribeLogger.debug('Updated EDCS:', this.edcsUri.fsPath);
+        Log.debug('Updated EDCS:', this.edcsUri.fsPath);
     }
 
     async getModifiedTime(uri: vscode.Uri): Promise<number | null> {
@@ -89,7 +88,7 @@ export class ScribeCloneableFile<T> {
             const stats = await vscode.workspace.fs.stat(uri);
             return stats.mtime;
         } catch (error) {
-            ScribeLogger.error(error);
+            Log.error(error);
             return null;
         }
     }
@@ -109,13 +108,13 @@ export class ScribeCloneableFile<T> {
 }
 
 export async function loadDatasets() {
-    ScribeLogger.debug('Loading datasets from', datasetSource() || 'undefined');
+    Log.debug('Loading datasets from', datasetSource() || 'undefined');
 
     if (datasetSource() === 'GitHub') {
         const latestCommitHash = await fetchLatestCommitHash();
         const savedCommitHash = ctx.globalState.get<string>('latestCommitHash');
         if (!savedCommitHash || latestCommitHash !== savedCommitHash) {
-            ScribeLogger.debug(
+            Log.debug(
                 'Commit hash mismatch, updating datasets',
                 savedCommitHash?.toString() || 'undefined',
                 '-->',
@@ -124,22 +123,23 @@ export async function loadDatasets() {
             shouldUpdateGithubDatasets = true;
             ctx.globalState.update('latestCommitHash', latestCommitHash);
         } else {
-            ScribeLogger.debug('Commit hash matches, no need to update datasets');
+            Log.debug('Commit hash matches, no need to update datasets');
         }
         await initializeExtensionDatasetsClonedStorage();
     }
     ScribeEnumHandler.loadEnumDatasets();
     await Promise.all([ScribeMechanicHandler.loadMechanicDatasets(), loadCustomDatasets()]);
     finallySetEnabledPlugins();
+    datasetsLoadedEventEmitter.fire();
 }
 
 async function initializeExtensionDatasetsClonedStorage() {
-    ScribeLogger.debug('Initializing extension datasets cloned storage');
+    Log.debug('Initializing extension datasets cloned storage');
     await ensureComponentsExist(edcsUri);
 }
 
 export async function clearExtensionDatasetsClonedStorage() {
-    ScribeLogger.debug('Clearing extension datasets cloned storage');
+    Log.debug('Clearing extension datasets cloned storage');
     const exists = await vscode.workspace.fs.stat(edcsUri).then(
         () => true,
         () => false
@@ -152,24 +152,24 @@ export async function clearExtensionDatasetsClonedStorage() {
 
 // Function to fetch the latest commit hash from GitHub
 async function fetchLatestCommitHash(): Promise<string | null> {
-    ScribeLogger.debug('Fetching latest commit hash from GitHub');
+    Log.debug('Fetching latest commit hash from GitHub');
     try {
         const response = await fetch(GITHUB_API_COMMITS_URL);
         const data = await response.json();
         if (Array.isArray(data) && data.length > 0 && typeof data[0].sha === 'string') {
-            ScribeLogger.debug('Latest commit hash fetched: ' + data[0].sha);
+            Log.debug('Latest commit hash fetched: ' + data[0].sha);
             return data[0].sha;
         } else {
             throw new Error('Unexpected data format');
         }
     } catch (error) {
-        ScribeLogger.error(error);
+        Log.error(error);
         return null;
     }
 }
 
 export async function fetchJsonFromURL<T>(url: string): Promise<T[]> {
-    ScribeLogger.debug(`Fetching JSON data from URL: ${url}`);
+    Log.debug(`Fetching JSON data from URL: ${url}`);
     try {
         const response = await fetch(url);
         if (response.ok) {
@@ -178,18 +178,18 @@ export async function fetchJsonFromURL<T>(url: string): Promise<T[]> {
             throw new Error(`Failed to fetch JSON data from URL: ${url}`);
         }
     } catch (error) {
-        ScribeLogger.error(error);
+        Log.error(error);
         return [];
     }
 }
 
 export async function fetchJsonFromLocalFile<T>(filepath: vscode.Uri): Promise<T[]> {
-    ScribeLogger.debug(`Fetching JSON data from local file: ${filepath}`);
+    Log.debug(`Fetching JSON data from local file: ${filepath}`);
     try {
         const fileData = await vscode.workspace.fs.readFile(filepath);
         return JSON.parse(Buffer.from(fileData).toString('utf8'));
     } catch (error) {
-        ScribeLogger.error(error, `Couldn't fetch JSON data from local file ${filepath}`);
+        Log.error(error, `Couldn't fetch JSON data from local file ${filepath}`);
         return [];
     }
 }

@@ -1,16 +1,11 @@
 import * as vscode from 'vscode';
 
-import { MythicMechanic, AbstractScribeMechanicRegistry } from '../datasets/ScribeMechanic';
-import {
-    checkShouldKeyComplete,
-    getListCompletionNeededSpaces,
-    retriggerCompletionsCommand,
-} from '../utils/completionhelper';
+import { AbstractScribeMechanicRegistry } from '../datasets/ScribeMechanic';
+import { checkShouldKeyComplete, getListCompletionNeededSpaces } from '../utils/completionhelper';
 
 export function mechanicCompletionProvider(
     registry: AbstractScribeMechanicRegistry,
-    keyAliases: string[],
-    defaultextend: string
+    keyAliases: string[]
 ) {
     return vscode.languages.registerCompletionItemProvider(
         ['mythicscript', 'yaml'],
@@ -29,30 +24,16 @@ export function mechanicCompletionProvider(
                 if (space === undefined) {
                     return undefined;
                 }
+                if (space !== '') {
+                    const editor = vscode.window.activeTextEditor;
+                    if (editor === undefined) {
+                        return [];
+                    }
+                    editor.insertSnippet(new vscode.SnippetString(space));
+                    vscode.commands.executeCommand('editor.action.triggerSuggest');
+                }
 
-                const completionItems: vscode.CompletionItem[] = [];
-                registry.getMechanics().forEach((item: MythicMechanic) => {
-                    item.name.forEach((name: string) => {
-                        const completionItem = new vscode.CompletionItem(
-                            name,
-                            vscode.CompletionItemKind.Function
-                        );
-                        completionItem.detail = `${item.description}`;
-                        completionItem.kind = vscode.CompletionItemKind.Function;
-                        if (
-                            (!item.getAttributes() || item.getAttributes().length === 0) &&
-                            item.extends === defaultextend
-                        ) {
-                            completionItem.insertText = new vscode.SnippetString(space + name);
-                        } else {
-                            completionItem.insertText = new vscode.SnippetString(
-                                space + name + '{$0}'
-                            );
-                            completionItem.command = retriggerCompletionsCommand;
-                        }
-                        completionItems.push(completionItem);
-                    });
-                });
+                const completionItems: vscode.CompletionItem[] = registry.mechanicCompletions;
                 return completionItems;
             },
         },

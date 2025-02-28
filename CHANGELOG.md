@@ -56,12 +56,17 @@
 ]
 ```
 > Bundle.json Example  
+>
 > You can specify a "File" Source to fetch dataset from a local json file.
-> You can specify a "Link" source to fetch datasets from a link. The link must lead to a raw json object.  
+>
+> You can specify a "Link" source to fetch datasets from a link. The link must lead to a raw json object. 
+>
 > If the path starts with a `.`, it will be treated as a relative path, and will not require a source to be specified. For instance, "./test.json" and "./testenum.json" will be fetched from the same directory the bundle is in.
+> 
 > When a path is detected as being relative, its source will be considered to be the same to the bundle's. So, if the bundle is a local file, the relative path will be calculated from the bundle's location on the machine. If the bundle is a link, the relative path will be appended to the bundle's link directory
+> 
 >> Of course, you can add ".." and other/directories/toYourFile.json like you would do with any other relative path
-
+>
 > You can use the `Create Bundle Dataset` command to create a bundle dataset from other datasets you have imported  
 
 #### Example Bundle 2: LxMythicUtilities_DatasetBundle.json
@@ -96,7 +101,9 @@
  ┗ 📜LxMythicUtilities_DatasetBundle.json
 ```
 > This is the bundle that is being imported as a link from the Bundle.json Example
+> 
 > While it could use absolute paths just as well, it is using relative paths for its links
+> 
 > This means that it will work both if you import it like Bundle.json is doing, as a link, or if you clone the whole repository and import it as a local file, since the relative paths will resolve correctly in both cases 
 
 

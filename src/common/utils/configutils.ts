@@ -1,6 +1,6 @@
 import * as vscode from 'vscode';
 
-import { ScribeLogger } from './logger';
+import { Log } from './logger';
 
 const configCache = {
     enableMythicScriptSyntax: undefined as boolean | undefined,
@@ -20,7 +20,7 @@ export function addConfigChangeFunction(callback: () => void) {
 }
 
 function resetConfigCache() {
-    ScribeLogger.debug('Resetting config cache');
+    Log.debug('Resetting config cache');
     for (const key in configCache) {
         if (configCache.hasOwnProperty(key)) {
             configCache[key as keyof typeof configCache] = undefined;
@@ -32,7 +32,7 @@ function resetConfigCache() {
 }
 export const configHandler = vscode.workspace.onDidChangeConfiguration((e) => {
     if (e.affectsConfiguration('MythicScribe')) {
-        ScribeLogger.debug('MythicScribe configuration changed');
+        Log.debug('MythicScribe configuration changed');
         resetConfigCache();
     }
 });
@@ -163,7 +163,7 @@ export function minecraftVersion() {
 
         // Update the value only in the defined scope
         config.update('minecraftVersion', undefined, target);
-        ScribeLogger.warn(
+        Log.warn(
             'Invalid MythicScribe.minecraftVersion configuration value detected. Resetting to "latest".'
         );
         return 'latest';

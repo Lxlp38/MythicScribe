@@ -8,7 +8,7 @@ import {
     removeCustomDataset,
 } from './common/datasets/customDatasets';
 import { doVersionSpecificMigrations } from './common/migration/migration';
-import { ScribeLogger, openLogs, showInfoMessageWithOptions } from './common/utils/logger';
+import { Log, openLogs, showInfoMessageWithOptions } from './common/utils/logger';
 import {
     clearExtensionDatasetsClonedStorage,
     loadDatasets,
@@ -21,14 +21,14 @@ export let ctx: vscode.ExtensionContext;
 
 export async function activate(context: vscode.ExtensionContext) {
     ctx = context;
-    ScribeLogger.debug('Extension Activated');
+    Log.debug('Extension Activated');
 
     setEdcsUri();
 
     // Check if the extension has been updated
     if (checkExtensionVersion()) {
         // Run migrations if so
-        ScribeLogger.debug('Running migrations');
+        Log.debug('Running migrations');
         await Promise.all([doVersionSpecificMigrations(), clearExtensionDatasetsClonedStorage()]);
     }
 
@@ -65,7 +65,7 @@ export function deactivate() {}
 export function checkExtensionVersion(): boolean {
     const version = ctx.extension.packageJSON.version;
     const savedVersion = ctx.globalState.get<string>('extensionVersion');
-    ScribeLogger.debug(`Current version: ${version}, Saved version: ${savedVersion}`);
+    Log.debug(`Current version: ${version}, Saved version: ${savedVersion}`);
     if (version && version !== savedVersion) {
         const checkExtensionVersionOptions: { [key: string]: string } = {
             'Check Changelogs': 'https://github.com/Lxlp38/MythicScribe/blob/master/CHANGELOG.md',

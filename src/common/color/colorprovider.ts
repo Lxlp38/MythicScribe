@@ -7,7 +7,7 @@ interface DecorationMap {
 const decorationTypeMap = new Map<string, vscode.TextEditorDecorationType>();
 
 class ScribeColorProvider implements vscode.DocumentColorProvider {
-    readonly colorRegex = /(?<=\S)#[A-Fa-f0-9]{6}|(\d{1,3}),(\d{1,3}),(\d{1,3})/g;
+    readonly colorRegex = /(?<=\S)#[A-Fa-f0-9]{6}|(?<=Color: )(\d{1,3}),(\d{1,3}),(\d{1,3})/g;
     private oldDecorations = new Map<string, DecorationMap>();
     private textEditorNeedsUpdate: boolean = false;
     private oldDecorationsMap = new Map<string, Map<string, DecorationMap>>();
@@ -43,6 +43,10 @@ class ScribeColorProvider implements vscode.DocumentColorProvider {
 
     private createDecoration(color: vscode.Color) {
         return vscode.window.createTextEditorDecorationType({
+            light: {
+                color: 'rgba(0, 0, 0, 0.8)',
+            },
+            rangeBehavior: vscode.DecorationRangeBehavior.ClosedClosed,
             color: 'rgba(255, 255, 255, 0.8)',
             backgroundColor: this.fromColorToRGBA(color, '0.2'),
             border: '1px solid ' + this.fromColorToRGBA(color, '0.2'),

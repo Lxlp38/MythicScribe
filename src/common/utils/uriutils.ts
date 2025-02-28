@@ -2,7 +2,7 @@ import * as path from 'path';
 
 import * as vscode from 'vscode';
 
-import { ScribeLogger } from './logger';
+import { Log } from './logger';
 import { GITHUB_BASE_URL } from '../datasets/datasets';
 
 /**
@@ -21,14 +21,14 @@ export async function ensureComponentsExist(uri: vscode.Uri): Promise<void> {
             const isDirectory = uri.fsPath.endsWith(path.sep);
 
             if (isDirectory) {
-                ScribeLogger.debug('Creating directory at', uri.fsPath);
+                Log.debug('Creating directory at', uri.fsPath);
                 await ensureDirectoryExists(uri);
             } else {
-                ScribeLogger.debug('Creating file at', uri.fsPath);
+                Log.debug('Creating file at', uri.fsPath);
                 await fileExistancePipeline();
             }
         } else {
-            ScribeLogger.error(error, 'Error while ensuring components exist');
+            Log.error(error, 'Error while ensuring components exist');
         }
     });
 }
@@ -114,7 +114,7 @@ export function convertLocalPathToGitHubUrl(localPath: string, relative: boolean
  * ```
  */
 export async function fetchAllFilesInDirectory(directorypath: vscode.Uri): Promise<vscode.Uri[]> {
-    ScribeLogger.debug(`Fetching all files in directory: ${directorypath.fsPath}`);
+    Log.debug(`Fetching all files in directory: ${directorypath.fsPath}`);
     const files = (await vscode.workspace.fs.readDirectory(directorypath))
         .filter((file) => file[1] === vscode.FileType.File)
         .map((file) => vscode.Uri.joinPath(directorypath, file[0]));
@@ -131,7 +131,7 @@ export function logFileTree(uri: vscode.Uri) {
     vscode.workspace.fs.readDirectory(uri).then((files) => {
         files.forEach((file) => {
             const [name, type] = file;
-            ScribeLogger.debug(name, type.toString());
+            Log.debug(name, type.toString());
         });
         return;
     });

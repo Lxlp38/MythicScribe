@@ -94,9 +94,8 @@ export function conditionCompletionProvider() {
                     completionItems.push(closeBraceCompletion);
                 }
 
-                addMechanicCompletions(
-                    ScribeMechanicHandler.registry.condition.getMechanics(),
-                    completionItems
+                completionItems.push(
+                    ...ScribeMechanicHandler.registry.condition.mechanicCompletions
                 );
 
                 return completionItems;

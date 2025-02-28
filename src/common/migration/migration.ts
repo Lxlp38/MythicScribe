@@ -1,6 +1,6 @@
 import * as vscode from 'vscode';
 
-import { ScribeLogger } from '../utils/logger';
+import { Log } from '../utils/logger';
 
 export async function migrateConfiguration(oldKey: string, newkey: string, newProperty: string) {
     const config = vscode.workspace.getConfiguration('MythicScribe');
@@ -22,7 +22,7 @@ export async function migrateConfiguration(oldKey: string, newkey: string, newPr
             await config.update(newkey, fileRegex, target);
             await config.update(oldKey, undefined, target);
 
-            ScribeLogger.info(`Migrated ${oldKey} to ${newkey}`);
+            Log.info(`Migrated ${oldKey} to ${newkey}`);
         }
     }
 }

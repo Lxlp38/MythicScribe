@@ -1,7 +1,7 @@
 import * as vscode from 'vscode';
 
 import { keyAliases } from '../objectInfos';
-import { addMechanicCompletions, checkShouldComplete } from '../utils/completionhelper';
+import { checkShouldComplete } from '../utils/completionhelper';
 import { ScribeMechanicHandler } from '../datasets/ScribeMechanic';
 
 export function targeterCompletionProvider() {
@@ -18,12 +18,7 @@ export function targeterCompletionProvider() {
                     return undefined;
                 }
 
-                const completionItems: vscode.CompletionItem[] = [];
-
-                addMechanicCompletions(
-                    ScribeMechanicHandler.registry.targeter.getMechanics(),
-                    completionItems
-                );
+                const completionItems = ScribeMechanicHandler.registry.targeter.mechanicCompletions;
 
                 return completionItems;
             },

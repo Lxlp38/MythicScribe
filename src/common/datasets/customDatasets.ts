@@ -5,7 +5,7 @@ import * as vscode from 'vscode';
 import { Mechanic, MechanicDataset, ScribeMechanicHandler } from './ScribeMechanic';
 import { ScribeEnumHandler, StaticScribeEnum, WebScribeEnum } from './ScribeEnum';
 import { fetchJsonFromLocalFile, fetchJsonFromURL, loadDatasets } from './datasets';
-import { ScribeLogger } from '../utils/logger';
+import { Log } from '../utils/logger';
 import { changeCustomDatasetsSource } from '../migration/migration';
 
 enum CustomDatasetElementType {
@@ -36,7 +36,7 @@ const validConfigurationTargets = [
 ];
 
 export async function addCustomDataset() {
-    ScribeLogger.debug('addCustomDataset');
+    Log.debug('addCustomDataset');
     const scope = await vscode.window
         .showQuickPick(validConfigurationTargets, {
             placeHolder: 'Select the scope for which you want to add the custom dataset',
@@ -46,7 +46,7 @@ export async function addCustomDataset() {
     if (!scope) {
         return;
     }
-    ScribeLogger.debug('addCustomDataset scope:', scope.toString());
+    Log.debug('addCustomDataset scope:', scope.toString());
 
     const elementType = await vscode.window.showQuickPick(Object.values(CustomDatasetElementType), {
         placeHolder: 'Select an element type',
@@ -55,7 +55,7 @@ export async function addCustomDataset() {
     if (!elementType) {
         return;
     }
-    ScribeLogger.debug('addCustomDataset elementType:', elementType);
+    Log.debug('addCustomDataset elementType:', elementType);
 
     const source = await vscode.window.showQuickPick(Object.values(CustomDatasetSource), {
         placeHolder: 'Select a source',
@@ -64,7 +64,7 @@ export async function addCustomDataset() {
     if (!source) {
         return;
     }
-    ScribeLogger.debug('addCustomDataset source:', source);
+    Log.debug('addCustomDataset source:', source);
 
     if (source === CustomDatasetSource.LINK) {
         return addCustomDatasetFromLink(elementType, scope);
@@ -79,11 +79,11 @@ export async function addCustomDataset() {
     });
 
     if (!fileUri || fileUri.length === 0) {
-        ScribeLogger.info('No file selected.');
+        Log.info('No file selected.');
         return;
     }
 
-    ScribeLogger.debug('addCustomDataset fileUri:', fileUri.join(', '));
+    Log.debug('addCustomDataset fileUri:', fileUri.join(', '));
 
     //const mechanicDatasets : MechanicDataset[] = [];
     const validPaths: vscode.Uri[] = [];
@@ -96,20 +96,20 @@ export async function addCustomDataset() {
             if (elementType === CustomDatasetElementType.ENUM) {
                 const enumDataset = JSON.parse(data);
                 if (!enumDataset) {
-                    ScribeLogger.error(`Error parsing file content.`);
+                    Log.error(`Error parsing file content.`);
                     continue;
                 }
             } else {
                 const mechanicdataset = JSON.parse(data) as MechanicDataset;
                 if (!mechanicdataset) {
-                    ScribeLogger.error(`Error parsing file content.`);
+                    Log.error(`Error parsing file content.`);
                     continue;
                 }
             }
-            ScribeLogger.info(`File content loaded successfully.`);
+            Log.info(`File content loaded successfully.`);
             validPaths.push(uri);
         } catch (err) {
-            ScribeLogger.error(`Error reading file: ${err}`);
+            Log.error(`Error reading file: ${err}`);
         }
     }
 
@@ -124,7 +124,7 @@ export async function addCustomDataset() {
 }
 
 export async function removeCustomDataset() {
-    ScribeLogger.debug('removeCustomDataset');
+    Log.debug('removeCustomDataset');
     const scope = await vscode.window.showQuickPick(validConfigurationTargets, {
         placeHolder: 'Select the scope from which you want to remove the custom dataset',
     });
@@ -133,7 +133,7 @@ export async function removeCustomDataset() {
         return;
     }
 
-    ScribeLogger.debug('removeCustomDataset scope:', scope.target.toString());
+    Log.debug('removeCustomDataset scope:', scope.target.toString());
 
     const [config, existingMappings] = getCustomDatasetConfiguration(scope?.target);
 
@@ -155,7 +155,7 @@ export async function removeCustomDataset() {
         return;
     }
 
-    ScribeLogger.debug(
+    Log.debug(
         'removeCustomDataset datasets:',
         datasets.map((dataset) => dataset.pathOrUrl).join(', ')
     );
@@ -166,7 +166,7 @@ export async function removeCustomDataset() {
 
         await config.update('customDatasets', existingMappings, scope?.target);
 
-        ScribeLogger.info(`Mapping removed: ${dataset.elementType} -> ${dataset.pathOrUrl}`);
+        Log.info(`Mapping removed: ${dataset.elementType} -> ${dataset.pathOrUrl}`);
     });
 
     // Reload the datasets
@@ -174,7 +174,7 @@ export async function removeCustomDataset() {
 }
 
 export async function createBundleDataset() {
-    ScribeLogger.debug('createBundleDataset');
+    Log.debug('createBundleDataset');
     const scope = await vscode.window.showQuickPick(validConfigurationTargets, {
         placeHolder: 'Select the scope for which you want to create the bundle',
     });
@@ -183,7 +183,7 @@ export async function createBundleDataset() {
         return;
     }
 
-    ScribeLogger.debug('createBundleDataset scope:', scope.target.toString());
+    Log.debug('createBundleDataset scope:', scope.target.toString());
 
     const [config, existingMappings] = getCustomDatasetConfiguration(scope?.target);
 
@@ -213,7 +213,7 @@ export async function createBundleDataset() {
         return;
     }
 
-    ScribeLogger.debug('createBundleDataset bundlePath:', bundlePath.fsPath);
+    Log.debug('createBundleDataset bundlePath:', bundlePath.fsPath);
 
     const bundleData = datasets.map((dataset) => {
         if (dataset.mapping.source === CustomDatasetSource.FILE) {
@@ -241,7 +241,7 @@ export async function createBundleDataset() {
         return;
     }
 
-    ScribeLogger.debug(
+    Log.debug(
         'createBundleDataset shoudReplaceSelectedCustomDatasetsWithBundle:',
         shoudReplaceSelectedCustomDatasetsWithBundle.value.toString()
     );
@@ -251,9 +251,9 @@ export async function createBundleDataset() {
             bundlePath,
             Buffer.from(JSON.stringify(bundleData, null, 2), 'utf8')
         );
-        ScribeLogger.info(`Bundle created at: ${bundlePath.fsPath}`);
+        Log.info(`Bundle created at: ${bundlePath.fsPath}`);
     } catch (err) {
-        ScribeLogger.error(`Error creating bundle: ${err}`);
+        Log.error(`Error creating bundle: ${err}`);
         return;
     }
 
@@ -270,7 +270,7 @@ export async function createBundleDataset() {
             pathOrUrl: bundlePath.toString(),
         });
         await config.update('customDatasets', existingMappings, scope?.target);
-        ScribeLogger.info('Selected custom datasets replaced with the new bundle');
+        Log.info('Selected custom datasets replaced with the new bundle');
         loadDatasets();
     }
 }
@@ -282,7 +282,7 @@ async function addCustomDatasetFromLink(elementtype: string, scope: vscode.Confi
     });
 
     if (!pathOrUrl) {
-        ScribeLogger.info('No path or URL provided.');
+        Log.info('No path or URL provided.');
         return;
     }
 
@@ -298,10 +298,10 @@ async function addCustomDatasetFromLink(elementtype: string, scope: vscode.Confi
             scope
         );
 
-        ScribeLogger.info(`Successfully added dataset from: ${uri.toString()}`);
+        Log.info(`Successfully added dataset from: ${uri.toString()}`);
     } catch (err) {
-        ScribeLogger.error(err);
-        ScribeLogger.error(`Invalid URL or path: ${pathOrUrl}`);
+        Log.error(err);
+        Log.error(`Invalid URL or path: ${pathOrUrl}`);
     }
 }
 
@@ -315,7 +315,7 @@ async function finalizeCustomDatasetAddition(
     existingMappings.push({ elementType, source, pathOrUrl });
     await config.update('customDatasets', existingMappings, scope);
 
-    ScribeLogger.info(`Mapping added: ${elementType} -> ${pathOrUrl}`);
+    Log.info(`Mapping added: ${elementType} -> ${pathOrUrl}`);
 
     // Reload the datasets
     loadDatasets();
@@ -346,11 +346,11 @@ const customMechanicCache: {
     type: keyof typeof CustomDatasetElementTypeAssociationMap;
 }[] = [];
 export async function loadCustomDatasets() {
-    ScribeLogger.debug('loading custom datasets');
+    Log.debug('loading custom datasets');
     const customDatasets = getCustomDatasetConfiguration()[1];
     for (const entry of customDatasets) {
         if (isOutdatedDataset(entry)) {
-            ScribeLogger.debug('Outdated dataset to migrate found:', entry.pathOrUrl);
+            Log.debug('Outdated dataset to migrate found:', entry.pathOrUrl);
             await changeCustomDatasetsSource('customDatasets', 'Local File', 'File');
             break;
         }
@@ -363,7 +363,7 @@ export async function loadCustomDatasets() {
 }
 
 async function processCustomDatasetEntry(entry: CustomDataset, stack?: string[]) {
-    ScribeLogger.debug('Processing custom dataset entry:', entry.pathOrUrl);
+    Log.debug('Processing custom dataset entry:', entry.pathOrUrl);
     if (entry.elementType === CustomDatasetElementType.BUNDLE) {
         await loadBundleDataset(entry, stack);
     } else if (entry.elementType === CustomDatasetElementType.ENUM) {
@@ -401,11 +401,11 @@ async function processMechanicDatasetEntry(
 }
 
 async function loadBundleDataset(dataset: CustomDataset, stack: string[] = ['MythicScribe']) {
-    ScribeLogger.debug('Loading bundle dataset:', dataset.pathOrUrl);
+    Log.debug('Loading bundle dataset:', dataset.pathOrUrl);
 
     if (stack.includes(dataset.pathOrUrl)) {
         stack.push(dataset.pathOrUrl);
-        ScribeLogger.error(stack.join(' -> '), 'Circular reference detected in Bundle:');
+        Log.error(stack.join(' -> '), 'Circular reference detected in Bundle:');
         return;
     }
     stack.push(dataset.pathOrUrl);
@@ -420,12 +420,12 @@ async function loadBundleDataset(dataset: CustomDataset, stack: string[] = ['Myt
                 ...((JSON.parse(Buffer.from(fileContent).toString('utf8')) as CustomDataset[]) ||
                     [])
             );
-            ScribeLogger.debug('Bundle dataset loaded as file:', dataset.pathOrUrl);
+            Log.debug('Bundle dataset loaded as file:', dataset.pathOrUrl);
         } else if (isLinkSource(dataset.source)) {
             const response = await fetch(dataset.pathOrUrl);
             const jsonData = (await response.json()) as CustomDataset[];
             configData.push(...jsonData);
-            ScribeLogger.debug('Bundle dataset loaded as link:', dataset.pathOrUrl);
+            Log.debug('Bundle dataset loaded as link:', dataset.pathOrUrl);
         }
 
         for (const entry of configData) {
@@ -436,12 +436,12 @@ async function loadBundleDataset(dataset: CustomDataset, stack: string[] = ['Myt
                 const entryUri = vscode.Uri.joinPath(datasetDirUri, entry.pathOrUrl);
                 entry.pathOrUrl = entryUri.toString();
                 entry.source = dataset.source;
-                ScribeLogger.debug('Resolved relative path:', entry.pathOrUrl);
+                Log.debug('Resolved relative path:', entry.pathOrUrl);
             }
             await processCustomDatasetEntry(entry, stack);
         }
     } catch (error) {
-        ScribeLogger.error(error);
+        Log.error(error);
     }
 }
 
