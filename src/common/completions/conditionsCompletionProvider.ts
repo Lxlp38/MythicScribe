@@ -3,11 +3,7 @@ import * as vscode from 'vscode';
 import * as yamlutils from '../utils/yamlutils';
 import { keyAliases } from '../objectInfos';
 import { ConditionActions } from '../schemas/conditionActions';
-import {
-    addMechanicCompletions,
-    checkShouldKeyComplete,
-    retriggerCompletionsCommand,
-} from '../utils/completionhelper';
+import { checkShouldKeyComplete, retriggerCompletionsCommand } from '../utils/completionhelper';
 import { ScribeMechanicHandler } from '../datasets/ScribeMechanic';
 
 export function conditionCompletionProvider() {

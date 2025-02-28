@@ -5,8 +5,8 @@ import { checkEnabledPlugin } from '../utils/configutils';
 import { AbstractScribeEnum, ScribeEnumHandler } from './ScribeEnum';
 import { Log } from '../utils/logger';
 import { ctx } from '../../MythicScribe';
-import { onDatasetsLoaded, ScribeCloneableFile } from './datasets';
-import { addMechanicCompletions, retriggerCompletionsCommand } from '../utils/completionhelper';
+import { ScribeCloneableFile } from './datasets';
+import { addMechanicCompletions } from '../utils/completionhelper';
 
 export enum ObjectType {
     MECHANIC = 'Mechanic',
@@ -29,17 +29,13 @@ export abstract class AbstractScribeMechanicRegistry {
     private mechanics: MythicMechanic[] = [];
     private mechanicsNameMap: Map<string, MythicMechanic> = new Map();
     private mechanicsClassMap: Map<string, MythicMechanic> = new Map();
-    private mechanicCompletions_: vscode.CompletionItem[] = [];
+    private mechanicCompletionsCache: vscode.CompletionItem[] = [];
     get mechanicCompletions() {
-        return this.mechanicCompletions_;
+        return this.mechanicCompletionsCache;
     }
 
     get localPath(): string {
         return vscode.Uri.joinPath(ctx.extensionUri, 'data', this.folder).toString();
-    }
-
-    constructor() {
-        onDatasetsLoaded(this.createMechanicCompletions.bind(this));
     }
 
     async addMechanic(...mechanic: Mechanic[]) {
@@ -53,10 +49,11 @@ export abstract class AbstractScribeMechanicRegistry {
                 this.mechanicsNameMap.set(name.toLowerCase(), mythicMechanic);
             });
             this.mechanicsClassMap.set(m.class.toLowerCase(), mythicMechanic);
+            addMechanicCompletions([mythicMechanic], this.mechanicCompletionsCache);
         });
         const uniquePlugins = Array.from(new Set(mechanic.map((m) => m.plugin))).sort();
         Log.debug(
-            `Added ${mechanic.length} ${this.type}s. The registered Plugins are: ${uniquePlugins.join(', ')}`
+            `Added ${mechanic.length} ${this.type}s. The registering Plugins are: ${uniquePlugins.join(', ')}`
         );
     }
 
@@ -80,24 +77,6 @@ export abstract class AbstractScribeMechanicRegistry {
         this.mechanics = [];
         this.mechanicsNameMap.clear();
         this.mechanicsClassMap.clear();
-    }
-
-    createMechanicCompletions() {
-        Log.debug('Creating Mechanic Completions for registry', this.type);
-        this.mechanicCompletions_ = [];
-        addMechanicCompletions(this.mechanics, this.mechanicCompletions_);
-        // this.mechanics.forEach((mechanic) => {
-        //     mechanic.name.forEach((name) => {
-        //         const completionItem = new vscode.CompletionItem(
-        //             name,
-        //             vscode.CompletionItemKind.Function
-        //         );
-        //         completionItem.detail = `${mechanic.description}`;
-        //         completionItem.insertText = new vscode.SnippetString(name + '{$0}');
-        //         completionItem.command = retriggerCompletionsCommand;
-        //         this.mechanicCompletions_.push(completionItem);
-        //     });
-        // });
     }
 
     async loadDataset() {
