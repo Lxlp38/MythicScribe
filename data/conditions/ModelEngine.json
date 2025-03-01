@@ -1,6 +1,61 @@
 [
     {
         "plugin": "ModelEngine",
+        "class": "HitboxCondition",
+        "extends": "SkillCondition",
+        "implements": [
+            "ISkillMetaCondition"
+        ],
+        "name": [
+            "hitbox"
+        ],
+        "description": "Checks which hitbox was damaged or interacted with for multi-hitbox models",
+        "link": "https://git.lumine.io/mythiccraft/model-engine-4/-/wikis/Skills/Conditions/Hitbox",
+        "attributes": [
+            {
+                "name": [
+                    "hitbox",
+                    "hb",
+                    "h",
+                    "ob"
+                ],
+                "type": "PlaceholderString",
+                "description": "The hitbox to check against",
+                "link": "https://git.lumine.io/mythiccraft/model-engine-4/-/wikis/Skills/Conditions/Hitbox",
+                "default_value": ""
+            }
+        ]
+    },
+    {
+        "plugin": "ModelEngine",
+        "class": "HitboxIsSubHitboxCondition",
+        "extends": "SkillCondition",
+        "implements": [
+            "ISkillMetaCondition"
+        ],
+        "name": [
+            "hitboxissubhitbox",
+            "issubhitbox"
+        ],
+        "description": "Checks if a hitbox other than the main hitbox was what triggered the skill",
+        "link": "https://git.lumine.io/mythiccraft/model-engine-4/-/wikis/Skills/Conditions/HitboxIsSubHitbox",
+        "attributes": [
+            {
+                "name": [
+                    "hitbox",
+                    "hb",
+                    "h",
+                    "ob"
+                ],
+                "type": "PlaceholderString",
+                "description": "The hitbox to check against",
+                "link": "https://git.lumine.io/mythiccraft/model-engine-4/-/wikis/Skills/Conditions/HitboxIsSubHitbox",
+                "default_value": ""
+            }
+        ]
+    },
+    {
+        "plugin": "ModelEngine",
         "class": "IsDrivingModelCondition",
         "extends": "SkillCondition",
         "implements": [

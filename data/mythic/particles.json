@@ -579,5 +579,22 @@
     },
     "vault_connection": {},
     "ominous_spawning": {},
-    "raid_omen": {}
+    "raid_omen": {},
+    "infested": {},
+    "block_crumble": {
+        "attributes": [
+            {
+                "name": [
+                    "material",
+                    "m"
+                ],
+                "description": "The material the blockdata particle will be based on",
+                "default": "STONE",
+                "type": "String",
+                "link": "https://git.lumine.io/mythiccraft/MythicMobs/-/wikis/Skills/Mechanics/Particle/Particle-Types",
+                "enum": "Material"
+            }
+        ]
+    },
+    "trail": {}
 }

@@ -7,10 +7,10 @@ import {
     getParentKeys,
     getWordBeforePosition,
     getMechanicLine,
-    previousSpecialSymbol,
     previousSymbol,
     isAfterComment,
     isEmptyLine,
+    PreviousSymbolRegexes
 } from '../../../src/common/utils/yamlutils';
 
 suite('YAML Utils', () => {
@@ -204,7 +204,7 @@ suite('YAML Utils', () => {
             }));
 
             position = new vscode.Position(1, 12); // Position after 'parent1:'
-            const symbol = previousSpecialSymbol(document, position);
+            const symbol = previousSymbol(PreviousSymbolRegexes.nonspace, document, position);
             assert.strictEqual(symbol, '-');
         });
 
@@ -215,7 +215,7 @@ suite('YAML Utils', () => {
             }));
 
             position = new vscode.Position(1, 10); // Position after 'parent1'
-            const symbol = previousSpecialSymbol(document, position);
+            const symbol = previousSymbol(PreviousSymbolRegexes.nonspace, document, position);
             assert.strictEqual(symbol, '');
         });
 
@@ -226,7 +226,7 @@ suite('YAML Utils', () => {
             }));
 
             position = new vscode.Position(2, 14); // Position after 'child1-+:'
-            const symbol = previousSpecialSymbol(document, position);
+            const symbol = previousSymbol(PreviousSymbolRegexes.nonspace, document, position);
             assert.strictEqual(symbol, '+');
         });
 
@@ -237,7 +237,7 @@ suite('YAML Utils', () => {
             }));
 
             position = new vscode.Position(1, 0); // Position at the start of an empty line
-            const symbol = previousSpecialSymbol(document, position);
+            const symbol = previousSymbol(PreviousSymbolRegexes.nonspace, document, position);
             assert.strictEqual(symbol, '');
         });
     });
@@ -249,7 +249,7 @@ suite('YAML Utils', () => {
             }));
 
             position = new vscode.Position(1, 12); // Position after 'parent1:'
-            const symbol = previousSymbol(document, position);
+            const symbol = previousSymbol(PreviousSymbolRegexes.default, document, position);
             assert.strictEqual(symbol, ' ');
         });
 
@@ -260,7 +260,7 @@ suite('YAML Utils', () => {
             }));
 
             position = new vscode.Position(1, 10); // Position after 'parent1'
-            const symbol = previousSymbol(document, position);
+            const symbol = previousSymbol(PreviousSymbolRegexes.default, document, position);
             assert.strictEqual(symbol, ' ');
         });
 
@@ -271,7 +271,7 @@ suite('YAML Utils', () => {
             }));
 
             position = new vscode.Position(2, 13); // Position after 'child1-+:'
-            const symbol = previousSymbol(document, position);
+            const symbol = previousSymbol(PreviousSymbolRegexes.default, document, position);
             assert.strictEqual(symbol, '+');
         });
 
@@ -282,7 +282,7 @@ suite('YAML Utils', () => {
             }));
 
             position = new vscode.Position(1, 0); // Position at the start of an empty line
-            const symbol = previousSymbol(document, position);
+            const symbol = previousSymbol(PreviousSymbolRegexes.default, document, position);
             assert.strictEqual(symbol, '');
         });
     });

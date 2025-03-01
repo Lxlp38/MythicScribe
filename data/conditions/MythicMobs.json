@@ -2540,7 +2540,7 @@
             "lineOfSight",
             "inlineofsight"
         ],
-        "description": "Tests if the target is within line of sight of the caster",
+        "description": "Tests if the target is within line of sight of the caster. Returns false if the target is hiding behind blocks",
         "link": "https://git.lumine.io/mythiccraft/MythicMobs/-/wikis/Skills/Conditions/lineofsight",
         "attributes": []
     },
@@ -4338,7 +4338,7 @@
     {
         "plugin": "MythicMobs",
         "class": "VariableEqualsCondition",
-        "extends": "VariableCondition",
+        "extends": "SkillCondition",
         "implements": [
             "IEntityCondition",
             "ILocationCondition",
@@ -4393,7 +4393,7 @@
     {
         "plugin": "MythicMobs",
         "class": "VariableInRangeCondition",
-        "extends": "VariableCondition",
+        "extends": "SkillCondition",
         "implements": [
             "IEntityCondition",
             "ILocationCondition",
@@ -4449,7 +4449,7 @@
     {
         "plugin": "MythicMobs",
         "class": "VariableIsSetCondition",
-        "extends": "VariableCondition",
+        "extends": "SkillCondition",
         "implements": [
             "IEntityCondition",
             "ILocationCondition",

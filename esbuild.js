@@ -62,7 +62,6 @@ async function main() {
         logLevel: 'silent',
         plugins: [esbuildProblemMatcherPlugin, copyFixturesPlugin],
         alias: {
-            path: 'path-browserify',
             '@declarations': '@node',
         },
         define: {

@@ -11,7 +11,11 @@ export function mechaniclineCompletionProvider() {
         ['mythicscript', 'yaml'],
         {
             async provideCompletionItems(document: vscode.TextDocument, position: vscode.Position) {
-                const previusSpecialSymbol = yamlutils.previousSpecialSymbol(document, position);
+                const previusSpecialSymbol = yamlutils.previousSymbol(
+                    yamlutils.PreviousSymbolRegexes.nonspace,
+                    document,
+                    position
+                );
                 if (['{', ';', '='].includes(previusSpecialSymbol)) {
                     return undefined;
                 }

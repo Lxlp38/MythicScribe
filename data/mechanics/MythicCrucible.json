@@ -148,7 +148,7 @@
     {
         "plugin": "MythicCrucible",
         "class": "ConsumeItemDurabilityMechanic",
-        "extends": "ItemMechanic",
+        "extends": "SkillMechanic",
         "implements": [
             "ITargetedEntitySkill"
         ],
@@ -420,7 +420,7 @@
     {
         "plugin": "MythicCrucible",
         "class": "RegenerateLoreMechanic",
-        "extends": "ItemMechanic",
+        "extends": "SkillMechanic",
         "implements": [
             "INoTargetSkill",
             "ITargetedEntitySkill"
@@ -694,7 +694,7 @@
     {
         "plugin": "MythicCrucible",
         "class": "SetItemDisplayMechanic",
-        "extends": "ItemMechanic",
+        "extends": "SkillMechanic",
         "implements": [
             "INoTargetSkill",
             "ITargetedEntitySkill"
@@ -731,7 +731,7 @@
     {
         "plugin": "MythicCrucible",
         "class": "SetItemLoreMechanic",
-        "extends": "ItemMechanic",
+        "extends": "SkillMechanic",
         "implements": [
             "INoTargetSkill",
             "ITargetedEntitySkill"
@@ -768,7 +768,7 @@
     {
         "plugin": "MythicCrucible",
         "class": "SetItemModelMechanic",
-        "extends": "ItemMechanic",
+        "extends": "SkillMechanic",
         "implements": [
             "INoTargetSkill",
             "ITargetedEntitySkill"
@@ -786,7 +786,7 @@
                     "model",
                     "m"
                 ],
-                "type": "PlaceholderInteger",
+                "type": "PlaceholderString",
                 "description": "The new CustomModelData",
                 "link": "https://git.lumine.io/mythiccraft/mythiccrucible/-/wikis/Skills/Mechanics/ModelSet",
                 "default_value": "0"
@@ -807,7 +807,7 @@
     {
         "plugin": "MythicCrucible",
         "class": "SetItemNBTMechanic",
-        "extends": "ItemMechanic",
+        "extends": "SkillMechanic",
         "implements": [
             "INoTargetSkill",
             "ITargetedEntitySkill"
@@ -892,7 +892,7 @@
     {
         "plugin": "MythicCrucible",
         "class": "ToggleModelMechanic",
-        "extends": "ItemMechanic",
+        "extends": "SkillMechanic",
         "implements": [
             "INoTargetSkill",
             "ITargetedEntitySkill"

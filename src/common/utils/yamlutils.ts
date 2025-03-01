@@ -250,25 +250,10 @@ export function getMechanicLine(
     return mechanicMap;
 }
 
-/**
- * Finds the previous special symbol in the text of the given document before the specified position.
- *
- * @param document - The text document to search within.
- * @param position - The position in the document to start searching backwards from.
- * @returns The previous special symbol found before the specified position, or an empty string if none is found.
- */
-export function previousSpecialSymbol(
-    document: vscode.TextDocument,
-    position: vscode.Position
-): string {
-    const line = document.lineAt(position.line).text;
-    const text = line.substring(0, position.character);
-    const matches = text.match(/([^\w\s:])[\w\s:]*$/);
-    if (matches) {
-        return matches[1];
-    }
-    return '';
-}
+export const PreviousSymbolRegexes = {
+    nonspace: /([^\w\s:])[\w\s:]*$/,
+    default: /([^\w:])[\w:]*$/,
+};
 
 /**
  * Retrieves the previous non-word character before the current position in the document.
@@ -277,12 +262,27 @@ export function previousSpecialSymbol(
  * @param position - The position in the document to check from.
  * @returns The previous non-word character before the current position, or an empty string if none is found.
  */
-export function previousSymbol(document: vscode.TextDocument, position: vscode.Position): string {
+export function previousSymbol(
+    regex: RegExp,
+    document: vscode.TextDocument,
+    position: vscode.Position,
+    depth: number = 0
+): string {
     const line = document.lineAt(position.line).text;
     const text = line.substring(0, position.character);
-    const matches = text.match(/([^\w:])[\w:]*$/);
+    const matches = text.match(regex);
     if (matches) {
         return matches[1];
+    }
+    if (depth > 0 && position.line > 0) {
+        if (line.trim() === '') {
+            return previousSymbol(regex, document, position.translate(-1), depth);
+        }
+        const endOfPreviousLine = new vscode.Position(
+            position.line - 1,
+            document.lineAt(position.line - 1).text.length
+        );
+        return previousSymbol(regex, document, endOfPreviousLine, depth - 1);
     }
     return '';
 }

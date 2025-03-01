@@ -22,7 +22,7 @@ export function attributeCompletionProvider() {
                 _token: vscode.CancellationToken,
                 context: vscode.CompletionContext
             ) {
-                if (!checkShouldPrefixComplete(document, position, context, ['{', ';'])) {
+                if (!checkShouldPrefixComplete(document, position, context, ['{', ';'], 1)) {
                     return undefined;
                 }
 

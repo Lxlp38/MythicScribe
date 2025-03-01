@@ -2554,7 +2554,17 @@
                     "tag"
                 ],
                 "type": "String",
-                "description": "Allows you to specify any number of arbitrary tags for the damage mechanic using `tags=THIS,THAT`",
+                "description": "Allows you to specify any number of arbitrary tags for the damage mechanic using `tags=THIS,THAT`. All tags inserted will be UPPERCASED, so always use uppercased names when checking against them",
+                "link": "https://git.lumine.io/mythiccraft/MythicMobs/-/wikis/Skills/Mechanics/damage",
+                "default_value": ""
+            },
+            {
+                "name": [
+                    "rawtags",
+                    "rtag"
+                ],
+                "type": "String",
+                "description": "Works the same as tags and what is put here will also qualify as a tag, but it will not be UPPERCASED like tags",
                 "link": "https://git.lumine.io/mythiccraft/MythicMobs/-/wikis/Skills/Mechanics/damage",
                 "default_value": ""
             }
@@ -8290,7 +8300,7 @@
             "projectile",
             "p"
         ],
-        "description": "The Projectile skill fires a meta-\"projectile\" that can be decorated\nusing particle and sound effects.  \nIt's great for creating complex, aesthetically pleasing skills, such as\nshadow bolts, balls of ice, or even meteors.  \nIt has a lot of options (more than any other mechanic) and can be a bit of a\nnightmare to jump into without knowing what you're doing.  \nIt will disappear after hitting an entity or location that is able to stop the projectile. This behavior can be configured via attributes like `stopatblock`, `stopatentity` and `stopconditions`\n\nIt is of importance to note that other mechanics (such as [Missile](https://git.lumine.io/mythiccraft/MythicMobs/-/wikis/skills/mechanics/missile)) are an \"extension\" of this mechanic, and can as such use a great deal of this mechanic's attributes. The attributes that those mechanics can use are listen in [Inheritable Attributes](https://git.lumine.io/mythiccraft/MythicMobs/-/wikis/skills/mechanics/projectile#inheritable-attributes)\n\n[[_TOC_]]",
+        "description": "The Projectile skill fires a meta-\"projectile\" that can be decorated\nusing particle and sound effects.  \nIt's great for creating complex, aesthetically pleasing skills, such as\nshadow bolts, balls of ice, or even meteors.  \nIt has a lot of options (more than any other mechanic) and can be a bit of a\nnightmare to jump into without knowing what you're doing.  \nIt will disappear after hitting an entity or location that is able to stop the projectile. This behavior can be configured via attributes like `stopatblock`, `stopatentity` and `stopconditions`\n\nIt is of importance to note that other mechanics (such as [Missile](https://git.lumine.io/mythiccraft/MythicMobs/-/wikis/skills/mechanics/missile) and [Totem](https://git.lumine.io/mythiccraft/MythicMobs/-/wikis/skills/mechanics/totem)) are an \"extension\" of this mechanic, and can as such use a great deal of this mechanic's attributes. The attributes that those mechanics can use are listen in [Inheritable Attributes](https://git.lumine.io/mythiccraft/MythicMobs/-/wikis/skills/mechanics/projectile#inheritable-attributes)\n\n[[_TOC_]]",
         "link": "https://git.lumine.io/mythiccraft/MythicMobs/-/wikis/Skills/Mechanics/projectile",
         "attributes": [
             {
@@ -8935,7 +8945,6 @@
             },
             {
                 "name": [
-                    "bulletcolor",
                     "bulletcolor"
                 ],
                 "type": "String",
@@ -8952,6 +8961,15 @@
                 "description": "Should the material be enchanted",
                 "link": "https://git.lumine.io/mythiccraft/MythicMobs/-/wikis/Skills/Mechanics/projectile",
                 "default_value": "false"
+            },
+            {
+                "name": [
+                    "bulletcolor"
+                ],
+                "type": "String",
+                "description": "The color of the material, if applicable",
+                "link": "https://git.lumine.io/mythiccraft/MythicMobs/-/wikis/Skills/Mechanics/projectile",
+                "default_value": ""
             },
             {
                 "name": [
@@ -8988,7 +9006,6 @@
             },
             {
                 "name": [
-                    "bulletcolor",
                     "bulletcolor"
                 ],
                 "type": "String",
@@ -9086,6 +9103,15 @@
             },
             {
                 "name": [
+                    "bulletcolor"
+                ],
+                "type": "String",
+                "description": "The color of the material, if applicable",
+                "link": "https://git.lumine.io/mythiccraft/MythicMobs/-/wikis/Skills/Mechanics/projectile",
+                "default_value": ""
+            },
+            {
+                "name": [
                     "bulletarrowtype",
                     "arrowtype"
                 ],
@@ -9170,7 +9196,6 @@
             },
             {
                 "name": [
-                    "bulletcolor",
                     "bulletcolor"
                 ],
                 "type": "String",
@@ -9386,6 +9411,15 @@
             },
             {
                 "name": [
+                    "bulletcolor"
+                ],
+                "type": "String",
+                "description": "The color of the material, if applicable",
+                "link": "https://git.lumine.io/mythiccraft/MythicMobs/-/wikis/Skills/Mechanics/projectile",
+                "default_value": ""
+            },
+            {
+                "name": [
                     "bulletyoffset",
                     "byoffset",
                     "byo"
@@ -9429,7 +9463,6 @@
             },
             {
                 "name": [
-                    "bulletcolor",
                     "bulletcolor"
                 ],
                 "type": "String",
@@ -9457,6 +9490,15 @@
                 "description": "Should the material be enchanted",
                 "link": "https://git.lumine.io/mythiccraft/MythicMobs/-/wikis/Skills/Mechanics/projectile",
                 "default_value": "false"
+            },
+            {
+                "name": [
+                    "bulletcolor"
+                ],
+                "type": "String",
+                "description": "The color of the material, if applicable",
+                "link": "https://git.lumine.io/mythiccraft/MythicMobs/-/wikis/Skills/Mechanics/projectile",
+                "default_value": ""
             },
             {
                 "name": [
@@ -10542,7 +10584,8 @@
             "ITargetedEntitySkill"
         ],
         "name": [
-            "remove"
+            "remove",
+            "delete"
         ],
         "description": "Removes the targeted entity from existence. Does not work on players.",
         "link": "https://git.lumine.io/mythiccraft/MythicMobs/-/wikis/Skills/Mechanics/remove",
@@ -11017,7 +11060,9 @@
                     "t",
                     "material",
                     "mat",
-                    "m"
+                    "m",
+                    "block",
+                    "b"
                 ],
                 "type": "PlaceholderString",
                 "description": "The material for the block to be set to",
@@ -12617,7 +12662,8 @@
                 "type": "String",
                 "description": "The color of the potion",
                 "link": "https://git.lumine.io/mythiccraft/MythicMobs/-/wikis/Skills/Mechanics/shoot",
-                "default_value": "#FFFFFF"
+                "default_value": "#FFFFFF",
+                "enum": "Color"
             },
             {
                 "name": [
@@ -13095,7 +13141,7 @@
                     "origin"
                 ],
                 "type": "String",
-                "description": "*[PREMIUM]** Change the origin to whatever targeter is supplied. Does not work if more than one target is parsed. `origin=@Forward{f=10}`",
+                "description": "*[PREMIUM]** Change the origin to whatever targeter is supplied. Does not work if more than one target is parsed. `origin=@Forward{f=10}`<br>The targeter of the origin attribute will be parsed separately from the mechanic's targeter, so if you use something like `origin=@targetedlocation` it will not return the mechanic's explicit target, but the metaskill's inherited one",
                 "link": "https://git.lumine.io/mythiccraft/MythicMobs/-/wikis/Skills/Mechanics#universal-attributes",
                 "default_value": ""
             },
@@ -14937,7 +14983,7 @@
             "exit",
             "terminatable"
         ],
-        "description": "Creates an [aura](https://git.lumine.io/mythiccraft/MythicMobs/-/wikis/Skills/Mechanics/aura) that, after each mechanic of its onStart [metaskill](https://git.lumine.io/mythiccraft/MythicMobs/-/wikis/Skills/Metaskills), checks if a set of conditions is met: If so, the execution of the onStart skill is immediately cancelled. This effectively adds a conditional cancel mechanic after each line of the cascading meta skill.",
+        "description": "Creates an [aura](https://git.lumine.io/mythiccraft/MythicMobs/-/wikis/Skills/Mechanics/aura) that, each tick, checks if a set of conditions is met: If so, the execution of the onStart skill is immediately cancelled.",
         "link": "https://git.lumine.io/mythiccraft/MythicMobs/-/wikis/Skills/Mechanics/Terminable",
         "attributes": [
             {

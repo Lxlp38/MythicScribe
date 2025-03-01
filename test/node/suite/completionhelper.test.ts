@@ -11,7 +11,7 @@ import {
     fileCompletions,
 } from '../../../src/common/utils/completionhelper';
 import { getStubDocument } from '..';
-import { MythicMechanic } from '../../../src/common/datasets/ScribeMechanic';
+import { MythicAttribute, MythicMechanic } from '../../../src/common/datasets/ScribeMechanic';
 import { FileObjectMap, FileObjectTypes } from '../../../src/common/objectInfos';
 
 suite('CompletionHelper', () => {
@@ -200,15 +200,23 @@ suite('CompletionHelper', () => {
     });
     suite('addMechanicCompletions', () => {
         let target: MythicMechanic[];
+        let attribute: MythicAttribute;
         let completionItems: vscode.CompletionItem[];
 
         setup(() => {
+            attribute = {
+                name: 'attribute1',
+                description: 'Test attribute',
+                type: 'Boolean',
+            } as unknown as MythicAttribute;
             target = [
                 {
                     name: ['mechanic1', 'mechanic2'],
                     description: 'Test mechanic',
+                    myAttributes: [attribute],
+                    getMyAttributes: () => [attribute],
                 },
-            ] as MythicMechanic[];
+            ] as unknown as MythicMechanic[];
             completionItems = [];
         });
 
@@ -248,6 +256,15 @@ suite('CompletionHelper', () => {
             assert.strictEqual(completionItems[0].command, retriggerCompletionsCommand);
             assert.strictEqual(completionItems[1].command, retriggerCompletionsCommand);
         });
+
+        test('should do a simple completion if no attributes are found', () => {
+            target[0].getMyAttributes = () => [];
+            addMechanicCompletions(target, completionItems);
+            assert.strictEqual(completionItems.length, 2);
+            assert.strictEqual(completionItems[0].label, 'mechanic1');
+            assert.strictEqual(completionItems[1].label, 'mechanic2');
+            }
+        );
     });
     suite('fileCompletions', () => {
         let document: vscode.TextDocument;

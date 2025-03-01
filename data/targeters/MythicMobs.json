@@ -1485,7 +1485,7 @@
                     "radius",
                     "r"
                 ],
-                "type": "Double",
+                "type": "PlaceholderDouble",
                 "description": "The radius of the targeter",
                 "link": "https://git.lumine.io/mythiccraft/MythicMobs/-/wikis/Skills/Targeters/MobsInRadius",
                 "default_value": "5"
@@ -1785,6 +1785,29 @@
                 "type": "PlaceholderString",
                 "description": "The name of the player",
                 "link": "https://git.lumine.io/mythiccraft/MythicMobs/-/wikis/Skills/Targeters/PlayerByName",
+                "default_value": "CarsonJF"
+            }
+        ]
+    },
+    {
+        "plugin": "MythicMobs",
+        "class": "PlayerLocationByNameTargeter",
+        "extends": "ILocationSelector",
+        "name": [
+            "playerLocationByName",
+            "specificplayerlocation"
+        ],
+        "description": "Targets a specific player's location by their name. Can be a placeholder.",
+        "link": "https://git.lumine.io/mythiccraft/MythicMobs/-/wikis/Skills/Targeters/PlayerLocationByName",
+        "attributes": [
+            {
+                "name": [
+                    "name",
+                    "n"
+                ],
+                "type": "PlaceholderString",
+                "description": "The name of the player",
+                "link": "https://git.lumine.io/mythiccraft/MythicMobs/-/wikis/Skills/Targeters/PlayerLocationByName",
                 "default_value": "CarsonJF"
             }
         ]

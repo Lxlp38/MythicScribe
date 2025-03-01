@@ -1,7 +1,7 @@
 import * as vscode from 'vscode';
 
 import * as yamlutils from './yamlutils';
-import { previousSpecialSymbol, previousSymbol } from './yamlutils';
+import { previousSymbol } from './yamlutils';
 import { FileObjectMap, FileObject, FileObjectTypes } from '../objectInfos';
 import { MythicMechanic } from '../datasets/ScribeMechanic';
 import { EnumDatasetValue, ScribeEnumHandler } from '../datasets/ScribeEnum';
@@ -46,7 +46,11 @@ export function getListCompletionNeededSpaces(
     }
 
     if (context.triggerCharacter === undefined) {
-        const specialSymbol = previousSpecialSymbol(document, position);
+        const specialSymbol = previousSymbol(
+            yamlutils.PreviousSymbolRegexes.nonspace,
+            document,
+            position
+        );
         if (specialSymbol !== '-') {
             return undefined;
         }
@@ -113,22 +117,29 @@ export function checkShouldPrefixComplete(
     document: vscode.TextDocument,
     position: vscode.Position,
     context: vscode.CompletionContext,
-    symbol: string[]
+    symbol: string[],
+    depth = 0
 ) {
     if (yamlutils.isAfterComment(document, position)) {
         return false;
     }
-    return checkShouldPrefixCompleteExec(document, position, context, symbol);
+    return checkShouldPrefixCompleteExec(document, position, context, symbol, depth);
 }
 function checkShouldPrefixCompleteExec(
     document: vscode.TextDocument,
     position: vscode.Position,
     context: vscode.CompletionContext,
-    symbol: string[]
+    symbol: string[],
+    depth = 0
 ): boolean {
     // called via invocation
     if (context.triggerKind === vscode.CompletionTriggerKind.Invoke) {
-        const mypreviousSpecialSymbol = previousSymbol(document, position);
+        const mypreviousSpecialSymbol = previousSymbol(
+            yamlutils.PreviousSymbolRegexes.nonspace,
+            document,
+            position,
+            depth
+        );
         if (symbol.includes(mypreviousSpecialSymbol)) {
             return true;
         }
