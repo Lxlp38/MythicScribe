@@ -1,6 +1,7 @@
 import * as vscode from 'vscode';
 
 import { AbstractScribeMechanicRegistry, ScribeMechanicHandler } from '../datasets/ScribeMechanic';
+import { getUpstreamKey } from './yamlutils';
 
 /**
  * Function to find the object linked to an unbalanced '{' in the format object{attribute1=value1;attribute2=value2}
@@ -42,6 +43,51 @@ export function getObjectLinkedToAttribute(
     }
 
     return null; // No unbalanced opening brace found
+}
+
+const squareBracketObjectRegex = /(?<=[{;])\s*(\w+)\s*=\s*$/g;
+export function getSquareBracketObject(document: vscode.TextDocument, position: vscode.Position) {
+    const parentKey = getUpstreamKey(document, position.line);
+    const maxSearchLine = parentKey ? parentKey[1] : 0;
+    const textBeforeAttribute = document.getText(
+        new vscode.Range(new vscode.Position(maxSearchLine, 0), position)
+    );
+    let newPosition = position;
+    let openBracketCount = 0;
+    for (let i = textBeforeAttribute.length - 1; i >= 0; i--) {
+        if (newPosition.character === 0) {
+            if (newPosition.line === 0) {
+                return null;
+            }
+            newPosition = new vscode.Position(
+                newPosition.line - 1,
+                document.lineAt(newPosition.line - 1).text.length
+            );
+        } else {
+            newPosition = newPosition.translate(0, -1);
+        }
+        const char = textBeforeAttribute[i];
+        if (char === ']' || char === '}') {
+            openBracketCount++;
+        } else if (char === '[' || char === '{') {
+            openBracketCount--;
+            if (openBracketCount < 0) {
+                if (char === '{') {
+                    return null;
+                }
+                const textBeforeBracket = textBeforeAttribute.substring(0, i).trim();
+                const objectMatch = textBeforeBracket.match(squareBracketObjectRegex);
+                if (objectMatch && objectMatch[0]) {
+                    return [
+                        objectMatch[0].replace('=', '').trim(),
+                        getObjectLinkedToAttribute(document, newPosition, maxSearchLine),
+                    ];
+                }
+                return null;
+            }
+        }
+    }
+    return null;
 }
 
 /**
@@ -108,6 +154,9 @@ export function getCursorSkills(
         ScribeMechanicHandler.registry.targeter,
         ScribeMechanicHandler.registry.trigger,
         ScribeMechanicHandler.registry.inlinecondition,
+
+        // TODO: add more robust check for condition registry switch
+        ScribeMechanicHandler.registry.condition,
     ]) {
         const maybeObject = fetchCursorSkills(document, position, objectType);
         if (maybeObject) {
@@ -138,7 +187,15 @@ export function getCursorSkills(
             return condition ? condition.getAttributeByName(attribute) : null;
         }
         const mechanic = ScribeMechanicHandler.registry.mechanic.getMechanicByName(object);
-        return mechanic ? mechanic.getAttributeByName(attribute) : null;
+        if (mechanic) {
+            return mechanic.getAttributeByName(attribute);
+        }
+        // TODO: add more robust check for condition registry switch
+        const condition = ScribeMechanicHandler.registry.condition.getMechanicByName(object);
+        if (condition) {
+            return condition.getAttributeByName(attribute);
+        }
+        return null;
     }
     return null;
 }

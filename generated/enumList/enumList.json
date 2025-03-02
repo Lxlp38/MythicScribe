@@ -251,37 +251,47 @@
   },
   {
     "id": "color",
-    "path": "Color",
+    "path": null,
     "type": "Scripted"
   },
   {
     "id": "rgbcolor",
-    "path": "RGBColor",
+    "path": null,
     "type": "Scripted"
   },
   {
     "id": "boolean",
-    "path": "Boolean",
+    "path": null,
     "type": "Scripted"
   },
   {
     "id": "mechanic",
-    "path": "Mechanic",
+    "path": null,
     "type": "Scripted"
   },
   {
     "id": "targeter",
-    "path": "Targeter",
+    "path": null,
     "type": "Scripted"
   },
   {
     "id": "trigger",
-    "path": "Trigger",
+    "path": null,
     "type": "Scripted"
   },
   {
     "id": "condition",
-    "path": "Condition",
+    "path": null,
+    "type": "Scripted"
+  },
+  {
+    "id": "inlineattributeconditions",
+    "path": null,
+    "type": "Scripted"
+  },
+  {
+    "id": "metaskill",
+    "path": null,
     "type": "Scripted"
   }
 ]

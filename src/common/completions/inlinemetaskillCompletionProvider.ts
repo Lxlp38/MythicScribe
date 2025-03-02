@@ -21,25 +21,29 @@ export function inlineMetaskillCompletionProvider() {
                     return undefined;
                 }
 
-                const indent = vscode.window.activeTextEditor
-                    ? (vscode.window.activeTextEditor.options.tabSize as number)
-                    : 2;
-                const indentation = ' '.repeat(indent);
-
-                const completionItem = new vscode.CompletionItem(
-                    'Inline Metaskill',
-                    vscode.CompletionItemKind.Function
-                );
-                completionItem.detail = 'Generate the syntax for an inline metaskill';
-                completionItem.kind = vscode.CompletionItemKind.Function;
-                completionItem.insertText = new vscode.SnippetString(
-                    '\n' + indentation + '- $0\n' + indentation
-                );
-                completionItem.command = retriggerCompletionsCommand;
-
-                return [completionItem];
+                return [provideInlinemetaskillCompletion()];
             },
         },
         '['
     );
+}
+
+function provideInlinemetaskillCompletion() {
+    const indent = vscode.window.activeTextEditor
+        ? (vscode.window.activeTextEditor.options.tabSize as number)
+        : 2;
+    const indentation = ' '.repeat(indent);
+
+    const completionItem = new vscode.CompletionItem(
+        'Inline Metaskill',
+        vscode.CompletionItemKind.Function
+    );
+    completionItem.detail = 'Generate the syntax for an inline metaskill';
+    completionItem.kind = vscode.CompletionItemKind.Function;
+    completionItem.insertText = new vscode.SnippetString(
+        '\n' + indentation + '- $0\n' + indentation
+    );
+    completionItem.command = retriggerCompletionsCommand;
+
+    return completionItem;
 }

@@ -253,6 +253,7 @@ export function getMechanicLine(
 export const PreviousSymbolRegexes = {
     nonspace: /([^\w\s:])[\w\s:]*$/,
     default: /([^\w:])[\w:]*$/,
+    bracket: /[()\[\]{}][^()\[\]{}]*$/,
 };
 
 /**

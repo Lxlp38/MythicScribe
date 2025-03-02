@@ -791,7 +791,8 @@
                 "type": "String",
                 "description": "Meta-Skill executed when the aura first starts",
                 "link": "https://git.lumine.io/mythiccraft/MythicMobs/-/wikis/Skills/Mechanics/aura",
-                "default_value": ""
+                "default_value": "",
+                "enum": "Metaskill"
             },
             {
                 "name": [
@@ -802,7 +803,8 @@
                 "type": "String",
                 "description": "Meta-Skill executed every [interval] ticks on the affected entity",
                 "link": "https://git.lumine.io/mythiccraft/MythicMobs/-/wikis/Skills/Mechanics/aura",
-                "default_value": ""
+                "default_value": "",
+                "enum": "Metaskill"
             },
             {
                 "name": [
@@ -813,7 +815,8 @@
                 "type": "String",
                 "description": "Meta-Skill executed when the aura ends",
                 "link": "https://git.lumine.io/mythiccraft/MythicMobs/-/wikis/Skills/Mechanics/aura",
-                "default_value": ""
+                "default_value": "",
+                "enum": "Metaskill"
             }
         ]
     },
@@ -1054,7 +1057,8 @@
                 "type": "String",
                 "description": "The skill to execute when the beam hits an entity. Currently not supported",
                 "link": "https://git.lumine.io/mythiccraft/MythicMobs/-/wikis/Skills/Mechanics/beam",
-                "default_value": ""
+                "default_value": "",
+                "enum": "Metaskill"
             },
             {
                 "name": [
@@ -1065,7 +1069,8 @@
                 "type": "String",
                 "description": "The skill to execute each tick. The origin will be the starting location",
                 "link": "https://git.lumine.io/mythiccraft/MythicMobs/-/wikis/Skills/Mechanics/beam",
-                "default_value": ""
+                "default_value": "",
+                "enum": "Metaskill"
             },
             {
                 "name": [
@@ -1632,7 +1637,8 @@
                 "type": "String",
                 "description": "The metaskill to execute on bounce",
                 "link": "https://git.lumine.io/mythiccraft/MythicMobs/-/wikis/Skills/Mechanics/Bouncy",
-                "default_value": ""
+                "default_value": "",
+                "enum": "Metaskill"
             },
             {
                 "name": [
@@ -1823,7 +1829,8 @@
                 "type": "String",
                 "description": "Skill to execute if the cast finishes successfully",
                 "link": "https://git.lumine.io/mythiccraft/MythicMobs/-/wikis/Skills/Mechanics/cast",
-                "default_value": ""
+                "default_value": "",
+                "enum": "Metaskill"
             },
             {
                 "name": [
@@ -1835,7 +1842,8 @@
                 "type": "String",
                 "description": "Skill to execute if the cast is interrupted",
                 "link": "https://git.lumine.io/mythiccraft/MythicMobs/-/wikis/Skills/Mechanics/cast",
-                "default_value": ""
+                "default_value": "",
+                "enum": "Metaskill"
             },
             {
                 "name": [
@@ -1847,7 +1855,8 @@
                 "type": "String",
                 "description": "Skill to execute if no target is found",
                 "link": "https://git.lumine.io/mythiccraft/MythicMobs/-/wikis/Skills/Mechanics/cast",
-                "default_value": ""
+                "default_value": "",
+                "enum": "Metaskill"
             },
             {
                 "name": [
@@ -1912,7 +1921,8 @@
                 "type": "String",
                 "description": "The skill that bounces between targets",
                 "link": "https://git.lumine.io/mythiccraft/MythicMobs/-/wikis/Skills/Mechanics/chain",
-                "default_value": ""
+                "default_value": "",
+                "enum": "Metaskill"
             },
             {
                 "name": [
@@ -2001,7 +2011,8 @@
                 "type": "String",
                 "description": "Conditions applied to the bounce target",
                 "link": "https://git.lumine.io/mythiccraft/MythicMobs/-/wikis/Skills/Mechanics/chain",
-                "default_value": ""
+                "default_value": "",
+                "enum": "Conditions"
             }
         ]
     },
@@ -2063,7 +2074,8 @@
                 "type": "String",
                 "description": "The conditions for the skill to bounce, similar to the [chain](https://git.lumine.io/mythiccraft/MythicMobs/-/wikis/skills/mechanics/chain) mechanic",
                 "link": "https://git.lumine.io/mythiccraft/MythicMobs/-/wikis/Skills/Mechanics/chainmissile",
-                "default_value": ""
+                "default_value": "",
+                "enum": "Conditions"
             }
         ]
     },
@@ -3039,7 +3051,8 @@
                 "type": "String",
                 "description": "[Metaskill] to be execute when the item drops. Inherits the dropped item entity as the target(s)",
                 "link": "https://git.lumine.io/mythiccraft/MythicMobs/-/wikis/Skills/Mechanics/dropitem",
-                "default_value": null
+                "default_value": "",
+                "enum": "Metaskill"
             }
         ]
     },
@@ -3230,7 +3243,8 @@
                 "type": "String",
                 "description": "The [slots](https://git.lumine.io/mythiccraft/MythicMobs/-/wikis/Mobs/Equipment#slot) to copy",
                 "link": "https://git.lumine.io/mythiccraft/MythicMobs/-/wikis/Skills/Mechanics/EquipCopy",
-                "default_value": "ALL"
+                "default_value": "ALL",
+                "enum": "EquipSlot"
             }
         ]
     },
@@ -3646,7 +3660,8 @@
                 "type": "String",
                 "description": "The [metaskill](https://git.lumine.io/mythiccraft/MythicMobs/-/wikis/Skills/Metaskills) to execute when the last point is reached",
                 "link": "https://git.lumine.io/mythiccraft/MythicMobs/-/wikis/Skills/Mechanics/FollowPath",
-                "default_value": ""
+                "default_value": "",
+                "enum": "Metaskill"
             }
         ]
     },
@@ -3753,7 +3768,8 @@
                 "type": "String",
                 "description": "The [metaskill] to execute when the last point is reached",
                 "link": "https://git.lumine.io/mythiccraft/MythicMobs/-/wikis/Skills/Mechanics/FormLine",
-                "default_value": ""
+                "default_value": "",
+                "enum": "Metaskill"
             }
         ]
     },
@@ -4206,7 +4222,8 @@
                 "type": "String",
                 "description": "Metaskill to execute when the effect starts",
                 "link": "https://git.lumine.io/mythiccraft/MythicMobs/-/wikis/Skills/Mechanics/GuardianBeam",
-                "default_value": ""
+                "default_value": "",
+                "enum": "Metaskill"
             },
             {
                 "name": [
@@ -4217,7 +4234,8 @@
                 "type": "String",
                 "description": "Metaskill to execute each interval tick",
                 "link": "https://git.lumine.io/mythiccraft/MythicMobs/-/wikis/Skills/Mechanics/GuardianBeam",
-                "default_value": ""
+                "default_value": "",
+                "enum": "Metaskill"
             },
             {
                 "name": [
@@ -4228,7 +4246,8 @@
                 "type": "String",
                 "description": "Metaskill to execute when the effect ends",
                 "link": "https://git.lumine.io/mythiccraft/MythicMobs/-/wikis/Skills/Mechanics/GuardianBeam",
-                "default_value": ""
+                "default_value": "",
+                "enum": "Metaskill"
             }
         ]
     },
@@ -4853,7 +4872,8 @@
                 "type": "String",
                 "description": "The [targeter](https://git.lumine.io/mythiccraft/MythicMobs/-/wikis/Skills/Targeters)",
                 "link": "https://git.lumine.io/mythiccraft/MythicMobs/-/wikis/Skills/Mechanics/MatchRotation",
-                "default_value": ""
+                "default_value": "",
+                "enum": "Targeter"
             }
         ]
     },
@@ -4954,7 +4974,8 @@
                 "type": "String",
                 "description": "The metaskill to be executed",
                 "link": "https://git.lumine.io/mythiccraft/MythicMobs/-/wikis/Skills/Mechanics/skill",
-                "default_value": ""
+                "default_value": "",
+                "enum": "Metaskill"
             },
             {
                 "name": [
@@ -5008,7 +5029,8 @@
                 "type": "PlaceholderString",
                 "description": "The metaskill to be executed. Accepts [Placeholders](https://git.lumine.io/mythiccraft/MythicMobs/-/wikis/Skills/Placeholders)",
                 "link": "https://git.lumine.io/mythiccraft/MythicMobs/-/wikis/Skills/Mechanics/variableskill",
-                "default_value": ""
+                "default_value": "",
+                "enum": "Metaskill"
             },
             {
                 "name": [
@@ -5489,7 +5511,8 @@
                 "type": "String",
                 "description": "[metaskill](https://git.lumine.io/mythiccraft/MythicMobs/-/wikis/Skills/Metaskills) to execute if the target hits something",
                 "link": "https://git.lumine.io/mythiccraft/MythicMobs/-/wikis/Skills/Mechanics/onattack",
-                "default_value": ""
+                "default_value": "",
+                "enum": "Metaskill"
             },
             {
                 "name": [
@@ -5561,7 +5584,8 @@
                 "type": "String",
                 "description": "Skill to execute if the target breaks a block",
                 "link": "https://git.lumine.io/mythiccraft/MythicMobs/-/wikis/Skills/Mechanics/onblockbreak",
-                "default_value": ""
+                "default_value": "",
+                "enum": "Metaskill"
             },
             {
                 "name": [
@@ -5628,7 +5652,8 @@
                 "type": "String",
                 "description": "Skill to execute if the target places a block",
                 "link": "https://git.lumine.io/mythiccraft/MythicMobs/-/wikis/Skills/Mechanics/onblockplace",
-                "default_value": ""
+                "default_value": "",
+                "enum": "Metaskill"
             },
             {
                 "name": [
@@ -5667,7 +5692,8 @@
                 "type": "String",
                 "description": "The [metaskill](https://git.lumine.io/mythiccraft/MythicMobs/-/wikis/Skills/Metaskills) to execute when the player chats",
                 "link": "https://git.lumine.io/mythiccraft/MythicMobs/-/wikis/Skills/Mechanics/OnChat",
-                "default_value": ""
+                "default_value": "",
+                "enum": "Metaskill"
             }
         ]
     },
@@ -5696,7 +5722,8 @@
                 "type": "String",
                 "description": "[Metaskill] to execute if the target is damaged",
                 "link": "https://git.lumine.io/mythiccraft/MythicMobs/-/wikis/Skills/Mechanics/ondamaged",
-                "default_value": ""
+                "default_value": "",
+                "enum": "Metaskill"
             },
             {
                 "name": [
@@ -5772,7 +5799,8 @@
                 "type": "String",
                 "description": "If `deflectProjectiles` is enabled, it will have to follow the specified set of conditions to work",
                 "link": "https://git.lumine.io/mythiccraft/MythicMobs/-/wikis/Skills/Mechanics/ondamaged",
-                "default_value": ""
+                "default_value": "",
+                "enum": "Conditions"
             }
         ]
     },
@@ -5797,7 +5825,8 @@
                 "type": "String",
                 "description": "Skill to execute if the target dies",
                 "link": "https://git.lumine.io/mythiccraft/MythicMobs/-/wikis/Skills/Mechanics/ondeath",
-                "default_value": ""
+                "default_value": "",
+                "enum": "Metaskill"
             }
         ]
     },
@@ -5827,7 +5856,8 @@
                 "type": "String",
                 "description": "Skill to execute if the target player interacts with a block or the target entity is interacted by a player",
                 "link": "https://git.lumine.io/mythiccraft/MythicMobs/-/wikis/Skills/Mechanics/oninteract",
-                "default_value": ""
+                "default_value": "",
+                "enum": "Metaskill"
             }
         ]
     },
@@ -5853,7 +5883,8 @@
                 "type": "String",
                 "description": "The Metaskill to execute if the target jumps",
                 "link": "https://git.lumine.io/mythiccraft/MythicMobs/-/wikis/Skills/Mechanics/onjump",
-                "default_value": ""
+                "default_value": "",
+                "enum": "Metaskill"
             },
             {
                 "name": [
@@ -5890,7 +5921,8 @@
                 "type": "String",
                 "description": "Skill to execute if the target swings / left clicks",
                 "link": "https://git.lumine.io/mythiccraft/MythicMobs/-/wikis/Skills/Mechanics/onswing",
-                "default_value": ""
+                "default_value": "",
+                "enum": "Metaskill"
             }
         ]
     },
@@ -5919,7 +5951,8 @@
                 "type": "String",
                 "description": "Skill to execute when the entity shoots",
                 "link": "https://git.lumine.io/mythiccraft/MythicMobs/-/wikis/Skills/Mechanics/onshoot",
-                "default_value": ""
+                "default_value": "",
+                "enum": "Metaskill"
             },
             {
                 "name": [
@@ -6266,7 +6299,8 @@
                 "type": "String",
                 "description": "Meta-Skill executed when the projectile hits something. Targets hit are inherited by the meta-skill",
                 "link": "https://git.lumine.io/mythiccraft/MythicMobs/-/wikis/Skills/Mechanics/orbital",
-                "default_value": ""
+                "default_value": "",
+                "enum": "Metaskill"
             },
             {
                 "name": [
@@ -6727,7 +6761,8 @@
                 "type": "PlaceholderString",
                 "description": "The color of the particle, if supported",
                 "link": "https://git.lumine.io/mythiccraft/MythicMobs/-/wikis/Skills/Mechanics/Particle",
-                "default_value": ""
+                "default_value": "",
+                "enum": "Color"
             }
         ]
     },
@@ -7445,7 +7480,8 @@
                 "type": "String",
                 "description": "The particle type at the base of the tornado. Typically something like the \u201cimpact\u201d as a tornado spins around, hence the largeexplode default value",
                 "link": "https://git.lumine.io/mythiccraft/MythicMobs/-/wikis/Skills/Mechanics/ParticleTornado",
-                "default_value": "largeexplode"
+                "default_value": "largeexplode",
+                "enum": "Particle"
             },
             {
                 "name": [
@@ -7542,7 +7578,8 @@
                 "type": "String",
                 "description": "The [metaskill] to execute once the item is picked up",
                 "link": "https://git.lumine.io/mythiccraft/MythicMobs/-/wikis/Skills/Mechanics/pickupitem",
-                "default_value": ""
+                "default_value": "",
+                "enum": "Metaskill"
             }
         ]
     },
@@ -7921,7 +7958,8 @@
                 "type": "PlaceholderString",
                 "description": "Meta-Skill executed at every vertex",
                 "link": "https://git.lumine.io/mythiccraft/MythicMobs/-/wikis/Skills/Mechanics/polygon",
-                "default_value": ""
+                "default_value": "",
+                "enum": "Metaskill"
             },
             {
                 "name": [
@@ -7932,7 +7970,8 @@
                 "type": "PlaceholderString",
                 "description": "Meta-Skill executed on the segments that connects the vertices",
                 "link": "https://git.lumine.io/mythiccraft/MythicMobs/-/wikis/Skills/Mechanics/polygon",
-                "default_value": ""
+                "default_value": "",
+                "enum": "Metaskill"
             },
             {
                 "name": [
@@ -7943,7 +7982,8 @@
                 "type": "PlaceholderString",
                 "description": "Meta-Skill executed at the \"start of the \"star\" of the polygon, aka the figure formed inside of the polygon by tweaking the \"skip\" parameter",
                 "link": "https://git.lumine.io/mythiccraft/MythicMobs/-/wikis/Skills/Mechanics/polygon",
-                "default_value": ""
+                "default_value": "",
+                "enum": "Metaskill"
             },
             {
                 "name": [
@@ -7955,7 +7995,8 @@
                 "type": "PlaceholderString",
                 "description": "Meta-Skill executed when the polygon hits an entity. Only triggered once per entity inside the polygon area for every execution of the polygon mechanic",
                 "link": "https://git.lumine.io/mythiccraft/MythicMobs/-/wikis/Skills/Mechanics/polygon",
-                "default_value": ""
+                "default_value": "",
+                "enum": "Metaskill"
             },
             {
                 "name": [
@@ -7969,7 +8010,8 @@
                 "type": "String",
                 "description": "List of [Inline Conditions](https://git.lumine.io/mythiccraft/MythicMobs/-/wikis/Skills/Inline-Conditions) that an entity must met to be hit by the polygon mechanic",
                 "link": "https://git.lumine.io/mythiccraft/MythicMobs/-/wikis/Skills/Mechanics/polygon",
-                "default_value": ""
+                "default_value": "",
+                "enum": "Conditions"
             },
             {
                 "name": [
@@ -8428,7 +8470,8 @@
                 "type": "String",
                 "description": "Meta-Skill executed every [interval] ticks at the projectile's origin location",
                 "link": "https://git.lumine.io/mythiccraft/MythicMobs/-/wikis/Skills/Mechanics/projectile",
-                "default_value": ""
+                "default_value": "",
+                "enum": "Metaskill"
             },
             {
                 "name": [
@@ -8439,7 +8482,8 @@
                 "type": "String",
                 "description": "Meta-Skill executed when the projectile hits entities that are allowed be hit. Targets hit are inherited by the meta-skill.",
                 "link": "https://git.lumine.io/mythiccraft/MythicMobs/-/wikis/Skills/Mechanics/projectile",
-                "default_value": ""
+                "default_value": "",
+                "enum": "Metaskill"
             },
             {
                 "name": [
@@ -8449,7 +8493,8 @@
                 "type": "String",
                 "description": "Meta-Skill executed when the projectile bounces. **Premium Only**.",
                 "link": "https://git.lumine.io/mythiccraft/MythicMobs/-/wikis/Skills/Mechanics/projectile",
-                "default_value": ""
+                "default_value": "",
+                "enum": "Metaskill"
             },
             {
                 "name": [
@@ -8460,7 +8505,8 @@
                 "type": "String",
                 "description": "Meta-Skill executed when the projectile ends.",
                 "link": "https://git.lumine.io/mythiccraft/MythicMobs/-/wikis/Skills/Mechanics/projectile",
-                "default_value": ""
+                "default_value": "",
+                "enum": "Metaskill"
             },
             {
                 "name": [
@@ -8471,7 +8517,8 @@
                 "type": "String",
                 "description": "Meta-Skill executed when the projectile starts at the projectile's origin location.",
                 "link": "https://git.lumine.io/mythiccraft/MythicMobs/-/wikis/Skills/Mechanics/projectile",
-                "default_value": ""
+                "default_value": "",
+                "enum": "Metaskill"
             },
             {
                 "name": [
@@ -8482,7 +8529,8 @@
                 "type": "String",
                 "description": "Meta-Skill executed when the projectile hits a block.",
                 "link": "https://git.lumine.io/mythiccraft/MythicMobs/-/wikis/Skills/Mechanics/projectile",
-                "default_value": ""
+                "default_value": "",
+                "enum": "Metaskill"
             },
             {
                 "name": [
@@ -8492,7 +8540,8 @@
                 "type": "String",
                 "description": "Meta-Skill executed when the projectile is interacted with.",
                 "link": "https://git.lumine.io/mythiccraft/MythicMobs/-/wikis/Skills/Mechanics/projectile",
-                "default_value": ""
+                "default_value": "",
+                "enum": "Metaskill"
             },
             {
                 "name": [
@@ -8860,6 +8909,7 @@
                     "c"
                 ],
                 "type": "String",
+                "enum": "Conditions",
                 "description": "A list of conditions that a target must meet in order for the projectile to be able to hit it. **Premium Only** Mechanic",
                 "link": "https://git.lumine.io/mythiccraft/MythicMobs/-/wikis/Skills/Mechanics/projectile",
                 "default_value": ""
@@ -9925,7 +9975,8 @@
                 "type": "String",
                 "description": "The metaskill to execute once the block has been successfully pushed",
                 "link": "https://git.lumine.io/mythiccraft/MythicMobs/-/wikis/Skills/Mechanics/PushBlock",
-                "default_value": ""
+                "default_value": "",
+                "enum": "Metaskill"
             },
             {
                 "name": [
@@ -9934,7 +9985,8 @@
                 "type": "String",
                 "description": "The metaskill to execute if the block failed to be pushed",
                 "link": "https://git.lumine.io/mythiccraft/MythicMobs/-/wikis/Skills/Mechanics/PushBlock",
-                "default_value": ""
+                "default_value": "",
+                "enum": "Metaskill"
             }
         ]
     },
@@ -10049,7 +10101,8 @@
                 "type": "String",
                 "description": "A list of conditions that the entities must pass in order to be rallied",
                 "link": "https://git.lumine.io/mythiccraft/MythicMobs/-/wikis/Skills/Mechanics/rally",
-                "default_value": ""
+                "default_value": "",
+                "enum": "Conditions"
             },
             {
                 "name": [
@@ -10118,7 +10171,8 @@
                 "type": "String",
                 "description": "the metaskill to run if condition checks fail for all skills in the randomskill list",
                 "link": "https://git.lumine.io/mythiccraft/MythicMobs/-/wikis/Skills/Mechanics/randomskill",
-                "default_value": ""
+                "default_value": "",
+                "enum": "Metaskill"
             },
             {
                 "name": [
@@ -10131,7 +10185,8 @@
                 "type": "String",
                 "description": "The list of skills to execute, must be separated by a `,`",
                 "link": "https://git.lumine.io/mythiccraft/MythicMobs/-/wikis/Skills/Mechanics/randomskill",
-                "default_value": ""
+                "default_value": "",
+                "enum": "Metaskill"
             }
         ]
     },
@@ -10157,7 +10212,8 @@
                 "type": "String",
                 "description": "meta-skill to use when the ray hits an entity",
                 "link": "https://git.lumine.io/mythiccraft/MythicMobs/-/wikis/Skills/Mechanics/raytrace",
-                "default_value": ""
+                "default_value": "",
+                "enum": "Metaskill"
             },
             {
                 "name": [
@@ -10168,7 +10224,8 @@
                 "type": "String",
                 "description": "meta-skill to use when the ray hits a location",
                 "link": "https://git.lumine.io/mythiccraft/MythicMobs/-/wikis/Skills/Mechanics/raytrace",
-                "default_value": ""
+                "default_value": "",
+                "enum": "Metaskill"
             },
             {
                 "name": [
@@ -10179,7 +10236,8 @@
                 "type": "String",
                 "description": "meta-skill to use when it's a headshot",
                 "link": "https://git.lumine.io/mythiccraft/MythicMobs/-/wikis/Skills/Mechanics/raytrace",
-                "default_value": ""
+                "default_value": "",
+                "enum": "Metaskill"
             },
             {
                 "name": [
@@ -10278,7 +10336,8 @@
                 "type": "String",
                 "description": "Conditions applied to the raytraced target",
                 "link": "https://git.lumine.io/mythiccraft/MythicMobs/-/wikis/Skills/Mechanics/raytrace",
-                "default_value": "NONE"
+                "default_value": "",
+                "enum": "Conditions"
             }
         ]
     },
@@ -10304,7 +10363,8 @@
                 "type": "String",
                 "description": "meta-skill to use when the ray hits an entity",
                 "link": "https://git.lumine.io/mythiccraft/MythicMobs/-/wikis/Skills/Mechanics/raytraceto",
-                "default_value": ""
+                "default_value": "",
+                "enum": "Metaskill"
             },
             {
                 "name": [
@@ -10315,7 +10375,8 @@
                 "type": "String",
                 "description": "meta-skill to use when the ray hits a location",
                 "link": "https://git.lumine.io/mythiccraft/MythicMobs/-/wikis/Skills/Mechanics/raytraceto",
-                "default_value": ""
+                "default_value": "",
+                "enum": "Metaskill"
             },
             {
                 "name": [
@@ -10326,7 +10387,8 @@
                 "type": "String",
                 "description": "meta-skill to use when it's a headshot",
                 "link": "https://git.lumine.io/mythiccraft/MythicMobs/-/wikis/Skills/Mechanics/raytraceto",
-                "default_value": ""
+                "default_value": "",
+                "enum": "Metaskill"
             },
             {
                 "name": [
@@ -10425,7 +10487,8 @@
                 "type": "String",
                 "description": "Conditions applied to the raytraced target",
                 "link": "https://git.lumine.io/mythiccraft/MythicMobs/-/wikis/Skills/Mechanics/raytraceto",
-                "default_value": "NONE"
+                "default_value": "",
+                "enum": "Conditions"
             },
             {
                 "name": [
@@ -10599,7 +10662,8 @@
                 "type": "String",
                 "description": "The Metaskill to execute once an entity is removed",
                 "link": "https://git.lumine.io/mythiccraft/MythicMobs/-/wikis/Skills/Mechanics/remove",
-                "default_value": ""
+                "default_value": "",
+                "enum": "Metaskill"
             }
         ]
     },
@@ -11546,7 +11610,8 @@
                 "type": "String",
                 "description": "The color name",
                 "link": "https://git.lumine.io/mythiccraft/MythicMobs/-/wikis/Skills/Mechanics/setmobcolor",
-                "default_value": ""
+                "default_value": "",
+                "enum": "DyeColor"
             }
         ]
     },
@@ -11838,7 +11903,8 @@
                 "type": "String",
                 "description": "A [Location Targeter](https://git.lumine.io/mythiccraft/MythicMobs/-/wikis/Skills/Targeters#single-location-targeters), whose targeted location will be the specified one",
                 "link": "https://git.lumine.io/mythiccraft/MythicMobs/-/wikis/Skills/Mechanics/setraiderpatrolblock",
-                "default_value": ""
+                "default_value": "",
+                "enum": "Targeter"
             }
         ]
     },
@@ -12602,7 +12668,8 @@
                 "type": "PlaceholderString",
                 "description": "The item being shot. Only applicable to some projectile types",
                 "link": "https://git.lumine.io/mythiccraft/MythicMobs/-/wikis/Skills/Mechanics/shoot",
-                "default_value": ""
+                "default_value": "",
+                "enum": "Material"
             },
             {
                 "name": [
@@ -12719,7 +12786,8 @@
                 "type": "String",
                 "description": "The meta-skill to execute on each tick/interval of the projectile",
                 "link": "https://git.lumine.io/mythiccraft/MythicMobs/-/wikis/Skills/Mechanics/shoot",
-                "default_value": "None"
+                "default_value": "",
+                "enum": "Metaskill"
             },
             {
                 "name": [
@@ -12730,7 +12798,8 @@
                 "type": "String",
                 "description": "The meta-skill to execute when the projectile hits its target",
                 "link": "https://git.lumine.io/mythiccraft/MythicMobs/-/wikis/Skills/Mechanics/shoot",
-                "default_value": ""
+                "default_value": "",
+                "enum": "Metaskill"
             },
             {
                 "name": [
@@ -12741,7 +12810,8 @@
                 "type": "String",
                 "description": "The meta-skill to execute when the projectile misses and ends",
                 "link": "https://git.lumine.io/mythiccraft/MythicMobs/-/wikis/Skills/Mechanics/shoot",
-                "default_value": ""
+                "default_value": "",
+                "enum": "Metaskill"
             }
         ]
     },
@@ -12869,7 +12939,8 @@
                 "type": "String",
                 "description": "the skill this mechanic calls each interval",
                 "link": "https://git.lumine.io/mythiccraft/MythicMobs/-/wikis/Skills/Mechanics/shootshulkerbullet",
-                "default_value": ""
+                "default_value": "",
+                "enum": "Metaskill"
             },
             {
                 "name": [
@@ -12880,7 +12951,8 @@
                 "type": "String",
                 "description": "the skill this mechanic calls when it hits the target",
                 "link": "https://git.lumine.io/mythiccraft/MythicMobs/-/wikis/Skills/Mechanics/shootshulkerbullet",
-                "default_value": ""
+                "default_value": "",
+                "enum": "Metaskill"
             },
             {
                 "name": [
@@ -12891,7 +12963,8 @@
                 "type": "String",
                 "description": "the skill this mechanic calls when it ends",
                 "link": "https://git.lumine.io/mythiccraft/MythicMobs/-/wikis/Skills/Mechanics/shootshulkerbullet",
-                "default_value": ""
+                "default_value": "",
+                "enum": "Metaskill"
             }
         ]
     },
@@ -13001,7 +13074,8 @@
                 "type": "String",
                 "description": "The [metaskill](https://git.lumine.io/mythiccraft/MythicMobs/-/wikis/Skills/Metaskills) of which you want to set the cooldown",
                 "link": "https://git.lumine.io/mythiccraft/MythicMobs/-/wikis/Skills/Mechanics/setskillcooldown",
-                "default_value": ""
+                "default_value": "",
+                "enum": "Metaskill"
             },
             {
                 "name": [
@@ -13346,6 +13420,16 @@
             },
             {
                 "name": [
+                    "specificStep",
+                    "ss"
+                ],
+                "type": "PlaceholderInteger",
+                "description": "Define a specific step/index from the generated points which should be shown, when the supplied value is greaten than 0",
+                "link": "https://git.lumine.io/mythiccraft/MythicMobs/-/wikis/Skills/Mechanics/slash",
+                "default_value": "0"
+            },
+            {
+                "name": [
                     "onpointskill",
                     "onpoint",
                     "op"
@@ -13353,7 +13437,8 @@
                 "type": "PlaceholderString",
                 "description": "Meta-Skill executed at every point of the slash",
                 "link": "https://git.lumine.io/mythiccraft/MythicMobs/-/wikis/Skills/Mechanics/slash",
-                "default_value": ""
+                "default_value": "",
+                "enum": "Metaskill"
             },
             {
                 "name": [
@@ -13364,7 +13449,8 @@
                 "type": "PlaceholderString",
                 "description": "Meta-Skill executed at the end of the slash",
                 "link": "https://git.lumine.io/mythiccraft/MythicMobs/-/wikis/Skills/Mechanics/slash",
-                "default_value": ""
+                "default_value": "",
+                "enum": "Metaskill"
             },
             {
                 "name": [
@@ -13375,7 +13461,8 @@
                 "type": "PlaceholderString",
                 "description": "Meta-Skill executed at the start of the slash",
                 "link": "https://git.lumine.io/mythiccraft/MythicMobs/-/wikis/Skills/Mechanics/slash",
-                "default_value": ""
+                "default_value": "",
+                "enum": "Metaskill"
             },
             {
                 "name": [
@@ -13387,7 +13474,8 @@
                 "type": "PlaceholderString",
                 "description": "Meta-Skill executed when a point of the slash hits an entity. Only triggered once per entity for every execution of the slash mechanic",
                 "link": "https://git.lumine.io/mythiccraft/MythicMobs/-/wikis/Skills/Mechanics/slash",
-                "default_value": ""
+                "default_value": "",
+                "enum": "Metaskill"
             },
             {
                 "name": [
@@ -13401,7 +13489,8 @@
                 "type": "String",
                 "description": "List of [Inline Conditions](https://git.lumine.io/mythiccraft/MythicMobs/-/wikis/Skills/Inline-Conditions) that an entity must met to be hit by the slash mechanic",
                 "link": "https://git.lumine.io/mythiccraft/MythicMobs/-/wikis/Skills/Mechanics/slash",
-                "default_value": ""
+                "default_value": "",
+                "enum": "Conditions"
             },
             {
                 "name": [
@@ -13912,7 +14001,8 @@
                 "type": "String",
                 "description": "The Metaskill to execute once an item is successfully stolen",
                 "link": "https://git.lumine.io/mythiccraft/MythicMobs/-/wikis/Skills/Mechanics/StealItem",
-                "default_value": ""
+                "default_value": "",
+                "enum": "Metaskill"
             },
             {
                 "name": [
@@ -14475,7 +14565,8 @@
                 "type": "String",
                 "description": "The [metaskill](https://git.lumine.io/mythiccraft/MythicMobs/-/wikis/Skills/Metaskills) to execute on the summoned mobs",
                 "link": "https://git.lumine.io/mythiccraft/MythicMobs/-/wikis/Skills/Mechanics/summon",
-                "default_value": ""
+                "default_value": "",
+                "enum": "Metaskill"
             }
         ]
     },
@@ -14996,7 +15087,8 @@
                 "type": "String",
                 "description": "The conditions to check against",
                 "link": "https://git.lumine.io/mythiccraft/MythicMobs/-/wikis/Skills/Mechanics/Terminable",
-                "default_value": "null"
+                "default_value": "",
+                "enum": "Conditions"
             },
             {
                 "name": [
@@ -15015,7 +15107,8 @@
                 "type": "String",
                 "description": "The [metaskill](https://git.lumine.io/mythiccraft/MythicMobs/-/wikis/Skills/Metaskills) to execute once the onStart is terminated",
                 "link": "https://git.lumine.io/mythiccraft/MythicMobs/-/wikis/Skills/Mechanics/Terminable",
-                "default_value": ""
+                "default_value": "",
+                "enum": "Metaskill"
             }
         ]
     },
@@ -15047,7 +15140,8 @@
                 "type": "String",
                 "description": "The conditions to check before terminating the projectile",
                 "link": "https://git.lumine.io/mythiccraft/MythicMobs/-/wikis/Skills/Mechanics/endprojectile",
-                "default_value": ""
+                "default_value": "",
+                "enum": "Conditions"
             }
         ]
     },

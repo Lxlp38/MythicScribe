@@ -61,9 +61,6 @@ async function main() {
         external: ['vscode'],
         logLevel: 'silent',
         plugins: [esbuildProblemMatcherPlugin, copyFixturesPlugin],
-        alias: {
-            '@declarations': '@node',
-        },
         define: {
             'process.env.RUNTIME_ENV': JSON.stringify('node'),
         },
@@ -88,7 +85,7 @@ async function main() {
         ],
         alias: {
             path: 'path-browserify',
-            '@declarations': '@web',
+            '@node': '@web',
         },
         define: {
             global: 'globalThis',

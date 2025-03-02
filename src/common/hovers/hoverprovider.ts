@@ -37,16 +37,10 @@ export function hoverProvider(
                 if (!result) {
                     return null;
                 }
-                const obj = result;
-
-                if (!obj) {
-                    return null;
+                if (result instanceof MythicAttribute) {
+                    return getHoverForAttribute(result as Attribute);
                 }
-                if (obj instanceof MythicAttribute) {
-                    return getHoverForAttribute(obj as Attribute);
-                }
-
-                return getHover(obj);
+                return getHover(result);
             }
             for (const keydependency of keydependencies) {
                 if (keydependency.keys.includes(keys[0][0])) {

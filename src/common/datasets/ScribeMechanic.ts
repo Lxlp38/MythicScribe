@@ -1,5 +1,5 @@
 import * as vscode from 'vscode';
-import { getDirectoryFiles } from '@declarations/datasets/ScribeMechanic';
+import { getDirectoryFiles } from '@node/datasets/ScribeMechanic';
 
 import { checkEnabledPlugin } from '../utils/configutils';
 import { AbstractScribeEnum, ScribeEnumHandler } from './ScribeEnum';
@@ -7,6 +7,7 @@ import { Log } from '../utils/logger';
 import { ctx } from '../../MythicScribe';
 import { ScribeCloneableFile } from './datasets';
 import { addMechanicCompletions } from '../utils/completionhelper';
+import { attributeSpecialValues } from './enumSources';
 
 export enum ObjectType {
     MECHANIC = 'Mechanic',
@@ -270,23 +271,39 @@ export class MythicAttribute {
     readonly link: string;
     readonly default_value: string;
     readonly inheritable?: boolean;
+    readonly specialValue?: attributeSpecialValues;
 
     constructor(attribute: Attribute, mechanic: MythicMechanic) {
         this.mechanic = mechanic;
         this.name = attribute.name;
         this.type = attribute.type;
-        this.list = attribute.list;
         this.description = attribute.description;
         this.default_value = attribute.default_value;
         this.inheritable = attribute.inheritable;
         this.link = mechanic.link;
 
-        this.enum = attribute.enum
-            ? attribute.enum.includes(',')
-                ? ScribeEnumHandler.addLambdaEnum(attribute.enum, attribute.enum.split(','))
-                : ScribeEnumHandler.getEnum(attribute.enum)
-            : undefined;
+        if (attribute.list) {
+            this.list = attribute.list;
+        }
 
+        if (!attribute.enum) {
+            return;
+        }
+
+        if (attribute.enum.toLowerCase() in attributeSpecialValues) {
+            this.specialValue =
+                attributeSpecialValues[
+                    attribute.enum.toLowerCase() as keyof typeof attributeSpecialValues
+                ];
+            Log.trace(
+                `Attribute ${this.name[0]} from mechanic ${this.mechanic.class} has special value ${attribute.enum}`
+            );
+            return;
+        }
+
+        this.enum = attribute.enum.includes(',')
+            ? ScribeEnumHandler.addLambdaEnum(attribute.enum, attribute.enum.split(','))
+            : ScribeEnumHandler.getEnum(attribute.enum);
         this.addEnumAttributesToMechanic(this.enum, mechanic);
     }
 

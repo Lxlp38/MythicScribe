@@ -9,9 +9,8 @@
 			"DOM"
 		],
 		"paths": {
-			"@declarations/*": ["./src/declarations/*"],
+			"@node/*": ["./src/node/*"],
 			"@web/*": ["./src/web/*"],
-			"@node/*": ["./src/node/*"]	  
 		},
 		"sourceMap": true,
 		"strict": true,

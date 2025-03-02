@@ -155,18 +155,19 @@ export const ScribeEnumHandler = {
         this.addLambdaEnum(scriptedEnums.Boolean, ['true', 'false']);
         this.addScriptedEnum(scriptedEnums.Color, insertColor);
         this.addScriptedEnum(scriptedEnums.RGBColor, () => insertColor(undefined, '255,255,255'));
-        this.addScriptedEnum(scriptedEnums.Mechanic, () =>
+        this.addScriptedEnum(scriptedEnums.MechanicList, () =>
             fromMechanicRegistryToEnum(ScribeMechanicHandler.registry.mechanic)
         );
-        this.addScriptedEnum(scriptedEnums.Targeter, () =>
+        this.addScriptedEnum(scriptedEnums.TargeterList, () =>
             fromMechanicRegistryToEnum(ScribeMechanicHandler.registry.targeter)
         );
-        this.addScriptedEnum(scriptedEnums.Trigger, () =>
+        this.addScriptedEnum(scriptedEnums.TriggerList, () =>
             fromMechanicRegistryToEnum(ScribeMechanicHandler.registry.trigger)
         );
-        this.addScriptedEnum(scriptedEnums.Condition, () =>
+        this.addScriptedEnum(scriptedEnums.ConditionList, () =>
             fromMechanicRegistryToEnum(ScribeMechanicHandler.registry.condition)
         );
+        this.addScriptedEnum(scriptedEnums.Targeter, insertTargeterCompletion);
     },
 
     getEnum(identifier: string): AbstractScribeEnum | undefined {
@@ -221,4 +222,20 @@ function fromMechanicRegistryToEnum(registry: AbstractScribeMechanicRegistry) {
         });
     });
     return mechanics;
+}
+
+async function insertTargeterCompletion() {
+    const editor = vscode.window.activeTextEditor;
+    if (!editor) {
+        return;
+    }
+
+    const position = editor.selection.active;
+
+    // Insert the color at the current position
+    await editor.edit((editBuilder) => {
+        editBuilder.insert(position, '@');
+    });
+
+    vscode.commands.executeCommand('editor.action.triggerSuggest');
 }

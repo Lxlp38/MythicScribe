@@ -3882,7 +3882,8 @@
                 "type": "String",
                 "description": "The Metaskill to call if this condition does not check",
                 "link": "https://git.lumine.io/mythiccraft/MythicMobs/-/wikis/Skills/Conditions",
-                "default_value": ""
+                "default_value": "",
+                "enum": "Metaskill"
             },
             {
                 "name": [
@@ -3892,7 +3893,8 @@
                 "type": "String",
                 "description": "The Metaskill to call if this condition does check",
                 "link": "https://git.lumine.io/mythiccraft/MythicMobs/-/wikis/Skills/Conditions",
-                "default_value": ""
+                "default_value": "",
+                "enum": "Metaskill"
             }
         ]
     },

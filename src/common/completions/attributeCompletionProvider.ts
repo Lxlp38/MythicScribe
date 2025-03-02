@@ -127,25 +127,7 @@ export function attributeValueCompletionProvider() {
                 const keys = yamlutils.getParentKeys(document, position);
                 const completionItems: vscode.CompletionItem[] = [];
 
-                const mechanic = searchForLinkedObject(
-                    document,
-                    position,
-                    yamlutils.getKeyNameFromYamlKey(keys),
-                    keys[0][1]
-                );
-                if (!mechanic) {
-                    return null;
-                }
-                const attribute = document
-                    .getText(new vscode.Range(new vscode.Position(keys[0][1], 0), position))
-                    .match(MythicAttribute.regex)
-                    ?.pop();
-
-                if (!attribute) {
-                    return null;
-                }
-
-                const attributeInfo = mechanic.getAttributeByName(attribute);
+                const attributeInfo = searchForLinkedAttribute(document, position, keys);
 
                 if (!attributeInfo) {
                     return null;
@@ -231,8 +213,35 @@ function searchForLinkedObject(
         }
     }
     if (!mechanic) {
-        return null;
+        //TODO: add more robust check for condition registry switch
+        mechanic = ScribeMechanicHandler.registry.condition.getMechanicByName(object);
     }
 
-    return mechanic;
+    return mechanic ? mechanic : null;
+}
+
+export function searchForLinkedAttribute(
+    document: vscode.TextDocument,
+    position: vscode.Position,
+    keys: yamlutils.YamlKey[]
+): MythicAttribute | undefined {
+    const mechanic = searchForLinkedObject(
+        document,
+        position,
+        yamlutils.getKeyNameFromYamlKey(keys),
+        keys[0][1]
+    );
+    if (!mechanic) {
+        return undefined;
+    }
+    const attribute = document
+        .getText(new vscode.Range(new vscode.Position(keys[0][1], 0), position))
+        .match(MythicAttribute.regex)
+        ?.pop();
+
+    if (!attribute) {
+        return undefined;
+    }
+
+    return mechanic.getAttributeByName(attribute);
 }

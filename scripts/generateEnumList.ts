@@ -1,8 +1,8 @@
 import * as fs from 'fs';
 import * as path from 'path';
-import { localEnums, volatileEnums, scriptedEnums } from '../src/common/datasets/enumSources';
+import { localEnums, volatileEnums, scriptedEnums, attributeSpecialValues } from '../src/common/datasets/enumSources';
 
-interface enumInfo { id: string, path: string, type: string }
+interface enumInfo { id: string, path: string | null, type: string }
 
 enum EnumType {
     Static = 'Static',
@@ -15,6 +15,7 @@ export function generateEnumList() {
     iterateOverEnum(enums, localEnums, EnumType.Static);
     iterateOverEnum(enums, volatileEnums, EnumType.Volatile);
     iterateOverEnum(enums, Object.keys(scriptedEnums), EnumType.Scripted);
+    iterateOverEnum(enums, Object.keys(attributeSpecialValues), EnumType.Scripted);
 
     const outputPath = path.join(__dirname, '../generated/enumList/enumList');
     const outputPath_md = outputPath + '.md';
@@ -43,7 +44,7 @@ function iterateOverEnum(list: enumInfo[], source: (string | string[])[], type: 
         } else {
             let identifier = item.split('/').pop();
             identifier = identifier ? identifier.split('.')[0] : item;
-            list.push({ id: identifier.toLowerCase(), path: item, type: type });
+            list.push({ id: identifier.toLowerCase(), path: type === EnumType.Scripted ? null : item, type: type });
         }
     });
 }

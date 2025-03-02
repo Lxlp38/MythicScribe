@@ -4,7 +4,7 @@
 
 ### Added
 - VSCode-Web Compatibility
-- Color Picker for the relevant attributes and options. Also added special "Color" and "RGBColor" enums
+- Color Picker for the relevant attributes and options.
 - `MythicScribe.enabledPlugins` configuration to set enabled / disabled datasets based on the plugin implementing them
 - Hovers and Completions for Droptables
   - `MythicScribe.fileRegex.Droptable` configuration to define a regex to recognize Droptable files
@@ -17,6 +17,7 @@
 - `Create Bundle Dataset` command to create a Bundle Dataset based on other Custom Datasets you have previously added
 - `Load Datasets` command to reload the datasets manually
 - `Open Logs` command to open the Extension's logs. For debugging purposes
+- Basic support for completions and hovers for conditions inside of certain mechanic attributes, such as projectile's hitconditions
 
 ### Changed
 - Refactor of how Mechanics/Enums and Subscriptions are handled

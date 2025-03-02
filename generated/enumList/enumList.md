@@ -225,3 +225,11 @@
 # `condition`
 ### Path: `null`
 ### Type: `Scripted`
+
+# `inlineattributeconditions`
+### Path: `null`
+### Type: `Scripted`
+
+# `metaskill`
+### Path: `null`
+### Type: `Scripted`

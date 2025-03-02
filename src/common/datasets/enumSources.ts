@@ -58,8 +58,14 @@ export enum scriptedEnums {
     Color = 'Color',
     RGBColor = 'RGBColor',
     Boolean = 'Boolean',
-    Mechanic = 'Mechanic',
+    MechanicList = 'MechanicList',
+    TargeterList = 'TargeterList',
+    TriggerList = 'TriggerList',
+    ConditionList = 'ConditionList',
     Targeter = 'Targeter',
-    Trigger = 'Trigger',
-    Condition = 'Condition',
+}
+
+export enum attributeSpecialValues {
+    conditions = 'conditions',
+    metaskill = 'metaskill',
 }
