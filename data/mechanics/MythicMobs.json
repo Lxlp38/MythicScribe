@@ -4911,6 +4911,7 @@
         "class": "MessageMechanic",
         "extends": "SkillMechanic",
         "implements": [
+            "INoTargetSkill",
             "ITargetedEntitySkill",
             "ITargetedLocationSkill"
         ],

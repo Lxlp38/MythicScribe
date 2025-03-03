@@ -721,7 +721,8 @@
                 "type": "String",
                 "description": "How to sort the targeted entities/locations",
                 "link": "https://git.lumine.io/mythiccraft/MythicMobs/-/wikis/Skills/Targeters#common-entity-targeters-attributes",
-                "default_value": ""
+                "default_value": "",
+                "enum": "NONE,RANDOM,NEAREST,FURTHEST,HIGHEST_HEALTH,LOWEST_HEALTH,HIGHEST_THREAT,LOWEST_THREAT"
             },
             {
                 "name": [
@@ -1114,7 +1115,8 @@
                 "type": "String",
                 "description": "How to sort the targeted entities/locations",
                 "link": "https://git.lumine.io/mythiccraft/MythicMobs/-/wikis/Skills/Targeters#common-location-targeters-attributes",
-                "default_value": ""
+                "default_value": "",
+                "enum": "NONE,RANDOM,NEAREST,FURTHEST"
             },
             {
                 "name": [
@@ -1489,6 +1491,16 @@
                 "description": "The radius of the targeter",
                 "link": "https://git.lumine.io/mythiccraft/MythicMobs/-/wikis/Skills/Targeters/MobsInRadius",
                 "default_value": "5"
+            },
+            {
+                "name": [
+                    "checkIfTemplate",
+                    "cit"
+                ],
+                "type": "Boolean",
+                "description": "Whether to check against the mob's templates instead of the mob's internal name",
+                "link": "https://git.lumine.io/mythiccraft/MythicMobs/-/wikis/Skills/Targeters/MobsInRadius",
+                "default_value": "false"
             },
             {
                 "name": [
@@ -2768,7 +2780,8 @@
                 "type": "String",
                 "description": "[Inline Target Conditions](https://git.lumine.io/mythiccraft/MythicMobs/-/wikis/Skills/Inline-Conditions#targetconditions)",
                 "link": "https://git.lumine.io/mythiccraft/MythicMobs/-/wikis/Skills/Targeters#common-attributes",
-                "default_value": ""
+                "default_value": "",
+                "enum": "Conditions"
             },
             {
                 "name": [
@@ -2808,6 +2821,17 @@
                 "description": "If this attribute is set to `true`, the targeter will be parsed as if it was the [Trigger](https://git.lumine.io/mythiccraft/MythicMobs/-/wikis/Skills/Targeters/Trigger) of the skilltree executing the mechanic",
                 "link": "https://git.lumine.io/mythiccraft/MythicMobs/-/wikis/Skills/Targeters#common-attributes",
                 "default_value": ""
+            },
+            {
+                "name": [
+                    "fallback",
+                    "fb"
+                ],
+                "type": "String",
+                "description": "The fallback targeter to use, if this one returns no target",
+                "link": "https://git.lumine.io/mythiccraft/MythicMobs/-/wikis/Skills/Targeters#common-attributes",
+                "default_value": "",
+                "enum": "Targeter"
             }
         ]
     },

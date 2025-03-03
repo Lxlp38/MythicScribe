@@ -29,8 +29,12 @@ export async function activate(context: vscode.ExtensionContext) {
     if (checkExtensionVersion()) {
         // Run migrations if so
         Log.debug('Running migrations');
-        await Promise.all([doVersionSpecificMigrations(), clearExtensionDatasetsClonedStorage()]);
+        await Promise.all([
+            clearExtensionDatasetsClonedStorage(),
+            doVersionSpecificMigrations(vscode.ConfigurationTarget.Global),
+        ]);
     }
+    await doVersionSpecificMigrations(vscode.ConfigurationTarget.Workspace);
 
     loadDatasets();
 
@@ -55,8 +59,9 @@ export async function activate(context: vscode.ExtensionContext) {
         vscode.languages.registerColorProvider('mythicscript', scribeColorProvider)
     );
 
-    if (vscode.window.activeTextEditor) {
-        SubscriptionHelper.updateSubscriptions(vscode.window.activeTextEditor.document);
+    const activeEditor = vscode.window.activeTextEditor;
+    if (activeEditor) {
+        SubscriptionHelper.updateSubscriptions(activeEditor.document);
     }
 }
 
@@ -71,7 +76,7 @@ export function checkExtensionVersion(): boolean {
             'Check Changelogs': 'https://github.com/Lxlp38/MythicScribe/blob/master/CHANGELOG.md',
         };
         showInfoMessageWithOptions(
-            `Updated MythicScribe to version ${version}`,
+            `Updated MythicScribe to version ${version}\nYou may need to restart VSCode for changes to take effect`,
             checkExtensionVersionOptions
         );
         ctx.globalState.update('extensionVersion', version);

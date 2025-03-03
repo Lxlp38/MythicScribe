@@ -32,7 +32,7 @@ suite('Config Migration', () => {
             inspectStub.returns(undefined);
             getConfigurationStub.returns({ inspect: inspectStub });
 
-            await migrateConfiguration('oldKey', 'newKey', 'newProperty');
+            await migrateConfiguration('oldKey', 'newKey', 'newProperty', vscode.ConfigurationTarget.Global);
 
             assert.strictEqual(updateStub.called, false);
         });
@@ -49,7 +49,8 @@ suite('Config Migration', () => {
                 update: updateStub,
             });
 
-            await migrateConfiguration('oldKey', 'newKey', 'newProperty');
+            await migrateConfiguration('oldKey', 'newKey', 'newProperty', vscode.ConfigurationTarget.Global);
+            await migrateConfiguration('oldKey', 'newKey', 'newProperty', vscode.ConfigurationTarget.Workspace);
 
             assert.strictEqual(updateStub.callCount, 4);
             assert.strictEqual(
@@ -90,7 +91,8 @@ suite('Config Migration', () => {
                 update: updateStub,
             });
 
-            await migrateConfiguration('oldKey2', 'newKey2', 'newProperty2');
+            await migrateConfiguration('oldKey2', 'newKey2', 'newProperty2', vscode.ConfigurationTarget.Global);
+            await migrateConfiguration('oldKey2', 'newKey2', 'newProperty2', vscode.ConfigurationTarget.Workspace);
 
             assert.strictEqual(updateStub.callCount, 2);
             assert.strictEqual(

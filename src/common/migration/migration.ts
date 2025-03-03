@@ -2,16 +2,21 @@ import * as vscode from 'vscode';
 
 import { Log } from '../utils/logger';
 
-export async function migrateConfiguration(oldKey: string, newkey: string, newProperty: string) {
+export async function migrateConfiguration(
+    oldKey: string,
+    newkey: string,
+    newProperty: string,
+    scope: vscode.ConfigurationTarget
+) {
     const config = vscode.workspace.getConfiguration('MythicScribe');
     const inspected = config.inspect(oldKey);
 
     if (!inspected) {
         return;
     }
-
-    await updateScope(inspected.globalValue, vscode.ConfigurationTarget.Global);
-    await updateScope(inspected.workspaceValue, vscode.ConfigurationTarget.Workspace);
+    const inspectTarget =
+        scope === vscode.ConfigurationTarget.Global ? 'globalValue' : 'workspaceValue';
+    await updateScope(inspected[inspectTarget], scope);
 
     async function updateScope(value: unknown, target: vscode.ConfigurationTarget) {
         if (value !== undefined) {
@@ -56,11 +61,12 @@ export async function changeCustomDatasetsSource(
     }
 }
 
-export async function doVersionSpecificMigrations() {
+export async function doVersionSpecificMigrations(scope: vscode.ConfigurationTarget) {
+    Log.debug('Running version specific migrations for', scope.toString());
     await Promise.all([
-        migrateConfiguration('regexForMythicmobsFile', 'fileRegex', 'MythicMobs'),
-        migrateConfiguration('regexForMobFile', 'fileRegex', 'Mob'),
-        migrateConfiguration('regexForItemFile', 'fileRegex', 'Item'),
-        migrateConfiguration('regexForMetaskillFile', 'fileRegex', 'MetaSkill'),
+        migrateConfiguration('regexForMythicmobsFile', 'fileRegex', 'MythicMobs', scope),
+        migrateConfiguration('regexForMobFile', 'fileRegex', 'Mob', scope),
+        migrateConfiguration('regexForItemFile', 'fileRegex', 'Item', scope),
+        migrateConfiguration('regexForMetaskillFile', 'fileRegex', 'MetaSkill', scope),
     ]);
 }

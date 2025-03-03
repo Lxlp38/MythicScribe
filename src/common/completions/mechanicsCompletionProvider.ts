@@ -1,6 +1,10 @@
 import * as vscode from 'vscode';
 
-import { AbstractScribeMechanicRegistry, ScribeMechanicHandler } from '../datasets/ScribeMechanic';
+import {
+    AbstractScribeMechanicRegistry,
+    MythicAttribute,
+    ScribeMechanicHandler,
+} from '../datasets/ScribeMechanic';
 import { attributeSpecialValues } from '../datasets/enumSources';
 import { checkShouldKeyComplete, getListCompletionNeededSpaces } from '../utils/completionhelper';
 import { getSquareBracketObject } from '../utils/cursorutils';
@@ -36,15 +40,24 @@ export function mechanicCompletionProvider(
                 }
                 const maybeAttribute = getSquareBracketObject(document, position);
                 if (maybeAttribute && maybeAttribute[0] && maybeAttribute[1]) {
-                    const attribute = registry
-                        .getMechanicByName(maybeAttribute[1])
-                        ?.getAttributeByName(maybeAttribute[0]);
+                    let attribute: undefined | MythicAttribute;
+                    if (maybeAttribute[1].startsWith('@')) {
+                        const targeter = ScribeMechanicHandler.registry.targeter.getMechanicByName(
+                            maybeAttribute[1].replace('@', '')
+                        );
+                        if (targeter) {
+                            attribute = targeter.getAttributeByName(maybeAttribute[0]);
+                        }
+                    } else {
+                        attribute = registry
+                            .getMechanicByName(maybeAttribute[1])
+                            ?.getAttributeByName(maybeAttribute[0]);
+                    }
                     if (attribute && attribute.specialValue === attributeSpecialValues.conditions) {
                         return ScribeMechanicHandler.registry.condition.mechanicCompletions;
                     }
                 }
-                const completionItems: vscode.CompletionItem[] = registry.mechanicCompletions;
-                return completionItems;
+                return registry.mechanicCompletions;
             },
         },
         '-',
