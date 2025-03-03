@@ -58,7 +58,7 @@
             "onBreakblock",
             "onBreak_Block"
         ],
-        "description": "When the player breaks a custom block or a furniture",
+        "description": "When the player breaks a custom block or a furniture\n\n\n| [Implemented Placeholders](https://git.lumine.io/mythiccraft/mythiccrucible/-/wikis/Placeholders#variable-placeholders)     |\n|--------------------------------|\n| `<skill.var.block-internalid>` |",
         "link": "https://git.lumine.io/mythiccraft/mythiccrucible/-/wikis/Skills/Triggers/onBlockBreak",
         "attributes": []
     },
@@ -76,7 +76,7 @@
             "onPlaceblock",
             "onPlace_Block"
         ],
-        "description": "When the player places the custom block or a furniture",
+        "description": "When the player places the custom block or a furniture\n\n\n| [Implemented Placeholders](https://git.lumine.io/mythiccraft/mythiccrucible/-/wikis/Placeholders#variable-placeholders)     |\n|--------------------------------|\n| `<skill.var.block-internalid>` |",
         "link": "https://git.lumine.io/mythiccraft/mythiccrucible/-/wikis/Skills/Triggers/onBlockPlace",
         "attributes": []
     },

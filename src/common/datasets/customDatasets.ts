@@ -405,7 +405,11 @@ async function loadBundleDataset(dataset: CustomDataset, stack: string[] = ['Myt
 
     if (stack.includes(dataset.pathOrUrl)) {
         stack.push(dataset.pathOrUrl);
-        Log.error(stack.join(' -> '), 'Circular reference detected in Bundle:');
+        Log.trace('Circular reference detected in Bundle:\n', stack.join(' -> '));
+        Log.error(
+            stack.map((value) => path.basename(value)).join(' -> '),
+            'Circular reference detected in Bundle:\n'
+        );
         return;
     }
     stack.push(dataset.pathOrUrl);

@@ -262,6 +262,99 @@
     },
     {
         "plugin": "MythicCrucible",
+        "class": "ConsumeUsedDurabilityMechanic",
+        "extends": "SkillMechanic",
+        "implements": [
+            "INoTargetSkill"
+        ],
+        "name": [
+            "consumeuseddurability"
+        ],
+        "description": "Consumes durability from the item that triggered the skilltree",
+        "link": "https://git.lumine.io/mythiccraft/mythiccrucible/-/wikis/Skills/Mechanics/ConsumeUsedDurability",
+        "attributes": [
+            {
+                "name": [
+                    "amount",
+                    "a"
+                ],
+                "type": "Integer",
+                "description": "Amount to consume",
+                "link": "https://git.lumine.io/mythiccraft/mythiccrucible/-/wikis/Skills/Mechanics/ConsumeUsedDurability",
+                "default_value": "1"
+            },
+            {
+                "name": [
+                    "breakitem",
+                    "b",
+                    "break"
+                ],
+                "type": "Boolean",
+                "description": "Whether the item can break because of this mechanic",
+                "link": "https://git.lumine.io/mythiccraft/mythiccrucible/-/wikis/Skills/Mechanics/ConsumeUsedDurability",
+                "default_value": "true"
+            },
+            {
+                "name": [
+                    "breaksound",
+                    "s"
+                ],
+                "type": "String",
+                "description": "The sound to emit if the item were to break",
+                "link": "https://git.lumine.io/mythiccraft/mythiccrucible/-/wikis/Skills/Mechanics/ConsumeUsedDurability",
+                "default_value": "entity.item.break",
+                "enum": "Sound"
+            },
+            {
+                "name": [
+                    "breakvolume",
+                    "v"
+                ],
+                "type": "Float",
+                "description": "The volume of the break sound",
+                "link": "https://git.lumine.io/mythiccraft/mythiccrucible/-/wikis/Skills/Mechanics/ConsumeUsedDurability",
+                "default_value": "1.0"
+            },
+            {
+                "name": [
+                    "breakpitch",
+                    "p"
+                ],
+                "type": "Float",
+                "description": "The pitch of the break sound",
+                "link": "https://git.lumine.io/mythiccraft/mythiccrucible/-/wikis/Skills/Mechanics/ConsumeUsedDurability",
+                "default_value": "1.0"
+            }
+        ]
+    },
+    {
+        "plugin": "MythicCrucible",
+        "class": "ConsumeUsedItemMechanic",
+        "extends": "SkillMechanic",
+        "implements": [
+            "INoTargetSkill"
+        ],
+        "name": [
+            "consumeuseditem",
+            "removeuseditem"
+        ],
+        "description": "Removes the item that triggered the skilltree",
+        "link": "https://git.lumine.io/mythiccraft/mythiccrucible/-/wikis/Skills/Mechanics/ConsumeUsedItem",
+        "attributes": [
+            {
+                "name": [
+                    "amount",
+                    "a"
+                ],
+                "type": "Integer",
+                "description": "The amount to remove",
+                "link": "https://git.lumine.io/mythiccraft/mythiccrucible/-/wikis/Skills/Mechanics/ConsumeUsedItem",
+                "default_value": "1"
+            }
+        ]
+    },
+    {
+        "plugin": "MythicCrucible",
         "class": "DealCustomDurabilityMechanic",
         "extends": "SkillMechanic",
         "implements": [
@@ -328,6 +421,21 @@
     },
     {
         "plugin": "MythicCrucible",
+        "class": "OpenBackpackMechanic",
+        "extends": "SkillMechanic",
+        "implements": [
+            "INoTargetSkill"
+        ],
+        "name": [
+            "openBackpack",
+            "openbag"
+        ],
+        "description": "Opens the first backpack found in the player's inventory",
+        "link": "https://git.lumine.io/mythiccraft/mythiccrucible/-/wikis/Skills/Mechanics/OpenBackpack",
+        "attributes": []
+    },
+    {
+        "plugin": "MythicCrucible",
         "class": "OpenFurnitureInventoryMechanic",
         "extends": "SkillMechanic",
         "implements": [
@@ -361,6 +469,21 @@
                 "default_value": "The Display name of the Item"
             }
         ]
+    },
+    {
+        "plugin": "MythicCrucible",
+        "class": "OpenFurniturePainterMechanic",
+        "extends": "SkillMechanic",
+        "implements": [
+            "ITargetedEntitySkill"
+        ],
+        "name": [
+            "openFurniturePainter",
+            "furniturePainter"
+        ],
+        "description": "Opens the furniture's painter for the target player",
+        "link": "https://git.lumine.io/mythiccraft/mythiccrucible/-/wikis/Skills/Mechanics/OpenFurniturePainter",
+        "attributes": []
     },
     {
         "plugin": "MythicCrucible",
@@ -688,6 +811,51 @@
                 "description": "The name of the new state the Furniture should have",
                 "link": "https://git.lumine.io/mythiccraft/mythiccrucible/-/wikis/Skills/Mechanics/furniturestate",
                 "default_value": "DEFAULT"
+            }
+        ]
+    },
+    {
+        "plugin": "MythicCrucible",
+        "class": "SetItemCustomModelDataMechanic",
+        "extends": "SkillMechanic",
+        "implements": [
+            "INoTargetSkill",
+            "ITargetedEntitySkill"
+        ],
+        "name": [
+            "setItemCustomModelData",
+            "setitemcmd",
+            "setcustommodeldata",
+            "setcmd"
+        ],
+        "description": "Sets the CustomModelData of the used item",
+        "link": "https://git.lumine.io/mythiccraft/mythiccrucible/-/wikis/Skills/Mechanics/SetItemCustomModelData",
+        "attributes": [
+            {
+                "name": [
+                    "model",
+                    "m",
+                    "cmd",
+                    "value",
+                    "val",
+                    "v"
+                ],
+                "type": "PlaceholderInteger",
+                "description": "The Custom Model Data to set",
+                "link": "https://git.lumine.io/mythiccraft/mythiccrucible/-/wikis/Skills/Mechanics/SetItemCustomModelData",
+                "default_value": "0"
+            },
+            {
+                "name": [
+                    "equipslot",
+                    "slot",
+                    "s"
+                ],
+                "type": null,
+                "description": "The slot to target",
+                "link": "https://git.lumine.io/mythiccraft/mythiccrucible/-/wikis/Skills/Mechanics/SetItemCustomModelData",
+                "default_value": "",
+                "enum": "EquipSlot"
             }
         ]
     },

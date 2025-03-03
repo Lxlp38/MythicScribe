@@ -5,10 +5,10 @@ import { ScribeMechanicHandler } from './ScribeMechanic';
 import { ScribeEnumHandler } from './ScribeEnum';
 import { ctx } from '../../MythicScribe';
 import {
+    ComponentStatus,
     convertLocalPathToGitHubUrl,
     ensureComponentsExist,
     getRelativePath,
-    isFileEmpty,
 } from '../utils/uriutils';
 import { datasetSource, finallySetEnabledPlugins } from '../utils/configutils';
 import { loadCustomDatasets } from './customDatasets';
@@ -54,9 +54,8 @@ export class ScribeCloneableFile<T> {
     async get(): Promise<T[]> {
         if (datasetSource() === 'GitHub') {
             if (!shouldUpdateGithubDatasets) {
-                await ensureComponentsExist(this.edcsUri);
-                const empty = await isFileEmpty(this.edcsUri);
-                if (!empty) {
+                const status = await ensureComponentsExist(this.edcsUri);
+                if (status === ComponentStatus.Exists) {
                     return fetchJsonFromLocalFile<T>(this.edcsUri);
                 }
                 Log.debug('EDCS for', this.edcsUri.fsPath, 'is empty, fetching data from GitHub');
@@ -64,7 +63,6 @@ export class ScribeCloneableFile<T> {
 
             const data = await fetchJsonFromURL<T>(this.githubUri.toString());
             if (data) {
-                Log.debug('Feched data:', data.length.toString());
                 this.updateEDCS(data);
                 return data;
             }
@@ -78,9 +76,11 @@ export class ScribeCloneableFile<T> {
     }
 
     private async updateEDCS(data: T[]) {
+        const json = JSON.stringify(data);
+        Log.debug('Feched data:', json);
         await ensureComponentsExist(this.edcsUri);
-        await vscode.workspace.fs.writeFile(this.edcsUri, Buffer.from(JSON.stringify(data)));
-        Log.debug('Updated EDCS:', this.edcsUri.fsPath);
+        await vscode.workspace.fs.writeFile(this.edcsUri, Buffer.from(json));
+        Log.debug('Updated EDCS:', this.edcsUri.path);
     }
 
     async getModifiedTime(uri: vscode.Uri): Promise<number | null> {

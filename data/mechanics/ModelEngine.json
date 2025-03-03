@@ -1,6 +1,99 @@
 [
     {
         "plugin": "ModelEngine",
+        "class": "AnimateModelMechanic",
+        "extends": "SkillMechanic",
+        "implements": [
+            "ITargetedEntitySkill"
+        ],
+        "name": [
+            "animatemodel"
+        ],
+        "description": "Programmatically animates a model's bone, without relying on animations",
+        "link": "https://git.lumine.io/mythiccraft/model-engine-4/-/wikis/Skills/Mechanics/AnimateModel",
+        "attributes": [
+            {
+                "name": [
+                    "m",
+                    "mid",
+                    "model",
+                    "modelid"
+                ],
+                "type": "PlaceholderString",
+                "description": "The model to target",
+                "link": "https://git.lumine.io/mythiccraft/model-engine-4/-/wikis/Skills/Mechanics/AnimateModel",
+                "default_value": ""
+            },
+            {
+                "name": [
+                    "p",
+                    "pid",
+                    "part",
+                    "partid"
+                ],
+                "type": "PlaceholderString",
+                "description": "The bone to target and animate",
+                "link": "https://git.lumine.io/mythiccraft/model-engine-4/-/wikis/Skills/Mechanics/AnimateModel",
+                "default_value": ""
+            },
+            {
+                "name": [
+                    "em",
+                    "exact",
+                    "match",
+                    "exactmatch"
+                ],
+                "type": "Boolean",
+                "description": "Whether the bone's name should exactly match the provided partid attribute. If set to false, every bone whose name contains partid's value will be targeted",
+                "link": "https://git.lumine.io/mythiccraft/model-engine-4/-/wikis/Skills/Mechanics/AnimateModel",
+                "default_value": "true"
+            },
+            {
+                "name": [
+                    "r",
+                    "rel",
+                    "relative"
+                ],
+                "type": "Boolean",
+                "description": "Whether the provided values should be treated as relative to the curren bone's position",
+                "link": "https://git.lumine.io/mythiccraft/model-engine-4/-/wikis/Skills/Mechanics/AnimateModel",
+                "default_value": "false"
+            },
+            {
+                "name": [
+                    "o",
+                    "ov",
+                    "override"
+                ],
+                "type": "Boolean",
+                "description": "",
+                "link": "https://git.lumine.io/mythiccraft/model-engine-4/-/wikis/Skills/Mechanics/AnimateModel",
+                "default_value": "false"
+            },
+            {
+                "name": [
+                    "copy"
+                ],
+                "type": "Boolean",
+                "description": "",
+                "link": "https://git.lumine.io/mythiccraft/model-engine-4/-/wikis/Skills/Mechanics/AnimateModel",
+                "default_value": "true"
+            },
+            {
+                "name": [
+                    "rm",
+                    "rotmode"
+                ],
+                "type": "PlaceholderString",
+                "description": "The rotation mode. Can be LOCAL or GLOBAL",
+                "link": "https://git.lumine.io/mythiccraft/model-engine-4/-/wikis/Skills/Mechanics/AnimateModel",
+                "default_value": "LOCAL",
+                "enum": "LOCAL,GLOBAL"
+            }
+        ]
+    },
+    {
+        "plugin": "ModelEngine",
         "class": "BindHitboxMechanic",
         "extends": "SkillMechanic",
         "implements": [
@@ -2586,7 +2679,8 @@
             {
                 "name": [
                     "target",
-                    "t"
+                    "t",
+                    "to"
                 ],
                 "type": "String",
                 "description": "Yaw to be modified<br>Can only be `yaw`, `body` or `head`",
@@ -2596,9 +2690,11 @@
             {
                 "name": [
                     "body",
-                    "b"
+                    "b",
+                    "src",
+                    "from"
                 ],
-                "type": "Boolean",
+                "type": "String",
                 "description": "Whether the yaw is syncing to the body yaw<br>If false, uses head yaw instead",
                 "link": "https://git.lumine.io/mythiccraft/model-engine-4/-/wikis/Skills/Mechanics/SyncYaw",
                 "default_value": "false"

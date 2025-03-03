@@ -4254,6 +4254,34 @@
     },
     {
         "plugin": "MythicMobs",
+        "class": "TemplateTypeCondition",
+        "extends": "the",
+        "implements": [
+            "IEntityCondition"
+        ],
+        "name": [
+            "templateType",
+            "template",
+            "instanceOf"
+        ],
+        "description": "Checks if the target mob extends the specified [Template](https://git.lumine.io/mythiccraft/MythicMobs/-/wikis/Mobs/Templates)",
+        "link": "https://git.lumine.io/mythiccraft/MythicMobs/-/wikis/Skills/Conditions/TemplateType",
+        "attributes": [
+            {
+                "name": [
+                    "templates",
+                    "template",
+                    "t"
+                ],
+                "type": "String",
+                "description": "The template to match. A list of templates can be specified, in which case the condition will match if any of the specified templates is present",
+                "link": "https://git.lumine.io/mythiccraft/MythicMobs/-/wikis/Skills/Conditions/TemplateType",
+                "default_value": ""
+            }
+        ]
+    },
+    {
+        "plugin": "MythicMobs",
         "class": "ThunderingCondition",
         "extends": "SkillCondition",
         "implements": [

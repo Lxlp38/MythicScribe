@@ -83,6 +83,7 @@ export abstract class AbstractScribeMechanicRegistry {
         this.mechanics = [];
         this.mechanicsNameMap.clear();
         this.mechanicsClassMap.clear();
+        this.mechanicCompletionsCache = [];
     }
 
     async loadDataset() {

@@ -8909,10 +8909,10 @@
                     "c"
                 ],
                 "type": "String",
-                "enum": "Conditions",
                 "description": "A list of conditions that a target must meet in order for the projectile to be able to hit it. **Premium Only** Mechanic",
                 "link": "https://git.lumine.io/mythiccraft/MythicMobs/-/wikis/Skills/Mechanics/projectile",
-                "default_value": ""
+                "default_value": "",
+                "enum": "Conditions"
             },
             {
                 "name": [
@@ -16153,6 +16153,78 @@
                 "link": "https://git.lumine.io/mythiccraft/MythicMobs/-/wikis/Skills/Mechanics/WorldEditReplace",
                 "default_value": "AIR",
                 "enum": "MATERIAL"
+            }
+        ]
+    },
+    {
+        "plugin": "MythicMobs",
+        "class": "WaitUntilMechanic",
+        "extends": "SkillMechanic",
+        "implements": [
+            "IWaitableSkill",
+            "IDummySkill"
+        ],
+        "name": [
+            "wait"
+        ],
+        "description": "Puts the metaskill on hold (like the [delay](https://git.lumine.io/mythiccraft/MythicMobs/-/wikis/skills/mechanics/delay) mechanic) until a set of conditions is met.",
+        "link": "https://git.lumine.io/mythiccraft/MythicMobs/-/wikis/Skills/Mechanics/Wait",
+        "attributes": [
+            {
+                "name": [
+                    "conditions",
+                    "cond",
+                    "c"
+                ],
+                "type": "String",
+                "description": "Conditions to check against. When the conditions are met, the metaskill will continue",
+                "link": "https://git.lumine.io/mythiccraft/MythicMobs/-/wikis/Skills/Mechanics/Wait",
+                "default_value": "",
+                "enum": "Conditions"
+            },
+            {
+                "name": [
+                    "interval",
+                    "i"
+                ],
+                "type": "PlaceholderInteger",
+                "description": "How often, in ticks, the mechanic should check against its condition",
+                "link": "https://git.lumine.io/mythiccraft/MythicMobs/-/wikis/Skills/Mechanics/Wait",
+                "default_value": "1"
+            },
+            {
+                "name": [
+                    "timeout",
+                    "timeouttime",
+                    "tt"
+                ],
+                "type": "PlaceholderInteger",
+                "description": "The maximum amount of ticks to wait before the metaskill is put out of hold even if conditions aren't met",
+                "link": "https://git.lumine.io/mythiccraft/MythicMobs/-/wikis/Skills/Mechanics/Wait",
+                "default_value": "200"
+            },
+            {
+                "name": [
+                    "cancelSkill",
+                    "cancel",
+                    "cs"
+                ],
+                "type": "Boolean",
+                "description": "Whether, once a timeout happens, the metaskill should cancel execution instead of resuming",
+                "link": "https://git.lumine.io/mythiccraft/MythicMobs/-/wikis/Skills/Mechanics/Wait",
+                "default_value": "false"
+            },
+            {
+                "name": [
+                    "cancelConditions",
+                    "cc",
+                    "unless"
+                ],
+                "type": "String",
+                "description": "A set of conditions that, if met, will make the mechanic resolve and the metaskill resume immediatly, like if the primary set of `conditions` was met",
+                "link": "https://git.lumine.io/mythiccraft/MythicMobs/-/wikis/Skills/Mechanics/Wait",
+                "default_value": "",
+                "enum": "Conditions"
             }
         ]
     },

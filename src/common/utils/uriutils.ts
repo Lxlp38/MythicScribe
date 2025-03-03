@@ -5,32 +5,49 @@ import * as vscode from 'vscode';
 import { Log } from './logger';
 import { GITHUB_BASE_URL } from '../datasets/datasets';
 
+export enum ComponentStatus {
+    Exists,
+    Empty,
+    Created,
+    Error,
+}
+
 /**
  * Ensures that all directories and files in the given Uri path exist.
  * If they don't, it creates them.
  * @param uri The Uri of the directory or file.
  */
-export async function ensureComponentsExist(uri: vscode.Uri): Promise<void> {
+export async function ensureComponentsExist(uri: vscode.Uri): Promise<ComponentStatus> {
     async function fileExistancePipeline() {
         const parentDir = vscode.Uri.joinPath(uri, '..');
         await ensureDirectoryExists(parentDir);
         await ensureFileExists(uri);
     }
-    await vscode.workspace.fs.stat(uri).then(null, async (error) => {
-        if (error instanceof vscode.FileSystemError) {
-            const isDirectory = uri.fsPath.endsWith(path.sep);
-
-            if (isDirectory) {
-                Log.debug('Creating directory at', uri.fsPath);
-                await ensureDirectoryExists(uri);
-            } else {
-                Log.debug('Creating file at', uri.fsPath);
-                await fileExistancePipeline();
+    return await vscode.workspace.fs.stat(uri).then(
+        (stat) => {
+            if (stat.size === 0) {
+                return ComponentStatus.Empty;
             }
-        } else {
-            Log.error(error, 'Error while ensuring components exist');
+            return ComponentStatus.Exists;
+        },
+        async (error) => {
+            if (error instanceof vscode.FileSystemError) {
+                const isDirectory = uri.fsPath.endsWith(path.sep);
+
+                if (isDirectory) {
+                    Log.debug('Creating directory at', uri.fsPath);
+                    await ensureDirectoryExists(uri);
+                } else {
+                    Log.debug('Creating file at', uri.fsPath);
+                    await fileExistancePipeline();
+                }
+                return ComponentStatus.Created;
+            } else {
+                Log.error(error, 'Error while ensuring components exist');
+                return ComponentStatus.Error;
+            }
         }
-    });
+    );
 }
 
 /**
@@ -92,7 +109,10 @@ export function convertLocalPathToGitHubUrl(localPath: string, relative: boolean
     const relativePath = relative ? localPath : getRelativePath(localPath);
 
     // Normalize the relative path to ensure consistent slashes
-    const normalizedRelativePath = path.normalize(relativePath).replace(/\\/g, '/');
+    let normalizedRelativePath = path.normalize(relativePath).replace(/\\/g, '/');
+    if (normalizedRelativePath.startsWith('/') || normalizedRelativePath.startsWith('\\')) {
+        normalizedRelativePath = normalizedRelativePath.substring(1);
+    }
 
     // Construct the GitHub raw content URL
     const githubUrl = `${GITHUB_BASE_URL}${normalizedRelativePath}`;
