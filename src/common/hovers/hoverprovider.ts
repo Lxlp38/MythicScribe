@@ -1,85 +1,41 @@
 import * as vscode from 'vscode';
 
-import { keyAliases, FileObjectMap, FileObjectTypes } from '../objectInfos';
+import { FileObjectMap, FileObjectTypes } from '../objectInfos';
 import {
-    Attribute,
     MythicAttribute,
     AbstractScribeMechanicRegistry,
     MythicMechanic,
 } from '../datasets/ScribeMechanic';
-import * as yamlutils from '../utils/yamlutils';
-import { getCursorSkills, getCursorObject } from '../utils/cursorutils';
+import { CursorLocationAction } from '../utils/cursorLocationAction';
 
-type KeyDependantMechanicLikeHover = { keys: string[]; registry: AbstractScribeMechanicRegistry };
+export type KeyDependantMechanicLikeHover = {
+    keys: string[];
+    registry: AbstractScribeMechanicRegistry;
+};
 
 export function hoverProvider(
     fileobject: FileObjectMap,
     ...keydependencies: KeyDependantMechanicLikeHover[]
 ) {
     return vscode.languages.registerHoverProvider(['mythicscript', 'yaml'], {
-        provideHover(document: vscode.TextDocument, position: vscode.Position) {
-            const keys = yamlutils.getParentKeys(document, position);
-
-            if (yamlutils.isKey(document, position.line)) {
-                const key = yamlutils.getKey(document, position.line);
-                keys.reverse();
-                keys.push([key, position.line]);
-
-                return getHoverForFileElement(
-                    yamlutils.getKeyNameFromYamlKey(keys.slice(1)),
-                    fileobject,
-                    undefined
-                );
-            }
-
-            if (keyAliases.Skills.includes(keys[0][0])) {
-                const result = getCursorSkills(document, position, keys[0][1]);
-                if (!result) {
-                    return null;
-                }
-                if (result instanceof MythicAttribute) {
-                    return getHoverForAttribute(result as Attribute);
-                }
-                return getHover(result);
-            }
-            for (const keydependency of keydependencies) {
-                if (keydependency.keys.includes(keys[0][0])) {
-                    return getHoverForMechanicLike(
-                        keydependency.registry,
-                        document,
-                        position,
-                        keys[0][1]
-                    );
-                }
-            }
-            return null;
+        provideHover(
+            document: vscode.TextDocument,
+            position: vscode.Position
+        ): vscode.ProviderResult<vscode.Hover> {
+            return CursorLocationAction(
+                document,
+                position,
+                fileobject,
+                getHoverForFileElement,
+                getHoverForAttribute,
+                getHover,
+                ...keydependencies
+            );
         },
     });
 }
 
-async function getHoverForMechanicLike(
-    registry: AbstractScribeMechanicRegistry,
-    document: vscode.TextDocument,
-    position: vscode.Position,
-    maxline: number
-): Promise<vscode.Hover | undefined> {
-    const result = getCursorObject(registry, document, position, maxline);
-    if (!result) {
-        return undefined;
-    }
-    const obj = result;
-
-    if (!obj) {
-        return undefined;
-    }
-    if (obj instanceof MythicAttribute) {
-        return getHoverForAttribute(obj as Attribute);
-    }
-
-    return getHover(obj);
-}
-
-async function getHover(mechanic: MythicMechanic): Promise<vscode.Hover | undefined> {
+async function getHover(mechanic: MythicMechanic): Promise<vscode.Hover> {
     // Combine the mechanic names into a comma-separated string for the mechanic's names
     const mechanicNames = mechanic.name.join(', ');
 
@@ -138,7 +94,7 @@ ${mechanic.description}
  * @param attribute - The attribute object containing name, type, description, and link
  * @returns A new Hover object with Markdown content
  */
-async function getHoverForAttribute(attribute: Attribute): Promise<vscode.Hover> {
+async function getHoverForAttribute(attribute: MythicAttribute): Promise<vscode.Hover> {
     // Combine the names into a comma-separated string
     const attributeNames = attribute.name.join(', ');
 

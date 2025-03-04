@@ -42,12 +42,9 @@ export function mechanicCompletionProvider(
                 if (maybeAttribute && maybeAttribute[0] && maybeAttribute[1]) {
                     let attribute: undefined | MythicAttribute;
                     if (maybeAttribute[1].startsWith('@')) {
-                        const targeter = ScribeMechanicHandler.registry.targeter.getMechanicByName(
-                            maybeAttribute[1].replace('@', '')
-                        );
-                        if (targeter) {
-                            attribute = targeter.getAttributeByName(maybeAttribute[0]);
-                        }
+                        attribute = ScribeMechanicHandler.registry.targeter
+                            .getMechanicByName(maybeAttribute[1].replace('@', ''))
+                            ?.getAttributeByName(maybeAttribute[0]);
                     } else {
                         attribute = registry
                             .getMechanicByName(maybeAttribute[1])
