@@ -73,7 +73,7 @@ export class MythicNodeRegistry {
 }
 
 vscode.workspace.onDidSaveTextDocument((document) => {
-    const type = fromFileTypeToRegistryKey(checkFileType(document));
+    const type = fromFileTypeToRegistryKey.get(checkFileType(document));
     if (type) {
         MythicNodeHandler.registry[type].resetDocument(document);
     }
@@ -81,7 +81,7 @@ vscode.workspace.onDidSaveTextDocument((document) => {
 vscode.workspace.onDidDeleteFiles(async (event) => {
     for (const file of event.files) {
         const document = await vscode.workspace.openTextDocument(file);
-        const type = fromFileTypeToRegistryKey(checkFileType(document));
+        const type = fromFileTypeToRegistryKey.get(checkFileType(document));
         if (type) {
             MythicNodeHandler.registry[type].clearNodesByDocument(document);
         }
@@ -109,35 +109,24 @@ export namespace MythicNodeHandler {
 
     export async function scanFile(document: vscode.Uri) {
         const file = await vscode.workspace.openTextDocument(document);
-        const type = fromFileTypeToRegistryKey(checkFileType(file));
+        const type = fromFileTypeToRegistryKey.get(checkFileType(file));
         if (type) {
-            MythicNodeHandler.registry[type].resetDocument(file);
+            MythicNodeHandler.registry[type].scanDocument(file);
         }
     }
 
     export async function scanAllDocuments(): Promise<void> {
         const files = await vscode.workspace.findFiles('**/*.{yaml,yml}');
         for (const file of files) {
-            scanFile(file);
+            await scanFile(file);
         }
     }
 }
 
-function fromFileTypeToRegistryKey(
-    type: FileType
-): keyof typeof MythicNodeHandler.registry | undefined {
-    switch (type) {
-        case FileType.METASKILL:
-            return 'metaskills';
-        case FileType.MOB:
-            return 'mobs';
-        case FileType.ITEM:
-            return 'items';
-        case FileType.DROPTABLE:
-            return 'droptables';
-        case FileType.STAT:
-            return 'stats';
-        default:
-            return undefined;
-    }
-}
+const fromFileTypeToRegistryKey: Map<FileType, keyof typeof MythicNodeHandler.registry> = new Map([
+    [FileType.METASKILL, 'metaskills'],
+    [FileType.MOB, 'mobs'],
+    [FileType.ITEM, 'items'],
+    [FileType.DROPTABLE, 'droptables'],
+    [FileType.STAT, 'stats'],
+]);

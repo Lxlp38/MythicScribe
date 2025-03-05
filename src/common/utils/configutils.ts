@@ -8,6 +8,15 @@ const configCache = {
     attributeAliasUsedInCompletions: undefined as string | undefined,
 };
 
+const fileRegexConfigCache = {
+    MythicMobs: undefined as string | undefined,
+    Metaskill: undefined as string | undefined,
+    Mob: undefined as string | undefined,
+    Item: undefined as string | undefined,
+    Droptable: undefined as string | undefined,
+    Stat: undefined as string | undefined,
+};
+
 let configChangeFunctionCallbacks: (() => void)[] | undefined;
 function getConfigChangeFunctionCallbacks() {
     if (configChangeFunctionCallbacks === undefined) {
@@ -26,6 +35,11 @@ function resetConfigCache() {
             configCache[key as keyof typeof configCache] = undefined;
         }
     }
+    for (const key in fileRegexConfigCache) {
+        if (fileRegexConfigCache.hasOwnProperty(key)) {
+            fileRegexConfigCache[key as keyof typeof fileRegexConfigCache] = undefined;
+        }
+    }
     for (const callback of getConfigChangeFunctionCallbacks()) {
         callback();
     }
@@ -42,15 +56,6 @@ export function isAlwaysEnabled() {
     return vscode.workspace.getConfiguration('MythicScribe').get('alwaysEnabled');
 }
 
-export enum fileRegexProperties {
-    MYTHICMOBS = 'fileRegex.MythicMobs',
-    METASKILL = 'fileRegex.Metaskill',
-    MOB = 'fileRegex.Mob',
-    ITEM = 'fileRegex.Item',
-    DROPTABLE = 'fileRegex.Droptable',
-    STAT = 'fileRegex.Stat',
-}
-
 function checkFileRegex(document: vscode.TextDocument, regex: string | undefined): boolean {
     const path = document.uri.fsPath;
     if (regex && new RegExp(regex).test(path)) {
@@ -58,17 +63,22 @@ function checkFileRegex(document: vscode.TextDocument, regex: string | undefined
     }
     return false;
 }
-export function checkFileEnabled(document: vscode.TextDocument, configKey: string): boolean {
-    const regex: string | undefined = vscode.workspace
-        .getConfiguration('MythicScribe')
-        .get<string>(configKey);
-    return checkFileRegex(document, regex);
+export function checkFileEnabled(
+    document: vscode.TextDocument,
+    configKey: keyof typeof fileRegexConfigCache
+): boolean {
+    if (fileRegexConfigCache[configKey] === undefined) {
+        fileRegexConfigCache[configKey] = vscode.workspace
+            .getConfiguration('MythicScribe')
+            .get<string>('fileRegex.' + configKey);
+    }
+    return checkFileRegex(document, fileRegexConfigCache[configKey]);
 }
 export function checkMythicMobsFile(document: vscode.TextDocument): boolean {
     if (isAlwaysEnabled()) {
         return true;
     }
-    return checkFileEnabled(document, fileRegexProperties.MYTHICMOBS);
+    return checkFileEnabled(document, 'MythicMobs');
 }
 
 export function enableEmptyBracketsAutomaticRemoval(): boolean {

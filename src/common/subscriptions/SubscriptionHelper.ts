@@ -4,7 +4,6 @@ import {
     checkMythicMobsFile,
     enableMythicScriptSyntax,
     checkFileEnabled,
-    fileRegexProperties,
 } from '../utils/configutils';
 import { AbstractScribeSubscription, ScribeSubscriptionHandler } from './SubscriptionHandler';
 
@@ -105,27 +104,27 @@ export function updateSubscriptions(document: vscode.TextDocument) {
 
     isMetaskillFile = fileSpecificEnabler(
         isMetaskillFile,
-        checkFileEnabled(document, fileRegexProperties.METASKILL),
+        checkFileEnabled(document, 'Metaskill'),
         ScribeSubscriptionHandler.registry.skill
     );
     isMobFile = fileSpecificEnabler(
         isMobFile,
-        checkFileEnabled(document, fileRegexProperties.MOB),
+        checkFileEnabled(document, 'Mob'),
         ScribeSubscriptionHandler.registry.mob
     );
     isItemFile = fileSpecificEnabler(
         isItemFile,
-        checkFileEnabled(document, fileRegexProperties.ITEM),
+        checkFileEnabled(document, 'Item'),
         ScribeSubscriptionHandler.registry.item
     );
     isDroptableFile = fileSpecificEnabler(
         isDroptableFile,
-        checkFileEnabled(document, fileRegexProperties.DROPTABLE),
+        checkFileEnabled(document, 'Droptable'),
         ScribeSubscriptionHandler.registry.droptable
     );
     isStatFile = fileSpecificEnabler(
         isStatFile,
-        checkFileEnabled(document, fileRegexProperties.STAT),
+        checkFileEnabled(document, 'Stat'),
         ScribeSubscriptionHandler.registry.stat
     );
 }
@@ -140,19 +139,19 @@ export enum FileType {
 }
 
 export function checkFileType(document: vscode.TextDocument): FileType {
-    if (checkFileEnabled(document, fileRegexProperties.METASKILL)) {
+    if (checkFileEnabled(document, 'Metaskill')) {
         return FileType.METASKILL;
     }
-    if (checkFileEnabled(document, fileRegexProperties.MOB)) {
+    if (checkFileEnabled(document, 'Mob')) {
         return FileType.MOB;
     }
-    if (checkFileEnabled(document, fileRegexProperties.ITEM)) {
+    if (checkFileEnabled(document, 'Item')) {
         return FileType.ITEM;
     }
-    if (checkFileEnabled(document, fileRegexProperties.DROPTABLE)) {
+    if (checkFileEnabled(document, 'Droptable')) {
         return FileType.DROPTABLE;
     }
-    if (checkFileEnabled(document, fileRegexProperties.STAT)) {
+    if (checkFileEnabled(document, 'Stat')) {
         return FileType.STAT;
     }
     return FileType.NONE;

@@ -67,6 +67,6 @@ export async function doVersionSpecificMigrations(scope: vscode.ConfigurationTar
         migrateConfiguration('regexForMythicmobsFile', 'fileRegex', 'MythicMobs', scope),
         migrateConfiguration('regexForMobFile', 'fileRegex', 'Mob', scope),
         migrateConfiguration('regexForItemFile', 'fileRegex', 'Item', scope),
-        migrateConfiguration('regexForMetaskillFile', 'fileRegex', 'MetaSkill', scope),
+        migrateConfiguration('regexForMetaskillFile', 'fileRegex', 'Metaskill', scope),
     ]);
 }

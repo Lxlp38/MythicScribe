@@ -5,7 +5,7 @@ import * as path from 'path';
 
 import * as vscode from 'vscode';
 
-import { checkFileEnabled, fileRegexProperties } from '../../../src/common/utils/configutils';
+import { checkFileEnabled } from '../../../src/common/utils/configutils';
 import { waitForMythicScript } from '..';
 
 suite('Extension Test Suite', () => {
@@ -35,7 +35,7 @@ suite('Extension Test Suite', () => {
             'Document language should be MythicScript'
         );
         assert.strictEqual(
-            checkFileEnabled(document, fileRegexProperties.METASKILL),
+            checkFileEnabled(document, 'Metaskill'),
             true,
             'The opened file should be recognized as a skill file'
         );
