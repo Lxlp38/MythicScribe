@@ -55,19 +55,19 @@ export const localEnums = [
 ];
 
 export enum scriptedEnums {
-    Color = 'Color',
-    RGBColor = 'RGBColor',
-    Boolean = 'Boolean',
-    MechanicList = 'MechanicList',
-    TargeterList = 'TargeterList',
-    TriggerList = 'TriggerList',
-    ConditionList = 'ConditionList',
-    Mobs = 'Mobs',
-    Items = 'Items',
-    Metaskill = 'Metaskill',
-    Droptable = 'Droptable',
-    Stat = 'Stat',
-    Targeter = 'Targeter',
+    Color = 'color',
+    RGBColor = 'rgbcolor',
+    Boolean = 'boolean',
+    MechanicList = 'mechaniclist',
+    TargeterList = 'targeterlist',
+    TriggerList = 'triggerlist',
+    ConditionList = 'conditionlist',
+    Mobs = 'mobs',
+    Items = 'items',
+    Metaskill = 'metaskill',
+    Droptable = 'droptable',
+    Stat = 'stat',
+    Targeter = 'targeter',
 }
 
 export enum attributeSpecialValues {

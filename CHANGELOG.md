@@ -3,8 +3,12 @@
 ## [Unreleased]
 
 ### Added
-- "Go to Definition" feature when ctrl+clicking on a metaskill name
-  - Also autocompletions for those metaskill names on attributes and condition actions
+- Parsing of workspace files for Autocompletions, Hovers and Go to Definition!
+  - "Go to Definition" feature when ctrl+clicking on a metaskill name
+  - Autocompletions for metaskills in relevant attributes values
+  - Hover support
+  - You can give markdown descriptions to the metaskills to be displayed in the hovers by putting comments
+  - You can prevent a file from being parsed by writing `# mythicscribe-disable file-parsing` as the first line
 - VSCode-Web Compatibility
 - Color Picker for the relevant attributes and options.
 - `MythicScribe.enabledPlugins` configuration to set enabled / disabled datasets based on the plugin implementing them
@@ -39,6 +43,25 @@
 - Some enums not displaying their aliases for their values, if they had any. Only applies to particle and equipslot
 - Attributes' values completions not working when the attribute was on a different line from its mechanic
 
+
+#### Metaskill Description Example
+```yaml
+# Hello World!
+#
+# How is it going?
+#
+# ## Attributes:
+# ---
+#
+# This is a table btw
+# | Column 1 | Column 2 |
+# |----------|----------|
+# | Value 1  | Value 2  |
+# | Value 3  | Value 4  |
+example_skill:
+  Skills:
+  - message{m="This is an example!"} @self
+```
 
 #### Example Bundle 1: Bundle.json
 ```json

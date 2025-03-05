@@ -6,7 +6,8 @@ import {
     AbstractScribeMechanicRegistry,
     MythicMechanic,
 } from '../datasets/ScribeMechanic';
-import { CursorLocationAction } from './cursorLocationAction';
+import { CursorLocationAction, CursorLocationActionForNode } from './cursorLocationAction';
+import { MythicNode } from '../mythicnodes/MythicNode';
 
 export type KeyDependantMechanicLikeHover = {
     keys: string[];
@@ -22,7 +23,7 @@ export function hoverProvider(
             document: vscode.TextDocument,
             position: vscode.Position
         ): vscode.ProviderResult<vscode.Hover> {
-            return CursorLocationAction(
+            const locationAction = CursorLocationAction(
                 document,
                 position,
                 fileobject,
@@ -31,8 +32,24 @@ export function hoverProvider(
                 getHover,
                 ...keydependencies
             );
+            if (locationAction) {
+                return locationAction;
+            }
+            const nodeAction = CursorLocationActionForNode(document, position, getHoverForNode);
+            if (nodeAction) {
+                return nodeAction;
+            }
+            return undefined;
         },
     });
+}
+
+function getHoverForNode(node: MythicNode): vscode.ProviderResult<vscode.Hover> {
+    return new vscode.Hover(
+        (node.description !== '' ? node.description + '\n---\n' : `Node: ${node.name}\n\n`) +
+            `Type: ${node.registry.type.replace(/s$/, '')}\n\n` +
+            `Document: ${node.document.fileName}\n\n`
+    );
 }
 
 async function getHover(mechanic: MythicMechanic): Promise<vscode.Hover> {

@@ -5,22 +5,47 @@ import { Log } from '../utils/logger';
 
 type NodeEntry = Map<string, MythicNode>;
 
-export class MythicNode {
-    name: string;
-    document: vscode.TextDocument;
-    range: vscode.Range;
+enum ParserIntructions {
+    // Disable parsing for the file
+    DISABLE_PARSING = '# mythicscribe-disable file-parsing',
+}
 
-    constructor(name: string, document: vscode.TextDocument, range: vscode.Range) {
-        this.name = name;
-        this.document = document;
-        this.range = range;
+export class MythicNode {
+    description = '';
+
+    constructor(
+        public registry: MythicNodeRegistry,
+        public name: string,
+        public document: vscode.TextDocument,
+        public range: vscode.Range
+    ) {
         Log.trace(`Registered node ${name} in ${document.uri.toString()}`);
+        this.searchForDescription();
+    }
+
+    searchForDescription(): void {
+        for (let i = this.range.start.line - 1; i >= 0; i--) {
+            const line = this.document.lineAt(i);
+            if (!line.text.startsWith('#')) {
+                break;
+            }
+            const match = line.text.match(/#(.*)/);
+            if (match) {
+                const newDescriptionLine = match[1].replace(/^#/, '').trim();
+                this.description = newDescriptionLine + '\n' + this.description;
+            }
+        }
     }
 }
 
 export class MythicNodeRegistry {
+    readonly type: keyof typeof MythicNodeHandler.registry;
     nodes: NodeEntry = new Map();
     nodesByDocument: Map<string, MythicNode[]> = new Map();
+
+    constructor(registry: keyof typeof MythicNodeHandler.registry) {
+        this.type = registry;
+    }
 
     registerNode(node: MythicNode): void {
         this.nodes.set(node.name, node);
@@ -56,11 +81,15 @@ export class MythicNodeRegistry {
     }
 
     scanDocument(document: vscode.TextDocument): void {
+        if (document.lineAt(0).text === ParserIntructions.DISABLE_PARSING) {
+            Log.debug(`Parsing disabled for ${document.uri.toString()}`);
+            return;
+        }
         for (let i = 0; i < document.lineCount; i++) {
             const line = document.lineAt(i);
             const match = line.text.match(/^([\w\-]+):/);
             if (match) {
-                const node = new MythicNode(match[1], document, line.range);
+                const node = new MythicNode(this, match[1], document, line.range);
                 this.registerNode(node);
             }
         }
@@ -88,13 +117,21 @@ vscode.workspace.onDidDeleteFiles(async (event) => {
     }
 });
 
+interface MythicNodeHandlerRegistry {
+    metaskills: MythicNodeRegistry;
+    mobs: MythicNodeRegistry;
+    items: MythicNodeRegistry;
+    droptables: MythicNodeRegistry;
+    stats: MythicNodeRegistry;
+}
+
 export namespace MythicNodeHandler {
-    export const registry = {
-        metaskills: new MythicNodeRegistry(),
-        mobs: new MythicNodeRegistry(),
-        items: new MythicNodeRegistry(),
-        droptables: new MythicNodeRegistry(),
-        stats: new MythicNodeRegistry(),
+    export const registry: MythicNodeHandlerRegistry = {
+        metaskills: new MythicNodeRegistry('metaskills'),
+        mobs: new MythicNodeRegistry('mobs'),
+        items: new MythicNodeRegistry('items'),
+        droptables: new MythicNodeRegistry('droptables'),
+        stats: new MythicNodeRegistry('stats'),
     };
 
     export function getRegistry(key: keyof typeof registry): MythicNodeRegistry {
@@ -123,10 +160,11 @@ export namespace MythicNodeHandler {
     }
 }
 
-const fromFileTypeToRegistryKey: Map<FileType, keyof typeof MythicNodeHandler.registry> = new Map([
-    [FileType.METASKILL, 'metaskills'],
-    [FileType.MOB, 'mobs'],
-    [FileType.ITEM, 'items'],
-    [FileType.DROPTABLE, 'droptables'],
-    [FileType.STAT, 'stats'],
-]);
+export const fromFileTypeToRegistryKey: Map<FileType, keyof typeof MythicNodeHandler.registry> =
+    new Map([
+        [FileType.METASKILL, 'metaskills'],
+        [FileType.MOB, 'mobs'],
+        [FileType.ITEM, 'items'],
+        [FileType.DROPTABLE, 'droptables'],
+        [FileType.STAT, 'stats'],
+    ]);
