@@ -210,7 +210,39 @@
 ### Path: `null`
 ### Type: `Scripted`
 
-# `mechanic`
+# `mechaniclist`
+### Path: `null`
+### Type: `Scripted`
+
+# `targeterlist`
+### Path: `null`
+### Type: `Scripted`
+
+# `triggerlist`
+### Path: `null`
+### Type: `Scripted`
+
+# `conditionlist`
+### Path: `null`
+### Type: `Scripted`
+
+# `mobs`
+### Path: `null`
+### Type: `Scripted`
+
+# `items`
+### Path: `null`
+### Type: `Scripted`
+
+# `metaskill`
+### Path: `null`
+### Type: `Scripted`
+
+# `droptable`
+### Path: `null`
+### Type: `Scripted`
+
+# `stat`
 ### Path: `null`
 ### Type: `Scripted`
 
@@ -218,18 +250,6 @@
 ### Path: `null`
 ### Type: `Scripted`
 
-# `trigger`
-### Path: `null`
-### Type: `Scripted`
-
-# `condition`
-### Path: `null`
-### Type: `Scripted`
-
-# `inlineattributeconditions`
-### Path: `null`
-### Type: `Scripted`
-
-# `metaskill`
+# `conditions`
 ### Path: `null`
 ### Type: `Scripted`

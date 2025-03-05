@@ -62,10 +62,14 @@ export enum scriptedEnums {
     TargeterList = 'TargeterList',
     TriggerList = 'TriggerList',
     ConditionList = 'ConditionList',
+    Mobs = 'Mobs',
+    Items = 'Items',
+    Metaskill = 'Metaskill',
+    Droptable = 'Droptable',
+    Stat = 'Stat',
     Targeter = 'Targeter',
 }
 
 export enum attributeSpecialValues {
     conditions = 'conditions',
-    metaskill = 'metaskill',
 }

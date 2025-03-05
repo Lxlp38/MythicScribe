@@ -7,6 +7,7 @@ import { Log } from '../utils/logger';
 import { AbstractScribeMechanicRegistry, Attribute, ScribeMechanicHandler } from './ScribeMechanic';
 import { insertColor } from '../color/colorprovider';
 import { localEnums, scriptedEnums, volatileEnums } from './enumSources';
+import { MythicNode, MythicNodeHandler } from '../mythicnodes/MythicNode';
 
 export abstract class AbstractScribeEnum {
     readonly identifier: string;
@@ -155,6 +156,7 @@ export const ScribeEnumHandler = {
         this.addLambdaEnum(scriptedEnums.Boolean, ['true', 'false']);
         this.addScriptedEnum(scriptedEnums.Color, insertColor);
         this.addScriptedEnum(scriptedEnums.RGBColor, () => insertColor(undefined, '255,255,255'));
+
         this.addScriptedEnum(scriptedEnums.MechanicList, () =>
             fromMechanicRegistryToEnum(ScribeMechanicHandler.registry.mechanic)
         );
@@ -167,7 +169,24 @@ export const ScribeEnumHandler = {
         this.addScriptedEnum(scriptedEnums.ConditionList, () =>
             fromMechanicRegistryToEnum(ScribeMechanicHandler.registry.condition)
         );
+
         this.addScriptedEnum(scriptedEnums.Targeter, insertTargeterCompletion);
+
+        this.addScriptedEnum(scriptedEnums.Mobs, () =>
+            fromMythicNodeToEnum(MythicNodeHandler.registry.mobs.getNodes())
+        );
+        this.addScriptedEnum(scriptedEnums.Items, () =>
+            fromMythicNodeToEnum(MythicNodeHandler.registry.items.getNodes())
+        );
+        this.addScriptedEnum(scriptedEnums.Metaskill, () =>
+            fromMythicNodeToEnum(MythicNodeHandler.registry.metaskills.getNodes())
+        );
+        this.addScriptedEnum(scriptedEnums.Droptable, () =>
+            fromMythicNodeToEnum(MythicNodeHandler.registry.droptables.getNodes())
+        );
+        this.addScriptedEnum(scriptedEnums.Stat, () =>
+            fromMythicNodeToEnum(MythicNodeHandler.registry.stats.getNodes())
+        );
     },
 
     getEnum(identifier: string): AbstractScribeEnum | undefined {
@@ -222,6 +241,14 @@ function fromMechanicRegistryToEnum(registry: AbstractScribeMechanicRegistry) {
         });
     });
     return mechanics;
+}
+
+function fromMythicNodeToEnum(nodes: Map<string, MythicNode>) {
+    const metaskills: Map<string, EnumDatasetValue> = new Map();
+    nodes.forEach((node) => {
+        metaskills.set(node.name, { description: '' });
+    });
+    return metaskills;
 }
 
 async function insertTargeterCompletion() {

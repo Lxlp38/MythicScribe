@@ -6,7 +6,7 @@ import {
     AbstractScribeMechanicRegistry,
     MythicMechanic,
 } from '../datasets/ScribeMechanic';
-import { CursorLocationAction } from '../utils/cursorLocationAction';
+import { CursorLocationAction } from './cursorLocationAction';
 
 export type KeyDependantMechanicLikeHover = {
     keys: string[];

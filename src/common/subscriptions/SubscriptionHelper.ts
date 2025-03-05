@@ -129,3 +129,31 @@ export function updateSubscriptions(document: vscode.TextDocument) {
         ScribeSubscriptionHandler.registry.stat
     );
 }
+
+export enum FileType {
+    NONE,
+    METASKILL,
+    MOB,
+    ITEM,
+    DROPTABLE,
+    STAT,
+}
+
+export function checkFileType(document: vscode.TextDocument): FileType {
+    if (checkFileEnabled(document, fileRegexProperties.METASKILL)) {
+        return FileType.METASKILL;
+    }
+    if (checkFileEnabled(document, fileRegexProperties.MOB)) {
+        return FileType.MOB;
+    }
+    if (checkFileEnabled(document, fileRegexProperties.ITEM)) {
+        return FileType.ITEM;
+    }
+    if (checkFileEnabled(document, fileRegexProperties.DROPTABLE)) {
+        return FileType.DROPTABLE;
+    }
+    if (checkFileEnabled(document, fileRegexProperties.STAT)) {
+        return FileType.STAT;
+    }
+    return FileType.NONE;
+}

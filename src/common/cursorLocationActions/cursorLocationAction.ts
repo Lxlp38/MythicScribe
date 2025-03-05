@@ -1,10 +1,10 @@
 import * as vscode from 'vscode';
 
 import { MythicMechanic, MythicAttribute } from '../datasets/ScribeMechanic';
-import { KeyDependantMechanicLikeHover } from '../hovers/hoverprovider';
+import { KeyDependantMechanicLikeHover } from './hoverprovider';
 import { FileObjectMap, keyAliases } from '../objectInfos';
-import { getCursorSkills, getCursorObject } from './cursorutils';
-import * as yamlutils from './yamlutils';
+import { getCursorSkills, getCursorObject } from '../utils/cursorutils';
+import * as yamlutils from '../utils/yamlutils';
 
 export function CursorLocationAction<T>(
     document: vscode.TextDocument,
@@ -15,8 +15,8 @@ export function CursorLocationAction<T>(
         type: FileObjectMap,
         link: string | undefined
     ) => T | undefined,
-    attributeFunction: (attribute: MythicAttribute) => Promise<T>,
-    mechanicFunction: (mechanic: MythicMechanic) => Promise<T>,
+    attributeFunction: (attribute: MythicAttribute) => Promise<T | undefined>,
+    mechanicFunction: (mechanic: MythicMechanic) => Promise<T | undefined>,
     ...keydependencies: KeyDependantMechanicLikeHover[]
 ) {
     const keys = yamlutils.getParentKeys(document, position);

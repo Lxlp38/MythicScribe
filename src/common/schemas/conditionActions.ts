@@ -1,4 +1,4 @@
-enum ConditionTypes {
+export enum ConditionTypes {
     CHECK = 'check',
     METASKILL = 'metaskill',
     FLOAT = 'float',

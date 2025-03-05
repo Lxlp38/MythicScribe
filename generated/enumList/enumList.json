@@ -265,7 +265,47 @@
     "type": "Scripted"
   },
   {
-    "id": "mechanic",
+    "id": "mechaniclist",
+    "path": null,
+    "type": "Scripted"
+  },
+  {
+    "id": "targeterlist",
+    "path": null,
+    "type": "Scripted"
+  },
+  {
+    "id": "triggerlist",
+    "path": null,
+    "type": "Scripted"
+  },
+  {
+    "id": "conditionlist",
+    "path": null,
+    "type": "Scripted"
+  },
+  {
+    "id": "mobs",
+    "path": null,
+    "type": "Scripted"
+  },
+  {
+    "id": "items",
+    "path": null,
+    "type": "Scripted"
+  },
+  {
+    "id": "metaskill",
+    "path": null,
+    "type": "Scripted"
+  },
+  {
+    "id": "droptable",
+    "path": null,
+    "type": "Scripted"
+  },
+  {
+    "id": "stat",
     "path": null,
     "type": "Scripted"
   },
@@ -275,22 +315,7 @@
     "type": "Scripted"
   },
   {
-    "id": "trigger",
-    "path": null,
-    "type": "Scripted"
-  },
-  {
-    "id": "condition",
-    "path": null,
-    "type": "Scripted"
-  },
-  {
-    "id": "inlineattributeconditions",
-    "path": null,
-    "type": "Scripted"
-  },
-  {
-    "id": "metaskill",
+    "id": "conditions",
     "path": null,
     "type": "Scripted"
   }

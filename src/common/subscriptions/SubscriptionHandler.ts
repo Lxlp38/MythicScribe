@@ -14,10 +14,13 @@ import {
 } from '../completions/attributeCompletionProvider';
 import { conditionCompletionProvider } from '../completions/conditionsCompletionProvider';
 import { inlineConditionCompletionProvider } from '../completions/inlineconditionCompletionProvider';
-import { inlineMetaskillCompletionProvider } from '../completions/inlinemetaskillCompletionProvider';
+import {
+    inlineMetaskillCompletionProvider,
+    metaskillCompletionProvider,
+} from '../completions/inlinemetaskillCompletionProvider';
 import { mechaniclineCompletionProvider } from '../completions/mechaniclineCompletionProvider';
 import { targeterCompletionProvider } from '../completions/targeterCompletionProvider';
-import { hoverProvider } from '../hovers/hoverprovider';
+import { hoverProvider } from '../cursorLocationActions/hoverprovider';
 import { removeBracketsTextListener } from '../textchanges/bracketsremover';
 import { shortcutsProvider } from '../textchanges/shortcuts';
 import { ItemFileObjects } from '../schemas/itemfileObjects';
@@ -28,6 +31,7 @@ import { ctx } from '../../MythicScribe';
 import { genericFileCompletionProvider } from '../completions/filecompletions/genericFileCompletionProvider';
 import { DroptableFileObject } from '../schemas/droptableFileObjects';
 import { StatFileObjects } from '../schemas/statfileObjects';
+import { definitionProvider } from '../cursorLocationActions/definitionProvider';
 
 type SubscriptionFunction = () => vscode.Disposable;
 type SubscriptionCondition = () => boolean;
@@ -194,6 +198,8 @@ class GlobalSubscriptionHandler extends AbstractScribeSubscription {
                         keyAliases.Skills
                     ),
                 () => targeterCompletionProvider(),
+                () => definitionProvider(),
+                () => metaskillCompletionProvider(),
             ],
             []
         );

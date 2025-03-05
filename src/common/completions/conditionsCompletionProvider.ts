@@ -2,9 +2,10 @@ import * as vscode from 'vscode';
 
 import * as yamlutils from '../utils/yamlutils';
 import { keyAliases } from '../objectInfos';
-import { ConditionActions } from '../schemas/conditionActions';
+import { ConditionActions, ConditionTypes } from '../schemas/conditionActions';
 import { checkShouldKeyComplete, retriggerCompletionsCommand } from '../utils/completionhelper';
 import { ScribeMechanicHandler } from '../datasets/ScribeMechanic';
+import { addMetaskillsToConditionLine } from './inlinemetaskillCompletionProvider';
 
 export function conditionCompletionProvider() {
     return vscode.languages.registerCompletionItemProvider(
@@ -49,10 +50,12 @@ export function getConditionCompletionItems(
     let space = ' ';
 
     const completionItems: vscode.CompletionItem[] = [];
-    const lastIsConditionAction = Object.keys(ConditionActions).includes(
-        yamlutils.getWordBeforePosition(document, position)
-    );
+    const lastIsConditionAction = Object.keys(ConditionActions).includes(wordBefore);
     if (lastIsConditionAction) {
+        if (ConditionActions[wordBefore] === ConditionTypes.METASKILL) {
+            addMetaskillsToConditionLine(completionItems);
+            return completionItems;
+        }
         addOperatorsToConditionLine(completionItems);
         return completionItems;
     }

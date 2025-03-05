@@ -3,6 +3,8 @@
 ## [Unreleased]
 
 ### Added
+- "Go to Definition" feature when ctrl+clicking on a metaskill name
+  - Also autocompletions for those metaskill names on attributes and condition actions
 - VSCode-Web Compatibility
 - Color Picker for the relevant attributes and options.
 - `MythicScribe.enabledPlugins` configuration to set enabled / disabled datasets based on the plugin implementing them
