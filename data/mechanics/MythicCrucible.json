@@ -246,7 +246,7 @@
                 "description": "The item to remove",
                 "link": "https://git.lumine.io/mythiccraft/mythiccrucible/-/wikis/Skills/Mechanics/Consumeitem",
                 "default_value": "STONE",
-                "enum": "Material"
+                "enum": "Item"
             },
             {
                 "name": [
@@ -640,6 +640,20 @@
         ],
         "description": "Sets the location a compass points to. Compass will point to whatever targeter you use.",
         "link": "https://git.lumine.io/mythiccraft/mythiccrucible/-/wikis/Skills/Mechanics/SetCompassLocation",
+        "attributes": []
+    },
+    {
+        "plugin": "MythicCrucible",
+        "class": "SetCompassLodestoneMechanic",
+        "extends": "SkillMechanic",
+        "implements": [
+            "ITargetedLocationSkill"
+        ],
+        "name": [
+            "setCompassLodestone"
+        ],
+        "description": "Sets the location a compass points to as a lodestone location. Compass will point to whatever targeter you use.",
+        "link": "https://git.lumine.io/mythiccraft/mythiccrucible/-/wikis/Skills/Mechanics/SetCompassLodestone",
         "attributes": []
     },
     {

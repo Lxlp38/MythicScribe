@@ -6,6 +6,7 @@ const configCache = {
     enableMythicScriptSyntax: undefined as boolean | undefined,
     datasetSource: undefined as string | undefined,
     attributeAliasUsedInCompletions: undefined as string | undefined,
+    isAlwaysEnabled: undefined as boolean | undefined,
 };
 
 const fileRegexConfigCache = {
@@ -53,12 +54,16 @@ export const configHandler = vscode.workspace.onDidChangeConfiguration((e) => {
 
 // Check for enabled features
 export function isAlwaysEnabled() {
-    return vscode.workspace.getConfiguration('MythicScribe').get('alwaysEnabled');
+    if (configCache.isAlwaysEnabled === undefined) {
+        configCache.isAlwaysEnabled = vscode.workspace
+            .getConfiguration('MythicScribe')
+            .get('alwaysEnabled');
+    }
+    return configCache.isAlwaysEnabled;
 }
 
 function checkFileRegex(document: vscode.TextDocument, regex: string | undefined): boolean {
-    const path = document.uri.fsPath;
-    if (regex && new RegExp(regex).test(path)) {
+    if (regex && new RegExp(regex).test(document.uri.fsPath)) {
         return true;
     }
     return false;

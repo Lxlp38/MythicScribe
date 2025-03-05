@@ -105,11 +105,13 @@ export const StatFileObjects: FileObjectMap = {
     },
     ParentStats: {
         type: FileObjectTypes.LIST,
+        dataset: 'STAT',
         description: 'The parent stats for the stat.',
         link: 'https://git.lumine.io/mythiccraft/MythicMobs/-/wikis/Stats#custom-stat-options',
     },
     TriggerStats: {
         type: FileObjectTypes.LIST,
+        dataset: 'STAT',
         description:
             "A list of stats that the triggering entity may have and their FormulaKey, separated by a space. The FormulaKey can then be used in other Formulas to fetch its value from the trigger's",
         link: 'https://git.lumine.io/mythiccraft/MythicMobs/-/wikis/Stats#custom-stat-options',

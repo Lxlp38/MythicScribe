@@ -3,14 +3,16 @@
 ## [Unreleased]
 
 ### Added
-- Parsing of workspace files for Autocompletions, Hovers and Go to Definition!
-  - "Go to Definition" feature when ctrl+clicking on a metaskill name
-  - Autocompletions for metaskills in relevant attributes values
+- Parsing of workspace files for Autocompletions, Hovers and Go to Definition for Metaskills, Mobs, Items and Stats!
+  - "Go to Definition" feature when ctrl+clicking
+  - Autocompletions in relevant attributes values
   - Hover support
   - You can give markdown descriptions to the metaskills to be displayed in the hovers by putting comments
   - You can prevent a file from being parsed by writing `# mythicscribe-disable file-parsing` as the first line
 - VSCode-Web Compatibility
 - Color Picker for the relevant attributes and options.
+- Basic support for completions and hovers for conditions inside of certain mechanic attributes, such as projectile's hitconditions
+#### Configurations
 - `MythicScribe.enabledPlugins` configuration to set enabled / disabled datasets based on the plugin implementing them
 - Hovers and Completions for Droptables
   - `MythicScribe.fileRegex.Droptable` configuration to define a regex to recognize Droptable files
@@ -19,11 +21,11 @@
 - "Bundle" Custom Datasets
   - A Bundle json can contain references to any number of other custom dataset types
   - When a Bundle is imported as a File and not as a Link, the path of other File-sourced datasets is interpreted as "relative" to the Bundle's location
+#### Custom Datasets
 - `Remove Custom Dataset` command to remove a Custom Dataset without having to edit the settings file
 - `Create Bundle Dataset` command to create a Bundle Dataset based on other Custom Datasets you have previously added
 - `Load Datasets` command to reload the datasets manually
 - `Open Logs` command to open the Extension's logs. For debugging purposes
-- Basic support for completions and hovers for conditions inside of certain mechanic attributes, such as projectile's hitconditions
 
 ### Changed
 - Refactor of how Mechanics/Enums and Subscriptions are handled

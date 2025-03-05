@@ -152,41 +152,7 @@ export const ScribeEnumHandler = {
                 }
             });
         });
-
-        this.addLambdaEnum(scriptedEnums.Boolean, ['true', 'false']);
-        this.addScriptedEnum(scriptedEnums.Color, insertColor);
-        this.addScriptedEnum(scriptedEnums.RGBColor, () => insertColor(undefined, '255,255,255'));
-
-        this.addScriptedEnum(scriptedEnums.MechanicList, () =>
-            fromMechanicRegistryToEnum(ScribeMechanicHandler.registry.mechanic)
-        );
-        this.addScriptedEnum(scriptedEnums.TargeterList, () =>
-            fromMechanicRegistryToEnum(ScribeMechanicHandler.registry.targeter)
-        );
-        this.addScriptedEnum(scriptedEnums.TriggerList, () =>
-            fromMechanicRegistryToEnum(ScribeMechanicHandler.registry.trigger)
-        );
-        this.addScriptedEnum(scriptedEnums.ConditionList, () =>
-            fromMechanicRegistryToEnum(ScribeMechanicHandler.registry.condition)
-        );
-
-        this.addScriptedEnum(scriptedEnums.Targeter, insertTargeterCompletion);
-
-        this.addScriptedEnum(scriptedEnums.Mobs, () =>
-            fromMythicNodeToEnum(MythicNodeHandler.registry.mobs.getNodes())
-        );
-        this.addScriptedEnum(scriptedEnums.Items, () =>
-            fromMythicNodeToEnum(MythicNodeHandler.registry.items.getNodes())
-        );
-        this.addScriptedEnum(scriptedEnums.Metaskill, () =>
-            fromMythicNodeToEnum(MythicNodeHandler.registry.metaskills.getNodes())
-        );
-        this.addScriptedEnum(scriptedEnums.Droptable, () =>
-            fromMythicNodeToEnum(MythicNodeHandler.registry.droptables.getNodes())
-        );
-        this.addScriptedEnum(scriptedEnums.Stat, () =>
-            fromMythicNodeToEnum(MythicNodeHandler.registry.stats.getNodes())
-        );
+        this.initializeScriptedEnums();
     },
 
     getEnum(identifier: string): AbstractScribeEnum | undefined {
@@ -230,6 +196,48 @@ export const ScribeEnumHandler = {
     emptyDatasets(): void {
         ScribeEnumHandler.enums.clear();
         Log.debug('Emptied Enum Datasets');
+    },
+
+    initializeScriptedEnums(): void {
+        this.addLambdaEnum(scriptedEnums.Boolean, ['true', 'false']);
+        this.addScriptedEnum(scriptedEnums.Color, insertColor);
+        this.addScriptedEnum(scriptedEnums.RGBColor, () => insertColor(undefined, '255,255,255'));
+
+        this.addScriptedEnum(scriptedEnums.MechanicList, () =>
+            fromMechanicRegistryToEnum(ScribeMechanicHandler.registry.mechanic)
+        );
+        this.addScriptedEnum(scriptedEnums.TargeterList, () =>
+            fromMechanicRegistryToEnum(ScribeMechanicHandler.registry.targeter)
+        );
+        this.addScriptedEnum(scriptedEnums.TriggerList, () =>
+            fromMechanicRegistryToEnum(ScribeMechanicHandler.registry.trigger)
+        );
+        this.addScriptedEnum(scriptedEnums.ConditionList, () =>
+            fromMechanicRegistryToEnum(ScribeMechanicHandler.registry.condition)
+        );
+
+        this.addScriptedEnum(scriptedEnums.Targeter, insertTargeterCompletion);
+
+        this.addScriptedEnum(scriptedEnums.Mobs, () =>
+            fromMythicNodeToEnum(MythicNodeHandler.registry.mobs.getNodes())
+        );
+        this.addScriptedEnum(scriptedEnums.Items, () => {
+            const mythicitems = fromMythicNodeToEnum(MythicNodeHandler.registry.items.getNodes());
+            const paperitems = ScribeEnumHandler.getEnum('material')!.getDataset();
+            return new Map([...mythicitems, ...paperitems]);
+        });
+        this.addScriptedEnum(scriptedEnums.MythicItem, () =>
+            fromMythicNodeToEnum(MythicNodeHandler.registry.items.getNodes())
+        );
+        this.addScriptedEnum(scriptedEnums.Metaskill, () =>
+            fromMythicNodeToEnum(MythicNodeHandler.registry.metaskills.getNodes())
+        );
+        this.addScriptedEnum(scriptedEnums.Droptable, () =>
+            fromMythicNodeToEnum(MythicNodeHandler.registry.droptables.getNodes())
+        );
+        this.addScriptedEnum(scriptedEnums.Stat, () =>
+            fromMythicNodeToEnum(MythicNodeHandler.registry.stats.getNodes())
+        );
     },
 };
 

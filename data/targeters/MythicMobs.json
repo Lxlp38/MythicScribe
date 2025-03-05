@@ -179,7 +179,8 @@
                 "type": "String",
                 "description": "The shape of the selected blocks. Can be `SPHERE`, `CUBE`",
                 "link": "https://git.lumine.io/mythiccraft/MythicMobs/-/wikis/Skills/Targeters/BlocksInRadius",
-                "default_value": "SPHERE"
+                "default_value": "SPHERE",
+                "enum": "Shape"
             },
             {
                 "name": [
@@ -264,7 +265,8 @@
                 "type": "String",
                 "description": "The shape of the selected blocks. Can be `SPHERE`, `CUBE`",
                 "link": "https://git.lumine.io/mythiccraft/MythicMobs/-/wikis/Skills/Targeters/BlocksNearOrigin",
-                "default_value": "SPHERE"
+                "default_value": "SPHERE",
+                "enum": "Shape"
             },
             {
                 "name": [
@@ -1545,7 +1547,8 @@
                 "type": "String",
                 "description": "The type(s) of the target MythicMobs. Can be a list",
                 "link": "https://git.lumine.io/mythiccraft/MythicMobs/-/wikis/Skills/Targeters/MobsNearOrigin",
-                "default_value": ""
+                "default_value": "",
+                "list": true
             }
         ]
     },

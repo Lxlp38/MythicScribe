@@ -9,7 +9,8 @@ export const MobFileObjects: FileObjectMap = {
         description: 'The Entity Type of the mob.',
     },
     Template: {
-        type: FileObjectTypes.STRING,
+        type: FileObjectTypes.ENUM,
+        dataset: 'mob',
         link: 'https://git.lumine.io/mythiccraft/MythicMobs/-/wikis/Mobs/Templates',
         description: 'The templates for the mob.',
     },
@@ -92,7 +93,8 @@ export const MobFileObjects: FileObjectMap = {
         description: 'The faction of the mob.',
     },
     Mount: {
-        type: FileObjectTypes.STRING,
+        type: FileObjectTypes.ENUM,
+        dataset: 'mob',
         link: 'https://git.lumine.io/mythiccraft/MythicMobs/-/wikis/Mobs/Mobs#mount',
         description: 'The mount of the mob.',
     },
@@ -126,6 +128,7 @@ export const MobFileObjects: FileObjectMap = {
     },
     Drops: {
         type: FileObjectTypes.LIST,
+        dataset: 'ITEM',
         link: 'https://git.lumine.io/mythiccraft/MythicMobs/-/wikis/Mobs/Drops',
         description: 'The drops of the mob.',
     },
@@ -138,6 +141,7 @@ export const MobFileObjects: FileObjectMap = {
     },
     Equipment: {
         type: FileObjectTypes.LIST,
+        dataset: 'ITEM',
         link: 'https://git.lumine.io/mythiccraft/MythicMobs/-/wikis/Mobs/Equipment',
         description: 'The equipment of the mob.',
     },

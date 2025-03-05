@@ -159,7 +159,7 @@ function getHoverForFileElement(
     if (keys.length === 0) {
         return getMinimalHover(key, object.description, object.link ? object.link : link);
     }
-    if (object.type === FileObjectTypes.KEY && object.keys) {
+    if (object.type === FileObjectTypes.KEY) {
         const newobject = object.keys;
         return getHoverForFileElement(keys, newobject, object.link);
     }

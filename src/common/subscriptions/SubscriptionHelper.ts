@@ -139,6 +139,10 @@ export enum FileType {
 }
 
 export function checkFileType(document: vscode.TextDocument): FileType {
+    if (!checkMythicMobsFile(document)) {
+        return FileType.NONE;
+    }
+
     if (checkFileEnabled(document, 'Metaskill')) {
         return FileType.METASKILL;
     }
@@ -148,9 +152,9 @@ export function checkFileType(document: vscode.TextDocument): FileType {
     if (checkFileEnabled(document, 'Item')) {
         return FileType.ITEM;
     }
-    if (checkFileEnabled(document, 'Droptable')) {
-        return FileType.DROPTABLE;
-    }
+    // if (checkFileEnabled(document, 'Droptable')) {
+    //     return FileType.DROPTABLE;
+    // }
     if (checkFileEnabled(document, 'Stat')) {
         return FileType.STAT;
     }

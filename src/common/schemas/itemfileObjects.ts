@@ -9,7 +9,8 @@ export const ItemFileObjects: FileObjectMap = {
         description: 'The base material to use for your item',
     },
     Template: {
-        type: FileObjectTypes.STRING,
+        type: FileObjectTypes.ENUM,
+        dataset: 'mythicitem',
         link: 'https://git.lumine.io/mythiccraft/MythicMobs/-/wikis/Items/Items#template',
         description:
             'Items can use Templating like mobs, while referencing other items. Only one template can be used at a time',
@@ -115,26 +116,6 @@ export const ItemFileObjects: FileObjectMap = {
                 type: FileObjectTypes.BOOLEAN,
                 link: 'https://git.lumine.io/mythiccraft/MythicMobs/-/wikis/Items/Options#preventstacking',
                 description: 'Prevents the item from stacking to similar items. Defaults to false.',
-            },
-            Consumable: {
-                type: FileObjectTypes.KEY,
-                link: 'https://git.lumine.io/mythiccraft/MythicMobs/-/wikis/Items/Options#consumable',
-                description:
-                    'Allows item to be eaten. Includes customizable animations and sounds.',
-                keys: {
-                    ConsumeSeconds: {
-                        type: FileObjectTypes.INTEGER,
-                    },
-                    HasParticles: {
-                        type: FileObjectTypes.BOOLEAN,
-                    },
-                    Animation: {
-                        type: FileObjectTypes.STRING,
-                    },
-                    Sound: {
-                        type: FileObjectTypes.STRING,
-                    },
-                },
             },
             ItemModel: {
                 type: FileObjectTypes.STRING,
@@ -276,6 +257,26 @@ export const ItemFileObjects: FileObjectMap = {
         type: FileObjectTypes.LIST,
         link: 'https://git.lumine.io/mythiccraft/MythicMobs/-/wikis/Items/Items#book',
         description: 'The pages of the book',
+    },
+    Consumable: {
+        type: FileObjectTypes.KEY,
+        link: 'https://git.lumine.io/mythiccraft/MythicMobs/-/wikis/Items/Options#consumable',
+        description: 'Allows item to be eaten. Includes customizable animations and sounds.',
+        keys: {
+            ConsumeSeconds: {
+                type: FileObjectTypes.INTEGER,
+            },
+            HasParticles: {
+                type: FileObjectTypes.BOOLEAN,
+            },
+            Animation: {
+                type: FileObjectTypes.STRING,
+            },
+            Sound: {
+                type: FileObjectTypes.ENUM,
+                dataset: 'SOUND',
+            },
+        },
     },
     Food: {
         type: FileObjectTypes.KEY,

@@ -15,17 +15,35 @@ export enum FileObjectTypes {
     ENUM = 'enum',
 }
 
-export interface FileObjectMap {
-    [key: string]: FileObject;
-}
-
-export interface FileObject {
-    type: FileObjectTypes;
+interface BaseFileObject {
     link?: string;
     description?: string;
-    keys?: FileObjectMap;
-    dataset?: string;
     values?: string[];
+}
+interface EnumFileObject extends BaseFileObject {
+    type: FileObjectTypes.ENUM;
+    dataset: string;
+}
+interface ListFileObject extends BaseFileObject {
+    type: FileObjectTypes.LIST;
+    dataset?: string;
+    keys?: FileObjectMap;
+}
+interface KeyFileObject extends BaseFileObject {
+    type: FileObjectTypes.KEY;
+    keys: FileObjectMap;
+}
+interface OtherFileObject extends BaseFileObject {
+    type: Exclude<
+        FileObjectTypes,
+        FileObjectTypes.ENUM | FileObjectTypes.LIST | FileObjectTypes.KEY
+    >;
+}
+
+export type FileObject = EnumFileObject | ListFileObject | KeyFileObject | OtherFileObject;
+
+export interface FileObjectMap {
+    [key: string]: FileObject;
 }
 
 export const keyAliases = {

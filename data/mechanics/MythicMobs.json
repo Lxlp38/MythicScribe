@@ -78,7 +78,7 @@
                 "description": "The first ingredient",
                 "link": "https://git.lumine.io/mythiccraft/MythicMobs/-/wikis/Skills/Mechanics/AddTrade",
                 "default_value": "STONE",
-                "enum": "Material"
+                "enum": "Item"
             },
             {
                 "name": [
@@ -100,7 +100,7 @@
                 "description": "The result item of the trade",
                 "link": "https://git.lumine.io/mythiccraft/MythicMobs/-/wikis/Skills/Mechanics/AddTrade",
                 "default_value": "STONE",
-                "enum": "Material"
+                "enum": "Item"
             },
             {
                 "name": [
@@ -3029,7 +3029,7 @@
                 "description": "Items to drop. Can be a comma-separated list of items, or a DropTable. You can specify an amount by putting a space and a number after the item name.",
                 "link": "https://git.lumine.io/mythiccraft/MythicMobs/-/wikis/Skills/Mechanics/dropitem",
                 "default_value": "NONE",
-                "enum": "Material"
+                "enum": "Item"
             },
             {
                 "name": [
@@ -3991,7 +3991,7 @@
                 "description": "The item material (supports for mythicmobs item)",
                 "link": "https://git.lumine.io/mythiccraft/MythicMobs/-/wikis/Skills/Mechanics/giveitemfromtarget",
                 "default_value": "",
-                "enum": "Material"
+                "enum": "Item"
             }
         ]
     },
@@ -4037,7 +4037,7 @@
                 "description": "The item material (supports for MythicMobs' [Items](https://git.lumine.io/mythiccraft/MythicMobs/-/wikis/Items/Items) and [Droptables](https://git.lumine.io/mythiccraft/MythicMobs/-/wikis/drops/Drops#drop-tables)) You can specify an amount by putting a space and a number after the item name",
                 "link": "https://git.lumine.io/mythiccraft/MythicMobs/-/wikis/Skills/Mechanics/giveitem",
                 "default_value": "",
-                "enum": "Material"
+                "enum": "Item"
             }
         ]
     },
@@ -4579,7 +4579,7 @@
                 "description": "The list of items to drop. This attribute works like the [DropItem](https://git.lumine.io/mythiccraft/MythicMobs/-/wikis/skills/mechanics/dropitem)'s one",
                 "link": "https://git.lumine.io/mythiccraft/MythicMobs/-/wikis/Skills/Mechanics/itemspray",
                 "default_value": "iron_sword",
-                "enum": "Material"
+                "enum": "Item"
             }
         ]
     },
@@ -5432,7 +5432,8 @@
                 "type": "PlaceholderString",
                 "description": "The type of MythicMob to summon",
                 "link": "https://git.lumine.io/mythiccraft/MythicMobs/-/wikis/Skills/Mechanics/mount",
-                "default_value": ""
+                "default_value": "",
+                "enum": "Mob"
             },
             {
                 "name": [
@@ -6547,7 +6548,8 @@
                 "type": "String",
                 "description": "The entity to spawn as the particle. Cannot be the original entity. **Premium Only**.",
                 "link": "https://git.lumine.io/mythiccraft/MythicMobs/-/wikis/Skills/Mechanics/Particle",
-                "default_value": ""
+                "default_value": "",
+                "enum": "Mob"
             },
             {
                 "name": [
@@ -10114,7 +10116,9 @@
                 "type": "String",
                 "description": "A list of mob types to rally. The list can include both Mythic Mob types and regular Entity types",
                 "link": "https://git.lumine.io/mythiccraft/MythicMobs/-/wikis/Skills/Mechanics/rally",
-                "default_value": ""
+                "default_value": "",
+                "enum": "Mob",
+                "list": true
             }
         ]
     },
@@ -11226,7 +11230,7 @@
                 "description": "The item to use. If not set, the mechanic will remove the item from the entity instead",
                 "link": "https://git.lumine.io/mythiccraft/MythicMobs/-/wikis/Skills/Mechanics/setDisplayEntityItem",
                 "default_value": "AIR",
-                "enum": "Material"
+                "enum": "Item"
             }
         ]
     },
@@ -13928,7 +13932,8 @@
                 "type": "PlaceholderString",
                 "description": "The [stat](Stats) to apply",
                 "link": "https://git.lumine.io/mythiccraft/MythicMobs/-/wikis/Skills/Mechanics/StatAura",
-                "default_value": ""
+                "default_value": "",
+                "enum": "Stat"
             },
             {
                 "name": [
@@ -14555,7 +14560,8 @@
                 "type": "PlaceholderString",
                 "description": "The type of mob to summon. Can be a Mythic Mob type or a regular entity type",
                 "link": "https://git.lumine.io/mythiccraft/MythicMobs/-/wikis/Skills/Mechanics/summon",
-                "default_value": "SKELETON"
+                "default_value": "SKELETON",
+                "enum": "Mob"
             },
             {
                 "name": [
