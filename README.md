@@ -35,6 +35,7 @@ It provides hover text with information about the pointed object and offers auto
     - [Autocompletions](#autocompletions)
     - [Hover Information](#hover-information)
     - [Formatter](#formatter)
+    - [File Parser](#file-parser)
 - [Extension Settings](#extension-settings)
 - [Extension Commands](#extension-commands)
 - [Known Issues](#known-issues)
@@ -56,6 +57,9 @@ It provides hover text with information about the pointed object and offers auto
 
 ### Formatter
 ![Formatter Demo](https://raw.githubusercontent.com/Lxlp38/MythicScribe/refs/heads/master/demos/formatter-demo.gif)
+
+### File Parser
+![File Parser Demo](https://raw.githubusercontent.com/Lxlp38/MythicScribe/refs/heads/master/demos/fileparser-demo.gif)
 
 
 # Extension Settings

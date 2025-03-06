@@ -78,6 +78,29 @@ export function CursorLocationActionForNode<T>(
         return undefined;
     }
     const word = document.getText(wordRange);
+
+    const handlers = [
+        () => handleSkill(word, wordRange, callback),
+        () => handleConditionAction(document, position, word, wordRange, callback),
+        () => handleTemplates(document.lineAt(position.line).text, word, wordRange, callback),
+        () => handleLinkedAttribute(document, position, word, wordRange, callback),
+    ];
+
+    for (const handler of handlers) {
+        const result = handler();
+        if (result) {
+            return result;
+        }
+    }
+
+    return undefined;
+}
+
+function handleSkill<T>(
+    word: string,
+    wordRange: vscode.Range,
+    callback: (node: MythicNode, range: vscode.Range) => vscode.ProviderResult<T>
+) {
     if (word.startsWith('skill:')) {
         const skillName = word.slice(6);
         const skill = MythicNodeHandler.registry.metaskills.getNode(skillName);
@@ -85,11 +108,20 @@ export function CursorLocationActionForNode<T>(
             return callback(skill, wordRange.with({ start: wordRange.start.translate(0, 6) }));
         }
     }
+    return undefined;
+}
 
+function handleConditionAction<T>(
+    document: vscode.TextDocument,
+    position: vscode.Position,
+    word: string,
+    wordRange: vscode.Range,
+    callback: (node: MythicNode, range: vscode.Range) => vscode.ProviderResult<T>
+) {
     const lineText = document.lineAt(position.line).text;
     if (isMetaskillFile) {
-        const castKeywords = ['cast', 'orElseCast', 'castInstead'];
-        const beforeWord = lineText.slice(0, wordRange.start.character).trim();
+        const castKeywords = ['cast', 'orelsecast', 'castinstead'];
+        const beforeWord = lineText.slice(0, wordRange.start.character).trim().toLowerCase();
         if (castKeywords.some((keyword) => beforeWord.endsWith(keyword))) {
             const skill = MythicNodeHandler.registry.metaskills.getNode(word);
             if (skill) {
@@ -97,7 +129,15 @@ export function CursorLocationActionForNode<T>(
             }
         }
     }
+    return undefined;
+}
 
+function handleTemplates<T>(
+    lineText: string,
+    word: string,
+    wordRange: vscode.Range,
+    callback: (node: MythicNode, range: vscode.Range) => vscode.ProviderResult<T>
+) {
     if (lineText.match(/^\s*Template(s)?\:/)) {
         if (isMobFile) {
             const mob = MythicNodeHandler.registry.mobs.getNode(word.trim());
@@ -111,7 +151,16 @@ export function CursorLocationActionForNode<T>(
             }
         }
     }
+    return undefined;
+}
 
+function handleLinkedAttribute<T>(
+    document: vscode.TextDocument,
+    position: vscode.Position,
+    word: string,
+    wordRange: vscode.Range,
+    callback: (node: MythicNode, range: vscode.Range) => vscode.ProviderResult<T>
+) {
     const keys = yamlutils.getParentKeys(document, position);
     const attribute = searchForLinkedAttribute(document, position, keys);
     if (attribute?.enum) {

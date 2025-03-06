@@ -1,7 +1,7 @@
 import * as vscode from 'vscode';
 
 import { AbstractScribeMechanicRegistry, ScribeMechanicHandler } from '../datasets/ScribeMechanic';
-import { getUpstreamKey } from './yamlutils';
+import { getUpstreamKey, isInsideInlineConditionList } from './yamlutils';
 
 /**
  * Function to find the object linked to an unbalanced '{' in the format object{attribute1=value1;attribute2=value2}
@@ -67,14 +67,11 @@ export function getSquareBracketObject(document: vscode.TextDocument, position: 
             newPosition = newPosition.translate(0, -1);
         }
         const char = textBeforeAttribute[i];
-        if (char === ']' || char === '}') {
+        if (char === ']') {
             openBracketCount++;
-        } else if (char === '[' || char === '{') {
+        } else if (char === '[') {
             openBracketCount--;
             if (openBracketCount < 0) {
-                if (char === '{') {
-                    return null;
-                }
                 const textBeforeBracket = textBeforeAttribute.substring(0, i).trim();
                 const objectMatch = textBeforeBracket.match(squareBracketObjectRegex);
                 if (objectMatch && objectMatch[0]) {
@@ -149,15 +146,26 @@ export function getCursorSkills(
     position: vscode.Position,
     maxline: number
 ) {
-    for (const objectType of [
+    const registries = [
         ScribeMechanicHandler.registry.mechanic,
         ScribeMechanicHandler.registry.targeter,
         ScribeMechanicHandler.registry.trigger,
         ScribeMechanicHandler.registry.inlinecondition,
+    ];
 
-        // TODO: add more robust check for condition registry switch
-        ScribeMechanicHandler.registry.condition,
-    ]) {
+    if (
+        isInsideInlineConditionList(
+            document,
+            position,
+            ScribeMechanicHandler.registry.mechanic,
+            ScribeMechanicHandler.registry.aigoal,
+            ScribeMechanicHandler.registry.aitarget
+        )
+    ) {
+        registries.push(ScribeMechanicHandler.registry.condition);
+    }
+
+    for (const objectType of registries) {
         const maybeObject = fetchCursorSkills(document, position, objectType);
         if (maybeObject) {
             return maybeObject;
@@ -190,9 +198,18 @@ export function getCursorSkills(
         if (mechanic) {
             return mechanic.getAttributeByName(attribute);
         }
-        // TODO: add more robust check for condition registry switch
+
         const condition = ScribeMechanicHandler.registry.condition.getMechanicByName(object);
-        if (condition) {
+        if (
+            condition &&
+            isInsideInlineConditionList(
+                document,
+                position,
+                ScribeMechanicHandler.registry.mechanic,
+                ScribeMechanicHandler.registry.aigoal,
+                ScribeMechanicHandler.registry.aitarget
+            )
+        ) {
             return condition.getAttributeByName(attribute);
         }
         return null;

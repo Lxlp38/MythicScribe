@@ -212,8 +212,16 @@ function searchForLinkedObject(
             mechanic = type.getMechanicByName('skill');
         }
     }
-    if (!mechanic) {
-        //TODO: add more robust check for condition registry switch
+    if (
+        !mechanic &&
+        yamlutils.isInsideInlineConditionList(
+            document,
+            position,
+            ScribeMechanicHandler.registry.mechanic,
+            ScribeMechanicHandler.registry.aigoal,
+            ScribeMechanicHandler.registry.aitarget
+        )
+    ) {
         mechanic = ScribeMechanicHandler.registry.condition.getMechanicByName(object);
     }
 

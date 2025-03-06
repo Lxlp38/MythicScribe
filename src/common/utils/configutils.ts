@@ -18,6 +18,13 @@ const fileRegexConfigCache = {
     Stat: undefined as string | undefined,
 };
 
+const fileParsingPolicyConfigCache = {
+    parseOnStartup: undefined as boolean | undefined,
+    parseOnSave: undefined as boolean | undefined,
+    parseOnModification: undefined as boolean | undefined,
+    parsingGlobPattern: undefined as string | undefined,
+};
+
 let configChangeFunctionCallbacks: (() => void)[] | undefined;
 function getConfigChangeFunctionCallbacks() {
     if (configChangeFunctionCallbacks === undefined) {
@@ -30,17 +37,17 @@ export function addConfigChangeFunction(callback: () => void) {
 }
 
 function resetConfigCache() {
+    function resetSpecificConfig(cache: { [key: string]: string | boolean | undefined }) {
+        for (const key in cache) {
+            if (cache.hasOwnProperty(key)) {
+                cache[key as keyof typeof cache] = undefined;
+            }
+        }
+    }
     Log.debug('Resetting config cache');
-    for (const key in configCache) {
-        if (configCache.hasOwnProperty(key)) {
-            configCache[key as keyof typeof configCache] = undefined;
-        }
-    }
-    for (const key in fileRegexConfigCache) {
-        if (fileRegexConfigCache.hasOwnProperty(key)) {
-            fileRegexConfigCache[key as keyof typeof fileRegexConfigCache] = undefined;
-        }
-    }
+    resetSpecificConfig(configCache);
+    resetSpecificConfig(fileRegexConfigCache);
+    resetSpecificConfig(fileParsingPolicyConfigCache);
     for (const callback of getConfigChangeFunctionCallbacks()) {
         callback();
     }
@@ -84,6 +91,15 @@ export function checkMythicMobsFile(document: vscode.TextDocument): boolean {
         return true;
     }
     return checkFileEnabled(document, 'MythicMobs');
+}
+
+export function getFileParserPolicyConfig(key: keyof typeof fileParsingPolicyConfigCache) {
+    if (fileParsingPolicyConfigCache[key] === undefined) {
+        fileParsingPolicyConfigCache[key] = vscode.workspace
+            .getConfiguration('MythicScribe')
+            .get('fileParsingPolicy.' + key);
+    }
+    return fileParsingPolicyConfigCache[key];
 }
 
 export function enableEmptyBracketsAutomaticRemoval(): boolean {

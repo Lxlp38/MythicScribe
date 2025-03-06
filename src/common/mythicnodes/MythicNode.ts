@@ -2,6 +2,7 @@ import * as vscode from 'vscode';
 
 import { checkFileType, FileType } from '../subscriptions/SubscriptionHelper';
 import { Log } from '../utils/logger';
+import { getFileParserPolicyConfig } from '../utils/configutils';
 
 type NodeEntry = Map<string, MythicNode>;
 
@@ -9,6 +10,36 @@ enum ParserIntructions {
     // Disable parsing for the file
     DISABLE_PARSING = '# mythicscribe-disable file-parsing',
 }
+
+vscode.workspace.onDidSaveTextDocument((document) => {
+    if (!getFileParserPolicyConfig('parseOnSave')) {
+        return;
+    }
+    const type = fromFileTypeToRegistryKey.get(checkFileType(document));
+    if (type) {
+        MythicNodeHandler.registry[type].resetDocument(document);
+    }
+});
+
+vscode.workspace.onDidChangeTextDocument((event) => {
+    if (!getFileParserPolicyConfig('parseOnModification')) {
+        return;
+    }
+    const type = fromFileTypeToRegistryKey.get(checkFileType(event.document));
+    if (type) {
+        MythicNodeHandler.registry[type].resetDocument(event.document);
+    }
+});
+
+vscode.workspace.onDidDeleteFiles(async (event) => {
+    for (const file of event.files) {
+        const document = await vscode.workspace.openTextDocument(file);
+        const type = fromFileTypeToRegistryKey.get(checkFileType(document));
+        if (type) {
+            MythicNodeHandler.registry[type].clearNodesByDocument(document);
+        }
+    }
+});
 
 export class MythicNode {
     description = '';
@@ -19,7 +50,6 @@ export class MythicNode {
         public document: vscode.TextDocument,
         public range: vscode.Range
     ) {
-        Log.trace(`Registered node ${name} in ${document.uri.toString()}`);
         this.searchForDescription();
     }
 
@@ -54,6 +84,7 @@ export class MythicNodeRegistry {
             this.nodesByDocument.set(documentUri, []);
         }
         this.nodesByDocument.get(documentUri)?.push(node);
+        Log.trace(`Registered ${this.type} ${node.name} in ${node.document.uri.toString()}`);
     }
 
     getNode(name: string): MythicNode | undefined {
@@ -73,7 +104,7 @@ export class MythicNodeRegistry {
         const nodesToRemove = this.nodesByDocument.get(document.uri.toString());
         if (nodesToRemove) {
             nodesToRemove.forEach((node) => {
-                Log.trace(`Unregistered node ${node.name} in ${document.uri.toString()}`);
+                Log.trace(`Unregistered ${this.type} ${node.name} in ${document.uri.toString()}`);
                 this.nodes.delete(node.name);
             });
         }
@@ -100,22 +131,6 @@ export class MythicNodeRegistry {
         this.scanDocument(document);
     }
 }
-
-vscode.workspace.onDidSaveTextDocument((document) => {
-    const type = fromFileTypeToRegistryKey.get(checkFileType(document));
-    if (type) {
-        MythicNodeHandler.registry[type].resetDocument(document);
-    }
-});
-vscode.workspace.onDidDeleteFiles(async (event) => {
-    for (const file of event.files) {
-        const document = await vscode.workspace.openTextDocument(file);
-        const type = fromFileTypeToRegistryKey.get(checkFileType(document));
-        if (type) {
-            MythicNodeHandler.registry[type].clearNodesByDocument(document);
-        }
-    }
-});
 
 interface MythicNodeHandlerRegistry {
     metaskills: MythicNodeRegistry;
@@ -153,7 +168,10 @@ export namespace MythicNodeHandler {
     }
 
     export async function scanAllDocuments(): Promise<void> {
-        const files = await vscode.workspace.findFiles('**/*.{yaml,yml}');
+        const files = await vscode.workspace.findFiles(
+            (getFileParserPolicyConfig('parsingGlobPattern') as string | undefined) ||
+                '**/*.{yaml,yml}'
+        );
         for (const file of files) {
             await scanFile(file);
         }
