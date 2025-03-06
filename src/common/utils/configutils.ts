@@ -23,6 +23,7 @@ const fileParsingPolicyConfigCache = {
     parseOnSave: undefined as boolean | undefined,
     parseOnModification: undefined as boolean | undefined,
     parsingGlobPattern: undefined as string | undefined,
+    excludeGlobPattern: undefined as string | undefined,
 };
 
 let configChangeFunctionCallbacks: (() => void)[] | undefined;

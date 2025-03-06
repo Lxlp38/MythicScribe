@@ -270,7 +270,8 @@ export const ItemFileObjects: FileObjectMap = {
                 type: FileObjectTypes.BOOLEAN,
             },
             Animation: {
-                type: FileObjectTypes.STRING,
+                type: FileObjectTypes.ENUM,
+                dataset: 'itemuseanimation',
             },
             Sound: {
                 type: FileObjectTypes.ENUM,
@@ -291,10 +292,6 @@ export const ItemFileObjects: FileObjectMap = {
             Saturation: {
                 type: FileObjectTypes.FLOAT,
                 values: generateNumbersInRange(1, 20, 1),
-            },
-            EatSeconds: {
-                type: FileObjectTypes.FLOAT,
-                values: generateNumbersInRange(1, 10, 1),
             },
             CanAlwaysEat: {
                 type: FileObjectTypes.BOOLEAN,

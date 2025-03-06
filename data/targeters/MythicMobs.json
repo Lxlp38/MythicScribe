@@ -1572,7 +1572,7 @@
         "name": [
             "mount"
         ],
-        "description": "Targets the caster's mount",
+        "description": "Targets the caster's original [mount](https://git.lumine.io/mythiccraft/MythicMobs/-/wikis/Mobs/Mobs#mount)",
         "link": "https://git.lumine.io/mythiccraft/MythicMobs/-/wikis/Skills/Targeters/Mount",
         "attributes": []
     },

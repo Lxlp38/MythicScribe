@@ -254,7 +254,7 @@ function fromMechanicRegistryToEnum(registry: AbstractScribeMechanicRegistry) {
 function fromMythicNodeToEnum(nodes: Map<string, MythicNode>) {
     const metaskills: Map<string, EnumDatasetValue> = new Map();
     nodes.forEach((node) => {
-        metaskills.set(node.name, { description: '' });
+        metaskills.set(node.name.text, { description: '' });
     });
     return metaskills;
 }

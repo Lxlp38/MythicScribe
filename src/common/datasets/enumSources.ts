@@ -14,6 +14,7 @@ export const volatileEnums = [
     'paper/fluidcollisionmode.json',
     'paper/gamemode.json',
     'paper/itemflag.json',
+    'paper/itemuseanimation.json',
     'paper/material.json',
     'paper/potioneffecttype.json',
     'paper/soundcategory.json',

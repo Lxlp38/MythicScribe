@@ -43,6 +43,7 @@ fireworkeffecttype
 fluidcollisionmode
 gamemode
 itemflag
+itemuseanimation
 material
 potioneffecttype
 soundcategory
@@ -61,4 +62,5 @@ metaskill
 droptable
 stat
 targeter
+mythicitem
 conditions

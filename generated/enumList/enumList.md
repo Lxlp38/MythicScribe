@@ -178,6 +178,10 @@
 ### Path: `paper/itemflag.json`
 ### Type: `Volatile`
 
+# `itemuseanimation`
+### Path: `paper/itemuseanimation.json`
+### Type: `Volatile`
+
 # `material`
 ### Path: `paper/material.json`
 ### Type: `Volatile`
@@ -247,6 +251,10 @@
 ### Type: `Scripted`
 
 # `targeter`
+### Path: `null`
+### Type: `Scripted`
+
+# `mythicitem`
 ### Path: `null`
 ### Type: `Scripted`
 

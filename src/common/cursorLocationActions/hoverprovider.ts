@@ -46,7 +46,9 @@ export function hoverProvider(
 
 function getHoverForNode(node: MythicNode): vscode.ProviderResult<vscode.Hover> {
     return new vscode.Hover(
-        (node.description !== '' ? node.description + '\n---\n' : `Node: ${node.name}\n\n`) +
+        (node.description.text !== ''
+            ? node.description + '\n---\n'
+            : `Node: ${node.name.text}\n\n`) +
             `Type: ${node.registry.type.replace(/s$/, '')}\n\n` +
             `Document: ${node.document.fileName}\n\n`
     );

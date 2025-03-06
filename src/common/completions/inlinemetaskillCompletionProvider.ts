@@ -80,11 +80,11 @@ export function addMetaskillsToConditionLine(
 ) {
     MythicNodeHandler.registry.metaskills.getNodes().forEach((node) => {
         const completionItem = new vscode.CompletionItem(
-            node.name,
+            node.name.text,
             vscode.CompletionItemKind.Function
         );
         completionItem.kind = vscode.CompletionItemKind.Function;
-        completionItem.insertText = new vscode.SnippetString(node.name + string);
+        completionItem.insertText = new vscode.SnippetString(node.name.text + string);
         completionItem.command = retriggerCompletionsCommand;
         completionItems.push(completionItem);
     });

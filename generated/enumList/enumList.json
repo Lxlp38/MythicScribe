@@ -225,6 +225,11 @@
     "type": "Volatile"
   },
   {
+    "id": "itemuseanimation",
+    "path": "paper/itemuseanimation.json",
+    "type": "Volatile"
+  },
+  {
     "id": "material",
     "path": "paper/material.json",
     "type": "Volatile"
@@ -311,6 +316,11 @@
   },
   {
     "id": "targeter",
+    "path": null,
+    "type": "Scripted"
+  },
+  {
+    "id": "mythicitem",
     "path": null,
     "type": "Scripted"
   },

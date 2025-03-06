@@ -8,7 +8,7 @@ import {
 } from '../datasets/ScribeMechanic';
 import { getSquareBracketObject } from './cursorutils';
 
-const yamlkeyregex = /^\s*[^:\s]+:/;
+const yamlkeyregex = /^\s*([^:\s]+:)/;
 
 export type YamlKey = [string, number];
 export function getKeyNameFromYamlKey(keys: YamlKey[]): string[] {
@@ -128,15 +128,25 @@ export function isEmptyLine(document: vscode.TextDocument, lineIndex: number): b
  *
  * @param document - The text document to check.
  * @param lineIndex - The index of the line to check.
+ * @param precise - Optional precise position to check if specifically the supplied position is a key.
  * @returns `true` if the line is a YAML key, `false` otherwise.
  */
-export function isKey(document: vscode.TextDocument, lineIndex: number): boolean {
-    const line = document.lineAt(lineIndex).text.trim();
-    // If we are inside a key, we're not inside the Skills section
-    if (line.match(yamlkeyregex)) {
+export function isKey(
+    document: vscode.TextDocument,
+    lineIndex: number,
+    precise?: vscode.Position
+): boolean {
+    const line = document.lineAt(lineIndex).text;
+    if (precise) {
+        const match = line.match(yamlkeyregex);
+        if (match) {
+            const startIndex = match.index!;
+            const endIndex = startIndex + match[1].length;
+            return precise.character >= startIndex && precise.character <= endIndex;
+        }
+    } else if (yamlkeyregex.test(line)) {
         return true;
     }
-
     return false;
 }
 

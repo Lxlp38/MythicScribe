@@ -349,13 +349,19 @@
               "title": "Parsing Glob Pattern",
               "type": "string",
               "description": "The glob pattern to use to identify files to parse."
+            },
+            "excludeGlobPattern": {
+              "title": "Exclude Glob Pattern",
+              "type": "string",
+              "description": "The glob pattern to use to exclude files from parsing."
             }
           },
           "default": {
             "parseOnStartup": true,
             "parseOnSave": true,
             "parseOnModification": false,
-            "parsingGlobPattern": "**/*.{yaml,yml}"
+            "parsingGlobPattern": "**/*.{yaml,yml}",
+            "excludeGlobPattern": ""
           }
         }
       }

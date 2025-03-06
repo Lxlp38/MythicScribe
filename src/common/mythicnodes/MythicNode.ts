@@ -11,6 +11,8 @@ enum ParserIntructions {
     DISABLE_PARSING = '# mythicscribe-disable file-parsing',
 }
 
+const NodeRegex = /((?:^#.*$\n)*)^([\w\-\_]+):((?:.*(?:\n(?=^\s))?)*)/gm;
+
 vscode.workspace.onDidSaveTextDocument((document) => {
     if (!getFileParserPolicyConfig('parseOnSave')) {
         return;
@@ -41,31 +43,24 @@ vscode.workspace.onDidDeleteFiles(async (event) => {
     }
 });
 
-export class MythicNode {
-    description = '';
+interface NodeBaseElement {
+    text: string | undefined;
+    range: vscode.Range;
+}
 
+interface NodeElement extends NodeBaseElement {
+    text: string;
+}
+
+export class MythicNode {
     constructor(
         public registry: MythicNodeRegistry,
-        public name: string,
         public document: vscode.TextDocument,
-        public range: vscode.Range
-    ) {
-        this.searchForDescription();
-    }
-
-    searchForDescription(): void {
-        for (let i = this.range.start.line - 1; i >= 0; i--) {
-            const line = this.document.lineAt(i);
-            if (!line.text.startsWith('#')) {
-                break;
-            }
-            const match = line.text.match(/#(.*)/);
-            if (match) {
-                const newDescriptionLine = match[1].replace(/^#/, '').trim();
-                this.description = newDescriptionLine + '\n' + this.description;
-            }
-        }
-    }
+        public range: vscode.Range,
+        public description: NodeBaseElement,
+        public name: NodeElement,
+        public body: NodeBaseElement
+    ) {}
 }
 
 export class MythicNodeRegistry {
@@ -78,13 +73,13 @@ export class MythicNodeRegistry {
     }
 
     registerNode(node: MythicNode): void {
-        this.nodes.set(node.name, node);
+        this.nodes.set(node.name.text, node);
         const documentUri = node.document.uri.toString();
         if (!this.nodesByDocument.has(documentUri)) {
             this.nodesByDocument.set(documentUri, []);
         }
         this.nodesByDocument.get(documentUri)?.push(node);
-        Log.trace(`Registered ${this.type} ${node.name} in ${node.document.uri.toString()}`);
+        Log.trace(`Registered ${this.type} ${node.name.text} in ${node.document.uri.toString()}`);
     }
 
     getNode(name: string): MythicNode | undefined {
@@ -104,8 +99,10 @@ export class MythicNodeRegistry {
         const nodesToRemove = this.nodesByDocument.get(document.uri.toString());
         if (nodesToRemove) {
             nodesToRemove.forEach((node) => {
-                Log.trace(`Unregistered ${this.type} ${node.name} in ${document.uri.toString()}`);
-                this.nodes.delete(node.name);
+                Log.trace(
+                    `Unregistered ${this.type} ${node.name.text} in ${document.uri.toString()}`
+                );
+                this.nodes.delete(node.name.text);
             });
         }
         this.nodesByDocument.delete(document.uri.toString());
@@ -116,13 +113,37 @@ export class MythicNodeRegistry {
             Log.debug(`Parsing disabled for ${document.uri.toString()}`);
             return;
         }
-        for (let i = 0; i < document.lineCount; i++) {
-            const line = document.lineAt(i);
-            const match = line.text.match(/^([\w\-]+):/);
-            if (match) {
-                const node = new MythicNode(this, match[1], document, line.range);
-                this.registerNode(node);
-            }
+        const matches = document.getText().matchAll(NodeRegex);
+        for (const match of matches) {
+            const matchStart = document.positionAt(match.index);
+            const matchEnd = document.positionAt(match.index + match[0].length);
+            const node = new MythicNode(
+                this,
+                document,
+                new vscode.Range(matchStart, matchEnd),
+                {
+                    text: match[1],
+                    range: new vscode.Range(
+                        matchStart,
+                        document.positionAt(match.index + match[1].length)
+                    ),
+                },
+                {
+                    text: match[2],
+                    range: new vscode.Range(
+                        document.positionAt(match.index + match[1].length),
+                        document.positionAt(match.index + match[1].length + match[2].length)
+                    ),
+                },
+                {
+                    text: undefined,
+                    range: new vscode.Range(
+                        document.positionAt(match.index + match[1].length + match[2].length),
+                        matchEnd
+                    ),
+                }
+            );
+            this.registerNode(node);
         }
     }
 
@@ -168,9 +189,15 @@ export namespace MythicNodeHandler {
     }
 
     export async function scanAllDocuments(): Promise<void> {
-        const files = await vscode.workspace.findFiles(
+        const include =
             (getFileParserPolicyConfig('parsingGlobPattern') as string | undefined) ||
-                '**/*.{yaml,yml}'
+            '**/*.{yaml,yml}';
+
+        const exclude = getFileParserPolicyConfig('excludeGlobPattern') as string | undefined;
+
+        const files = await vscode.workspace.findFiles(
+            include,
+            exclude && exclude !== '' ? exclude : undefined
         );
         for (const file of files) {
             await scanFile(file);

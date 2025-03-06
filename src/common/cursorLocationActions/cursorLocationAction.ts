@@ -25,7 +25,7 @@ export function CursorLocationAction<T>(
 ) {
     const keys = yamlutils.getParentKeys(document, position);
 
-    if (yamlutils.isKey(document, position.line)) {
+    if (yamlutils.isKey(document, position.line, position)) {
         const key = yamlutils.getKey(document, position.line);
         keys.reverse();
         keys.push([key, position.line]);
@@ -118,15 +118,16 @@ function handleConditionAction<T>(
     wordRange: vscode.Range,
     callback: (node: MythicNode, range: vscode.Range) => vscode.ProviderResult<T>
 ) {
+    if (!isMetaskillFile) {
+        return undefined;
+    }
     const lineText = document.lineAt(position.line).text;
-    if (isMetaskillFile) {
-        const castKeywords = ['cast', 'orelsecast', 'castinstead'];
-        const beforeWord = lineText.slice(0, wordRange.start.character).trim().toLowerCase();
-        if (castKeywords.some((keyword) => beforeWord.endsWith(keyword))) {
-            const skill = MythicNodeHandler.registry.metaskills.getNode(word);
-            if (skill) {
-                return callback(skill, wordRange);
-            }
+    const castKeywords = ['cast', 'orelsecast', 'castinstead'];
+    const beforeWord = lineText.slice(0, wordRange.start.character).trim().toLowerCase();
+    if (castKeywords.some((keyword) => beforeWord.endsWith(keyword))) {
+        const skill = MythicNodeHandler.registry.metaskills.getNode(word);
+        if (skill) {
+            return callback(skill, wordRange);
         }
     }
     return undefined;
@@ -139,16 +140,13 @@ function handleTemplates<T>(
     callback: (node: MythicNode, range: vscode.Range) => vscode.ProviderResult<T>
 ) {
     if (lineText.match(/^\s*Template(s)?\:/)) {
-        if (isMobFile) {
-            const mob = MythicNodeHandler.registry.mobs.getNode(word.trim());
-            if (mob) {
-                return callback(mob, wordRange);
-            }
-        } else if (isItemFile) {
-            const item = MythicNodeHandler.registry.items.getNode(word.trim());
-            if (item) {
-                return callback(item, wordRange);
-            }
+        const template = isMobFile
+            ? MythicNodeHandler.registry.mobs.getNode(word.trim())
+            : isItemFile
+              ? MythicNodeHandler.registry.items.getNode(word.trim())
+              : undefined;
+        if (template) {
+            return callback(template, wordRange);
         }
     }
     return undefined;

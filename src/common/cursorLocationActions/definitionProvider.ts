@@ -19,8 +19,8 @@ function definitionCallback(
         {
             originSelectionRange: range,
             targetUri: skill.document.uri,
-            targetRange: skill.range,
-            targetSelectionRange: skill.range,
+            targetRange: skill.name.range,
+            targetSelectionRange: skill.name.range,
         },
     ];
 }

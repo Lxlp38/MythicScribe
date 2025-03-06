@@ -65,11 +65,13 @@ It provides hover text with information about the pointed object and offers auto
 # Extension Settings
 
 * `MythicScribe.alwaysEnabled`: When enabled, the extension will no longer do any check to see if a document is a MythicMobs one
-* `MythicScribe.fileRegex.MythicMobs`: Determines which files are recognized as MythicMobs files based on a custom regex
-* `MythicScribe.fileRegex.Metaskill`: Determines which files are recognized as Metaskill files based on a custom regex
-* `MythicScribe.fileRegex.Mob`: Determines which files are recognized as Mob files based on a custom regex
-* `MythicScribe.fileRegex.Item`: Determines which files are recognized as Item files based on a custom regex
-* `MythicScribe.fileRegex.Droptable`: Determines which files are recognized as Droptable files based on a custom regex
+* `MythicScribe.fileRegex`: Configure what files are recognized as Mythic ones based on a configurable regex made against their path 
+  * `MythicMobs`: The regex to determine if the file is a Mythic one at all
+  * `Metaskill`: The regex to identify Metaskill files
+  * `Mob`: The regex to identify Mob files
+  * `Item`: The regex to identify Item files
+  * `Droptable`: The regex to identify Droptable files
+  * `Stat`: The regex to identify Stat files
 * `MythicScribe.enableMythicScriptSyntax`: Whether the extension should automatically convert the document types from yaml to MythicScript if it's recognized as a MythicMobs file. This does not change the file or its extension in any way, while also enabling mythic-specific syntax highlighting
 * `MythicScribe.datasetSource`: Which dataset to use. `GitHub` or `Local`
 * `MythicScribe.minecraftVersion`: Specify the minecraft version whose datasets to use 
@@ -81,7 +83,12 @@ It provides hover text with information about the pointed object and offers auto
 * `MythicScribe.customDatasets`: Which Custom Dataset to load and from where
 * `MythicScribe.enabledPlugins`: Enable / Disable specific plugins' datasets. Plugin names are added automatically
 * `MythicScribe.logLevel`: Set the Extension's log level
-
+* `MythicScribe.fileParsingPolicy`: Set the Extension's policies regarding file parsing
+  * `parseOnStartup`
+  * `parseOnSave`
+  * `parseOnModification`
+  * `parsingGlobPattern`
+  * `excludeGlobPattern`
 
 # Extension Commands
 
