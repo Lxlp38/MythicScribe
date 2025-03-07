@@ -28,6 +28,7 @@
 - `Open Logs` command to open the Extension's logs. For debugging purposes
 
 ### Changed
+- Overhauled the Formatter
 - Refactor of how Mechanics/Enums and Subscriptions are handled
 - Regexes for files can now be found in the `MythicScribe.fileRegex` configuration. Old configurations for this are deprecated and automatically migrated
 - "Local File" value inside customDatasets configurations is now called "File". When the old value is detected, it is automatically migrated

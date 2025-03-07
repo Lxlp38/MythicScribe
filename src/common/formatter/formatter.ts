@@ -1,66 +1,102 @@
 import * as vscode from 'vscode';
+import { parseDocument } from 'yaml';
 
-import { getDefaultIndentation, getUsedIndentation } from '../utils/yamlutils';
+import { getDefaultIndentation } from '../utils/yamlutils';
+import { Log } from '../utils/logger';
+
+const comments: string[] = [];
 
 export function getFormatter() {
     return vscode.languages.registerDocumentFormattingEditProvider('mythicscript', {
         provideDocumentFormattingEdits(document: vscode.TextDocument): vscode.TextEdit[] {
-            const textEdits: vscode.TextEdit[] = [];
-            const text = document.getText();
+            let text = document.getText();
+            comments.length = 0;
 
-            // Tokenize comments
-            const [textWithPlaceholders, comments] = tokenizeComments(text);
+            for (const op of [
+                // Tokenize comments
+                tokenizeComments,
 
-            // Add newlines in inline metaskills
-            const textWithNewlines = addNewlinesInInlineMetaskills(textWithPlaceholders);
+                // Format YAML file
+                normalizeYamlIndentation,
 
-            // Apply additional formatting rules
-            const formattedText = formatMythicScript(textWithNewlines);
+                // Add newlines in inline metaskills
+                addNewLinesInInlineMetaskills,
 
-            // Restore comments
-            const textWithRestoredComments = restoreComments(formattedText, comments);
+                // Apply additional formatting rules
+                formatMythicScript,
+
+                // Restore comments
+                restoreComments,
+            ]) {
+                text = op(text);
+            }
 
             // Replace entire document with the newly formatted text
             const fullRange = document.validateRange(new vscode.Range(0, 0, document.lineCount, 0));
 
-            textEdits.push(vscode.TextEdit.replace(fullRange, textWithRestoredComments));
-
-            return textEdits;
+            return [vscode.TextEdit.replace(fullRange, text)];
         },
     });
 }
 
-const placeholder = `/*__MYTHICSCRIBE_COMMENT__*/`;
-function tokenizeComments(text: string): [string, string[]] {
-    const comments: string[] = [];
-
+const placeholder = `#__MYTHICSCRIBE_COMMENT_START__`;
+function tokenizeComments(text: string): string {
     // Preserve the comments by replacing them temporarily with a placeholder
     const textWithPlaceholders = text.replace(/(?<=\s)#.*?(?=\n|$)/gm, (match) => {
         comments.push(match); // Store the comment
         return placeholder; // Replace the comment so it doesn't fuck up later on
     });
-
-    return [textWithPlaceholders, comments];
+    return textWithPlaceholders;
 }
 
-function restoreComments(text: string, comments: string[]): string {
+function restoreComments(text: string): string {
     comments.reverse();
     return text.replaceAll(placeholder, () => comments.pop() || '');
 }
 
-function addNewlinesInInlineMetaskills(text: string): string {
-    const INDENTATION_LEVEL = getDefaultIndentation();
-    const USED_INDENTATION = getUsedIndentation(text);
+function normalizeYamlIndentation(yamlContent: string): string {
+    try {
+        const doc = parseDocument(yamlContent, {
+            keepSourceTokens: true,
+            toStringDefaults: {
+                doubleQuotedMinMultiLineLength: 99999,
+                lineWidth: 0,
+                minContentWidth: 0,
+                indent: getDefaultIndentation(),
+            },
+            schema: 'failsafe',
+        });
+        if (doc.errors) {
+            doc.errors.forEach((error) => {
+                Log.debug('Formatter error:', error.code, error.name, error.message);
+                if (error.stack) {
+                    Log.trace(error.stack);
+                }
+            });
+        }
 
+        return doc.toString();
+    } catch (error) {
+        Log.error(error);
+    }
+    return yamlContent;
+}
+
+function addNewLinesInInlineMetaskills(text: string): string {
     // Process the text with all the cool replacements
     const formattedText = text
-        .replace(/^([^\S\r\n]*)([\w_\-]+):/gm, (_match, p1, p2) => {
-            const indent = Math.floor(p1.length / USED_INDENTATION);
-            const affix = '' + ' '.repeat(indent * INDENTATION_LEVEL);
-            return `${affix}${p2}:`;
-        })
-        .replace(/(?<=[;{])\s*([^\s;{]*)=\s*\[\s*/gm, '\n$1=\[\n')
-        .replace(/(?<=[^"])\s*\]\s*([;}])/gm, '\n]$1');
+        .replace(/(?<=[;{])\s*([^\s;{]*)=\s*\[\s*/gm, '\n$1=\[\n') // Add newline before a new inline mechanic
+        .replace(/(?<=[^"])\s*\]\s*([;}])/gm, '\n]$1') // Add newline after a closing inline mechanic
+        .replace(/((?!\s*-\s).*?)(-\s[\w:\-]+[{\s}])/gm, '$1\n$2') // Add newline before a new inline mechanic
+        .replace(/([{;]) ([\w\-_]+)=/gm, '$1\n$2=') // Add newline before a new spaced attribute
+        .replace(
+            /(?<=[{;])\s*([\w\-_]+)=(\s)([\w\-_]+,)(.*)(\s)([\w\-_]+\s*)(?=[};])/gm,
+            (match) => {
+                return match.replace(/, /g, ',\n').replace(/= /g, '=\n');
+            }
+        ) // Add newline for spaced lists
+        .replace(/ (?=[;}])/g, '\n') // Add inline for spaced termination character
+        .replace(/;(?=}\s)/, ''); // Remove semicolon before closing bracket
     return formattedText;
 }
 

@@ -101,6 +101,7 @@ It provides hover text with information about the pointed object and offers auto
 # Known Issues
 
 * When `editor.acceptSuggestionOnEnter` is not `off` and `MythicScribe.enableFileSpecificSuggestions` is enabled, all the completions on newline *will* stop users from comfortably add spacing in their metaskills and the likes. For this reason, it is recommended to keep this configuration set to `off`
+* When using the formatter, yaml comments put in awkward places may be misplaced.
 
 
 # Dev Builds
