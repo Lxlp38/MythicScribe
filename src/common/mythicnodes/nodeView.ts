@@ -154,6 +154,7 @@ function buildCytoscapeElements(
                 if (!templateNode) {
                     continue;
                 }
+                cyNodesMythicNodes.add(templateNode);
                 cyEdges.push({
                     data: {
                         id: `${getIdName(node)}_to_${getIdName(templateNode)}`,
