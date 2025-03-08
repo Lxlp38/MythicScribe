@@ -72,6 +72,11 @@
         "command": "MythicScribe.loadDatasets",
         "title": "Load Datasets",
         "category": "MythicScribe"
+      },
+      {
+        "command": "MythicScribe.showNodeGraph",
+        "title": "Show Node Graph",
+        "category": "MythicScribe"
       }
     ],
     "languages": [

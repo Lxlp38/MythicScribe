@@ -97,6 +97,7 @@ It provides hover text with information about the pointed object and offers auto
 * `MythicScribe.createBundleDataset`: Creates a Bundle Dataset based on other Custom Datasets you have previously added
 * `MythicScribe.openLogs`: Opens the Extension's logs. For debugging purposes
 * `MythicScribe.loadDatasets`: (Re)loads the Datasets manually
+* `MythicScribe.showNodeGraph`: Shows a graph of all the configurations parsed. Can be filtered based on configuration type and whether or not it's an open editor
 
 # Known Issues
 

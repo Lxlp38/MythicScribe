@@ -8,6 +8,7 @@ import { ctx } from '../../MythicScribe';
 import { ScribeCloneableFile } from './datasets';
 import { addMechanicCompletions } from '../utils/completionhelper';
 import { attributeSpecialValues } from './enumSources';
+import { MythicNodeHandler, MythicNodeHandlerRegistry } from '../mythicnodes/MythicNode';
 
 export enum ObjectType {
     MECHANIC = 'Mechanic',
@@ -261,6 +262,14 @@ export interface Attribute {
     inheritable?: boolean;
 }
 
+const fromEnumToMythicNodeRegistryKey: Record<string, keyof MythicNodeHandlerRegistry> = {
+    metaskill: 'metaskills',
+    item: 'items',
+    mob: 'mobs',
+    stat: 'stats',
+    droptable: 'droptables',
+};
+
 export class MythicAttribute {
     static readonly regex = /(?<=[{;])\s*\w+(?=\s*=)/gm;
     readonly mechanic: MythicMechanic;
@@ -291,6 +300,14 @@ export class MythicAttribute {
             return;
         }
 
+        if (attribute.enum.toLowerCase() in fromEnumToMythicNodeRegistryKey) {
+            const key = fromEnumToMythicNodeRegistryKey[attribute.enum.toLowerCase()];
+            for (const n of this.name) {
+                MythicNodeHandler.registry[key].referenceAttributes.add(
+                    n.replace('(', '\\(').replace(')', '\\)').replace('$', '\\$')
+                );
+            }
+        }
         if (attribute.enum.toLowerCase() in attributeSpecialValues) {
             this.specialValue =
                 attributeSpecialValues[

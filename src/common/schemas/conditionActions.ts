@@ -9,6 +9,6 @@ export const ConditionActions: { [key: string]: ConditionTypes } = {
     false: ConditionTypes.CHECK,
     cast: ConditionTypes.METASKILL,
     castinstead: ConditionTypes.METASKILL,
-    orElseCast: ConditionTypes.METASKILL,
+    orelsecast: ConditionTypes.METASKILL,
     power: ConditionTypes.FLOAT,
 };

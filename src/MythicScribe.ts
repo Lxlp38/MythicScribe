@@ -17,6 +17,7 @@ import {
 import { configHandler, getFileParserPolicyConfig } from './common/utils/configutils';
 import { scribeColorProvider } from './common/color/colorprovider';
 import { MythicNodeHandler } from './common/mythicnodes/MythicNode';
+import { showNodeGraph } from './common/mythicnodes/nodeView';
 
 export let ctx: vscode.ExtensionContext;
 
@@ -52,6 +53,7 @@ export async function activate(context: vscode.ExtensionContext) {
         vscode.commands.registerCommand('MythicScribe.createBundleDataset', createBundleDataset),
         vscode.commands.registerCommand('MythicScribe.openLogs', openLogs),
         vscode.commands.registerCommand('MythicScribe.loadDatasets', loadDatasets),
+        vscode.commands.registerCommand('MythicScribe.showNodeGraph', showNodeGraph),
 
         // Formatter
         getFormatter(),

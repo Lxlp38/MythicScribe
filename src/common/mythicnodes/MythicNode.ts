@@ -3,6 +3,7 @@ import * as vscode from 'vscode';
 import { checkFileType, FileType } from '../subscriptions/SubscriptionHelper';
 import { Log } from '../utils/logger';
 import { getFileParserPolicyConfig } from '../utils/configutils';
+import { ConditionActions } from '../schemas/conditionActions';
 
 type NodeEntry = Map<string, MythicNode>;
 
@@ -11,7 +12,8 @@ enum ParserIntructions {
     DISABLE_PARSING = '# mythicscribe-disable file-parsing',
 }
 
-const NodeRegex = /((?:^#.*$\n)*)^([\w\-\_]+):((?:.*(?:\n(?=^\s))?)*)/gm;
+// CHATGPT, THIS IS THE REGEX
+const NodeRegex = /((?:^#.*$\r?\n\r?)*)^([\w\-\_]+):((?:.*(?:\r?\n\r?(?=^\s))?)*)/gm;
 
 vscode.workspace.onDidSaveTextDocument((document) => {
     if (!getFileParserPolicyConfig('parseOnSave')) {
@@ -53,6 +55,14 @@ interface NodeElement extends NodeBaseElement {
 }
 
 export class MythicNode {
+    templates: Set<string> = new Set();
+    outEdge: { [K in keyof MythicNodeHandlerRegistry]: Set<string> } = {
+        metaskills: new Set(),
+        mobs: new Set(),
+        items: new Set(),
+        droptables: new Set(),
+        stats: new Set(),
+    };
     constructor(
         public registry: MythicNodeRegistry,
         public document: vscode.TextDocument,
@@ -60,11 +70,97 @@ export class MythicNode {
         public description: NodeBaseElement,
         public name: NodeElement,
         public body: NodeBaseElement
-    ) {}
+    ) {
+        if (this.description.text && this.registry.type === 'metaskills') {
+            this.matchTemplate(this.description.text, /^#\s*(?:Called)|(?:Callers):.*/gm).forEach(
+                (template) => {
+                    this.templates.add(template);
+                }
+            );
+        }
+
+        if (!this.body.text) {
+            return;
+        }
+        if (this.registry.type === 'mobs' || this.registry.type === 'items') {
+            this.matchTemplate(this.body.text).forEach((template) => {
+                if (this.templates.has(template)) {
+                    Log.warn(
+                        `Duplicate template ${template} found in ${this.registry.type} ${this.name.text}`
+                    );
+                }
+                this.templates.add(template);
+            });
+        } else if (this.registry.type === 'metaskills') {
+            this.matchConditionActions(this.body.text).forEach((action) => {
+                this.outEdge.metaskills.add(action);
+            });
+        }
+        for (const type in this.outEdge) {
+            this.matchAttributes(this.body.text, type as keyof MythicNodeHandlerRegistry).forEach(
+                (attribute) => {
+                    this.outEdge[type as keyof MythicNodeHandlerRegistry].add(attribute);
+                }
+            );
+        }
+
+        this.matchSkillShortcut(this.body.text).forEach((skillShortcut) => {
+            this.outEdge.metaskills.add(skillShortcut);
+        });
+        delete body.text;
+    }
+
+    private matchTemplate(body: string, regex = /^\s*Template(s)?:.*/gm): string[] {
+        const match = body.match(regex);
+        const templateList: string[] = [];
+        if (match) {
+            const parsedTemplates = match[0]
+                .split(':')[1]
+                .split(',')
+                .map((template) => template.trim())
+                .filter((template) => template.length > 0);
+            templateList.push(...parsedTemplates);
+        }
+        return templateList;
+    }
+    private matchConditionActions(body: string): string[] {
+        const conditionActionRegex = new RegExp(
+            `\\s(?:${Object.keys(ConditionActions).join('|')})\\s([\\w\\-_]+)`,
+            'gi'
+        );
+        const matches = body.matchAll(conditionActionRegex);
+        const conditionActions: string[] = [];
+        for (const match of matches) {
+            conditionActions.push(match[1]);
+        }
+        return conditionActions;
+    }
+    private matchAttributes(body: string, type: keyof MythicNodeHandlerRegistry): string[] {
+        const attributeRegex = new RegExp(
+            `[{;}]\\s*(?:${Array.from(MythicNodeHandler.registry[type].referenceAttributes).join('|')})\\s*=\\s*([\\w\\-_]+)\\s*[;}]`,
+            'gi'
+        );
+        const matches = body.matchAll(attributeRegex);
+        const attributes: string[] = [];
+        for (const match of matches) {
+            attributes.push(match[1]);
+        }
+        return attributes;
+    }
+    private matchSkillShortcut(body: string): string[] {
+        const skillShortcutRegex = /-\sskill:([\w\-_]+)/g;
+        const matches = body.matchAll(skillShortcutRegex);
+        const skillShortcuts: string[] = [];
+        for (const match of matches) {
+            skillShortcuts.push(match[1]);
+        }
+        return skillShortcuts;
+    }
 }
 
 export class MythicNodeRegistry {
-    readonly type: keyof typeof MythicNodeHandler.registry;
+    readonly type: keyof MythicNodeHandlerRegistry;
+    referenceAttributes: Set<string> = new Set();
     nodes: NodeEntry = new Map();
     nodesByDocument: Map<string, MythicNode[]> = new Map();
 
@@ -88,6 +184,10 @@ export class MythicNodeRegistry {
 
     getNodes(): NodeEntry {
         return this.nodes;
+    }
+
+    getNodeValues(): MythicNode[] {
+        return Array.from(this.nodes.values());
     }
 
     clearNodes(): void {
@@ -115,6 +215,7 @@ export class MythicNodeRegistry {
         }
         const matches = document.getText().matchAll(NodeRegex);
         for (const match of matches) {
+            // CHATGPT; THE ISSUE IS HERE
             const matchStart = document.positionAt(match.index);
             const matchEnd = document.positionAt(match.index + match[0].length);
             const node = new MythicNode(
@@ -136,7 +237,7 @@ export class MythicNodeRegistry {
                     ),
                 },
                 {
-                    text: undefined,
+                    text: match[3],
                     range: new vscode.Range(
                         document.positionAt(match.index + match[1].length + match[2].length),
                         matchEnd
@@ -153,7 +254,7 @@ export class MythicNodeRegistry {
     }
 }
 
-interface MythicNodeHandlerRegistry {
+export interface MythicNodeHandlerRegistry {
     metaskills: MythicNodeRegistry;
     mobs: MythicNodeRegistry;
     items: MythicNodeRegistry;
