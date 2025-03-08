@@ -130,7 +130,6 @@ export function convertLocalPathToGitHubUrl(localPath: string, relative: boolean
  * ```typescript
  * const directoryUri = vscode.Uri.file('/path/to/directory');
  * const files = await fetchAllFilesInDirectory(directoryUri);
- * console.log(files); // Outputs an array of file paths
  * ```
  */
 export async function fetchAllFilesInDirectory(directorypath: vscode.Uri): Promise<vscode.Uri[]> {

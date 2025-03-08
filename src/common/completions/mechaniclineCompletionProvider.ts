@@ -16,7 +16,7 @@ export function mechaniclineCompletionProvider() {
                 }
 
                 const previusSpecialSymbol = yamlutils.previousSymbol(
-                    yamlutils.PreviousSymbolRegexes.nonspace,
+                    yamlutils.PreviousSymbolRegexes.default,
                     document,
                     position
                 );

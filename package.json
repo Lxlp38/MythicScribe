@@ -47,6 +47,15 @@
         "editor.acceptSuggestionOnEnter": "off"
       }
     },
+    "menus": {
+      "editor/context": [
+        {
+          "command": "MythicScribe.showNodeGraph",
+          "when": "editorLangId == mythicscript",
+          "group": "mythicscribe"
+        }
+      ]
+    },
     "commands": [
       {
         "command": "MythicScribe.addCustomDataset",
@@ -75,7 +84,7 @@
       },
       {
         "command": "MythicScribe.showNodeGraph",
-        "title": "Show Node Graph",
+        "title": "Mythic Node Graph",
         "category": "MythicScribe"
       }
     ],
@@ -417,6 +426,9 @@
     "typescript": "^5.6.2"
   },
   "dependencies": {
+    "cytoscape": "^3.31.1",
+    "cytoscape-context-menus": "^4.2.1",
+    "cytoscape-fcose": "^2.2.0",
     "path-browserify": "^1.0.1",
     "yaml": "^2.7.0"
   }

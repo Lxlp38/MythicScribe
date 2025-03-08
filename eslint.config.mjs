@@ -72,7 +72,7 @@ export default [
             'import/no-unresolved': [
                 'error',
                 {
-                    ignore: ['^vscode$', '^@node/'],
+                    ignore: ['^vscode$', '^@node/', '@webview/'],
                 },
             ],
             'import/no-duplicates': 'warn',

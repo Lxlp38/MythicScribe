@@ -1,6 +1,9 @@
 import * as vscode from 'vscode';
 
 import { MythicNode, MythicNodeHandler, MythicNodeHandlerRegistry } from './MythicNode';
+import { ctx } from '../../MythicScribe';
+
+let openWebView: vscode.WebviewPanel | undefined = undefined;
 
 type Shape =
     | 'ellipse'
@@ -34,10 +37,14 @@ type EdgeType = 'inheritance' | 'association';
 type NodeAdditionalData = {
     shape?: Shape;
     color: string;
+    unknown?: boolean;
 };
 type EdgeAdditionalData = {
     color: string;
     width: number;
+    sourceArrowShape: string;
+    targetArrowShape: string;
+    type: EdgeType;
 };
 
 const NodeTypeToAdditionalData: Record<keyof MythicNodeHandlerRegistry, NodeAdditionalData> = {
@@ -46,20 +53,36 @@ const NodeTypeToAdditionalData: Record<keyof MythicNodeHandlerRegistry, NodeAddi
     metaskills: { shape: 'ellipse', color: '#ffcc00' },
     droptables: { shape: 'diamond', color: '#cc00cc' },
     stats: { shape: 'barrel', color: '#cc0000' },
-    // metaskills: 'ellipse',
-    // mobs: 'rectangle',
-    // items: 'rectangle',
-    // droptables: 'rectangle',
-    // stats: 'rectangle',
 };
 
+const UnknownNodeData: NodeAdditionalData = { color: '#807e7a', unknown: true };
+
 const EdgeTypeToAdditionalData: Record<EdgeType, EdgeAdditionalData> = {
-    inheritance: { color: '#FF0000', width: 6 },
-    association: { color: '#ccc', width: 3 },
+    inheritance: {
+        color: 'orange red',
+        width: 6,
+        sourceArrowShape: 'triangle-tee',
+        targetArrowShape: 'tee',
+        type: 'inheritance',
+    },
+    association: {
+        color: '#ccc white',
+        width: 3,
+        sourceArrowShape: 'triangle',
+        targetArrowShape: 'none',
+        type: 'association',
+    },
 };
 
 interface CytoscapeNode {
-    data: { id: string; label?: string; shape?: Shape };
+    data: {
+        id: string;
+        label?: string;
+        shape?: Shape;
+        registry: keyof MythicNodeHandlerRegistry;
+        nodeName: string;
+        unknown?: boolean;
+    };
 }
 
 interface CytoscapeEdge {
@@ -69,6 +92,7 @@ interface CytoscapeEdge {
 enum selectedElementsType {
     all,
     openDocuments,
+    selectedDocument,
 }
 
 enum selectedElementsFilter {
@@ -85,6 +109,7 @@ const GraphOptions = {
         options: [
             { label: 'All', value: selectedElementsType.all },
             { label: 'Only Open Documents', value: selectedElementsType.openDocuments },
+            { label: 'Selected Document', value: selectedElementsType.selectedDocument },
         ],
     },
     filters: {
@@ -106,9 +131,11 @@ function getIdName(id: keyof MythicNodeHandlerRegistry | MythicNode, name?: stri
     return `${id.registry.type}_${id.name.text}`;
 }
 
+const PastFilters: selectedElementsFilter[] = [];
 function buildCytoscapeElements(
     selectedElements: selectedElementsType = selectedElementsType.all,
-    selectedFilters: selectedElementsFilter[] = []
+    selectedFilters: selectedElementsFilter[] = [],
+    startingNodes?: MythicNode[]
 ): {
     nodes: CytoscapeNode[];
     edges: CytoscapeEdge[];
@@ -117,86 +144,118 @@ function buildCytoscapeElements(
     let iterableKeys = Object.keys(
         MythicNodeHandler.registry
     ) as (keyof MythicNodeHandlerRegistry)[];
-    const cyNodesMythicNodes: Set<MythicNode> = new Set();
+    const cyNodesFoundNodes: Map<string, MythicNode> = new Map();
+    const cyNodesUnknownNodes: Map<string, MythicNode> = new Map();
     const cyNodes: CytoscapeNode[] = [];
     const cyEdges: CytoscapeEdge[] = [];
 
+    PastFilters.length = 0;
+    PastFilters.push(...selectedFilters);
     if (selectedFilters.length > 0) {
         iterableKeys = iterableKeys.filter(
             (key) => !selectedFilters.includes(selectedElementsFilter[key])
         );
     }
 
-    if (selectedElements === selectedElementsType.openDocuments) {
-        vscode.window.tabGroups.all.forEach((group) => {
-            group.tabs.forEach((tab) => {
-                // Check if the tab is a text editor tab
-                if (tab.input instanceof vscode.TabInputText) {
-                    const uri = tab.input.uri;
-                    openUris.push(uri.toString());
-                }
+    switch (selectedElements) {
+        case selectedElementsType.selectedDocument:
+            const activeEditor = vscode.window.activeTextEditor;
+            if (!activeEditor) {
+                return { nodes: [], edges: [] };
+            }
+            const activeDocument = activeEditor.document;
+            const activeDocumentUri = activeDocument.uri.toString();
+            openUris.push(activeDocumentUri);
+            break;
+        case selectedElementsType.openDocuments:
+            vscode.window.tabGroups.all.forEach((group) => {
+                group.tabs.forEach((tab) => {
+                    if (tab.input instanceof vscode.TabInputText) {
+                        const uri = tab.input.uri;
+                        openUris.push(uri.toString());
+                    }
+                });
             });
-        });
+            break;
     }
 
-    for (const type of iterableKeys) {
-        let nodes = MythicNodeHandler.registry[type].getNodeValues();
+    let iterableNodes = startingNodes || [];
+    if (!startingNodes) {
+        for (const type of iterableKeys) {
+            const nodes = MythicNodeHandler.registry[type].getNodeValues();
+            iterableNodes.push(...nodes);
+        }
+    }
+    if (selectedElements !== selectedElementsType.all) {
+        iterableNodes = iterableNodes.filter((node) =>
+            openUris.includes(node.document.uri.toString())
+        );
+    }
 
-        if (selectedElements === selectedElementsType.openDocuments) {
-            nodes = nodes.filter((node) => openUris.includes(node.document.uri.toString()));
+    for (const node of iterableNodes) {
+        cyNodesFoundNodes.set(node.hash, node);
+
+        const templateProvider = MythicNodeHandler.registry[node.registry.type];
+        for (const template of node.templates) {
+            const templateNode = templateProvider.getNode(template);
+            if (!templateNode) {
+                continue;
+            }
+            cyNodesUnknownNodes.set(templateNode.hash, templateNode);
+            cyEdges.push({
+                data: {
+                    id: `${getIdName(node)}_to_${getIdName(templateNode)}`,
+                    source: getIdName(node),
+                    target: getIdName(templateNode),
+                    ...EdgeTypeToAdditionalData.inheritance,
+                },
+            });
         }
 
-        for (const node of nodes) {
-            cyNodesMythicNodes.add(node);
-
-            for (const template of node.templates) {
-                const templateNode = MythicNodeHandler.registry[type].getNode(template);
-                if (!templateNode) {
+        for (const subtype of iterableKeys) {
+            for (const selectedOutEdge of node.outEdge[subtype]) {
+                const edgeNode = MythicNodeHandler.registry[subtype].getNode(selectedOutEdge);
+                if (!edgeNode) {
                     continue;
                 }
-                cyNodesMythicNodes.add(templateNode);
+                cyNodesUnknownNodes.set(edgeNode.hash, edgeNode);
                 cyEdges.push({
                     data: {
-                        id: `${getIdName(node)}_to_${getIdName(templateNode)}`,
-                        source: getIdName(node),
-                        target: getIdName(templateNode),
-                        ...EdgeTypeToAdditionalData.inheritance,
+                        id: `${getIdName(node)}_to_${getIdName(edgeNode)}`,
+                        source: getIdName(edgeNode),
+                        target: getIdName(node),
+                        ...EdgeTypeToAdditionalData.association,
                     },
                 });
             }
-
-            for (const subtype of iterableKeys) {
-                // For every template this node inherits from, create an edge.
-                for (const selectedOutEdge of node.outEdge[subtype]) {
-                    const edgeNode = MythicNodeHandler.registry[subtype].getNode(selectedOutEdge);
-                    if (!edgeNode) {
-                        continue;
-                    }
-                    if (!cyNodesMythicNodes.has(edgeNode)) {
-                        cyNodesMythicNodes.add(edgeNode);
-                    }
-                    cyEdges.push({
-                        data: {
-                            id: `${getIdName(node)}_to_${getIdName(edgeNode)}`,
-                            source: getIdName(edgeNode),
-                            target: getIdName(node),
-                            ...EdgeTypeToAdditionalData.association,
-                        },
-                    });
-                }
-            }
         }
     }
-    cyNodesMythicNodes.forEach((node) => {
+
+    cyNodesFoundNodes.forEach((node, identifier) => {
+        cyNodesUnknownNodes.delete(identifier);
         cyNodes.push({
             data: {
                 id: getIdName(node),
                 label: node.name.text,
+                registry: node.registry.type,
+                nodeName: node.name.text,
                 ...NodeTypeToAdditionalData[node.registry.type],
+                unknown: false,
             },
         });
     });
-
+    cyNodesUnknownNodes.forEach((node) => {
+        cyNodes.push({
+            data: {
+                id: getIdName(node),
+                label: node.name.text,
+                registry: node.registry.type,
+                nodeName: node.name.text,
+                ...NodeTypeToAdditionalData[node.registry.type],
+                ...UnknownNodeData,
+            },
+        });
+    });
     return { nodes: cyNodes, edges: cyEdges };
 }
 
@@ -236,7 +295,12 @@ export async function showNodeGraph(): Promise<void> {
             });
         });
 
-    const panel = vscode.window.createWebviewPanel(
+    if (openWebView) {
+        openWebView.dispose();
+        openWebView = undefined;
+    }
+
+    openWebView = vscode.window.createWebviewPanel(
         'inheritanceGraph', // Identifies the type of the webview. Used internally
         'Inheritance Graph', // Title of the panel displayed to the user
         vscode.ViewColumn.One, // Editor column to show the new webview panel in
@@ -248,13 +312,55 @@ export async function showNodeGraph(): Promise<void> {
     );
 
     // Set the webview's HTML content
-    panel.webview.html = getWebviewContent();
+    openWebView.webview.html = getWebviewContent();
 
     const data = buildCytoscapeElements(selectedElements, selectedFilters);
-    panel.webview.postMessage({ type: 'graphData', data: data });
+    openWebView.webview.postMessage({ type: 'graphData', data: data });
+
+    openWebView.webview.onDidReceiveMessage((message) => {
+        switch (message.type) {
+            case 'goToNode':
+                const node = MythicNodeHandler.registry[
+                    message.data.registry as keyof MythicNodeHandlerRegistry
+                ].getNode(message.data.nodeName as string);
+                if (!node) {
+                    return;
+                }
+                vscode.window.showTextDocument(node.document, {
+                    selection: new vscode.Range(node.name.range.start, node.name.range.start),
+                });
+                break;
+            case 'discoverNode':
+                const newNode = MythicNodeHandler.registry[
+                    message.data.registry as keyof MythicNodeHandlerRegistry
+                ].getNode(message.data.nodeName as string);
+                if (!newNode) {
+                    return;
+                }
+                const updatedData = buildCytoscapeElements(
+                    selectedElementsType.all,
+                    selectedFilters,
+                    [newNode]
+                );
+                openWebView!.webview.postMessage({ type: 'addGraphData', data: updatedData });
+                break;
+            case 'refresh':
+                const refreshedData = buildCytoscapeElements(selectedElements, selectedFilters);
+                openWebView!.webview.postMessage({ type: 'refreshedData', data: refreshedData });
+                break;
+        }
+    });
 }
 
 function getWebviewContent(): string {
+    const scriptPathOnDisk = vscode.Uri.joinPath(
+        ctx.extensionUri,
+        'out',
+        'webviews',
+        'nodegraph.js'
+    );
+    const scriptUri = openWebView!.webview.asWebviewUri(scriptPathOnDisk);
+
     // Note: Added dagre and cytoscape-dagre script tags
     return /*html*/ `
 <!DOCTYPE html>
@@ -263,9 +369,6 @@ function getWebviewContent(): string {
 <head>
     <meta charset="UTF-8" />
     <title>Inheritance Graph</title>
-    <script src="https://unpkg.com/cytoscape/dist/cytoscape.min.js"></script>
-    <script src="https://unpkg.com/dagre@0.8.5/dist/dagre.min.js"></script>
-    <script src="https://unpkg.com/cytoscape-dagre@2.4.0/cytoscape-dagre.js"></script>
     <style>
         html,
         body,
@@ -275,6 +378,55 @@ function getWebviewContent(): string {
             margin: 0;
             padding: 0;
         }
+        .context-menu {
+            border: 1px solid #ccc;
+            border-radius: 4px;
+            box-shadow: 0 2px 6px rgba(0, 0, 0, 0.15);
+            font-family: 'Roboto', sans-serif;
+            width: 150px;
+            z-index: 10000;
+            padding: 0;
+            margin: 0;
+        }
+
+        .context-menu ul {
+            list-style: none;
+            margin: 0;
+            padding: 0;
+        }
+
+        .context-menu-li {
+            display: block;
+            width: 100%;
+            box-sizing: border-box;
+            padding: 8px 12px;
+            color: #252525;
+            cursor: pointer;
+            transition: background 0.2s ease;
+            white-space: nowrap;
+        }
+
+        .context-menu-li:hover {
+            background: #0056b3;
+        }
+
+        .context-menu-li.divider {
+            border-bottom: 1px solid #eee;
+            margin-bottom: 5px;
+            padding-bottom: 5px;
+        }
+
+        .context-menu-li.disabled {
+            color: #aaa;
+            cursor: not-allowed;
+        }
+
+        .custom-context-menu-cls {
+            width: 150px;
+            font-family: 'Roboto', sans-serif;
+        }
+
+
         .search-container {
             position: absolute;
             top: 20px;
@@ -286,14 +438,12 @@ function getWebviewContent(): string {
             overflow: hidden;
             z-index: 2;
         }
-        /* The search input styling */
         .search-input {
             border: none;
             padding: 10px 15px;
             outline: none;
             font-size: 1rem;
         }
-        /* The search button styling */
         .search-button {
             border: none;
             padding: 10px 15px;
@@ -306,188 +456,27 @@ function getWebviewContent(): string {
         .search-button:hover {
             background-color: #0056b3;
         }
-
+        .separator {
+          width: 1px;
+          height: 30px;
+          background-color: #ccc;
+          margin: 0 5px;
+        }
     </style>
 </head>
 
 <body>
     <div class="search-container">
         <input type="text" class="search-input" placeholder="Search..." id="search">
-        <button class="search-button" id="search-button">Search</button>
+        <button class="search-button" id="search-button" title="Search for a node">🔎</button>
+        <div class="separator"></div>
+        <button class="search-button" id="reshuffle-button" title="Reshuffle the graph">🧩</button>
+        <div class="separator"></div>
+        <button class="search-button" id="refresh-button" title="Refresh the graph">🔄</button>
     </div>
     <div id="cy"></div>
-    <script>
-        // Listen for messages from the extension
-        window.addEventListener('message', event => {
-            const message = event.data;
-            if (message.type === 'graphData') {
-                renderGraph(message.data);
-            }
-        });
-
-        // Function to initialize and render the graph using Cytoscape
-        function renderGraph(graphData) {
-            const cy = cytoscape({
-                container: document.getElementById('cy'),
-                elements: [
-                    ...graphData.nodes,
-                    ...graphData.edges
-                ],
-                style: [
-                    {
-                        selector: 'node',
-                        style: {
-                            'label': 'data(label)',
-                            'text-valign': 'center',
-                            'background-color': 'data(color)',
-                            'color': '#fff',
-                            'border-width': 0,
-                            'shape': 'data(shape)',
-                        }
-                    },
-                    {
-                        selector: 'edge',
-                        style: {
-                            'width': 'data(width)',
-                            'line-color': 'data(color)',
-                            'curve-style': 'bezier',
-                            'source-arrow-shape': 'triangle',
-                            'source-arrow-color': 'data(color)',
-                            'source-arrow-fill': 'filled'
-                        }
-                    },
-                    {
-                        selector: '.faded',
-                        style: {
-                            'opacity': 0.25,
-                            'transition-property': 'opacity',
-                            'transition-duration': '0.5s'
-                        }
-                    },
-                    {
-                        selector: 'node:selected',
-                        style: {
-                            'border-color': '#FFD700',
-                            'border-width': 4
-                        }
-                    },
-                ],
-                layout: {
-                    name: 'cose',
-                    animate: false,
-                    rankDir: 'BT',
-                    padding: 100, // adds padding around the entire graph
-                    spacingFactor: 40, // increases the distance between nodes
-                    componentSpacing: 100, // increases the distance between components
-                    gravity: 0.2, // pulls nodes towards the center
-                    idealEdgeLength: 80,
-                    nodeDimensionsIncludeLabels: true,
-                },
-                zoom: 10,
-                wheelSensitivity: 0.25,
-            });
-
-            function resetNodesAndEdges(resetOpacity = true) {
-                if (resetOpacity) {
-                    cy.elements().style('opacity', 1);
-                }
-                cy.nodes().style('border-width', null);
-                cy.edges().style('line-color', null);
-            }
-
-            cy.on('select', 'node', function (evt) {
-                let selectedNode = evt.target;
-
-                resetNodesAndEdges(false);
-                cy.elements().style('opacity', 0.25);
-
-                cy.elements().bfs({
-                    root: selectedNode,
-                    directed: true,
-                    visit: function (node, edge, parent, i, depth) {
-                        const opacity = Math.max(1 - Math.min(0.05 * depth, 0.9), 0.45);
-                        const newOpacity = opacity;
-                        node.style('opacity', newOpacity);
-                        if (edge) {
-                            edge.style('opacity', newOpacity);
-                        }
-                    }
-                });
-
-                // Get inbound nodes and edges:
-                const inboundNodes = selectedNode.incomers('node');
-                const inboundEdges = selectedNode.incomers('edge');
-
-                // Get outbound nodes and edges:
-                const outboundNodes = selectedNode.outgoers('node');
-                const outboundEdges = selectedNode.outgoers('edge');
-
-                // Apply different styles:
-                // For inbound nodes, for example, use a red border.
-                inboundNodes.style({
-                    'opacity': 0.8,
-                    'border-width': 4,
-                    'border-color': '#FF0000'
-                });
-                inboundEdges.style({
-                    'opacity': 0.8,
-                    'line-color': '#FF0000'
-                });
-
-                // For outbound nodes, for example, use a green border.
-                outboundNodes.style({
-                    'opacity': 0.9,
-                    'border-width': 4,
-                    'border-color': '#00FF00'
-                });
-                outboundEdges.style({
-                    'opacity': 0.9,
-                    'line-color': '#00FF00'
-                });
-
-                selectedNode.style('border-color', '#FFD700');
-                selectedNode.style('border-width', 4);
-
-            });
-
-            cy.on('unselect', 'node', function (evt) {
-                resetNodesAndEdges();
-            });
-
-            cy.on('zoom', function () {
-                const zoom = cy.zoom();
-                const newEdgeWidth = Math.max(2, 1.2 * zoom);
-                cy.edges().style('width', newEdgeWidth);
-            });
-
-            function searchNode() {
-                const query = document.getElementById('search').value.trim().toLowerCase();
-                if (query === '') {
-                    // Reset all elements to full opacity when no search is active.
-                    cy.elements().style('opacity', 1);
-                } else {
-                    // Fade out all elements first.
-                    cy.elements().style('opacity', 0.25);
-                    // For nodes whose label includes the search query, restore full opacity.
-                    cy.nodes().filter(node => {
-                    return node.data('label').toLowerCase().includes(query);
-                    }).style('opacity', 1);
-                    // Optionally, you can also restore opacity for edges connected to matching nodes:
-                    cy.edges().filter(edge => {
-                    const src = edge.source().data('label').toLowerCase();
-                    const tgt = edge.target().data('label').toLowerCase();
-                    return src.includes(query) || tgt.includes(query);
-                    }).style('opacity', 1);
-                }
-            }
-
-            // Setup search functionality:
-            document.getElementById('search').addEventListener('input', searchNode);
-            document.getElementById('search-button').addEventListener('click', searchNode);
-    }
-    </script>
+    <script src="${scriptUri}"></script>
 </body>
-
 </html>
 `;
 }

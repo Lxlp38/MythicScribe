@@ -110,6 +110,10 @@ export class MythicNode {
         delete body.text;
     }
 
+    get hash(): string {
+        return `${this.document.uri.toString()}#${this.range.start.line}`;
+    }
+
     private matchTemplate(body: string, regex = /^\s*Template(s)?:.*/gm): string[] {
         const match = body.match(regex);
         const templateList: string[] = [];

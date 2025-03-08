@@ -11,6 +11,7 @@
 		"paths": {
 			"@node/*": ["./src/node/*"],
 			"@web/*": ["./src/web/*"],
+			"@webviews/*": ["./src/webviews/*"],
 		},
 		"sourceMap": true,
 		"strict": true,

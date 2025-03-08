@@ -135,7 +135,7 @@ function checkShouldPrefixCompleteExec(
     // called via invocation
     if (context.triggerKind === vscode.CompletionTriggerKind.Invoke) {
         const mypreviousSpecialSymbol = previousSymbol(
-            yamlutils.PreviousSymbolRegexes.nonspace,
+            yamlutils.PreviousSymbolRegexes.default,
             document,
             position,
             depth

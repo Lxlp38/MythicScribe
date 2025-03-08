@@ -92,6 +92,33 @@ async function main() {
             'process.env.RUNTIME_ENV': JSON.stringify('web'),
         },
     });
+    const webViews = await esbuild.context({
+        entryPoints: ['src/webviews/nodegraph.js'],
+        bundle: true,
+        format: 'iife',
+        legalComments: 'eof',
+        minify: production,
+        sourcemap: !production,
+        sourcesContent: false,
+        platform: 'browser',
+        outdir: 'out/webviews',
+        logLevel: 'silent',
+        plugins: [
+            esbuildProblemMatcherPlugin,
+            polyfill.NodeGlobalsPolyfillPlugin({
+                process: true,
+                buffer: true,
+            }),
+        ],
+        alias: {
+            path: 'path-browserify',
+            '@node': '@web',
+        },
+        define: {
+            global: 'globalThis',
+            'process.env.RUNTIME_ENV': JSON.stringify('web'),
+        },
+    });
 
     if (watch) {
         await ctx.watch();
@@ -100,6 +127,8 @@ async function main() {
         await ctx.dispose();
         await web.rebuild();
         await web.dispose();
+        await webViews.rebuild();
+        await webViews.dispose();
     }
 }
 
