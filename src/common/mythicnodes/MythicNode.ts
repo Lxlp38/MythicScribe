@@ -72,16 +72,25 @@ export class MythicNode {
         public body: NodeBaseElement
     ) {
         if (this.description.text && this.registry.type === 'metaskills') {
-            this.matchTemplate(this.description.text, /^#\s*(?:Called)|(?:Callers):.*/gm).forEach(
-                (template) => {
+            try {
+                this.matchTemplate(
+                    this.description.text,
+                    /^#\s*@((?:Called)|(?:Callers)):.*/gm
+                ).forEach((template) => {
                     this.templates.add(template);
-                }
-            );
+                });
+            } catch {
+                Log.error(`Error parsing description for ${this.registry.type} ${this.name.text}`);
+            }
         }
 
         if (!this.body.text) {
             return;
         }
+        this.body.text = this.body.text
+            .split('\n')
+            .map((line) => line.replace(/\s#.*/, ''))
+            .join('\n');
         if (this.registry.type === 'mobs' || this.registry.type === 'items') {
             this.matchTemplate(this.body.text).forEach((template) => {
                 if (this.templates.has(template)) {
@@ -159,6 +168,29 @@ export class MythicNode {
             skillShortcuts.push(match[1]);
         }
         return skillShortcuts;
+    }
+}
+
+export class MockMythicNode extends MythicNode {
+    constructor(registry: MythicNodeRegistry, name: string, creator: MythicNode) {
+        const document = vscode.workspace.textDocuments[0];
+        const range = creator.range;
+        const description = {
+            text: 'Mock description',
+            range: new vscode.Range(0, 0, 0, 0),
+        };
+        const body = {
+            text: 'Mock body',
+            range: new vscode.Range(0, 0, 0, 0),
+        };
+        const MockName = {
+            text: name,
+            range: creator.name.range,
+        };
+        super(registry, document, range, description, MockName, body);
+    }
+    get hash(): string {
+        return `Mock:${this.name.text}@${this.registry.type}`;
     }
 }
 

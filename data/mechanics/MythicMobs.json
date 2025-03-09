@@ -8886,6 +8886,17 @@
             },
             {
                 "name": [
+                    "hitTargeter",
+                    "htr"
+                ],
+                "type": "String",
+                "description": "An entity targeter. Once the projectile hits, targeted entities will be targeted by the onHit Metaskill and given immune delay just like the projectile's main target",
+                "link": "https://git.lumine.io/mythiccraft/MythicMobs/-/wikis/Skills/Mechanics/projectile",
+                "default_value": "",
+                "enum": "Targeter"
+            },
+            {
+                "name": [
                     "shareSubHitboxCooldown",
                     "shcd"
                 ],

@@ -1,6 +1,11 @@
 import * as vscode from 'vscode';
 
-import { MythicNode, MythicNodeHandler, MythicNodeHandlerRegistry } from './MythicNode';
+import {
+    MockMythicNode,
+    MythicNode,
+    MythicNodeHandler,
+    MythicNodeHandlerRegistry,
+} from './MythicNode';
 import { ctx } from '../../MythicScribe';
 
 let openWebView: vscode.WebviewPanel | undefined = undefined;
@@ -34,20 +39,28 @@ type Shape =
 
 type EdgeType = 'inheritance' | 'association';
 
-type NodeAdditionalData = {
+interface NodeCompulsoryData {
+    color: string;
+}
+interface NodeAdditionalData {
     shape?: Shape;
-    color: string;
+    color?: string;
     unknown?: boolean;
-};
+}
+type NodeData = NodeCompulsoryData & NodeAdditionalData;
+
 type EdgeAdditionalData = {
-    color: string;
+    lineColors: string;
+    sourceColor: string;
+    targetColor: string;
     width: number;
     sourceArrowShape: string;
     targetArrowShape: string;
     type: EdgeType;
+    opacity: number;
 };
 
-const NodeTypeToAdditionalData: Record<keyof MythicNodeHandlerRegistry, NodeAdditionalData> = {
+const NodeTypeToAdditionalData: Record<keyof MythicNodeHandlerRegistry, NodeData> = {
     mobs: { shape: 'rectangle', color: '#007acc' },
     items: { shape: 'triangle', color: '#00cc00' },
     metaskills: { shape: 'ellipse', color: '#ffcc00' },
@@ -55,22 +68,29 @@ const NodeTypeToAdditionalData: Record<keyof MythicNodeHandlerRegistry, NodeAddi
     stats: { shape: 'barrel', color: '#cc0000' },
 };
 
-const UnknownNodeData: NodeAdditionalData = { color: '#807e7a', unknown: true };
+const UnknownNodeData: NodeData = { color: '#807e7a', unknown: true };
+const outOfScopeNodeData: NodeData = { color: '#000000', unknown: false };
 
 const EdgeTypeToAdditionalData: Record<EdgeType, EdgeAdditionalData> = {
     inheritance: {
-        color: 'orange red',
+        lineColors: 'green red',
+        sourceColor: 'green',
+        targetColor: 'red',
         width: 6,
         sourceArrowShape: 'triangle-tee',
         targetArrowShape: 'tee',
         type: 'inheritance',
+        opacity: 0.85,
     },
     association: {
-        color: '#ccc white',
+        lineColors: 'blue orange',
+        sourceColor: 'blue',
+        targetColor: 'orange',
         width: 3,
         sourceArrowShape: 'triangle',
         targetArrowShape: 'none',
         type: 'association',
+        opacity: 0.65,
     },
 };
 
@@ -131,37 +151,13 @@ function getIdName(id: keyof MythicNodeHandlerRegistry | MythicNode, name?: stri
     return `${id.registry.type}_${id.name.text}`;
 }
 
-const PastFilters: selectedElementsFilter[] = [];
-function buildCytoscapeElements(
-    selectedElements: selectedElementsType = selectedElementsType.all,
-    selectedFilters: selectedElementsFilter[] = [],
-    startingNodes?: MythicNode[]
-): {
-    nodes: CytoscapeNode[];
-    edges: CytoscapeEdge[];
-} {
+function fetchSelectedElements(selectedElements: selectedElementsType) {
     const openUris: string[] = [];
-    let iterableKeys = Object.keys(
-        MythicNodeHandler.registry
-    ) as (keyof MythicNodeHandlerRegistry)[];
-    const cyNodesFoundNodes: Map<string, MythicNode> = new Map();
-    const cyNodesUnknownNodes: Map<string, MythicNode> = new Map();
-    const cyNodes: CytoscapeNode[] = [];
-    const cyEdges: CytoscapeEdge[] = [];
-
-    PastFilters.length = 0;
-    PastFilters.push(...selectedFilters);
-    if (selectedFilters.length > 0) {
-        iterableKeys = iterableKeys.filter(
-            (key) => !selectedFilters.includes(selectedElementsFilter[key])
-        );
-    }
-
     switch (selectedElements) {
         case selectedElementsType.selectedDocument:
             const activeEditor = vscode.window.activeTextEditor;
             if (!activeEditor) {
-                return { nodes: [], edges: [] };
+                return [];
             }
             const activeDocument = activeEditor.document;
             const activeDocumentUri = activeDocument.uri.toString();
@@ -178,6 +174,35 @@ function buildCytoscapeElements(
             });
             break;
     }
+    return openUris;
+}
+
+const PastFilters: selectedElementsFilter[] = [];
+function buildCytoscapeElements(
+    selectedElements: selectedElementsType = selectedElementsType.all,
+    selectedFilters: selectedElementsFilter[] = [],
+    startingNodes?: MythicNode[]
+): {
+    nodes: CytoscapeNode[];
+    edges: CytoscapeEdge[];
+} {
+    const openUris: string[] = [];
+    let iterableKeys = Object.keys(
+        MythicNodeHandler.registry
+    ) as (keyof MythicNodeHandlerRegistry)[];
+    const cyNodesFoundNodes: Map<string, MythicNode> = new Map();
+    const cyNodesUnknownNodes: Map<string, MythicNode> = new Map();
+    const cyNodesOutOfScopeNodes: Map<string, MythicNode> = new Map();
+    const cyNodes: CytoscapeNode[] = [];
+    const cyEdges: CytoscapeEdge[] = [];
+
+    PastFilters.length = 0;
+    PastFilters.push(...selectedFilters);
+    if (selectedFilters.length > 0) {
+        iterableKeys = iterableKeys.filter(
+            (key) => !selectedFilters.includes(selectedElementsFilter[key])
+        );
+    }
 
     let iterableNodes = startingNodes || [];
     if (!startingNodes) {
@@ -186,7 +211,15 @@ function buildCytoscapeElements(
             iterableNodes.push(...nodes);
         }
     }
+
     if (selectedElements !== selectedElementsType.all) {
+        openUris.push(...fetchSelectedElements(selectedElements));
+        if (openUris.length === 0) {
+            return {
+                nodes: [],
+                edges: [],
+            };
+        }
         iterableNodes = iterableNodes.filter((node) =>
             openUris.includes(node.document.uri.toString())
         );
@@ -197,11 +230,13 @@ function buildCytoscapeElements(
 
         const templateProvider = MythicNodeHandler.registry[node.registry.type];
         for (const template of node.templates) {
-            const templateNode = templateProvider.getNode(template);
-            if (!templateNode) {
-                continue;
+            let templateNode = templateProvider.getNode(template);
+            if (templateNode) {
+                cyNodesUnknownNodes.set(templateNode.hash, templateNode);
+            } else {
+                templateNode = new MockMythicNode(node.registry, template, node);
+                cyNodesOutOfScopeNodes.set(templateNode.hash, templateNode);
             }
-            cyNodesUnknownNodes.set(templateNode.hash, templateNode);
             cyEdges.push({
                 data: {
                     id: `${getIdName(node)}_to_${getIdName(templateNode)}`,
@@ -231,39 +266,39 @@ function buildCytoscapeElements(
         }
     }
 
-    cyNodesFoundNodes.forEach((node, identifier) => {
-        cyNodesUnknownNodes.delete(identifier);
-        cyNodes.push({
-            data: {
-                id: getIdName(node),
-                label: node.name.text,
-                registry: node.registry.type,
-                nodeName: node.name.text,
-                ...NodeTypeToAdditionalData[node.registry.type],
-                unknown: false,
-            },
+    function cycleNodes(
+        source: Map<string, MythicNode>,
+        deprecationTarget: Map<string, MythicNode>,
+        data: NodeAdditionalData
+    ) {
+        source.forEach((node, identifier) => {
+            deprecationTarget.delete(identifier);
+            cyNodes.push({
+                data: {
+                    id: getIdName(node),
+                    label: node.name.text,
+                    registry: node.registry.type,
+                    nodeName: node.name.text,
+                    ...NodeTypeToAdditionalData[node.registry.type],
+                    ...data,
+                },
+            });
         });
-    });
-    cyNodesUnknownNodes.forEach((node) => {
-        cyNodes.push({
-            data: {
-                id: getIdName(node),
-                label: node.name.text,
-                registry: node.registry.type,
-                nodeName: node.name.text,
-                ...NodeTypeToAdditionalData[node.registry.type],
-                ...UnknownNodeData,
-            },
-        });
-    });
+    }
+    cycleNodes(cyNodesFoundNodes, cyNodesUnknownNodes, { unknown: false });
+    cycleNodes(cyNodesUnknownNodes, cyNodesOutOfScopeNodes, UnknownNodeData);
+    cycleNodes(cyNodesOutOfScopeNodes, new Map(), outOfScopeNodeData);
+
     return { nodes: cyNodes, edges: cyEdges };
 }
 
 export async function showNodeGraph(): Promise<void> {
+    const cancellationToken = new vscode.CancellationTokenSource();
     const selectedElements = await vscode.window
         .showQuickPick(
             GraphOptions.selectedElements.options.map((option) => option.label),
-            { title: GraphOptions.selectedElements.query }
+            { title: GraphOptions.selectedElements.query },
+            cancellationToken.token
         )
         .then((selected) => {
             if (!selected) {
@@ -277,11 +312,14 @@ export async function showNodeGraph(): Promise<void> {
             }
             return selectedOption.value;
         });
-
+    if (cancellationToken.token.isCancellationRequested) {
+        return;
+    }
     const selectedFilters = await vscode.window
         .showQuickPick(
             GraphOptions.filters.options.map((option) => option.label),
-            { title: GraphOptions.filters.query, canPickMany: true }
+            { title: GraphOptions.filters.query, canPickMany: true },
+            cancellationToken.token
         )
         .then((selected) => {
             if (!selected) {
@@ -294,6 +332,9 @@ export async function showNodeGraph(): Promise<void> {
                 return selectedOption!.value;
             });
         });
+    if (cancellationToken.token.isCancellationRequested) {
+        return;
+    }
 
     if (openWebView) {
         openWebView.dispose();
@@ -311,13 +352,18 @@ export async function showNodeGraph(): Promise<void> {
         }
     );
 
-    // Set the webview's HTML content
     openWebView.webview.html = getWebviewContent();
 
     const data = buildCytoscapeElements(selectedElements, selectedFilters);
     openWebView.webview.postMessage({ type: 'graphData', data: data });
+    processMessage(selectedElements, selectedFilters);
+}
 
-    openWebView.webview.onDidReceiveMessage((message) => {
+function processMessage(
+    selectedElements: selectedElementsType | undefined,
+    selectedFilters: selectedElementsFilter[] | undefined
+) {
+    openWebView!.webview.onDidReceiveMessage((message) => {
         switch (message.type) {
             case 'goToNode':
                 const node = MythicNodeHandler.registry[
@@ -347,6 +393,36 @@ export async function showNodeGraph(): Promise<void> {
             case 'refresh':
                 const refreshedData = buildCytoscapeElements(selectedElements, selectedFilters);
                 openWebView!.webview.postMessage({ type: 'refreshedData', data: refreshedData });
+                break;
+            case 'export':
+                const messageData = message.data;
+                vscode.window
+                    .showSaveDialog({ saveLabel: 'Export Graph', filters: { json: ['json'] } })
+                    .then((uri) => {
+                        if (!uri) {
+                            return;
+                        }
+                        vscode.workspace.fs.writeFile(
+                            uri,
+                            Buffer.from(JSON.stringify(messageData, null, 2))
+                        );
+                        return;
+                    });
+                break;
+            case 'import':
+                vscode.window
+                    .showOpenDialog({ canSelectMany: false, openLabel: 'Import Graph' })
+                    .then(async (uri) => {
+                        if (!uri) {
+                            return;
+                        }
+                        const file = await vscode.workspace.fs.readFile(uri[0]);
+                        openWebView!.webview.postMessage({
+                            type: 'importedData',
+                            data: JSON.parse(file.toString()),
+                        });
+                        return;
+                    });
                 break;
         }
     });
@@ -468,11 +544,15 @@ function getWebviewContent(): string {
 <body>
     <div class="search-container">
         <input type="text" class="search-input" placeholder="Search..." id="search">
-        <button class="search-button" id="search-button" title="Search for a node">🔎</button>
+        <button id="search-button" class="search-button" title="Search for a node">🔎</button>
         <div class="separator"></div>
-        <button class="search-button" id="reshuffle-button" title="Reshuffle the graph">🧩</button>
+        <button id="reshuffle-button" class="search-button" title="Reshuffle the graph">🧩</button>
         <div class="separator"></div>
-        <button class="search-button" id="refresh-button" title="Refresh the graph">🔄</button>
+        <button id="export-button" class="search-button" title="Export the graph">⏬</button>
+        <div class="separator"></div>
+        <button id="import-button" class="search-button" title="Import a graph">⏫</button>
+        <div class="separator"></div>
+        <button id="refresh-button" class="search-button" title="Refresh the graph">🔄</button>
     </div>
     <div id="cy"></div>
     <script src="${scriptUri}"></script>

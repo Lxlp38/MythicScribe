@@ -30,6 +30,9 @@ window.addEventListener('message', (event) => {
     } else if (message.type === 'refreshedData') {
         cy.json({ elements: message.data });
         cy.layout(cylayout).run();
+    } else if (message.type === 'importedData') {
+        cy.json(message.data);
+        cy.fit();
     }
 });
 
@@ -115,14 +118,15 @@ function renderGraph(graphData) {
                 style: {
                     width: 'data(width)',
                     'line-fill': 'linear-gradient',
-                    'line-gradient-stop-colors': 'data(color)',
+                    'line-gradient-stop-colors': 'data(lineColors)',
                     'curve-style': 'bezier',
                     'source-arrow-shape': 'data(sourceArrowShape)',
-                    'source-arrow-color': 'data(color)',
+                    'source-arrow-color': 'data(sourceColor)',
                     'source-arrow-fill': 'filled',
                     'target-arrow-shape': 'data(targetArrowShape)',
-                    'target-arrow-color': 'data(color)',
+                    'target-arrow-color': 'data(targetColor)',
                     'target-arrow-fill': 'filled',
+                    opacity: 'data(opacity)',
                 },
             },
             {
@@ -150,7 +154,7 @@ function renderGraph(graphData) {
 
     function resetNodesAndEdges(resetOpacity = true) {
         if (resetOpacity) {
-            cy.elements().style('opacity', 1);
+            cy.elements().style('opacity', null);
         }
         cy.nodes().style('border-width', null);
         cy.edges().style('line-gradient-stop-colors', null);
@@ -188,7 +192,7 @@ function renderGraph(graphData) {
         inboundNodes.style({
             opacity: 0.9,
             'border-width': 4,
-            'border-color': '#00FF00',
+            'border-color': 'blue',
         });
         inboundEdges.forEach((edge) => {
             if (edge.data('type') === 'inheritance') {
@@ -203,7 +207,7 @@ function renderGraph(graphData) {
             } else {
                 edge.style({
                     opacity: 0.9,
-                    'line-gradient-stop-colors': '#00FF00',
+                    'line-gradient-stop-colors': 'blue',
                 });
             }
         });
@@ -211,22 +215,22 @@ function renderGraph(graphData) {
         outboundNodes.style({
             opacity: 0.9,
             'border-width': 4,
-            'border-color': 'yellow',
+            'border-color': 'orange',
         });
         outboundEdges.forEach((edge) => {
             if (edge.data('type') === 'inheritance') {
                 edge.style({
                     opacity: 0.9,
-                    'line-gradient-stop-colors': 'orange',
+                    'line-gradient-stop-colors': 'green',
                 });
                 edge.target().style({
-                    'border-color': 'orange',
+                    'border-color': 'green',
                     'border-width': 4,
                 });
             } else {
                 edge.style({
                     opacity: 0.9,
-                    'line-gradient-stop-colors': 'yellow',
+                    'line-gradient-stop-colors': 'orange',
                 });
             }
         });
@@ -258,7 +262,7 @@ function renderGraph(graphData) {
         const query = document.getElementById('search').value.trim().toLowerCase();
         if (query === '') {
             // Reset all elements to full opacity when no search is active.
-            cy.elements().style('opacity', 1);
+            cy.elements().style('opacity', null);
         } else {
             // Fade out all elements first.
             cy.elements().style('opacity', 0.25);
@@ -267,7 +271,7 @@ function renderGraph(graphData) {
                 .filter((node) => {
                     return node.data('label').toLowerCase().includes(query);
                 })
-                .style('opacity', 1);
+                .style('opacity', null);
             // Optionally, you can also restore opacity for edges connected to matching nodes:
             cy.edges()
                 .filter((edge) => {
@@ -275,7 +279,7 @@ function renderGraph(graphData) {
                     const tgt = edge.target().data('label').toLowerCase();
                     return src.includes(query) || tgt.includes(query);
                 })
-                .style('opacity', 1);
+                .style('opacity', null);
         }
     }
 
@@ -287,9 +291,20 @@ function renderGraph(graphData) {
         vscode.postMessage({ type: 'refresh' });
     }
 
+    function exportGraph() {
+        let graphJson = cy.json();
+        vscode.postMessage({ type: 'export', data: graphJson });
+    }
+
+    function importGraph() {
+        vscode.postMessage({ type: 'import' });
+    }
+
     // Setup search functionality:
     document.getElementById('search').addEventListener('input', searchNode);
     document.getElementById('search-button').addEventListener('click', searchNode);
     document.getElementById('reshuffle-button').addEventListener('click', reshuffle);
+    document.getElementById('export-button').addEventListener('click', exportGraph);
+    document.getElementById('import-button').addEventListener('click', importGraph);
     document.getElementById('refresh-button').addEventListener('click', refresh);
 }
