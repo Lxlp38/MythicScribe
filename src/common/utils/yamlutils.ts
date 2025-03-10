@@ -7,10 +7,22 @@ import {
     ScribeMechanicHandler,
 } from '../datasets/ScribeMechanic';
 import { getSquareBracketObject } from './cursorutils';
+import { FileObject, FileObjectMap } from '../objectInfos';
+import { ArrayListNode } from './genericDataStructures';
+import { checkFileType, FileType, FileTypeToSchema } from '../subscriptions/SubscriptionHelper';
 
-const yamlkeyregex = /^\s*([^:\s]+:)/;
+const yamlKeyRegex = /^(?<indent>\s*)(?<key>[^#:\s]+:)/;
+function getYamlRegexInfo(match: RegExpMatchArray): { indent: string; key: string } {
+    return {
+        indent: match.groups!.indent,
+        key: match.groups!.key,
+    };
+}
 
-export type YamlKey = [string, number];
+// First Value: the key
+// Second Value: the line index
+// Third Value: the indentation level
+export type YamlKey = [string, number, number];
 export function getKeyNameFromYamlKey(keys: YamlKey[]): string[] {
     return keys.map(([key]) => key);
 }
@@ -27,9 +39,11 @@ export function getUpstreamKey(
     lineIndex: number
 ): YamlKey | undefined {
     for (let i = lineIndex; i >= 0; i--) {
-        const line = document.lineAt(i).text.trim();
-        if (line.match(yamlkeyregex)) {
-            return [line.split(':')[0].trim(), i];
+        const line = document.lineAt(i).text;
+        const match = line.match(yamlKeyRegex);
+        if (match) {
+            const info = getYamlRegexInfo(match);
+            return [info.key, i, info.indent.length];
         }
     }
     return;
@@ -55,22 +69,191 @@ export function getParentKeys(
     if (!isKey(document, lineIndex)) {
         currentIndent += 1;
     } else if (getLineKey) {
-        keys.push([getKey(document, lineIndex), lineIndex]);
+        keys.push([getKey(document, lineIndex), lineIndex, currentIndent]);
     }
 
     for (let i = lineIndex; i >= 0; i--) {
-        const line = document.lineAt(i).text.trim();
-        if (line.match(yamlkeyregex)) {
-            const lineIndent = getIndentation(document.lineAt(i).text); // Get the indentation of this line
+        const line = document.lineAt(i).text;
+        const match = line.match(yamlKeyRegex);
+        if (match) {
+            const matchInfo = getYamlRegexInfo(match);
+            const lineIndent = matchInfo.indent.length; // Get the indentation of the line
 
             // If the line has a lower (less) indentation, it is a parent
             if (lineIndent < currentIndent) {
-                keys.push([line.split(':')[0], i]); // Add the key without the colon
+                keys.push([matchInfo.key, i, lineIndent]); // Add the key without the colon
                 currentIndent = lineIndent; // Update current indentation to this parent's level
             }
         }
     }
     return keys;
+}
+
+export function getDocumentKeys(text: string): YamlKey[] {
+    const keys: YamlKey[] = [];
+    const similDoc = text.split('\n');
+    for (let i = 0; i < similDoc.length; i++) {
+        const line = similDoc[i];
+        const match = line.match(yamlKeyRegex);
+        if (match) {
+            const info = getYamlRegexInfo(match);
+            keys.push([info.key, i, info.indent.length]);
+        }
+    }
+    return keys;
+}
+
+/**
+ * Recursively groups YAML keys into a tree and pairs nested keys with a schema.
+ *
+ * @param keys - The list of YAML keys (already sorted by line number).
+ * @param baseIndent - The indentation level of the parent node.
+ * @param schemaMapping - The mapping used to look up nested keys. For top-level keys,
+ *                        this will be the overall schema mapping.
+ * @returns A hierarchical tree of YamlKeyPair.
+ */
+function buildYamlKeyTree(
+    keys: YamlKey[],
+    baseIndent: number,
+    schemaMapping: FileObjectMap | null
+): YamlKeyPair[] {
+    const pairs: YamlKeyPair[] = [];
+    let i = 0;
+
+    while (i < keys.length) {
+        const current = keys[i];
+        const [rawKey, , indent] = current;
+        if (indent <= baseIndent) {
+            // This key is not a child of the current parent.
+            break;
+        }
+
+        // For nested keys (indent > baseIndent) we want to look up in the schema mapping.
+        // Remove a potential trailing colon from the key name.
+        let fileObj: FileObject | undefined = undefined;
+        let childSchema: FileObjectMap | null = null;
+        if (schemaMapping) {
+            const keyName = rawKey.replace(/:$/, '');
+            fileObj = schemaMapping[keyName];
+            // If the file object defines nested keys, use that mapping for its children.
+            if (fileObj && 'keys' in fileObj && fileObj.keys) {
+                childSchema = fileObj.keys;
+            }
+        }
+
+        // Collect all keys that are children of the current key (indent greater than current).
+        const start = i + 1;
+        let j = start;
+        const childKeys: YamlKey[] = [];
+        while (j < keys.length && keys[j][2] > indent) {
+            childKeys.push(keys[j]);
+            j++;
+        }
+
+        // Recursively build children, using the file object's nested schema (if available)
+        // or null (if no file object or nested keys mapping was found).
+        const children = buildYamlKeyTree(childKeys, indent, childSchema);
+        pairs.push({
+            yamlKey: current,
+            fileObject: fileObj,
+            children: children.length ? children : undefined,
+        });
+        i = j;
+    }
+
+    return pairs;
+}
+
+/**
+ * Pairs the YAML keys with a file object schema.
+ *
+ * Top-level keys (indent level 0) are not looked up in the schema; instead,
+ * the provided schema mapping is used to pair their children.
+ *
+ * @param keys - The sorted list of YAML keys (e.g. from your YamlKeyList).
+ * @param schemaMapping - The FileObjectMap used for nested key lookups.
+ * @returns A tree of YamlKeyPair with top-level keys and nested pairs.
+ */
+export function pairYamlKeysWithSchema(
+    keys: YamlKey[],
+    schemaMapping: FileObjectMap
+): YamlKeyPair[] {
+    const pairs: YamlKeyPair[] = [];
+    let i = 0;
+
+    // Process only top-level keys (indent 0).
+    while (i < keys.length) {
+        const current = keys[i];
+        const [, , indent] = current;
+        if (indent !== 0) {
+            // Skip stray keys that are not at top level.
+            i++;
+            continue;
+        }
+
+        // For each top-level key, all subsequent keys with indent > 0 are its children.
+        const start = i + 1;
+        let j = start;
+        const childKeys: YamlKey[] = [];
+        while (j < keys.length && keys[j][2] > 0) {
+            childKeys.push(keys[j]);
+            j++;
+        }
+
+        // Process children: for nested keys we look up the schema.
+        const children = buildYamlKeyTree(childKeys, 0, schemaMapping);
+        pairs.push({
+            yamlKey: current,
+            // Top-level keys are not paired to a file object.
+            fileObject: undefined,
+            children: children.length ? children : undefined,
+        });
+        i = j;
+    }
+    return pairs;
+}
+
+// An interface to represent the pairing between a YAML key and its FileObject,
+// including any children that were paired recursively.
+interface YamlKeyPair {
+    yamlKey: YamlKey;
+    fileObject?: FileObject;
+    children?: YamlKeyPair[];
+}
+
+export class YamlKeyPairList extends ArrayListNode<YamlKeyPair> {
+    constructor(keys: YamlKey[], fileType: FileType) {
+        const schema = FileTypeToSchema[fileType as keyof typeof FileTypeToSchema];
+        if (keys.length === 0 || !schema) {
+            super([]);
+            return;
+        }
+        const pairedKeys = pairYamlKeysWithSchema(keys, schema);
+        const allKeys: YamlKeyPair[] = [];
+
+        function pushAll(keys: YamlKeyPair[]): void {
+            for (const key of keys) {
+                allKeys.push(key);
+                if (key.children) {
+                    pushAll(key.children);
+                }
+            }
+        }
+        pushAll(pairedKeys);
+        super(allKeys);
+    }
+
+    compare(value1: YamlKeyPair, value2: YamlKeyPair | number): boolean {
+        if (typeof value2 === 'number') {
+            return value1.yamlKey[1] < value2;
+        }
+        return value1.yamlKey[1] < value2.yamlKey[1];
+    }
+}
+
+export function getDocumentSearchList(text: string, document: vscode.TextDocument) {
+    const keys = getDocumentKeys(text);
+    return new YamlKeyPairList(keys, checkFileType(document));
 }
 
 /**
@@ -138,13 +321,14 @@ export function isKey(
 ): boolean {
     const line = document.lineAt(lineIndex).text;
     if (precise) {
-        const match = line.match(yamlkeyregex);
+        const match = line.match(yamlKeyRegex);
         if (match) {
-            const startIndex = match.index!;
-            const endIndex = startIndex + match[1].length;
-            return precise.character >= startIndex && precise.character <= endIndex;
+            const info = getYamlRegexInfo(match);
+            const startIndex = info.indent.length;
+            const endIndex = startIndex + info.key.length;
+            return precise.character < endIndex && precise.character >= startIndex;
         }
-    } else if (yamlkeyregex.test(line)) {
+    } else if (yamlKeyRegex.test(line)) {
         return true;
     }
     return false;
@@ -198,7 +382,7 @@ export function isInsideKey(
             return true;
         }
         // If we find another top-level key, we know we've left the specified section
-        if (line.match(yamlkeyregex)) {
+        if (line.match(yamlKeyRegex)) {
             return false;
         }
     }
@@ -345,4 +529,15 @@ export function isInsideInlineConditionList(
         }
     }
     return false;
+}
+
+export function getLastNonCommentLine(text: string): number {
+    const lines = text.split('\n');
+    for (let i = lines.length - 1; i >= 0; i--) {
+        const trimmed = lines[i].trim();
+        if (trimmed.length > 0 && !trimmed.startsWith('#')) {
+            return i;
+        }
+    }
+    return 0;
 }

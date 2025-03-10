@@ -1,20 +1,35 @@
 import * as vscode from 'vscode';
 import { parseDocument } from 'yaml';
 
-import { getDefaultIndentation } from '../utils/yamlutils';
+import {
+    getDefaultIndentation,
+    getDocumentSearchList,
+    getLastNonCommentLine,
+} from '../utils/yamlutils';
 import { Log } from '../utils/logger';
+import { FileObjectTypes } from '../objectInfos';
 
-const comments: string[] = [];
+type comment = {
+    text: string;
+    indent: number;
+};
+
+const comments: comment[] = [];
+const quoted: string[] = [];
 
 export function getFormatter() {
     return vscode.languages.registerDocumentFormattingEditProvider('mythicscript', {
         provideDocumentFormattingEdits(document: vscode.TextDocument): vscode.TextEdit[] {
             let text = document.getText();
             comments.length = 0;
+            quoted.length = 0;
 
             for (const op of [
                 // Tokenize comments
                 tokenizeComments,
+
+                // Tokenize quoted strings
+                tokenizeQuoted,
 
                 // Format YAML file
                 normalizeYamlIndentation,
@@ -25,10 +40,13 @@ export function getFormatter() {
                 // Apply additional formatting rules
                 formatMythicScript,
 
+                // Restore quoted strings
+                restoreQuoted,
+
                 // Restore comments
                 restoreComments,
             ]) {
-                text = op(text);
+                text = op(text, document);
             }
 
             // Replace entire document with the newly formatted text
@@ -40,18 +58,91 @@ export function getFormatter() {
 }
 
 const placeholder = `#__MYTHICSCRIBE_COMMENT_START__`;
+const placeholderRegex = /(\s+|^)(#.*?)$/gm;
 function tokenizeComments(text: string): string {
-    // Preserve the comments by replacing them temporarily with a placeholder
-    const textWithPlaceholders = text.replace(/(?<=\s)#.*?(?=\n|$)/gm, (match) => {
-        comments.push(match); // Store the comment
-        return placeholder; // Replace the comment so it doesn't fuck up later on
-    });
-    return textWithPlaceholders;
+    const lines = text.split('\n');
+    for (let i = 0; i < lines.length; i++) {
+        const line = lines[i];
+        const match = line.match(placeholderRegex);
+        if (!match) {
+            continue;
+        }
+        const indent = match[0].indexOf('#');
+        comments.push({ text: match[0], indent });
+        lines[i] = line.replace(placeholderRegex, placeholder);
+    }
+    return lines.join('\n');
 }
 
-function restoreComments(text: string): string {
-    comments.reverse();
-    return text.replaceAll(placeholder, () => comments.pop() || '');
+function restoreComments(text: string, document: vscode.TextDocument): string {
+    const yamlTree = getDocumentSearchList(text, document);
+    const lastNonCommentedLine = getLastNonCommentLine(text);
+    const lines = text.split('\n');
+
+    for (let i = 0; i < lastNonCommentedLine; i++) {
+        const basicMatch = lines[i].match(placeholder);
+        if (!basicMatch) {
+            continue;
+        }
+
+        // Pick The Comment That Is Gonna Be Used
+        const comment = comments.shift();
+        if (!comment) {
+            continue;
+        }
+
+        // Check for Whole Line Comment
+        const match = lines[i].match(/^(\s*)#__MYTHICSCRIBE_COMMENT_START__/);
+        // Process Inline Comment
+        if (!match) {
+            lines[i].replace(placeholder, comment.text);
+            continue;
+        }
+
+        const indent = match[0].indexOf('#');
+
+        // If the original comment had no indent, so should this one
+        if (comment.indent === 0) {
+            lines[i] = lines[i].replace(' '.repeat(indent), '');
+            lines[i] = lines[i].replace(placeholder, comment.text.trim());
+            continue;
+        }
+
+        try {
+            // Otherwise, let's see what happens here
+            const relatedNode = yamlTree.getBoundKey(i);
+            if (relatedNode) {
+                let relatedNodeIndent = relatedNode.yamlKey[2];
+                const type = relatedNode.fileObject?.type;
+                if (type && type in [FileObjectTypes.LIST, FileObjectTypes.KEY_LIST]) {
+                    relatedNodeIndent += getDefaultIndentation();
+                }
+                if (indent !== relatedNodeIndent) {
+                    const adjustedIndent = ' '.repeat(relatedNodeIndent);
+                    lines[i] = lines[i].replace(' '.repeat(indent), adjustedIndent);
+                }
+                lines[i] = lines[i].replace(placeholder, comment.text.trim());
+            }
+        } catch (error) {
+            Log.error(error);
+        }
+    }
+    return lines.join('\n');
+}
+
+const quotePlaceholder = `"__MYTHICSCRIBE_QUOTED_STRING__"`;
+const quotedRegex = /(['"`]).*?\1/gms;
+function tokenizeQuoted(text: string): string {
+    return text.replaceAll(quotedRegex, (match) => {
+        quoted.push(match);
+        return quotePlaceholder;
+    });
+}
+
+function restoreQuoted(text: string): string {
+    return text.replaceAll(quotePlaceholder, () => {
+        return quoted.shift() || '';
+    });
 }
 
 function normalizeYamlIndentation(yamlContent: string): string {

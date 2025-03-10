@@ -106,11 +106,24 @@ function renderGraph(graphData) {
                 selector: 'node',
                 style: {
                     label: 'data(label)',
-                    'text-valign': 'center',
+                    'font-size': function (ele) {
+                        return 20 + ele.degree() * 2;
+                    },
+                    'text-valign': 'bottom',
                     'background-color': 'data(color)',
                     color: '#fff',
                     'border-width': 0,
                     shape: 'data(shape)',
+                    'text-outline-color': '#000000',
+                    'text-outline-width': function (ele) {
+                        return 2 + ele.degree() / 10;
+                    },
+                    width: function (ele) {
+                        return 30 + ele.degree() * 2;
+                    },
+                    height: function (ele) {
+                        return 30 + ele.degree() * 2;
+                    },
                 },
             },
             {
@@ -141,7 +154,7 @@ function renderGraph(graphData) {
                 selector: 'node:selected',
                 style: {
                     'border-color': '#FFD700',
-                    'border-width': 4,
+                    'border-width': '20%',
                 },
             },
         ],
@@ -152,10 +165,8 @@ function renderGraph(graphData) {
 
     cyContextMenuInstance = cy.contextMenus(contextMenusOptions);
 
-    function resetNodesAndEdges(resetOpacity = true) {
-        if (resetOpacity) {
-            cy.elements().style('opacity', null);
-        }
+    function resetNodesAndEdges(opacity = null) {
+        cy.elements().style('opacity', opacity);
         cy.nodes().style('border-width', null);
         cy.edges().style('line-gradient-stop-colors', null);
     }
@@ -163,8 +174,7 @@ function renderGraph(graphData) {
     cy.on('select', 'node', function (evt) {
         let selectedNode = evt.target;
 
-        resetNodesAndEdges(false);
-        cy.elements().style('opacity', 0.25);
+        resetNodesAndEdges(0.25);
 
         cy.elements().bfs({
             root: selectedNode,
@@ -179,20 +189,16 @@ function renderGraph(graphData) {
             },
         });
 
-        // Get inbound nodes and edges:
         const inboundNodes = selectedNode.incomers('node');
         const inboundEdges = selectedNode.incomers('edge');
 
-        // Get outbound nodes and edges:
         const outboundNodes = selectedNode.outgoers('node');
         const outboundEdges = selectedNode.outgoers('edge');
 
-        // Apply different styles:
-        // For inbound nodes, for example, use a red border.
         inboundNodes.style({
             opacity: 0.9,
             'border-width': 4,
-            'border-color': 'blue',
+            'border-color': 'orange',
         });
         inboundEdges.forEach((edge) => {
             if (edge.data('type') === 'inheritance') {
@@ -207,7 +213,7 @@ function renderGraph(graphData) {
             } else {
                 edge.style({
                     opacity: 0.9,
-                    'line-gradient-stop-colors': 'blue',
+                    'line-gradient-stop-colors': 'orange',
                 });
             }
         });
@@ -215,7 +221,7 @@ function renderGraph(graphData) {
         outboundNodes.style({
             opacity: 0.9,
             'border-width': 4,
-            'border-color': 'orange',
+            'border-color': 'blue',
         });
         outboundEdges.forEach((edge) => {
             if (edge.data('type') === 'inheritance') {
@@ -230,7 +236,7 @@ function renderGraph(graphData) {
             } else {
                 edge.style({
                     opacity: 0.9,
-                    'line-gradient-stop-colors': 'orange',
+                    'line-gradient-stop-colors': 'blue',
                 });
             }
         });

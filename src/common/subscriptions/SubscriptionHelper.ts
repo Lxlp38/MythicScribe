@@ -6,6 +6,11 @@ import {
     checkFileEnabled,
 } from '../utils/configutils';
 import { AbstractScribeSubscription, ScribeSubscriptionHandler } from './SubscriptionHandler';
+import { MetaskillFileObjects } from '../schemas/metaskillFileObjects';
+import { MobFileObjects } from '../schemas/mobFileObjects';
+import { ItemFileObjects } from '../schemas/itemfileObjects';
+import { DroptableFileObject } from '../schemas/droptableFileObjects';
+import { FileObjectMap } from '../objectInfos';
 
 function resetFileChecks() {
     isEnabled = false;
@@ -160,3 +165,12 @@ export function checkFileType(document: vscode.TextDocument): FileType {
     }
     return FileType.NONE;
 }
+
+export const FileTypeToSchema: { [key in FileType]: FileObjectMap | undefined } = {
+    [FileType.METASKILL]: MetaskillFileObjects,
+    [FileType.MOB]: MobFileObjects,
+    [FileType.ITEM]: ItemFileObjects,
+    [FileType.DROPTABLE]: DroptableFileObject,
+    [FileType.STAT]: undefined,
+    [FileType.NONE]: undefined,
+};

@@ -28,7 +28,11 @@ export function CursorLocationAction<T>(
     if (yamlutils.isKey(document, position.line, position)) {
         const key = yamlutils.getKey(document, position.line);
         keys.reverse();
-        keys.push([key, position.line]);
+        keys.push([
+            key,
+            position.line,
+            yamlutils.getIndentation(document.lineAt(position.line).text),
+        ]);
 
         return fileElementFunction(
             yamlutils.getKeyNameFromYamlKey(keys.slice(1)),
