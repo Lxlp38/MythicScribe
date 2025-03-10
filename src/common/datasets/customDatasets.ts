@@ -2,12 +2,18 @@ import path from 'path';
 
 import * as vscode from 'vscode';
 
-import { Mechanic, MechanicDataset, ScribeMechanicHandler } from './ScribeMechanic';
+import {
+    AbstractScribeMechanicRegistry,
+    Mechanic,
+    MechanicDataset,
+    ScribeMechanicHandler,
+} from './ScribeMechanic';
 import { ScribeEnumHandler, StaticScribeEnum, WebScribeEnum } from './ScribeEnum';
 import { fetchJsonFromLocalFile, fetchJsonFromURL, loadDatasets } from './datasets';
 import { Log } from '../utils/logger';
 import { changeCustomDatasetsSource } from '../migration/migration';
 import { CustomDatasetElementType, CustomDatasetSource } from '../packageData';
+import { timeCounter } from '../utils/timeUtils';
 
 interface CustomDataset {
     elementType: CustomDatasetElementType;
@@ -33,25 +39,25 @@ export async function addCustomDataset() {
     }
     Log.debug('addCustomDataset scope:', scope.toString());
 
-    const elementType = await vscode.window.showQuickPick(Object.values(CustomDatasetElementType), {
+    const elementType = (await vscode.window.showQuickPick(CustomDatasetElementType, {
         placeHolder: 'Select an element type',
-    });
+    })) as CustomDatasetElementType | undefined;
 
     if (!elementType) {
         return;
     }
     Log.debug('addCustomDataset elementType:', elementType);
 
-    const source = await vscode.window.showQuickPick(Object.values(CustomDatasetSource), {
+    const source = (await vscode.window.showQuickPick(CustomDatasetSource, {
         placeHolder: 'Select a source',
-    });
+    })) as CustomDatasetSource | undefined;
 
     if (!source) {
         return;
     }
     Log.debug('addCustomDataset source:', source);
 
-    if (source === CustomDatasetSource.Link) {
+    if (source === 'Link') {
         return addCustomDatasetFromLink(elementType, scope);
     }
 
@@ -78,7 +84,7 @@ export async function addCustomDataset() {
             const fileContent = await vscode.workspace.fs.readFile(uri);
             const data = Buffer.from(fileContent).toString('utf8');
 
-            if (elementType === CustomDatasetElementType.Enum) {
+            if (elementType === 'Enum') {
                 const enumDataset = JSON.parse(data);
                 if (!enumDataset) {
                     Log.error(`Error parsing file content.`);
@@ -201,7 +207,7 @@ export async function createBundleDataset() {
     Log.debug('createBundleDataset bundlePath:', bundlePath.fsPath);
 
     const bundleData = datasets.map((dataset) => {
-        if (dataset.mapping.source === CustomDatasetSource.File) {
+        if (dataset.mapping.source === 'File') {
             const bundleDir = path.dirname(bundlePath.fsPath);
             const relativePath = path.relative(
                 bundleDir,
@@ -250,8 +256,8 @@ export async function createBundleDataset() {
             }
         }
         existingMappings.push({
-            elementType: CustomDatasetElementType.Bundle,
-            source: CustomDatasetSource.File,
+            elementType: 'Bundle',
+            source: 'File',
             pathOrUrl: bundlePath.toString(),
         });
         await config.update('customDatasets', existingMappings, scope?.target);
@@ -278,7 +284,7 @@ async function addCustomDatasetFromLink(elementtype: string, scope: vscode.Confi
         // Pass the URI as a string to the finalize function
         await finalizeCustomDatasetAddition(
             elementtype as CustomDatasetElementType,
-            CustomDatasetSource.Link,
+            'Link',
             uri.toString(),
             scope
         );
@@ -328,10 +334,11 @@ function getCustomDatasetConfiguration(
 
 const customMechanicCache: {
     data: Mechanic[];
-    type: keyof typeof CustomDatasetElementTypeAssociationMap;
+    type: keyof associableCustomDatasetElementType;
 }[] = [];
 export async function loadCustomDatasets() {
-    Log.debug('loading custom datasets');
+    Log.debug('Loading Custom Datasets');
+    const time = timeCounter();
     const customDatasets = getCustomDatasetConfiguration()[1];
     for (const entry of customDatasets) {
         if (isOutdatedDataset(entry)) {
@@ -340,18 +347,22 @@ export async function loadCustomDatasets() {
             break;
         }
     }
-    const promises = customDatasets.map((entry) => processCustomDatasetEntry(entry));
-    await Promise.all(promises);
-    for (const entry of customMechanicCache) {
-        processMechanicDatasetEntry(entry.data, entry.type);
-    }
+    let promises = customDatasets.map((entry) => processCustomDatasetEntry(entry));
+    await Promise.allSettled(promises);
+
+    promises = customMechanicCache.map((entry) =>
+        processMechanicDatasetEntry(entry.data, entry.type)
+    );
+    await Promise.allSettled(promises);
+    Log.debug('Loaded Custom Datasets in', time.stop());
+    return;
 }
 
 async function processCustomDatasetEntry(entry: CustomDataset, stack?: string[]) {
     Log.debug('Processing custom dataset entry:', entry.pathOrUrl);
-    if (entry.elementType === CustomDatasetElementType.Bundle) {
+    if (entry.elementType === 'Bundle') {
         await loadBundleDataset(entry, stack);
-    } else if (entry.elementType === CustomDatasetElementType.Enum) {
+    } else if (entry.elementType === 'Enum') {
         const fileName = entry.pathOrUrl.split('/').reverse()[0].replace('.json', '').toLowerCase();
         const ifFileSource = isFileSource(entry.source);
         const clazz = ifFileSource ? StaticScribeEnum : WebScribeEnum;
@@ -368,19 +379,23 @@ async function processCustomDatasetEntry(entry: CustomDataset, stack?: string[])
     }
 }
 
-const CustomDatasetElementTypeAssociationMap = {
-    [CustomDatasetElementType.Mechanic]: () => ScribeMechanicHandler.registry.mechanic,
-    [CustomDatasetElementType.Targeter]: () => ScribeMechanicHandler.registry.targeter,
-    [CustomDatasetElementType.Condition]: () => ScribeMechanicHandler.registry.condition,
-    [CustomDatasetElementType.Trigger]: () => ScribeMechanicHandler.registry.trigger,
-    [CustomDatasetElementType.AIGoal]: () => ScribeMechanicHandler.registry.aigoal,
-    [CustomDatasetElementType.AITarget]: () => ScribeMechanicHandler.registry.aitarget,
+type associableCustomDatasetElementType = Record<
+    Exclude<CustomDatasetElementType, 'Bundle' | 'Enum'>,
+    () => AbstractScribeMechanicRegistry
+>;
+const CustomDatasetElementTypeAssociationMap: associableCustomDatasetElementType = {
+    Mechanic: () => ScribeMechanicHandler.registry.mechanic,
+    Targeter: () => ScribeMechanicHandler.registry.targeter,
+    Condition: () => ScribeMechanicHandler.registry.condition,
+    Trigger: () => ScribeMechanicHandler.registry.trigger,
+    AIGoal: () => ScribeMechanicHandler.registry.aigoal,
+    AITarget: () => ScribeMechanicHandler.registry.aitarget,
 };
 async function processMechanicDatasetEntry(
     entry: MechanicDataset,
-    type: keyof typeof CustomDatasetElementTypeAssociationMap
+    type: keyof associableCustomDatasetElementType
 ) {
-    if (entry && type in CustomDatasetElementTypeAssociationMap) {
+    if (entry) {
         CustomDatasetElementTypeAssociationMap[type]().addMechanic(...entry);
     }
 }
@@ -435,10 +450,10 @@ async function loadBundleDataset(dataset: CustomDataset, stack: string[] = ['Myt
 }
 
 function isFileSource(source?: CustomDatasetSource) {
-    return source === CustomDatasetSource.File;
+    return source === 'File';
 }
 function isLinkSource(source?: CustomDatasetSource) {
-    return source === CustomDatasetSource.Link;
+    return source === 'Link';
 }
 
 function isRelativePath(path: string) {

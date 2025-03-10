@@ -3,7 +3,6 @@ import * as vscode from 'vscode';
 import { keyAliases } from '../objectInfos';
 import { MythicAttribute, MythicMechanic, ScribeMechanicHandler } from '../datasets/ScribeMechanic';
 import { EnumDatasetValue } from '../datasets/ScribeEnum';
-import { attributeAliasUsedInCompletions as attributeAliasUsedInCompletionsEnum } from '../packageData';
 import {
     checkShouldPrefixComplete,
     getEnumCompletion,
@@ -77,13 +76,13 @@ export function attributeCompletionProvider() {
                     }
 
                     switch (attributeAliasUsedInCompletions) {
-                        case attributeAliasUsedInCompletionsEnum.shorter:
+                        case 'shorter':
                             mainname = attribute.name.reduce((a: string, b: string) =>
                                 a.length < b.length ? a : b
                             );
                             aliases = finalizeAttributeAliases();
                             break;
-                        case attributeAliasUsedInCompletionsEnum.longer:
+                        case 'longer':
                             mainname = attribute.name.reduce((a: string, b: string) =>
                                 a.length > b.length ? a : b
                             );

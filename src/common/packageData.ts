@@ -8,27 +8,23 @@ export const MinecraftVersions = [
     '1.19.4',
 ];
 
-export enum datasetSource {
-    Local = 'Local',
-    GitHub = 'GitHub',
-}
+export const DatasetSource = ['Local', 'GitHub'] as const;
+export type DatasetSource = (typeof DatasetSource)[number];
 
-export enum attributeAliasUsedInCompletions {
-    main = 'main',
-    shorter = 'shorter',
-    longer = 'longer',
-}
-export enum CustomDatasetElementType {
-    Bundle = 'Bundle',
-    Enum = 'Enum',
-    Mechanic = 'Mechanic',
-    Condition = 'Condition',
-    Trigger = 'Trigger',
-    Targeter = 'Targeter',
-    AIGoal = 'AIGoal',
-    AITarget = 'AITarget',
-}
-export enum CustomDatasetSource {
-    File = 'File',
-    Link = 'Link',
-}
+export const attributeAliasUsedInCompletions = ['main', 'shorter', 'longer'] as const;
+export type attributeAliasUsedInCompletions = (typeof attributeAliasUsedInCompletions)[number];
+
+export const CustomDatasetElementType = [
+    'Bundle',
+    'Enum',
+    'Mechanic',
+    'Condition',
+    'Trigger',
+    'Targeter',
+    'AIGoal',
+    'AITarget',
+] as const;
+export type CustomDatasetElementType = (typeof CustomDatasetElementType)[number];
+
+export const CustomDatasetSource = ['File', 'Link'] as const;
+export type CustomDatasetSource = (typeof CustomDatasetSource)[number];

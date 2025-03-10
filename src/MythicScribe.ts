@@ -14,9 +14,8 @@ import {
     loadDatasets,
     setEdcsUri,
 } from './common/datasets/datasets';
-import { configHandler, getFileParserPolicyConfig } from './common/utils/configutils';
+import { configHandler } from './common/utils/configutils';
 import { scribeColorProvider } from './common/color/colorprovider';
-import { MythicNodeHandler } from './common/mythicnodes/MythicNode';
 import { showNodeGraph } from './common/mythicnodes/nodeView';
 
 export let ctx: vscode.ExtensionContext;
@@ -65,9 +64,6 @@ export async function activate(context: vscode.ExtensionContext) {
     const activeEditor = vscode.window.activeTextEditor;
     if (activeEditor) {
         SubscriptionHelper.updateSubscriptions(activeEditor.document);
-    }
-    if (getFileParserPolicyConfig('parseOnStartup')) {
-        MythicNodeHandler.scanAllDocuments();
     }
 }
 

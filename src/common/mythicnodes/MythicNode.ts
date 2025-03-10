@@ -4,6 +4,7 @@ import { checkFileType, FileType } from '../subscriptions/SubscriptionHelper';
 import { Log } from '../utils/logger';
 import { getFileParserPolicyConfig } from '../utils/configutils';
 import { ConditionActions } from '../schemas/conditionActions';
+import { timeCounter } from '../utils/timeUtils';
 
 type NodeEntry = Map<string, MythicNode>;
 
@@ -12,7 +13,6 @@ enum ParserIntructions {
     DISABLE_PARSING = '# mythicscribe-disable file-parsing',
 }
 
-// CHATGPT, THIS IS THE REGEX
 const NodeRegex = /((?:^#.*$\r?\n\r?)*)^([\w\-\_]+):((?:.*(?:\r?\n\r?(?=^\s))?)*)/gm;
 
 vscode.workspace.onDidSaveTextDocument((document) => {
@@ -251,7 +251,6 @@ export class MythicNodeRegistry {
         }
         const matches = document.getText().matchAll(NodeRegex);
         for (const match of matches) {
-            // CHATGPT; THE ISSUE IS HERE
             const matchStart = document.positionAt(match.index);
             const matchEnd = document.positionAt(match.index + match[0].length);
             const node = new MythicNode(
@@ -326,6 +325,8 @@ export namespace MythicNodeHandler {
     }
 
     export async function scanAllDocuments(): Promise<void> {
+        const time = timeCounter();
+        Log.debug('Scanning all documents');
         const include =
             (getFileParserPolicyConfig('parsingGlobPattern') as string | undefined) ||
             '**/*.{yaml,yml}';
@@ -339,6 +340,7 @@ export namespace MythicNodeHandler {
         for (const file of files) {
             await scanFile(file);
         }
+        Log.debug('Scanned all documents in', time.stop());
     }
 }
 

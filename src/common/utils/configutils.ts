@@ -1,11 +1,7 @@
 import * as vscode from 'vscode';
 
 import { Log } from './logger';
-import {
-    MinecraftVersions,
-    attributeAliasUsedInCompletions,
-    datasetSource as datasetSourceList,
-} from '../packageData';
+import { MinecraftVersions, attributeAliasUsedInCompletions, DatasetSource } from '../packageData';
 
 const configCache = {
     enableMythicScriptSyntax: undefined as boolean | undefined,
@@ -127,13 +123,13 @@ export function enableShortcuts(): boolean {
     return vscode.workspace.getConfiguration('MythicScribe').get('enableShortcuts') || true;
 }
 
-export function datasetSource(): datasetSourceList {
+export function datasetSource(): DatasetSource {
     if (configCache.datasetSource === undefined) {
         configCache.datasetSource = vscode.workspace
             .getConfiguration('MythicScribe')
             .get('datasetSource');
     }
-    return configCache.datasetSource as datasetSourceList;
+    return configCache.datasetSource as DatasetSource;
 }
 
 export function enableMythicScriptSyntax() {

@@ -9,6 +9,7 @@ import { ScribeCloneableFile } from './datasets';
 import { addMechanicCompletions } from '../utils/completionhelper';
 import { attributeSpecialValues } from './enumSources';
 import { MythicNodeHandler, MythicNodeHandlerRegistry } from '../mythicnodes/MythicNode';
+import { timeCounter } from '../utils/timeUtils';
 
 export enum ObjectType {
     MECHANIC = 'Mechanic',
@@ -62,6 +63,7 @@ export abstract class AbstractScribeMechanicRegistry {
         Log.debug(
             `Added ${mechanic.length} ${this.type}s. The registering Plugins are: ${uniquePlugins.join(', ')}`
         );
+        return;
     }
 
     regexMatches(text: string): boolean {
@@ -88,9 +90,21 @@ export abstract class AbstractScribeMechanicRegistry {
     }
 
     async loadDataset() {
+        const time = timeCounter();
+        Log.debug(`Loading ${this.type} Dataset`);
         const directoryFiles: vscode.Uri[] = await getDirectoryFiles(this);
         const files = directoryFiles.map((file) => new ScribeCloneableFile<Mechanic>(file));
-        files.forEach((file) => file.get().then((data) => this.addMechanic(...data)));
+        const promises = files.map((file) => file.get());
+        const result = await Promise.allSettled(promises);
+        const loadDatasetPromises = result.map((promise) => {
+            if (promise.status === 'fulfilled') {
+                return this.addMechanic(...promise.value);
+            }
+            Log.error(`Failed to load ${this.type} dataset: ${promise.reason}`);
+            return;
+        });
+        await Promise.allSettled(loadDatasetPromises);
+        Log.debug(`Loaded ${this.type} Dataset in`, time.stop());
         return;
     }
 }
@@ -359,11 +373,15 @@ export const ScribeMechanicHandler = {
     },
 
     async loadMechanicDatasets() {
+        const time = timeCounter();
+        Log.debug('Loading Mechanic Datasets');
         ScribeMechanicHandler.emptyDatasets();
         const promises = Object.values(ScribeMechanicHandler.registry).map((registry) =>
             registry.loadDataset()
         );
-        await Promise.all(promises);
+        await Promise.allSettled(promises);
+        Log.debug('Loaded Mechanic Datasets in', time.stop());
+        return;
     },
 
     emptyDatasets() {

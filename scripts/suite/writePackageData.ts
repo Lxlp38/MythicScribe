@@ -1,13 +1,13 @@
-import { attributeAliasUsedInCompletions, CustomDatasetElementType, CustomDatasetSource, datasetSource, MinecraftVersions } from './../../src/common/packageData';
+import { attributeAliasUsedInCompletions, CustomDatasetElementType, CustomDatasetSource, DatasetSource, MinecraftVersions } from './../../src/common/packageData';
 import * as fs from 'fs';
 import * as path from 'path';
 
 const map = {
     'minecraftVersion': MinecraftVersions,
-    'datasetSource': Object.values(datasetSource),
-    'attributeAliasUsedInCompletions': Object.values(attributeAliasUsedInCompletions),
-    'customDatasets.elementType': Object.values(CustomDatasetElementType),
-    'customDatasets.source': Object.values(CustomDatasetSource),
+    'datasetSource': DatasetSource,
+    'attributeAliasUsedInCompletions': attributeAliasUsedInCompletions,
+    'customDatasets.elementType': CustomDatasetElementType,
+    'customDatasets.source': CustomDatasetSource,
 }
 
 export function writePackageData(){

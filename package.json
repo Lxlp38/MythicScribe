@@ -396,7 +396,7 @@
     "vscode:prepublish": "npm run package",
     "package": "npm run check-types && node esbuild.js --production",
     "build": "npm run compile",
-    "buildtag": "npx @vscode/vsce package",
+    "buildtag": "npm run scripts && npx @vscode/vsce package",
     "pretest": "npm run compile",
     "test": "node ./out/node/test/runTests.js",
     "openweb": "npm run compile && vscode-test-web --extensionPath .",

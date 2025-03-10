@@ -8,6 +8,7 @@ import { AbstractScribeMechanicRegistry, Attribute, ScribeMechanicHandler } from
 import { insertColor } from '../color/colorprovider';
 import { localEnums, scriptedEnums, volatileEnums } from './enumSources';
 import { MythicNode, MythicNodeHandler } from '../mythicnodes/MythicNode';
+import { timeCounter } from '../utils/timeUtils';
 
 export abstract class AbstractScribeEnum {
     readonly identifier: string;
@@ -141,6 +142,8 @@ export const ScribeEnumHandler = {
 
     loadEnumDatasets(): void {
         ScribeEnumHandler.emptyDatasets();
+        const time = timeCounter();
+        Log.debug('Loading Enum Datasets');
         this.enumDefinitions.forEach(({ clazz, items }) => {
             items.forEach((item) => {
                 if (Array.isArray(item)) {
@@ -153,6 +156,7 @@ export const ScribeEnumHandler = {
             });
         });
         this.initializeScriptedEnums();
+        Log.debug('Loaded Enum Datasets in', time.stop());
     },
 
     getEnum(identifier: string): AbstractScribeEnum | undefined {

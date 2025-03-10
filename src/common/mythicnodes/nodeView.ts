@@ -10,32 +10,35 @@ import { ctx } from '../../MythicScribe';
 
 let openWebView: vscode.WebviewPanel | undefined = undefined;
 
-type Shape =
-    | 'ellipse'
-    | 'triangle'
-    | 'round-triangle'
-    | 'rectangle'
-    | 'round-rectangle'
-    | 'bottom-round-rectangle'
-    | 'cut-rectangle'
-    | 'barrel'
-    | 'rhomboid'
-    | 'right-rhomboid'
-    | 'diamond'
-    | 'round-diamond'
-    | 'pentagon'
-    | 'round-pentagon'
-    | 'hexagon'
-    | 'round-hexagon'
-    | 'concave-hexagon'
-    | 'heptagon'
-    | 'round-heptagon'
-    | 'octagon'
-    | 'round-octagon'
-    | 'star'
-    | 'tag'
-    | 'round-tag'
-    | 'vee';
+const Shape = [
+    'ellipse',
+    'triangle',
+    'round-triangle',
+    'rectangle',
+    'round-rectangle',
+    'bottom-round-rectangle',
+    'cut-rectangle',
+    'barrel',
+    'rhomboid',
+    'right-rhomboid',
+    'diamond',
+    'round-diamond',
+    'pentagon',
+    'round-pentagon',
+    'hexagon',
+    'round-hexagon',
+    'concave-hexagon',
+    'heptagon',
+    'round-heptagon',
+    'octagon',
+    'round-octagon',
+    'star',
+    'tag',
+    'round-tag',
+    'vee',
+] as const;
+
+type Shape = (typeof Shape)[number];
 
 type EdgeType = 'inheritance' | 'association';
 
@@ -523,14 +526,14 @@ function getWebviewContent(): string {
         .search-button {
             border: none;
             padding: 10px 15px;
-            background-color: #007BFF;
+            background-color: #ffda8f;
             color: white;
             font-size: 1rem;
             cursor: pointer;
             transition: background-color 0.3s ease;
         }
         .search-button:hover {
-            background-color: #0056b3;
+            background-color: #dd9c47;
         }
         .separator {
           width: 1px;

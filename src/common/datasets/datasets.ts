@@ -10,8 +10,13 @@ import {
     ensureComponentsExist,
     getRelativePath,
 } from '../utils/uriutils';
-import { datasetSource, finallySetEnabledPlugins } from '../utils/configutils';
+import {
+    datasetSource,
+    finallySetEnabledPlugins,
+    getFileParserPolicyConfig,
+} from '../utils/configutils';
 import { loadCustomDatasets } from './customDatasets';
+import { MythicNodeHandler } from '../mythicnodes/MythicNode';
 
 // GitHub URL to fetch data from
 export const GITHUB_BASE_URL = 'https://raw.githubusercontent.com/Lxlp38/MythicScribe/master/';
@@ -128,8 +133,11 @@ export async function loadDatasets() {
         await initializeExtensionDatasetsClonedStorage();
     }
     ScribeEnumHandler.loadEnumDatasets();
-    await Promise.all([ScribeMechanicHandler.loadMechanicDatasets(), loadCustomDatasets()]);
+    await Promise.allSettled([ScribeMechanicHandler.loadMechanicDatasets(), loadCustomDatasets()]);
     finallySetEnabledPlugins();
+    if (getFileParserPolicyConfig('parseOnStartup')) {
+        MythicNodeHandler.scanAllDocuments();
+    }
     datasetsLoadedEventEmitter.fire();
 }
 
