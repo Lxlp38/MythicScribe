@@ -7,22 +7,7 @@ import { ScribeEnumHandler, StaticScribeEnum, WebScribeEnum } from './ScribeEnum
 import { fetchJsonFromLocalFile, fetchJsonFromURL, loadDatasets } from './datasets';
 import { Log } from '../utils/logger';
 import { changeCustomDatasetsSource } from '../migration/migration';
-
-enum CustomDatasetElementType {
-    BUNDLE = 'Bundle',
-    ENUM = 'Enum',
-    MECHANIC = 'Mechanic',
-    CONDITION = 'Condition',
-    TRIGGER = 'Trigger',
-    TARGETER = 'Targeter',
-    AIGOAL = 'AIGoal',
-    AITARGETER = 'AITarget',
-}
-
-enum CustomDatasetSource {
-    FILE = 'File',
-    LINK = 'Link',
-}
+import { CustomDatasetElementType, CustomDatasetSource } from '../packageData';
 
 interface CustomDataset {
     elementType: CustomDatasetElementType;
@@ -66,7 +51,7 @@ export async function addCustomDataset() {
     }
     Log.debug('addCustomDataset source:', source);
 
-    if (source === CustomDatasetSource.LINK) {
+    if (source === CustomDatasetSource.Link) {
         return addCustomDatasetFromLink(elementType, scope);
     }
 
@@ -93,7 +78,7 @@ export async function addCustomDataset() {
             const fileContent = await vscode.workspace.fs.readFile(uri);
             const data = Buffer.from(fileContent).toString('utf8');
 
-            if (elementType === CustomDatasetElementType.ENUM) {
+            if (elementType === CustomDatasetElementType.Enum) {
                 const enumDataset = JSON.parse(data);
                 if (!enumDataset) {
                     Log.error(`Error parsing file content.`);
@@ -216,7 +201,7 @@ export async function createBundleDataset() {
     Log.debug('createBundleDataset bundlePath:', bundlePath.fsPath);
 
     const bundleData = datasets.map((dataset) => {
-        if (dataset.mapping.source === CustomDatasetSource.FILE) {
+        if (dataset.mapping.source === CustomDatasetSource.File) {
             const bundleDir = path.dirname(bundlePath.fsPath);
             const relativePath = path.relative(
                 bundleDir,
@@ -265,8 +250,8 @@ export async function createBundleDataset() {
             }
         }
         existingMappings.push({
-            elementType: CustomDatasetElementType.BUNDLE,
-            source: CustomDatasetSource.FILE,
+            elementType: CustomDatasetElementType.Bundle,
+            source: CustomDatasetSource.File,
             pathOrUrl: bundlePath.toString(),
         });
         await config.update('customDatasets', existingMappings, scope?.target);
@@ -293,7 +278,7 @@ async function addCustomDatasetFromLink(elementtype: string, scope: vscode.Confi
         // Pass the URI as a string to the finalize function
         await finalizeCustomDatasetAddition(
             elementtype as CustomDatasetElementType,
-            CustomDatasetSource.LINK,
+            CustomDatasetSource.Link,
             uri.toString(),
             scope
         );
@@ -364,9 +349,9 @@ export async function loadCustomDatasets() {
 
 async function processCustomDatasetEntry(entry: CustomDataset, stack?: string[]) {
     Log.debug('Processing custom dataset entry:', entry.pathOrUrl);
-    if (entry.elementType === CustomDatasetElementType.BUNDLE) {
+    if (entry.elementType === CustomDatasetElementType.Bundle) {
         await loadBundleDataset(entry, stack);
-    } else if (entry.elementType === CustomDatasetElementType.ENUM) {
+    } else if (entry.elementType === CustomDatasetElementType.Enum) {
         const fileName = entry.pathOrUrl.split('/').reverse()[0].replace('.json', '').toLowerCase();
         const ifFileSource = isFileSource(entry.source);
         const clazz = ifFileSource ? StaticScribeEnum : WebScribeEnum;
@@ -384,12 +369,12 @@ async function processCustomDatasetEntry(entry: CustomDataset, stack?: string[])
 }
 
 const CustomDatasetElementTypeAssociationMap = {
-    [CustomDatasetElementType.MECHANIC]: () => ScribeMechanicHandler.registry.mechanic,
-    [CustomDatasetElementType.TARGETER]: () => ScribeMechanicHandler.registry.targeter,
-    [CustomDatasetElementType.CONDITION]: () => ScribeMechanicHandler.registry.condition,
-    [CustomDatasetElementType.TRIGGER]: () => ScribeMechanicHandler.registry.trigger,
-    [CustomDatasetElementType.AIGOAL]: () => ScribeMechanicHandler.registry.aigoal,
-    [CustomDatasetElementType.AITARGETER]: () => ScribeMechanicHandler.registry.aitarget,
+    [CustomDatasetElementType.Mechanic]: () => ScribeMechanicHandler.registry.mechanic,
+    [CustomDatasetElementType.Targeter]: () => ScribeMechanicHandler.registry.targeter,
+    [CustomDatasetElementType.Condition]: () => ScribeMechanicHandler.registry.condition,
+    [CustomDatasetElementType.Trigger]: () => ScribeMechanicHandler.registry.trigger,
+    [CustomDatasetElementType.AIGoal]: () => ScribeMechanicHandler.registry.aigoal,
+    [CustomDatasetElementType.AITarget]: () => ScribeMechanicHandler.registry.aitarget,
 };
 async function processMechanicDatasetEntry(
     entry: MechanicDataset,
@@ -450,10 +435,10 @@ async function loadBundleDataset(dataset: CustomDataset, stack: string[] = ['Myt
 }
 
 function isFileSource(source?: CustomDatasetSource) {
-    return source === CustomDatasetSource.FILE;
+    return source === CustomDatasetSource.File;
 }
 function isLinkSource(source?: CustomDatasetSource) {
-    return source === CustomDatasetSource.LINK;
+    return source === CustomDatasetSource.Link;
 }
 
 function isRelativePath(path: string) {

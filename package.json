@@ -193,8 +193,8 @@
           "title": "Dataset",
           "type": "string",
           "enum": [
-            "GitHub",
-            "Local"
+            "Local",
+            "GitHub"
           ],
           "default": "Local",
           "description": "Select what dataset to use: `GitHub` fetches the latest datasets from the repository, while `Local` uses the native one that came bundled with the extension. The affected datasets are only those for mechanics, targeters, triggers and conditions"
@@ -228,7 +228,8 @@
           "type": "string",
           "enum": [
             "main",
-            "shorter"
+            "shorter",
+            "longer"
           ],
           "default": "main",
           "description": "Which attribute alias should be used in autocompletions."
@@ -243,19 +244,21 @@
                 "type": "string",
                 "enum": [
                   "Bundle",
+                  "Enum",
                   "Mechanic",
                   "Condition",
                   "Trigger",
                   "Targeter",
-                  "Enum"
+                  "AIGoal",
+                  "AITarget"
                 ],
                 "description": "The type of element to associate."
               },
               "source": {
                 "type": "string",
                 "enum": [
-                  "Link",
-                  "File"
+                  "File",
+                  "Link"
                 ],
                 "description": "The source of the dataset."
               },

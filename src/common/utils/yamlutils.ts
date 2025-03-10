@@ -11,7 +11,7 @@ import { FileObject, FileObjectMap } from '../objectInfos';
 import { ArrayListNode } from './genericDataStructures';
 import { checkFileType, FileType, FileTypeToSchema } from '../subscriptions/SubscriptionHelper';
 
-const yamlKeyRegex = /^(?<indent>\s*)(?<key>[^#:\s]+:)/;
+const yamlKeyRegex = /^(?<indent>\s*)(?<key>[^#:\s]+):/;
 function getYamlRegexInfo(match: RegExpMatchArray): { indent: string; key: string } {
     return {
         indent: match.groups!.indent,
@@ -122,7 +122,7 @@ function buildYamlKeyTree(
 
     while (i < keys.length) {
         const current = keys[i];
-        const [rawKey, , indent] = current;
+        const [keyName, , indent] = current;
         if (indent <= baseIndent) {
             // This key is not a child of the current parent.
             break;
@@ -133,7 +133,6 @@ function buildYamlKeyTree(
         let fileObj: FileObject | undefined = undefined;
         let childSchema: FileObjectMap | null = null;
         if (schemaMapping) {
-            const keyName = rawKey.replace(/:$/, '');
             fileObj = schemaMapping[keyName];
             // If the file object defines nested keys, use that mapping for its children.
             if (fileObj && 'keys' in fileObj && fileObj.keys) {

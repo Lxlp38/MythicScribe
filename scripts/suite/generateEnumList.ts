@@ -1,6 +1,6 @@
 import * as fs from 'fs';
 import * as path from 'path';
-import { localEnums, volatileEnums, scriptedEnums, attributeSpecialValues } from '../src/common/datasets/enumSources';
+import { localEnums, volatileEnums, scriptedEnums, attributeSpecialValues } from './../../src/common/datasets/enumSources';
 
 interface enumInfo { id: string, path: string | null, type: string }
 
@@ -17,7 +17,7 @@ export function generateEnumList() {
     iterateOverEnum(enums, Object.keys(scriptedEnums), EnumType.Scripted);
     iterateOverEnum(enums, Object.keys(attributeSpecialValues), EnumType.Scripted);
 
-    const outputPath = path.join(__dirname, '../generated/enumList/enumList');
+    const outputPath = path.join(__dirname, '../../generated/enumList/enumList');
     const outputPath_md = outputPath + '.md';
     const outputPath_json = outputPath + '.json';
     const outputPath_txt = outputPath + '.txt';

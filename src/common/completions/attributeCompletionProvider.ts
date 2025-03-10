@@ -3,6 +3,7 @@ import * as vscode from 'vscode';
 import { keyAliases } from '../objectInfos';
 import { MythicAttribute, MythicMechanic, ScribeMechanicHandler } from '../datasets/ScribeMechanic';
 import { EnumDatasetValue } from '../datasets/ScribeEnum';
+import { attributeAliasUsedInCompletions as attributeAliasUsedInCompletionsEnum } from '../packageData';
 import {
     checkShouldPrefixComplete,
     getEnumCompletion,
@@ -62,19 +63,35 @@ export function attributeCompletionProvider() {
                 const completionItems: vscode.CompletionItem[] = [];
 
                 attributes.forEach((attribute: MythicAttribute) => {
-                    let mainname = attribute.name[0];
-                    let aliases = attribute.name;
+                    let mainname: string;
+                    let aliases: string[];
 
-                    if (attributeAliasUsedInCompletions === 'shorter') {
-                        mainname = attribute.name.reduce((a: string, b: string) =>
-                            a.length < b.length ? a : b
-                        );
-                        aliases = [mainname];
+                    function finalizeAttributeAliases() {
+                        const aliases = [mainname];
                         attribute.name.forEach((name: string) => {
                             if (name !== mainname) {
                                 aliases.push(name);
                             }
                         });
+                        return aliases;
+                    }
+
+                    switch (attributeAliasUsedInCompletions) {
+                        case attributeAliasUsedInCompletionsEnum.shorter:
+                            mainname = attribute.name.reduce((a: string, b: string) =>
+                                a.length < b.length ? a : b
+                            );
+                            aliases = finalizeAttributeAliases();
+                            break;
+                        case attributeAliasUsedInCompletionsEnum.longer:
+                            mainname = attribute.name.reduce((a: string, b: string) =>
+                                a.length > b.length ? a : b
+                            );
+                            aliases = finalizeAttributeAliases();
+                            break;
+                        default:
+                            mainname = attribute.name[0];
+                            aliases = attribute.name;
                     }
 
                     const attributeType = attribute.type;

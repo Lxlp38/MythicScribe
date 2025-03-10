@@ -1,6 +1,11 @@
 import * as vscode from 'vscode';
 
 import { Log } from './logger';
+import {
+    MinecraftVersions,
+    attributeAliasUsedInCompletions,
+    datasetSource as datasetSourceList,
+} from '../packageData';
 
 const configCache = {
     enableMythicScriptSyntax: undefined as boolean | undefined,
@@ -122,13 +127,13 @@ export function enableShortcuts(): boolean {
     return vscode.workspace.getConfiguration('MythicScribe').get('enableShortcuts') || true;
 }
 
-export function datasetSource() {
+export function datasetSource(): datasetSourceList {
     if (configCache.datasetSource === undefined) {
         configCache.datasetSource = vscode.workspace
             .getConfiguration('MythicScribe')
             .get('datasetSource');
     }
-    return configCache.datasetSource;
+    return configCache.datasetSource as datasetSourceList;
 }
 
 export function enableMythicScriptSyntax() {
@@ -140,13 +145,13 @@ export function enableMythicScriptSyntax() {
     return configCache.enableMythicScriptSyntax;
 }
 
-export function getAttributeAliasUsedInCompletions() {
+export function getAttributeAliasUsedInCompletions(): attributeAliasUsedInCompletions {
     if (configCache.attributeAliasUsedInCompletions === undefined) {
         configCache.attributeAliasUsedInCompletions = vscode.workspace
             .getConfiguration('MythicScribe')
             .get('attributeAliasUsedInCompletions');
     }
-    return configCache.attributeAliasUsedInCompletions;
+    return configCache.attributeAliasUsedInCompletions as attributeAliasUsedInCompletions;
 }
 
 export function getLogLevel() {
@@ -174,7 +179,6 @@ export function getLogLevel() {
     return undefined;
 }
 
-const MinecraftVersions = ['latest', '1.21.3', '1.21.1', '1.20.6', '1.20.5', '1.20.4', '1.19.4'];
 export function minecraftVersion() {
     const config = vscode.workspace.getConfiguration('MythicScribe');
     const value = config.get<string>('minecraftVersion');

@@ -190,7 +190,6 @@ export function fileCompletions(
     objectmap: FileObjectMap
 ): vscode.CompletionItem[] | undefined {
     const keys = yamlutils.getParentKeys(document, position).reverse();
-
     if (keys.length === 0) {
         return undefined;
     }
