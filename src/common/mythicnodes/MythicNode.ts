@@ -13,7 +13,7 @@ enum ParserIntructions {
     DISABLE_PARSING = '# mythicscribe-disable file-parsing',
 }
 
-const NodeRegex = /((?:^#.*$\r?\n\r?)*)^([\w\-\_]+):((?:.*(?:\r?\n\r?(?=^\s))?)*)/gm;
+const NodeRegex = /((?:^#.*$\r?\n\r?)*)^([\w\-\_]+):((?:.*(?:\r?\n\r?(?=^[\s#]))?)*)/gm;
 
 vscode.workspace.onDidSaveTextDocument((document) => {
     if (!getFileParserPolicyConfig('parseOnSave')) {
@@ -56,7 +56,7 @@ interface NodeElement extends NodeBaseElement {
 
 export class MythicNode {
     templates: Set<string> = new Set();
-    outEdge: { [K in keyof MythicNodeHandlerRegistry]: Set<string> } = {
+    outEdge: { [K in MythicNodeHandlerRegistryKey]: Set<string> } = {
         metaskills: new Set(),
         mobs: new Set(),
         items: new Set(),
@@ -71,26 +71,23 @@ export class MythicNode {
         public name: NodeElement,
         public body: NodeBaseElement
     ) {
-        if (this.description.text && this.registry.type === 'metaskills') {
-            try {
-                this.matchTemplate(
-                    this.description.text,
-                    /^#\s*@((?:Called)|(?:Callers)):.*/gm
-                ).forEach((template) => {
-                    this.templates.add(template);
-                });
-            } catch {
-                Log.error(`Error parsing description for ${this.registry.type} ${this.name.text}`);
-            }
-        }
+        this.description.text = this.description.text?.replace(/^#(\s*)/, '');
 
         if (!this.body.text) {
             return;
         }
+
+        for (const type of MythicNodeHandlerRegistryKey) {
+            this.matchDecorators(this.body.text, type).forEach((decorator) => {
+                this.outEdge[type].add(decorator);
+            });
+        }
+
         this.body.text = this.body.text
             .split('\n')
-            .map((line) => line.replace(/\s#.*/, ''))
+            .map((line) => line.replace(/\s*#.*/, ''))
             .join('\n');
+
         if (this.registry.type === 'mobs' || this.registry.type === 'items') {
             this.matchTemplate(this.body.text).forEach((template) => {
                 if (this.templates.has(template)) {
@@ -105,12 +102,10 @@ export class MythicNode {
                 this.outEdge.metaskills.add(action);
             });
         }
-        for (const type in this.outEdge) {
-            this.matchAttributes(this.body.text, type as keyof MythicNodeHandlerRegistry).forEach(
-                (attribute) => {
-                    this.outEdge[type as keyof MythicNodeHandlerRegistry].add(attribute);
-                }
-            );
+        for (const type of MythicNodeHandlerRegistryKey) {
+            this.matchAttributes(this.body.text, type).forEach((attribute) => {
+                this.outEdge[type].add(attribute);
+            });
         }
 
         this.matchSkillShortcut(this.body.text).forEach((skillShortcut) => {
@@ -127,15 +122,28 @@ export class MythicNode {
         const match = body.match(regex);
         const templateList: string[] = [];
         if (match) {
-            const parsedTemplates = match[0]
-                .split(':')[1]
-                .split(',')
-                .map((template) => template.trim())
-                .filter((template) => template.length > 0);
-            templateList.push(...parsedTemplates);
+            templateList.push(...this.processTemplate(match));
         }
         return templateList;
     }
+    private matchDecorators(body: string, type: MythicNodeHandlerRegistryKey): string[] {
+        const regex = MythicNodeHandler.registry[type].decoratorRegex;
+        const matches = body.matchAll(regex);
+        const decorators: string[] = [];
+        for (const match of matches) {
+            decorators.push(...this.processTemplate(match));
+        }
+        return decorators;
+    }
+    processTemplate(match: RegExpMatchArray): string[] {
+        const parsedTemplates = match[0]
+            .split(':')[1]
+            .split(',')
+            .map((template) => template.trim())
+            .filter((template) => template.length > 0);
+        return parsedTemplates;
+    }
+
     private matchConditionActions(body: string): string[] {
         const conditionActionRegex = new RegExp(
             `\\s(?:${Object.keys(ConditionActions).join('|')})\\s([\\w\\-_]+)`,
@@ -148,7 +156,7 @@ export class MythicNode {
         }
         return conditionActions;
     }
-    private matchAttributes(body: string, type: keyof MythicNodeHandlerRegistry): string[] {
+    private matchAttributes(body: string, type: MythicNodeHandlerRegistryKey): string[] {
         const attributeRegex = new RegExp(
             `[{;}]\\s*(?:${Array.from(MythicNodeHandler.registry[type].referenceAttributes).join('|')})\\s*=\\s*([\\w\\-_]+)\\s*[;}]`,
             'gi'
@@ -195,13 +203,15 @@ export class MockMythicNode extends MythicNode {
 }
 
 export class MythicNodeRegistry {
-    readonly type: keyof MythicNodeHandlerRegistry;
+    readonly type: MythicNodeHandlerRegistryKey;
     referenceAttributes: Set<string> = new Set();
     nodes: NodeEntry = new Map();
     nodesByDocument: Map<string, MythicNode[]> = new Map();
+    decoratorRegex: RegExp;
 
     constructor(registry: keyof typeof MythicNodeHandler.registry) {
         this.type = registry;
+        this.decoratorRegex = new RegExp(`^\\s*#\\s?@${registry}?\\s*[\\w\\-_]*\\s*:.+`, 'gm');
     }
 
     registerNode(node: MythicNode): void {
@@ -289,16 +299,17 @@ export class MythicNodeRegistry {
     }
 }
 
-export interface MythicNodeHandlerRegistry {
-    metaskills: MythicNodeRegistry;
-    mobs: MythicNodeRegistry;
-    items: MythicNodeRegistry;
-    droptables: MythicNodeRegistry;
-    stats: MythicNodeRegistry;
-}
+export const MythicNodeHandlerRegistryKey = [
+    'metaskills',
+    'mobs',
+    'items',
+    'droptables',
+    'stats',
+] as const;
+export type MythicNodeHandlerRegistryKey = (typeof MythicNodeHandlerRegistryKey)[number];
 
 export namespace MythicNodeHandler {
-    export const registry: MythicNodeHandlerRegistry = {
+    export const registry: Record<MythicNodeHandlerRegistryKey, MythicNodeRegistry> = {
         metaskills: new MythicNodeRegistry('metaskills'),
         mobs: new MythicNodeRegistry('mobs'),
         items: new MythicNodeRegistry('items'),

@@ -4,7 +4,7 @@ import {
     MockMythicNode,
     MythicNode,
     MythicNodeHandler,
-    MythicNodeHandlerRegistry,
+    MythicNodeHandlerRegistryKey,
 } from './MythicNode';
 import { ctx } from '../../MythicScribe';
 
@@ -63,7 +63,7 @@ type EdgeAdditionalData = {
     opacity: number;
 };
 
-const NodeTypeToAdditionalData: Record<keyof MythicNodeHandlerRegistry, NodeData> = {
+const NodeTypeToAdditionalData: Record<MythicNodeHandlerRegistryKey, NodeData> = {
     mobs: { shape: 'rectangle', color: '#007acc' },
     items: { shape: 'triangle', color: '#00cc00' },
     metaskills: { shape: 'ellipse', color: '#ffcc00' },
@@ -102,7 +102,7 @@ interface CytoscapeNode {
         id: string;
         label?: string;
         shape?: Shape;
-        registry: keyof MythicNodeHandlerRegistry;
+        registry: MythicNodeHandlerRegistryKey;
         nodeName: string;
         unknown?: boolean;
     };
@@ -147,7 +147,7 @@ const GraphOptions = {
     },
 };
 
-function getIdName(id: keyof MythicNodeHandlerRegistry | MythicNode, name?: string): string {
+function getIdName(id: MythicNodeHandlerRegistryKey | MythicNode, name?: string): string {
     if (typeof id === 'string') {
         return `${id}_${name}`;
     }
@@ -190,9 +190,7 @@ function buildCytoscapeElements(
     edges: CytoscapeEdge[];
 } {
     const openUris: string[] = [];
-    let iterableKeys = Object.keys(
-        MythicNodeHandler.registry
-    ) as (keyof MythicNodeHandlerRegistry)[];
+    let iterableKeys = Array.from(MythicNodeHandlerRegistryKey);
     const cyNodesFoundNodes: Map<string, MythicNode> = new Map();
     const cyNodesUnknownNodes: Map<string, MythicNode> = new Map();
     const cyNodesOutOfScopeNodes: Map<string, MythicNode> = new Map();
@@ -370,7 +368,7 @@ function processMessage(
         switch (message.type) {
             case 'goToNode':
                 const node = MythicNodeHandler.registry[
-                    message.data.registry as keyof MythicNodeHandlerRegistry
+                    message.data.registry as MythicNodeHandlerRegistryKey
                 ].getNode(message.data.nodeName as string);
                 if (!node) {
                     return;
@@ -381,7 +379,7 @@ function processMessage(
                 break;
             case 'discoverNode':
                 const newNode = MythicNodeHandler.registry[
-                    message.data.registry as keyof MythicNodeHandlerRegistry
+                    message.data.registry as MythicNodeHandlerRegistryKey
                 ].getNode(message.data.nodeName as string);
                 if (!newNode) {
                     return;

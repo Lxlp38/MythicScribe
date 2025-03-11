@@ -8,7 +8,7 @@ import { ctx } from '../../MythicScribe';
 import { ScribeCloneableFile } from './datasets';
 import { addMechanicCompletions } from '../utils/completionhelper';
 import { attributeSpecialValues } from './enumSources';
-import { MythicNodeHandler, MythicNodeHandlerRegistry } from '../mythicnodes/MythicNode';
+import { MythicNodeHandler, MythicNodeHandlerRegistryKey } from '../mythicnodes/MythicNode';
 import { timeCounter } from '../utils/timeUtils';
 
 export enum ObjectType {
@@ -276,7 +276,7 @@ export interface Attribute {
     inheritable?: boolean;
 }
 
-const fromEnumToMythicNodeRegistryKey: Record<string, keyof MythicNodeHandlerRegistry> = {
+const fromEnumToMythicNodeRegistryKey: Record<string, MythicNodeHandlerRegistryKey> = {
     metaskill: 'metaskills',
     item: 'items',
     mob: 'mobs',

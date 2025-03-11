@@ -116,11 +116,11 @@ export async function showInfoMessageWithOptions(
     message: string,
     options: { [key: string]: string }
 ) {
-    Log.info(message);
+    Log.debug(message);
     const optionKeys = Object.keys(options);
     return vscode.window.showInformationMessage(message, ...optionKeys).then((selected) => {
         if (selected) {
-            Log.info(`Opened ${options[selected]}`);
+            Log.debug(`Opened ${options[selected]}`);
             return vscode.env.openExternal(vscode.Uri.parse(options[selected]));
         }
         return undefined;

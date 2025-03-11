@@ -229,6 +229,33 @@
             "patterns": [
                 {
                     "name": "comment.line.number-sign.mythicscript",
+                    "match": "^\\s*#(.*)",
+                    "captures": {
+                        "1": {
+                            "patterns": [
+                                {
+                                    "match": "@(?:metaskill|mob|item|dataset|stat)s?\\b(:(.+)?)?",
+                                    "name": "keyword.control.mythicscript",
+                                    "captures": {
+                                        "1": {
+                                            "name": "storage.modifier.mythicscript"
+                                        },
+                                        "2": {
+                                            "patterns": [
+                                                {
+                                                    "include": "#templateItems"
+                                                }
+                                            ]
+                                        }
+                                    }
+                                    
+                                }
+                            ]
+                        }
+                    }
+                },
+                {
+                    "name": "comment.line.number-sign.mythicscript",
                     "match": "(^|\\s)#.*"
                 },
                 {
@@ -256,18 +283,25 @@
                         "1": {
                             "patterns": [
                                 {
-                                    "match": "\\b\\w+\\b",
-                                    "name": "entity.name.type.class.mythicscript"
-                                },
-                                {
-                                    "match": ",",
-                                    "name": "keyword.control.mythicscript"
+                                    "include": "#templateItems"
                                 }
                             ]
                         }
                     }
                 }
             ]
-        }
+        },
+        "templateItems": {
+            "patterns": [
+                {
+                    "match": "\\b\\w+\\b",
+                    "name": "entity.name.type.class.mythicscript"
+                },
+                {
+                    "match": ",",
+                    "name": "keyword.control.mythicscript"
+                }
+            ]
+}
     }
 }
