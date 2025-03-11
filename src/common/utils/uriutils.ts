@@ -18,10 +18,15 @@ export enum ComponentStatus {
  * @param uri The Uri of the directory or file.
  */
 export async function ensureComponentsExist(uri: vscode.Uri): Promise<ComponentStatus> {
-    async function fileExistancePipeline() {
-        const parentDir = vscode.Uri.joinPath(uri, '..');
-        await ensureDirectoryExists(parentDir);
-        await ensureFileExists(uri);
+    async function fileExistancePipeline(uri: vscode.Uri) {
+        const parentDirPath = path.dirname(uri.fsPath);
+        const parentDir = vscode.Uri.file(parentDirPath);
+        const dirStatus = await ensureDirectoryExists(parentDir);
+        if (dirStatus === ComponentStatus.Error) {
+            return ComponentStatus.Error;
+        }
+        const fileStatus = await ensureFileExists(uri);
+        return fileStatus;
     }
     return await vscode.workspace.fs.stat(uri).then(
         (stat) => {
@@ -36,12 +41,10 @@ export async function ensureComponentsExist(uri: vscode.Uri): Promise<ComponentS
 
                 if (isDirectory) {
                     Log.debug('Creating directory at', uri.fsPath);
-                    await ensureDirectoryExists(uri);
-                } else {
-                    Log.debug('Creating file at', uri.fsPath);
-                    await fileExistancePipeline();
+                    return await ensureDirectoryExists(uri);
                 }
-                return ComponentStatus.Created;
+                Log.debug('Creating file at', uri.fsPath);
+                return await fileExistancePipeline(uri);
             } else {
                 Log.error(error, 'Error while ensuring components exist');
                 return ComponentStatus.Error;
@@ -54,14 +57,22 @@ export async function ensureComponentsExist(uri: vscode.Uri): Promise<ComponentS
  * Ensures that a directory exists. If it doesn't, it creates it.
  * @param uri The Uri of the directory.
  */
-async function ensureDirectoryExists(uri: vscode.Uri): Promise<void> {
+async function ensureDirectoryExists(uri: vscode.Uri): Promise<ComponentStatus> {
     try {
         await vscode.workspace.fs.stat(uri);
+        return ComponentStatus.Exists;
     } catch (error) {
         if (error instanceof vscode.FileSystemError) {
-            await vscode.workspace.fs.createDirectory(uri);
+            try {
+                await vscode.workspace.fs.createDirectory(uri);
+                return ComponentStatus.Created;
+            } catch (error) {
+                Log.error(error, `Error while creating directory at ${uri.fsPath}`);
+                return ComponentStatus.Error;
+            }
         } else {
-            throw error;
+            Log.error(error, `Error while ensuring directory ${uri.fsPath} exists`);
+            return ComponentStatus.Error;
         }
     }
 }
@@ -70,14 +81,22 @@ async function ensureDirectoryExists(uri: vscode.Uri): Promise<void> {
  * Ensures that a file exists. If it doesn't, it creates it.
  * @param uri The Uri of the file.
  */
-async function ensureFileExists(uri: vscode.Uri): Promise<void> {
+async function ensureFileExists(uri: vscode.Uri): Promise<ComponentStatus> {
     try {
         await vscode.workspace.fs.stat(uri);
+        return ComponentStatus.Exists;
     } catch (error) {
         if (error instanceof vscode.FileSystemError) {
-            await vscode.workspace.fs.writeFile(uri, new Uint8Array());
+            try {
+                await vscode.workspace.fs.writeFile(uri, new Uint8Array());
+                return ComponentStatus.Created;
+            } catch (error) {
+                Log.error(error, `Error while creating file at ${uri.fsPath}`);
+                return ComponentStatus.Error;
+            }
         } else {
-            throw error;
+            Log.error(error, `Error while ensuring file ${uri.fsPath} exists`);
+            return ComponentStatus.Error;
         }
     }
 }
@@ -92,6 +111,9 @@ const extensionRoot = vscode.extensions.getExtension('lxlp.mythicscribe')!.exten
  */
 export function getRelativePath(localPath: string): string {
     const relativePath = localPath.replace(extensionRoot, '');
+    if (relativePath.startsWith(path.sep)) {
+        return relativePath.substring(1);
+    }
     return relativePath;
 }
 

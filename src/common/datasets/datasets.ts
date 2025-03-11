@@ -82,8 +82,12 @@ export class ScribeCloneableFile<T> {
 
     private async updateEDCS(data: T[]) {
         const json = JSON.stringify(data);
-        Log.debug('Feched data:', json);
-        await ensureComponentsExist(this.edcsUri);
+        Log.trace('Feched data:', json);
+        const status = await ensureComponentsExist(this.edcsUri);
+        if (status === ComponentStatus.Error) {
+            Log.warn(`Failed to ensure EDCS exists: ${this.edcsUri.fsPath}`);
+            return;
+        }
         await vscode.workspace.fs.writeFile(this.edcsUri, Buffer.from(json));
         Log.debug('Updated EDCS:', this.edcsUri.path);
     }
@@ -116,6 +120,7 @@ export async function loadDatasets() {
     Log.debug('Loading datasets from', datasetSource() || 'undefined');
 
     if (datasetSource() === 'GitHub') {
+        await initializeExtensionDatasetsClonedStorage();
         const latestCommitHash = await fetchLatestCommitHash();
         const savedCommitHash = ctx.globalState.get<string>('latestCommitHash');
         if (!savedCommitHash || latestCommitHash !== savedCommitHash) {
@@ -130,7 +135,6 @@ export async function loadDatasets() {
         } else {
             Log.debug('Commit hash matches, no need to update datasets');
         }
-        await initializeExtensionDatasetsClonedStorage();
     }
     ScribeEnumHandler.loadEnumDatasets();
     await Promise.allSettled([ScribeMechanicHandler.loadMechanicDatasets(), loadCustomDatasets()]);

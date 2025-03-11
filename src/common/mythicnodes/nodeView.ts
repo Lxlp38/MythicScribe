@@ -138,11 +138,11 @@ const GraphOptions = {
     filters: {
         query: 'Select the elements to hide',
         options: [
-            { label: 'Mobs', value: selectedElementsFilter.mobs },
-            { label: 'Items', value: selectedElementsFilter.items },
-            { label: 'Metaskills', value: selectedElementsFilter.metaskills },
-            { label: 'Droptables', value: selectedElementsFilter.droptables },
-            { label: 'Stats', value: selectedElementsFilter.stats },
+            { label: 'Hide Mobs', value: selectedElementsFilter.mobs },
+            { label: 'Hide Items', value: selectedElementsFilter.items },
+            { label: 'Hide Metaskills', value: selectedElementsFilter.metaskills },
+            { label: 'Hide Droptables', value: selectedElementsFilter.droptables },
+            { label: 'Hide Stats', value: selectedElementsFilter.stats },
         ],
     },
 };

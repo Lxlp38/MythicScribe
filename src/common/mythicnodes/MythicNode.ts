@@ -13,7 +13,14 @@ enum ParserIntructions {
     DISABLE_PARSING = '# mythicscribe-disable file-parsing',
 }
 
-const NodeRegex = /((?:^#.*$\r?\n\r?)*)^([\w\-\_]+):((?:.*(?:\r?\n\r?(?=^[\s#]))?)*)/gm;
+const NodeRegex =
+    /(?<descriptionkey>(?<description>(?:^#.*$\r?\n\r?)*)^(?<key>[\w\-\_]+):)(?<body>(?:.*(?:\r?\n\r?(?!((^#.*$\r?\n\r?)*)^([\w\-\_]+):))?)*)/gm;
+//  /(?<descriptionkey>(?<description>(?:^#.*$\r?\n\r?)*)^(?<key>[\w\-\_]+):)(?<body>(?:.*(?:\r?\n\r?(?=^[\s#](?!((^#.*$\r?\n\r?)*)^([\w\-\_]+):)))?)*)/gm;
+
+// This is what we could have had with proper regexes
+// But here we are, in ECMAScript
+// const NodeRegex =
+//     /(?<descriptionkey>(?<description>(?:^#.*$\r?\n\r?)*)^(?<key>[\w\-\_]+):)(?<body>(?:.*(?:\r?\n\r?(?=^[\s#](?!\g<descriptionkey>)))?)*)/gm;
 
 vscode.workspace.onDidSaveTextDocument((document) => {
     if (!getFileParserPolicyConfig('parseOnSave')) {
@@ -71,7 +78,7 @@ export class MythicNode {
         public name: NodeElement,
         public body: NodeBaseElement
     ) {
-        this.description.text = this.description.text?.replace(/^#(\s*)/, '');
+        this.description.text = this.description.text?.replace(/^#/gm, '');
 
         if (!this.body.text) {
             return;
@@ -261,32 +268,32 @@ export class MythicNodeRegistry {
         }
         const matches = document.getText().matchAll(NodeRegex);
         for (const match of matches) {
+            const description = match.groups?.description || '';
+            const key = match.groups!.key;
+            const body = match.groups?.body || '';
+
             const matchStart = document.positionAt(match.index);
+            const matchKeyStart = document.positionAt(match.index + description.length);
+            const matchBodyStart = document.positionAt(
+                match.index + description.length + key.length
+            );
             const matchEnd = document.positionAt(match.index + match[0].length);
+
             const node = new MythicNode(
                 this,
                 document,
                 new vscode.Range(matchStart, matchEnd),
                 {
-                    text: match[1],
-                    range: new vscode.Range(
-                        matchStart,
-                        document.positionAt(match.index + match[1].length)
-                    ),
+                    text: description,
+                    range: new vscode.Range(matchStart, matchKeyStart),
                 },
                 {
-                    text: match[2],
-                    range: new vscode.Range(
-                        document.positionAt(match.index + match[1].length),
-                        document.positionAt(match.index + match[1].length + match[2].length)
-                    ),
+                    text: key,
+                    range: new vscode.Range(matchKeyStart, matchBodyStart),
                 },
                 {
-                    text: match[3],
-                    range: new vscode.Range(
-                        document.positionAt(match.index + match[1].length + match[2].length),
-                        matchEnd
-                    ),
+                    text: body,
+                    range: new vscode.Range(matchBodyStart, matchEnd),
                 }
             );
             this.registerNode(node);

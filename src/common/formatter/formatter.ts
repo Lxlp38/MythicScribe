@@ -95,7 +95,7 @@ function restoreComments(text: string, document: vscode.TextDocument): string {
         const match = lines[i].match(/^(\s*)#__MYTHICSCRIBE_COMMENT_START__/);
         // Process Inline Comment
         if (!match) {
-            lines[i].replace(placeholder, comment.text);
+            lines[i] = lines[i].replace(placeholder, comment.text);
             continue;
         }
 

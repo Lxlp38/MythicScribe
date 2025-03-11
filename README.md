@@ -31,11 +31,14 @@ It provides hover text with information about the pointed object and offers auto
 </div>
 
 - [Features](#features)
-    - [Syntax Highlighting](#syntax-highlighting)
-    - [Autocompletions](#autocompletions)
-    - [Hover Information](#hover-information)
-    - [Formatter](#formatter)
-    - [File Parser](#file-parser)
+  - [Syntax Highlighting](#syntax-highlighting)
+  - [Autocompletions](#autocompletions)
+  - [Hover Information](#hover-information)
+  - [Formatter](#formatter)
+  - [File Parser](#file-parser)
+    - [Go To Definition](#go-to-definition)
+    - [Created Skill/Mobs/Items/Stats Autocompletions](#created-skillmobsitemsstats-autocompletions)
+  - [Config Visualization](#config-visualization)
 - [Extension Settings](#extension-settings)
 - [Extension Commands](#extension-commands)
 - [Known Issues](#known-issues)
@@ -45,21 +48,30 @@ It provides hover text with information about the pointed object and offers auto
 
 # Features
 
-### Syntax Highlighting
+## Syntax Highlighting
 ![Syntax Highlighting Demo](https://raw.githubusercontent.com/Lxlp38/MythicScribe/refs/heads/master/demos/syntax-highlighting-demo.png)
 
-### Autocompletions
+## Autocompletions
 ![Autocompletion Demo](https://raw.githubusercontent.com/Lxlp38/MythicScribe/refs/heads/master/demos/autocompletion-demo.gif)
 ![Autocompletion Demo](https://raw.githubusercontent.com/Lxlp38/MythicScribe/refs/heads/master/demos/autocompletion2-demo.gif)
+![Color Picker](https://raw.githubusercontent.com/Lxlp38/MythicScribe/refs/heads/master/demos/ColorPicker-demo.gif)
 
-### Hover Information
+## Hover Information
 ![Hover Demo](https://raw.githubusercontent.com/Lxlp38/MythicScribe/refs/heads/master/demos/hover-demo.gif)
 
-### Formatter
+## Formatter
 ![Formatter Demo](https://raw.githubusercontent.com/Lxlp38/MythicScribe/refs/heads/master/demos/formatter-demo.gif)
 
-### File Parser
-![File Parser Demo](https://raw.githubusercontent.com/Lxlp38/MythicScribe/refs/heads/master/demos/fileparser-demo.gif)
+## File Parser
+### Go To Definition
+![Go To Definition](https://raw.githubusercontent.com/Lxlp38/MythicScribe/refs/heads/master/demos/GoToDefinition-demo.gif)
+### Created Skill/Mobs/Items/Stats Autocompletions
+![Node Autocompletions](https://raw.githubusercontent.com/Lxlp38/MythicScribe/refs/heads/master/demos/NodeAutocompletion-demo.gif)
+
+## Config Visualization
+![Node Graph](https://raw.githubusercontent.com/Lxlp38/MythicScribe/refs/heads/master/demos/NodeGraph-demo.gif)
+![Node Go To Definition](https://raw.githubusercontent.com/Lxlp38/MythicScribe/refs/heads/master/demos/NodeDefinition-demo.gif)
+
 
 
 # Extension Settings
