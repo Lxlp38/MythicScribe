@@ -32,6 +32,13 @@ export class Logger {
         }
     }
 
+    custom(level: LogLevel, type: string, message: string): void {
+        if (level >= this.logLevel) {
+            const timestamp = new Date().toISOString();
+            this.outputChannel.appendLine(`${timestamp} [${type}] ${message}`);
+        }
+    }
+
     log(message: string, level: LogLevel = LogLevel.Info): void {
         if (level >= this.logLevel) {
             const timestamp = new Date().toISOString();

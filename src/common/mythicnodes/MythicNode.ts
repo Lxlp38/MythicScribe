@@ -1,4 +1,5 @@
 import * as vscode from 'vscode';
+import pLimit from 'p-limit';
 
 import { checkFileType, FileType } from '../subscriptions/SubscriptionHelper';
 import { Log } from '../utils/logger';
@@ -61,6 +62,8 @@ interface NodeElement extends NodeBaseElement {
     text: string;
 }
 
+let NodeMatchTime = 0;
+
 export class MythicNode {
     templates: Set<string> = new Set();
     outEdge: { [K in MythicNodeHandlerRegistryKey]: Set<string> } = {
@@ -78,6 +81,7 @@ export class MythicNode {
         public name: NodeElement,
         public body: NodeBaseElement
     ) {
+        const time = timeCounter();
         this.description.text = this.description.text?.replace(/^#/gm, '');
 
         if (!this.body.text) {
@@ -119,6 +123,7 @@ export class MythicNode {
             this.outEdge.metaskills.add(skillShortcut);
         });
         delete body.text;
+        NodeMatchTime += time.delta();
     }
 
     get hash(): string {
@@ -334,39 +339,79 @@ export namespace MythicNodeHandler {
         }
     }
 
-    export async function scanFile(document: vscode.Uri) {
-        const file = await vscode.workspace.openTextDocument(document);
-        const type = fromFileTypeToRegistryKey.get(checkFileType(file));
+    type ProcessFileResult = [MythicNodeHandlerRegistryKey, vscode.TextDocument] | null;
+    async function processFile(file: vscode.Uri): Promise<ProcessFileResult> {
+        const openedFile = await vscode.workspace.openTextDocument(file);
+        const type = fromFileTypeToRegistryKey.get(checkFileType(openedFile));
         if (type) {
-            MythicNodeHandler.registry[type].scanDocument(file);
+            return [type, openedFile];
         }
+        return null;
     }
 
     export async function scanAllDocuments(): Promise<void> {
         const time = timeCounter();
         Log.debug('Scanning all documents');
+
         const include =
             (getFileParserPolicyConfig('parsingGlobPattern') as string | undefined) ||
             '**/*.{yaml,yml}';
 
         const exclude = getFileParserPolicyConfig('excludeGlobPattern') as string | undefined;
 
+        const limitAmount = getFileParserPolicyConfig('parallelParsingLimit') as number;
+        if (limitAmount <= 0) {
+            Log.warn('File Parsing disabled because parallelParsingLimit is set to <0');
+            return;
+        }
+        const limit = pLimit(limitAmount);
+
+        const openFindTime = timeCounter();
         const files = await vscode.workspace.findFiles(
             include,
             exclude && exclude !== '' ? exclude : undefined
         );
-        for (const file of files) {
-            await scanFile(file);
+        Log.custom(
+            vscode.LogLevel.Trace,
+            'Time Report',
+            `Document Find Time: ${openFindTime.stop()}`
+        );
+
+        const openDocumentTime = timeCounter();
+        const tasks = files.map((file) => limit(() => processFile(file)));
+        const results = await Promise.all(tasks);
+        const openedFiles = results.filter((result) => result !== null);
+        Log.custom(
+            vscode.LogLevel.Trace,
+            'Time Report',
+            `Document Open Time: ${openDocumentTime.stop()}`
+        );
+
+        const documentScanTime = timeCounter();
+        for (const [type, file] of openedFiles) {
+            registry[type].scanDocument(file);
         }
-        Log.debug('Scanned all documents in', time.stop());
+        Log.custom(
+            vscode.LogLevel.Trace,
+            'Time Report',
+            `Document Scan Time: ${documentScanTime.stop()}`
+        );
+
+        Log.custom(vscode.LogLevel.Trace, 'Time Report', `Node Match Time: ${NodeMatchTime} ms`);
+
+        Log.custom(
+            vscode.LogLevel.Trace,
+            'Time Report',
+            `Total Time for File Parsing: ${time.stop()}`
+        );
+        Log.debug('Finished scanning all documents');
     }
 }
 
-export const fromFileTypeToRegistryKey: Map<FileType, keyof typeof MythicNodeHandler.registry> =
-    new Map([
-        [FileType.METASKILL, 'metaskills'],
-        [FileType.MOB, 'mobs'],
-        [FileType.ITEM, 'items'],
-        [FileType.DROPTABLE, 'droptables'],
-        [FileType.STAT, 'stats'],
-    ]);
+export const fromFileTypeToRegistryKey: Map<FileType, MythicNodeHandlerRegistryKey> = new Map([
+    [FileType.METASKILL, 'metaskills'],
+    [FileType.MOB, 'mobs'],
+    [FileType.ITEM, 'items'],
+    [FileType.DROPTABLE, 'droptables'],
+    [FileType.STAT, 'stats'],
+]);

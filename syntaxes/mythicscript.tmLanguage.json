@@ -163,7 +163,7 @@
             "patterns": [
                 {
                     "name": "constant.character.escape.mythicscript",
-                    "match": "(?<=- )([\\w:]+)(?=[{ \\n])"
+                    "match": "(?<=- )([\\w:\\-_]+)(?=[{ \\n])"
                 }
             ]
         },

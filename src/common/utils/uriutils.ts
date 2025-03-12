@@ -19,8 +19,7 @@ export enum ComponentStatus {
  */
 export async function ensureComponentsExist(uri: vscode.Uri): Promise<ComponentStatus> {
     async function fileExistancePipeline(uri: vscode.Uri) {
-        const parentDirPath = path.dirname(uri.fsPath);
-        const parentDir = vscode.Uri.file(parentDirPath);
+        const parentDir = vscode.Uri.joinPath(uri, '..');
         const dirStatus = await ensureDirectoryExists(parentDir);
         if (dirStatus === ComponentStatus.Error) {
             return ComponentStatus.Error;
@@ -101,7 +100,7 @@ async function ensureFileExists(uri: vscode.Uri): Promise<ComponentStatus> {
     }
 }
 
-const extensionRoot = vscode.extensions.getExtension('lxlp.mythicscribe')!.extensionPath;
+const extensionRoot = vscode.extensions.getExtension('lxlp.mythicscribe')!.extensionUri.path;
 
 /**
  * Returns the relative path from the extension root to the given local path.
@@ -109,37 +108,24 @@ const extensionRoot = vscode.extensions.getExtension('lxlp.mythicscribe')!.exten
  * @param localPath - The local file path for which to determine the relative path.
  * @returns The relative path from the extension root to the given local path.
  */
-export function getRelativePath(localPath: string): string {
-    const relativePath = localPath.replace(extensionRoot, '');
-    if (relativePath.startsWith(path.sep)) {
-        return relativePath.substring(1);
-    }
+export function getRelativePath(localPath: vscode.Uri): string {
+    const relativePath = localPath.path.replace(extensionRoot, '');
     return relativePath;
 }
 
 /**
  * Converts a local file path to a GitHub raw content URL.
  *
- * @param localPath - The local file path to be converted.
- * @param relative - A boolean indicating whether the provided local path is already relative.
- *                   If false, the function will convert the local path to a relative path.
- *                   Defaults to false.
- * @returns The GitHub raw content URL corresponding to the provided local file path.
+ * This function takes a relative file path and constructs a URL that points to the raw content
+ * of the file on GitHub. It ensures that the slashes in the path are consistent and constructs
+ * the URL using a predefined GitHub base URL.
+ *
+ * @param relativePath - The relative path of the file to be converted.
+ * @returns The GitHub raw content URL corresponding to the given relative path.
  */
-export function convertLocalPathToGitHubUrl(localPath: string, relative: boolean = false): string {
-    // Determine the relative path of the file
-    const relativePath = relative ? localPath : getRelativePath(localPath);
-
-    // Normalize the relative path to ensure consistent slashes
-    let normalizedRelativePath = path.normalize(relativePath).replace(/\\/g, '/');
-    if (normalizedRelativePath.startsWith('/') || normalizedRelativePath.startsWith('\\')) {
-        normalizedRelativePath = normalizedRelativePath.substring(1);
-    }
-
+export function convertLocalPathToGitHubUrl(relativePath: string): string {
     // Construct the GitHub raw content URL
-    const githubUrl = `${GITHUB_BASE_URL}${normalizedRelativePath}`;
-
-    return githubUrl;
+    return `${GITHUB_BASE_URL}${relativePath}`;
 }
 
 /**
@@ -165,15 +151,5 @@ export async function fetchAllFilesInDirectory(directorypath: vscode.Uri): Promi
 export async function isFileEmpty(uri: vscode.Uri) {
     return vscode.workspace.fs.stat(uri).then((stat) => {
         return stat.size === 0;
-    });
-}
-
-export function logFileTree(uri: vscode.Uri) {
-    vscode.workspace.fs.readDirectory(uri).then((files) => {
-        files.forEach((file) => {
-            const [name, type] = file;
-            Log.debug(name, type.toString());
-        });
-        return;
     });
 }

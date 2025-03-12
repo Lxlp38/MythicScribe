@@ -6,7 +6,7 @@ import { ScribeEnumHandler } from './ScribeEnum';
 import { ctx } from '../../MythicScribe';
 import {
     ComponentStatus,
-    convertLocalPathToGitHubUrl,
+    convertLocalPathToGitHubUrl as convertRelativePathToGitHubUrl,
     ensureComponentsExist,
     getRelativePath,
 } from '../utils/uriutils';
@@ -41,10 +41,10 @@ export class ScribeCloneableFile<T> {
     edcsUri: vscode.Uri;
 
     constructor(uri: vscode.Uri) {
-        this.relativePath = getRelativePath(uri.fsPath);
+        this.relativePath = getRelativePath(uri);
         this.localUri = uri;
-        this.githubUri = vscode.Uri.parse(convertLocalPathToGitHubUrl(this.relativePath, true));
-        this.edcsUri = vscode.Uri.joinPath(edcsUri, this.relativePath);
+        this.githubUri = vscode.Uri.parse(convertRelativePathToGitHubUrl(this.relativePath));
+        this.edcsUri = vscode.Uri.parse(vscode.Uri.joinPath(edcsUri, this.relativePath).toString());
         Log.trace(
             'ScribeCloneableFile',
             JSON.stringify({

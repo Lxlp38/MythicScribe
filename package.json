@@ -371,6 +371,11 @@
               "title": "Exclude Glob Pattern",
               "type": "string",
               "description": "The glob pattern to use to exclude files from parsing."
+            },
+            "parallelParsingLimit": {
+              "title": "Parallel Parsing Limit",
+              "type": "number",
+              "description": "The maximum number of files to parse in parallel. Will decrease performance if set too high."
             }
           },
           "default": {
@@ -378,7 +383,8 @@
             "parseOnSave": true,
             "parseOnModification": false,
             "parsingGlobPattern": "**/*.{yaml,yml}",
-            "excludeGlobPattern": ""
+            "excludeGlobPattern": "",
+            "parallelParsingLimit": 10
           }
         }
       }
@@ -432,6 +438,7 @@
     "cytoscape": "^3.31.1",
     "cytoscape-context-menus": "^4.2.1",
     "cytoscape-fcose": "^2.2.0",
+    "p-limit": "^3.1.0",
     "path-browserify": "^1.0.1",
     "yaml": "^2.7.0"
   }

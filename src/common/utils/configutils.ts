@@ -25,6 +25,7 @@ const fileParsingPolicyConfigCache = {
     parseOnModification: undefined as boolean | undefined,
     parsingGlobPattern: undefined as string | undefined,
     excludeGlobPattern: undefined as string | undefined,
+    parallelParsingLimit: undefined as number | undefined,
 };
 
 let configChangeFunctionCallbacks: (() => void)[] | undefined;
@@ -39,7 +40,7 @@ export function addConfigChangeFunction(callback: () => void) {
 }
 
 function resetConfigCache() {
-    function resetSpecificConfig(cache: { [key: string]: string | boolean | undefined }) {
+    function resetSpecificConfig(cache: { [key: string]: string | boolean | number | undefined }) {
         for (const key in cache) {
             if (cache.hasOwnProperty(key)) {
                 cache[key as keyof typeof cache] = undefined;
