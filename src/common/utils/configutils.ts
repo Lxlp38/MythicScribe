@@ -72,14 +72,14 @@ export function isAlwaysEnabled() {
     return configCache.isAlwaysEnabled;
 }
 
-function checkFileRegex(document: vscode.TextDocument, regex: string | undefined): boolean {
-    if (regex && new RegExp(regex).test(document.uri.fsPath)) {
+function checkFileRegex(uri: vscode.Uri, regex: string | undefined): boolean {
+    if (regex && new RegExp(regex).test(uri.fsPath)) {
         return true;
     }
     return false;
 }
 export function checkFileEnabled(
-    document: vscode.TextDocument,
+    uri: vscode.Uri,
     configKey: keyof typeof fileRegexConfigCache
 ): boolean {
     if (fileRegexConfigCache[configKey] === undefined) {
@@ -87,13 +87,13 @@ export function checkFileEnabled(
             .getConfiguration('MythicScribe')
             .get<string>('fileRegex.' + configKey);
     }
-    return checkFileRegex(document, fileRegexConfigCache[configKey]);
+    return checkFileRegex(uri, fileRegexConfigCache[configKey]);
 }
-export function checkMythicMobsFile(document: vscode.TextDocument): boolean {
+export function checkMythicMobsFile(uri: vscode.Uri): boolean {
     if (isAlwaysEnabled()) {
         return true;
     }
-    return checkFileEnabled(document, 'MythicMobs');
+    return checkFileEnabled(uri, 'MythicMobs');
 }
 
 export function getFileParserPolicyConfig(key: keyof typeof fileParsingPolicyConfigCache) {

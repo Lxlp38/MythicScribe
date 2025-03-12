@@ -35,7 +35,7 @@ suite('Extension Test Suite', () => {
             'Document language should be MythicScript'
         );
         assert.strictEqual(
-            checkFileEnabled(document, 'Metaskill'),
+            checkFileEnabled(document.uri, 'Metaskill'),
             true,
             'The opened file should be recognized as a skill file'
         );

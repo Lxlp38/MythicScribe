@@ -27,7 +27,7 @@ vscode.workspace.onDidSaveTextDocument((document) => {
     if (!getFileParserPolicyConfig('parseOnSave')) {
         return;
     }
-    const type = fromFileTypeToRegistryKey.get(checkFileType(document));
+    const type = fromFileTypeToRegistryKey.get(checkFileType(document.uri));
     if (type) {
         MythicNodeHandler.registry[type].resetDocument(document);
     }
@@ -37,18 +37,43 @@ vscode.workspace.onDidChangeTextDocument((event) => {
     if (!getFileParserPolicyConfig('parseOnModification')) {
         return;
     }
-    const type = fromFileTypeToRegistryKey.get(checkFileType(event.document));
+    const type = fromFileTypeToRegistryKey.get(checkFileType(event.document.uri));
     if (type) {
         MythicNodeHandler.registry[type].resetDocument(event.document);
     }
 });
 
-vscode.workspace.onDidDeleteFiles(async (event) => {
+vscode.workspace.onDidRenameFiles(async (event) => {
+    for (const { oldUri, newUri } of event.files) {
+        const oldType = fromFileTypeToRegistryKey.get(checkFileType(oldUri));
+        const newType = fromFileTypeToRegistryKey.get(checkFileType(newUri));
+
+        if (oldType) {
+            MythicNodeHandler.registry[oldType].clearNodesByDocument(oldUri);
+        }
+
+        if (newType) {
+            const newDocument = await vscode.workspace.openTextDocument(newUri);
+            MythicNodeHandler.registry[newType].scanDocument(newDocument);
+        }
+    }
+});
+
+vscode.workspace.onDidCreateFiles(async (event) => {
     for (const file of event.files) {
         const document = await vscode.workspace.openTextDocument(file);
-        const type = fromFileTypeToRegistryKey.get(checkFileType(document));
+        const type = fromFileTypeToRegistryKey.get(checkFileType(document.uri));
         if (type) {
-            MythicNodeHandler.registry[type].clearNodesByDocument(document);
+            MythicNodeHandler.registry[type].scanDocument(document);
+        }
+    }
+});
+
+vscode.workspace.onDidDeleteFiles(async (event) => {
+    for (const file of event.files) {
+        const type = fromFileTypeToRegistryKey.get(checkFileType(file));
+        if (type) {
+            MythicNodeHandler.registry[type].clearNodesByDocument(file);
         }
     }
 });
@@ -62,7 +87,7 @@ interface NodeElement extends NodeBaseElement {
     text: string;
 }
 
-let NodeMatchTime = 0;
+//let NodeMatchTime = 0;
 
 export class MythicNode {
     templates: Set<string> = new Set();
@@ -81,7 +106,7 @@ export class MythicNode {
         public name: NodeElement,
         public body: NodeBaseElement
     ) {
-        const time = timeCounter();
+        //const time = timeCounter();
         this.description.text = this.description.text?.replace(/^#/gm, '');
 
         if (!this.body.text) {
@@ -123,7 +148,7 @@ export class MythicNode {
             this.outEdge.metaskills.add(skillShortcut);
         });
         delete body.text;
-        NodeMatchTime += time.delta();
+        //NodeMatchTime += time.delta();
     }
 
     get hash(): string {
@@ -253,17 +278,15 @@ export class MythicNodeRegistry {
         this.nodesByDocument.clear();
     }
 
-    clearNodesByDocument(document: vscode.TextDocument): void {
-        const nodesToRemove = this.nodesByDocument.get(document.uri.toString());
+    clearNodesByDocument(uri: vscode.Uri): void {
+        const nodesToRemove = this.nodesByDocument.get(uri.toString());
         if (nodesToRemove) {
             nodesToRemove.forEach((node) => {
-                Log.trace(
-                    `Unregistered ${this.type} ${node.name.text} in ${document.uri.toString()}`
-                );
+                Log.trace(`Unregistered ${this.type} ${node.name.text} in ${uri.toString()}`);
                 this.nodes.delete(node.name.text);
             });
         }
-        this.nodesByDocument.delete(document.uri.toString());
+        this.nodesByDocument.delete(uri.toString());
     }
 
     scanDocument(document: vscode.TextDocument): void {
@@ -306,7 +329,7 @@ export class MythicNodeRegistry {
     }
 
     resetDocument(document: vscode.TextDocument): void {
-        this.clearNodesByDocument(document);
+        this.clearNodesByDocument(document.uri);
         this.scanDocument(document);
     }
 }
@@ -340,13 +363,13 @@ export namespace MythicNodeHandler {
     }
 
     type ProcessFileResult = [MythicNodeHandlerRegistryKey, vscode.TextDocument] | null;
-    async function processFile(file: vscode.Uri): Promise<ProcessFileResult> {
-        const openedFile = await vscode.workspace.openTextDocument(file);
-        const type = fromFileTypeToRegistryKey.get(checkFileType(openedFile));
-        if (type) {
-            return [type, openedFile];
+    async function processFile(uri: vscode.Uri): Promise<ProcessFileResult> {
+        const type = fromFileTypeToRegistryKey.get(checkFileType(uri));
+        if (!type) {
+            return null;
         }
-        return null;
+        const openedFile = await vscode.workspace.openTextDocument(uri);
+        return [type, openedFile];
     }
 
     export async function scanAllDocuments(): Promise<void> {
@@ -358,6 +381,8 @@ export namespace MythicNodeHandler {
             '**/*.{yaml,yml}';
 
         const exclude = getFileParserPolicyConfig('excludeGlobPattern') as string | undefined;
+
+        Log.debug(`Parsing files with include: ${include} and exclude: ${exclude}`);
 
         const limitAmount = getFileParserPolicyConfig('parallelParsingLimit') as number;
         if (limitAmount <= 0) {
@@ -379,8 +404,20 @@ export namespace MythicNodeHandler {
 
         const openDocumentTime = timeCounter();
         const tasks = files.map((file) => limit(() => processFile(file)));
-        const results = await Promise.all(tasks);
-        const openedFiles = results.filter((result) => result !== null);
+        const results = await Promise.allSettled(tasks);
+        Log.debug(`Found ${results.length} files`);
+        const openedFiles = results
+            .filter((result) => result.status === 'fulfilled')
+            .map((result) => result.value)
+            .filter((result) => result !== null);
+        Log.debug(`Opened ${openedFiles.length} files`);
+        const rejected = results.filter((result) => result.status === 'rejected');
+        if (rejected.length > 0) {
+            Log.debug(`Failed to open ${rejected.length} files`);
+            rejected.forEach((rejection, index) =>
+                Log.debug(`Reason ${index}: ${rejection.reason}`)
+            );
+        }
         Log.custom(
             vscode.LogLevel.Trace,
             'Time Report',
@@ -397,7 +434,7 @@ export namespace MythicNodeHandler {
             `Document Scan Time: ${documentScanTime.stop()}`
         );
 
-        Log.custom(vscode.LogLevel.Trace, 'Time Report', `Node Match Time: ${NodeMatchTime} ms`);
+        //Log.custom(vscode.LogLevel.Trace, 'Time Report', `Node Match Time: ${NodeMatchTime} ms`);
 
         Log.custom(
             vscode.LogLevel.Trace,

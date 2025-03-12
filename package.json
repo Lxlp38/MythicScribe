@@ -350,7 +350,7 @@
             "parseOnStartup": {
               "title": "Parse on Startup",
               "type": "boolean",
-              "description": "Whether to parse all files on startup."
+              "description": "Whether to parse all files on startup or when the datasets are reloaded."
             },
             "parseOnSave": {
               "title": "Parse on Save",
@@ -375,7 +375,7 @@
             "parallelParsingLimit": {
               "title": "Parallel Parsing Limit",
               "type": "number",
-              "description": "The maximum number of files to parse in parallel. Will decrease performance if set too high."
+              "description": "The maximum number of files to parse in parallel on startup or after the datasets are reloaded. Will decrease performance if set too high when a *very* large amount of files is present."
             }
           },
           "default": {

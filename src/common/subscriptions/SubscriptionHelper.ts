@@ -44,7 +44,7 @@ export async function checkIfMythicScriptFile(document: vscode.TextDocument) {
     if (document.languageId !== 'yaml') {
         return;
     }
-    if (checkMythicMobsFile(document)) {
+    if (checkMythicMobsFile(document.uri)) {
         vscode.languages.setTextDocumentLanguage(document, 'mythicscript');
     }
 }
@@ -89,8 +89,9 @@ export function updateSubscriptions(document: vscode.TextDocument) {
     if (enableMythicScriptSyntax()) {
         checkIfMythicScriptFile(document);
     }
+    const uri = document.uri;
 
-    const isMythicFile = checkMythicMobsFile(document);
+    const isMythicFile = checkMythicMobsFile(uri);
     if (isEnabled !== isMythicFile) {
         isEnabled = isMythicFile;
         if (isEnabled) {
@@ -109,27 +110,27 @@ export function updateSubscriptions(document: vscode.TextDocument) {
 
     isMetaskillFile = fileSpecificEnabler(
         isMetaskillFile,
-        checkFileEnabled(document, 'Metaskill'),
+        checkFileEnabled(uri, 'Metaskill'),
         ScribeSubscriptionHandler.registry.skill
     );
     isMobFile = fileSpecificEnabler(
         isMobFile,
-        checkFileEnabled(document, 'Mob'),
+        checkFileEnabled(uri, 'Mob'),
         ScribeSubscriptionHandler.registry.mob
     );
     isItemFile = fileSpecificEnabler(
         isItemFile,
-        checkFileEnabled(document, 'Item'),
+        checkFileEnabled(uri, 'Item'),
         ScribeSubscriptionHandler.registry.item
     );
     isDroptableFile = fileSpecificEnabler(
         isDroptableFile,
-        checkFileEnabled(document, 'Droptable'),
+        checkFileEnabled(uri, 'Droptable'),
         ScribeSubscriptionHandler.registry.droptable
     );
     isStatFile = fileSpecificEnabler(
         isStatFile,
-        checkFileEnabled(document, 'Stat'),
+        checkFileEnabled(uri, 'Stat'),
         ScribeSubscriptionHandler.registry.stat
     );
 }
@@ -143,24 +144,24 @@ export enum FileType {
     STAT,
 }
 
-export function checkFileType(document: vscode.TextDocument): FileType {
-    if (!checkMythicMobsFile(document)) {
+export function checkFileType(uri: vscode.Uri): FileType {
+    if (!checkMythicMobsFile(uri)) {
         return FileType.NONE;
     }
 
-    if (checkFileEnabled(document, 'Metaskill')) {
+    if (checkFileEnabled(uri, 'Metaskill')) {
         return FileType.METASKILL;
     }
-    if (checkFileEnabled(document, 'Mob')) {
+    if (checkFileEnabled(uri, 'Mob')) {
         return FileType.MOB;
     }
-    if (checkFileEnabled(document, 'Item')) {
+    if (checkFileEnabled(uri, 'Item')) {
         return FileType.ITEM;
     }
     // if (checkFileEnabled(document, 'Droptable')) {
     //     return FileType.DROPTABLE;
     // }
-    if (checkFileEnabled(document, 'Stat')) {
+    if (checkFileEnabled(uri, 'Stat')) {
         return FileType.STAT;
     }
     return FileType.NONE;

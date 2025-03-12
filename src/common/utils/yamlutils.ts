@@ -252,7 +252,7 @@ export class YamlKeyPairList extends ArrayListNode<YamlKeyPair> {
 
 export function getDocumentSearchList(text: string, document: vscode.TextDocument) {
     const keys = getDocumentKeys(text);
-    return new YamlKeyPairList(keys, checkFileType(document));
+    return new YamlKeyPairList(keys, checkFileType(document.uri));
 }
 
 /**
