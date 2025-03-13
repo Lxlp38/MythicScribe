@@ -27,16 +27,7 @@ jobs:
         run: |
           VERSION=${GITHUB_REF#refs/tags/}
           VERSION=${VERSION#v}
-          echo "$VERSION" >> $GITHUB_OUTPUT
-
-      # Install jq
-      - name: Install jq
-        run: sudo apt-get install -y jq
-
-      # Update package.json version to match the tag version
-      - name: Update package.json version
-        run: |
-          jq --arg v "$VERSION" '.version = $v' package.json > tmp.json && mv tmp.json package.json
+          echo "VERSION=$VERSION" >> $GITHUB_OUTPUT
 
       - name: Install dependencies
         run: npm ci
