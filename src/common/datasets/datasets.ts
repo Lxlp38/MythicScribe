@@ -138,6 +138,8 @@ export async function loadDatasets() {
     }
     ScribeEnumHandler.loadEnumDatasets();
     await Promise.allSettled([ScribeMechanicHandler.loadMechanicDatasets(), loadCustomDatasets()]);
+    ScribeMechanicHandler.finalizeAllAttributes();
+    ScribeMechanicHandler.updateNodeRegistry();
     finallySetEnabledPlugins();
     if (getFileParserPolicyConfig('parseOnStartup')) {
         MythicNodeHandler.scanAllDocuments();

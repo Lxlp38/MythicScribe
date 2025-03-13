@@ -48,6 +48,19 @@ export function getUpstreamKey(
     }
     return;
 }
+
+export function getUpstreamKeyFromString(text: string): string | undefined {
+    const lines = text.split('\n');
+    for (let i = lines.length - 1; i >= 0; i--) {
+        const line = lines[i];
+        const match = line.match(yamlKeyRegex);
+        if (match) {
+            return getYamlRegexInfo(match).key;
+        }
+    }
+    return;
+}
+
 /**
  * Retrieves the parent keys of a YAML document at a given position.
  *

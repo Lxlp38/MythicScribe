@@ -244,6 +244,39 @@ function searchForLinkedObject(
     return mechanic ? mechanic : null;
 }
 
+export function matchLinkedObject(object: string, key: string) {
+    if (!object) {
+        return undefined;
+    }
+    let mechanic: MythicMechanic | undefined;
+    if (object.startsWith('@')) {
+        const type = ScribeMechanicHandler.registry.targeter;
+        mechanic = type.getMechanicByName(object.replace('@', ''));
+    } else if (object.startsWith('?')) {
+        const type = ScribeMechanicHandler.registry.condition;
+        mechanic = type.getMechanicByName(
+            object.replace('?', '').replace('!', '').replace('~', '')
+        );
+    } else if (keyAliases.Conditions.includes(key)) {
+        const type = ScribeMechanicHandler.registry.condition;
+        mechanic = type.getMechanicByName(object);
+    } else if (keyAliases.AITargetSelectors.includes(key)) {
+        const type = ScribeMechanicHandler.registry.aitarget;
+        mechanic = type.getMechanicByName(object);
+    } else if (keyAliases.AIGoalSelectors.includes(key)) {
+        const type = ScribeMechanicHandler.registry.aigoal;
+        mechanic = type.getMechanicByName(object);
+    } else {
+        const type = ScribeMechanicHandler.registry.mechanic;
+        mechanic = type.getMechanicByName(object);
+
+        if (!mechanic && object.startsWith('skill:')) {
+            mechanic = type.getMechanicByName('skill');
+        }
+    }
+    return mechanic;
+}
+
 export function searchForLinkedAttribute(
     document: vscode.TextDocument,
     position: vscode.Position,

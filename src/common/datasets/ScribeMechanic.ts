@@ -230,7 +230,7 @@ export class MythicMechanic {
         return this.attributesNameMap.get(name.trim().toLowerCase());
     }
 
-    private inheritAttributes() {
+    public inheritAttributes() {
         if (!this.extends) {
             this.finalizeAttributes();
             return;
@@ -276,7 +276,7 @@ export interface Attribute {
     inheritable?: boolean;
 }
 
-const fromEnumToMythicNodeRegistryKey: Record<string, MythicNodeHandlerRegistryKey> = {
+export const fromEnumToMythicNodeRegistryKey: Record<string, MythicNodeHandlerRegistryKey> = {
     metaskill: 'metaskills',
     item: 'items',
     mob: 'mobs',
@@ -314,14 +314,6 @@ export class MythicAttribute {
             return;
         }
 
-        if (attribute.enum.toLowerCase() in fromEnumToMythicNodeRegistryKey) {
-            const key = fromEnumToMythicNodeRegistryKey[attribute.enum.toLowerCase()];
-            for (const n of this.name) {
-                MythicNodeHandler.registry[key].referenceAttributes.add(
-                    n.replace('(', '\\(').replace(')', '\\)').replace('$', '\\$')
-                );
-            }
-        }
         if (attribute.enum.toLowerCase() in attributeSpecialValues) {
             this.specialValue =
                 attributeSpecialValues[
@@ -382,6 +374,42 @@ export const ScribeMechanicHandler = {
         await Promise.allSettled(promises);
         Log.debug('Loaded Mechanic Datasets in', time.stop());
         return;
+    },
+
+    finalizeAllAttributes() {
+        Object.values(ScribeMechanicHandler.registry).forEach((registry) =>
+            registry.getMechanics().forEach((mechanic) => mechanic.inheritAttributes())
+        );
+        Log.debug('Finalized all Mechanic Attributes');
+    },
+
+    updateNodeRegistry() {
+        Object.values(ScribeMechanicHandler.registry).forEach((registry) =>
+            registry.getMechanics().forEach((mechanic) => {
+                mechanic.getAttributes().forEach((attr) => {
+                    if (attr.enum) {
+                        const key = fromEnumToMythicNodeRegistryKey[attr.enum.identifier];
+                        if (key) {
+                            for (const n of mechanic.name) {
+                                if (!MythicNodeHandler.registry[key].referenceMap.has(n)) {
+                                    MythicNodeHandler.registry[key].referenceMap.set(n, new Set());
+                                }
+                                for (const name of attr.name) {
+                                    MythicNodeHandler.registry[key].referenceMap.get(n)?.add(name);
+                                }
+                            }
+                            const correctedNames = attr.name.map((n) =>
+                                n.replace('(', '\\(').replace(')', '\\)').replace('$', '\\$')
+                            );
+                            for (const n of correctedNames) {
+                                MythicNodeHandler.registry[key].referenceAttributes.add(n);
+                            }
+                        }
+                    }
+                });
+            })
+        );
+        Log.debug('Updated Node Registry with Enum References');
     },
 
     emptyDatasets() {

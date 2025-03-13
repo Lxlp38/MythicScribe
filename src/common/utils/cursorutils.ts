@@ -18,10 +18,14 @@ export function getObjectLinkedToAttribute(
     const textBeforeAttribute = document.getText(
         new vscode.Range(new vscode.Position(maxSearchLine, 0), position)
     );
+    return executeGetObjectLinkedToAttribute(textBeforeAttribute);
+}
+
+export function executeGetObjectLinkedToAttribute(searchText: string) {
     let openBraceCount = 0;
     // Traverse backwards through the text before the position
-    for (let i = textBeforeAttribute.length - 1; i >= 0; i--) {
-        const char = textBeforeAttribute[i];
+    for (let i = searchText.length - 1; i >= 0; i--) {
+        const char = searchText[i];
 
         if (char === '}' || char === ']') {
             openBraceCount++;
@@ -30,7 +34,7 @@ export function getObjectLinkedToAttribute(
             // If the brace count becomes negative, we've found an unbalanced opening '{'
             if (openBraceCount < 0) {
                 // Get the text before the '{' which should be the object
-                const textBeforeBrace = textBeforeAttribute.substring(0, i).trim();
+                const textBeforeBrace = searchText.substring(0, i).trim();
                 // Use a regex to find the object name before the '{'
                 const objectMatch = textBeforeBrace.match(/(?<=[ =])([@~]|(\?~?!?))?[\w:]+$/); // Match the last word before the brace
                 if (objectMatch && objectMatch[0]) {

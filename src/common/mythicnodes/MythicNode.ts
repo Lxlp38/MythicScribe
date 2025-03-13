@@ -7,6 +7,7 @@ import { getFileParserPolicyConfig } from '../utils/configutils';
 import { ConditionActions } from '../schemas/conditionActions';
 import { timeCounter } from '../utils/timeUtils';
 import { openDocumentTactfully } from '../utils/uriutils';
+import { executeGetObjectLinkedToAttribute } from '../utils/cursorutils';
 
 type NodeEntry = Map<string, MythicNode>;
 
@@ -202,13 +203,28 @@ export class MythicNode {
     }
     private matchAttributes(body: string, type: MythicNodeHandlerRegistryKey): string[] {
         const attributeRegex = new RegExp(
-            `[{;}]\\s*(?:${Array.from(MythicNodeHandler.registry[type].referenceAttributes).join('|')})\\s*=\\s*([\\w\\-_]+)\\s*[;}]`,
+            `[{;}]\\s*(?<attribute>${Array.from(MythicNodeHandler.registry[type].referenceAttributes).join('|')})\\s*=\\s*(?<value>[\\w\\-_]+)\\s*[;}]`,
             'gi'
         );
         const matches = body.matchAll(attributeRegex);
         const attributes: string[] = [];
         for (const match of matches) {
-            attributes.push(match[1]);
+            const object = executeGetObjectLinkedToAttribute(
+                body.substring(0, match.index + 1)
+            )?.replace(/@|\?|!|~/g, '');
+            if (!object) {
+                continue;
+            }
+            const objectMatch = MythicNodeHandler.registry[type].referenceMap.get(
+                object.toLowerCase()
+            );
+            if (!objectMatch) {
+                continue;
+            }
+            if (!objectMatch.has(match.groups!.attribute.toLowerCase())) {
+                continue;
+            }
+            attributes.push(match.groups!.value);
         }
         return attributes;
     }
@@ -249,6 +265,7 @@ export class MockMythicNode extends MythicNode {
 export class MythicNodeRegistry {
     readonly type: MythicNodeHandlerRegistryKey;
     referenceAttributes: Set<string> = new Set();
+    referenceMap: Map<string, Set<string>> = new Map();
     nodes: NodeEntry = new Map();
     nodesByDocument: Map<string, MythicNode[]> = new Map();
     decoratorRegex: RegExp;
