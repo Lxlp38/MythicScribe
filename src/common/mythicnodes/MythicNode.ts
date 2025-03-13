@@ -115,6 +115,14 @@ export class MythicNode {
         public body: NodeBaseElement
     ) {
         //const time = timeCounter();
+        if (this.description.text) {
+            for (const type of MythicNodeHandlerRegistryKey) {
+                this.matchDecorators(this.description.text, type).forEach((decorator) => {
+                    this.outEdge[type].add(decorator);
+                });
+            }
+        }
+
         this.description.text = this.description.text?.replace(/^#/gm, '');
 
         if (!this.body.text) {
@@ -397,6 +405,8 @@ export namespace MythicNodeHandler {
     }
 
     export async function scanAllDocuments(): Promise<void> {
+        clearNodes();
+
         const time = timeCounter();
         Log.debug('Scanning all documents');
 

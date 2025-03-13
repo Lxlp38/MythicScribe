@@ -5,14 +5,48 @@
 ### Added
 - Parsing of workspace files for Autocompletions, Hovers and Go to Definition for Metaskills, Mobs, Items and Stats!
   - "Go to Definition" feature when ctrl+clicking
-  - Autocompletions in relevant attributes values
+  - Autocompletions in relevant attributes' values
   - Hover support
   - You can give markdown descriptions to the metaskills to be displayed in the hovers by putting comments
   - You can prevent a file from being parsed by writing `# mythicscribe-disable file-parsing` as the first line
 - VSCode-Web Compatibility
-- `MythicScribe.showNodeGraph` command! Shows a graph of all the configurations parsed. Can be filtered based on configuration type and whether or not it's an open editor
 - Color Picker for the relevant attributes and options.
 - Basic support for completions and hovers for conditions inside of certain mechanic attributes, such as projectile's hitconditions
+#### Mythic Node Graph
+- You can now open a visualization of your configurations. To do so, while in a Mythic file, click the right mouse button and select "Mythic Node Graph". After that, you will be asked about the scope of the Graph and optional filters you can decide
+- Can also be accessed via the `MythicScribe.showNodeGraph` command
+- Once a Graph is open, you can
+  - Search for a specific node by its name
+  - Select a node to see each link is had
+    - Inheritance (using Templates)
+      - Red edges means the node is being inherited by the target ones
+      - Green edges means the node is inheriting from the target ones
+    - Usage (Summoning a mob, executing a skill, giving an item...)
+      - Blue edges means the node is being called by the target ones
+      - Yellow edges means the node is calling the target ones
+  - Right click on a node to go to its definition
+  - Right click on a node to "discover" it, if the scope you selected was not "All" and some of the nodes in the scope you selected references things outside of it. In that case, the nodes will be shown in gray
+- You can set up some "Decorator" in the configuration via the use of comments to make a metaskill/mob/item/stat explicitly reference another one, if you are using vskill or other mechanics that may prevent the two from being successfully linked in the node view
+```yaml
+# @metaskill: Example_2, Example_3
+# @mob: Mob_A
+Example_1:
+  Skills:
+  - vskill{s=Example_<random.2to3>}
+```
+```yaml
+Mob_A:
+  Variables:
+    # @item
+    drop: MythicDirt
+
+    # @mob
+    minion: Mob_B
+
+    # @metaskill
+    attackskill: defaultattack
+```
+
 #### Configurations
 - `MythicScribe.enabledPlugins` configuration to set enabled / disabled datasets based on the plugin implementing them
 - Hovers and Completions for Droptables

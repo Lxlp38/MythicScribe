@@ -282,6 +282,9 @@ export function searchForLinkedAttribute(
     position: vscode.Position,
     keys: yamlutils.YamlKey[]
 ): MythicAttribute | undefined {
+    if (keys.length === 0) {
+        return undefined;
+    }
     const mechanic = searchForLinkedObject(
         document,
         position,

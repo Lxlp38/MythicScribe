@@ -176,19 +176,6 @@ function renderGraph(graphData) {
 
         resetNodesAndEdges(0.25);
 
-        cy.elements().bfs({
-            root: selectedNode,
-            directed: true,
-            visit: function (node, edge, parent, i, depth) {
-                const opacity = Math.max(1 - Math.min(0.05 * depth, 0.9), 0.45);
-                const newOpacity = opacity;
-                node.style('opacity', newOpacity);
-                if (edge) {
-                    edge.style('opacity', newOpacity);
-                }
-            },
-        });
-
         const inboundNodes = selectedNode.incomers('node');
         const inboundEdges = selectedNode.incomers('edge');
 
