@@ -399,7 +399,10 @@ export const ScribeMechanicHandler = {
                                 }
                             }
                             const correctedNames = attr.name.map((n) =>
-                                n.replace('(', '\\(').replace(')', '\\)').replace('$', '\\$')
+                                n
+                                    .replaceAll('(', '\\(')
+                                    .replaceAll(')', '\\)')
+                                    .replaceAll('$', '\\$')
                             );
                             for (const n of correctedNames) {
                                 MythicNodeHandler.registry[key].referenceAttributes.add(n);

@@ -1,6 +1,6 @@
 # Changelog
 
-## [Unreleased]
+## [1.6.0]
 
 ### Added
 - Parsing of workspace files for Autocompletions, Hovers and Go to Definition for Metaskills, Mobs, Items and Stats!
