@@ -36,9 +36,9 @@ export async function ensureComponentsExist(uri: vscode.Uri): Promise<ComponentS
         },
         async (error) => {
             if (error instanceof vscode.FileSystemError) {
-                const isDirectory = uri.fsPath.endsWith(path.sep);
+                const isDir = isDirectory(uri);
 
-                if (isDirectory) {
+                if (isDir) {
                     Log.debug('Creating directory at', uri.fsPath);
                     return await ensureDirectoryExists(uri);
                 }
@@ -152,4 +152,16 @@ export async function isFileEmpty(uri: vscode.Uri) {
     return vscode.workspace.fs.stat(uri).then((stat) => {
         return stat.size === 0;
     });
+}
+
+export function isDirectory(uri: vscode.Uri) {
+    return uri.fsPath.endsWith(path.sep);
+}
+
+export async function openDocumentTactfully(uri: vscode.Uri) {
+    try {
+        return await vscode.workspace.openTextDocument(uri);
+    } catch {
+        return undefined;
+    }
 }

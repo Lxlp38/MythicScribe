@@ -6,6 +6,7 @@ import { Log } from '../utils/logger';
 import { getFileParserPolicyConfig } from '../utils/configutils';
 import { ConditionActions } from '../schemas/conditionActions';
 import { timeCounter } from '../utils/timeUtils';
+import { openDocumentTactfully } from '../utils/uriutils';
 
 type NodeEntry = Map<string, MythicNode>;
 
@@ -53,7 +54,10 @@ vscode.workspace.onDidRenameFiles(async (event) => {
         }
 
         if (newType) {
-            const newDocument = await vscode.workspace.openTextDocument(newUri);
+            const newDocument = await openDocumentTactfully(newUri);
+            if (!newDocument) {
+                continue;
+            }
             MythicNodeHandler.registry[newType].scanDocument(newDocument);
         }
     }
@@ -61,7 +65,10 @@ vscode.workspace.onDidRenameFiles(async (event) => {
 
 vscode.workspace.onDidCreateFiles(async (event) => {
     for (const file of event.files) {
-        const document = await vscode.workspace.openTextDocument(file);
+        const document = await openDocumentTactfully(file);
+        if (!document) {
+            continue;
+        }
         const type = fromFileTypeToRegistryKey.get(checkFileType(document.uri));
         if (type) {
             MythicNodeHandler.registry[type].scanDocument(document);
