@@ -47,6 +47,9 @@
         },
         {
             "include": "#attributeValues"
+        },
+        {
+            "include": "#conditionAction"
         }
     ],
     "repository": {
@@ -302,6 +305,19 @@
                     "name": "keyword.control.mythicscript"
                 }
             ]
-}
+        },
+        "conditionAction": {
+            "patterns": [
+                {
+                    "name": "keyword.control.mythicscript",
+                    "match": "(?:(?:[Ca][Aa][Ss][Tt])|(?:[Oo][Rr][Ee][Ll][Ss][Ee][Cc][Aa][Ss][Tt])|(?:[Cc][Aa][Ss][Tt][Ii][Nn][Ss][Tt][Ee][Aa][Dd]))\\s([\\w\\-_]+)",
+                    "captures": {
+                        "1": {
+                            "name": "entity.name.type.class.mythicscript"
+                        }
+                    }
+                }
+            ]
+        }
     }
 }
