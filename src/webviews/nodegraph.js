@@ -230,6 +230,7 @@ function renderGraph(graphData) {
 
         selectedNode.style('border-color', '#FFD700');
         selectedNode.style('border-width', 4);
+        selectedNode.style('opacity', 1);
     });
 
     cy.on('unselect', 'node', function () {
