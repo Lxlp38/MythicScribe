@@ -13,7 +13,6 @@ const map = {
 export function writePackageData(){
     const packageJsonPath = path.resolve(__dirname, '../../package.json');
     const packageJson = JSON.parse(fs.readFileSync(packageJsonPath, 'utf-8'));
-    console.log(packageJson.contributes.configuration.properties[`MythicScribe.customDatasets`].items.properties);
     
     for (const key in map) {
         if (key.includes('.')) {
