@@ -1,9 +1,14 @@
 # Changelog
 
 ## [Unreleased]
+
+### Added
+- `MythicScribe.putSelectionInsideInlineMetaskill` command and menu item to put the selected text inside of an inline metaskill
+
 ### Fixed
 - Condition Actions having no syntax highlighting
 - Mythic Node Graph's selected element having low opacity
+
 
 ## [1.6.0]
 

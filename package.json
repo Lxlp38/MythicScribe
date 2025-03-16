@@ -53,6 +53,11 @@
           "command": "MythicScribe.showNodeGraph",
           "when": "editorLangId == mythicscript",
           "group": "mythicscribe"
+        },
+        {
+          "command": "MythicScribe.putSelectionInsideInlineMetaskill",
+          "when": "editorLangId == mythicscript",
+          "group": "mythicscribe"
         }
       ]
     },
@@ -85,6 +90,11 @@
       {
         "command": "MythicScribe.showNodeGraph",
         "title": "Mythic Node Graph",
+        "category": "MythicScribe"
+      },
+      {
+        "command": "MythicScribe.putSelectionInsideInlineMetaskill",
+        "title": "Put Selection Inside Inline Metaskill",
         "category": "MythicScribe"
       }
     ],

@@ -56,9 +56,7 @@ export function metaskillCompletionProvider() {
 }
 
 function provideInlinemetaskillCompletion() {
-    const indent = vscode.window.activeTextEditor
-        ? (vscode.window.activeTextEditor.options.tabSize as number)
-        : 2;
+    const indent = yamlutils.getDefaultIndentation();
     const indentation = ' '.repeat(indent);
 
     const completionItem = new vscode.CompletionItem(
@@ -74,6 +72,7 @@ function provideInlinemetaskillCompletion() {
 
     return completionItem;
 }
+
 export function addMetaskillsToConditionLine(
     completionItems: vscode.CompletionItem[],
     string: string = ' $0'
@@ -87,5 +86,42 @@ export function addMetaskillsToConditionLine(
         completionItem.insertText = new vscode.SnippetString(node.name.text + string);
         completionItem.command = retriggerCompletionsCommand;
         completionItems.push(completionItem);
+    });
+}
+
+export function putSelectionInsideInlineMetaskill() {
+    const editor = vscode.window.activeTextEditor;
+    if (!editor) {
+        return;
+    }
+
+    const document = editor.document;
+    const selection = new vscode.Range(
+        new vscode.Position(editor.selection.start.line, 0),
+        new vscode.Position(
+            editor.selection.end.line,
+            editor.selection.end.character === 0
+                ? 0
+                : document.lineAt(editor.selection.end.line).text.length
+        )
+    );
+    const selectedText = document.getText(selection);
+    console.log(editor.selection, selection, selectedText);
+
+    const indent = yamlutils.getIndentation(document.lineAt(selection.start.line).text);
+    const indentation = ' '.repeat(indent);
+
+    const selectedLines = selectedText.split('\n');
+    if (selectedLines[selectedLines.length - 1].trim() === '') {
+        selectedLines.pop();
+    }
+
+    const newText = `${indentation}- skill{
+${indentation}    s=[
+${indentation}    ${selectedLines.join(`\n${indentation}    `)}
+${indentation}    ]}\n`;
+
+    editor.edit((editBuilder) => {
+        editBuilder.replace(selection, newText);
     });
 }

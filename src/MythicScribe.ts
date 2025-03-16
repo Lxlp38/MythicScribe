@@ -17,6 +17,7 @@ import {
 import { configHandler } from './common/utils/configutils';
 import { scribeColorProvider } from './common/color/colorprovider';
 import { showNodeGraph } from './common/mythicnodes/nodeView';
+import { putSelectionInsideInlineMetaskill } from './common/completions/inlinemetaskillCompletionProvider';
 
 export let ctx: vscode.ExtensionContext;
 
@@ -53,6 +54,10 @@ export async function activate(context: vscode.ExtensionContext) {
         vscode.commands.registerCommand('MythicScribe.openLogs', openLogs),
         vscode.commands.registerCommand('MythicScribe.loadDatasets', loadDatasets),
         vscode.commands.registerCommand('MythicScribe.showNodeGraph', showNodeGraph),
+        vscode.commands.registerCommand(
+            'MythicScribe.putSelectionInsideInlineMetaskill',
+            putSelectionInsideInlineMetaskill
+        ),
 
         // Formatter
         getFormatter(),
