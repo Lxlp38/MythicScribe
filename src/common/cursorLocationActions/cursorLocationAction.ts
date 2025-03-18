@@ -8,7 +8,7 @@ import * as yamlutils from '../utils/yamlutils';
 import { MythicNode, MythicNodeHandler } from '../mythicnodes/MythicNode';
 import { searchForLinkedAttribute } from '../completions/attributeCompletionProvider';
 import { scriptedEnums } from '../datasets/enumSources';
-import { isItemFile, isMetaskillFile, isMobFile } from '../subscriptions/SubscriptionHelper';
+import { ActiveFileTypeInfo } from '../subscriptions/SubscriptionHelper';
 
 export function CursorLocationAction<T>(
     document: vscode.TextDocument,
@@ -122,7 +122,7 @@ function handleConditionAction<T>(
     wordRange: vscode.Range,
     callback: (node: MythicNode, range: vscode.Range) => vscode.ProviderResult<T>
 ) {
-    if (!isMetaskillFile) {
+    if (!ActiveFileTypeInfo.metaskill) {
         return undefined;
     }
     const lineText = document.lineAt(position.line).text;
@@ -144,9 +144,9 @@ function handleTemplates<T>(
     callback: (node: MythicNode, range: vscode.Range) => vscode.ProviderResult<T>
 ) {
     if (lineText.match(/^\s*Template(s)?\:/)) {
-        const template = isMobFile
+        const template = ActiveFileTypeInfo.mob
             ? MythicNodeHandler.registry.mob.getNode(word.trim())
-            : isItemFile
+            : ActiveFileTypeInfo.item
               ? MythicNodeHandler.registry.item.getNode(word.trim())
               : undefined;
         if (template) {

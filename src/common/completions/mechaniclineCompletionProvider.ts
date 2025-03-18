@@ -1,7 +1,7 @@
 import * as vscode from 'vscode';
 
 import * as yamlutils from '../utils/yamlutils';
-import { isMetaskillFile } from '../subscriptions/SubscriptionHelper';
+import { ActiveFileTypeInfo } from '../subscriptions/SubscriptionHelper';
 import { getMechanicLine } from '../utils/yamlutils';
 import { keyAliases } from '../objectInfos';
 import { retriggerCompletionsCommand } from '../utils/completionhelper';
@@ -67,7 +67,7 @@ export function mechaniclineCompletionProvider() {
                     completionItems.push(completionItem);
                 }
 
-                if (!mechanicLine.has('trigger') && !isMetaskillFile) {
+                if (!mechanicLine.has('trigger') && !ActiveFileTypeInfo.metaskill) {
                     const completionItem = new vscode.CompletionItem(
                         '~',
                         vscode.CompletionItemKind.Function

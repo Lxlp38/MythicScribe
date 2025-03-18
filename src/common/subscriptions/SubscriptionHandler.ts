@@ -262,7 +262,7 @@ export const ScribeSubscriptionHandler = {
     registry: {
         global: new GlobalSubscriptionHandler(),
         mob: new MobScribeSubscription(),
-        skill: new SkillScribeSubscription(),
+        metaskill: new SkillScribeSubscription(),
         item: new ItemScribeSubscription(),
         droptable: new DroptableSubscriptionHandler(),
         stat: new StatSubscriptionHandler(),

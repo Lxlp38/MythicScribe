@@ -29,7 +29,7 @@ vscode.workspace.onDidSaveTextDocument((document) => {
     if (!getFileParserPolicyConfig('parseOnSave')) {
         return;
     }
-    const type = checkFileType(document.uri).MythicNodeHandlerRegistryKey;
+    const type = checkFileType(document.uri)?.key;
     if (type) {
         MythicNodeHandler.registry[type].resetDocument(document);
     }
@@ -39,7 +39,7 @@ vscode.workspace.onDidChangeTextDocument((event) => {
     if (!getFileParserPolicyConfig('parseOnModification')) {
         return;
     }
-    const type = checkFileType(event.document.uri).MythicNodeHandlerRegistryKey;
+    const type = checkFileType(event.document.uri)?.key;
     if (type) {
         MythicNodeHandler.registry[type].resetDocument(event.document);
     }
@@ -47,8 +47,8 @@ vscode.workspace.onDidChangeTextDocument((event) => {
 
 vscode.workspace.onDidRenameFiles(async (event) => {
     for (const { oldUri, newUri } of event.files) {
-        const oldType = checkFileType(oldUri).MythicNodeHandlerRegistryKey;
-        const newType = checkFileType(newUri).MythicNodeHandlerRegistryKey;
+        const oldType = checkFileType(oldUri)?.key;
+        const newType = checkFileType(newUri)?.key;
 
         if (oldType) {
             MythicNodeHandler.registry[oldType].clearNodesByDocument(oldUri);
@@ -70,7 +70,7 @@ vscode.workspace.onDidCreateFiles(async (event) => {
         if (!document) {
             continue;
         }
-        const type = checkFileType(document.uri).MythicNodeHandlerRegistryKey;
+        const type = checkFileType(document.uri)?.key;
         if (type) {
             MythicNodeHandler.registry[type].scanDocument(document);
         }
@@ -79,7 +79,7 @@ vscode.workspace.onDidCreateFiles(async (event) => {
 
 vscode.workspace.onDidDeleteFiles(async (event) => {
     for (const file of event.files) {
-        const type = checkFileType(file).MythicNodeHandlerRegistryKey;
+        const type = checkFileType(file)?.key;
         if (type) {
             MythicNodeHandler.registry[type].clearNodesByDocument(file);
         }
@@ -399,7 +399,7 @@ export namespace MythicNodeHandler {
 
     type ProcessFileResult = [MythicNodeHandlerRegistryKey, vscode.TextDocument] | null;
     async function processFile(uri: vscode.Uri): Promise<ProcessFileResult> {
-        const type = checkFileType(uri).MythicNodeHandlerRegistryKey;
+        const type = checkFileType(uri)?.key;
         if (!type) {
             return null;
         }
