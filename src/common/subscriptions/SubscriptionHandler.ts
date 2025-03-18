@@ -252,6 +252,12 @@ class StatSubscriptionHandler extends AbstractScribeSubscription {
     }
 }
 
+class PlaceholderSubscriptionHandler extends AbstractScribeSubscription {
+    constructor() {
+        super([], []);
+    }
+}
+
 export const ScribeSubscriptionHandler = {
     registry: {
         global: new GlobalSubscriptionHandler(),
@@ -260,6 +266,7 @@ export const ScribeSubscriptionHandler = {
         item: new ItemScribeSubscription(),
         droptable: new DroptableSubscriptionHandler(),
         stat: new StatSubscriptionHandler(),
+        placeholder: new PlaceholderSubscriptionHandler(),
     },
 
     disposeAll() {

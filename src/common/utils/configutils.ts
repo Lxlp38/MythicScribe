@@ -10,13 +10,14 @@ const configCache = {
     isAlwaysEnabled: undefined as boolean | undefined,
 };
 
-const fileRegexConfigCache = {
+export const fileRegexConfigCache = {
     MythicMobs: undefined as string | undefined,
     Metaskill: undefined as string | undefined,
     Mob: undefined as string | undefined,
     Item: undefined as string | undefined,
     Droptable: undefined as string | undefined,
     Stat: undefined as string | undefined,
+    Placeholder: undefined as string | undefined,
 };
 
 const fileParsingPolicyConfigCache = {

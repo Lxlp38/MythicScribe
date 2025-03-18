@@ -324,6 +324,10 @@
             "Stat": {
               "type": "string",
               "description": "Regex to identify Stat files."
+            },
+            "Placeholder": {
+              "type": "string",
+              "description": "Regex to identify Custom Placeholders files."
             }
           },
           "default": {
@@ -332,7 +336,8 @@
             "Item": "[\\\\\\/][Ii]tems[\\\\\\/]",
             "Metaskill": "[\\\\\\/][Ss]kills[\\\\\\/]",
             "Droptable": "[\\\\\\/][Dd]rop[Tt]ables[\\\\\\/]",
-            "Stat": "[\\\\\\/]stats.((yaml)|(yml)|(txt))"
+            "Stat": "[\\\\\\/]stats.((yaml)|(yml)|(txt))",
+            "Placeholder": "[\\\\\\/]placeholders.((yaml)|(yml)|(txt))"
           },
           "additionalProperties": false,
           "description": "Regexes used against each document's file path: if it matches, the document will be considered as being a specific type of file, enabling specific functionalities.",

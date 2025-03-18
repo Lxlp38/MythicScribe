@@ -4,6 +4,7 @@ import {
     checkMythicMobsFile,
     enableMythicScriptSyntax,
     checkFileEnabled,
+    fileRegexConfigCache,
 } from '../utils/configutils';
 import { AbstractScribeSubscription, ScribeSubscriptionHandler } from './SubscriptionHandler';
 import { MetaskillFileObjects } from '../schemas/metaskillFileObjects';
@@ -11,6 +12,8 @@ import { MobFileObjects } from '../schemas/mobFileObjects';
 import { ItemFileObjects } from '../schemas/itemfileObjects';
 import { DroptableFileObject } from '../schemas/droptableFileObjects';
 import { FileObjectMap } from '../objectInfos';
+import { StatFileObjects } from '../schemas/statfileObjects';
+import { MythicNodeHandlerRegistryKey } from '../mythicnodes/MythicNode';
 
 function resetFileChecks() {
     isEnabled = false;
@@ -19,6 +22,7 @@ function resetFileChecks() {
     isItemFile = false;
     isDroptableFile = false;
     isStatFile = false;
+    isPlaceholderFile = false;
 }
 export let isEnabled = false;
 export let isMetaskillFile = false;
@@ -26,6 +30,7 @@ export let isMobFile = false;
 export let isItemFile = false;
 export let isDroptableFile = false;
 export let isStatFile = false;
+export let isPlaceholderFile = false;
 
 export const extensionEnabler = vscode.window.onDidChangeActiveTextEditor((editor) => {
     if (!editor) {
@@ -107,7 +112,6 @@ export function updateSubscriptions(document: vscode.TextDocument) {
     if (!isEnabled) {
         return;
     }
-
     isMetaskillFile = fileSpecificEnabler(
         isMetaskillFile,
         checkFileEnabled(uri, 'Metaskill'),
@@ -133,45 +137,69 @@ export function updateSubscriptions(document: vscode.TextDocument) {
         checkFileEnabled(uri, 'Stat'),
         ScribeSubscriptionHandler.registry.stat
     );
+    isPlaceholderFile = fileSpecificEnabler(
+        isPlaceholderFile,
+        checkFileEnabled(uri, 'Placeholder'),
+        ScribeSubscriptionHandler.registry.placeholder
+    );
 }
 
-export enum FileType {
-    NONE,
-    METASKILL,
-    MOB,
-    ITEM,
-    DROPTABLE,
-    STAT,
+interface FileTypeInfo {
+    schema?: FileObjectMap;
+    MythicNodeHandlerRegistryKey?: MythicNodeHandlerRegistryKey;
+    configKey?: keyof typeof fileRegexConfigCache;
+    subscriptionHandler?: keyof typeof ScribeSubscriptionHandler.registry;
 }
-
-export function checkFileType(uri: vscode.Uri): FileType {
-    if (!checkMythicMobsFile(uri)) {
-        return FileType.NONE;
-    }
-
-    if (checkFileEnabled(uri, 'Metaskill')) {
-        return FileType.METASKILL;
-    }
-    if (checkFileEnabled(uri, 'Mob')) {
-        return FileType.MOB;
-    }
-    if (checkFileEnabled(uri, 'Item')) {
-        return FileType.ITEM;
-    }
-    // if (checkFileEnabled(document, 'Droptable')) {
-    //     return FileType.DROPTABLE;
-    // }
-    if (checkFileEnabled(uri, 'Stat')) {
-        return FileType.STAT;
-    }
-    return FileType.NONE;
-}
-
-export const FileTypeToSchema: { [key in FileType]: FileObjectMap | undefined } = {
-    [FileType.METASKILL]: MetaskillFileObjects,
-    [FileType.MOB]: MobFileObjects,
-    [FileType.ITEM]: ItemFileObjects,
-    [FileType.DROPTABLE]: DroptableFileObject,
-    [FileType.STAT]: undefined,
-    [FileType.NONE]: undefined,
+type FileTypeInfoMapKeys = Exclude<keyof typeof fileRegexConfigCache, 'MythicMobs'>;
+const FileTypeInfoMap: {
+    [K in FileTypeInfoMapKeys]: FileTypeInfo;
+} = {
+    Metaskill: {
+        schema: MetaskillFileObjects,
+        MythicNodeHandlerRegistryKey: 'metaskill',
+        configKey: 'Metaskill',
+        subscriptionHandler: 'skill',
+    },
+    Mob: {
+        schema: MobFileObjects,
+        MythicNodeHandlerRegistryKey: 'mob',
+        configKey: 'Mob',
+        subscriptionHandler: 'mob',
+    },
+    Item: {
+        schema: ItemFileObjects,
+        MythicNodeHandlerRegistryKey: 'item',
+        configKey: 'Item',
+        subscriptionHandler: 'item',
+    },
+    Droptable: {
+        schema: DroptableFileObject,
+        MythicNodeHandlerRegistryKey: 'droptable',
+        configKey: 'Droptable',
+        subscriptionHandler: 'droptable',
+    },
+    Stat: {
+        schema: StatFileObjects,
+        MythicNodeHandlerRegistryKey: 'stat',
+        configKey: 'Stat',
+        subscriptionHandler: 'stat',
+    },
+    Placeholder: {
+        schema: undefined,
+        MythicNodeHandlerRegistryKey: 'placeholder',
+        configKey: 'Placeholder',
+        subscriptionHandler: 'placeholder',
+    },
 };
+
+export function checkFileType(uri: vscode.Uri): FileTypeInfo {
+    if (!checkMythicMobsFile(uri)) {
+        return {};
+    }
+    for (const info of Object.values(FileTypeInfoMap)) {
+        if (info.configKey && checkFileEnabled(uri, info.configKey)) {
+            return info;
+        }
+    }
+    return {};
+}

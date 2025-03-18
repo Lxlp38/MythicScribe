@@ -9,7 +9,7 @@ import {
 import { getSquareBracketObject } from './cursorutils';
 import { FileObject, FileObjectMap } from '../objectInfos';
 import { ArrayListNode } from './genericDataStructures';
-import { checkFileType, FileType, FileTypeToSchema } from '../subscriptions/SubscriptionHelper';
+import { checkFileType } from '../subscriptions/SubscriptionHelper';
 
 const yamlKeyRegex = /^(?<indent>\s*)(?<key>[^#:\s]+):/;
 function getYamlRegexInfo(match: RegExpMatchArray): { indent: string; key: string } {
@@ -234,8 +234,7 @@ interface YamlKeyPair {
 }
 
 export class YamlKeyPairList extends ArrayListNode<YamlKeyPair> {
-    constructor(keys: YamlKey[], fileType: FileType) {
-        const schema = FileTypeToSchema[fileType as keyof typeof FileTypeToSchema];
+    constructor(keys: YamlKey[], schema?: FileObjectMap) {
         if (keys.length === 0 || !schema) {
             super([]);
             return;
@@ -265,7 +264,7 @@ export class YamlKeyPairList extends ArrayListNode<YamlKeyPair> {
 
 export function getDocumentSearchList(text: string, document: vscode.TextDocument) {
     const keys = getDocumentKeys(text);
-    return new YamlKeyPairList(keys, checkFileType(document.uri));
+    return new YamlKeyPairList(keys, checkFileType(document.uri).schema);
 }
 
 /**

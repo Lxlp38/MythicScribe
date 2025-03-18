@@ -223,24 +223,27 @@ export const ScribeEnumHandler = {
         this.addScriptedEnum(scriptedEnums.Targeter, insertTargeterCompletion);
 
         this.addScriptedEnum(scriptedEnums.Mobs, () =>
-            fromMythicNodeToEnum(MythicNodeHandler.registry.mobs.getNodes())
+            fromMythicNodeToEnum(MythicNodeHandler.registry.mob.getNodes())
         );
         this.addScriptedEnum(scriptedEnums.Items, () => {
-            const mythicitems = fromMythicNodeToEnum(MythicNodeHandler.registry.items.getNodes());
+            const mythicitems = fromMythicNodeToEnum(MythicNodeHandler.registry.item.getNodes());
             const paperitems = ScribeEnumHandler.getEnum('material')!.getDataset();
             return new Map([...mythicitems, ...paperitems]);
         });
         this.addScriptedEnum(scriptedEnums.MythicItem, () =>
-            fromMythicNodeToEnum(MythicNodeHandler.registry.items.getNodes())
+            fromMythicNodeToEnum(MythicNodeHandler.registry.item.getNodes())
         );
         this.addScriptedEnum(scriptedEnums.Metaskill, () =>
-            fromMythicNodeToEnum(MythicNodeHandler.registry.metaskills.getNodes())
+            fromMythicNodeToEnum(MythicNodeHandler.registry.metaskill.getNodes())
         );
         this.addScriptedEnum(scriptedEnums.Droptable, () =>
-            fromMythicNodeToEnum(MythicNodeHandler.registry.droptables.getNodes())
+            fromMythicNodeToEnum(MythicNodeHandler.registry.droptable.getNodes())
         );
         this.addScriptedEnum(scriptedEnums.Stat, () =>
-            fromMythicNodeToEnum(MythicNodeHandler.registry.stats.getNodes())
+            fromMythicNodeToEnum(MythicNodeHandler.registry.stat.getNodes())
+        );
+        this.addScriptedEnum(scriptedEnums.CustomPlaceholder, () =>
+            fromMythicNodeToEnum(MythicNodeHandler.registry.placeholder.getNodes())
         );
     },
 };

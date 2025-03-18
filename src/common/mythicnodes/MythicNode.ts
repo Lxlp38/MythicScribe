@@ -1,7 +1,7 @@
 import * as vscode from 'vscode';
 import pLimit from 'p-limit';
 
-import { checkFileType, FileType } from '../subscriptions/SubscriptionHelper';
+import { checkFileType } from '../subscriptions/SubscriptionHelper';
 import { Log } from '../utils/logger';
 import { getFileParserPolicyConfig } from '../utils/configutils';
 import { ConditionActions } from '../schemas/conditionActions';
@@ -29,7 +29,7 @@ vscode.workspace.onDidSaveTextDocument((document) => {
     if (!getFileParserPolicyConfig('parseOnSave')) {
         return;
     }
-    const type = fromFileTypeToRegistryKey.get(checkFileType(document.uri));
+    const type = checkFileType(document.uri).MythicNodeHandlerRegistryKey;
     if (type) {
         MythicNodeHandler.registry[type].resetDocument(document);
     }
@@ -39,7 +39,7 @@ vscode.workspace.onDidChangeTextDocument((event) => {
     if (!getFileParserPolicyConfig('parseOnModification')) {
         return;
     }
-    const type = fromFileTypeToRegistryKey.get(checkFileType(event.document.uri));
+    const type = checkFileType(event.document.uri).MythicNodeHandlerRegistryKey;
     if (type) {
         MythicNodeHandler.registry[type].resetDocument(event.document);
     }
@@ -47,8 +47,8 @@ vscode.workspace.onDidChangeTextDocument((event) => {
 
 vscode.workspace.onDidRenameFiles(async (event) => {
     for (const { oldUri, newUri } of event.files) {
-        const oldType = fromFileTypeToRegistryKey.get(checkFileType(oldUri));
-        const newType = fromFileTypeToRegistryKey.get(checkFileType(newUri));
+        const oldType = checkFileType(oldUri).MythicNodeHandlerRegistryKey;
+        const newType = checkFileType(newUri).MythicNodeHandlerRegistryKey;
 
         if (oldType) {
             MythicNodeHandler.registry[oldType].clearNodesByDocument(oldUri);
@@ -70,7 +70,7 @@ vscode.workspace.onDidCreateFiles(async (event) => {
         if (!document) {
             continue;
         }
-        const type = fromFileTypeToRegistryKey.get(checkFileType(document.uri));
+        const type = checkFileType(document.uri).MythicNodeHandlerRegistryKey;
         if (type) {
             MythicNodeHandler.registry[type].scanDocument(document);
         }
@@ -79,7 +79,7 @@ vscode.workspace.onDidCreateFiles(async (event) => {
 
 vscode.workspace.onDidDeleteFiles(async (event) => {
     for (const file of event.files) {
-        const type = fromFileTypeToRegistryKey.get(checkFileType(file));
+        const type = checkFileType(file).MythicNodeHandlerRegistryKey;
         if (type) {
             MythicNodeHandler.registry[type].clearNodesByDocument(file);
         }
@@ -100,11 +100,12 @@ interface NodeElement extends NodeBaseElement {
 export class MythicNode {
     templates: Set<string> = new Set();
     outEdge: { [K in MythicNodeHandlerRegistryKey]: Set<string> } = {
-        metaskills: new Set(),
-        mobs: new Set(),
-        items: new Set(),
-        droptables: new Set(),
-        stats: new Set(),
+        metaskill: new Set(),
+        mob: new Set(),
+        item: new Set(),
+        droptable: new Set(),
+        stat: new Set(),
+        placeholder: new Set(),
     };
     constructor(
         public registry: MythicNodeRegistry,
@@ -140,7 +141,7 @@ export class MythicNode {
             .map((line) => line.replace(/\s*#.*/, ''))
             .join('\n');
 
-        if (this.registry.type === 'mobs' || this.registry.type === 'items') {
+        if (this.registry.type === 'mob' || this.registry.type === 'item') {
             this.matchTemplate(this.body.text).forEach((template) => {
                 if (this.templates.has(template)) {
                     Log.warn(
@@ -149,9 +150,9 @@ export class MythicNode {
                 }
                 this.templates.add(template);
             });
-        } else if (this.registry.type === 'metaskills') {
+        } else if (this.registry.type === 'metaskill') {
             this.matchConditionActions(this.body.text).forEach((action) => {
-                this.outEdge.metaskills.add(action);
+                this.outEdge.metaskill.add(action);
             });
         }
         for (const type of MythicNodeHandlerRegistryKey) {
@@ -161,7 +162,7 @@ export class MythicNode {
         }
 
         this.matchSkillShortcut(this.body.text).forEach((skillShortcut) => {
-            this.outEdge.metaskills.add(skillShortcut);
+            this.outEdge.metaskill.add(skillShortcut);
         });
         delete body.text;
         //NodeMatchTime += time.delta();
@@ -367,21 +368,23 @@ export class MythicNodeRegistry {
 }
 
 export const MythicNodeHandlerRegistryKey = [
-    'metaskills',
-    'mobs',
-    'items',
-    'droptables',
-    'stats',
+    'metaskill',
+    'mob',
+    'item',
+    'droptable',
+    'stat',
+    'placeholder',
 ] as const;
 export type MythicNodeHandlerRegistryKey = (typeof MythicNodeHandlerRegistryKey)[number];
 
 export namespace MythicNodeHandler {
     export const registry: Record<MythicNodeHandlerRegistryKey, MythicNodeRegistry> = {
-        metaskills: new MythicNodeRegistry('metaskills'),
-        mobs: new MythicNodeRegistry('mobs'),
-        items: new MythicNodeRegistry('items'),
-        droptables: new MythicNodeRegistry('droptables'),
-        stats: new MythicNodeRegistry('stats'),
+        metaskill: new MythicNodeRegistry('metaskill'),
+        mob: new MythicNodeRegistry('mob'),
+        item: new MythicNodeRegistry('item'),
+        droptable: new MythicNodeRegistry('droptable'),
+        stat: new MythicNodeRegistry('stat'),
+        placeholder: new MythicNodeRegistry('placeholder'),
     };
 
     export function getRegistry(key: keyof typeof registry): MythicNodeRegistry {
@@ -396,7 +399,7 @@ export namespace MythicNodeHandler {
 
     type ProcessFileResult = [MythicNodeHandlerRegistryKey, vscode.TextDocument] | null;
     async function processFile(uri: vscode.Uri): Promise<ProcessFileResult> {
-        const type = fromFileTypeToRegistryKey.get(checkFileType(uri));
+        const type = checkFileType(uri).MythicNodeHandlerRegistryKey;
         if (!type) {
             return null;
         }
@@ -478,11 +481,3 @@ export namespace MythicNodeHandler {
         Log.debug('Finished scanning all documents');
     }
 }
-
-export const fromFileTypeToRegistryKey: Map<FileType, MythicNodeHandlerRegistryKey> = new Map([
-    [FileType.METASKILL, 'metaskills'],
-    [FileType.MOB, 'mobs'],
-    [FileType.ITEM, 'items'],
-    [FileType.DROPTABLE, 'droptables'],
-    [FileType.STAT, 'stats'],
-]);

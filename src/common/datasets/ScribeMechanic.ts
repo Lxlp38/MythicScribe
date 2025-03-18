@@ -276,14 +276,6 @@ export interface Attribute {
     inheritable?: boolean;
 }
 
-export const fromEnumToMythicNodeRegistryKey: Record<string, MythicNodeHandlerRegistryKey> = {
-    metaskill: 'metaskills',
-    item: 'items',
-    mob: 'mobs',
-    stat: 'stats',
-    droptable: 'droptables',
-};
-
 export class MythicAttribute {
     static readonly regex = /(?<=[{;])\s*\w+(?=\s*=)/gm;
     readonly mechanic: MythicMechanic;
@@ -387,8 +379,8 @@ export const ScribeMechanicHandler = {
         Object.values(ScribeMechanicHandler.registry).forEach((registry) =>
             registry.getMechanics().forEach((mechanic) => {
                 mechanic.getAttributes().forEach((attr) => {
-                    if (attr.enum) {
-                        const key = fromEnumToMythicNodeRegistryKey[attr.enum.identifier];
+                    if (attr.enum && attr.enum.identifier in MythicNodeHandlerRegistryKey) {
+                        const key = attr.enum.identifier as MythicNodeHandlerRegistryKey;
                         if (key) {
                             for (const n of mechanic.name) {
                                 if (!MythicNodeHandler.registry[key].referenceMap.has(n)) {

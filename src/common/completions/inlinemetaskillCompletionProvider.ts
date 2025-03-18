@@ -77,7 +77,7 @@ export function addMetaskillsToConditionLine(
     completionItems: vscode.CompletionItem[],
     string: string = ' $0'
 ) {
-    MythicNodeHandler.registry.metaskills.getNodes().forEach((node) => {
+    MythicNodeHandler.registry.metaskill.getNodes().forEach((node) => {
         const completionItem = new vscode.CompletionItem(
             node.name.text,
             vscode.CompletionItemKind.Function
@@ -106,8 +106,6 @@ export function putSelectionInsideInlineMetaskill() {
         )
     );
     const selectedText = document.getText(selection);
-    console.log(editor.selection, selection, selectedText);
-
     const indent = yamlutils.getIndentation(document.lineAt(selection.start.line).text);
     const indentation = ' '.repeat(indent);
 

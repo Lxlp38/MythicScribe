@@ -8,6 +8,7 @@
 ### Fixed
 - Condition Actions having no syntax highlighting
 - Mythic Node Graph's selected element having low opacity
+- Comments at the bottom of the documents being wrongfully parsed by the formatter 
 
 
 ## [1.6.0]

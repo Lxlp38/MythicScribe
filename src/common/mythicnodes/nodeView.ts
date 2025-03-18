@@ -64,11 +64,12 @@ type EdgeAdditionalData = {
 };
 
 const NodeTypeToAdditionalData: Record<MythicNodeHandlerRegistryKey, NodeData> = {
-    mobs: { shape: 'rectangle', color: '#007acc' },
-    items: { shape: 'triangle', color: '#00cc00' },
-    metaskills: { shape: 'ellipse', color: '#ffcc00' },
-    droptables: { shape: 'diamond', color: '#cc00cc' },
-    stats: { shape: 'barrel', color: '#cc0000' },
+    mob: { shape: 'rectangle', color: '#007acc' },
+    item: { shape: 'triangle', color: '#00cc00' },
+    metaskill: { shape: 'ellipse', color: '#ffcc00' },
+    droptable: { shape: 'diamond', color: '#cc00cc' },
+    stat: { shape: 'barrel', color: '#cc0000' },
+    placeholder: { shape: 'rhomboid', color: '#cc6600' },
 };
 
 const UnknownNodeData: NodeData = { color: '#807e7a', unknown: true };
@@ -119,11 +120,12 @@ enum selectedElementsType {
 }
 
 enum selectedElementsFilter {
-    mobs,
-    items,
-    metaskills,
-    droptables,
-    stats,
+    mob,
+    item,
+    metaskill,
+    droptable,
+    stat,
+    placeholder,
 }
 
 const GraphOptions = {
@@ -138,11 +140,11 @@ const GraphOptions = {
     filters: {
         query: 'Select the elements to hide',
         options: [
-            { label: 'Hide Mobs', value: selectedElementsFilter.mobs },
-            { label: 'Hide Items', value: selectedElementsFilter.items },
-            { label: 'Hide Metaskills', value: selectedElementsFilter.metaskills },
-            { label: 'Hide Droptables', value: selectedElementsFilter.droptables },
-            { label: 'Hide Stats', value: selectedElementsFilter.stats },
+            { label: 'Hide Mobs', value: selectedElementsFilter.mob },
+            { label: 'Hide Items', value: selectedElementsFilter.item },
+            { label: 'Hide Metaskills', value: selectedElementsFilter.metaskill },
+            { label: 'Hide Droptables', value: selectedElementsFilter.droptable },
+            { label: 'Hide Stats', value: selectedElementsFilter.stat },
         ],
     },
 };

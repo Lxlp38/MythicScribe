@@ -127,6 +127,13 @@ function restoreComments(text: string, document: vscode.TextDocument): string {
             Log.error(error);
         }
     }
+    for (let i = lastNonCommentedLine; i < lines.length; i++) {
+        const basicMatch = lines[i].match(placeholder);
+        if (!basicMatch) {
+            continue;
+        }
+        lines[i] = lines[i].replace(placeholder, comments.shift()?.text || '');
+    }
     return lines.join('\n');
 }
 

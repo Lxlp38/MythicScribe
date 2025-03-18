@@ -107,7 +107,7 @@ function handleSkill<T>(
 ) {
     if (word.startsWith('skill:')) {
         const skillName = word.slice(6);
-        const skill = MythicNodeHandler.registry.metaskills.getNode(skillName);
+        const skill = MythicNodeHandler.registry.metaskill.getNode(skillName);
         if (skill) {
             return callback(skill, wordRange.with({ start: wordRange.start.translate(0, 6) }));
         }
@@ -129,7 +129,7 @@ function handleConditionAction<T>(
     const castKeywords = ['cast', 'orelsecast', 'castinstead'];
     const beforeWord = lineText.slice(0, wordRange.start.character).trim().toLowerCase();
     if (castKeywords.some((keyword) => beforeWord.endsWith(keyword))) {
-        const skill = MythicNodeHandler.registry.metaskills.getNode(word);
+        const skill = MythicNodeHandler.registry.metaskill.getNode(word);
         if (skill) {
             return callback(skill, wordRange);
         }
@@ -145,9 +145,9 @@ function handleTemplates<T>(
 ) {
     if (lineText.match(/^\s*Template(s)?\:/)) {
         const template = isMobFile
-            ? MythicNodeHandler.registry.mobs.getNode(word.trim())
+            ? MythicNodeHandler.registry.mob.getNode(word.trim())
             : isItemFile
-              ? MythicNodeHandler.registry.items.getNode(word.trim())
+              ? MythicNodeHandler.registry.item.getNode(word.trim())
               : undefined;
         if (template) {
             return callback(template, wordRange);
@@ -170,16 +170,16 @@ function handleLinkedAttribute<T>(
 
         switch (attribute.enum.identifier) {
             case scriptedEnums.Metaskill:
-                skill = MythicNodeHandler.registry.metaskills.getNode(word);
+                skill = MythicNodeHandler.registry.metaskill.getNode(word);
                 break;
             case scriptedEnums.Mobs:
-                skill = MythicNodeHandler.registry.mobs.getNode(word);
+                skill = MythicNodeHandler.registry.mob.getNode(word);
                 break;
             case scriptedEnums.Items:
-                skill = MythicNodeHandler.registry.items.getNode(word);
+                skill = MythicNodeHandler.registry.item.getNode(word);
                 break;
             case scriptedEnums.Stat:
-                skill = MythicNodeHandler.registry.stats.getNode(word);
+                skill = MythicNodeHandler.registry.stat.getNode(word);
                 break;
             default:
                 return undefined;
