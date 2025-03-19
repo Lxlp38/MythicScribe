@@ -164,6 +164,9 @@ export class MythicNode {
         this.matchSkillShortcut(this.body.text).forEach((skillShortcut) => {
             this.outEdge.metaskill.add(skillShortcut);
         });
+        this.matchCustomPlaceholder(this.body.text).forEach((customPlaceholder) => {
+            this.outEdge.placeholder.add(customPlaceholder);
+        });
         delete body.text;
         //NodeMatchTime += time.delta();
     }
@@ -245,6 +248,16 @@ export class MythicNode {
             skillShortcuts.push(match[1]);
         }
         return skillShortcuts;
+    }
+
+    private matchCustomPlaceholder(body: string): string[] {
+        const customPlaceholderRegex = /<placeholder\.([\w\-_]+)>/g;
+        const matches = body.matchAll(customPlaceholderRegex);
+        const customPlaceholders: string[] = [];
+        for (const match of matches) {
+            customPlaceholders.push(match[1]);
+        }
+        return customPlaceholders;
     }
 }
 

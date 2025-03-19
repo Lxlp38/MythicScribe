@@ -145,6 +145,7 @@ const GraphOptions = {
             { label: 'Hide Metaskills', value: selectedElementsFilter.metaskill },
             { label: 'Hide Droptables', value: selectedElementsFilter.droptable },
             { label: 'Hide Stats', value: selectedElementsFilter.stat },
+            { label: 'Hide Custom Placeholders', value: selectedElementsFilter.placeholder },
         ],
     },
 };

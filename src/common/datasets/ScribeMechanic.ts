@@ -379,7 +379,12 @@ export const ScribeMechanicHandler = {
         Object.values(ScribeMechanicHandler.registry).forEach((registry) =>
             registry.getMechanics().forEach((mechanic) => {
                 mechanic.getAttributes().forEach((attr) => {
-                    if (attr.enum && attr.enum.identifier in MythicNodeHandlerRegistryKey) {
+                    if (
+                        attr.enum &&
+                        MythicNodeHandlerRegistryKey.includes(
+                            attr.enum.identifier as MythicNodeHandlerRegistryKey
+                        )
+                    ) {
                         const key = attr.enum.identifier as MythicNodeHandlerRegistryKey;
                         if (key) {
                             for (const n of mechanic.name) {

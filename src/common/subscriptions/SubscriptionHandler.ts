@@ -32,6 +32,7 @@ import { genericFileCompletionProvider } from '../completions/filecompletions/ge
 import { DroptableFileObject } from '../schemas/droptableFileObjects';
 import { StatFileObjects } from '../schemas/statfileObjects';
 import { definitionProvider } from '../cursorLocationActions/definitionProvider';
+import { placeholderCompletionProvider } from '../completions/placeholderCompletion';
 
 type SubscriptionFunction = () => vscode.Disposable;
 type SubscriptionCondition = () => boolean;
@@ -200,6 +201,7 @@ class GlobalSubscriptionHandler extends AbstractScribeSubscription {
                 () => targeterCompletionProvider(),
                 () => definitionProvider(),
                 () => metaskillCompletionProvider(),
+                () => placeholderCompletionProvider(),
             ],
             []
         );

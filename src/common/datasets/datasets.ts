@@ -17,6 +17,7 @@ import {
 } from '../utils/configutils';
 import { loadCustomDatasets } from './customDatasets';
 import { MythicNodeHandler } from '../mythicnodes/MythicNode';
+import { initializePlaceholders } from './ScribePlaceholder';
 
 // GitHub URL to fetch data from
 export const GITHUB_BASE_URL = 'https://raw.githubusercontent.com/Lxlp38/MythicScribe/master/';
@@ -144,6 +145,7 @@ export async function loadDatasets() {
     if (getFileParserPolicyConfig('parseOnStartup')) {
         MythicNodeHandler.scanAllDocuments();
     }
+    initializePlaceholders();
     datasetsLoadedEventEmitter.fire();
 }
 

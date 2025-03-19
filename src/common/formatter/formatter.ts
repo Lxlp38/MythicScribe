@@ -5,6 +5,7 @@ import {
     getDefaultIndentation,
     getDocumentSearchList,
     getLastNonCommentLine,
+    YamlKeyPairList,
 } from '../utils/yamlutils';
 import { Log } from '../utils/logger';
 import { FileObjectTypes } from '../objectInfos';
@@ -80,61 +81,64 @@ function restoreComments(text: string, document: vscode.TextDocument): string {
     const lines = text.split('\n');
 
     for (let i = 0; i < lastNonCommentedLine; i++) {
-        const basicMatch = lines[i].match(placeholder);
-        if (!basicMatch) {
-            continue;
-        }
-
-        // Pick The Comment That Is Gonna Be Used
-        const comment = comments.shift();
-        if (!comment) {
-            continue;
-        }
-
-        // Check for Whole Line Comment
-        const match = lines[i].match(/^(\s*)#__MYTHICSCRIBE_COMMENT_START__/);
-        // Process Inline Comment
-        if (!match) {
-            lines[i] = lines[i].replace(placeholder, comment.text);
-            continue;
-        }
-
-        const indent = match[0].indexOf('#');
-
-        // If the original comment had no indent, so should this one
-        if (comment.indent === 0) {
-            lines[i] = lines[i].replace(' '.repeat(indent), '');
-            lines[i] = lines[i].replace(placeholder, comment.text.trim());
-            continue;
-        }
-
-        try {
-            // Otherwise, let's see what happens here
-            const relatedNode = yamlTree.getBoundKey(i);
-            if (relatedNode) {
-                let relatedNodeIndent = relatedNode.yamlKey[2];
-                const type = relatedNode.fileObject?.type;
-                if (type && type in [FileObjectTypes.LIST, FileObjectTypes.KEY_LIST]) {
-                    relatedNodeIndent += getDefaultIndentation();
-                }
-                if (indent !== relatedNodeIndent) {
-                    const adjustedIndent = ' '.repeat(relatedNodeIndent);
-                    lines[i] = lines[i].replace(' '.repeat(indent), adjustedIndent);
-                }
-                lines[i] = lines[i].replace(placeholder, comment.text.trim());
-            }
-        } catch (error) {
-            Log.error(error);
-        }
+        restoreMainComments(lines, i, yamlTree);
     }
     for (let i = lastNonCommentedLine; i < lines.length; i++) {
-        const basicMatch = lines[i].match(placeholder);
-        if (!basicMatch) {
+        if (!lines[i].match(placeholder)) {
             continue;
         }
         lines[i] = lines[i].replace(placeholder, comments.shift()?.text || '');
     }
     return lines.join('\n');
+}
+
+function restoreMainComments(lines: string[], i: number, yamlTree: YamlKeyPairList): void {
+    if (!lines[i].match(placeholder)) {
+        return;
+    }
+
+    // Pick The Comment That Is Gonna Be Used
+    const comment = comments.shift();
+    if (!comment) {
+        return;
+    }
+
+    // Check for Whole Line Comment
+    const match = lines[i].match(/^(\s*)#__MYTHICSCRIBE_COMMENT_START__/);
+
+    // Process Inline Comment
+    if (!match) {
+        lines[i] = lines[i].replace(placeholder, comment.text);
+        return;
+    }
+
+    const indent = match[0].indexOf('#');
+
+    // If the original comment had no indent, so should this one
+    if (comment.indent === 0) {
+        lines[i] = lines[i].replace(' '.repeat(indent), '');
+        lines[i] = lines[i].replace(placeholder, comment.text.trim());
+        return;
+    }
+
+    try {
+        // Otherwise, let's see what happens here
+        const relatedNode = yamlTree.getBoundKey(i);
+        if (relatedNode) {
+            let relatedNodeIndent = relatedNode.yamlKey[2];
+            const type = relatedNode.fileObject?.type;
+            if (type && type in [FileObjectTypes.LIST, FileObjectTypes.KEY_LIST]) {
+                relatedNodeIndent += getDefaultIndentation();
+            }
+            if (indent !== relatedNodeIndent) {
+                const adjustedIndent = ' '.repeat(relatedNodeIndent);
+                lines[i] = lines[i].replace(' '.repeat(indent), adjustedIndent);
+            }
+            lines[i] = lines[i].replace(placeholder, comment.text.trim());
+        }
+    } catch (error) {
+        Log.error(error);
+    }
 }
 
 const quotePlaceholder = `"__MYTHICSCRIBE_QUOTED_STRING__"`;
@@ -166,13 +170,12 @@ function normalizeYamlIndentation(yamlContent: string): string {
         });
         if (doc.errors) {
             doc.errors.forEach((error) => {
-                Log.debug('Formatter error:', error.code, error.name, error.message);
+                Log.debug(`Formatter error: ${error.code} ${error.name} ${error.message}`);
                 if (error.stack) {
                     Log.trace(error.stack);
                 }
             });
         }
-
         return doc.toString();
     } catch (error) {
         Log.error(error);

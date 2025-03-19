@@ -88,6 +88,7 @@ export function CursorLocationActionForNode<T>(
         () => handleConditionAction(document, position, word, wordRange, callback),
         () => handleTemplates(document.lineAt(position.line).text, word, wordRange, callback),
         () => handleLinkedAttribute(document, position, word, wordRange, callback),
+        () => handleCustomPlaceholder(document, position, callback),
     ];
 
     for (const handler of handlers) {
@@ -189,6 +190,27 @@ function handleLinkedAttribute<T>(
             return undefined;
         }
         return callback(skill, wordRange);
+    }
+    return undefined;
+}
+
+function handleCustomPlaceholder<T>(
+    document: vscode.TextDocument,
+    position: vscode.Position,
+    callback: (node: MythicNode, range: vscode.Range) => vscode.ProviderResult<T>
+) {
+    const maybePlaceholder = document.getWordRangeAtPosition(
+        position,
+        /(?<=<placeholder\.)[\w\-_]+(?=>)/g
+    );
+    if (!maybePlaceholder) {
+        return undefined;
+    }
+    const placeholder = MythicNodeHandler.registry.placeholder.getNode(
+        document.getText(maybePlaceholder)
+    );
+    if (placeholder) {
+        return callback(placeholder, maybePlaceholder);
     }
     return undefined;
 }
