@@ -3,6 +3,7 @@ export const volatileEnums = [
     ['PAPERATTRIBUTE', 'paper/attributes.json'],
     'paper/barcolor.json',
     'paper/barstyle.json',
+    'paper/billboard.json',
     'paper/blockface.json',
     'paper/damagecause.json',
     'paper/dragonbattlerespawnphase.json',
@@ -19,12 +20,14 @@ export const volatileEnums = [
     'paper/potioneffecttype.json',
     'paper/soundcategory.json',
     'paper/spawnreason.json',
+    'paper/textalignment.json',
     'paper/worldenvironment.json',
 ];
 
 export const localEnums = [
     ['PAPERATTRIBUTEOPERATION', 'mythic/attributesoperations.json'],
     ['AUDIENCE', 'mythic/audiences.json'],
+    'mythic/culltype.json',
     'mythic/equipslot.json',
     'mythic/fluid.json',
     'mythic/furnitureorientation.json',
@@ -34,6 +37,7 @@ export const localEnums = [
     'mythic/itemrarity.json',
     'mythic/mythicentity.json',
     ['PARTICLE', 'mythic/particles.json'],
+    'mythic/placeholder.json',
     'mythic/scoreaction.json',
     'mythic/shape.json',
     'mythic/statexecutionpoint.json',

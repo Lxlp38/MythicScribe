@@ -4382,7 +4382,8 @@
         "implements": [
             "IEntityCondition",
             "ILocationCondition",
-            "ISkillMetaCondition"
+            "ISkillMetaCondition",
+            "ISkillMetaComparisonCondition"
         ],
         "name": [
             "variableEquals",

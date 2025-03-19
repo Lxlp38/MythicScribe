@@ -3,6 +3,8 @@
 ## [Unreleased]
 
 ### Added
+- Placeholder completions
+  - Custom Placeholder Support for nodes, completions and hovers
 - `MythicScribe.putSelectionInsideInlineMetaskill` command and menu item to put the selected text inside of an inline metaskill
 
 ### Fixed

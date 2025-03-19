@@ -1,0 +1,248 @@
+{
+    "caster.damage": {
+        "description": "Returns the caster's Attack_Damage attribute value"
+    },
+    "caster.mythic_type": {
+        "description": "Returns the caster's internal mob type"
+    },
+    "caster.type.name": {
+        "description": "Returns the display name of a MythicMob or the entity name otherwise"
+    },
+    "caster.level": {
+        "description": "Returns the level of the caster"
+    },
+    "caster.hp": {
+        "description": "Returns current hp of the caster"
+    },
+    "caster.php": {
+        "description": "Returns the percent hp of the caster"
+    },
+    "caster.tt.top": {
+        "description": "Returns the name of the top threat holder of the caster"
+    },
+    "caster.l.x": {
+        "description": "Returns the X coordinate of the caster"
+    },
+    "caster.l.x.double": {
+        "description": "Returns the precise X coordinate of the caster"
+    },
+    "caster.l.y.{Float}": {
+        "description": "Returns the Y coordinate of the caster +- random number between {Float}"
+    },
+    "caster.l.z": {
+        "description": "Returns the Z coordinate of the caster"
+    },
+    "caster.l.z.double": {
+        "description": "Returns the precise Z coordinate of the caster"
+    },
+    "caster.l.pitch": {
+        "description": "Returns the pitch of the caster"
+    },
+    "caster.stat.{Stat}": {
+        "description": "Returns the value of the specified {Stat} on the caster"
+    },
+    "caster.skill.{SkillName}.cooldown": {
+        "description": "Returns the current cooldown of the give skill as a float number"
+    },
+    "caster.children.size": {
+        "description": "Returns the number of children this entity has"
+    },
+    "caster.var.{VariableName}": {
+        "description": "Returns the value of the variable {VariableName} on the variable registry of the caster of the mechanic"
+    },
+    "target.var.{VariableName}": {
+        "description": "Returns the value of the variable {VariableName} on the variable registry of the target of the mechanic"
+    },
+    "world.var.{VariableName}": {
+        "description": "Returns the value of the variable {VariableName} on the variable registry of the world the mechanic is used in"
+    },
+    "global.var.{VariableName}": {
+        "description": "Returns the value of the variable {VariableName} on the variable registry of the whole server"
+    },
+    "skill.var.{VariableName}": {
+        "description": "Returns the value of the variable {VariableName} on the current [skill tree](https://git.lumine.io/mythiccraft/MythicMobs/-/wikis/Skills/SkillTrees)"
+    },
+    "skill.var.damage-amount": {
+        "description": "Returns the amount of damage taken or done"
+    },
+    "skill.var.damage-type": {
+        "description": "Returns the type of damage taken or done, if any"
+    },
+    "skill.var.damage-cause": {
+        "description": "Returns the cause of damage taken/done"
+    },
+    "skill.var.aura-name": {
+        "description": "Returns the name of the aura"
+    },
+    "skill.var.aura-type": {
+        "description": "Returns the type of the aura"
+    },
+    "skill.var.aura-charges": {
+        "description": "Returns the amount of charges the aura has left"
+    },
+    "skill.var.aura-duration": {
+        "description": "Returns the remaining duration of the aura"
+    },
+    "skill.var.aura-duration-millis": {
+        "description": "Returns the remaining duration of the aura, in milliseconds"
+    },
+    "skill.var.aura-stacks": {
+        "description": "Returns the amount of stacks the aura has left"
+    },
+    "skill.var.input": {
+        "description": "Returns the chat input"
+    },
+    "skill.targets": {
+        "description": "Returns the amount of inherited targets"
+    },
+    "skill.var.interval": {
+        "description": "Returns the current iteration"
+    },
+    "skill.var.itr": {
+        "description": "Returns the current iteration"
+    },
+    "skill.var.volume": {
+        "description": "Returns a float value between 1 and 15 representing the intensity of the sound. Directly proportional to the distance (the further away the source, the higher this value)"
+    },
+    "skill.var.sound-type": {
+        "description": "Returns the type of the sound"
+    },
+    "skill.var.hit-block-type": {
+        "description": "Returns the block that was hit, or AIR if none"
+    },
+    "skill.var.bow-tension": {
+        "description": "Returns the force with which the projectile has been shot"
+    },
+    "target.uuid": {
+        "description": "Returns the UUID of the target"
+    },
+    "target.hp": {
+        "description": "Returns current hp of the target"
+    },
+    "target.php": {
+        "description": "Returns the percent hp of the target"
+    },
+    "target.threat": {
+        "description": "Returns the threat level of the target"
+    },
+    "target.l.x": {
+        "description": "Returns the X coordinate of the target"
+    },
+    "target.l.y": {
+        "description": "Returns the Y coordinate of the target"
+    },
+    "target.l.z": {
+        "description": "Returns the Z coordinate of the target"
+    },
+    "target.l.yaw": {
+        "description": "Returns the yaw of the target"
+    },
+    "target.level": {
+        "description": "Returns the level of the target"
+    },
+    "target.block.data": {
+        "description": "Returns the block data of the target block"
+    },
+    "target.item.type": {
+        "description": "Returns the type of the targeted item entity"
+    },
+    "target.itemstack_amount": {
+        "description": "Returns the amount of item entities on the ground"
+    },
+    "target.raytrace.{Float}": {
+        "description": "Returns the name of the block being looked at by the target if within {Float} range, if {Float} is specified. If only <target.raytrace> is used, then the range defaults to `4.5`. If no block is found, `AIR` is returned."
+    },
+    "trigger.uuid": {
+        "description": "Returns the UUID of the entity triggering the skill"
+    },
+    "trigger.hp": {
+        "description": "Returns the current hp of the entity triggering the skill"
+    },
+    "trigger.threat": {
+        "description": "Returns the threat level of the entity triggering the skill"
+    },
+    "trigger.l.x": {
+        "description": "Returns the X coordinate of the entity triggering the skill"
+    },
+    "trigger.l.y": {
+        "description": "Returns the Y coordinate of the entity triggering the skill"
+    },
+    "trigger.l.z": {
+        "description": "Returns the Z coordinate of the entity triggering the skill"
+    },
+    "trigger.l.yaw": {
+        "description": "Returns the yaw of the trigger"
+    },
+    "trigger.held.item": {
+        "description": "Returns the item held by the trigger"
+    },
+    "trigger.item.amount": {
+        "description": "Returns the amount of the item the trigger is holding"
+    },
+    "trigger.item.model": {
+        "description": "Returns the model of the item the trigger is holding"
+    },
+    "trigger.raytrace.{Float}": {
+        "description": "## Misc Placeholders"
+    },
+    "drop.amount": {
+        "description": "Returns the amount dropped while used in specific drop types"
+    },
+    "drops.money": {
+        "description": "Returns the money dropped through the vault plug-in"
+    },
+    "random.float.#to#": {
+        "description": "## Item Placeholders"
+    },
+    "item.amount": {
+        "description": "Returns the amount of the item that triggered the skill"
+    },
+    "mythicitem.{Item}.model": {
+        "description": "Returns the custommodeldata of the specified mythic item"
+    },
+    "caster.score.{Objective}": {
+        "description": "Returns the score of the caster from \"{Objective}\""
+    },
+    "trigger.score.{Objective}": {
+        "description": "Returns the score of the trigger from \"{Objective}\""
+    },
+    "score.objective.player": {
+        "description": "Returns the score of the defined player from \"objective\""
+    },
+    "caster.item.nbt.KEY": {
+        "description": "If no slot is specified, this checks the caster's item that called the skill."
+    },
+    "caster.item.offhand.nbt.KEY": {
+        "description": "Returns the specified NBT key of the caster's offhand item."
+    },
+    "caster.item.chest.nbt.KEY": {
+        "description": "Returns the specified NBT key of the caster's head item."
+    },
+    "caster.item.feet.nbt.KEY": {
+        "description": "## Variable Placeholders"
+    },
+    "skill.var.crafts": {
+        "description": "Returns the amount of items crafted"
+    },
+    "skill.var.equip-item": {
+        "description": "Returns the Itemstack of the item being used"
+    },
+    "skill.var.equip-slot": {
+        "description": "Returns the slot of the item being used"
+    },
+    "skill.var.block-internalid": {
+        "description": "Returns the internal name of the custom block being placed/broken, if used inside CustomBlockSkills"
+    },
+    "trigger.item.hand.nbt.KEY": {
+        "description": "Returns the specified NBT key of the trigger's hand item."
+    },
+    "item.color.hex": {
+        "description": "Returns the hex color of the item that called the skill"
+    },
+    "item.stat.display.{Stat}.{StatModifier}": {
+        "description": "Returns the value of the specified modifier of that stat."
+    },
+    "font.{FontName}": {
+        "description": "Returns the character associated with the custom font named `{FontName}`"
+    }
+}

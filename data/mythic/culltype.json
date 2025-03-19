@@ -1,0 +1,11 @@
+{
+    "NO_CULL": {
+        "description": "Does not cull the model. Which means the modeled entity moves like normal"
+    },
+    "MOVEMENT_ONLY": {
+        "description": "Stop all animation updates and only update the modeled entity's position, outside of some specific bones"
+    },
+    "CULLED": {
+        "description": "Completely despawn the modeled entity from view outside of some specific bones"
+    }
+}

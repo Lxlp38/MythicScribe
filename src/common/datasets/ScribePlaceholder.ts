@@ -1,12 +1,15 @@
 import * as vscode from 'vscode';
 
-import { MythicNodeHandler } from '../mythicnodes/MythicNode';
 import { generateNumbersInRange } from '../utils/schemautils';
 import { MythicAttribute } from './ScribeMechanic';
 import { retriggerCompletionsCommand } from '../utils/completionhelper';
+import { ScribeEnumHandler } from './ScribeEnum';
 
 class PlaceholderSegment {
-    constructor(public identifier: string) {}
+    public identifier: string;
+    constructor(identifier: string) {
+        this.identifier = identifier.toLowerCase();
+    }
     get(): string[] {
         return [this.identifier];
     }
@@ -17,12 +20,12 @@ class PlaceholderSegment {
 
 class ScriptedPlaceholderSegment extends PlaceholderSegment {
     constructor(identifier: string, get: () => string[], isOwnValue?: (value: string) => boolean) {
-        super(identifier);
+        super('{' + identifier + '}');
         this.get = get;
         if (isOwnValue) {
             this.isOwnValue = isOwnValue;
         }
-        ScriptedPlaceholderSegmentMap.addSegment(this);
+        ScriptedPlaceholderSegmentHandler.addSegment(this);
     }
 
     isOwnValue(value: string): boolean {
@@ -30,13 +33,16 @@ class ScriptedPlaceholderSegment extends PlaceholderSegment {
     }
 }
 
-const ScriptedPlaceholderSegmentMap = {
+const ScriptedPlaceholderSegmentHandler = {
     segments: new Map<string, ScriptedPlaceholderSegment>(),
     addSegment(segment: ScriptedPlaceholderSegment) {
         this.segments.set(segment.identifier, segment);
     },
     getSegment(identifier: string): ScriptedPlaceholderSegment | undefined {
-        return this.segments.get(identifier);
+        return this.segments.get(identifier.toLowerCase());
+    },
+    clearSegments() {
+        this.segments.clear();
     },
 };
 
@@ -46,7 +52,7 @@ class Placeholder {
 
     constructor(...args: string[]) {
         args.forEach((arg) => {
-            const segment = ScriptedPlaceholderSegmentMap.getSegment(arg);
+            const segment = ScriptedPlaceholderSegmentHandler.getSegment(arg);
             if (segment) {
                 this.args.push(segment);
             } else {
@@ -55,26 +61,31 @@ class Placeholder {
         });
     }
 
-    getPlaceholderNodes(): ScribePlaceholderNode[] {
-        return this.args.map((arg) => {
-            return new ScribePlaceholderNode(arg);
+    getPlaceholderNodes(): PlaceholderNode[] {
+        return this.args.map((arg, index) => {
+            const node = new PlaceholderNode(arg);
+            if (index === this.args.length - 1) {
+                node.isEnd = true;
+            }
+            return node;
         });
     }
 }
 
-class ScribePlaceholderNode {
+class PlaceholderNode {
     public value: PlaceholderSegment;
     public attributes: MythicAttribute[] = [];
-    public children: ScribePlaceholderNode[] = [];
+    public children: PlaceholderNode[] = [];
     constructor(value: PlaceholderSegment) {
         this.value = value;
     }
+    public isEnd: boolean = false;
 
     toString(): string {
         return this.value.toString();
     }
 
-    addNodes(nodes: ScribePlaceholderNode[]) {
+    addNodes(nodes: PlaceholderNode[]) {
         const headNode = nodes.shift();
         if (headNode) {
             const headNodeHash = headNode.toString();
@@ -106,6 +117,11 @@ class ScribePlaceholderNode {
                     vscode.CompletionItemKind.Field
                 );
                 if (child.children.length > 0) {
+                    if (child.isEnd) {
+                        completions.push(
+                            new vscode.CompletionItem(value + '>', vscode.CompletionItemKind.Field)
+                        );
+                    }
                     completion.insertText = new vscode.SnippetString(value + '.');
                     completion.command = retriggerCompletionsCommand;
                 } else {
@@ -119,14 +135,14 @@ class ScribePlaceholderNode {
     }
 }
 
-export const ScribePlaceholderHandler = new ScribePlaceholderNode(new PlaceholderSegment('root'));
+export const ScribePlaceholderHandler = new PlaceholderNode(new PlaceholderSegment('root'));
 
 function parsePlaceholder(placeholder: string): Placeholder {
     const args = placeholder.split('.');
     return new Placeholder(...args);
 }
 
-export function getNodeFromPlaceholder(placeholder: string): ScribePlaceholderNode | undefined {
+export function getNodeFromPlaceholder(placeholder: string): PlaceholderNode | undefined {
     // Split the placeholder string on dots
     const segments = placeholder.split('.');
     // Start from the root of the placeholder tree
@@ -161,22 +177,36 @@ export function getNodeFromPlaceholder(placeholder: string): ScribePlaceholderNo
     return currentNode;
 }
 
-export function initializePlaceholders() {
-    new ScriptedPlaceholderSegment('<CustomPlaceholder>', () =>
-        Array.from(MythicNodeHandler.registry.placeholder.getNodes().keys())
-    );
+export async function initializePlaceholders() {
+    ScriptedPlaceholderSegmentHandler.clearSegments();
+
+    // Generate scripted placeholder segments from enums
+    ScribeEnumHandler.enums.forEach((enumNode) => {
+        new ScriptedPlaceholderSegment(enumNode.identifier, () =>
+            Array.from(enumNode.getDataset().keys())
+        );
+    });
+    // Generate scripted placeholder segments for common types
     new ScriptedPlaceholderSegment(
-        '<Integer>',
+        'Integer',
         () => generateNumbersInRange(0, 10, 1).map((num) => num.toString()),
         (value) => !isNaN(parseInt(value))
     );
     new ScriptedPlaceholderSegment(
-        '<Float>',
+        'Float',
         () => generateNumbersInRange(0, 10, 0.5, true).map((num) => num.toString()),
         (value) => !isNaN(parseFloat(value))
     );
 
+    // Generate placeholder nodes for all placeholder enums
+    const placeholderDataset = await ScribeEnumHandler.getEnum('placeholder')?.waitForDataset();
+    if (!placeholderDataset) {
+        return;
+    }
+    for (const key of placeholderDataset.keys()) {
+        ScribePlaceholderHandler.addNodes(parsePlaceholder(key).getPlaceholderNodes());
+    }
     ScribePlaceholderHandler.addNodes(
-        parsePlaceholder('placeholder.<CustomPlaceholder>').getPlaceholderNodes()
+        parsePlaceholder('placeholder.{CustomPlaceholder}').getPlaceholderNodes()
     );
 }

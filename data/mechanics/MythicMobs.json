@@ -4083,7 +4083,7 @@
                     "c"
                 ],
                 "type": "String",
-                "description": "The [color](#valid-colors) with which the entity will glow",
+                "description": "The [color](#color-attribute) with which the entity will glow",
                 "link": "https://git.lumine.io/mythiccraft/MythicMobs/-/wikis/Skills/Mechanics/glow",
                 "default_value": "white",
                 "enum": "GlowColor"

@@ -16,6 +16,7 @@ export abstract class AbstractScribeEnum {
     protected dataset: Map<string, EnumDatasetValue> = new Map<string, EnumDatasetValue>();
     protected commalist: string = '';
     protected addedAttributes: Attribute[] = [];
+    private loaded: boolean = false;
 
     constructor(identifier: string, path: string) {
         this.identifier = identifier;
@@ -31,10 +32,21 @@ export abstract class AbstractScribeEnum {
     getDataset(): Map<string, EnumDatasetValue> {
         return this.dataset;
     }
+    async waitForDataset(): Promise<Map<string, EnumDatasetValue>> {
+        return new Promise((resolve) => {
+            const interval = setInterval(() => {
+                if (this.loaded) {
+                    clearInterval(interval);
+                    resolve(this.dataset);
+                }
+            }, 100);
+        });
+    }
     getAttributes(): Attribute[] {
         return this.addedAttributes;
     }
     updateDataset(data: Enum[]): void {
+        this.loaded = false;
         this.dataset = new Map(Object.entries(data));
         const attributeMap = new Map<string, Attribute>();
         this.dataset.forEach((value) => {
@@ -60,6 +72,10 @@ export abstract class AbstractScribeEnum {
             this.getDataset().size.toString(),
             'entries'
         );
+        this.loaded = true;
+    }
+    isLoaded(): boolean {
+        return this.loaded;
     }
 }
 
