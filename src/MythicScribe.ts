@@ -8,7 +8,7 @@ import {
     removeCustomDataset,
 } from './common/datasets/customDatasets';
 import { doVersionSpecificMigrations } from './common/migration/migration';
-import { Log, openLogs, showInfoMessageWithOptions } from './common/utils/logger';
+import Log, { openLogs, showInfoMessageWithOptions } from './common/utils/logger';
 import {
     clearExtensionDatasetsClonedStorage,
     loadDatasets,
@@ -17,7 +17,7 @@ import {
 import { configHandler } from './common/utils/configutils';
 import { scribeColorProvider } from './common/color/colorprovider';
 import { showNodeGraph } from './common/mythicnodes/nodeView';
-import { putSelectionInsideInlineMetaskill } from './common/completions/inlinemetaskillCompletionProvider';
+import { putSelectionInsideInlineMetaskill } from './common/completions/component/inlinemetaskillCompletionProvider';
 
 export let ctx: vscode.ExtensionContext;
 

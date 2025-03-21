@@ -12,6 +12,7 @@
 			"@node/*": ["./src/node/*"],
 			"@web/*": ["./src/web/*"],
 			"@webviews/*": ["./src/webviews/*"],
+			"@common/*": ["./src/common/*"]
 		},
 		"sourceMap": true,
 		"strict": true,

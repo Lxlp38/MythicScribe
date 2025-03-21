@@ -1,8 +1,8 @@
 import * as vscode from 'vscode';
 
 import { keyAliases, TriggerType } from '../objectInfos';
-import { triggerfileCompletionProvider } from '../completions/filecompletions/triggerfileCompletionProvider';
-import { mechanicCompletionProvider } from '../completions/mechanicsCompletionProvider';
+import { triggerfileCompletionProvider } from '../completions/file/triggerfileCompletionProvider';
+import { mechanicCompletionProvider } from '../completions/component/mechanicsCompletionProvider';
 import {
     enableEmptyBracketsAutomaticRemoval,
     enableFileSpecificSuggestions,
@@ -11,16 +11,16 @@ import {
 import {
     attributeCompletionProvider,
     attributeValueCompletionProvider,
-} from '../completions/attributeCompletionProvider';
-import { conditionCompletionProvider } from '../completions/conditionsCompletionProvider';
-import { inlineConditionCompletionProvider } from '../completions/inlineconditionCompletionProvider';
+} from '../completions/component/attributeCompletionProvider';
+import { conditionCompletionProvider } from '../completions/component/conditionsCompletionProvider';
+import { inlineConditionCompletionProvider } from '../completions/component/inlineconditionCompletionProvider';
 import {
     inlineMetaskillCompletionProvider,
     metaskillCompletionProvider,
-} from '../completions/inlinemetaskillCompletionProvider';
-import { mechaniclineCompletionProvider } from '../completions/mechaniclineCompletionProvider';
-import { targeterCompletionProvider } from '../completions/targeterCompletionProvider';
-import { hoverProvider } from '../cursorLocationActions/hoverprovider';
+} from '../completions/component/inlinemetaskillCompletionProvider';
+import { mechaniclineCompletionProvider } from '../completions/component/mechaniclineCompletionProvider';
+import { targeterCompletionProvider } from '../completions/component/targeterCompletionProvider';
+import { hoverProvider } from '../cursorLocationActions/providers/hoverprovider';
 import { removeBracketsTextListener } from '../textchanges/bracketsremover';
 import { shortcutsProvider } from '../textchanges/shortcuts';
 import { ItemFileObjects } from '../schemas/itemfileObjects';
@@ -28,11 +28,11 @@ import { MobFileObjects } from '../schemas/mobFileObjects';
 import { MetaskillFileObjects } from '../schemas/metaskillFileObjects';
 import { ScribeMechanicHandler } from '../datasets/ScribeMechanic';
 import { ctx } from '../../MythicScribe';
-import { genericFileCompletionProvider } from '../completions/filecompletions/genericFileCompletionProvider';
+import { genericFileCompletionProvider } from '../completions/file/genericFileCompletionProvider';
 import { DroptableFileObject } from '../schemas/droptableFileObjects';
 import { StatFileObjects } from '../schemas/statfileObjects';
-import { definitionProvider } from '../cursorLocationActions/definitionProvider';
-import { placeholderCompletionProvider } from '../completions/placeholderCompletion';
+import { definitionProvider } from '../cursorLocationActions/providers/definitionProvider';
+import { placeholderCompletionProvider } from '../completions/component/placeholderCompletion';
 
 type SubscriptionFunction = () => vscode.Disposable;
 type SubscriptionCondition = () => boolean;

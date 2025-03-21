@@ -1,9 +1,8 @@
 import * as vscode from 'vscode';
-
-import * as yamlutils from '../utils/yamlutils';
-import { keyAliases } from '../objectInfos';
-import { retriggerCompletionsCommand } from '../utils/completionhelper';
-import { MythicNodeHandler } from '../mythicnodes/MythicNode';
+import * as yamlutils from '@common/utils/yamlutils';
+import { keyAliases } from '@common/objectInfos';
+import { retriggerCompletionsCommand } from '@common/utils/completionhelper';
+import { MythicNodeHandler } from '@common/mythicnodes/MythicNode';
 
 export function inlineMetaskillCompletionProvider() {
     return vscode.languages.registerCompletionItemProvider(

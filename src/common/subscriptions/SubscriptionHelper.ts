@@ -11,9 +11,8 @@ import { MetaskillFileObjects } from '../schemas/metaskillFileObjects';
 import { MobFileObjects } from '../schemas/mobFileObjects';
 import { ItemFileObjects } from '../schemas/itemfileObjects';
 import { DroptableFileObject } from '../schemas/droptableFileObjects';
-import { FileObjectMap } from '../objectInfos';
+import { FileObjectMap, registryKey } from '../objectInfos';
 import { StatFileObjects } from '../schemas/statfileObjects';
-import { MythicNodeHandlerRegistryKey } from '../mythicnodes/MythicNode';
 
 function resetFileChecks() {
     for (const key of Object.keys(ActiveFileTypeInfo) as (keyof typeof ActiveFileTypeInfo)[]) {
@@ -21,7 +20,7 @@ function resetFileChecks() {
     }
 }
 
-type ActiveFileTypeInfoKeys = MythicNodeHandlerRegistryKey | 'enabled';
+type ActiveFileTypeInfoKeys = registryKey | 'enabled';
 export const ActiveFileTypeInfo: { [K in ActiveFileTypeInfoKeys]: boolean } = {
     enabled: false,
     metaskill: false,
@@ -124,12 +123,12 @@ export function updateSubscriptions(document: vscode.TextDocument) {
 
 interface FileTypeInfo {
     schema?: FileObjectMap;
-    key: MythicNodeHandlerRegistryKey;
+    key: registryKey;
     configKey: keyof typeof fileRegexConfigCache;
     subscriptionHandler: keyof typeof ScribeSubscriptionHandler.registry;
 }
 const FileTypeInfoMap: {
-    [K in MythicNodeHandlerRegistryKey]: FileTypeInfo;
+    [K in registryKey]: FileTypeInfo;
 } = {
     metaskill: {
         schema: MetaskillFileObjects,

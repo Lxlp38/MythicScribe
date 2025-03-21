@@ -1,13 +1,13 @@
 import * as vscode from 'vscode';
 
-import { FileObjectMap, FileObjectTypes } from '../objectInfos';
+import { FileObjectMap, FileObjectTypes } from '../../objectInfos';
 import {
     MythicAttribute,
     AbstractScribeMechanicRegistry,
     MythicMechanic,
-} from '../datasets/ScribeMechanic';
-import { CursorLocationAction, CursorLocationActionForNode } from './cursorLocationAction';
-import { MythicNode } from '../mythicnodes/MythicNode';
+} from '../../datasets/ScribeMechanic';
+import { CursorLocationAction } from '../cursorLocationAction';
+import { MythicNode } from '../../mythicnodes/MythicNode';
 
 export type KeyDependantMechanicLikeHover = {
     keys: string[];
@@ -23,7 +23,7 @@ export function hoverProvider(
             document: vscode.TextDocument,
             position: vscode.Position
         ): vscode.ProviderResult<vscode.Hover> {
-            const locationAction = CursorLocationAction(
+            const locationAction = CursorLocationAction.forFileObject(
                 document,
                 position,
                 fileobject,
@@ -35,7 +35,7 @@ export function hoverProvider(
             if (locationAction) {
                 return locationAction;
             }
-            const nodeAction = CursorLocationActionForNode(document, position, getHoverForNode);
+            const nodeAction = CursorLocationAction.forNode(document, position, getHoverForNode);
             if (nodeAction) {
                 return nodeAction;
             }

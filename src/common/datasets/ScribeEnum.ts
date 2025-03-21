@@ -3,7 +3,7 @@ import * as vscode from 'vscode';
 import { minecraftVersion } from '../utils/configutils';
 import { ScribeCloneableFile, fetchJsonFromLocalFile, fetchJsonFromURL } from './datasets';
 import { ctx } from '../../MythicScribe';
-import { Log } from '../utils/logger';
+import Log from '../utils/logger';
 import { AbstractScribeMechanicRegistry, Attribute, ScribeMechanicHandler } from './ScribeMechanic';
 import { insertColor } from '../color/colorprovider';
 import { localEnums, scriptedEnums, volatileEnums } from './enumSources';

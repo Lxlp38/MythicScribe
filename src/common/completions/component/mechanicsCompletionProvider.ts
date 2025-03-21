@@ -1,8 +1,13 @@
 import * as vscode from 'vscode';
-
-import { AbstractScribeMechanicRegistry, ScribeMechanicHandler } from '../datasets/ScribeMechanic';
-import { checkShouldKeyComplete, getListCompletionNeededSpaces } from '../utils/completionhelper';
-import { isInsideInlineConditionList } from '../utils/yamlutils';
+import {
+    AbstractScribeMechanicRegistry,
+    ScribeMechanicHandler,
+} from '@common/datasets/ScribeMechanic';
+import {
+    checkShouldKeyComplete,
+    getListCompletionNeededSpaces,
+} from '@common/utils/completionhelper';
+import { isInsideInlineConditionList } from '@common/utils/yamlutils';
 
 export function mechanicCompletionProvider(
     registry: AbstractScribeMechanicRegistry,

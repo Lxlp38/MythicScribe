@@ -1,10 +1,9 @@
 import * as vscode from 'vscode';
-
-import * as yamlutils from '../utils/yamlutils';
-import { ActiveFileTypeInfo } from '../subscriptions/SubscriptionHelper';
-import { getMechanicLine } from '../utils/yamlutils';
-import { keyAliases } from '../objectInfos';
-import { retriggerCompletionsCommand } from '../utils/completionhelper';
+import * as yamlutils from '@common/utils/yamlutils';
+import { ActiveFileTypeInfo } from '@common/subscriptions/SubscriptionHelper';
+import { getMechanicLine } from '@common/utils/yamlutils';
+import { keyAliases } from '@common/objectInfos';
+import { retriggerCompletionsCommand } from '@common/utils/completionhelper';
 
 export function mechaniclineCompletionProvider() {
     return vscode.languages.registerCompletionItemProvider(

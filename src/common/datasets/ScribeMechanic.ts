@@ -3,13 +3,14 @@ import { getDirectoryFiles } from '@node/datasets/ScribeMechanic';
 
 import { checkEnabledPlugin } from '../utils/configutils';
 import { AbstractScribeEnum, ScribeEnumHandler } from './ScribeEnum';
-import { Log } from '../utils/logger';
 import { ctx } from '../../MythicScribe';
 import { ScribeCloneableFile } from './datasets';
 import { addMechanicCompletions } from '../utils/completionhelper';
 import { attributeSpecialValues } from './enumSources';
-import { MythicNodeHandler, MythicNodeHandlerRegistryKey } from '../mythicnodes/MythicNode';
+import { MythicNodeHandler } from '../mythicnodes/MythicNode';
+import { registryKey } from '../objectInfos';
 import { timeCounter } from '../utils/timeUtils';
+import Log from '../utils/logger';
 
 export enum ObjectType {
     MECHANIC = 'Mechanic',
@@ -368,6 +369,11 @@ export const ScribeMechanicHandler = {
         return;
     },
 
+    finalize() {
+        this.finalizeAllAttributes();
+        this.updateNodeRegistry();
+    },
+
     finalizeAllAttributes() {
         Object.values(ScribeMechanicHandler.registry).forEach((registry) =>
             registry.getMechanics().forEach((mechanic) => mechanic.inheritAttributes())
@@ -378,35 +384,9 @@ export const ScribeMechanicHandler = {
     updateNodeRegistry() {
         Object.values(ScribeMechanicHandler.registry).forEach((registry) =>
             registry.getMechanics().forEach((mechanic) => {
-                mechanic.getAttributes().forEach((attr) => {
-                    if (
-                        attr.enum &&
-                        MythicNodeHandlerRegistryKey.includes(
-                            attr.enum.identifier as MythicNodeHandlerRegistryKey
-                        )
-                    ) {
-                        const key = attr.enum.identifier as MythicNodeHandlerRegistryKey;
-                        if (key) {
-                            for (const n of mechanic.name) {
-                                if (!MythicNodeHandler.registry[key].referenceMap.has(n)) {
-                                    MythicNodeHandler.registry[key].referenceMap.set(n, new Set());
-                                }
-                                for (const name of attr.name) {
-                                    MythicNodeHandler.registry[key].referenceMap.get(n)?.add(name);
-                                }
-                            }
-                            const correctedNames = attr.name.map((n) =>
-                                n
-                                    .replaceAll('(', '\\(')
-                                    .replaceAll(')', '\\)')
-                                    .replaceAll('$', '\\$')
-                            );
-                            for (const n of correctedNames) {
-                                MythicNodeHandler.registry[key].referenceAttributes.add(n);
-                            }
-                        }
-                    }
-                });
+                mechanic
+                    .getAttributes()
+                    .forEach((attr) => updateNodeRegistryAttribute(attr, mechanic));
             })
         );
         Log.debug('Updated Node Registry with Enum References');
@@ -419,3 +399,29 @@ export const ScribeMechanicHandler = {
         Log.debug('Mechanic Datasets emptied');
     },
 };
+
+function updateNodeRegistryAttribute(attr: MythicAttribute, mechanic = attr.mechanic) {
+    if (!attr.enum || !registryKey.includes(attr.enum.identifier as registryKey)) {
+        return;
+    }
+
+    const key = attr.enum.identifier as registryKey;
+    if (!key) {
+        return;
+    }
+
+    for (const n of mechanic.name) {
+        if (!MythicNodeHandler.registry[key].referenceMap.has(n)) {
+            MythicNodeHandler.registry[key].referenceMap.set(n, new Set());
+        }
+        for (const name of attr.name) {
+            MythicNodeHandler.registry[key].referenceMap.get(n)?.add(name);
+        }
+    }
+    const correctedNames = attr.name.map((n) =>
+        n.replaceAll('(', '\\(').replaceAll(')', '\\)').replaceAll('$', '\\$')
+    );
+    for (const n of correctedNames) {
+        MythicNodeHandler.registry[key].referenceAttributes.add(n);
+    }
+}

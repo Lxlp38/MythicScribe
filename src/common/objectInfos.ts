@@ -68,3 +68,12 @@ export enum TriggerType {
     BLOCK = 'Block',
     FURNITURE = 'Furniture',
 }
+export const registryKey = [
+    'metaskill',
+    'mob',
+    'item',
+    'droptable',
+    'stat',
+    'placeholder',
+] as const;
+export type registryKey = (typeof registryKey)[number];

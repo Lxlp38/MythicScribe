@@ -2,7 +2,7 @@ import * as path from 'path';
 
 import * as vscode from 'vscode';
 
-import { Log } from './logger';
+import Log from './logger';
 import { GITHUB_BASE_URL } from '../datasets/datasets';
 
 export enum ComponentStatus {

@@ -1,16 +1,19 @@
 import * as vscode from 'vscode';
-
-import { keyAliases } from '../objectInfos';
-import { MythicAttribute, MythicMechanic, ScribeMechanicHandler } from '../datasets/ScribeMechanic';
-import { EnumDatasetValue } from '../datasets/ScribeEnum';
+import { keyAliases } from '@common/objectInfos';
+import {
+    MythicAttribute,
+    MythicMechanic,
+    ScribeMechanicHandler,
+} from '@common/datasets/ScribeMechanic';
+import { EnumDatasetValue } from '@common/datasets/ScribeEnum';
 import {
     checkShouldPrefixComplete,
     getEnumCompletion,
     retriggerCompletionsCommand,
-} from '../utils/completionhelper';
-import * as yamlutils from '../utils/yamlutils';
-import { getAttributeAliasUsedInCompletions } from '../utils/configutils';
-import { getObjectLinkedToAttribute } from '../utils/cursorutils';
+} from '@common/utils/completionhelper';
+import * as yamlutils from '@common/utils/yamlutils';
+import { getAttributeAliasUsedInCompletions } from '@common/utils/configutils';
+import { getObjectLinkedToAttribute } from '@common/utils/cursorutils';
 
 export function attributeCompletionProvider() {
     return vscode.languages.registerCompletionItemProvider(

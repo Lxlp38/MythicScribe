@@ -1,6 +1,6 @@
 import * as vscode from 'vscode';
 
-import { Log } from './logger';
+import Log from './logger';
 import { MinecraftVersions, attributeAliasUsedInCompletions, DatasetSource } from '../packageData';
 
 const configCache = {

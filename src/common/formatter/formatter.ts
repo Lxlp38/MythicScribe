@@ -7,23 +7,27 @@ import {
     getLastNonCommentLine,
     YamlKeyPairList,
 } from '../utils/yamlutils';
-import { Log } from '../utils/logger';
+import Log from '../utils/logger';
 import { FileObjectTypes } from '../objectInfos';
 
-type comment = {
+type Comment = {
     text: string;
     indent: number;
 };
 
-const comments: comment[] = [];
-const quoted: string[] = [];
+type FormatterParameters = {
+    text: string;
+    document: vscode.TextDocument;
+    comments: Comment[];
+    quoted: string[];
+};
 
 export function getFormatter() {
     return vscode.languages.registerDocumentFormattingEditProvider('mythicscript', {
         provideDocumentFormattingEdits(document: vscode.TextDocument): vscode.TextEdit[] {
             let text = document.getText();
-            comments.length = 0;
-            quoted.length = 0;
+            const comments: Comment[] = [];
+            const quoted: string[] = [];
 
             for (const op of [
                 // Tokenize comments
@@ -47,7 +51,7 @@ export function getFormatter() {
                 // Restore comments
                 restoreComments,
             ]) {
-                text = op(text, document);
+                text = op({ text, document, comments, quoted });
             }
 
             // Replace entire document with the newly formatted text
@@ -60,8 +64,8 @@ export function getFormatter() {
 
 const placeholder = `#__MYTHICSCRIBE_COMMENT_START__`;
 const placeholderRegex = /(\s+|^)(#.*?)$/gm;
-function tokenizeComments(text: string): string {
-    const lines = text.split('\n');
+function tokenizeComments(par: FormatterParameters): string {
+    const lines = par.text.split('\n');
     for (let i = 0; i < lines.length; i++) {
         const line = lines[i];
         const match = line.match(placeholderRegex);
@@ -69,30 +73,35 @@ function tokenizeComments(text: string): string {
             continue;
         }
         const indent = match[0].indexOf('#');
-        comments.push({ text: match[0], indent });
-        lines[i] = line.replace(placeholderRegex, placeholder);
+        par.comments.push({ text: match[0], indent });
+        lines[i] = line.replace(placeholderRegex, ' ' + placeholder);
     }
     return lines.join('\n');
 }
 
-function restoreComments(text: string, document: vscode.TextDocument): string {
-    const yamlTree = getDocumentSearchList(text, document);
-    const lastNonCommentedLine = getLastNonCommentLine(text);
-    const lines = text.split('\n');
+function restoreComments(par: FormatterParameters): string {
+    const yamlTree = getDocumentSearchList(par.text, par.document);
+    const lastNonCommentedLine = getLastNonCommentLine(par.text);
+    const lines = par.text.split('\n');
 
     for (let i = 0; i < lastNonCommentedLine; i++) {
-        restoreMainComments(lines, i, yamlTree);
+        restoreMainComments(lines, i, yamlTree, par.comments);
     }
     for (let i = lastNonCommentedLine; i < lines.length; i++) {
         if (!lines[i].match(placeholder)) {
             continue;
         }
-        lines[i] = lines[i].replace(placeholder, comments.shift()?.text || '');
+        lines[i] = lines[i].replace(' ' + placeholder, par.comments.shift()?.text || '');
     }
     return lines.join('\n');
 }
 
-function restoreMainComments(lines: string[], i: number, yamlTree: YamlKeyPairList): void {
+function restoreMainComments(
+    lines: string[],
+    i: number,
+    yamlTree: YamlKeyPairList,
+    comments: Comment[]
+): void {
     if (!lines[i].match(placeholder)) {
         return;
     }
@@ -108,16 +117,16 @@ function restoreMainComments(lines: string[], i: number, yamlTree: YamlKeyPairLi
 
     // Process Inline Comment
     if (!match) {
-        lines[i] = lines[i].replace(placeholder, comment.text);
+        lines[i] = lines[i].replace(' ' + placeholder, comment.text);
         return;
     }
 
-    const indent = match[0].indexOf('#');
+    const indent = match[0].indexOf('#') - 1;
 
     // If the original comment had no indent, so should this one
     if (comment.indent === 0) {
         lines[i] = lines[i].replace(' '.repeat(indent), '');
-        lines[i] = lines[i].replace(placeholder, comment.text.trim());
+        lines[i] = lines[i].replace(' ' + placeholder, comment.text.trim());
         return;
     }
 
@@ -134,7 +143,7 @@ function restoreMainComments(lines: string[], i: number, yamlTree: YamlKeyPairLi
                 const adjustedIndent = ' '.repeat(relatedNodeIndent);
                 lines[i] = lines[i].replace(' '.repeat(indent), adjustedIndent);
             }
-            lines[i] = lines[i].replace(placeholder, comment.text.trim());
+            lines[i] = lines[i].replace(' ' + placeholder, comment.text.trim());
         }
     } catch (error) {
         Log.error(error);
@@ -143,22 +152,22 @@ function restoreMainComments(lines: string[], i: number, yamlTree: YamlKeyPairLi
 
 const quotePlaceholder = `"__MYTHICSCRIBE_QUOTED_STRING__"`;
 const quotedRegex = /(['"`]).*?\1/gms;
-function tokenizeQuoted(text: string): string {
-    return text.replaceAll(quotedRegex, (match) => {
-        quoted.push(match);
+function tokenizeQuoted(par: FormatterParameters): string {
+    return par.text.replaceAll(quotedRegex, (match) => {
+        par.quoted.push(match);
         return quotePlaceholder;
     });
 }
 
-function restoreQuoted(text: string): string {
-    return text.replaceAll(quotePlaceholder, () => {
-        return quoted.shift() || '';
+function restoreQuoted(par: FormatterParameters): string {
+    return par.text.replaceAll(quotePlaceholder, () => {
+        return par.quoted.shift() || '';
     });
 }
 
-function normalizeYamlIndentation(yamlContent: string): string {
+function normalizeYamlIndentation(par: FormatterParameters): string {
     try {
-        const doc = parseDocument(yamlContent, {
+        const doc = parseDocument(par.text, {
             keepSourceTokens: true,
             toStringDefaults: {
                 doubleQuotedMinMultiLineLength: 99999,
@@ -170,6 +179,7 @@ function normalizeYamlIndentation(yamlContent: string): string {
         });
         if (doc.errors) {
             doc.errors.forEach((error) => {
+                Log.error(error.message, error.name);
                 Log.debug(`Formatter error: ${error.code} ${error.name} ${error.message}`);
                 if (error.stack) {
                     Log.trace(error.stack);
@@ -178,14 +188,14 @@ function normalizeYamlIndentation(yamlContent: string): string {
         }
         return doc.toString();
     } catch (error) {
-        Log.error(error);
+        Log.error(error, undefined, { silent: true });
     }
-    return yamlContent;
+    return par.text;
 }
 
-function addNewLinesInInlineMetaskills(text: string): string {
+function addNewLinesInInlineMetaskills(par: FormatterParameters): string {
     // Process the text with all the cool replacements
-    const formattedText = text
+    const formattedText = par.text
         .replace(/(?<=[;{])\s*([^\s;{]*)=\s*\[\s*/gm, '\n$1=\[\n') // Add newline before a new inline mechanic
         .replace(/(?<=[^"])\s*\]\s*([;}])/gm, '\n]$1') // Add newline after a closing inline mechanic
         .replace(/((?!\s*-\s).*?)(-\s[\w:\-]+[{\s}])/gm, '$1\n$2') // Add newline before a new inline mechanic
@@ -201,11 +211,11 @@ function addNewLinesInInlineMetaskills(text: string): string {
     return formattedText;
 }
 
-function formatMythicScript(text: string): string {
+function formatMythicScript(par: FormatterParameters): string {
     const INDENTATION_LEVEL = getDefaultIndentation();
     let lastKeyIndent = 0;
     let insideInline = 0;
-    const lines = text.split('\n');
+    const lines = par.text.split('\n');
     const newLines: string[] = [];
 
     lines.forEach((line) => {

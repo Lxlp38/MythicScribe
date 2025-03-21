@@ -1,10 +1,13 @@
 import * as vscode from 'vscode';
+import * as yamlutils from '@common/utils/yamlutils';
+import { keyAliases } from '@common/objectInfos';
+import { ConditionActions } from '@common/schemas/conditionActions';
+import {
+    checkShouldKeyComplete,
+    retriggerCompletionsCommand,
+} from '@common/utils/completionhelper';
+import { ScribeMechanicHandler } from '@common/datasets/ScribeMechanic';
 
-import * as yamlutils from '../utils/yamlutils';
-import { keyAliases } from '../objectInfos';
-import { ConditionActions } from '../schemas/conditionActions';
-import { checkShouldKeyComplete, retriggerCompletionsCommand } from '../utils/completionhelper';
-import { ScribeMechanicHandler } from '../datasets/ScribeMechanic';
 import { addMetaskillsToConditionLine } from './inlinemetaskillCompletionProvider';
 
 export function conditionCompletionProvider() {
@@ -52,9 +55,7 @@ export function getConditionCompletionItems(
     const completionItems: vscode.CompletionItem[] = [];
     const lastIsConditionAction = ConditionActions.getConditionActions().includes(wordBefore);
     if (lastIsConditionAction) {
-        if (
-            ConditionActions.actions.get(wordBefore) === ConditionActions.ConditionTypes.METASKILL
-        ) {
+        if (ConditionActions.actions.get(wordBefore) === ConditionActions.types.METASKILL) {
             addMetaskillsToConditionLine(completionItems);
             return completionItems;
         }

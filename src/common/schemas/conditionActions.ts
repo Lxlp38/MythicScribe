@@ -1,17 +1,17 @@
 export namespace ConditionActions {
-    export enum ConditionTypes {
+    export enum types {
         CHECK = 'check',
         METASKILL = 'metaskill',
         FLOAT = 'float',
     }
 
-    export const actions = new Map<string, ConditionTypes>([
-        ['true', ConditionTypes.CHECK],
-        ['false', ConditionTypes.CHECK],
-        ['cast', ConditionTypes.METASKILL],
-        ['castinstead', ConditionTypes.METASKILL],
-        ['orelsecast', ConditionTypes.METASKILL],
-        ['power', ConditionTypes.FLOAT],
+    export const actions = new Map<string, types>([
+        ['true', types.CHECK],
+        ['false', types.CHECK],
+        ['cast', types.METASKILL],
+        ['castinstead', types.METASKILL],
+        ['orelsecast', types.METASKILL],
+        ['power', types.FLOAT],
     ]);
 
     export function getConditionActions() {
@@ -19,6 +19,6 @@ export namespace ConditionActions {
     }
 
     export const metaskillActions = Array.from(actions.entries())
-        .filter(([_, type]) => type === ConditionTypes.METASKILL)
+        .filter(([_, type]) => type === types.METASKILL)
         .map(([action]) => action);
 }

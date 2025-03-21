@@ -10,7 +10,7 @@ import {
 } from './ScribeMechanic';
 import { ScribeEnumHandler, StaticScribeEnum, WebScribeEnum } from './ScribeEnum';
 import { fetchJsonFromLocalFile, fetchJsonFromURL, loadDatasets } from './datasets';
-import { Log } from '../utils/logger';
+import Log from '../utils/logger';
 import { changeCustomDatasetsSource } from '../migration/migration';
 import { CustomDatasetElementType, CustomDatasetSource } from '../packageData';
 import { timeCounter } from '../utils/timeUtils';

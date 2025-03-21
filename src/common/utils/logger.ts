@@ -3,6 +3,10 @@ import { LogLevel } from 'vscode';
 
 import { addConfigChangeFunction, getLogLevel } from './configutils';
 
+type logOptions = {
+    silent?: boolean;
+};
+
 export class Logger {
     private outputChannel: vscode.OutputChannel;
     private logLevel: LogLevel;
@@ -57,17 +61,23 @@ export class Logger {
         this.log(message.join(' '), LogLevel.Debug);
     }
 
-    info(message: string): void {
+    info(message: string, options: logOptions = {}): void {
         this.log(message, LogLevel.Info);
+        if (options.silent) {
+            return;
+        }
         vscode.window.showInformationMessage(message);
     }
 
-    warn(message: string): void {
+    warn(message: string, options: logOptions = {}): void {
         this.log(message, LogLevel.Warning);
+        if (options.silent) {
+            return;
+        }
         vscode.window.showWarningMessage(message);
     }
 
-    error(error: unknown, message: string = 'An error occurred:'): void {
+    error(error: unknown, message: string = 'An error occurred:', options: logOptions = {}): void {
         let finalMessage: string;
         if (error instanceof Error) {
             finalMessage = message + '\n' + error.message + '\n' + error.stack;
@@ -75,6 +85,9 @@ export class Logger {
         } else {
             finalMessage = message + '\n' + String(error);
             this.processError(finalMessage);
+        }
+        if (options.silent) {
+            return;
         }
         vscode.window.showErrorMessage(finalMessage);
     }
@@ -95,7 +108,8 @@ export class Logger {
     }
 }
 
-export const Log = new Logger('MythicScribe', getLogLevel() || LogLevel.Debug);
+const Log = new Logger('MythicScribe', getLogLevel() || LogLevel.Debug);
+export default Log;
 
 /**
  * Opens the logs by updating the logs provider and displaying the logs in a text document.

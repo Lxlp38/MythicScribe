@@ -1,12 +1,12 @@
 import * as vscode from 'vscode';
 
-import { MythicNode } from '../mythicnodes/MythicNode';
-import { CursorLocationActionForNode } from './cursorLocationAction';
+import { MythicNode } from '../../mythicnodes/MythicNode';
+import { CursorLocationAction } from '../cursorLocationAction';
 
 export function definitionProvider() {
     return vscode.languages.registerDefinitionProvider('mythicscript', {
         provideDefinition(document, position): vscode.ProviderResult<vscode.LocationLink[]> {
-            return CursorLocationActionForNode(document, position, definitionCallback);
+            return CursorLocationAction.forNode(document, position, definitionCallback);
         },
     });
 }

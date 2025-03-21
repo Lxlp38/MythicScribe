@@ -1,13 +1,13 @@
 import * as vscode from 'vscode';
 
-import { CursorLocationAction } from './cursorLocationAction';
-import { FileObjectMap } from '../objectInfos';
-import { MythicAttribute, MythicMechanic } from '../datasets/ScribeMechanic';
+import { CursorLocationAction } from '../cursorLocationAction';
+import { FileObjectMap } from '../../objectInfos';
+import { MythicAttribute, MythicMechanic } from '../../datasets/ScribeMechanic';
 
 export function linksProvider(fileobject: FileObjectMap) {
     return vscode.languages.registerDefinitionProvider('mythicscript', {
         provideDefinition(document, position): vscode.ProviderResult<vscode.Location[]> {
-            return CursorLocationAction(
+            return CursorLocationAction.forFileObject(
                 document,
                 position,
                 fileobject,

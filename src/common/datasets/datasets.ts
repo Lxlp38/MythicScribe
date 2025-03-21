@@ -1,6 +1,6 @@
 import * as vscode from 'vscode';
 
-import { Log } from '../utils/logger';
+import Log from '../utils/logger';
 import { ScribeMechanicHandler } from './ScribeMechanic';
 import { ScribeEnumHandler } from './ScribeEnum';
 import { ctx } from '../../MythicScribe';
@@ -138,14 +138,13 @@ export async function loadDatasets() {
         }
     }
     ScribeEnumHandler.loadEnumDatasets();
+    initializePlaceholders();
     await Promise.allSettled([ScribeMechanicHandler.loadMechanicDatasets(), loadCustomDatasets()]);
-    ScribeMechanicHandler.finalizeAllAttributes();
-    ScribeMechanicHandler.updateNodeRegistry();
+    ScribeMechanicHandler.finalize();
     finallySetEnabledPlugins();
     if (getFileParserPolicyConfig('parseOnStartup')) {
         MythicNodeHandler.scanAllDocuments();
     }
-    initializePlaceholders();
     datasetsLoadedEventEmitter.fire();
 }
 

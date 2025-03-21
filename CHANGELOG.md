@@ -9,10 +9,14 @@
 - `MythicScribe.putSelectionInsideInlineMetaskill` command and context menu item to put the selected text inside of an inline metaskill
 - Adding a Custom Enum Dataset with the same name as another loaded Enum Dataset will now merge them
 
+### Changed
+- Displayed information regarding Formatter errors should now be more concise and meaningful
+
 ### Fixed
 - Condition Actions having no syntax highlighting
 - Mythic Node Graph's selected element having low opacity
-- Comments at the bottom of the documents being wrongfully parsed by the formatter 
+- Comments at the bottom of the documents being wrongfully parsed by the formatter
+- Formatter not working when comments were placed on the same line as a key
 
 
 ## [1.6.0]

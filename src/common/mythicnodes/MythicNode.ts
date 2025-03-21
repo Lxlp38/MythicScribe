@@ -2,12 +2,13 @@ import * as vscode from 'vscode';
 import pLimit from 'p-limit';
 
 import { checkFileType } from '../subscriptions/SubscriptionHelper';
-import { Log } from '../utils/logger';
+import Log from '../utils/logger';
 import { getFileParserPolicyConfig } from '../utils/configutils';
 import { ConditionActions } from '../schemas/conditionActions';
 import { timeCounter } from '../utils/timeUtils';
 import { openDocumentTactfully } from '../utils/uriutils';
 import { executeGetObjectLinkedToAttribute } from '../utils/cursorutils';
+import { registryKey } from '../objectInfos';
 
 type NodeEntry = Map<string, MythicNode>;
 
@@ -99,7 +100,7 @@ interface NodeElement extends NodeBaseElement {
 
 export class MythicNode {
     templates: Set<string> = new Set();
-    outEdge: { [K in MythicNodeHandlerRegistryKey]: Set<string> } = {
+    outEdge: { [K in registryKey]: Set<string> } = {
         metaskill: new Set(),
         mob: new Set(),
         item: new Set(),
@@ -117,7 +118,7 @@ export class MythicNode {
     ) {
         //const time = timeCounter();
         if (this.description.text) {
-            for (const type of MythicNodeHandlerRegistryKey) {
+            for (const type of registryKey) {
                 this.matchDecorators(this.description.text, type).forEach((decorator) => {
                     this.outEdge[type].add(decorator);
                 });
@@ -130,7 +131,7 @@ export class MythicNode {
             return;
         }
 
-        for (const type of MythicNodeHandlerRegistryKey) {
+        for (const type of registryKey) {
             this.matchDecorators(this.body.text, type).forEach((decorator) => {
                 this.outEdge[type].add(decorator);
             });
@@ -155,7 +156,7 @@ export class MythicNode {
                 this.outEdge.metaskill.add(action);
             });
         }
-        for (const type of MythicNodeHandlerRegistryKey) {
+        for (const type of registryKey) {
             this.matchAttributes(this.body.text, type).forEach((attribute) => {
                 this.outEdge[type].add(attribute);
             });
@@ -183,7 +184,7 @@ export class MythicNode {
         }
         return templateList;
     }
-    private matchDecorators(body: string, type: MythicNodeHandlerRegistryKey): string[] {
+    private matchDecorators(body: string, type: registryKey): string[] {
         const regex = MythicNodeHandler.registry[type].decoratorRegex;
         const matches = body.matchAll(regex);
         const decorators: string[] = [];
@@ -213,7 +214,7 @@ export class MythicNode {
         }
         return conditionActions;
     }
-    private matchAttributes(body: string, type: MythicNodeHandlerRegistryKey): string[] {
+    private matchAttributes(body: string, type: registryKey): string[] {
         const attributeRegex = new RegExp(
             `[{;}]\\s*(?<attribute>${Array.from(MythicNodeHandler.registry[type].referenceAttributes).join('|')})\\s*=\\s*(?<value>[\\w\\-_]+)\\s*[;}]`,
             'gi'
@@ -285,7 +286,7 @@ export class MockMythicNode extends MythicNode {
 }
 
 export class MythicNodeRegistry {
-    readonly type: MythicNodeHandlerRegistryKey;
+    readonly type: registryKey;
     referenceAttributes: Set<string> = new Set();
     referenceMap: Map<string, Set<string>> = new Map();
     nodes: NodeEntry = new Map();
@@ -380,18 +381,8 @@ export class MythicNodeRegistry {
     }
 }
 
-export const MythicNodeHandlerRegistryKey = [
-    'metaskill',
-    'mob',
-    'item',
-    'droptable',
-    'stat',
-    'placeholder',
-] as const;
-export type MythicNodeHandlerRegistryKey = (typeof MythicNodeHandlerRegistryKey)[number];
-
 export namespace MythicNodeHandler {
-    export const registry: Record<MythicNodeHandlerRegistryKey, MythicNodeRegistry> = {
+    export const registry: Record<registryKey, MythicNodeRegistry> = {
         metaskill: new MythicNodeRegistry('metaskill'),
         mob: new MythicNodeRegistry('mob'),
         item: new MythicNodeRegistry('item'),
@@ -413,7 +404,7 @@ export namespace MythicNodeHandler {
         }
     }
 
-    type ProcessFileResult = [MythicNodeHandlerRegistryKey, vscode.TextDocument] | null;
+    type ProcessFileResult = [registryKey, vscode.TextDocument] | null;
     async function processFile(uri: vscode.Uri): Promise<ProcessFileResult> {
         const type = checkFileType(uri)?.key;
         if (!type) {
@@ -444,18 +435,13 @@ export namespace MythicNodeHandler {
         }
         const limit = pLimit(limitAmount);
 
-        const openFindTime = timeCounter();
+        time.step();
         const files = await vscode.workspace.findFiles(
             include,
             exclude && exclude !== '' ? exclude : undefined
         );
-        Log.custom(
-            vscode.LogLevel.Trace,
-            'Time Report',
-            `Document Find Time: ${openFindTime.stop()}`
-        );
+        Log.custom(vscode.LogLevel.Trace, 'Time Report', `Document Find Time: ${time.step()} ms`);
 
-        const openDocumentTime = timeCounter();
         const tasks = files.map((file) => limit(() => processFile(file)));
         const results = await Promise.allSettled(tasks);
         Log.debug(`Found ${results.length} files`);
@@ -471,21 +457,12 @@ export namespace MythicNodeHandler {
                 Log.debug(`Reason ${index}: ${rejection.reason}`)
             );
         }
-        Log.custom(
-            vscode.LogLevel.Trace,
-            'Time Report',
-            `Document Open Time: ${openDocumentTime.stop()}`
-        );
+        Log.custom(vscode.LogLevel.Trace, 'Time Report', `Document Open Time: ${time.step()} ms`);
 
-        const documentScanTime = timeCounter();
         for (const [type, file] of openedFiles) {
             registry[type].scanDocument(file);
         }
-        Log.custom(
-            vscode.LogLevel.Trace,
-            'Time Report',
-            `Document Scan Time: ${documentScanTime.stop()}`
-        );
+        Log.custom(vscode.LogLevel.Trace, 'Time Report', `Document Scan Time: ${time.step()} ms`);
 
         //Log.custom(vscode.LogLevel.Trace, 'Time Report', `Node Match Time: ${NodeMatchTime} ms`);
 

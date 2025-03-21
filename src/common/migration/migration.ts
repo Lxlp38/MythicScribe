@@ -1,6 +1,6 @@
 import * as vscode from 'vscode';
 
-import { Log } from '../utils/logger';
+import Log from '../utils/logger';
 
 export async function migrateConfiguration(
     oldKey: string,
