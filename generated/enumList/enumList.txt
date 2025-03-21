@@ -1,5 +1,6 @@
 paperattributeoperation
 audience
+culltype
 equipslot
 fluid
 furnitureorientation
@@ -9,6 +10,7 @@ glowcolor
 itemrarity
 mythicentity
 particle
+placeholder
 scoreaction
 shape
 statexecutionpoint
@@ -32,6 +34,7 @@ sound
 paperattribute
 barcolor
 barstyle
+billboard
 blockface
 damagecause
 dragonbattlerespawnphase
@@ -48,6 +51,7 @@ material
 potioneffecttype
 soundcategory
 spawnreason
+textalignment
 worldenvironment
 color
 rgbcolor
@@ -56,11 +60,12 @@ mechaniclist
 targeterlist
 triggerlist
 conditionlist
-mobs
-items
+mob
+item
 metaskill
 droptable
 stat
+customplaceholder
 targeter
 mythicitem
 conditions

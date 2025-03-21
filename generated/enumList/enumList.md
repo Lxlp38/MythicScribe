@@ -6,6 +6,10 @@
 ### Path: `mythic/audiences.json`
 ### Type: `Static`
 
+# `culltype`
+### Path: `mythic/culltype.json`
+### Type: `Static`
+
 # `equipslot`
 ### Path: `mythic/equipslot.json`
 ### Type: `Static`
@@ -40,6 +44,10 @@
 
 # `particle`
 ### Path: `mythic/particles.json`
+### Type: `Static`
+
+# `placeholder`
+### Path: `mythic/placeholder.json`
 ### Type: `Static`
 
 # `scoreaction`
@@ -134,6 +142,10 @@
 ### Path: `paper/barstyle.json`
 ### Type: `Volatile`
 
+# `billboard`
+### Path: `paper/billboard.json`
+### Type: `Volatile`
+
 # `blockface`
 ### Path: `paper/blockface.json`
 ### Type: `Volatile`
@@ -198,6 +210,10 @@
 ### Path: `paper/spawnreason.json`
 ### Type: `Volatile`
 
+# `textalignment`
+### Path: `paper/textalignment.json`
+### Type: `Volatile`
+
 # `worldenvironment`
 ### Path: `paper/worldenvironment.json`
 ### Type: `Volatile`
@@ -230,11 +246,11 @@
 ### Path: `null`
 ### Type: `Scripted`
 
-# `mobs`
+# `mob`
 ### Path: `null`
 ### Type: `Scripted`
 
-# `items`
+# `item`
 ### Path: `null`
 ### Type: `Scripted`
 
@@ -247,6 +263,10 @@
 ### Type: `Scripted`
 
 # `stat`
+### Path: `null`
+### Type: `Scripted`
+
+# `customplaceholder`
 ### Path: `null`
 ### Type: `Scripted`
 

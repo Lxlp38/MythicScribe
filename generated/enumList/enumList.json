@@ -10,6 +10,11 @@
     "type": "Static"
   },
   {
+    "id": "culltype",
+    "path": "mythic/culltype.json",
+    "type": "Static"
+  },
+  {
     "id": "equipslot",
     "path": "mythic/equipslot.json",
     "type": "Static"
@@ -52,6 +57,11 @@
   {
     "id": "particle",
     "path": "mythic/particles.json",
+    "type": "Static"
+  },
+  {
+    "id": "placeholder",
+    "path": "mythic/placeholder.json",
     "type": "Static"
   },
   {
@@ -170,6 +180,11 @@
     "type": "Volatile"
   },
   {
+    "id": "billboard",
+    "path": "paper/billboard.json",
+    "type": "Volatile"
+  },
+  {
     "id": "blockface",
     "path": "paper/blockface.json",
     "type": "Volatile"
@@ -250,6 +265,11 @@
     "type": "Volatile"
   },
   {
+    "id": "textalignment",
+    "path": "paper/textalignment.json",
+    "type": "Volatile"
+  },
+  {
     "id": "worldenvironment",
     "path": "paper/worldenvironment.json",
     "type": "Volatile"
@@ -290,12 +310,12 @@
     "type": "Scripted"
   },
   {
-    "id": "mobs",
+    "id": "mob",
     "path": null,
     "type": "Scripted"
   },
   {
-    "id": "items",
+    "id": "item",
     "path": null,
     "type": "Scripted"
   },
@@ -311,6 +331,11 @@
   },
   {
     "id": "stat",
+    "path": null,
+    "type": "Scripted"
+  },
+  {
+    "id": "customplaceholder",
     "path": null,
     "type": "Scripted"
   },

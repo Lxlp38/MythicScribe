@@ -45,9 +45,21 @@ export abstract class AbstractScribeEnum {
     getAttributes(): Attribute[] {
         return this.addedAttributes;
     }
-    updateDataset(data: Enum[]): void {
+    setDataset(data: Enum[]): void {
         this.loaded = false;
         this.dataset = new Map(Object.entries(data));
+        this.finalizeDataset();
+    }
+    expandDataset(data: Map<string, EnumDatasetValue>): void {
+        Log.debug(`Expanding Enum ${this.identifier} with ${data.size} entries`);
+        this.loaded = false;
+        const newDataset = new Map(Object.entries(data));
+        newDataset.forEach((value, key) => {
+            this.dataset.set(key, value);
+        });
+        this.finalizeDataset();
+    }
+    finalizeDataset(): void {
         const attributeMap = new Map<string, Attribute>();
         this.dataset.forEach((value) => {
             if (value.name) {
@@ -74,6 +86,7 @@ export abstract class AbstractScribeEnum {
         );
         this.loaded = true;
     }
+
     isLoaded(): boolean {
         return this.loaded;
     }
@@ -82,16 +95,14 @@ export abstract class AbstractScribeEnum {
 export class StaticScribeEnum extends AbstractScribeEnum {
     constructor(identifier: string, path: string) {
         super(identifier, path);
-        fetchJsonFromLocalFile<Enum>(vscode.Uri.parse(path)).then((data) =>
-            this.updateDataset(data)
-        );
+        fetchJsonFromLocalFile<Enum>(vscode.Uri.parse(path)).then((data) => this.setDataset(data));
     }
 }
 class LocalScribeEnum extends AbstractScribeEnum {
     constructor(identifier: string, path: string) {
         const localPath = vscode.Uri.joinPath(ctx.extensionUri, 'data', path);
         super(identifier, localPath.fsPath);
-        new ScribeCloneableFile<Enum>(localPath).get().then((data) => this.updateDataset(data));
+        new ScribeCloneableFile<Enum>(localPath).get().then((data) => this.setDataset(data));
     }
 }
 class VolatileScribeEnum extends LocalScribeEnum {
@@ -102,7 +113,7 @@ class VolatileScribeEnum extends LocalScribeEnum {
 export class WebScribeEnum extends AbstractScribeEnum {
     constructor(identifier: string, path: string) {
         super(identifier, path);
-        fetchJsonFromURL<Enum>(path).then((data) => this.updateDataset(data));
+        fetchJsonFromURL<Enum>(path).then((data) => this.setDataset(data));
     }
 }
 class LambdaScribeEnum extends AbstractScribeEnum {
@@ -185,8 +196,19 @@ export const ScribeEnumHandler = {
         path: string
     ) {
         const enumObject = new oclass(identifier.toLowerCase(), path);
+        if (ScribeEnumHandler.enums.has(identifier.toLowerCase())) {
+            Log.debug(`Enum ${identifier} already exists, adding new values to it instead`);
+            this.expandEnum(identifier, enumObject);
+            return;
+        }
         ScribeEnumHandler.enums.set(identifier.toLowerCase(), enumObject);
         Log.debug(`Registered Enum ${identifier}`);
+    },
+
+    async expandEnum(identifier: string, object: AbstractScribeEnum) {
+        const existing = ScribeEnumHandler.enums.get(identifier.toLowerCase())!;
+        const newDataset = await object.waitForDataset();
+        existing.expandDataset(newDataset);
     },
 
     addLambdaEnum(key: string, values: string[]) {
@@ -238,10 +260,10 @@ export const ScribeEnumHandler = {
 
         this.addScriptedEnum(scriptedEnums.Targeter, insertTargeterCompletion);
 
-        this.addScriptedEnum(scriptedEnums.Mobs, () =>
+        this.addScriptedEnum(scriptedEnums.Mob, () =>
             fromMythicNodeToEnum(MythicNodeHandler.registry.mob.getNodes())
         );
-        this.addScriptedEnum(scriptedEnums.Items, () => {
+        this.addScriptedEnum(scriptedEnums.Item, () => {
             const mythicitems = fromMythicNodeToEnum(MythicNodeHandler.registry.item.getNodes());
             const paperitems = ScribeEnumHandler.getEnum('material')!.getDataset();
             return new Map([...mythicitems, ...paperitems]);

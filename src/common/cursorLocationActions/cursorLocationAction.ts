@@ -5,10 +5,19 @@ import { KeyDependantMechanicLikeHover } from './hoverprovider';
 import { FileObjectMap, keyAliases } from '../objectInfos';
 import { getCursorSkills, getCursorObject } from '../utils/cursorutils';
 import * as yamlutils from '../utils/yamlutils';
-import { MythicNode, MythicNodeHandler } from '../mythicnodes/MythicNode';
+import {
+    MythicNode,
+    MythicNodeHandler,
+    MythicNodeHandlerRegistryKey,
+} from '../mythicnodes/MythicNode';
 import { searchForLinkedAttribute } from '../completions/attributeCompletionProvider';
-import { scriptedEnums } from '../datasets/enumSources';
 import { ActiveFileTypeInfo } from '../subscriptions/SubscriptionHelper';
+import {
+    getNodeFromPlaceholder,
+    PlaceholderNode,
+    removeLastPlaceholderSegment,
+} from '../datasets/ScribePlaceholder';
+import { ConditionActions } from '../schemas/conditionActions';
 
 export function CursorLocationAction<T>(
     document: vscode.TextDocument,
@@ -88,7 +97,7 @@ export function CursorLocationActionForNode<T>(
         () => handleConditionAction(document, position, word, wordRange, callback),
         () => handleTemplates(document.lineAt(position.line).text, word, wordRange, callback),
         () => handleLinkedAttribute(document, position, word, wordRange, callback),
-        () => handleCustomPlaceholder(document, position, callback),
+        () => handlePlaceholder(document, position, word, wordRange, callback),
     ];
 
     for (const handler of handlers) {
@@ -127,9 +136,8 @@ function handleConditionAction<T>(
         return undefined;
     }
     const lineText = document.lineAt(position.line).text;
-    const castKeywords = ['cast', 'orelsecast', 'castinstead'];
     const beforeWord = lineText.slice(0, wordRange.start.character).trim().toLowerCase();
-    if (castKeywords.some((keyword) => beforeWord.endsWith(keyword))) {
+    if (ConditionActions.metaskillActions.some((keyword) => beforeWord.endsWith(keyword))) {
         const skill = MythicNodeHandler.registry.metaskill.getNode(word);
         if (skill) {
             return callback(skill, wordRange);
@@ -166,51 +174,66 @@ function handleLinkedAttribute<T>(
 ) {
     const keys = yamlutils.getParentKeys(document, position);
     const attribute = searchForLinkedAttribute(document, position, keys);
-    if (attribute?.enum) {
-        let skill: MythicNode | undefined;
-
-        switch (attribute.enum.identifier) {
-            case scriptedEnums.Metaskill:
-                skill = MythicNodeHandler.registry.metaskill.getNode(word);
-                break;
-            case scriptedEnums.Mobs:
-                skill = MythicNodeHandler.registry.mob.getNode(word);
-                break;
-            case scriptedEnums.Items:
-                skill = MythicNodeHandler.registry.item.getNode(word);
-                break;
-            case scriptedEnums.Stat:
-                skill = MythicNodeHandler.registry.stat.getNode(word);
-                break;
-            default:
-                return undefined;
-        }
-
-        if (!skill) {
-            return undefined;
-        }
-        return callback(skill, wordRange);
-    }
-    return undefined;
-}
-
-function handleCustomPlaceholder<T>(
-    document: vscode.TextDocument,
-    position: vscode.Position,
-    callback: (node: MythicNode, range: vscode.Range) => vscode.ProviderResult<T>
-) {
-    const maybePlaceholder = document.getWordRangeAtPosition(
-        position,
-        /(?<=<placeholder\.)[\w\-_]+(?=>)/g
-    );
-    if (!maybePlaceholder) {
+    if (
+        !attribute?.enum ||
+        !MythicNodeHandlerRegistryKey.includes(
+            attribute.enum.identifier as MythicNodeHandlerRegistryKey
+        )
+    ) {
         return undefined;
     }
-    const placeholder = MythicNodeHandler.registry.placeholder.getNode(
-        document.getText(maybePlaceholder)
-    );
-    if (placeholder) {
-        return callback(placeholder, maybePlaceholder);
+
+    const node =
+        MythicNodeHandler.registry[
+            attribute.enum.identifier as MythicNodeHandlerRegistryKey
+        ].getNode(word);
+
+    if (!node) {
+        return undefined;
     }
-    return undefined;
+
+    return callback(node, wordRange);
+}
+
+function handlePlaceholder<T>(
+    document: vscode.TextDocument,
+    position: vscode.Position,
+    word: string,
+    wordRange: vscode.Range,
+    callback: (node: MythicNode, range: vscode.Range) => vscode.ProviderResult<T>
+) {
+    const placeholderWordRange = document.getWordRangeAtPosition(position, /(?<=<)[\w\-_.]+(?=>)/g);
+    if (!placeholderWordRange) {
+        return undefined;
+    }
+    const previusPlaceholderTextBeforePosition = placeholderWordRange.with({
+        end: position,
+    });
+    const placeholderText = document.getText(previusPlaceholderTextBeforePosition);
+    const placeholderNode = getNodeFromPlaceholder(
+        removeLastPlaceholderSegment(placeholderText) + '.' + word
+    );
+    if (!placeholderNode) {
+        return undefined;
+    }
+    let nodeId = parsePlaceholderNode(placeholderNode);
+    const registry = MythicNodeHandler.getRegistry(nodeId);
+    if (!registry) {
+        return undefined;
+    }
+    const node = registry.getNode(word);
+    if (!node) {
+        return undefined;
+    }
+    return callback(node, wordRange);
+}
+
+function parsePlaceholderNode(placeholder: PlaceholderNode): string {
+    switch (placeholder.value.identifier) {
+        case '{mythicitem}':
+            return 'item';
+        case '{customplaceholder}':
+            return 'placeholder';
+    }
+    return placeholder.value.identifier.replace('{', '').replace('}', '');
 }

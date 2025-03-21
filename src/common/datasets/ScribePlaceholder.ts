@@ -72,7 +72,7 @@ class Placeholder {
     }
 }
 
-class PlaceholderNode {
+export class PlaceholderNode {
     public value: PlaceholderSegment;
     public attributes: MythicAttribute[] = [];
     public children: PlaceholderNode[] = [];
@@ -140,6 +140,12 @@ export const ScribePlaceholderHandler = new PlaceholderNode(new PlaceholderSegme
 function parsePlaceholder(placeholder: string): Placeholder {
     const args = placeholder.split('.');
     return new Placeholder(...args);
+}
+
+export function removeLastPlaceholderSegment(placeholder: string): string {
+    const segments = placeholder.split('.');
+    segments.pop();
+    return segments.join('.');
 }
 
 export function getNodeFromPlaceholder(placeholder: string): PlaceholderNode | undefined {

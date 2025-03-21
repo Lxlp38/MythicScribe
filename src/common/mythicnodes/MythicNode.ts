@@ -203,7 +203,7 @@ export class MythicNode {
 
     private matchConditionActions(body: string): string[] {
         const conditionActionRegex = new RegExp(
-            `\\s(?:${Object.keys(ConditionActions).join('|')})\\s([\\w\\-_]+)`,
+            `\\s(?:${ConditionActions.getConditionActions().join('|')})\\s([\\w\\-_]+)`,
             'gi'
         );
         const matches = body.matchAll(conditionActionRegex);
@@ -400,8 +400,11 @@ export namespace MythicNodeHandler {
         placeholder: new MythicNodeRegistry('placeholder'),
     };
 
-    export function getRegistry(key: keyof typeof registry): MythicNodeRegistry {
-        return registry[key];
+    export function getRegistry(key: string): MythicNodeRegistry | undefined {
+        if (!(key in registry)) {
+            return undefined;
+        }
+        return registry[key as keyof typeof registry];
     }
 
     export function clearNodes(): void {

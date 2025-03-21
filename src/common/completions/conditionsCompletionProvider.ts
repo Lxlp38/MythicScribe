@@ -2,7 +2,7 @@ import * as vscode from 'vscode';
 
 import * as yamlutils from '../utils/yamlutils';
 import { keyAliases } from '../objectInfos';
-import { ConditionActions, ConditionTypes } from '../schemas/conditionActions';
+import { ConditionActions } from '../schemas/conditionActions';
 import { checkShouldKeyComplete, retriggerCompletionsCommand } from '../utils/completionhelper';
 import { ScribeMechanicHandler } from '../datasets/ScribeMechanic';
 import { addMetaskillsToConditionLine } from './inlinemetaskillCompletionProvider';
@@ -50,9 +50,11 @@ export function getConditionCompletionItems(
     let space = ' ';
 
     const completionItems: vscode.CompletionItem[] = [];
-    const lastIsConditionAction = Object.keys(ConditionActions).includes(wordBefore);
+    const lastIsConditionAction = ConditionActions.getConditionActions().includes(wordBefore);
     if (lastIsConditionAction) {
-        if (ConditionActions[wordBefore] === ConditionTypes.METASKILL) {
+        if (
+            ConditionActions.actions.get(wordBefore) === ConditionActions.ConditionTypes.METASKILL
+        ) {
             addMetaskillsToConditionLine(completionItems);
             return completionItems;
         }
@@ -60,7 +62,7 @@ export function getConditionCompletionItems(
         return completionItems;
     }
 
-    const condact = fetchConditionActions();
+    const condact = ConditionActions.getConditionActions();
     if (!['- ', '( ', '| ', '& '].includes(charBefore)) {
         if ([') ', '} '].includes(charBefore) || /(\w+({.*})?\s)$/.test(lineBefore)) {
             if (!condact.includes(wordBefore)) {
@@ -123,16 +125,11 @@ function addOperatorsToConditionLine(completionItems: vscode.CompletionItem[]) {
 }
 
 function addConditionActionsToConditionLine(completionItems: vscode.CompletionItem[]) {
-    Object.keys(ConditionActions).forEach((key: string) => {
+    ConditionActions.getConditionActions().forEach((key: string) => {
         const completionItem = new vscode.CompletionItem(key, vscode.CompletionItemKind.Function);
         completionItem.kind = vscode.CompletionItemKind.Function;
         completionItem.insertText = new vscode.SnippetString(key + ' $0');
         completionItem.command = retriggerCompletionsCommand;
         completionItems.push(completionItem);
     });
-}
-
-function fetchConditionActions(): string[] {
-    const condact = Object.keys(ConditionActions);
-    return condact;
 }
