@@ -1,8 +1,8 @@
 import * as vscode from 'vscode';
 import { checkShouldPrefixComplete } from '@common/utils/completionhelper';
 import {
-    getNodeFromPlaceholder,
-    ScribePlaceholderHandler,
+    getLastNodeFromPlaceholder,
+    ScribePlaceholderRoot,
 } from '@common/datasets/ScribePlaceholder';
 
 export function placeholderCompletionProvider() {
@@ -35,11 +35,12 @@ export function placeholderCompletionProvider() {
                         lastLessThanIndex + 1,
                         lastPointIndex
                     );
-                    const matchPreviousPlaceholder = getNodeFromPlaceholder(previousPlaceholder);
+                    const matchPreviousPlaceholder =
+                        getLastNodeFromPlaceholder(previousPlaceholder);
                     return matchPreviousPlaceholder?.generateCompletions();
                 }
 
-                return ScribePlaceholderHandler.generateCompletions();
+                return ScribePlaceholderRoot.generateCompletions();
             },
         },
         '<'

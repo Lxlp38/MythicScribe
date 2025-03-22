@@ -8,8 +8,8 @@ import { MythicNode, MythicNodeHandler } from '../mythicnodes/MythicNode';
 import { searchForLinkedAttribute } from '../completions/component/attributeCompletionProvider';
 import { ActiveFileTypeInfo } from '../subscriptions/SubscriptionHelper';
 import {
-    getNodeFromPlaceholder,
-    PlaceholderNode,
+    fromPlaceholderNodeIdentifierToRegistryKey,
+    getLastNodeFromPlaceholder,
     removeLastPlaceholderSegment,
 } from '../datasets/ScribePlaceholder';
 import { ConditionActions } from '../schemas/conditionActions';
@@ -204,14 +204,17 @@ function handlePlaceholder<T>(
         end: position,
     });
     const placeholderText = document.getText(previusPlaceholderTextBeforePosition);
-    const placeholderNode = getNodeFromPlaceholder(
+    const placeholderNode = getLastNodeFromPlaceholder(
         removeLastPlaceholderSegment(placeholderText) + '.' + word
     );
     if (!placeholderNode) {
         return undefined;
     }
-    let nodeId = parsePlaceholderNode(placeholderNode);
-    const registry = MythicNodeHandler.getRegistry(nodeId);
+    const registryKey = fromPlaceholderNodeIdentifierToRegistryKey(placeholderNode);
+    if (!registryKey) {
+        return undefined;
+    }
+    const registry = MythicNodeHandler.getRegistry(registryKey);
     if (!registry) {
         return undefined;
     }
@@ -220,14 +223,4 @@ function handlePlaceholder<T>(
         return undefined;
     }
     return callback(node, wordRange);
-}
-
-function parsePlaceholderNode(placeholder: PlaceholderNode): string {
-    switch (placeholder.value.identifier) {
-        case '{mythicitem}':
-            return 'item';
-        case '{customplaceholder}':
-            return 'placeholder';
-    }
-    return placeholder.value.identifier.replace('{', '').replace('}', '');
 }

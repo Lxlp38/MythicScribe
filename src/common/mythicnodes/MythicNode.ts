@@ -1,5 +1,9 @@
 import * as vscode from 'vscode';
 import pLimit from 'p-limit';
+import {
+    fromPlaceholderNodeIdentifierToRegistryKey,
+    parseWrittenPlaceholder,
+} from '@common/datasets/ScribePlaceholder';
 
 import { checkFileType } from '../subscriptions/SubscriptionHelper';
 import Log from '../utils/logger';
@@ -165,9 +169,7 @@ export class MythicNode {
         this.matchSkillShortcut(this.body.text).forEach((skillShortcut) => {
             this.outEdge.metaskill.add(skillShortcut);
         });
-        this.matchCustomPlaceholder(this.body.text).forEach((customPlaceholder) => {
-            this.outEdge.placeholder.add(customPlaceholder);
-        });
+        this.matchPlaceholder(this.body.text);
         delete body.text;
         //NodeMatchTime += time.delta();
     }
@@ -251,14 +253,20 @@ export class MythicNode {
         return skillShortcuts;
     }
 
-    private matchCustomPlaceholder(body: string): string[] {
-        const customPlaceholderRegex = /<placeholder\.([\w\-_]+)>/g;
-        const matches = body.matchAll(customPlaceholderRegex);
-        const customPlaceholders: string[] = [];
+    private matchPlaceholder(body: string) {
+        const placeholderRegex = /<([\w\-_.]+)>/g;
+        const matches = body.matchAll(placeholderRegex);
         for (const match of matches) {
-            customPlaceholders.push(match[1]);
+            const nodes = parseWrittenPlaceholder(match[1]);
+            let i = 0;
+            for (const node of nodes) {
+                const registry = fromPlaceholderNodeIdentifierToRegistryKey(node);
+                if (registry) {
+                    this.outEdge[registry].add(match[1].split('.')[i]);
+                }
+                i++;
+            }
         }
-        return customPlaceholders;
     }
 }
 

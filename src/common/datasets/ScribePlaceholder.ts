@@ -1,4 +1,5 @@
 import * as vscode from 'vscode';
+import { registryKey } from '@common/objectInfos';
 
 import { generateNumbersInRange } from '../utils/schemautils';
 import { MythicAttribute } from './ScribeMechanic';
@@ -135,7 +136,7 @@ export class PlaceholderNode {
     }
 }
 
-export const ScribePlaceholderHandler = new PlaceholderNode(new PlaceholderSegment('root'));
+export const ScribePlaceholderRoot = new PlaceholderNode(new PlaceholderSegment('root'));
 
 function parsePlaceholder(placeholder: string): Placeholder {
     const args = placeholder.split('.');
@@ -148,28 +149,15 @@ export function removeLastPlaceholderSegment(placeholder: string): string {
     return segments.join('.');
 }
 
-export function getNodeFromPlaceholder(placeholder: string): PlaceholderNode | undefined {
+export function getLastNodeFromPlaceholder(placeholder: string): PlaceholderNode | undefined {
     // Split the placeholder string on dots
     const segments = placeholder.split('.');
     // Start from the root of the placeholder tree
-    let currentNode = ScribePlaceholderHandler;
+    let currentNode = ScribePlaceholderRoot;
 
     for (const seg of segments) {
-        // First try to find a child whose toString() directly matches the segment
-        let nextNode = currentNode.children.find((child) => child.toString() === seg);
-
-        // If not found, check if there is a scripted placeholder node
-        // where the segment is one of the allowed arbitrary values.
-        if (!nextNode) {
-            nextNode = currentNode.children.find((child) => {
-                // Check if this is a scripted segment
-                if (child.value instanceof ScriptedPlaceholderSegment) {
-                    // Compare against the arbitrary data provided by its value() function.
-                    return child.value.isOwnValue(seg);
-                }
-                return false;
-            });
-        }
+        // Find the child node that matches the current segment
+        let nextNode = findMatchingChildNodeByValue(currentNode, seg);
 
         // If no matching child was found, return undefined.
         if (!nextNode) {
@@ -181,6 +169,62 @@ export function getNodeFromPlaceholder(placeholder: string): PlaceholderNode | u
     }
 
     return currentNode;
+}
+
+export function findMatchingChildNodeByValue(
+    node: PlaceholderNode,
+    value: string
+): PlaceholderNode | undefined {
+    const foundNode = node.children.find((child) => child.toString() === value);
+    if (foundNode) {
+        return foundNode;
+    }
+    return node.children.find((child) => {
+        if (child.value instanceof ScriptedPlaceholderSegment) {
+            return child.value.isOwnValue(value);
+        }
+        return false;
+    });
+}
+
+export function parseWrittenPlaceholder(placeholder: string): PlaceholderNode[] {
+    placeholder = placeholder.replace(/>\s*$/, '').replace(/^\s*</g, '');
+    const nodes: PlaceholderNode[] = [];
+    const segments = placeholder.split('.');
+    let currentNode = ScribePlaceholderRoot;
+
+    for (const seg of segments) {
+        const nextNode = findMatchingChildNodeByValue(currentNode, seg);
+
+        if (!nextNode) {
+            return nodes;
+        }
+
+        nodes.push(nextNode);
+        currentNode = nextNode;
+    }
+
+    return nodes;
+}
+
+export function fromPlaceholderNodeIdentifierToRegistryKey(
+    target: string | PlaceholderNode
+): registryKey | undefined {
+    const identifier = typeof target === 'string' ? target : target.value.identifier;
+    let maybeRegistryKey = '';
+    switch (identifier) {
+        case '{mythicitem}':
+            maybeRegistryKey = 'item';
+            break;
+        case '{customplaceholder}':
+            maybeRegistryKey = 'placeholder';
+            break;
+    }
+    maybeRegistryKey = identifier.replace('{', '').replace('}', '');
+    if (registryKey.includes(maybeRegistryKey as registryKey)) {
+        return maybeRegistryKey as registryKey;
+    }
+    return undefined;
 }
 
 export async function initializePlaceholders() {
@@ -203,6 +247,16 @@ export async function initializePlaceholders() {
         () => generateNumbersInRange(0, 10, 0.5, true).map((num) => num.toString()),
         (value) => !isNaN(parseFloat(value))
     );
+    new ScriptedPlaceholderSegment(
+        'IntegerRange',
+        () => ['1to2', '-1to2', '-2to-1'],
+        (value) => /^-?\d+to-?\d+$/.test(value)
+    );
+    new ScriptedPlaceholderSegment(
+        'FloatRange',
+        () => ['1.0to2.0', '-1.0to2.0', '-2.0to-1.0'],
+        (value) => /^-?\d+(\.\d+)?to-?\d+(\.\d+)?$/.test(value)
+    );
 
     // Generate placeholder nodes for all placeholder enums
     const placeholderDataset = await ScribeEnumHandler.getEnum('placeholder')?.waitForDataset();
@@ -210,9 +264,11 @@ export async function initializePlaceholders() {
         return;
     }
     for (const key of placeholderDataset.keys()) {
-        ScribePlaceholderHandler.addNodes(parsePlaceholder(key).getPlaceholderNodes());
+        ScribePlaceholderRoot.addNodes(parsePlaceholder(key).getPlaceholderNodes());
     }
-    ScribePlaceholderHandler.addNodes(
+
+    // Add the Custom Placeholder placeholder. I wrote that right.
+    ScribePlaceholderRoot.addNodes(
         parsePlaceholder('placeholder.{CustomPlaceholder}').getPlaceholderNodes()
     );
 }

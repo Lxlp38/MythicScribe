@@ -4,7 +4,7 @@
 
 ### Added
 - Placeholder completions
-  - Custom Placeholder Support for nodes, completions and hovers
+  - Placeholder Support for nodes, completions and hovers
 - Hover and Go To Definition support for Placeholder Segments that use a Mob/Item/Custom Placeholder/Stat Id (for instance, <caster.stat.example> or <placeholder.test>)
 - `MythicScribe.putSelectionInsideInlineMetaskill` command and context menu item to put the selected text inside of an inline metaskill
 - Adding a Custom Enum Dataset with the same name as another loaded Enum Dataset will now merge them
