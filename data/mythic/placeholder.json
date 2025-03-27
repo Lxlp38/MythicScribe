@@ -2,50 +2,98 @@
     "caster.damage": {
         "description": "Returns the caster's Attack_Damage attribute value"
     },
+    "caster.display": {
+        "description": "Returns the caster's displayed name"
+    },
     "caster.mythic_type": {
         "description": "Returns the caster's internal mob type"
+    },
+    "caster.type": {
+        "description": "Returns the internal id of a MythicMob or the entity name otherwise"
     },
     "caster.type.name": {
         "description": "Returns the display name of a MythicMob or the entity name otherwise"
     },
+    "caster.uuid": {
+        "description": "Returns the UUID of the caster"
+    },
     "caster.level": {
         "description": "Returns the level of the caster"
+    },
+    "caster.name": {
+        "description": "Returns the name of the caster"
     },
     "caster.hp": {
         "description": "Returns current hp of the caster"
     },
+    "caster.mhp": {
+        "description": "Returns the max hp of the caster"
+    },
     "caster.php": {
         "description": "Returns the percent hp of the caster"
+    },
+    "caster.thp": {
+        "description": "Returns the full number hp of the caster"
     },
     "caster.tt.top": {
         "description": "Returns the name of the top threat holder of the caster"
     },
+    "caster.l.w": {
+        "description": "Returns the world name the caster is in"
+    },
     "caster.l.x": {
         "description": "Returns the X coordinate of the caster"
+    },
+    "caster.l.x.{Float}": {
+        "description": "Returns the X coordinate of the caster +- random number between {Float}"
     },
     "caster.l.x.double": {
         "description": "Returns the precise X coordinate of the caster"
     },
+    "caster.l.y": {
+        "description": "Returns the Y coordinate of the caster"
+    },
     "caster.l.y.{Float}": {
         "description": "Returns the Y coordinate of the caster +- random number between {Float}"
+    },
+    "caster.l.y.double": {
+        "description": "Returns the precise Y coordinate of the caster"
     },
     "caster.l.z": {
         "description": "Returns the Z coordinate of the caster"
     },
+    "caster.l.z.{Float}": {
+        "description": "Returns the Z coordinate of the caster +- random number between {Float}"
+    },
     "caster.l.z.double": {
         "description": "Returns the precise Z coordinate of the caster"
+    },
+    "caster.l.yaw": {
+        "description": "Returns the yaw of the caster"
     },
     "caster.l.pitch": {
         "description": "Returns the pitch of the caster"
     },
+    "caster.stance": {
+        "description": "Returns the current stance of the caster"
+    },
     "caster.stat.{Stat}": {
         "description": "Returns the value of the specified {Stat} on the caster"
     },
-    "caster.skill.{SkillName}.cooldown": {
+    "caster.heldenchantlevel.{Integer}": {
+        "description": "Returns the enchant level of specified {Integer} enchant"
+    },
+    "caster.skill.{Metaskill}.cooldown": {
         "description": "Returns the current cooldown of the give skill as a float number"
+    },
+    "caster.raytrace.{Float}": {
+        "description": "Returns the name of the block being looked at by the caster if within {Float} range, if {Float} is specified. If only <caster.raytrace> is used, then the range defaults to `4.5`. If no block is found, `AIR` is returned."
     },
     "caster.children.size": {
         "description": "Returns the number of children this entity has"
+    },
+    "caster.attack_cooldown": {
+        "description": "Returns the attack cooldown of the player's equipped item. The value will be a float between 0 (maximum cooldown for the item) and 1 (no cooldown)"
     },
     "caster.var.{VariableName}": {
         "description": "Returns the value of the variable {VariableName} on the variable registry of the caster of the mechanic"
@@ -116,110 +164,209 @@
     "target.uuid": {
         "description": "Returns the UUID of the target"
     },
+    "target.name": {
+        "description": "Returns the name of the target"
+    },
     "target.hp": {
         "description": "Returns current hp of the target"
+    },
+    "target.mhp": {
+        "description": "Returns the max hp of the target"
     },
     "target.php": {
         "description": "Returns the percent hp of the target"
     },
+    "target.thp": {
+        "description": "Returns the full number hp of the target"
+    },
     "target.threat": {
         "description": "Returns the threat level of the target"
+    },
+    "target.l.w": {
+        "description": "Returns the world name the target is in"
     },
     "target.l.x": {
         "description": "Returns the X coordinate of the target"
     },
+    "target.l.x.{Float}": {
+        "description": "Returns the X coordinate of the target +- random number between {Float}"
+    },
     "target.l.y": {
         "description": "Returns the Y coordinate of the target"
+    },
+    "target.l.y.{Float}": {
+        "description": "Returns the Y coordinate of the target +- random number between {Float}"
     },
     "target.l.z": {
         "description": "Returns the Z coordinate of the target"
     },
+    "target.l.z.{Float}": {
+        "description": "Returns the Z coordinate of the target +- random number between {Float}"
+    },
     "target.l.yaw": {
         "description": "Returns the yaw of the target"
+    },
+    "target.l.pitch": {
+        "description": "Returns the pitch of the target"
     },
     "target.level": {
         "description": "Returns the level of the target"
     },
+    "target.block.type": {
+        "description": "Returns the block type of the target"
+    },
     "target.block.data": {
         "description": "Returns the block data of the target block"
+    },
+    "target.entity_type": {
+        "description": "Returns the entity type of the target"
     },
     "target.item.type": {
         "description": "Returns the type of the targeted item entity"
     },
+    "target.held.item": {
+        "description": "Returns the item held by the target"
+    },
     "target.itemstack_amount": {
         "description": "Returns the amount of item entities on the ground"
+    },
+    "target.stat.{StatName}": {
+        "description": "Returns the value of the specified stat on the target"
     },
     "target.raytrace.{Float}": {
         "description": "Returns the name of the block being looked at by the target if within {Float} range, if {Float} is specified. If only <target.raytrace> is used, then the range defaults to `4.5`. If no block is found, `AIR` is returned."
     },
+    "target.fovoffset{rotation=0;absolute=true}": {
+        "description": "Returns the angular offset (in degrees) between the direction the caster is looking and the direction from the caster to the target entity. This offset can be used to determine how far the target is from the caster's center of view"
+    },
     "trigger.uuid": {
         "description": "Returns the UUID of the entity triggering the skill"
+    },
+    "trigger.name": {
+        "description": "Returns the name of the entity triggering the skill"
     },
     "trigger.hp": {
         "description": "Returns the current hp of the entity triggering the skill"
     },
+    "trigger.mhp": {
+        "description": "Returns the max hp of the entity triggering the skill"
+    },
     "trigger.threat": {
         "description": "Returns the threat level of the entity triggering the skill"
+    },
+    "trigger.l.w": {
+        "description": "Returns the world name of the entity triggering the skill"
     },
     "trigger.l.x": {
         "description": "Returns the X coordinate of the entity triggering the skill"
     },
+    "trigger.l.x.{Float}": {
+        "description": "Returns the X coordinate of the entity triggering the skill +- random number between {Float}"
+    },
     "trigger.l.y": {
         "description": "Returns the Y coordinate of the entity triggering the skill"
+    },
+    "trigger.l.y.{Float}": {
+        "description": "Returns the Y coordinate of the entity triggering the skill +- random number between {Float}"
     },
     "trigger.l.z": {
         "description": "Returns the Z coordinate of the entity triggering the skill"
     },
+    "trigger.l.z.{Float}": {
+        "description": "Returns the Z coordinate of the entity triggering the skill +- random number between {Float}"
+    },
     "trigger.l.yaw": {
         "description": "Returns the yaw of the trigger"
+    },
+    "trigger.l.pitch": {
+        "description": "Returns the pitch of the trigger"
     },
     "trigger.held.item": {
         "description": "Returns the item held by the trigger"
     },
+    "trigger.raytrace": {
+        "description": "Returns the name of the block being looked at by the trigger (4.5 blocks of range)"
+    },
     "trigger.item.amount": {
         "description": "Returns the amount of the item the trigger is holding"
+    },
+    "trigger.item.type": {
+        "description": "Returns the type of the item the trigger is holding"
     },
     "trigger.item.model": {
         "description": "Returns the model of the item the trigger is holding"
     },
+    "trigger.stat.{Stat}": {
+        "description": "Returns the value of the specified stat on the trigger"
+    },
     "trigger.raytrace.{Float}": {
-        "description": "## Misc Placeholders"
+        "description": "Returns the name of the block being looked at by the trigger if within {Float} range, if # is specified. If only <trigger.raytrace> is used, then the range defaults to `4.5`. If no block is found, `AIR` is returned."
     },
     "drop.amount": {
         "description": "Returns the amount dropped while used in specific drop types"
     },
+    "drops.xp": {
+        "description": "Returns the xp dropped via specific drop types"
+    },
     "drops.money": {
         "description": "Returns the money dropped through the vault plug-in"
     },
+    "random.#to#": {
+        "description": "Returns a random integer in the specified range"
+    },
     "random.float.#to#": {
-        "description": "## Item Placeholders"
+        "description": "Returns a random float number in the specified range"
     },
     "item.amount": {
         "description": "Returns the amount of the item that triggered the skill"
     },
+    "mythicitem.{Item}.material": {
+        "description": "Returns the material of the specified mythic item"
+    },
     "mythicitem.{Item}.model": {
         "description": "Returns the custommodeldata of the specified mythic item"
+    },
+    "mythicitem.{Item}.display": {
+        "description": "Returns the display name of the specified mythic item"
     },
     "caster.score.{Objective}": {
         "description": "Returns the score of the caster from \"{Objective}\""
     },
+    "target.score.{Objective}": {
+        "description": "Returns the targeters score from \"{Objective}\""
+    },
     "trigger.score.{Objective}": {
         "description": "Returns the score of the trigger from \"{Objective}\""
+    },
+    "global.score.{Objective}": {
+        "description": "Returns the score of fake player: \\_\\_GLOBAL\\_\\_ score from \"{Objective}\""
     },
     "score.objective.player": {
         "description": "Returns the score of the defined player from \"objective\""
     },
+    "score.objective.dummyname": {
+        "description": "Returns the score of \"dummyname\" (fake player) from \"objective\""
+    },
     "caster.item.nbt.KEY": {
         "description": "If no slot is specified, this checks the caster's item that called the skill."
+    },
+    "caster.item.hand.nbt.KEY": {
+        "description": "Returns the specified NBT key of the caster's hand item."
     },
     "caster.item.offhand.nbt.KEY": {
         "description": "Returns the specified NBT key of the caster's offhand item."
     },
+    "caster.item.head.nbt.KEY": {
+        "description": "Returns the specified NBT key of the caster's head item."
+    },
     "caster.item.chest.nbt.KEY": {
         "description": "Returns the specified NBT key of the caster's head item."
     },
+    "caster.item.legs.nbt.KEY": {
+        "description": "Returns the specified NBT key of the caster's head item."
+    },
     "caster.item.feet.nbt.KEY": {
-        "description": "## Variable Placeholders"
+        "description": "Returns the specified NBT key of the caster's feet item."
     },
     "skill.var.crafts": {
         "description": "Returns the amount of items crafted"
@@ -238,6 +385,9 @@
     },
     "item.color.hex": {
         "description": "Returns the hex color of the item that called the skill"
+    },
+    "item.stat.display.{Stat}": {
+        "description": "Returns the value of the specified stat."
     },
     "item.stat.display.{Stat}.{StatModifier}": {
         "description": "Returns the value of the specified modifier of that stat."

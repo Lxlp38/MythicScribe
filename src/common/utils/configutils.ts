@@ -107,11 +107,10 @@ export function getFileParserPolicyConfig(key: keyof typeof fileParsingPolicyCon
 }
 
 export function enableEmptyBracketsAutomaticRemoval(): boolean {
-    return (
-        vscode.workspace
-            .getConfiguration('MythicScribe')
-            .get('enableEmptyBracketsAutomaticRemoval') || true
-    );
+    const ret = vscode.workspace
+        .getConfiguration('MythicScribe')
+        .get('enableEmptyBracketsAutomaticRemoval') as boolean;
+    return ret;
 }
 
 export function enableFileSpecificSuggestions(): boolean {
