@@ -401,6 +401,38 @@
             "excludeGlobPattern": "",
             "parallelParsingLimit": 10
           }
+        },
+        "MythicScribe.colorProviderOptions": {
+          "title": "Color Provider Options",
+          "description": "The options to use for the color provider.",
+          "type": "object",
+          "additionalProperties": false,
+          "properties": {
+            "backgroundColor": {
+              "title": "Background Color",
+              "type": "string",
+              "enum": [
+                "same",
+                "inverted",
+                "none"
+              ],
+              "description": "The background color to use for the color provider."
+            },
+            "charColor": {
+              "title": "Character Color",
+              "type": "string",
+              "enum": [
+                "same",
+                "inverted",
+                "none"
+              ],
+              "description": "The character color to use for the color provider."
+            }
+          },
+          "default": {
+            "backgroundColor": "same",
+            "charColor": "none"
+          }
         }
       }
     }

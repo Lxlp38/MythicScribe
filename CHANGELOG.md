@@ -8,6 +8,7 @@
 - Hover and Go To Definition support for Placeholder Segments that use a Mob/Item/Custom Placeholder/Stat Id (for instance, <caster.stat.example> or <placeholder.test>)
 - `MythicScribe.putSelectionInsideInlineMetaskill` command and context menu item to put the selected text inside of an inline metaskill
 - Adding a Custom Enum Dataset with the same name as another loaded Enum Dataset will now merge them
+- `MythicScribe.colorProviderOptions` config to customize the behavior of the color provider
 
 ### Changed
 - Displayed information regarding Formatter errors should now be more concise and meaningful
@@ -17,6 +18,7 @@
 - Mythic Node Graph's selected element having low opacity
 - Comments at the bottom of the documents being wrongfully parsed by the formatter
 - Formatter not working when comments were placed on the same line as a key
+- `MythicScribe.emptybracketautomaticremoval` config not being fetched correctly
 
 
 ## [1.6.0]

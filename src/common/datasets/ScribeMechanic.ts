@@ -272,7 +272,7 @@ export interface Attribute {
     enum?: string;
     list?: boolean;
     description: string;
-    link: string;
+    link?: string;
     default_value: string;
     inheritable?: boolean;
 }
@@ -283,11 +283,11 @@ export class MythicAttribute {
     readonly name: string[];
     readonly type: string;
     readonly enum?: AbstractScribeEnum;
-    readonly list?: boolean;
+    readonly list: boolean;
     readonly description: string;
     readonly link: string;
     readonly default_value: string;
-    readonly inheritable?: boolean;
+    readonly inheritable: boolean;
     readonly specialValue?: attributeSpecialValues;
 
     constructor(attribute: Attribute, mechanic: MythicMechanic) {
@@ -296,12 +296,10 @@ export class MythicAttribute {
         this.type = attribute.type;
         this.description = attribute.description;
         this.default_value = attribute.default_value;
-        this.inheritable = attribute.inheritable;
-        this.link = mechanic.link;
 
-        if (attribute.list) {
-            this.list = attribute.list;
-        }
+        this.link = attribute.link ? attribute.link : mechanic.link;
+        this.inheritable = attribute.inheritable || true;
+        this.list = attribute.list || false;
 
         if (!attribute.enum) {
             return;

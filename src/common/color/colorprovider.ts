@@ -1,3 +1,4 @@
+import { addConfigChangeFunction, getColorProviderOptionsConfig } from '@common/utils/configutils';
 import * as vscode from 'vscode';
 
 interface DecorationMap {
@@ -13,8 +14,58 @@ class ScribeColorProvider implements vscode.DocumentColorProvider {
     private textEditorNeedsUpdate: boolean = false;
     private oldDecorationsMap = new Map<string, Map<string, DecorationMap>>();
 
+    registry = {
+        char: {
+            none: (_color: vscode.Color) => {
+                return {
+                    light: {
+                        color: 'rgba(0, 0, 0, 0.8)',
+                    },
+                    color: 'rgba(255, 255, 255, 0.8)',
+                };
+            },
+            same: (color: vscode.Color) => {
+                return {
+                    light: {
+                        color: this.fromColorToRGBA(color, '0.8'),
+                    },
+                    color: this.fromColorToRGBA(color, '0.8'),
+                };
+            },
+            inverted: (color: vscode.Color) => {
+                return {
+                    light: {
+                        color: this.getContrastColor(color),
+                    },
+                    color: this.getContrastColor(color),
+                };
+            },
+        },
+        background: {
+            none: (_color: vscode.Color) => {
+                return {
+                    backgroundColor: '',
+                    border: '',
+                };
+            },
+            same: (color: vscode.Color) => {
+                return {
+                    backgroundColor: this.fromColorToRGBA(color, '0.2'),
+                    border: '1px solid ' + this.fromColorToRGBA(color, '0.2'),
+                };
+            },
+            inverted: (color: vscode.Color) => {
+                return {
+                    backgroundColor: this.getContrastColor(color, '0.2'),
+                    border: '1px solid ' + this.getContrastColor(color, '0.2'),
+                };
+            },
+        },
+    };
+
     constructor() {
         vscode.window.onDidChangeActiveTextEditor(this.onDidChangeActiveTextEditor.bind(this));
+        addConfigChangeFunction(this.clearDecorations.bind(this));
     }
 
     private onDidChangeActiveTextEditor(editor: vscode.TextEditor | undefined) {
@@ -37,21 +88,41 @@ class ScribeColorProvider implements vscode.DocumentColorProvider {
         return `rgba(${r}, ${g}, ${b}, ${alpha})`;
     }
 
-    // private getContrastColor(color: vscode.Color): string {
-    //     const luminance = 0.299 * color.red + 0.587 * color.green + 0.114 * color.blue;
-    //     return luminance > 0.5 ? 'rgba(0, 0, 0, 1)' : 'rgba(255, 255, 255, 0.8)';
-    // }
+    private getContrastColor(color: vscode.Color, alpha?: string): string {
+        const luminance = 0.299 * color.red + 0.587 * color.green + 0.114 * color.blue;
+        return luminance > 0.5
+            ? `rgba(0, 0, 0, ${alpha || '1'})`
+            : `rgba(255, 255, 255, ${alpha || '0.8'})`;
+    }
+
+    private getDecorationSegmentConfig<T>(
+        color: vscode.Color,
+        config: string | undefined,
+        registry: { [key: string]: (color: vscode.Color) => T },
+        defaultReturnValue: T
+    ): T {
+        if (config && config in registry) {
+            return registry[config as keyof typeof registry](color);
+        }
+        return defaultReturnValue;
+    }
 
     private createDecoration(color: vscode.Color) {
         return vscode.window.createTextEditorDecorationType({
-            light: {
-                color: 'rgba(0, 0, 0, 0.8)',
-            },
             rangeBehavior: vscode.DecorationRangeBehavior.ClosedClosed,
-            color: 'rgba(255, 255, 255, 0.8)',
-            backgroundColor: this.fromColorToRGBA(color, '0.2'),
-            border: '1px solid ' + this.fromColorToRGBA(color, '0.2'),
             cursor: 'pointer',
+            ...this.getDecorationSegmentConfig(
+                color,
+                getColorProviderOptionsConfig('backgroundColor'),
+                this.registry.background,
+                this.registry.background.same(color)
+            ),
+            ...this.getDecorationSegmentConfig(
+                color,
+                getColorProviderOptionsConfig('charColor'),
+                this.registry.char,
+                this.registry.char.none(color)
+            ),
         });
     }
 
@@ -69,6 +140,24 @@ class ScribeColorProvider implements vscode.DocumentColorProvider {
         const startPos = new vscode.Position(i, match.index);
         const endPos = new vscode.Position(i, match.index + match[0].length);
         return new vscode.Range(startPos, endPos);
+    }
+
+    clearDecorations() {
+        decorationTypeMap.forEach((value) => {
+            value.dispose();
+        });
+        decorationTypeMap.clear();
+        this.oldDecorations.forEach((value) => {
+            value.decorationType.dispose();
+        });
+        this.oldDecorations.clear();
+        this.oldDecorationsMap.forEach((value) => {
+            value.forEach((value) => {
+                value.decorationType.dispose();
+            });
+        });
+        this.oldDecorationsMap.clear();
+        this.textEditorNeedsUpdate = true;
     }
 
     private addColorInformation(

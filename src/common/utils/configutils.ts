@@ -29,6 +29,11 @@ const fileParsingPolicyConfigCache = {
     parallelParsingLimit: undefined as number | undefined,
 };
 
+const colorProviderOptionsConfigCache = {
+    backgroundColor: undefined as string | undefined,
+    charColor: undefined as string | undefined,
+};
+
 let configChangeFunctionCallbacks: (() => void)[] | undefined;
 function getConfigChangeFunctionCallbacks() {
     if (configChangeFunctionCallbacks === undefined) {
@@ -52,6 +57,7 @@ function resetConfigCache() {
     resetSpecificConfig(configCache);
     resetSpecificConfig(fileRegexConfigCache);
     resetSpecificConfig(fileParsingPolicyConfigCache);
+    resetSpecificConfig(colorProviderOptionsConfigCache);
     for (const callback of getConfigChangeFunctionCallbacks()) {
         callback();
     }
@@ -104,6 +110,15 @@ export function getFileParserPolicyConfig(key: keyof typeof fileParsingPolicyCon
             .get('fileParsingPolicy.' + key);
     }
     return fileParsingPolicyConfigCache[key];
+}
+
+export function getColorProviderOptionsConfig(key: keyof typeof colorProviderOptionsConfigCache) {
+    if (colorProviderOptionsConfigCache[key] === undefined) {
+        colorProviderOptionsConfigCache[key] = vscode.workspace
+            .getConfiguration('MythicScribe')
+            .get('colorProviderOptions.' + key);
+    }
+    return colorProviderOptionsConfigCache[key];
 }
 
 export function enableEmptyBracketsAutomaticRemoval(): boolean {
