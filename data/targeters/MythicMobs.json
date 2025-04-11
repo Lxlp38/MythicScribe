@@ -2996,6 +2996,54 @@
     },
     {
         "plugin": "MythicMobs",
+        "class": "TargetPredictedLocationTargeter",
+        "extends": "ILocationSelector",
+        "name": [
+            "targetPredictedLocation",
+            "targetPredictedLoc",
+            "TPL",
+            "PredictedTargetLocation"
+        ],
+        "description": "Targets the predicted location at which the caster's top [target](https://git.lumine.io/mythiccraft/MythicMobs/-/wikis/Skills/Targeters/Target) will be after an amount of ticks has elapsed, based on its current movement speed.  \n\nTo do this, in the code itself, a raytrace from the target's position is used, so, for instance, a block will stop the raytrace before it can reach its supposed end point",
+        "link": "https://git.lumine.io/mythiccraft/MythicMobs/-/wikis/Skills/Targeters/TargetPredictedLocation",
+        "attributes": [
+            {
+                "name": [
+                    "maxdistance",
+                    "max",
+                    "distance",
+                    "d"
+                ],
+                "type": "Integer",
+                "description": "The maximum distance from the target's current location that the predicted location can be located at. If the predicted location is supposed to be further away, this targeter will instead \"fall short\" of it, targeting the location `maxdistance` blocks away form the original target's location, alongside its movement vector",
+                "link": "https://git.lumine.io/mythiccraft/MythicMobs/-/wikis/Skills/Targeters/TargetPredictedLocation",
+                "default_value": "64"
+            },
+            {
+                "name": [
+                    "ticksPredicted",
+                    "ticks",
+                    "t"
+                ],
+                "type": "Integer",
+                "description": "How \"far into the future\" this targeter should predict.",
+                "link": "https://git.lumine.io/mythiccraft/MythicMobs/-/wikis/Skills/Targeters/TargetPredictedLocation",
+                "default_value": "20"
+            },
+            {
+                "name": [
+                    "ignoreTransparent",
+                    "it"
+                ],
+                "type": "Boolean",
+                "description": "Whether the raytrace used for the prediction should ignore transparent blocks",
+                "link": "https://git.lumine.io/mythiccraft/MythicMobs/-/wikis/Skills/Targeters/TargetPredictedLocation",
+                "default_value": "true"
+            }
+        ]
+    },
+    {
+        "plugin": "MythicMobs",
         "class": "TargetTargeter",
         "extends": "IEntitySelector",
         "name": [

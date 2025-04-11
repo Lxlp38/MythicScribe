@@ -320,13 +320,13 @@
     "item.amount": {
         "description": "Returns the amount of the item that triggered the skill"
     },
-    "mythicitem.{Item}.material": {
+    "mythicitem.{MythicItem}.material": {
         "description": "Returns the material of the specified mythic item"
     },
-    "mythicitem.{Item}.model": {
+    "mythicitem.{MythicItem}.model": {
         "description": "Returns the custommodeldata of the specified mythic item"
     },
-    "mythicitem.{Item}.display": {
+    "mythicitem.{MythicItem}.display": {
         "description": "Returns the display name of the specified mythic item"
     },
     "caster.score.{Objective}": {

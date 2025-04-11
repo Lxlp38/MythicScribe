@@ -15,36 +15,48 @@ export enum FileObjectTypes {
     ENUM = 'enum',
 }
 
-interface BaseFileObject {
+export enum FileObjectSpecialKeys {
+    WILDKEY = '*KEY',
+}
+
+type BaseFileObject = {
     link?: string;
     description?: string;
     values?: string[];
-}
-interface EnumFileObject extends BaseFileObject {
+    display?: string;
+};
+type EnumFileObject = BaseFileObject & {
     type: FileObjectTypes.ENUM;
     dataset: string;
-}
-interface ListFileObject extends BaseFileObject {
+};
+type ListFileObject = BaseFileObject & {
     type: FileObjectTypes.LIST;
     dataset?: string;
     keys?: FileObjectMap;
-}
-interface KeyFileObject extends BaseFileObject {
+};
+type KeyFileObject = BaseFileObject & {
     type: FileObjectTypes.KEY;
     keys: FileObjectMap;
-}
-interface OtherFileObject extends BaseFileObject {
+};
+type OtherFileObject = BaseFileObject & {
     type: Exclude<
         FileObjectTypes,
         FileObjectTypes.ENUM | FileObjectTypes.LIST | FileObjectTypes.KEY
     >;
-}
+};
 
 export type FileObject = EnumFileObject | ListFileObject | KeyFileObject | OtherFileObject;
 
-export interface FileObjectMap {
-    [key: string]: FileObject;
-}
+type DefaultFileObjectMap = Record<string, FileObject>;
+type SpecialFileObjectbaseMap = { display: string };
+
+export type WildKeyFileObject = SpecialFileObjectbaseMap & KeyFileObject;
+
+type SpecialKeys = {
+    [FileObjectSpecialKeys.WILDKEY]?: WildKeyFileObject;
+};
+
+export type FileObjectMap = DefaultFileObjectMap & SpecialKeys;
 
 export const keyAliases = {
     Skills: [

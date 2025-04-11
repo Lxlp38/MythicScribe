@@ -1,5 +1,5 @@
 import { generateNumbersInRange } from '../utils/schemautils';
-import { FileObjectMap, FileObjectTypes } from '../objectInfos';
+import { FileObjectMap, FileObjectSpecialKeys, FileObjectTypes } from '../objectInfos';
 
 export const MobFileObjects: FileObjectMap = {
     Type: {
@@ -129,30 +129,30 @@ export const MobFileObjects: FileObjectMap = {
     Drops: {
         type: FileObjectTypes.LIST,
         dataset: 'ITEM',
-        link: 'https://git.lumine.io/mythiccraft/MythicMobs/-/wikis/Mobs/Drops',
+        link: 'https://git.lumine.io/mythiccraft/MythicMobs/-/wikis/Mobs/Mobs#drops',
         description: 'The drops of the mob.',
     },
     DamageModifiers: {
         type: FileObjectTypes.LIST,
         dataset: 'DAMAGECAUSE',
         values: generateNumbersInRange(-1.0, 2.0, 0.1, true),
-        link: 'https://git.lumine.io/mythiccraft/MythicMobs/-/wikis/Mobs/DamageModifiers',
+        link: 'https://git.lumine.io/mythiccraft/MythicMobs/-/wikis/Mobs/Mobs#damagemodifiers',
         description: 'The damage modifiers of the mob.',
     },
     Equipment: {
         type: FileObjectTypes.LIST,
         dataset: 'ITEM',
-        link: 'https://git.lumine.io/mythiccraft/MythicMobs/-/wikis/Mobs/Equipment',
+        link: 'https://git.lumine.io/mythiccraft/MythicMobs/-/wikis/Mobs/Mobs#equipment',
         description: 'The equipment of the mob.',
     },
     KillMessages: {
         type: FileObjectTypes.LIST,
-        link: 'https://git.lumine.io/mythiccraft/MythicMobs/-/wikis/Mobs/KillMessages',
+        link: 'https://git.lumine.io/mythiccraft/MythicMobs/-/wikis/Mobs/Mobs#killmessages',
         description: 'The kill messages of the mob.',
     },
     LevelModifiers: {
         type: FileObjectTypes.KEY,
-        link: 'https://git.lumine.io/mythiccraft/MythicMobs/-/wikis/Mobs/LevelModifiers',
+        link: 'https://git.lumine.io/mythiccraft/MythicMobs/-/wikis/Mobs/Mobs#levelmodifiers',
         description: 'The level modifiers of the mob.',
         keys: {
             Health: {
@@ -180,17 +180,17 @@ export const MobFileObjects: FileObjectMap = {
     Disguise: {
         type: FileObjectTypes.ENUM,
         dataset: 'ENTITYTYPE',
-        link: 'https://git.lumine.io/mythiccraft/MythicMobs/-/wikis/Mobs/Disguise',
+        link: 'https://git.lumine.io/mythiccraft/MythicMobs/-/wikis/Mobs/Mobs#disguise',
         description: 'The disguise of the mob.',
     },
     Skills: {
         type: FileObjectTypes.LIST,
-        link: 'https://git.lumine.io/mythiccraft/MythicMobs/-/wikis/Mobs/Skills',
+        link: 'https://git.lumine.io/mythiccraft/MythicMobs/-/wikis/Mobs/Mobs#skills',
         description: 'The skills of the mob.',
     },
     Nameplate: {
         type: FileObjectTypes.KEY,
-        link: 'https://git.lumine.io/mythiccraft/MythicMobs/-/wikis/Mobs/Nameplate',
+        link: 'https://git.lumine.io/mythiccraft/MythicMobs/-/wikis/Mobs/Mobs#nameplate',
         description: 'The nameplate of the mob.',
         keys: {
             Enabled: {
@@ -211,7 +211,7 @@ export const MobFileObjects: FileObjectMap = {
     },
     Hearing: {
         type: FileObjectTypes.KEY,
-        link: 'https://git.lumine.io/mythiccraft/MythicMobs/-/wikis/Mobs/Hearing',
+        link: 'https://git.lumine.io/mythiccraft/MythicMobs/-/wikis/Mobs/Mobs#hearing',
         description: 'The hearing of the mob.',
         keys: {
             Enabled: {
@@ -221,7 +221,7 @@ export const MobFileObjects: FileObjectMap = {
     },
     Totem: {
         type: FileObjectTypes.KEY,
-        link: 'https://git.lumine.io/mythiccraft/MythicMobs/-/wikis/Mobs/Totem',
+        link: 'https://git.lumine.io/mythiccraft/MythicMobs/-/wikis/Mobs/Mobs#totem',
         description:
             'Allows you to configure a custom structure that, once built, will summon a mob',
         keys: {
@@ -244,12 +244,38 @@ export const MobFileObjects: FileObjectMap = {
     },
     Variables: {
         type: FileObjectTypes.KEY_LIST,
-        link: 'https://git.lumine.io/mythiccraft/MythicMobs/-/wikis/Mobs/Variables',
+        link: 'https://git.lumine.io/mythiccraft/MythicMobs/-/wikis/Mobs/Mobs#variables',
         description: 'The variables of the mob.',
     },
     Trades: {
-        type: FileObjectTypes.KEY_LIST,
-        link: 'https://git.lumine.io/mythiccraft/MythicMobs/-/wikis/Mobs/Trades',
+        type: FileObjectTypes.KEY,
+        link: 'https://git.lumine.io/mythiccraft/MythicMobs/-/wikis/Mobs/Mobs#trades',
         description: 'The trades of the mob.',
+        keys: {
+            [FileObjectSpecialKeys.WILDKEY]: {
+                type: FileObjectTypes.KEY,
+                display: 'Insert Trade Internal Name',
+                description: 'The internal name of the trade.',
+                keys: {
+                    Item1: {
+                        type: FileObjectTypes.STRING,
+                        description: 'The first item in the trade.',
+                    },
+                    Item2: {
+                        type: FileObjectTypes.STRING,
+                        description: 'The second item in the trade.',
+                    },
+                    MaxUses: {
+                        type: FileObjectTypes.INTEGER,
+                        values: generateNumbersInRange(1, 100, 1, false),
+                        description: 'The maximum number of uses for the trade.',
+                    },
+                    Result: {
+                        type: FileObjectTypes.STRING,
+                        description: 'The resulting item of the trade.',
+                    },
+                },
+            },
+        },
     },
 };

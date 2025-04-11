@@ -12,6 +12,7 @@
 
 ### Changed
 - Displayed information regarding Formatter errors should now be more concise and meaningful
+- File Completions now include completions for certain keys with arbitrary values (For example, the Furniture's States or a Mob's Trades)
 
 ### Fixed
 - Condition Actions having no syntax highlighting

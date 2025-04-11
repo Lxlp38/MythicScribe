@@ -54,3 +54,10 @@ export function addFileObjectAliases(obj: FileObjectMap, aliasMap: { [key: strin
         }
     }
 }
+
+export function expandFileObjectsToMap(obj: FileObjectMap, insert: FileObjectMap) {
+    for (const key in insert) {
+        const value = insert[key];
+        obj[key] = value;
+    }
+}

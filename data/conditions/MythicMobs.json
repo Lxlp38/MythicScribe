@@ -2821,6 +2821,54 @@
     },
     {
         "plugin": "MythicMobs",
+        "class": "MobsNearOriginCondition",
+        "extends": "SkillCondition",
+        "implements": [
+            "ISkillMetaCondition"
+        ],
+        "name": [
+            "mobsnearorigin"
+        ],
+        "description": "Matches a range to how many mobs are in the given radius around the [origin](https://git.lumine.io/mythiccraft/MythicMobs/-/wikis/Skills/Targeters/Origin)",
+        "link": "https://git.lumine.io/mythiccraft/MythicMobs/-/wikis/Skills/Conditions/MobsNearOrigin",
+        "attributes": [
+            {
+                "name": [
+                    "amount",
+                    "a"
+                ],
+                "type": "String",
+                "description": "The amount of mobs to match. Can be a range",
+                "link": "https://git.lumine.io/mythiccraft/MythicMobs/-/wikis/Skills/Conditions/MobsNearOrigin",
+                "default_value": "1"
+            },
+            {
+                "name": [
+                    "radius",
+                    "r"
+                ],
+                "type": "PlaceholderDouble",
+                "description": "The radius in which to match mobs",
+                "link": "https://git.lumine.io/mythiccraft/MythicMobs/-/wikis/Skills/Conditions/MobsNearOrigin",
+                "default_value": "5"
+            },
+            {
+                "name": [
+                    "types",
+                    "type",
+                    "t"
+                ],
+                "type": "String",
+                "description": "The mob types to match. Can be a list",
+                "link": "https://git.lumine.io/mythiccraft/MythicMobs/-/wikis/Skills/Conditions/MobsNearOrigin",
+                "default_value": "",
+                "enum": "Mob",
+                "list": true
+            }
+        ]
+    },
+    {
+        "plugin": "MythicMobs",
         "class": "MoistCondition",
         "extends": "SkillCondition",
         "implements": [

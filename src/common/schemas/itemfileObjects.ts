@@ -1,5 +1,31 @@
 import { addFileObjectAliases, generateNumbersInRange } from '../utils/schemautils';
-import { FileObjectMap, FileObjectTypes } from '../objectInfos';
+import { FileObjectMap, FileObjectSpecialKeys, FileObjectTypes } from '../objectInfos';
+
+const Generation: FileObjectMap = {
+    Generation: {
+        type: FileObjectTypes.KEY_LIST,
+        link: 'https://git.lumine.io/mythiccraft/mythiccrucible/-/wikis/ResourcePack-Generator',
+    },
+};
+
+const FurnitureStatesCompatibleOptions: FileObjectMap = {
+    CanPlaceUnderwater: {
+        type: FileObjectTypes.BOOLEAN,
+    },
+    GlowingFrame: {
+        type: FileObjectTypes.BOOLEAN,
+    },
+    Lights: {
+        type: FileObjectTypes.LIST,
+    },
+    Barriers: {
+        type: FileObjectTypes.LIST,
+    },
+    Model: {
+        type: FileObjectTypes.INTEGER,
+    },
+    ...Generation,
+};
 
 export const ItemFileObjects: FileObjectMap = {
     Material: {
@@ -25,7 +51,7 @@ export const ItemFileObjects: FileObjectMap = {
         link: 'https://git.lumine.io/mythiccraft/MythicMobs/-/wikis/Items/Items#lore',
         description: 'Sets the lore of the item. Allows for placeholders and color gradients',
     },
-    CustomModelData: {
+    Model: {
         type: FileObjectTypes.INTEGER,
         link: 'https://git.lumine.io/mythiccraft/MythicMobs/-/wikis/Items/Items#custommodeldata',
         description: 'Sets the CustomModelData tag on the item',
@@ -407,9 +433,27 @@ export const ItemFileObjects: FileObjectMap = {
         },
     },
     Recipes: {
-        type: FileObjectTypes.KEY_LIST,
+        type: FileObjectTypes.KEY,
         link: 'https://git.lumine.io/mythiccraft/mythiccrucible/-/wikis/Recipes',
         description: 'Sets the recipes of the item',
+        keys: {
+            [FileObjectSpecialKeys.WILDKEY]: {
+                type: FileObjectTypes.KEY,
+                description: 'Sets the recipe of the item',
+                display: 'Set the Internal Name for the Recipe',
+                keys: {
+                    Type: {
+                        type: FileObjectTypes.STRING,
+                    },
+                    Amount: {
+                        type: FileObjectTypes.INTEGER,
+                    },
+                    Ingredients: {
+                        type: FileObjectTypes.LIST,
+                    },
+                },
+            },
+        },
     },
     AugmentationSlots: {
         type: FileObjectTypes.KEY_LIST,
@@ -466,9 +510,6 @@ export const ItemFileObjects: FileObjectMap = {
                 type: FileObjectTypes.ENUM,
                 dataset: 'MATERIAL',
             },
-            Model: {
-                type: FileObjectTypes.INTEGER,
-            },
             Type: {
                 type: FileObjectTypes.ENUM,
                 dataset: 'FURNITURETYPE',
@@ -514,12 +555,6 @@ export const ItemFileObjects: FileObjectMap = {
             Diagonalable: {
                 type: FileObjectTypes.BOOLEAN,
             },
-            Barriers: {
-                type: FileObjectTypes.LIST,
-            },
-            Lights: {
-                type: FileObjectTypes.LIST,
-            },
             Seats: {
                 type: FileObjectTypes.LIST,
             },
@@ -530,7 +565,14 @@ export const ItemFileObjects: FileObjectMap = {
                 type: FileObjectTypes.STRING,
             },
             States: {
-                type: FileObjectTypes.KEY_LIST,
+                type: FileObjectTypes.KEY,
+                keys: {
+                    [FileObjectSpecialKeys.WILDKEY]: {
+                        type: FileObjectTypes.KEY,
+                        display: 'Set the Internal Name for the State',
+                        keys: FurnitureStatesCompatibleOptions,
+                    },
+                },
             },
             Height: {
                 type: FileObjectTypes.INTEGER,
@@ -556,9 +598,7 @@ export const ItemFileObjects: FileObjectMap = {
             Scale: {
                 type: FileObjectTypes.VECTOR,
             },
-            GlowingFrame: {
-                type: FileObjectTypes.BOOLEAN,
-            },
+            ...FurnitureStatesCompatibleOptions,
         },
     },
     Inventory: {
@@ -674,10 +714,11 @@ export const ItemFileObjects: FileObjectMap = {
             },
         },
     },
+    ...Generation,
 };
 
 addFileObjectAliases(ItemFileObjects, {
     Material: ['Id'],
-    CustomModelData: ['Model'],
+    Model: ['CustomModelData'],
     Group: ['ItemType'],
 });

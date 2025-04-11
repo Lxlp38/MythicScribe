@@ -2,7 +2,13 @@ import * as vscode from 'vscode';
 
 import * as yamlutils from './yamlutils';
 import { previousSymbol } from './yamlutils';
-import { FileObjectMap, FileObject, FileObjectTypes } from '../objectInfos';
+import {
+    FileObjectMap,
+    FileObject,
+    FileObjectTypes,
+    FileObjectSpecialKeys,
+    WildKeyFileObject,
+} from '../objectInfos';
 import { MythicMechanic } from '../datasets/ScribeMechanic';
 import { EnumDatasetValue, ScribeEnumHandler } from '../datasets/ScribeEnum';
 
@@ -202,12 +208,11 @@ export function fileCompletions(
     if (!result) {
         return undefined;
     }
-    const defaultindentation = vscode.window.activeTextEditor
-        ? (vscode.window.activeTextEditor.options.tabSize as number)
-        : 2;
     const [keyobjects, level] = result;
     const thislineindentation = yamlutils.getIndentation(document.lineAt(position.line).text);
-    const indentation = ' '.repeat((level - thislineindentation / 2) * defaultindentation);
+    const indentation = ' '.repeat(
+        (level - thislineindentation / 2) * yamlutils.getDefaultIndentation()
+    );
 
     if (!keyobjects) {
         return undefined;
@@ -251,6 +256,16 @@ function fileCompletionFindNodesOnLevel(
         return [objectmap, level];
     }
 
+    if (FileObjectSpecialKeys.WILDKEY in objectmap) {
+        const wildcardObject = objectmap[FileObjectSpecialKeys.WILDKEY]!;
+        const result = fileCompletionFindNodesOnLevel(
+            wildcardObject.keys,
+            keys.slice(1),
+            level + 1
+        );
+        return result;
+    }
+
     return null;
 }
 
@@ -262,8 +277,19 @@ function fileCompletionForFileObjectMap(
     const completionItems: vscode.CompletionItem[] = [];
 
     Object.entries(objectMap).forEach(([key, value]) => {
+        if (FileObjectSpecialKeys.WILDKEY in objectMap) {
+            if (key === FileObjectSpecialKeys.WILDKEY) {
+                const completionItem = new vscode.CompletionItem(
+                    (value as WildKeyFileObject).display,
+                    vscode.CompletionItemKind.File
+                );
+                completionItem.insertText = new vscode.SnippetString(indentation + '$1' + ':');
+                completionItems.push(completionItem);
+                return;
+            }
+        }
+
         const completionItem = new vscode.CompletionItem(key, vscode.CompletionItemKind.File);
-        completionItem.kind = vscode.CompletionItemKind.File;
         if (value.type === FileObjectTypes.LIST) {
             completionItem.insertText = new vscode.SnippetString(
                 indentation + key + ':\n' + indentation + '- $0'
@@ -322,6 +348,12 @@ function getObjectInTree(keys: string[], type: FileObjectMap): FileObject | unde
     keys = keys.slice(1);
     const object = type[key];
     if (!object) {
+        if (FileObjectSpecialKeys.WILDKEY in type) {
+            const wildcardObject = type[FileObjectSpecialKeys.WILDKEY]!;
+            if (wildcardObject.keys) {
+                return getObjectInTree(keys, wildcardObject.keys);
+            }
+        }
         return undefined;
     }
     if (keys.length === 0) {
