@@ -8,6 +8,13 @@ const Generation: FileObjectMap = {
     },
 };
 
+const ConsumeEffects: FileObjectMap = {
+    ConsumeEffects: {
+        type: FileObjectTypes.LIST,
+        description: 'Effects to apply when the item is consumed',
+    },
+};
+
 const FurnitureStatesCompatibleOptions: FileObjectMap = {
     CanPlaceUnderwater: {
         type: FileObjectTypes.BOOLEAN,
@@ -168,6 +175,21 @@ export const ItemFileObjects: FileObjectMap = {
             },
         },
     },
+    Glider: {
+        type: FileObjectTypes.BOOLEAN,
+        description:
+            'If present, this item will be a glider. This is used for items like elytra, but can be used for any item',
+        link: 'https://git.lumine.io/mythiccraft/MythicMobs/-/wikis/Items/Items#glider',
+    },
+    DeathProtection: {
+        type: FileObjectTypes.KEY,
+        link: 'https://git.lumine.io/mythiccraft/MythicMobs/-/wikis/Items/Items#deathprotection',
+        description:
+            'If present, this item protects the holder from dying by restoring a single health point, like a Totem of Undying does',
+        keys: {
+            ...ConsumeEffects,
+        },
+    },
     Enchantments: {
         type: FileObjectTypes.LIST,
         dataset: 'ENCHANTMENT',
@@ -303,6 +325,7 @@ export const ItemFileObjects: FileObjectMap = {
                 type: FileObjectTypes.ENUM,
                 dataset: 'SOUND',
             },
+            ...ConsumeEffects,
         },
     },
     Food: {
