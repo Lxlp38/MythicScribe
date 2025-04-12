@@ -10,6 +10,20 @@ import { localEnums, scriptedEnums, volatileEnums } from './enumSources';
 import { MythicNode, MythicNodeHandler } from '../mythicnodes/MythicNode';
 import { timeCounter } from '../utils/timeUtils';
 
+const enumLoadedEventEmitter = new vscode.EventEmitter<AbstractScribeEnum>();
+export const onEnumLoaded = enumLoadedEventEmitter.event;
+
+let enumLoadedFunctionCallbacks: Map<string, (arg0: AbstractScribeEnum) => void> | undefined;
+function getEnumLoadedFunctionCallbacks() {
+    if (enumLoadedFunctionCallbacks === undefined) {
+        enumLoadedFunctionCallbacks = new Map<string, (arg0: AbstractScribeEnum) => void>();
+    }
+    return enumLoadedFunctionCallbacks;
+}
+export function addEnumLoadedFunction(key: string, callback: (arg0: AbstractScribeEnum) => void) {
+    getEnumLoadedFunctionCallbacks().set(key, callback);
+}
+
 export abstract class AbstractScribeEnum {
     readonly identifier: string;
     readonly path: string;
@@ -85,6 +99,8 @@ export abstract class AbstractScribeEnum {
             'entries'
         );
         this.loaded = true;
+        enumLoadedEventEmitter.fire(this);
+        getEnumLoadedFunctionCallbacks().get(this.identifier)?.(this);
     }
 
     isLoaded(): boolean {

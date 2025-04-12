@@ -1,0 +1,374 @@
+{
+    "AlwaysShowName": {
+        "description": "Whether the name-tag is always displayed.\nEquivalent to the NBT-tag `CustomNameVisible`.\nDefaults to `false`."
+    },
+    "AttackSpeed": {
+        "description": "The attack speed of the mob  \nDefaults to vanilla attack speed of the respective mobs"
+    },
+    "VisibleByDefault": {
+        "description": "Sets whether the mob is visible by default when the mobs spawns or when the mob gets loaded.\nDefaults to `true`."
+    },
+    "Invisible": {
+        "description": "Sets whether the armor stand is invisible. Defaults to `false`."
+    },
+    "Collidable": {
+        "description": "Whether the mob has collisions. Collisions in Minecraft are bidirectional, so this would need to be set to `false` on both\nthe entity colliders to ensure that no collisions takes place but will also stop the player from pushing the mob. Defaults to `true`."
+    },
+    "DigOutOfGround": {
+        "description": "Teleports the mob two blocks up if it takes `SUFFOCATION` damage. Defaults to `false`."
+    },
+    "Despawn": {
+        "description": "Determines how the mob will despawn.\nThis option should be turned on if you're using a lot of mob spawners or entities will overwhelm your server, or the entity you are making requires some special behavior regarding its despawn policy (Npcs, Bosses etc.)  \nDefaults to `true`. \n\n| Mode            | Aliases                | Description                                                 |\n|-----------------|------------------------|-------------------------------------------------------------|\n| NORMAL          | TRUE, YES                                                                             | - Despawns if no players are nearby<br>- Despawns if the server is restarted<br>- Despawns if the chunk is unloaded<br>- Is killed by normal mythicmobs kill commands                                            |\n| CHUNK           |                                                                                       | - Despawns if the server is restarted<br>- Despawns if the chunk is unloaded<br>- Is killed by normal mythicmobs kill commands                                                                                 |\n| NEVER           | FALSE, NO                                                                             | - Is killed by normal mythicmobs kill commands |\n| PERSISTENT      |                         |  - Saves the mob in the world file once a chunk unloads.<br>- Persists across server reboots.<br>- Persistent mobs do not fire skills in unloaded chunks.                                                         |\n| NPC             |                                                                                       | - Despawns if the server is restarted<br>- Despawns if the chunk is unloaded                           |\n\n> For the PERSISTENT despawn mode: to remove a persistent mob, you have to either use the kill command (`/mm m kill <type>`) or append the `-p` flag to the killall one (`/mm m killall -p`). More information on the subject can be found [here](/Commands-and-Permissions#mob-commands)."
+    },
+    "FollowRange": {
+        "description": "The range in blocks within which a mob will target to attack or track an entity.\nDefaults to vanilla follow range - `32`."
+    },
+    "Glowing": {
+        "description": "Sets whether the mob is permanently glowing. Defaults to `false`."
+    },
+    "HealOnReload": {
+        "description": "Allows non-despawning mobs to heal once the chunk they are in gets reloaded. Defaults to `false`."
+    },
+    "Invincible": {
+        "description": "Makes the mob completely invincible to all types of damage. This option cannot be changed by command skills.\nDefaults to `false`."
+    },
+    "Interactable": {
+        "description": "Sets whether the mob can be interacted with. If the mob is an armor stand, it will deny any interaction with the equipments.\nDefaults to `false`."
+    },
+    "LockPitch": {
+        "description": "Keeps the mob's head from looking up/down. Requires [ProtocolLib](https://www.spigotmc.org/resources/protocollib.1997/).\nDefaults to `false`."
+    },
+    "KnockbackResistance": {
+        "description": "A percentage of knockback resisted from attacks. This option can be anywhere between `0` and `1`. \nBut a mob with 100% knockback resistance can still be knocked back by a bow's enchantment: `ARROW_KNOCKBACK` (punch enchantment).\nFor true knockback resistance, see the [velocity](/Skills/mechanics/velocity) mechanic page. Defaults to `0`."
+    },
+    "MaxCombatDistance": {
+        "description": "Prevents players that are a number of blocks away from damaging the mob.\nSetting this option to a number less than the distance of a certain mob skill or attack will ensure that the mob can damage the player and will not be as easy to exploit.\nDefaults to `256`."
+    },
+    "MovementSpeed": {
+        "description": "The movement speed of the mob.\nMost mobs has a default move speed of `0.2` and any value higher than `1` tends to make a mob difficult or impossible to fight."
+    },
+    "NoAI": {
+        "description": "Whether the mob should have AI. This option overrides any AI goals specified in [AIGoalSelectors](/Mobs/Mobs#aigoalselectors).\nAs opposed to AIGoalSelectors, this will work on entities that have hardcoded AI. And if this is set to `true`, the mob will never cast any skills.\nDefaults to `false`."
+    },
+    "NoDamageTicks": {
+        "description": "Defines how long in ticks the mob is invulnerable after taking damage.\nIf [ImmunityTables](/Mobs/ImmunityTables) is enabled for the mob, then `NoDamageTicks` will be per player instead of global.\nDefaults to `10`."
+    },
+    "NoGravity": {
+        "description": "Whether the mob should not have gravity. If set to `true`, the mob **CANNOT** have the [velocity](/Skills/mechanics/velocity) mechanic used on it.\nDefaults to `false`."
+    },
+    "PassthroughDamage": {
+        "description": "Causes all damage taken to be redirected to the mob's parent, if one exists. A mob's parent is the entity that initially summoned the mob.\nDefaults to `false`."
+    },
+    "PreventItemPickup": {
+        "description": "Prevent mobs from picking up items;\nDefaults to `true`."
+    },
+    "PreventLeashing": {
+        "description": "Whether to prevent a leash from being placed on the mob.\nDefaults to `true`."
+    },
+    "PreventMobKillDrops": {
+        "description": "Prevents a MythicMob's target from dropping loot.\nDefaults to `false`."
+    },
+    "PreventOtherDrops": {
+        "description": "Prevents the mob from dropping its vanilla loot table.\nDefaults to `false`."
+    },
+    "PreventRandomEquipment": {
+        "description": "Prevents the mob from spawning with random equipment.\nDefaults to `false`."
+    },
+    "PreventRenaming": {
+        "description": "Prevents the mob from being renamed using a nametag.\nDefaults to `true`."
+    },
+    "PreventSunburn": {
+        "description": "Prevents the mob from burning in the sun.\nDefaults to `false`."
+    },
+    "PreventTransformation": {
+        "description": "Sets whether the mob should be prevented from being turned into other entities.  \nDefaults to `true`."
+    },
+    "PreventVanillaDamage": {
+        "description": "Cancels every instance of the mob dealing \"regular\" vanilla damage, canceling it.  \nSkills that triggers onAttack will still be executed.  \nDefaults to `false`."
+    },
+    "RepeatAllSkills": {
+        "description": "Whether to repeat HP based skills if a mob heals back above the health threshold.\nDefaults to `false`."
+    },
+    "ReviveHealth": {
+        "description": "When the mob's death event gets cancelled (via a [Cancelevent](/skills/mechanics/cancelevent) mechanic [~onDeath](/Skills/Triggers/onDeath)) the one specified is the amount of health the mob's will be set to. If the value is `-1`, the mob will heal to its own max health value."
+    },
+    "Scale": {
+        "description": "The scale of the mob.  \nIf set to -1, the option is ignored.  \nDefaults to `-1`."
+    },
+    "ShowHealth": {
+        "description": "Displays the health of the mob through messages broadcast within a radius and formatting by `Mobs.ShowHealth.Radius` and `Mobs.ShowHealth.Formatting`, respectively, in `/plugins/MythicMobs/config.yml`\nDefaults to `false`."
+    },
+    "Silent": {
+        "description": "Whether a mob should use vanilla sound effects.\nDefaults to `false`."
+    },
+    "UseThreatTable": {
+        "description": "Whether the mob should have [Threat Tables](https://git.mythiccraft.io/mythiccraft/MythicMobs/-/wikis/Mobs/ThreatTables) enabled"
+    },
+    "Type": {
+        "description": "Represents [Villager type](https://hub.spigotmc.org/javadocs/bukkit/org/bukkit/entity/Villager.Type.html), usually corresponding to what biome they spawn in.  \nDefaults to PLAINS."
+    },
+    "Age": {
+        "description": "The age of the mob. Use `-1` for Baby and `1` for Adults.  \nUsable on any mob that can age. For example: Sheep, Pigs, Cows...  \nWhen above 0, represents the number of ticks before this mob can breed again.  \nEquivalent to the `Age` NBT.  \nUse very low negative numbers to mess with the mobs model (not supported).  \nMay not be working properly under some situations.  \nDefaults to `1`."
+    },
+    "AgeLock": {
+        "description": "Whether the mobs age should be locked in place.\nUseful for keeping a baby mob from growing up over time.\nThis is required if you want Age option to work over time.\nDefaults to `false`."
+    },
+    "Adult": {
+        "description": "Sets adult status of mob.\nUse if `Age` does not work."
+    },
+    "Baby": {
+        "description": "Sets baby/adult status of mob.\nUse if `Age` does not work."
+    },
+    "Angry": {
+        "description": "Whether the mob will spawn angry or not.\n> Note: Due to a Bukkit/Spigot bug wolves can not be spawned angry with this option.\n> Use AIGoalSelectors and AITargetSelectors if you want to spawn angry wolves.\nDefaults to `false`."
+    },
+    "PreventSlimeSplit": {
+        "description": "Prevents slimes and magmacubes from splitting.\nDefault to `false`."
+    },
+    "Size": {
+        "description": "Sets the size of slimes, magma cubes, and phantoms.\nCan get VERY big and get exponentially larger with each increase.\nExtremely high size will cause server lag and possibly crashes.\nDefault to `1to8` (Phantoms is `1`)"
+    },
+    "CanJoinRaid": {
+        "description": "Whether the entity can join a raid.\nDefaults to `true`."
+    },
+    "PatrolLeader": {
+        "description": "Whether the entity is the leader of a patrol.\nDefaults to `false`."
+    },
+    "PatrolSpawnPoint": {
+        "description": "Defaults to `false`."
+    },
+    "Tameable": {
+        "description": "Whether players are able to tame the mob. Used for wolves, cats and horses.\nDefaults to `false`."
+    },
+    "PreventJockeyMounts": {
+        "description": "Sets whether the zombie will be prevented from spawning as a jockey.  \nOnly works for Zombies.  \nDefaults to `false`."
+    },
+    "PreventConversion": {
+        "description": "Prevents the Skeleton from being converted into other types of skeletons.  \nDefaults to `false`."
+    },
+    "ReinforcementsChance": {
+        "description": "Chance for zombies to spawn reinforcements on taking damage.  \nShould be a number between 0 and 1 (0% and 100% chance).  \nOnly works for Zombies.  \nDefaults to `0`."
+    },
+    "CanMove": {
+        "description": "Sets whether an armor stand can move. Defaults to `true` and requires PaperSpigot"
+    },
+    "CanTick": {
+        "description": "Sets whether an armor stand can tick. Defaults to `true` and requires PaperSpigot"
+    },
+    "HasArms": {
+        "description": "Sets whether an armor stand has arms. Defaults to `false`."
+    },
+    "HasBasePlate": {
+        "description": "Sets whether an armor stand has a baseplate. Defaults to `true`"
+    },
+    "HasGravity": {
+        "description": "Sets whether the armor stand is affected by gravity. Defaults to `true`."
+    },
+    "ItemBody": {
+        "description": "Designates the [Mythic Item](/Items/Items) that should go in the body/chest slot of an armor stand."
+    },
+    "ItemFeet": {
+        "description": "Designates the [Mythic Item](/Items/Items) that should go in the feet slot of an armor stand."
+    },
+    "ItemHand": {
+        "description": "Designates the [Mythic Item](/Items/Items) that should go in the main hand slot of an armor stand."
+    },
+    "ItemOffhand": {
+        "description": "Designates the [Mythic Item](/Items/Items) that should go in the off hand slot of an armor stand."
+    },
+    "ItemHead": {
+        "description": "Designates the [Mythic Item](/Items/Items) that should go in the helmet slot of an armor stand."
+    },
+    "ItemLegs": {
+        "description": "Designates the [Mythic Item](/Items/Items) that should go in the leggings slot of an armor stand."
+    },
+    "Marker": {
+        "description": "Sets the armor stand as a marker. This option prevents the armor stand from being destroyed in game,\nmaking it completely non-interactable. Defaults to `false`."
+    },
+    "Small": {
+        "description": "Sets the armor stand to small variant. Defaults to `false`."
+    },
+    "Pose": {
+        "description": "Sets the body part's current pose.  \nDefault values are `0,0,0` and accepts ranges like `#to#`.  \nThese will go under the `Pose` section instead of the `Options` section.  \n###### Head"
+    },
+    "Body": {
+        "description": ""
+    },
+    "LeftArm": {
+        "description": ""
+    },
+    "RightArm": {
+        "description": ""
+    },
+    "LeftLeg": {
+        "description": ""
+    },
+    "RightLeg": {
+        "description": ""
+    },
+    "Anger": {
+        "description": "Sets the time in ticks until bee anger ends.  \nIf set to 0 the bee will not be angry.  \nDefaults to `0`."
+    },
+    "HasNectar": {
+        "description": "Whether the bee is carrying pollen.  \nDefaults to `false`."
+    },
+    "HasStung": {
+        "description": "Whether the bee has stung an entity.  \nDefaults to `false`."
+    },
+    "PreventStingerLoss": {
+        "description": "Whether to prevent the bee from losing its stinger once it hits an entity.  \nDefaults to `false`."
+    },
+    "Saddled": {
+        "description": "If the pig is saddled.  \nDefaults to `false`."
+    },
+    "Tamed": {
+        "description": "Set whether the entity is tamed or not.  \nDefaults to `false`."
+    },
+    "CatType": {
+        "description": "Sets the type of cat.  \nTypes can be ALL_BLACK, BLACK, BRITISH_SHORTHAIR, CALICO, PERSIAN, JELLIE, RAGDOLL, RED, SIAMESE, TABBY or WHITE."
+    },
+    "CollarColor": {
+        "description": "Sets the color of the cat's collar.  \nAvailable colors are: BLACK, BLUE, BROWN, CYAN, GRAY, GREEN, LIGHT_BLUE, LIGHT_GRAY, LIME, MAGENTA, ORANGE, PINK, PURPLE, RED, WHITE, or YELLOW."
+    },
+    "Jockey": {
+        "description": "Whether or not the chicken has the `IsChickenJockey` NBT set to 1.  \nIf true, the chicken can naturally despawn, drops 10 experience upon death instead of 1-3 and cannot lay eggs.    \nDefaults to `false`."
+    },
+    "ExplosionRadius": {
+        "description": "Sets the radius/power of the creepers explosion.  \nNegative values are ignored, and the explosion radius remains the creeper's default one.  \nDefaults to `-1`."
+    },
+    "FuseTicks": {
+        "description": "How long the TNT takes to explode.  \nDefaults to `-1` (instantly)."
+    },
+    "SuperCharged": {
+        "description": "Whether the creeper should spawn as a super charged creeper.  \nDefaults to `false`."
+    },
+    "PreventSuicide": {
+        "description": "Prevents creepers from dying upon exploding. Set `mobGriefing` gamerule to true for this option to work.  \nDefaults to `false`."
+    },
+    "PreventTeleport": {
+        "description": "Meant for Endermen but //might// work on other mobs. May break teleport skills!  \nDefaults to `false`."
+    },
+    "HeldBlock": {
+        "description": "Sets the block that the Enderman is carrying.  \nDefaults to `AIR`."
+    },
+    "Experience": {
+        "description": "Sets the amount of experience give by the experience orb mob.  \nDefaults to `1`."
+    },
+    "Block": {
+        "description": "Determines the [type of the block](https://hub.spigotmc.org/javadocs/bukkit/org/bukkit/Material.html).  \nDefaults to `STONE`."
+    },
+    "BlockData": {
+        "description": "Additional field for inputting blockdata.  \nDefaults to `0`.  \n\n#### DropsItem\nShould the entity be able to drops the falling block's item.  \nDefaults to `true`."
+    },
+    "HurtsEntities": {
+        "description": "Damages entities on impact.  \nDefaults to `true`."
+    },
+    "ReplaceSpawnLocationBlock": {
+        "description": "If the entity should replace the block at its spawn location.  \nDefaults to `false`."
+    },
+    "UseSpawnLocationType": {
+        "description": "If the type of the falling block should be the one at the spawn location.  \nDefaults to `false`."
+    },
+    "FoxType": {
+        "description": "Determines the type of the fox.   \nCan be `RED` or `SNOW`.  \nDefaults to `RED`."
+    },
+    "Screaming": {
+        "description": "Sets if this is a screaming goat. A screaming goat makes screaming sounds and rams more often.  \nDefaults to `false`."
+    },
+    "ImmuneToZombification": {
+        "description": "Whether or not the piglin is immune to being zombified.  \nDefaults to `true`."
+    },
+    "Huntable": {
+        "description": "Whether the hoglin is able to be hunted by piglins.  \nDefaults to `true`."
+    },
+    "HorseArmor": {
+        "description": "Used for horses to set the type of armor they have on.  \nCan be `iron`, `gold`, or `diamond`  \n[armor_type] must be in lower case"
+    },
+    "CarryingChest": {
+        "description": "Set whether the entity is carrying a chest or not.  \nDefaults to `false`."
+    },
+    "HorseColor": {
+        "description": "Sets color of the horse.  \nColors must be uppercase,can be any of the [Spigot Horse colors](https://hub.spigotmc.org/javadocs/bukkit/org/bukkit/entity/Horse.Color.html)."
+    },
+    "HorseStyle": {
+        "description": "Sets the style of the horse.  \nStyles can be any of the [Spigot Horse Style](https://hub.spigotmc.org/javadocs/bukkit/org/bukkit/entity/Horse.Style.html)"
+    },
+    "HorseType": {
+        "description": "Defines the type of horse\nCan be any of the [Spigot Horse variants](https://hub.spigotmc.org/javadocs/bukkit/org/bukkit/entity/Horse.Variant.html)\nDefaults to `HORSE`\n**Removed in MC 1.11+, use[Type](/Mobs/Mobs#type) instead.**\n\n\n## Interaction\n#### Height\nThe Height of the Interaction entity.  \nDefaults to `1`."
+    },
+    "Width": {
+        "description": "The Width of the Interaction entity.  \nDefaults to the value of the `Height` option."
+    },
+    "Responsive": {
+        "description": "If the Interaction entity is responsive.  \nDefaults to `true`."
+    },
+    "PlayerCreated": {
+        "description": "Acts as if the player built the mob.  \nDefaults to `false`."
+    },
+    "Item": {
+        "description": "The material of the item entity.  \nDefaults to `STONE`."
+    },
+    "Amount": {
+        "description": "The amount of items in the itemstack.  \nDefaults to `1`."
+    },
+    "CanPickup": {
+        "description": "If the itemstack can be picked up.  \nDefaults to `true`."
+    },
+    "Color": {
+        "description": "Sets the [Color](https://hub.spigotmc.org/javadocs/bukkit/org/bukkit/DyeColor.html) of the Wolf's Collar"
+    },
+    "ChestContents": {
+        "description": "The [droptable] that will be put inside the chest."
+    },
+    "MainGene": {
+        "description": "Sets the main [gene](https://hub.spigotmc.org/javadocs/bukkit/org/bukkit/entity/Panda.Gene.html) that the panda can pass on to its offspring.  \nCan be NORMAL, AGGRESSIVE, LAZY, WORRIED, PLAYFUL, WEAK, BROWN.  \nDefaults to `NORMAL`."
+    },
+    "HiddenGene": {
+        "description": "Sets the hidden [gene](https://hub.spigotmc.org/javadocs/bukkit/org/bukkit/entity/Panda.Gene.html) that the panda can pass on to its offspring.  \nCan be NORMAL, AGGRESSIVE, LAZY, WORRIED, PLAYFUL, WEAK, BROWN.  \nDefaults to `NORMAL`."
+    },
+    "Variant": {
+        "description": "Sets the [Wolf Variant](https://hub.spigotmc.org/javadocs/bukkit/org/bukkit/entity/Wolf.Variant.html)"
+    },
+    "FlyingSpeed": {
+        "description": "The flying speed of the parrot.  \nDefaults to `-1` (The option is not applied)"
+    },
+    "AbleToHunt": {
+        "description": "Whether or not the piglin is able to hunt.  \nDefaults to `true`."
+    },
+    "IsKillerBunny": {
+        "description": "Alias: `Angry`.  \nSets the rabbit as the Killer Bunny.  \nDefaults to `false`."
+    },
+    "RabbitType": {
+        "description": "Sets the [type](https://hub.spigotmc.org/javadocs/bukkit/org/bukkit/entity/Rabbit.Type.html) of rabbit.  \nTypes can be BLACK, BLACK_AND_WHITE, BROWN, GOLD, SALT_AND_PEPPER, THE_KILLER_BUNNY or WHITE"
+    },
+    "Sheared": {
+        "description": "Whether the Sheep is already sheared.  \nDefaults to `false`."
+    },
+    "PreventBlockInfection": {
+        "description": "Prevent silverfish from infecting blocks.  \nDefaults to `false`."
+    },
+    "PreventSnowFormation": {
+        "description": "Prevent the Snow Golem from creating snow.  \nDefaults to `false`."
+    },
+    "ExplosionYield": {
+        "description": "Determines the strength of the explosion.  \nDefaults to `-1` (none)."
+    },
+    "Incendiary": {
+        "description": "Whether the explosion is capable of starting fires.  \nDefaults to `false`."
+    },
+    "Pattern": {
+        "description": "Sets the [Shape/Pattern](https://hub.spigotmc.org/javadocs/bukkit/org/bukkit/entity/TropicalFish.Pattern.html) of the fish."
+    },
+    "BodyColor": {
+        "description": "Sets the [Primary Color](https://hub.spigotmc.org/javadocs/bukkit/org/bukkit/DyeColor.html) of the fish."
+    },
+    "HasTrades": {
+        "description": "Whether the villager can be traded with.  \nDefaults to `false`.  \n> Check out [Trades](/Mobs/Mobs#trades)"
+    },
+    "Profession": {
+        "description": "Specifies the [Profession](https://hub.spigotmc.org/javadocs/bukkit/org/bukkit/entity/Villager.Profession.html) of the zombie villager.  \nThis option will also make the zombie turn into the respective villager type when being cured using potions.  \nDefaults to `FARMER`."
+    },
+    "Level": {
+        "description": "Villager profession level, levels 1 - 5.  \nLevel 1 villagers might switch professions. If you want a villager to hold its profession, give them a level of 2 or higher.  \nRequired if setting villager professions."
+    }
+}

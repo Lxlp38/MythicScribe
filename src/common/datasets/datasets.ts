@@ -17,7 +17,6 @@ import {
 } from '../utils/configutils';
 import { loadCustomDatasets } from './customDatasets';
 import { MythicNodeHandler } from '../mythicnodes/MythicNode';
-import { initializePlaceholders } from './ScribePlaceholder';
 
 // GitHub URL to fetch data from
 export const GITHUB_BASE_URL = 'https://raw.githubusercontent.com/Lxlp38/MythicScribe/master/';
@@ -138,7 +137,6 @@ export async function loadDatasets() {
         }
     }
     ScribeEnumHandler.loadEnumDatasets();
-    initializePlaceholders();
     await Promise.allSettled([ScribeMechanicHandler.loadMechanicDatasets(), loadCustomDatasets()]);
     ScribeMechanicHandler.finalize();
     finallySetEnabledPlugins();

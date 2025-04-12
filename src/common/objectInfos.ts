@@ -34,7 +34,7 @@ type ListFileObject = BaseFileObject & {
     dataset?: string;
     keys?: FileObjectMap;
 };
-type KeyFileObject = BaseFileObject & {
+export type KeyFileObject = BaseFileObject & {
     type: FileObjectTypes.KEY;
     keys: FileObjectMap;
 };

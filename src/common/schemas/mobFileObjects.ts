@@ -1,5 +1,16 @@
+import {
+    AbstractScribeEnum,
+    addEnumLoadedFunction,
+    EnumDatasetValue,
+} from '@common/datasets/ScribeEnum';
+
 import { generateNumbersInRange } from '../utils/schemautils';
-import { FileObjectMap, FileObjectSpecialKeys, FileObjectTypes } from '../objectInfos';
+import {
+    FileObjectMap,
+    FileObjectSpecialKeys,
+    FileObjectTypes,
+    KeyFileObject,
+} from '../objectInfos';
 
 export const MobFileObjects: FileObjectMap = {
     Type: {
@@ -99,9 +110,10 @@ export const MobFileObjects: FileObjectMap = {
         description: 'The mount of the mob.',
     },
     Options: {
-        type: FileObjectTypes.KEY_LIST,
+        type: FileObjectTypes.KEY,
         link: 'https://git.lumine.io/mythiccraft/MythicMobs/-/wikis/Mobs/Options',
         description: 'The options of the mob.',
+        keys: {},
     },
     Modules: {
         type: FileObjectTypes.KEY,
@@ -279,3 +291,20 @@ export const MobFileObjects: FileObjectMap = {
         },
     },
 };
+
+addEnumLoadedFunction('moboption', (target: AbstractScribeEnum) => {
+    addMobOptions(target.getDataset());
+});
+
+export function addMobOptions(options: Map<string, EnumDatasetValue>) {
+    const mobOptions = (MobFileObjects.Options as KeyFileObject).keys;
+    for (const [name, body] of options) {
+        mobOptions[name] = {
+            type: FileObjectTypes.STRING,
+            link:
+                'https://git.lumine.io/mythiccraft/MythicMobs/-/wikis/Mobs/Options#' +
+                name.toLowerCase(),
+            description: body.description,
+        };
+    }
+}

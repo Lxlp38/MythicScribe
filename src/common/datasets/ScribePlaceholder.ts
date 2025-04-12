@@ -4,7 +4,12 @@ import { registryKey } from '@common/objectInfos';
 import { generateNumbersInRange } from '../utils/schemautils';
 import { MythicAttribute } from './ScribeMechanic';
 import { retriggerCompletionsCommand } from '../utils/completionhelper';
-import { ScribeEnumHandler } from './ScribeEnum';
+import {
+    AbstractScribeEnum,
+    addEnumLoadedFunction,
+    EnumDatasetValue,
+    ScribeEnumHandler,
+} from './ScribeEnum';
 
 class PlaceholderSegment {
     public identifier: string;
@@ -227,7 +232,11 @@ export function fromPlaceholderNodeIdentifierToRegistryKey(
     return undefined;
 }
 
-export async function initializePlaceholders() {
+addEnumLoadedFunction('placeholder', (target: AbstractScribeEnum) => {
+    initializePlaceholders(target.getDataset());
+});
+
+export async function initializePlaceholders(placeholderDataset: Map<string, EnumDatasetValue>) {
     ScriptedPlaceholderSegmentHandler.clearSegments();
 
     // Generate scripted placeholder segments from enums
@@ -259,10 +268,6 @@ export async function initializePlaceholders() {
     );
 
     // Generate placeholder nodes for all placeholder enums
-    const placeholderDataset = await ScribeEnumHandler.getEnum('placeholder')?.waitForDataset();
-    if (!placeholderDataset) {
-        return;
-    }
     for (const key of placeholderDataset.keys()) {
         ScribePlaceholderRoot.addNodes(parsePlaceholder(key).getPlaceholderNodes());
     }

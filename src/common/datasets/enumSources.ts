@@ -36,6 +36,7 @@ export const localEnums = [
     'mythic/glowcolor.json',
     'mythic/itemrarity.json',
     'mythic/mythicentity.json',
+    'mythic/moboption.json',
     ['PARTICLE', 'mythic/particles.json'],
     'mythic/placeholder.json',
     'mythic/scoreaction.json',
