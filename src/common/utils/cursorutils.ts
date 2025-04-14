@@ -52,7 +52,7 @@ export function executeGetObjectLinkedToAttribute(searchText: string) {
 const squareBracketObjectRegex = /(?<=[{;])\s*(\w+)\s*=\s*$/g;
 export function getSquareBracketObject(document: vscode.TextDocument, position: vscode.Position) {
     const parentKey = getUpstreamKey(document, position.line);
-    const maxSearchLine = parentKey ? parentKey[1] : 0;
+    const maxSearchLine = parentKey ? parentKey.line : 0;
     const textBeforeAttribute = document.getText(
         new vscode.Range(new vscode.Position(maxSearchLine, 0), position)
     );

@@ -109,6 +109,7 @@ function restoreMainComments(
     // Pick The Comment That Is Gonna Be Used
     const comment = comments.shift();
     if (!comment) {
+        Log.warn('No comment to restore', { silent: true });
         return;
     }
 
@@ -134,7 +135,7 @@ function restoreMainComments(
         // Otherwise, let's see what happens here
         const relatedNode = yamlTree.getBoundKey(i);
         if (relatedNode) {
-            let relatedNodeIndent = relatedNode.yamlKey[2];
+            let relatedNodeIndent = relatedNode.yamlKey.indent;
             const type = relatedNode.fileObject?.type;
             if (type && type in [FileObjectTypes.LIST, FileObjectTypes.KEY_LIST]) {
                 relatedNodeIndent += getDefaultIndentation();
@@ -143,11 +144,11 @@ function restoreMainComments(
                 const adjustedIndent = ' '.repeat(relatedNodeIndent);
                 lines[i] = lines[i].replace(' '.repeat(indent), adjustedIndent);
             }
-            lines[i] = lines[i].replace(' ' + placeholder, comment.text.trim());
         }
     } catch (error) {
         Log.error(error);
     }
+    lines[i] = lines[i].replace(' ' + placeholder, comment.text.trim());
 }
 
 const quotePlaceholder = `"__MYTHICSCRIBE_QUOTED_STRING__"`;

@@ -73,7 +73,7 @@ jobs:
           EXT="${FILE##*.}"
           NEWFILE="${BASENAME}-${COMMIT_NUMBER}.${EXT}"
           echo "Renaming file to: $NEWFILE"
-          cp "$FILE" "!mythicscribe-latest.vsix"
+          cp "$FILE" '!mythicscribe-latest.vsix'
           mv "$FILE" "$NEWFILE"
   
       - name: Update Release

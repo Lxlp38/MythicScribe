@@ -24,7 +24,7 @@ export function mechaniclineCompletionProvider() {
                 }
 
                 const keys = yamlutils.getParentKeys(document, position);
-                if (!keyAliases.Skills.includes(keys[0][0])) {
+                if (!keyAliases.Skills.includes(keys[0].key)) {
                     return undefined;
                 }
 

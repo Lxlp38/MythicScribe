@@ -113,7 +113,7 @@ function checkShouldKeyCompleteExec(
     keylist: string[]
 ) {
     const keys = yamlutils.getParentKeys(document, position);
-    if (!keylist.includes(keys[0][0])) {
+    if (!keylist.includes(keys[0].key)) {
         return false;
     }
     return true;
@@ -277,16 +277,14 @@ function fileCompletionForFileObjectMap(
     const completionItems: vscode.CompletionItem[] = [];
 
     Object.entries(objectMap).forEach(([key, value]) => {
-        if (FileObjectSpecialKeys.WILDKEY in objectMap) {
-            if (key === FileObjectSpecialKeys.WILDKEY) {
-                const completionItem = new vscode.CompletionItem(
-                    (value as WildKeyFileObject).display,
-                    vscode.CompletionItemKind.File
-                );
-                completionItem.insertText = new vscode.SnippetString(indentation + '$1' + ':');
-                completionItems.push(completionItem);
-                return;
-            }
+        if (key === FileObjectSpecialKeys.WILDKEY) {
+            const completionItem = new vscode.CompletionItem(
+                (value as WildKeyFileObject).display,
+                vscode.CompletionItemKind.File
+            );
+            completionItem.insertText = new vscode.SnippetString(indentation + '$1' + ':');
+            completionItems.push(completionItem);
+            return;
         }
 
         const completionItem = new vscode.CompletionItem(key, vscode.CompletionItemKind.File);

@@ -34,11 +34,11 @@ export namespace CursorLocationAction {
         if (yamlutils.isKey(document, position.line, position)) {
             const key = yamlutils.getKey(document, position.line);
             keys.reverse();
-            keys.push([
-                key,
-                position.line,
-                yamlutils.getIndentation(document.lineAt(position.line).text),
-            ]);
+            keys.push({
+                key: key,
+                line: position.line,
+                indent: yamlutils.getIndentation(document.lineAt(position.line).text),
+            });
 
             return fileElementFunction(
                 yamlutils.getKeyNameFromYamlKey(keys.slice(1)),
@@ -47,8 +47,8 @@ export namespace CursorLocationAction {
             );
         }
 
-        if (keyAliases.Skills.includes(keys[0][0])) {
-            const result = getCursorSkills(document, position, keys[0][1]);
+        if (keyAliases.Skills.includes(keys[0].key)) {
+            const result = getCursorSkills(document, position, keys[0].line);
             if (!result) {
                 return null;
             }
@@ -58,12 +58,12 @@ export namespace CursorLocationAction {
             return mechanicFunction(result);
         }
         for (const keydependency of keydependencies) {
-            if (keydependency.keys.includes(keys[0][0])) {
+            if (keydependency.keys.includes(keys[0].key)) {
                 const result = getCursorObject(
                     keydependency.registry,
                     document,
                     position,
-                    keys[0][1]
+                    keys[0].line
                 );
                 if (!result) {
                     return undefined;

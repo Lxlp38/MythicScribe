@@ -42,6 +42,10 @@
 ### Path: `mythic/mythicentity.json`
 ### Type: `Static`
 
+# `moboption`
+### Path: `mythic/moboption.json`
+### Type: `Static`
+
 # `particle`
 ### Path: `mythic/particles.json`
 ### Type: `Static`

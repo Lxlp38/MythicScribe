@@ -7,7 +7,7 @@ import {
     ScribeMechanicHandler,
 } from '../datasets/ScribeMechanic';
 import { getSquareBracketObject } from './cursorutils';
-import { FileObject, FileObjectMap } from '../objectInfos';
+import { FileObject, FileObjectMap, FileObjectSpecialKeys } from '../objectInfos';
 import { ArrayListNode } from './genericDataStructures';
 import { checkFileType } from '../subscriptions/SubscriptionHelper';
 
@@ -19,12 +19,13 @@ function getYamlRegexInfo(match: RegExpMatchArray): { indent: string; key: strin
     };
 }
 
-// First Value: the key
-// Second Value: the line index
-// Third Value: the indentation level
-export type YamlKey = [string, number, number];
+export type YamlKey = {
+    key: string;
+    line: number;
+    indent: number;
+};
 export function getKeyNameFromYamlKey(keys: YamlKey[]): string[] {
-    return keys.map(([key]) => key);
+    return keys.map((key) => key.key);
 }
 
 /**
@@ -43,7 +44,11 @@ export function getUpstreamKey(
         const match = line.match(yamlKeyRegex);
         if (match) {
             const info = getYamlRegexInfo(match);
-            return [info.key, i, info.indent.length];
+            return {
+                key: info.key,
+                line: i,
+                indent: info.indent.length,
+            };
         }
     }
     return;
@@ -82,7 +87,11 @@ export function getParentKeys(
     if (!isKey(document, lineIndex)) {
         currentIndent += 1;
     } else if (getLineKey) {
-        keys.push([getKey(document, lineIndex), lineIndex, currentIndent]);
+        keys.push({
+            key: getKey(document, lineIndex),
+            line: lineIndex,
+            indent: currentIndent,
+        });
     }
 
     for (let i = lineIndex; i >= 0; i--) {
@@ -94,7 +103,11 @@ export function getParentKeys(
 
             // If the line has a lower (less) indentation, it is a parent
             if (lineIndent < currentIndent) {
-                keys.push([matchInfo.key, i, lineIndent]); // Add the key without the colon
+                keys.push({
+                    key: matchInfo.key,
+                    line: i,
+                    indent: lineIndent,
+                }); // Add the key without the colon
                 currentIndent = lineIndent; // Update current indentation to this parent's level
             }
         }
@@ -110,7 +123,11 @@ export function getDocumentKeys(text: string): YamlKey[] {
         const match = line.match(yamlKeyRegex);
         if (match) {
             const info = getYamlRegexInfo(match);
-            keys.push([info.key, i, info.indent.length]);
+            keys.push({
+                key: info.key,
+                line: i,
+                indent: info.indent.length,
+            });
         }
     }
     return keys;
@@ -135,7 +152,8 @@ function buildYamlKeyTree(
 
     while (i < keys.length) {
         const current = keys[i];
-        const [keyName, , indent] = current;
+        const keyName = current.key;
+        const indent = current.indent;
         if (indent <= baseIndent) {
             // This key is not a child of the current parent.
             break;
@@ -147,6 +165,12 @@ function buildYamlKeyTree(
         let childSchema: FileObjectMap | null = null;
         if (schemaMapping) {
             fileObj = schemaMapping[keyName];
+
+            if (!fileObj && FileObjectSpecialKeys.WILDKEY in schemaMapping) {
+                // If the schema has a wildcard key, use that as a fallback.
+                fileObj = schemaMapping[FileObjectSpecialKeys.WILDKEY];
+            }
+
             // If the file object defines nested keys, use that mapping for its children.
             if (fileObj && 'keys' in fileObj && fileObj.keys) {
                 childSchema = fileObj.keys;
@@ -157,7 +181,7 @@ function buildYamlKeyTree(
         const start = i + 1;
         let j = start;
         const childKeys: YamlKey[] = [];
-        while (j < keys.length && keys[j][2] > indent) {
+        while (j < keys.length && keys[j].indent > indent) {
             childKeys.push(keys[j]);
             j++;
         }
@@ -196,7 +220,7 @@ export function pairYamlKeysWithSchema(
     // Process only top-level keys (indent 0).
     while (i < keys.length) {
         const current = keys[i];
-        const [, , indent] = current;
+        const indent = current.indent;
         if (indent !== 0) {
             // Skip stray keys that are not at top level.
             i++;
@@ -207,7 +231,7 @@ export function pairYamlKeysWithSchema(
         const start = i + 1;
         let j = start;
         const childKeys: YamlKey[] = [];
-        while (j < keys.length && keys[j][2] > 0) {
+        while (j < keys.length && keys[j].indent > 0) {
             childKeys.push(keys[j]);
             j++;
         }
@@ -256,9 +280,9 @@ export class YamlKeyPairList extends ArrayListNode<YamlKeyPair> {
 
     compare(value1: YamlKeyPair, value2: YamlKeyPair | number): boolean {
         if (typeof value2 === 'number') {
-            return value1.yamlKey[1] < value2;
+            return value1.yamlKey.line < value2;
         }
-        return value1.yamlKey[1] < value2.yamlKey[1];
+        return value1.yamlKey.line < value2.yamlKey.line;
     }
 }
 

@@ -55,6 +55,11 @@
     "type": "Static"
   },
   {
+    "id": "moboption",
+    "path": "mythic/moboption.json",
+    "type": "Static"
+  },
+  {
     "id": "particle",
     "path": "mythic/particles.json",
     "type": "Static"

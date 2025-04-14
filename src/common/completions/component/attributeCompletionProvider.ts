@@ -51,7 +51,7 @@ export function attributeCompletionProvider() {
                     document,
                     position,
                     yamlutils.getKeyNameFromYamlKey(keys),
-                    keys[0][1]
+                    keys[0].line
                 );
                 if (!mechanic) {
                     return null;
@@ -292,13 +292,13 @@ export function searchForLinkedAttribute(
         document,
         position,
         yamlutils.getKeyNameFromYamlKey(keys),
-        keys[0][1]
+        keys[0].line
     );
     if (!mechanic) {
         return undefined;
     }
     const attribute = document
-        .getText(new vscode.Range(new vscode.Position(keys[0][1], 0), position))
+        .getText(new vscode.Range(new vscode.Position(keys[0].line, 0), position))
         .match(MythicAttribute.regex)
         ?.pop();
 
