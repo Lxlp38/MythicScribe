@@ -20,6 +20,7 @@
 - Mythic Node Graph's selected element having low opacity
 - Comments at the bottom of the documents being wrongfully parsed by the formatter
 - Formatter not working when comments were placed on the same line as a key
+- Formatter not working when comments had specific indents in specific instances
 - `MythicScribe.emptybracketautomaticremoval` config not being fetched correctly
 
 

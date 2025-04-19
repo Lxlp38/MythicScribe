@@ -126,7 +126,7 @@ function restoreMainComments(
 
     // If the original comment had no indent, so should this one
     if (comment.indent === 0) {
-        lines[i] = lines[i].replace(' '.repeat(indent), '');
+        lines[i] = lines[i].replace(generateIndent(indent), '');
         lines[i] = lines[i].replace(' ' + placeholder, comment.text.trim());
         return;
     }
@@ -141,14 +141,21 @@ function restoreMainComments(
                 relatedNodeIndent += getDefaultIndentation();
             }
             if (indent !== relatedNodeIndent) {
-                const adjustedIndent = ' '.repeat(relatedNodeIndent);
-                lines[i] = lines[i].replace(' '.repeat(indent), adjustedIndent);
+                const adjustedIndent = generateIndent(relatedNodeIndent);
+                lines[i] = lines[i].replace(generateIndent(indent), adjustedIndent);
             }
         }
     } catch (error) {
         Log.error(error);
     }
     lines[i] = lines[i].replace(' ' + placeholder, comment.text.trim());
+}
+
+function generateIndent(input: number): string {
+    if (input < 0) {
+        return '';
+    }
+    return ' '.repeat(input);
 }
 
 const quotePlaceholder = `"__MYTHICSCRIBE_QUOTED_STRING__"`;
@@ -254,7 +261,7 @@ function formatMythicScript(par: FormatterParameters): string {
         else if (formattedText.match(/^\s*-\s/) || insideInline !== 0) {
             if (lineIndentation !== lastKeyIndent) {
                 formattedText =
-                    ' '.repeat(lastKeyIndent * INDENTATION_LEVEL) + formattedText.trim();
+                    generateIndent(lastKeyIndent * INDENTATION_LEVEL) + formattedText.trim();
             }
         }
 
