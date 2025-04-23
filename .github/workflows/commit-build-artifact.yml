@@ -49,6 +49,17 @@ jobs:
           COMMIT_NUMBER=$(git rev-list --count HEAD)
           echo "number=$COMMIT_NUMBER" >> $GITHUB_OUTPUT
 
+      - name: Get File Name
+        id: get_file_name
+        run: |
+          FILE=$(ls *.vsix | head -n 1)
+          BASENAME="${FILE%.*}"
+          echo "Found .vsix file: $BASENAME"
+          echo "name=$FILE" >> $GITHUB_OUTPUT
+          echo "basename=$BASENAME" >> $GITHUB_OUTPUT
+          echo "newname=${BASENAME}-${{ steps.get_commit_number.outputs.number }}.vsix" >> $GITHUB_OUTPUT
+          ls -al
+
       - name: Generate release body
         id: generate_body
         run: |
@@ -59,16 +70,8 @@ jobs:
 
       - name: Rename .vsix files
         run: |
-          # Find the vsix file
-          FILE=$(ls *.vsix | head -n 1)
-          echo "Found .vsix file: $FILE"
-          
-          # Create commit-numbered version
-          BASENAME="${FILE%.*}"
-          EXT="${FILE##*.}"
-          NEWFILE="${BASENAME}-${{ steps.get_commit_number.outputs.number }}.${EXT}"
           echo "Creating commit-numbered version: $NEWFILE"
-          mv "$FILE" "$NEWFILE"
+          mv "${{ steps.get_file_name.outputs.name }}" "${{ steps.get_file_name.outputs.newname }}"
                     
           # List final files
           ls -al
@@ -82,5 +85,5 @@ jobs:
           generate_release_notes: true
           prerelease: true
           files: |
-            mythicscribe-${{ steps.get_commit_number.outputs.number }}.vsix
+            ${{ steps.get_file_name.outputs.newname }}
           token: ${{ secrets.GITHUB_TOKEN }}
