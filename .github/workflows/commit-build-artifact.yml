@@ -57,30 +57,6 @@ jobs:
           echo "$RELEASE_BODY" >> $GITHUB_OUTPUT
           echo "EOF" >> $GITHUB_OUTPUT
 
-      - name: Clean up old release assets
-        run: |
-          # Check if release exists
-          if gh release view dev >/dev/null 2>&1; then
-            echo "Deleting old .vsix files from release..."
-            ASSET_IDS=$(gh api \
-              -H "Accept: application/vnd.github+json" \
-              -H "X-GitHub-Api-Version: 2022-11-28" \
-              "/repos/${{ github.repository }}/releases/tags/dev/assets" \
-              --jq '.[] | select(.name | endswith(".vsix")) | .id' || echo "")
-            
-            for ASSET_ID in $ASSET_IDS; do
-              echo "Deleting asset ID $ASSET_ID"
-              gh api --method DELETE \
-                -H "Accept: application/vnd.github+json" \
-                -H "X-GitHub-Api-Version: 2022-11-28" \
-                "/repos/${{ github.repository }}/releases/assets/$ASSET_ID"
-            done
-          else
-            echo "No existing dev release found, skipping cleanup"
-          fi
-        env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-
       - name: Rename .vsix files
         run: |
           # Find the vsix file
