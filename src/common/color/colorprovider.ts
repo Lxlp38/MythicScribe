@@ -1,3 +1,4 @@
+import { ActiveFileTypeInfo } from '@common/subscriptions/SubscriptionHelper';
 import { addConfigChangeFunction, getColorProviderOptionsConfig } from '@common/utils/configutils';
 import * as vscode from 'vscode';
 
@@ -69,6 +70,12 @@ class ScribeColorProvider implements vscode.DocumentColorProvider {
     }
 
     private onDidChangeActiveTextEditor(editor: vscode.TextEditor | undefined) {
+        if (
+            (!getColorProviderOptionsConfig('alwaysEnabled') as boolean) &&
+            !ActiveFileTypeInfo.enabled
+        ) {
+            return;
+        }
         if (editor && this.textEditorNeedsUpdate) {
             const doc = this.oldDecorationsMap.get(editor.document.uri.toString());
             if (doc) {
@@ -113,13 +120,13 @@ class ScribeColorProvider implements vscode.DocumentColorProvider {
             cursor: 'pointer',
             ...this.getDecorationSegmentConfig(
                 color,
-                getColorProviderOptionsConfig('backgroundColor'),
+                getColorProviderOptionsConfig('backgroundColor') as string,
                 this.registry.background,
                 this.registry.background.same(color)
             ),
             ...this.getDecorationSegmentConfig(
                 color,
-                getColorProviderOptionsConfig('charColor'),
+                getColorProviderOptionsConfig('charColor') as string,
                 this.registry.char,
                 this.registry.char.none(color)
             ),

@@ -51,7 +51,7 @@ export const DroptableFileObject: FileObjectMap = {
     },
     Drops: {
         type: FileObjectTypes.LIST,
-        dataset: 'MATERIAL',
+        dataset: 'ITEM',
         link: 'https://git.lumine.io/mythiccraft/MythicMobs/-/wikis/drops/DropTables#droptable-options',
         description: 'A list of items that can drop from the table.',
     },

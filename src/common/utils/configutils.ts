@@ -30,6 +30,7 @@ const fileParsingPolicyConfigCache = {
 };
 
 const colorProviderOptionsConfigCache = {
+    alwaysEnabled: undefined as boolean | undefined,
     backgroundColor: undefined as string | undefined,
     charColor: undefined as string | undefined,
 };
@@ -212,7 +213,7 @@ export function minecraftVersion() {
         // Update the value only in the defined scope
         config.update('minecraftVersion', undefined, target);
         Log.warn(
-            'Invalid MythicScribe.minecraftVersion configuration value detected. Resetting to "latest".'
+            'Invalid MythicScribe.minecraftVersion configuration value detected. Resetting to default value "latest".'
         );
         return 'latest';
     }

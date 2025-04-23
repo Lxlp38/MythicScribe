@@ -408,6 +408,11 @@
           "type": "object",
           "additionalProperties": false,
           "properties": {
+            "alwaysEnabled": {
+              "title": "Always Enabled",
+              "type": "boolean",
+              "description": "Whether the color provider should always be enabled after the extension's activation, even when not in a MythicMobs file."
+            },
             "backgroundColor": {
               "title": "Background Color",
               "type": "string",
@@ -430,6 +435,7 @@
             }
           },
           "default": {
+            "alwaysEnabled": true,
             "backgroundColor": "same",
             "charColor": "none"
           }
