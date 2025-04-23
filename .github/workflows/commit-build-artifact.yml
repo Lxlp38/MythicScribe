@@ -43,53 +43,59 @@ jobs:
           git tag -f dev
           git push origin -f dev  
 
+      - name: Get commit number
+        id: get_commit_number
+        run: |
+          COMMIT_NUMBER=$(git rev-list --count HEAD)
+          echo "number=$COMMIT_NUMBER" >> $GITHUB_OUTPUT
+
       - name: Generate release body
         id: generate_body
         run: |
-          RELEASE_BODY=$(echo -e "The latest dev build, generated from the latest commit.\n\nEach commit also generates an artifact via the associated action. So, if you want to fetch a specific version, it is also possible to fetch that instead.\n\n**Build Information:**\n- Commit: $GITHUB_SHA\n- Build Date: $(date +"%Y-%m-%dT%H:%M:%SZ")")
+          RELEASE_BODY=$(echo -e "The latest dev build, generated from the latest commit.\n\nEach commit also generates an artifact via the associated action. So, if you want to fetch a specific version, it is also possible to fetch that instead.\n\n**Build Information:**\n- Commit: $GITHUB_SHA\nBuild Number: ${{ steps.get_commit_number.outputs.number }}\n- Build Date: $(date +"%Y-%m-%dT%H:%M:%SZ")")
           echo "release_body<<EOF" >> $GITHUB_OUTPUT
           echo "$RELEASE_BODY" >> $GITHUB_OUTPUT
           echo "EOF" >> $GITHUB_OUTPUT
 
-      - name: Conditionally delete dev release if not latest
+      - name: Clean up old release assets
         run: |
-          LATEST_RELEASE=$(gh release list --limit 1 --json tagName -q '.[0].tagName')
-          echo "Latest release tag: $LATEST_RELEASE"
-          if [ "$LATEST_RELEASE" != "dev" ]; then
-            echo "Dev release is not the latest, deleting it."
-            gh release delete dev --yes || echo "No dev release found, continuing..."
+          # Check if release exists
+          if gh release view dev >/dev/null 2>&1; then
+            echo "Deleting old .vsix files from release..."
+            ASSET_IDS=$(gh api \
+              -H "Accept: application/vnd.github+json" \
+              -H "X-GitHub-Api-Version: 2022-11-28" \
+              "/repos/${{ github.repository }}/releases/tags/dev/assets" \
+              --jq '.[] | select(.name | endswith(".vsix")) | .id' || echo "")
+            
+            for ASSET_ID in $ASSET_IDS; do
+              echo "Deleting asset ID $ASSET_ID"
+              gh api --method DELETE \
+                -H "Accept: application/vnd.github+json" \
+                -H "X-GitHub-Api-Version: 2022-11-28" \
+                "/repos/${{ github.repository }}/releases/assets/$ASSET_ID"
+            done
           else
-            echo "Dev release is the latest release, not deleting it."
+            echo "No existing dev release found, skipping cleanup"
           fi
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
 
-      - name: Rename .vsix file with commit number
+      - name: Rename .vsix files
         run: |
+          # Find the vsix file
           FILE=$(ls *.vsix | head -n 1)
           echo "Found .vsix file: $FILE"
-          COMMIT_NUMBER=$(git rev-list --count HEAD)
+          
+          # Create commit-numbered version
           BASENAME="${FILE%.*}"
           EXT="${FILE##*.}"
-          NEWFILE="${BASENAME}-${COMMIT_NUMBER}.${EXT}"
-          echo "Renaming file to: $NEWFILE"
-          cp "$FILE" 'latest-mythicscribe.vsix'
+          NEWFILE="${BASENAME}-${{ steps.get_commit_number.outputs.number }}.${EXT}"
+          echo "Creating commit-numbered version: $NEWFILE"
           mv "$FILE" "$NEWFILE"
-  
-      - name: Delete artifact named latest-mythicscribe.vsix from release "dev"
-        run: |
-          RELEASE_ID=$(gh release view dev --json id -q '.id')
-          echo "Release ID: $RELEASE_ID"
-          ARTIFACT_ID=$(gh api repos/${{ github.repository }}/releases/$RELEASE_ID/assets --jq '.[] | select(.name == "latest-mythicscribe.vsix") | .id')
-          echo "Artifact ID: $ARTIFACT_ID"
-          if [ -n "$ARTIFACT_ID" ]; then
-            echo "Deleting artifact latest-mythicscribe.vsix"
-            gh api --method DELETE repos/${{ github.repository }}/releases/assets/$ARTIFACT_ID
-          else
-            echo "Artifact latest-mythicscribe.vsix not found, skipping deletion."
-            fi
-        env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+                    
+          # List final files
+          ls -al
 
       - name: Update Release
         uses: softprops/action-gh-release@c95fe1489396fe8a9eb87c0abf8aa5b2ef267fda
@@ -100,6 +106,5 @@ jobs:
           generate_release_notes: true
           prerelease: true
           files: |
-            *.vsix
+            mythicscribe-${{ steps.get_commit_number.outputs.number }}.vsix
           token: ${{ secrets.GITHUB_TOKEN }}
-    
