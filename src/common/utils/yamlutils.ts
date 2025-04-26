@@ -350,11 +350,16 @@ export function isEmptyLine(document: vscode.TextDocument, lineIndex: number): b
  * @returns `true` if the line is a YAML key, `false` otherwise.
  */
 export function isKey(
-    document: vscode.TextDocument,
+    document: vscode.TextDocument | string,
     lineIndex: number,
     precise?: vscode.Position
 ): boolean {
-    const line = document.lineAt(lineIndex).text;
+    let line: string;
+    if (typeof document === 'string') {
+        line = document.split('\n')[lineIndex];
+    } else {
+        line = document.lineAt(lineIndex).text;
+    }
     if (precise) {
         const match = line.match(yamlKeyRegex);
         if (match) {
