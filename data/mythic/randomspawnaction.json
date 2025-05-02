@@ -1,0 +1,11 @@
+{
+    "ADD": {
+        "description": "The ADD action utilizes MythicMobs' spawning algorithms to generate random spawn points around players. These spawn points are generated without conditions, allowing mobs to spawn in any light level and at any location. Detailed configurations can be found in MythicMobs' 'config.yml'. Note: Action ADD only generates points around survival & adventure mode players and requires a location. Using a condition needing an entity will throw an exception. For biome conditions, use the 'Biomes:' option. Ensure 'GenerateSpawnPoints' is set to true in 'config-spawning.yml'."
+    },
+    "REPLACE": {
+        "description": "The REPLACE action is used to replace mobs that are spawned by Minecraft's own random spawning system with your own mobs. This allows for full control over Minecraft's spawning system. If Minecraft's random spawners are turned off on your server (such as setting gamerule doMobSpawning false), this action will not do anything."
+    },
+    "DENY": {
+        "description": "The DENY action can be used to prevent mobs from spawning. Any mob that matches the conditions of a RandomSpawn configured with DENY will not spawn."
+    }
+}

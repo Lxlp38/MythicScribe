@@ -547,7 +547,7 @@
                     "type",
                     "g"
                 ],
-                "type": "String",
+                "type": "PlaceholderString",
                 "description": "The type of the aura. It's similar to its name",
                 "link": "https://git.lumine.io/mythiccraft/MythicMobs/-/wikis/Skills/Mechanics/aura",
                 "default_value": ""
@@ -1600,7 +1600,7 @@
             "effect:bossBorder",
             "e:bossBorder"
         ],
-        "description": "Traps the the target player within a border around the caster.",
+        "description": "Traps the the target player within a vanilla world border around the caster.",
         "link": "https://git.lumine.io/mythiccraft/MythicMobs/-/wikis/Skills/Mechanics/bossborder",
         "attributes": [
             {
@@ -2715,6 +2715,16 @@
                 "description": "If this attribute is set, the one specified will be the amount of flat damage that will be inflicted, without consideration for attribute modifiers and similar other modifiers",
                 "link": "https://git.lumine.io/mythiccraft/MythicMobs/-/wikis/Skills/Mechanics/hit",
                 "default_value": null
+            },
+            {
+                "name": [
+                    "scaleByAttackCooldown",
+                    "sbac"
+                ],
+                "type": "PlaceholderBoolean",
+                "description": "Whether to scale the damage by the weapon's attack cooldown",
+                "link": "https://git.lumine.io/mythiccraft/MythicMobs/-/wikis/Skills/Mechanics/hit",
+                "default_value": "false"
             }
         ]
     },
@@ -4205,6 +4215,16 @@
             },
             {
                 "name": [
+                    "targetyoffset",
+                    "tyo"
+                ],
+                "type": "Float",
+                "description": "The target y offset of the beam",
+                "link": "https://git.lumine.io/mythiccraft/MythicMobs/-/wikis/Skills/Mechanics/GuardianBeam",
+                "default_value": "0"
+            },
+            {
+                "name": [
                     "fromorigin",
                     "fo"
                 ],
@@ -4997,6 +5017,17 @@
                 ],
                 "type": "Boolean",
                 "description": "Whether the metaskill should be able to be called after the caster's death",
+                "link": "https://git.lumine.io/mythiccraft/MythicMobs/-/wikis/Skills/Mechanics/skill",
+                "default_value": "false"
+            },
+            {
+                "name": [
+                    "snapshotcasterstats",
+                    "snapshotstats",
+                    "scs"
+                ],
+                "type": "Boolean",
+                "description": "Whether the caster's stats at the moment of the skill execution should be \"saved in memory\", so that every subsequent check/fetch operation made against them returns the saved amount. This can be useful if the metaskill includes somewhat big delays and the caster's stats can change during the metaskill execution",
                 "link": "https://git.lumine.io/mythiccraft/MythicMobs/-/wikis/Skills/Mechanics/skill",
                 "default_value": "false"
             }
@@ -6742,7 +6773,7 @@
                     "yaw"
                 ],
                 "type": "Float",
-                "description": "Sets the yaw of the effect",
+                "description": "Sets the yaw of the location target(s) of the mechanic. This is ignored if it remains -1111",
                 "link": "https://git.lumine.io/mythiccraft/MythicMobs/-/wikis/Skills/Mechanics/Particle",
                 "default_value": "-1111"
             },
@@ -6752,7 +6783,7 @@
                     "pitch"
                 ],
                 "type": "Float",
-                "description": "Sets the pitch of the effect",
+                "description": "Sets the pitch of the location target(s) of the mechanic. This is ignored if it remains -1111",
                 "link": "https://git.lumine.io/mythiccraft/MythicMobs/-/wikis/Skills/Mechanics/Particle",
                 "default_value": "-1111"
             },
@@ -9003,7 +9034,7 @@
                     "model"
                 ],
                 "type": "Integer",
-                "description": "The CustomModelData of the material",
+                "description": "The CustomModelData integer for the material (define model strings on a MythicItem instead)",
                 "link": "https://git.lumine.io/mythiccraft/MythicMobs/-/wikis/Skills/Mechanics/projectile",
                 "default_value": "0"
             },
@@ -9064,7 +9095,7 @@
                     "model"
                 ],
                 "type": "Integer",
-                "description": "The CustomModelData of the material",
+                "description": "The CustomModelData integer for the material (define model strings on a MythicItem instead)",
                 "link": "https://git.lumine.io/mythiccraft/MythicMobs/-/wikis/Skills/Mechanics/projectile",
                 "default_value": "0"
             },
@@ -9243,7 +9274,7 @@
                     "model"
                 ],
                 "type": "Integer",
-                "description": "The CustomModelData of the material",
+                "description": "The CustomModelData integer for the material (define model strings on a MythicItem instead)",
                 "link": "https://git.lumine.io/mythiccraft/MythicMobs/-/wikis/Skills/Mechanics/projectile",
                 "default_value": "0"
             },
@@ -9521,7 +9552,7 @@
                     "model"
                 ],
                 "type": "Integer",
-                "description": "The CustomModelData of the material",
+                "description": "The CustomModelData integer for the material (define model strings on a MythicItem instead)",
                 "link": "https://git.lumine.io/mythiccraft/MythicMobs/-/wikis/Skills/Mechanics/projectile",
                 "default_value": "0"
             },
@@ -9581,9 +9612,19 @@
                     "model"
                 ],
                 "type": "PlaceholderString",
-                "description": "The CustomModelData of the material",
+                "description": "The CustomModelData integer for the material (define model strings on a MythicItem instead)",
                 "link": "https://git.lumine.io/mythiccraft/MythicMobs/-/wikis/Skills/Mechanics/projectile",
                 "default_value": "0"
+            },
+            {
+                "name": [
+                    "bulletstate",
+                    "state"
+                ],
+                "type": "PlaceholderString",
+                "description": "The state to play for the MEG model",
+                "link": "https://git.lumine.io/mythiccraft/MythicMobs/-/wikis/Skills/Mechanics/projectile",
+                "default_value": ""
             },
             {
                 "name": [

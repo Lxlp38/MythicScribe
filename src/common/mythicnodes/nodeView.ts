@@ -66,6 +66,7 @@ const NodeTypeToAdditionalData: Record<registryKey, NodeData> = {
     droptable: { shape: 'diamond', color: '#cc00cc' },
     stat: { shape: 'barrel', color: '#cc0000' },
     placeholder: { shape: 'rhomboid', color: '#cc6600' },
+    randomspawn: { shape: 'round-hexagon', color: '#00cccc' },
 };
 
 const UnknownNodeData: NodeData = { color: '#807e7a', unknown: true };
@@ -115,15 +116,6 @@ enum selectedElementsType {
     selectedDocument,
 }
 
-enum selectedElementsFilter {
-    mob,
-    item,
-    metaskill,
-    droptable,
-    stat,
-    placeholder,
-}
-
 const GraphOptions = {
     selectedElements: {
         query: 'What elements do you want to see in the graph?',
@@ -136,12 +128,13 @@ const GraphOptions = {
     filters: {
         query: 'Select the elements to hide',
         options: [
-            { label: 'Hide Mobs', value: selectedElementsFilter.mob },
-            { label: 'Hide Items', value: selectedElementsFilter.item },
-            { label: 'Hide Metaskills', value: selectedElementsFilter.metaskill },
-            { label: 'Hide Droptables', value: selectedElementsFilter.droptable },
-            { label: 'Hide Stats', value: selectedElementsFilter.stat },
-            { label: 'Hide Custom Placeholders', value: selectedElementsFilter.placeholder },
+            { label: 'Hide Mobs', value: 'mob' as registryKey },
+            { label: 'Hide Items', value: 'item' as registryKey },
+            { label: 'Hide Metaskills', value: 'metaskill' as registryKey },
+            { label: 'Hide Droptables', value: 'droptable' as registryKey },
+            { label: 'Hide Stats', value: 'stat' as registryKey },
+            { label: 'Hide Custom Placeholders', value: 'placeholder' as registryKey },
+            { label: 'Hide Random Spawns', value: 'randomspawn' as registryKey },
         ],
     },
 };
@@ -179,10 +172,10 @@ function fetchSelectedElements(selectedElements: selectedElementsType) {
     return openUris;
 }
 
-const PastFilters: selectedElementsFilter[] = [];
+const PastFilters: registryKey[] = [];
 function buildCytoscapeElements(
     selectedElements: selectedElementsType = selectedElementsType.all,
-    selectedFilters: selectedElementsFilter[] = [],
+    selectedFilters: registryKey[] = [],
     startingNodes?: MythicNode[]
 ): {
     nodes: CytoscapeNode[];
@@ -199,9 +192,7 @@ function buildCytoscapeElements(
     PastFilters.length = 0;
     PastFilters.push(...selectedFilters);
     if (selectedFilters.length > 0) {
-        iterableKeys = iterableKeys.filter(
-            (key) => !selectedFilters.includes(selectedElementsFilter[key])
-        );
+        iterableKeys = iterableKeys.filter((key) => !selectedFilters.includes(key));
     }
 
     let iterableNodes = startingNodes || [];
@@ -361,7 +352,7 @@ export async function showNodeGraph(): Promise<void> {
 
 function processMessage(
     selectedElements: selectedElementsType | undefined,
-    selectedFilters: selectedElementsFilter[] | undefined
+    selectedFilters: registryKey[] | undefined
 ) {
     openWebView!.webview.onDidReceiveMessage((message) => {
         switch (message.type) {

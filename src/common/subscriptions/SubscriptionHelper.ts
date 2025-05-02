@@ -1,4 +1,5 @@
 import * as vscode from 'vscode';
+import { RandomSpawnSchema } from '@common/schemas/randomSpawnSchema';
 
 import {
     checkMythicMobsFile,
@@ -29,6 +30,7 @@ export const ActiveFileTypeInfo: { [K in ActiveFileTypeInfoKeys]: boolean } = {
     droptable: false,
     stat: false,
     placeholder: false,
+    randomspawn: false,
 };
 
 export const extensionEnabler = vscode.window.onDidChangeActiveTextEditor((editor) => {
@@ -165,6 +167,12 @@ const FileTypeInfoMap: {
         key: 'placeholder',
         configKey: 'Placeholder',
         subscriptionHandler: 'placeholder',
+    },
+    randomspawn: {
+        schema: RandomSpawnSchema,
+        key: 'randomspawn',
+        configKey: 'RandomSpawn',
+        subscriptionHandler: 'randomspawn',
     },
 };
 

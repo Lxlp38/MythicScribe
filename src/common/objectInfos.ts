@@ -91,5 +91,6 @@ export const registryKey = [
     'droptable',
     'stat',
     'placeholder',
+    'randomspawn',
 ] as const;
 export type registryKey = (typeof registryKey)[number];

@@ -1,12 +1,12 @@
 [
   {
     "id": "paperattributeoperation",
-    "path": "mythic/attributesoperations.json",
+    "path": "mythic/paperattributeoperation.json",
     "type": "Static"
   },
   {
     "id": "audience",
-    "path": "mythic/audiences.json",
+    "path": "mythic/audience.json",
     "type": "Static"
   },
   {
@@ -61,12 +61,22 @@
   },
   {
     "id": "particle",
-    "path": "mythic/particles.json",
+    "path": "mythic/particle.json",
     "type": "Static"
   },
   {
     "id": "placeholder",
     "path": "mythic/placeholder.json",
+    "type": "Static"
+  },
+  {
+    "id": "randomspawnaction",
+    "path": "mythic/randomspawnaction.json",
+    "type": "Static"
+  },
+  {
+    "id": "randomspawnpositiontype",
+    "path": "mythic/randomspawnpositiontype.json",
     "type": "Static"
   },
   {
@@ -85,8 +95,8 @@
     "type": "Static"
   },
   {
-    "id": "statmodifier",
-    "path": "mythic/statsmodifiers.json",
+    "id": "statsmodifier",
+    "path": "mythic/statsmodifier.json",
     "type": "Static"
   },
   {
@@ -166,12 +176,12 @@
   },
   {
     "id": "sound",
-    "path": "minecraft/sounds.json",
+    "path": "minecraft/sound.json",
     "type": "Volatile"
   },
   {
     "id": "paperattribute",
-    "path": "paper/attributes.json",
+    "path": "paper/paperattribute.json",
     "type": "Volatile"
   },
   {
@@ -237,6 +247,11 @@
   {
     "id": "gamemode",
     "path": "paper/gamemode.json",
+    "type": "Volatile"
+  },
+  {
+    "id": "itemdisplaytransform",
+    "path": "paper/itemdisplaytransform.json",
     "type": "Volatile"
   },
   {
@@ -341,6 +356,11 @@
   },
   {
     "id": "customplaceholder",
+    "path": null,
+    "type": "Scripted"
+  },
+  {
+    "id": "randomspawn",
     "path": null,
     "type": "Scripted"
   },

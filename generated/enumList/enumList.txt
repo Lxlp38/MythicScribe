@@ -12,10 +12,12 @@ mythicentity
 moboption
 particle
 placeholder
+randomspawnaction
+randomspawnpositiontype
 scoreaction
 shape
 statexecutionpoint
-statmodifier
+statsmodifier
 stattype
 variablescope
 addtrade_action
@@ -46,6 +48,7 @@ entitytype
 fireworkeffecttype
 fluidcollisionmode
 gamemode
+itemdisplaytransform
 itemflag
 itemuseanimation
 material
@@ -67,6 +70,7 @@ metaskill
 droptable
 stat
 customplaceholder
+randomspawn
 targeter
 mythicitem
 conditions

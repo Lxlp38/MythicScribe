@@ -129,7 +129,7 @@ class VolatileScribeEnum extends LocalScribeEnum {
 export class WebScribeEnum extends AbstractScribeEnum {
     constructor(identifier: string, path: string) {
         super(identifier, path);
-        fetchJsonFromURL<Enum>(path).then((data) => this.setDataset(data));
+        fetchJsonFromURL<Enum>(path).then((data) => this.setDataset(data || []));
     }
 }
 class LambdaScribeEnum extends AbstractScribeEnum {
@@ -298,6 +298,9 @@ export const ScribeEnumHandler = {
         );
         this.addScriptedEnum(scriptedEnums.CustomPlaceholder, () =>
             fromMythicNodeToEnum(MythicNodeHandler.registry.placeholder.getNodes())
+        );
+        this.addScriptedEnum(scriptedEnums.RandomSpawn, () =>
+            fromMythicNodeToEnum(MythicNodeHandler.registry.randomspawn.getNodes())
         );
     },
 };

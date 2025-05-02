@@ -770,6 +770,9 @@
     "CHISELED_RED_SANDSTONE": {
         "description": ""
     },
+    "CHISELED_RESIN_BRICKS": {
+        "description": ""
+    },
     "CHISELED_SANDSTONE": {
         "description": ""
     },
@@ -798,6 +801,9 @@
         "description": ""
     },
     "CLOCK": {
+        "description": ""
+    },
+    "CLOSED_EYEBLOSSOM": {
         "description": ""
     },
     "COAL": {
@@ -2735,6 +2741,9 @@
     "OMINOUS_TRIAL_KEY": {
         "description": ""
     },
+    "OPEN_EYEBLOSSOM": {
+        "description": ""
+    },
     "ORANGE_BANNER": {
         "description": "BlockData: Rotatable"
     },
@@ -3158,6 +3167,9 @@
     "POTTED_CHERRY_SAPLING": {
         "description": ""
     },
+    "POTTED_CLOSED_EYEBLOSSOM": {
+        "description": ""
+    },
     "POTTED_CORNFLOWER": {
         "description": ""
     },
@@ -3192,6 +3204,9 @@
         "description": ""
     },
     "POTTED_OAK_SAPLING": {
+        "description": ""
+    },
+    "POTTED_OPEN_EYEBLOSSOM": {
         "description": ""
     },
     "POTTED_ORANGE_TULIP": {
@@ -3532,6 +3547,27 @@
     },
     "REPEATING_COMMAND_BLOCK": {
         "description": "BlockData: CommandBlock"
+    },
+    "RESIN_BLOCK": {
+        "description": ""
+    },
+    "RESIN_BRICK": {
+        "description": ""
+    },
+    "RESIN_BRICKS": {
+        "description": ""
+    },
+    "RESIN_BRICK_SLAB": {
+        "description": "BlockData: Slab"
+    },
+    "RESIN_BRICK_STAIRS": {
+        "description": "BlockData: Stairs"
+    },
+    "RESIN_BRICK_WALL": {
+        "description": "BlockData: Wall"
+    },
+    "RESIN_CLUMP": {
+        "description": "BlockData: ResinClump"
     },
     "RESPAWN_ANCHOR": {
         "description": "BlockData: RespawnAnchor"

@@ -1,9 +1,9 @@
 # `paperattributeoperation`
-### Path: `mythic/attributesoperations.json`
+### Path: `mythic/paperattributeoperation.json`
 ### Type: `Static`
 
 # `audience`
-### Path: `mythic/audiences.json`
+### Path: `mythic/audience.json`
 ### Type: `Static`
 
 # `culltype`
@@ -47,11 +47,19 @@
 ### Type: `Static`
 
 # `particle`
-### Path: `mythic/particles.json`
+### Path: `mythic/particle.json`
 ### Type: `Static`
 
 # `placeholder`
 ### Path: `mythic/placeholder.json`
+### Type: `Static`
+
+# `randomspawnaction`
+### Path: `mythic/randomspawnaction.json`
+### Type: `Static`
+
+# `randomspawnpositiontype`
+### Path: `mythic/randomspawnpositiontype.json`
 ### Type: `Static`
 
 # `scoreaction`
@@ -66,8 +74,8 @@
 ### Path: `mythic/statexecutionpoint.json`
 ### Type: `Static`
 
-# `statmodifier`
-### Path: `mythic/statsmodifiers.json`
+# `statsmodifier`
+### Path: `mythic/statsmodifier.json`
 ### Type: `Static`
 
 # `stattype`
@@ -131,11 +139,11 @@
 ### Type: `Static`
 
 # `sound`
-### Path: `minecraft/sounds.json`
+### Path: `minecraft/sound.json`
 ### Type: `Volatile`
 
 # `paperattribute`
-### Path: `paper/attributes.json`
+### Path: `paper/paperattribute.json`
 ### Type: `Volatile`
 
 # `barcolor`
@@ -188,6 +196,10 @@
 
 # `gamemode`
 ### Path: `paper/gamemode.json`
+### Type: `Volatile`
+
+# `itemdisplaytransform`
+### Path: `paper/itemdisplaytransform.json`
 ### Type: `Volatile`
 
 # `itemflag`
@@ -271,6 +283,10 @@
 ### Type: `Scripted`
 
 # `customplaceholder`
+### Path: `null`
+### Type: `Scripted`
+
+# `randomspawn`
 ### Path: `null`
 ### Type: `Scripted`
 

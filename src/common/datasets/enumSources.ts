@@ -1,6 +1,6 @@
 export const volatileEnums = [
-    ['SOUND', 'minecraft/sounds.json'],
-    ['PAPERATTRIBUTE', 'paper/attributes.json'],
+    'minecraft/sound.json',
+    'paper/paperattribute.json',
     'paper/barcolor.json',
     'paper/barstyle.json',
     'paper/billboard.json',
@@ -14,6 +14,7 @@ export const volatileEnums = [
     'paper/fireworkeffecttype.json',
     'paper/fluidcollisionmode.json',
     'paper/gamemode.json',
+    'paper/itemdisplaytransform.json',
     'paper/itemflag.json',
     'paper/itemuseanimation.json',
     'paper/material.json',
@@ -25,8 +26,8 @@ export const volatileEnums = [
 ];
 
 export const localEnums = [
-    ['PAPERATTRIBUTEOPERATION', 'mythic/attributesoperations.json'],
-    ['AUDIENCE', 'mythic/audiences.json'],
+    'mythic/paperattributeoperation.json',
+    'mythic/audience.json',
     'mythic/culltype.json',
     'mythic/equipslot.json',
     'mythic/fluid.json',
@@ -37,12 +38,14 @@ export const localEnums = [
     'mythic/itemrarity.json',
     'mythic/mythicentity.json',
     'mythic/moboption.json',
-    ['PARTICLE', 'mythic/particles.json'],
+    'mythic/particle.json',
     'mythic/placeholder.json',
+    'mythic/randomspawnaction.json',
+    'mythic/randomspawnpositiontype.json',
     'mythic/scoreaction.json',
     'mythic/shape.json',
     'mythic/statexecutionpoint.json',
-    ['STATMODIFIER', 'mythic/statsmodifiers.json'],
+    'mythic/statsmodifier.json',
     'mythic/stattype.json',
     'mythic/variablescope.json',
     'mythic/mechanicScoped/addtrade_action.json',
@@ -74,6 +77,7 @@ export enum scriptedEnums {
     Droptable = 'droptable',
     Stat = 'stat',
     CustomPlaceholder = 'customplaceholder',
+    RandomSpawn = 'randomspawn',
     Targeter = 'targeter',
     MythicItem = 'mythicitem',
 }

@@ -328,6 +328,10 @@
             "Placeholder": {
               "type": "string",
               "description": "Regex to identify Custom Placeholders files."
+            },
+            "RandomSpawn": {
+              "type": "string",
+              "description": "Regex to identify RandomSpawn files."
             }
           },
           "default": {
@@ -337,7 +341,8 @@
             "Metaskill": "[\\\\\\/][Ss]kills[\\\\\\/]",
             "Droptable": "[\\\\\\/][Dd]rop[Tt]ables[\\\\\\/]",
             "Stat": "[\\\\\\/]stats.((yaml)|(yml)|(txt))",
-            "Placeholder": "[\\\\\\/]placeholders.((yaml)|(yml)|(txt))"
+            "Placeholder": "[\\\\\\/]placeholders.((yaml)|(yml)|(txt))",
+            "RandomSpawn": "[\\\\\\/][Rr]andom[Ss]pawns[\\\\\\/]"
           },
           "additionalProperties": false,
           "description": "Regexes used against each document's file path: if it matches, the document will be considered as being a specific type of file, enabling specific functionalities.",

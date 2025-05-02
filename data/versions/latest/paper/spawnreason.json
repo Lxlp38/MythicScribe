@@ -5,6 +5,9 @@
     "BREEDING": {
         "description": "When an entity breeds to create a child, this also include Shulker and Allay"
     },
+    "BUCKET": {
+        "description": "When an entity spawns from a bucket"
+    },
     "BUILD_IRONGOLEM": {
         "description": "When an iron golem is spawned by being built"
     },
@@ -15,7 +18,7 @@
         "description": "When a wither boss is spawned by being built"
     },
     "CHUNK_GEN": {
-        "description": "Deprecated.\nno longer called, chunks are generated with entities\n already existing."
+        "description": "Deprecated, for removal: This API element is subject to removal in a future version.\nno longer called, chunks are generated with entities\n already existing."
     },
     "COMMAND": {
         "description": "When a creature is spawned by the \"/summon\" command"

@@ -84,12 +84,12 @@
         "plugin": "MythicMobs",
         "class": "BOW_HIT",
         "implements": [
-            "Mob",
-            "Item"
+            "Mob"
         ],
         "name": [
             "onBow_Hit",
-            "onBowhit"
+            "onBowhit",
+            "onArrowhit"
         ],
         "description": "Executes a skill when the mob's projectile hits an entity.\n\n> The associated [@trigger](https://git.lumine.io/mythiccraft/MythicMobs/-/wikis/Skills/Targeters/Trigger) is the entity that has been hit\n\n| [Implemented Placeholders](https://git.lumine.io/mythiccraft/MythicMobs/-/wikis/Skills/Placeholders#variable-placeholders)     |\n|--------------------------------|\n| `<skill.var.damage-amount>`    |\n| `<skill.var.damage-type>`      |\n| `<skill.var.damage-cause>`     |",
         "link": "https://git.lumine.io/mythiccraft/MythicMobs/-/wikis/Skills/Triggers/onBowHit",
@@ -582,6 +582,55 @@
     },
     {
         "plugin": "MythicMobs",
+        "class": "PROJECTILE_HIT",
+        "implements": [
+            "Mob"
+        ],
+        "name": [
+            "onProjectile_Hit",
+            "onProjectilehit",
+            "onTrident_Hit",
+            "onTridenthit"
+        ],
+        "description": "Executes a skill when the mob's special projectile type (trident, snowball, wither skull, llama's spit etc) hits an entity.\n\n> The associated [@trigger](https://git.lumine.io/mythiccraft/MythicMobs/-/wikis/Skills/Targeters/Trigger) is the entity that has been hit\n\n| [Implemented Placeholders](https://git.lumine.io/mythiccraft/MythicMobs/-/wikis/Skills/Placeholders#variable-placeholders)     |\n|--------------------------------|\n| `<skill.var.damage-amount>`    |\n| `<skill.var.damage-type>`      |\n| `<skill.var.damage-cause>`     |",
+        "link": "https://git.lumine.io/mythiccraft/MythicMobs/-/wikis/Skills/Triggers/onProjectileHit",
+        "attributes": []
+    },
+    {
+        "plugin": "MythicMobs",
+        "class": "PROJECTILE_LAND",
+        "implements": [
+            "Mob"
+        ],
+        "name": [
+            "onProjectile_Land",
+            "onProjectileland",
+            "onTridentland"
+        ],
+        "description": "Executes a skill when the mob's special projectile type (trident, snowball, wither skull, llama's spit etc) lands on the ground without hitting an entity.",
+        "link": "https://git.lumine.io/mythiccraft/MythicMobs/-/wikis/Skills/Triggers/onProjectileLand",
+        "attributes": []
+    },
+    {
+        "plugin": "MythicMobs",
+        "class": "PROJECTILE_THROW",
+        "implements": [
+            "Item"
+        ],
+        "name": [
+            "onProjectile_Throw",
+            "onProjectilethrow",
+            "onThrow",
+            "onTrident_Throw",
+            "onThrowtrident",
+            "onTridentthrow"
+        ],
+        "description": "Executes the skill when the special projectile item is thrown\n\n> **This is a [Paper-Only](https://papermc.io/downloads/all) mechanic!**",
+        "link": "https://git.lumine.io/mythiccraft/mythiccrucible/-/wikis/Skills/Triggers/onProjectileThrow",
+        "attributes": []
+    },
+    {
+        "plugin": "MythicMobs",
         "class": "READY",
         "implements": [
             "Mob"
@@ -786,21 +835,6 @@
         ],
         "description": "Executes the skill when the villager trades with a player.  \n\n> The associated [@trigger](https://git.lumine.io/mythiccraft/MythicMobs/-/wikis/Skills/Targeters/Trigger) is the player that traded with the villager",
         "link": "https://git.lumine.io/mythiccraft/MythicMobs/-/wikis/Skills/Triggers/onTrade",
-        "attributes": []
-    },
-    {
-        "plugin": "MythicMobs",
-        "class": "TRIDENT_THROW",
-        "implements": [
-            "Item"
-        ],
-        "name": [
-            "onTrident_Throw",
-            "onThrowtrident",
-            "onTridentthrow"
-        ],
-        "description": "Executes the skill when the trident item is thrown\n\n> **This is a [Paper-Only](https://papermc.io/downloads/all) mechanic!**",
-        "link": "https://git.lumine.io/mythiccraft/mythiccrucible/-/wikis/Skills/Triggers/onTridentThrow",
         "attributes": []
     },
     {

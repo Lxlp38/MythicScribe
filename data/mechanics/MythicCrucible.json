@@ -355,6 +355,85 @@
     },
     {
         "plugin": "MythicCrucible",
+        "class": "DamageProjectileMechanic",
+        "extends": "DamageMechanic",
+        "implements": [
+            "ITargetedEntitySkill"
+        ],
+        "name": [
+            "projectileDamage",
+            "projectileHit",
+            "arrowhit"
+        ],
+        "description": "Simulates an hit from a bow's projectile. Useful for creating bows with custom projectiles that deal damage consistent with minecraft's bow mechanics. Damage done will scale appropriately with the projectile's velocity and the Power enchant on the bow that fired it.  \n\nSimilar in scope to the [Hit Mechanic](https://git.lumine.io/mythiccraft/mythiccrucible/-/wikis/../../../MythicMobs/-/wikis/Skills/Mechanics/Hit)\n\nCan notably be used with\n- the [ArrowDamage](https://git.lumine.io/mythiccraft/mythiccrucible/-/wikis/Items#arrowdamage) attribute\n- [~onShoot](https://git.lumine.io/mythiccraft/mythiccrucible/-/wikis/Skills/Triggers/onShoot) trigger for bows\n- [projectile](https://git.lumine.io/mythiccraft/mythiccrucible/-/wikis/../../../MythicMobs/-/wikis/Skills/Mechanics/Projectile) mechanics\n\nInherits every attribute of the [Damage](https://git.lumine.io/mythiccraft/mythiccrucible/-/wikis/skills/mechanics/damage) mechanic.  \n\nThe damage cause used by this mechanic is `PROJECTILE`",
+        "link": "https://git.lumine.io/mythiccraft/mythiccrucible/-/wikis/Skills/Mechanics/ProjectileHit",
+        "attributes": [
+            {
+                "name": [
+                    "triggerskills",
+                    "ts"
+                ],
+                "type": "Boolean",
+                "description": "Whether the damage mechanic should also be able to trigger `onBowHit` related triggers",
+                "link": "https://git.lumine.io/mythiccraft/mythiccrucible/-/wikis/Skills/Mechanics/ProjectileHit",
+                "default_value": "true"
+            },
+            {
+                "name": [
+                    "multiplier",
+                    "m"
+                ],
+                "type": "PlaceholderDouble",
+                "description": "The percentage of damage to deal",
+                "link": "https://git.lumine.io/mythiccraft/mythiccrucible/-/wikis/Skills/Mechanics/ProjectileHit",
+                "default_value": "1"
+            },
+            {
+                "name": [
+                    "forcedDamage",
+                    "fd",
+                    "forced"
+                ],
+                "type": "PlaceholderDouble",
+                "description": "If this attribute is set, the one specified will be the amount of flat damage that will be inflicted, without consideration for attribute modifiers and similar other modifiers",
+                "link": "https://git.lumine.io/mythiccraft/mythiccrucible/-/wikis/Skills/Mechanics/ProjectileHit",
+                "default_value": "0"
+            },
+            {
+                "name": [
+                    "poweraffectsdamage",
+                    "pad"
+                ],
+                "type": "Boolean",
+                "description": "Whether the mechanic's [power](https://git.lumine.io/mythiccraft/mythiccrucible/-/wikis/../../../MythicMobs/-/wikis/Mobs/Power) should affect damage",
+                "link": "https://git.lumine.io/mythiccraft/mythiccrucible/-/wikis/Skills/Mechanics/ProjectileHit",
+                "default_value": "false"
+            },
+            {
+                "name": [
+                    "velocityaffectsdamage",
+                    "vad"
+                ],
+                "type": "Boolean",
+                "description": "Whether a projectile's velocity should affect its damage",
+                "link": "https://git.lumine.io/mythiccraft/mythiccrucible/-/wikis/Skills/Mechanics/ProjectileHit",
+                "default_value": "true"
+            },
+            {
+                "name": [
+                    "critAtMaxPower",
+                    "doCrits",
+                    "crit"
+                ],
+                "type": "Boolean",
+                "description": "Whether a projectile shot at the maximum bow power should be able to become a critical one",
+                "link": "https://git.lumine.io/mythiccraft/mythiccrucible/-/wikis/Skills/Mechanics/ProjectileHit",
+                "default_value": "true"
+            }
+        ]
+    },
+    {
+        "plugin": "MythicCrucible",
         "class": "DealCustomDurabilityMechanic",
         "extends": "SkillMechanic",
         "implements": [

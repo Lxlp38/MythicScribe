@@ -111,6 +111,7 @@ export class MythicNode {
         droptable: new Set(),
         stat: new Set(),
         placeholder: new Set(),
+        randomspawn: new Set(),
     };
     constructor(
         public registry: MythicNodeRegistry,
@@ -397,6 +398,7 @@ export namespace MythicNodeHandler {
         droptable: new MythicNodeRegistry('droptable'),
         stat: new MythicNodeRegistry('stat'),
         placeholder: new MythicNodeRegistry('placeholder'),
+        randomspawn: new MythicNodeRegistry('randomspawn'),
     };
 
     export function getRegistry(key: string): MythicNodeRegistry | undefined {

@@ -2599,6 +2599,15 @@
                 "description": "The offset of the ring on the z axis",
                 "link": "https://git.lumine.io/mythiccraft/MythicMobs/-/wikis/Skills/Targeters/RingAroundOrigin",
                 "default_value": "0"
+            },
+            {
+                "name": [
+                    "relative"
+                ],
+                "type": "Boolean",
+                "description": "Whether the Ring's orientation should be relative to the caster's",
+                "link": "https://git.lumine.io/mythiccraft/MythicMobs/-/wikis/Skills/Targeters/RingAroundOrigin",
+                "default_value": "false"
             }
         ]
     },

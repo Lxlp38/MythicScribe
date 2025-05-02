@@ -372,10 +372,10 @@ async function processCustomDatasetEntry(entry: CustomDataset, stack?: string[])
         const localDataset = await fetchJsonFromLocalFile<Mechanic>(
             vscode.Uri.parse(entry.pathOrUrl)
         );
-        customMechanicCache.push({ data: localDataset, type: entry.elementType });
+        customMechanicCache.push({ data: localDataset || [], type: entry.elementType });
     } else if (isLinkSource(entry.source)) {
         const fileData = await fetchJsonFromURL<Mechanic>(entry.pathOrUrl);
-        customMechanicCache.push({ data: fileData, type: entry.elementType });
+        customMechanicCache.push({ data: fileData || [], type: entry.elementType });
     }
 }
 

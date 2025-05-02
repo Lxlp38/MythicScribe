@@ -18,6 +18,7 @@ export const fileRegexConfigCache = {
     Droptable: undefined as string | undefined,
     Stat: undefined as string | undefined,
     Placeholder: undefined as string | undefined,
+    RandomSpawn: undefined as string | undefined,
 };
 
 const fileParsingPolicyConfigCache = {

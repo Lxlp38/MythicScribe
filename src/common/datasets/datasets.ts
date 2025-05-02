@@ -24,7 +24,7 @@ const GITHUB_API_COMMITS_BASE_URL =
     'https://api.github.com/repos/Lxlp38/MythicScribe/commits?path=';
 const GITHUB_API_COMMITS_URL = 'https://api.github.com/repos/Lxlp38/MythicScribe/commits?path=data';
 
-let shouldUpdateGithubDatasets = false;
+let shouldUpdateGithubDatasets = true;
 
 let edcsUri: vscode.Uri;
 export function setEdcsUri() {
@@ -181,7 +181,7 @@ async function fetchLatestCommitHash(): Promise<string | null> {
     }
 }
 
-export async function fetchJsonFromURL<T>(url: string): Promise<T[]> {
+export async function fetchJsonFromURL<T>(url: string): Promise<T[] | undefined> {
     Log.debug(`Fetching JSON data from URL: ${url}`);
     try {
         const response = await fetch(url);
@@ -192,7 +192,7 @@ export async function fetchJsonFromURL<T>(url: string): Promise<T[]> {
         }
     } catch (error) {
         Log.error(error);
-        return [];
+        return undefined;
     }
 }
 

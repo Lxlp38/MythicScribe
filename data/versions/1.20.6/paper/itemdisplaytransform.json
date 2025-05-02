@@ -1,0 +1,29 @@
+{
+    "FIRSTPERSON_LEFTHAND": {
+        "description": ""
+    },
+    "FIRSTPERSON_RIGHTHAND": {
+        "description": ""
+    },
+    "FIXED": {
+        "description": ""
+    },
+    "GROUND": {
+        "description": ""
+    },
+    "GUI": {
+        "description": ""
+    },
+    "HEAD": {
+        "description": ""
+    },
+    "NONE": {
+        "description": ""
+    },
+    "THIRDPERSON_LEFTHAND": {
+        "description": ""
+    },
+    "THIRDPERSON_RIGHTHAND": {
+        "description": ""
+    }
+}

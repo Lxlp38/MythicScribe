@@ -290,6 +290,264 @@ export const MobSchema: Schema = {
             },
         },
     },
+    DropOptions: {
+        type: SchemaElementTypes.KEY,
+        link: 'https://git.lumine.io/mythiccraft/MythicMobs/-/wikis/drops/FancyDrops',
+        description: 'The FancyDrop options for the mob',
+        keys: {
+            DropMethod: {
+                type: SchemaElementTypes.ENUM,
+                dataset: 'DROPMETHOD',
+                description: 'Determines the drop method. Defaults to VANILLA.',
+                link: 'https://git.lumine.io/mythiccraft/MythicMobs/-/wikis/drops/FancyDrops#dropmethod',
+            },
+            ShowDeathChatMessage: {
+                type: SchemaElementTypes.BOOLEAN,
+                description: 'Whether to show the death chat message to the players.',
+                link: 'https://git.lumine.io/mythiccraft/MythicMobs/-/wikis/drops/FancyDrops#showdeathchatmessage',
+            },
+            ShowDeathHologram: {
+                type: SchemaElementTypes.BOOLEAN,
+                description: 'Whether to show the death hologram to the players.',
+                link: 'https://git.lumine.io/mythiccraft/MythicMobs/-/wikis/drops/FancyDrops#showdeathhologram',
+            },
+            PerPlayerDrops: {
+                type: SchemaElementTypes.BOOLEAN,
+                description: 'Whether to calculate drops separately for each player.',
+                link: 'https://git.lumine.io/mythiccraft/MythicMobs/-/wikis/drops/FancyDrops#perplayerdrops',
+            },
+            ClientSideDrops: {
+                type: SchemaElementTypes.BOOLEAN,
+                description: 'Whether drops should be seen per-player in a client-side manner.',
+                link: 'https://git.lumine.io/mythiccraft/MythicMobs/-/wikis/drops/FancyDrops#clientsidedrops',
+            },
+            Lootsplosion: {
+                type: SchemaElementTypes.BOOLEAN,
+                description: 'Whether the drops should do a lootsplosion effect by default.',
+                link: 'https://git.lumine.io/mythiccraft/MythicMobs/-/wikis/drops/FancyDrops#lootsplosion',
+            },
+            HologramItemNames: {
+                type: SchemaElementTypes.BOOLEAN,
+                description: 'Whether the items should have a hologram name by default.',
+                link: 'https://git.lumine.io/mythiccraft/MythicMobs/-/wikis/drops/FancyDrops#hologramitemnames',
+            },
+            ItemGlowByDefault: {
+                type: SchemaElementTypes.BOOLEAN,
+                description: 'Whether items should glow by default.',
+                link: 'https://git.lumine.io/mythiccraft/MythicMobs/-/wikis/drops/FancyDrops#itemglowbydefault',
+            },
+            ItemBeamByDefault: {
+                type: SchemaElementTypes.BOOLEAN,
+                description: 'Whether items should have a beam by default.',
+                link: 'https://git.lumine.io/mythiccraft/MythicMobs/-/wikis/drops/FancyDrops#itembeambydefault',
+            },
+            ItemVFXByDefault: {
+                type: SchemaElementTypes.BOOLEAN,
+                description: 'Whether items should have a VFX by default.',
+                link: 'https://git.lumine.io/mythiccraft/MythicMobs/-/wikis/drops/FancyDrops#itemvfxbydefault',
+            },
+            ItemVFX: {
+                type: SchemaElementTypes.KEY,
+                description: 'The VFX material for the items.',
+                link: 'https://git.lumine.io/mythiccraft/MythicMobs/-/wikis/drops/FancyDrops#itemvfx',
+                keys: {
+                    Material: {
+                        type: SchemaElementTypes.ENUM,
+                        dataset: 'MATERIAL',
+                        description: 'The default material of the VFX.',
+                    },
+                    Model: {
+                        type: SchemaElementTypes.INTEGER,
+                        description: 'The default model of the VFX.',
+                    },
+                },
+            },
+            RequiredDamagePercent: {
+                type: SchemaElementTypes.FLOAT,
+                values: generateNumbersInRange(0.0, 1.0, 0.1, true),
+                description: 'The required damage percentage to generate drops for a player.',
+                link: 'https://git.lumine.io/mythiccraft/MythicMobs/-/wikis/drops/FancyDrops#requireddamagepercent',
+            },
+            HologramTimeout: {
+                type: SchemaElementTypes.INTEGER,
+                values: generateNumbersInRange(1000, 10000, 1000, false),
+                description: 'The timeout for the hologram in milliseconds.',
+                link: 'https://git.lumine.io/mythiccraft/MythicMobs/-/wikis/drops/FancyDrops#hologramtimeout',
+            },
+            HologramMessage: {
+                type: SchemaElementTypes.LIST,
+                description: 'The hologram message displayed when the mob dies.',
+                link: 'https://git.lumine.io/mythiccraft/MythicMobs/-/wikis/drops/FancyDrops#hologrammessage',
+            },
+            ChatMessage: {
+                type: SchemaElementTypes.LIST,
+                description: 'The chat message sent to players when the mob dies.',
+                link: 'https://git.lumine.io/mythiccraft/MythicMobs/-/wikis/drops/FancyDrops#chatmessage',
+            },
+        },
+    },
+    DisplayOptions: {
+        type: SchemaElementTypes.KEY,
+        link: 'https://git.lumine.io/mythiccraft/MythicMobs/-/wikis/Mobs/DisplayOptions',
+        description: 'Options for configuring display entities.',
+        keys: {
+            ViewRange: {
+                type: SchemaElementTypes.FLOAT,
+                description: 'The maximum view range/distance.',
+                values: generateNumbersInRange(0.1, 10.0, 0.1, true),
+                link: 'https://git.lumine.io/mythiccraft/MythicMobs/-/wikis/Mobs/DisplayOptions#viewrange',
+            },
+            Width: {
+                type: SchemaElementTypes.FLOAT,
+                description: 'The display width.',
+                values: generateNumbersInRange(0.0, 10.0, 0.1, true),
+                link: 'https://git.lumine.io/mythiccraft/MythicMobs/-/wikis/Mobs/DisplayOptions#width',
+            },
+            Height: {
+                type: SchemaElementTypes.FLOAT,
+                description: 'The display height.',
+                values: generateNumbersInRange(0.0, 10.0, 0.1, true),
+                link: 'https://git.lumine.io/mythiccraft/MythicMobs/-/wikis/Mobs/DisplayOptions#height',
+            },
+            ShadowRadius: {
+                type: SchemaElementTypes.FLOAT,
+                description: "The display's shadow radius.",
+                values: generateNumbersInRange(0.0, 10.0, 0.1, true),
+                link: 'https://git.lumine.io/mythiccraft/MythicMobs/-/wikis/Mobs/DisplayOptions#shadowradius',
+            },
+            ShadowStrength: {
+                type: SchemaElementTypes.FLOAT,
+                description: "The opacity of the display entity's shadow.",
+                values: generateNumbersInRange(0.0, 1.0, 0.1, true),
+                link: 'https://git.lumine.io/mythiccraft/MythicMobs/-/wikis/Mobs/DisplayOptions#shadowstrength',
+            },
+            Billboard: {
+                type: SchemaElementTypes.ENUM,
+                description: 'Controls where the display entity pivots when rendered.',
+                dataset: 'BILLBOARD',
+                link: 'https://git.lumine.io/mythiccraft/MythicMobs/-/wikis/Mobs/DisplayOptions#billboard',
+            },
+            TeleportDuration: {
+                type: SchemaElementTypes.INTEGER,
+                description: 'Set the teleport duration in ticks.',
+                values: generateNumbersInRange(0, 100, 1, false),
+                link: 'https://git.lumine.io/mythiccraft/MythicMobs/-/wikis/Mobs/DisplayOptions#teleportduration',
+            },
+            InterpolationDelay: {
+                type: SchemaElementTypes.INTEGER,
+                description: 'Set the delay before starting interpolation.',
+                values: generateNumbersInRange(0, 100, 1, false),
+                link: 'https://git.lumine.io/mythiccraft/MythicMobs/-/wikis/Mobs/DisplayOptions#interpolationdelay',
+            },
+            InterpolationDuration: {
+                type: SchemaElementTypes.INTEGER,
+                description: 'Set the interpolation duration in ticks.',
+                values: generateNumbersInRange(0, 100, 1, false),
+                link: 'https://git.lumine.io/mythiccraft/MythicMobs/-/wikis/Mobs/DisplayOptions#interpolationduration',
+            },
+            ColorOverride: {
+                type: SchemaElementTypes.STRING,
+                description: 'Set the glow border color.',
+                link: 'https://git.lumine.io/mythiccraft/MythicMobs/-/wikis/Mobs/DisplayOptions#coloroverride',
+            },
+            BlockLight: {
+                type: SchemaElementTypes.INTEGER,
+                description: 'Set the blocklight brightness.',
+                values: generateNumbersInRange(0, 15, 1, false),
+                link: 'https://git.lumine.io/mythiccraft/MythicMobs/-/wikis/Mobs/DisplayOptions#blocklight',
+            },
+            SkyLight: {
+                type: SchemaElementTypes.INTEGER,
+                description: 'Set the skylight brightness.',
+                values: generateNumbersInRange(0, 15, 1, false),
+                link: 'https://git.lumine.io/mythiccraft/MythicMobs/-/wikis/Mobs/DisplayOptions#skylight',
+            },
+            Translation: {
+                type: SchemaElementTypes.VECTOR,
+                description: 'Set the display entity translation.',
+                values: ['0,0,0'],
+                link: 'https://git.lumine.io/mythiccraft/MythicMobs/-/wikis/Mobs/DisplayOptions#translation',
+            },
+            Scale: {
+                type: SchemaElementTypes.VECTOR,
+                description: 'Set the scale of the display entity.',
+                values: ['1,1,1'],
+                link: 'https://git.lumine.io/mythiccraft/MythicMobs/-/wikis/Mobs/DisplayOptions#scale',
+            },
+            LeftRotation: {
+                type: SchemaElementTypes.VECTOR,
+                description: 'Set the left rotation using quaternions or euler.',
+                values: ['0,0,0,1'],
+                link: 'https://git.lumine.io/mythiccraft/MythicMobs/-/wikis/Mobs/DisplayOptions#lefrotation',
+            },
+            RightRotation: {
+                type: SchemaElementTypes.VECTOR,
+                description: 'Set the right rotation using quaternions or euler.',
+                values: ['0,0,0,1'],
+                link: 'https://git.lumine.io/mythiccraft/MythicMobs/-/wikis/Mobs/DisplayOptions#righrotation',
+            },
+            Block: {
+                type: SchemaElementTypes.ENUM,
+                dataset: 'MATERIAL',
+                description: 'The block (and state) to use for block displays.',
+                link: 'https://git.lumine.io/mythiccraft/MythicMobs/-/wikis/Mobs/DisplayOptions#block',
+            },
+            Item: {
+                type: SchemaElementTypes.STRING,
+                description: 'The item to use for item displays.',
+                link: 'https://git.lumine.io/mythiccraft/MythicMobs/-/wikis/Mobs/DisplayOptions#item',
+            },
+            Transform: {
+                type: SchemaElementTypes.ENUM,
+                description: 'The model transform applied to the item.',
+                dataset: 'ITEMDISPLAYTRANSFORM',
+                link: 'https://git.lumine.io/mythiccraft/MythicMobs/-/wikis/Mobs/DisplayOptions#transform',
+            },
+            Text: {
+                type: SchemaElementTypes.STRING,
+                description: 'Set the text to show for text displays.',
+                link: 'https://git.lumine.io/mythiccraft/MythicMobs/-/wikis/Mobs/DisplayOptions#text',
+            },
+            Opacity: {
+                type: SchemaElementTypes.INTEGER,
+                description: 'Set the text opacity, ranging from 0 to 255.',
+                values: generateNumbersInRange(0, 255, 1, false),
+                link: 'https://git.lumine.io/mythiccraft/MythicMobs/-/wikis/Mobs/DisplayOptions#opacity',
+            },
+            DefaultBackground: {
+                type: SchemaElementTypes.BOOLEAN,
+                description: 'Whether to render using the default text background color.',
+                link: 'https://git.lumine.io/mythiccraft/MythicMobs/-/wikis/Mobs/DisplayOptions#defaultbackground',
+            },
+            BackgroundColor: {
+                type: SchemaElementTypes.STRING,
+                description: 'Set the text background color.',
+                link: 'https://git.lumine.io/mythiccraft/MythicMobs/-/wikis/Mobs/DisplayOptions#backgroundcolor',
+            },
+            Alignment: {
+                type: SchemaElementTypes.ENUM,
+                description: 'Set the text alignment.',
+                dataset: 'TEXTALIGNMENT',
+                link: 'https://git.lumine.io/mythiccraft/MythicMobs/-/wikis/Mobs/DisplayOptions#alignment',
+            },
+            LineWidth: {
+                type: SchemaElementTypes.INTEGER,
+                description: 'The maximum line width used to split lines.',
+                values: generateNumbersInRange(0, 500, 10, false),
+                link: 'https://git.lumine.io/mythiccraft/MythicMobs/-/wikis/Mobs/DisplayOptions#linewidth',
+            },
+            Shadowed: {
+                type: SchemaElementTypes.BOOLEAN,
+                description: 'Whether the text should be displayed with a shadow.',
+                link: 'https://git.lumine.io/mythiccraft/MythicMobs/-/wikis/Mobs/DisplayOptions#shadowed',
+            },
+            SeeThrough: {
+                type: SchemaElementTypes.BOOLEAN,
+                description: 'Whether the text should be visible through blocks.',
+                link: 'https://git.lumine.io/mythiccraft/MythicMobs/-/wikis/Mobs/DisplayOptions#seethrough',
+            },
+        },
+    },
 };
 
 addEnumLoadedFunction('moboption', (target: AbstractScribeEnum) => {

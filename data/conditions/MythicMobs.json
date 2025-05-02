@@ -4052,9 +4052,9 @@
                     "str"
                 ],
                 "type": "Boolean",
-                "description": "Whether to match exactly",
+                "description": "Whether to match exactly. Checks if the current stance contains this word if set to false",
                 "link": "https://git.lumine.io/mythiccraft/MythicMobs/-/wikis/Skills/Conditions/stance",
-                "default_value": "false"
+                "default_value": "true"
             }
         ]
     },

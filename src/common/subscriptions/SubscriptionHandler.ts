@@ -1,4 +1,5 @@
 import * as vscode from 'vscode';
+import { RandomSpawnSchema } from '@common/schemas/randomSpawnSchema';
 
 import { keyAliases, TriggerType } from '../objectInfos';
 import { triggerfileCompletionProvider } from '../completions/file/triggerfileCompletionProvider';
@@ -257,6 +258,23 @@ class PlaceholderSubscriptionHandler extends AbstractScribeSubscription {
     }
 }
 
+class RandomSpawnSubscriptionHandler extends AbstractScribeSubscription {
+    constructor() {
+        super(
+            [
+                () => genericFileCompletionProvider(RandomSpawnSchema),
+                () =>
+                    hoverProvider(RandomSpawnSchema, {
+                        keys: ['Conditions'],
+                        registry: ScribeMechanicHandler.registry.condition,
+                    }),
+                () => conditionCompletionProvider(),
+            ],
+            [enableFileSpecificSuggestions]
+        );
+    }
+}
+
 export const ScribeSubscriptionHandler = {
     registry: {
         global: new GlobalSubscriptionHandler(),
@@ -266,6 +284,7 @@ export const ScribeSubscriptionHandler = {
         droptable: new DroptableSubscriptionHandler(),
         stat: new StatSubscriptionHandler(),
         placeholder: new PlaceholderSubscriptionHandler(),
+        randomspawn: new RandomSpawnSubscriptionHandler(),
     },
 
     disposeAll() {
