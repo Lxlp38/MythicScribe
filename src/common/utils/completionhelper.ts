@@ -11,6 +11,7 @@ import {
 } from '../objectInfos';
 import { MythicMechanic } from '../datasets/ScribeMechanic';
 import { EnumDatasetValue, ScribeEnumHandler } from '../datasets/ScribeEnum';
+import { getObjectInTree } from './schemautils';
 
 export const retriggerCompletionsCommand: vscode.Command = {
     command: 'editor.action.triggerSuggest',
@@ -339,29 +340,6 @@ function fileCompletionForFileObject(
     }
 
     return completionItems;
-}
-
-function getObjectInTree(keys: string[], type: FileObjectMap): FileObject | undefined {
-    const key = keys[0];
-    keys = keys.slice(1);
-    const object = type[key];
-    if (!object) {
-        if (FileObjectSpecialKeys.WILDKEY in type) {
-            const wildcardObject = type[FileObjectSpecialKeys.WILDKEY]!;
-            if (wildcardObject.keys) {
-                return getObjectInTree(keys, wildcardObject.keys);
-            }
-        }
-        return undefined;
-    }
-    if (keys.length === 0) {
-        return object;
-    }
-    if (object.type === FileObjectTypes.KEY && object.keys) {
-        const newobject = object.keys;
-        return getObjectInTree(keys, newobject);
-    }
-    return undefined;
 }
 
 // Completes Invocations

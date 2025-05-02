@@ -1,6 +1,7 @@
 import * as vscode from 'vscode';
+import { getObjectInTree } from '@common/utils/schemautils';
 
-import { FileObjectMap, FileObjectTypes } from '../../objectInfos';
+import { FileObjectMap } from '../../objectInfos';
 import {
     MythicAttribute,
     AbstractScribeMechanicRegistry,
@@ -27,7 +28,7 @@ export function hoverProvider(
                 document,
                 position,
                 fileobject,
-                getHoverForFileElement,
+                findHoverForFileElement,
                 getHoverForAttribute,
                 getHover,
                 ...keydependencies
@@ -131,7 +132,7 @@ async function getHoverForAttribute(attribute: MythicAttribute): Promise<vscode.
     return new vscode.Hover(hoverContent);
 }
 
-function getMinimalHover(
+function getHoverForFileElement(
     title: string,
     description: string | undefined,
     link: string | undefined
@@ -144,23 +145,21 @@ ${description ? description : 'No description provided.'}`);
     return new vscode.Hover(hoverContent);
 }
 
-function getHoverForFileElement(
+function findHoverForFileElement(
     keys: string[],
     type: FileObjectMap,
     link: string | undefined
 ): vscode.Hover | undefined {
-    const key = keys[0];
-    keys = keys.slice(1);
-    const object = type[key];
+    if (keys.length === 0) {
+        return undefined;
+    }
+    const object = getObjectInTree(keys, type);
     if (!object) {
         return undefined;
     }
-    if (keys.length === 0) {
-        return getMinimalHover(key, object.description, object.link ? object.link : link);
-    }
-    if (object.type === FileObjectTypes.KEY) {
-        const newobject = object.keys;
-        return getHoverForFileElement(keys, newobject, object.link);
-    }
-    return undefined;
+    return getHoverForFileElement(
+        keys.pop()!,
+        object.description,
+        object.link ? object.link : link
+    );
 }

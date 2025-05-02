@@ -104,7 +104,7 @@ It provides hover text with information about the pointed object and offers auto
 
 # Extension Commands
 
-* `MythicScribe.addCustomDataset`: Adds a Custom Dataset from either a local path a link
+* `MythicScribe.addCustomDataset`: Adds a Custom Dataset from either a local path or a link
 * `MythicScribe.removeCustomDataset`: Removes one or multiple Custom Datasets
 * `MythicScribe.createBundleDataset`: Creates a Bundle Dataset based on other Custom Datasets you have previously added
 * `MythicScribe.openLogs`: Opens the Extension's logs. For debugging purposes

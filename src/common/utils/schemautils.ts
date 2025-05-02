@@ -1,4 +1,4 @@
-import { FileObjectMap } from '../objectInfos';
+import { FileObject, FileObjectMap, FileObjectSpecialKeys, FileObjectTypes } from '../objectInfos';
 
 /**
  * Generates an array of numbers in a specified range, formatted as strings.
@@ -60,4 +60,60 @@ export function expandFileObjectsToMap(obj: FileObjectMap, insert: FileObjectMap
         const value = insert[key];
         obj[key] = value;
     }
+}
+
+export function getObjectInTree(
+    keys: string[],
+    type: FileObjectMap,
+    link?: string
+): FileObject | undefined {
+    const key = keys[0];
+    keys = keys.slice(1);
+    const object = type[key];
+    if (!object) {
+        return handleSpecialObjects(keys, type, link);
+    }
+    if (keys.length === 0) {
+        if (!object.link) {
+            object.link = link;
+        }
+        return object;
+    }
+    if (object.type === FileObjectTypes.KEY && object.keys) {
+        const newobject = object.keys;
+        return getObjectInTree(keys, newobject, object.link);
+    }
+    return undefined;
+}
+
+function handleSpecialObjects(
+    keys: string[],
+    type: FileObjectMap,
+    link?: string
+): FileObject | undefined {
+    if (FileObjectSpecialKeys.WILDKEY in type) {
+        const wildkey = handleWildKeyObject(keys, type, link);
+        if (wildkey) {
+            return wildkey;
+        }
+    }
+    return undefined;
+}
+
+function handleWildKeyObject(
+    keys: string[],
+    type: FileObjectMap,
+    link?: string
+): FileObject | undefined {
+    const wildcardObject = type[FileObjectSpecialKeys.WILDKEY]!;
+    if (!wildcardObject.link) {
+        wildcardObject.link = link;
+    }
+    if (keys.length === 0) {
+        return wildcardObject;
+    }
+    if (wildcardObject.keys) {
+        return getObjectInTree(keys, wildcardObject.keys, wildcardObject.link);
+    }
+    return undefined;
 }
