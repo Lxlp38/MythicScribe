@@ -47,7 +47,7 @@ export function attributeCompletionProvider() {
 
                 const keys = yamlutils.getParentKeys(document, position);
 
-                const mechanic = searchForLinkedObject(
+                const mechanic = searchForLinkedMythicMechanic(
                     document,
                     position,
                     yamlutils.getKeyNameFromYamlKey(keys),
@@ -194,7 +194,7 @@ export function attributeValueCompletionProvider() {
     return attributeValueCompletionProvider;
 }
 
-function searchForLinkedObject(
+function searchForLinkedMythicMechanic(
     document: vscode.TextDocument,
     position: vscode.Position,
     keys: string[],
@@ -288,7 +288,7 @@ export function searchForLinkedAttribute(
     if (keys.length === 0) {
         return undefined;
     }
-    const mechanic = searchForLinkedObject(
+    const mechanic = searchForLinkedMythicMechanic(
         document,
         position,
         yamlutils.getKeyNameFromYamlKey(keys),

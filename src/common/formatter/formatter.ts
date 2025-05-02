@@ -3,7 +3,7 @@ import { parseDocument } from 'yaml';
 
 import { getDefaultIndentation, getDocumentSearchList, YamlKeyPairList } from '../utils/yamlutils';
 import Log from '../utils/logger';
-import { FileObjectTypes } from '../objectInfos';
+import { SchemaElementTypes } from '../objectInfos';
 
 type Comment = {
     text: string;
@@ -164,10 +164,10 @@ function restoreCommentsExec(
     if (relatedNode) {
         // If a node is found, we need to check for its intended indentation
         let relatedNodeIndent = relatedNode.yamlKey.indent;
-        const type = relatedNode.fileObject?.type;
+        const type = relatedNode.schemaElement?.type;
 
         // If the node is a list, we need to add an extra indentation level
-        if (type && type in [FileObjectTypes.LIST, FileObjectTypes.KEY_LIST]) {
+        if (type && type in [SchemaElementTypes.LIST, SchemaElementTypes.KEY_LIST]) {
             relatedNodeIndent += getDefaultIndentation();
         }
         if (indent !== relatedNodeIndent) {

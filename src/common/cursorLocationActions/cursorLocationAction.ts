@@ -1,7 +1,7 @@
 import * as vscode from 'vscode';
 
 import { MythicMechanic, MythicAttribute } from '../datasets/ScribeMechanic';
-import { FileObjectMap, keyAliases, registryKey } from '../objectInfos';
+import { Schema, keyAliases, registryKey } from '../objectInfos';
 import { getCursorSkills, getCursorObject } from '../utils/cursorutils';
 import * as yamlutils from '../utils/yamlutils';
 import { MythicNode, MythicNodeHandler } from '../mythicnodes/MythicNode';
@@ -16,13 +16,13 @@ import { ConditionActions } from '../schemas/conditionActions';
 import { KeyDependantMechanicLikeHover } from './providers/hoverprovider';
 
 export namespace CursorLocationAction {
-    export function forFileObject<T>(
+    export function forSchema<T>(
         document: vscode.TextDocument,
         position: vscode.Position,
-        fileobject: FileObjectMap,
+        schema: Schema,
         fileElementFunction: (
             keys: string[],
-            type: FileObjectMap,
+            type: Schema,
             link: string | undefined
         ) => T | undefined,
         attributeFunction: (attribute: MythicAttribute) => Promise<T | undefined>,
@@ -42,7 +42,7 @@ export namespace CursorLocationAction {
 
             return fileElementFunction(
                 yamlutils.getKeyNameFromYamlKey(keys.slice(1)),
-                fileobject,
+                schema,
                 undefined
             );
         }

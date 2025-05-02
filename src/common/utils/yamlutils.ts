@@ -7,7 +7,7 @@ import {
     ScribeMechanicHandler,
 } from '../datasets/ScribeMechanic';
 import { getSquareBracketObject } from './cursorutils';
-import { FileObject, FileObjectMap, FileObjectSpecialKeys } from '../objectInfos';
+import { SchemaElement, Schema, SchemaElementSpecialKeys } from '../objectInfos';
 import { ArrayListNode } from './genericDataStructures';
 import { checkFileType } from '../subscriptions/SubscriptionHelper';
 
@@ -145,7 +145,7 @@ export function getDocumentKeys(text: string): YamlKey[] {
 function buildYamlKeyTree(
     keys: YamlKey[],
     baseIndent: number,
-    schemaMapping: FileObjectMap | null
+    schemaMapping: Schema | null
 ): YamlKeyPair[] {
     const pairs: YamlKeyPair[] = [];
     let i = 0;
@@ -161,19 +161,19 @@ function buildYamlKeyTree(
 
         // For nested keys (indent > baseIndent) we want to look up in the schema mapping.
         // Remove a potential trailing colon from the key name.
-        let fileObj: FileObject | undefined = undefined;
-        let childSchema: FileObjectMap | null = null;
+        let schemaElement: SchemaElement | undefined = undefined;
+        let childSchema: Schema | null = null;
         if (schemaMapping) {
-            fileObj = schemaMapping[keyName];
+            schemaElement = schemaMapping[keyName];
 
-            if (!fileObj && FileObjectSpecialKeys.WILDKEY in schemaMapping) {
+            if (!schemaElement && SchemaElementSpecialKeys.WILDKEY in schemaMapping) {
                 // If the schema has a wildcard key, use that as a fallback.
-                fileObj = schemaMapping[FileObjectSpecialKeys.WILDKEY];
+                schemaElement = schemaMapping[SchemaElementSpecialKeys.WILDKEY];
             }
 
             // If the file object defines nested keys, use that mapping for its children.
-            if (fileObj && 'keys' in fileObj && fileObj.keys) {
-                childSchema = fileObj.keys;
+            if (schemaElement && 'keys' in schemaElement && schemaElement.keys) {
+                childSchema = schemaElement.keys;
             }
         }
 
@@ -191,7 +191,7 @@ function buildYamlKeyTree(
         const children = buildYamlKeyTree(childKeys, indent, childSchema);
         pairs.push({
             yamlKey: current,
-            fileObject: fileObj,
+            schemaElement: schemaElement,
             children: children.length ? children : undefined,
         });
         i = j;
@@ -207,13 +207,10 @@ function buildYamlKeyTree(
  * the provided schema mapping is used to pair their children.
  *
  * @param keys - The sorted list of YAML keys (e.g. from your YamlKeyList).
- * @param schemaMapping - The FileObjectMap used for nested key lookups.
+ * @param schema - The Schema used for nested key lookups.
  * @returns A tree of YamlKeyPair with top-level keys and nested pairs.
  */
-export function pairYamlKeysWithSchema(
-    keys: YamlKey[],
-    schemaMapping: FileObjectMap
-): YamlKeyPair[] {
+export function pairYamlKeysWithSchema(keys: YamlKey[], schema: Schema): YamlKeyPair[] {
     const pairs: YamlKeyPair[] = [];
     let i = 0;
 
@@ -237,11 +234,11 @@ export function pairYamlKeysWithSchema(
         }
 
         // Process children: for nested keys we look up the schema.
-        const children = buildYamlKeyTree(childKeys, 0, schemaMapping);
+        const children = buildYamlKeyTree(childKeys, 0, schema);
         pairs.push({
             yamlKey: current,
             // Top-level keys are not paired to a file object.
-            fileObject: undefined,
+            schemaElement: undefined,
             children: children.length ? children : undefined,
         });
         i = j;
@@ -249,16 +246,16 @@ export function pairYamlKeysWithSchema(
     return pairs;
 }
 
-// An interface to represent the pairing between a YAML key and its FileObject,
+// An interface to represent the pairing between a YAML key and its SchemaElement,
 // including any children that were paired recursively.
 interface YamlKeyPair {
     yamlKey: YamlKey;
-    fileObject?: FileObject;
+    schemaElement?: SchemaElement;
     children?: YamlKeyPair[];
 }
 
 export class YamlKeyPairList extends ArrayListNode<YamlKeyPair> {
-    constructor(keys: YamlKey[], schema?: FileObjectMap) {
+    constructor(keys: YamlKey[], schema?: Schema) {
         if (keys.length === 0 || !schema) {
             super([]);
             return;

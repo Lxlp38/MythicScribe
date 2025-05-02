@@ -1,4 +1,9 @@
-import { FileObject, FileObjectMap, FileObjectSpecialKeys, FileObjectTypes } from '../objectInfos';
+import {
+    SchemaElement,
+    Schema,
+    SchemaElementSpecialKeys,
+    SchemaElementTypes,
+} from '../objectInfos';
 
 /**
  * Generates an array of numbers in a specified range, formatted as strings.
@@ -38,13 +43,13 @@ export function generateNumbersInRange(
 }
 
 /**
- * Adds aliases to the given FileObjectMap based on the provided alias map.
+ * Adds aliases to the given Schema based on the provided alias map.
  *
- * @param obj - The FileObjectMap to which aliases will be added.
+ * @param obj - The Schema to which aliases will be added.
  * @param aliasMap - An object where each key is a string representing a file object key,
  * and the value is an array of strings representing the aliases for that key.
  */
-export function addFileObjectAliases(obj: FileObjectMap, aliasMap: { [key: string]: string[] }) {
+export function addSchemaAliases(obj: Schema, aliasMap: { [key: string]: string[] }) {
     for (const key in aliasMap) {
         const aliases = aliasMap[key];
         if (obj[key]) {
@@ -55,23 +60,23 @@ export function addFileObjectAliases(obj: FileObjectMap, aliasMap: { [key: strin
     }
 }
 
-export function expandFileObjectsToMap(obj: FileObjectMap, insert: FileObjectMap) {
+export function expandSchemaToMap(obj: Schema, insert: Schema) {
     for (const key in insert) {
         const value = insert[key];
         obj[key] = value;
     }
 }
 
-export function getObjectInTree(
+export function getSchemaElementInTree(
     keys: string[],
-    type: FileObjectMap,
+    type: Schema,
     link?: string
-): FileObject | undefined {
+): SchemaElement | undefined {
     const key = keys[0];
     keys = keys.slice(1);
     const object = type[key];
     if (!object) {
-        return handleSpecialObjects(keys, type, link);
+        return handleSpecialSchemaElements(keys, type, link);
     }
     if (keys.length === 0) {
         if (!object.link) {
@@ -79,20 +84,20 @@ export function getObjectInTree(
         }
         return object;
     }
-    if (object.type === FileObjectTypes.KEY && object.keys) {
+    if (object.type === SchemaElementTypes.KEY && object.keys) {
         const newobject = object.keys;
-        return getObjectInTree(keys, newobject, object.link);
+        return getSchemaElementInTree(keys, newobject, object.link);
     }
     return undefined;
 }
 
-function handleSpecialObjects(
+function handleSpecialSchemaElements(
     keys: string[],
-    type: FileObjectMap,
+    type: Schema,
     link?: string
-): FileObject | undefined {
-    if (FileObjectSpecialKeys.WILDKEY in type) {
-        const wildkey = handleWildKeyObject(keys, type, link);
+): SchemaElement | undefined {
+    if (SchemaElementSpecialKeys.WILDKEY in type) {
+        const wildkey = handleWildKeySchemaElement(keys, type, link);
         if (wildkey) {
             return wildkey;
         }
@@ -100,12 +105,12 @@ function handleSpecialObjects(
     return undefined;
 }
 
-function handleWildKeyObject(
+function handleWildKeySchemaElement(
     keys: string[],
-    type: FileObjectMap,
+    type: Schema,
     link?: string
-): FileObject | undefined {
-    const wildcardObject = type[FileObjectSpecialKeys.WILDKEY]!;
+): SchemaElement | undefined {
+    const wildcardObject = type[SchemaElementSpecialKeys.WILDKEY]!;
     if (!wildcardObject.link) {
         wildcardObject.link = link;
     }
@@ -113,7 +118,7 @@ function handleWildKeyObject(
         return wildcardObject;
     }
     if (wildcardObject.keys) {
-        return getObjectInTree(keys, wildcardObject.keys, wildcardObject.link);
+        return getSchemaElementInTree(keys, wildcardObject.keys, wildcardObject.link);
     }
     return undefined;
 }

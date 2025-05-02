@@ -23,14 +23,14 @@ import { targeterCompletionProvider } from '../completions/component/targeterCom
 import { hoverProvider } from '../cursorLocationActions/providers/hoverprovider';
 import { removeBracketsTextListener } from '../textchanges/bracketsremover';
 import { shortcutsProvider } from '../textchanges/shortcuts';
-import { ItemFileObjects } from '../schemas/itemfileObjects';
-import { MobFileObjects } from '../schemas/mobFileObjects';
-import { MetaskillFileObjects } from '../schemas/metaskillFileObjects';
+import { ItemSchema } from '../schemas/itemSchema';
+import { MobSchema } from '../schemas/mobSchema';
+import { MetaskillSchema } from '../schemas/metaskillSchema';
 import { ScribeMechanicHandler } from '../datasets/ScribeMechanic';
 import { ctx } from '../../MythicScribe';
 import { genericFileCompletionProvider } from '../completions/file/genericFileCompletionProvider';
-import { DroptableFileObject } from '../schemas/droptableFileObjects';
-import { StatFileObjects } from '../schemas/statfileObjects';
+import { DroptableSchema } from '../schemas/droptableSchema';
+import { StatSchema } from '../schemas/statSchema';
 import { definitionProvider } from '../cursorLocationActions/providers/definitionProvider';
 import { placeholderCompletionProvider } from '../completions/component/placeholderCompletion';
 
@@ -122,11 +122,11 @@ class ItemScribeSubscription extends AbstractScribeSubscription {
     constructor() {
         super(
             [
-                () => genericFileCompletionProvider(ItemFileObjects),
+                () => genericFileCompletionProvider(ItemSchema),
                 () => triggerfileCompletionProvider(TriggerType.ITEM, ['Skills']),
                 () => triggerfileCompletionProvider(TriggerType.FURNITURE, ['FurnitureSkills']),
                 () => triggerfileCompletionProvider(TriggerType.BLOCK, ['CustomBlockSkills']),
-                () => hoverProvider(ItemFileObjects),
+                () => hoverProvider(ItemSchema),
             ],
             [enableFileSpecificSuggestions]
         );
@@ -138,7 +138,7 @@ class MobScribeSubscription extends AbstractScribeSubscription {
         super(
             [
                 () => triggerfileCompletionProvider(TriggerType.MOB, ['Skills']),
-                () => genericFileCompletionProvider(MobFileObjects),
+                () => genericFileCompletionProvider(MobSchema),
                 () =>
                     mechanicCompletionProvider(
                         ScribeMechanicHandler.registry.aitarget,
@@ -151,7 +151,7 @@ class MobScribeSubscription extends AbstractScribeSubscription {
                     ),
                 () =>
                     hoverProvider(
-                        MobFileObjects,
+                        MobSchema,
                         {
                             keys: keyAliases.AIGoalSelectors,
                             registry: ScribeMechanicHandler.registry.aigoal,
@@ -171,10 +171,10 @@ class SkillScribeSubscription extends AbstractScribeSubscription {
     constructor() {
         super(
             [
-                () => genericFileCompletionProvider(MetaskillFileObjects),
+                () => genericFileCompletionProvider(MetaskillSchema),
                 () => conditionCompletionProvider(),
                 () =>
-                    hoverProvider(MetaskillFileObjects, {
+                    hoverProvider(MetaskillSchema, {
                         keys: keyAliases.Conditions,
                         registry: ScribeMechanicHandler.registry.condition,
                     }),
@@ -229,9 +229,9 @@ class DroptableSubscriptionHandler extends AbstractScribeSubscription {
     constructor() {
         super(
             [
-                () => genericFileCompletionProvider(DroptableFileObject),
+                () => genericFileCompletionProvider(DroptableSchema),
                 () =>
-                    hoverProvider(DroptableFileObject, {
+                    hoverProvider(DroptableSchema, {
                         keys: keyAliases.DroptableConditions,
                         registry: ScribeMechanicHandler.registry.condition,
                     }),
@@ -245,10 +245,7 @@ class DroptableSubscriptionHandler extends AbstractScribeSubscription {
 class StatSubscriptionHandler extends AbstractScribeSubscription {
     constructor() {
         super(
-            [
-                () => genericFileCompletionProvider(StatFileObjects),
-                () => hoverProvider(StatFileObjects),
-            ],
+            [() => genericFileCompletionProvider(StatSchema), () => hoverProvider(StatSchema)],
             [enableFileSpecificSuggestions]
         );
     }

@@ -3,15 +3,15 @@ import * as vscode from 'vscode';
 import * as yamlutils from './yamlutils';
 import { previousSymbol } from './yamlutils';
 import {
-    FileObjectMap,
-    FileObject,
-    FileObjectTypes,
-    FileObjectSpecialKeys,
-    WildKeyFileObject,
+    Schema,
+    SchemaElement,
+    SchemaElementTypes,
+    SchemaElementSpecialKeys,
+    WildKeySchemaElement,
 } from '../objectInfos';
 import { MythicMechanic } from '../datasets/ScribeMechanic';
 import { EnumDatasetValue, ScribeEnumHandler } from '../datasets/ScribeEnum';
-import { getObjectInTree } from './schemautils';
+import { getSchemaElementInTree } from './schemautils';
 
 export const retriggerCompletionsCommand: vscode.Command = {
     command: 'editor.action.triggerSuggest',
@@ -23,7 +23,7 @@ export async function generateFileCompletion(
     document: vscode.TextDocument,
     position: vscode.Position,
     context: vscode.CompletionContext,
-    type: FileObjectMap
+    type: Schema
 ): Promise<vscode.CompletionItem[] | undefined> {
     if (yamlutils.isEmptyLine(document, position.line)) {
         return fileCompletions(document, position, type);
@@ -194,7 +194,7 @@ export function addMechanicCompletions(
 export function fileCompletions(
     document: vscode.TextDocument,
     position: vscode.Position,
-    objectmap: FileObjectMap
+    objectmap: Schema
 ): vscode.CompletionItem[] | undefined {
     const keys = yamlutils.getParentKeys(document, position).reverse();
     if (keys.length === 0) {
@@ -220,17 +220,17 @@ export function fileCompletions(
     }
 
     if (keyobjects.type) {
-        return fileCompletionForFileObject(keyobjects as FileObject, indentation);
+        return fileCompletionForSchemaElement(keyobjects as SchemaElement, indentation);
     } else {
-        return fileCompletionForFileObjectMap(keyobjects as FileObjectMap, indentation);
+        return fileCompletionForSchema(keyobjects as Schema, indentation);
     }
 }
 
 function fileCompletionFindNodesOnLevel(
-    objectmap: FileObjectMap,
+    objectmap: Schema,
     keys: string[],
     level: number
-): [FileObjectMap | FileObject, number] | null {
+): [Schema | SchemaElement, number] | null {
     if (keys.length === 0) {
         return [objectmap, level];
     }
@@ -240,7 +240,7 @@ function fileCompletionFindNodesOnLevel(
     const selectedObject = objectmap[key];
 
     if (selectedObject) {
-        if (selectedObject.type === FileObjectTypes.KEY && selectedObject.keys) {
+        if (selectedObject.type === SchemaElementTypes.KEY && selectedObject.keys) {
             const result = fileCompletionFindNodesOnLevel(
                 selectedObject.keys,
                 keys.slice(1),
@@ -248,17 +248,17 @@ function fileCompletionFindNodesOnLevel(
             );
             return result;
         }
-        if (selectedObject.type === FileObjectTypes.KEY_LIST) {
+        if (selectedObject.type === SchemaElementTypes.KEY_LIST) {
             return [selectedObject, level + 1];
         }
-        if (selectedObject.type === FileObjectTypes.LIST) {
+        if (selectedObject.type === SchemaElementTypes.LIST) {
             return [selectedObject, level];
         }
         return [objectmap, level];
     }
 
-    if (FileObjectSpecialKeys.WILDKEY in objectmap) {
-        const wildcardObject = objectmap[FileObjectSpecialKeys.WILDKEY]!;
+    if (SchemaElementSpecialKeys.WILDKEY in objectmap) {
+        const wildcardObject = objectmap[SchemaElementSpecialKeys.WILDKEY]!;
         const result = fileCompletionFindNodesOnLevel(
             wildcardObject.keys,
             keys.slice(1),
@@ -271,16 +271,13 @@ function fileCompletionFindNodesOnLevel(
 }
 
 // Completes the key itself
-function fileCompletionForFileObjectMap(
-    objectMap: FileObjectMap,
-    indentation: string
-): vscode.CompletionItem[] {
+function fileCompletionForSchema(objectMap: Schema, indentation: string): vscode.CompletionItem[] {
     const completionItems: vscode.CompletionItem[] = [];
 
     Object.entries(objectMap).forEach(([key, value]) => {
-        if (key === FileObjectSpecialKeys.WILDKEY) {
+        if (key === SchemaElementSpecialKeys.WILDKEY) {
             const completionItem = new vscode.CompletionItem(
-                (value as WildKeyFileObject).display,
+                (value as WildKeySchemaElement).display,
                 vscode.CompletionItemKind.File
             );
             completionItem.insertText = new vscode.SnippetString(indentation + '$1' + ':');
@@ -289,19 +286,19 @@ function fileCompletionForFileObjectMap(
         }
 
         const completionItem = new vscode.CompletionItem(key, vscode.CompletionItemKind.File);
-        if (value.type === FileObjectTypes.LIST) {
+        if (value.type === SchemaElementTypes.LIST) {
             completionItem.insertText = new vscode.SnippetString(
                 indentation + key + ':\n' + indentation + '- $0'
             );
-        } else if (value.type === FileObjectTypes.BOOLEAN) {
+        } else if (value.type === SchemaElementTypes.BOOLEAN) {
             completionItem.insertText = new vscode.SnippetString(
                 indentation + key + ': ${1|true,false|}$0'
             );
-        } else if (value.type === FileObjectTypes.KEY) {
+        } else if (value.type === SchemaElementTypes.KEY) {
             completionItem.insertText = new vscode.SnippetString(
                 indentation + key + ':\n' + indentation + '  $0'
             );
-        } else if (value.type === FileObjectTypes.KEY_LIST) {
+        } else if (value.type === SchemaElementTypes.KEY_LIST) {
             completionItem.insertText = new vscode.SnippetString(
                 indentation + key + ':\n' + indentation + '  $1: $2$0'
             );
@@ -318,18 +315,18 @@ function fileCompletionForFileObjectMap(
 }
 
 // Completes the key's values prefix on newline
-function fileCompletionForFileObject(
-    object: FileObject,
+function fileCompletionForSchemaElement(
+    object: SchemaElement,
     indentation: string
 ): vscode.CompletionItem[] {
     const completionItems: vscode.CompletionItem[] = [];
 
-    if (object.type === FileObjectTypes.LIST) {
+    if (object.type === SchemaElementTypes.LIST) {
         const completionItem = new vscode.CompletionItem('-', vscode.CompletionItemKind.Snippet);
         completionItem.insertText = new vscode.SnippetString(indentation + '- $0');
         completionItem.command = retriggerCompletionsCommand;
         completionItems.push(completionItem);
-    } else if (object.type === FileObjectTypes.KEY_LIST) {
+    } else if (object.type === SchemaElementTypes.KEY_LIST) {
         const completionItem = new vscode.CompletionItem(
             'New Key',
             vscode.CompletionItemKind.Snippet
@@ -347,7 +344,7 @@ export async function getCompletionForInvocation(
     document: vscode.TextDocument,
     position: vscode.Position,
     context: vscode.CompletionContext,
-    type: FileObjectMap
+    type: Schema
 ): Promise<vscode.CompletionItem[] | undefined> {
     const keys = yamlutils.getKeyNameFromYamlKey(
         yamlutils.getParentKeys(document, position, true).reverse()
@@ -362,14 +359,14 @@ export async function getCompletionForInvocation(
 
 async function getKeyObjectCompletion(
     keys: string[],
-    type: FileObjectMap
+    type: Schema
 ): Promise<vscode.CompletionItem[] | undefined> {
-    const object = getObjectInTree(keys, type);
+    const object = getSchemaElementInTree(keys, type);
     if (!object) {
         return undefined;
     }
 
-    if (object.type === FileObjectTypes.ENUM && object.dataset) {
+    if (object.type === SchemaElementTypes.ENUM && object.dataset) {
         const dataset = ScribeEnumHandler.getEnum(object.dataset);
         const completionItems: vscode.CompletionItem[] = [];
         if (!dataset) {
@@ -382,7 +379,7 @@ async function getKeyObjectCompletion(
         });
         return completionItems;
     } else if (
-        (object.type === FileObjectTypes.INTEGER || object.type === FileObjectTypes.FLOAT) &&
+        (object.type === SchemaElementTypes.INTEGER || object.type === SchemaElementTypes.FLOAT) &&
         object.values
     ) {
         const completionItems: vscode.CompletionItem[] = [];
@@ -402,17 +399,17 @@ async function getKeyObjectCompletion(
 
 function getListObjectCompletion(
     keys: string[],
-    type: FileObjectMap,
+    type: Schema,
     document: vscode.TextDocument,
     position: vscode.Position,
     context: vscode.CompletionContext
 ): vscode.CompletionItem[] | undefined {
-    const object = getObjectInTree(keys, type);
+    const object = getSchemaElementInTree(keys, type);
     if (!object) {
         return undefined;
     }
 
-    if (object.type === FileObjectTypes.LIST && object.dataset) {
+    if (object.type === SchemaElementTypes.LIST && object.dataset) {
         const space = getListCompletionNeededSpaces(document, position, context);
         if (space === undefined) {
             return undefined;

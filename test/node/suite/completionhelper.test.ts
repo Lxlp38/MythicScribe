@@ -12,7 +12,7 @@ import {
 } from '../../../src/common/utils/completionhelper';
 import { getStubDocument } from '..';
 import { MythicAttribute, MythicMechanic } from '../../../src/common/datasets/ScribeMechanic';
-import { FileObjectMap, FileObjectTypes } from '../../../src/common/objectInfos';
+import { Schema, SchemaElementTypes } from '../../../src/common/objectInfos';
 
 suite('CompletionHelper', () => {
     suite('getListCompletionNeededSpaces', () => {
@@ -269,17 +269,17 @@ suite('CompletionHelper', () => {
     suite('fileCompletions', () => {
         let document: vscode.TextDocument;
         let position: vscode.Position;
-        let objectmap: FileObjectMap;
+        let objectmap: Schema;
 
         setup(() => {
             document = getStubDocument(['']);
             position = new vscode.Position(0, 0);
             objectmap = {
                 key1: {
-                    type: FileObjectTypes.KEY,
+                    type: SchemaElementTypes.KEY,
                     keys: {
                         subkey1: {
-                            type: FileObjectTypes.LIST,
+                            type: SchemaElementTypes.LIST,
                             description: 'Subkey 1 description',
                         },
                     },

@@ -7,12 +7,12 @@ import {
     fileRegexConfigCache,
 } from '../utils/configutils';
 import { AbstractScribeSubscription, ScribeSubscriptionHandler } from './SubscriptionHandler';
-import { MetaskillFileObjects } from '../schemas/metaskillFileObjects';
-import { MobFileObjects } from '../schemas/mobFileObjects';
-import { ItemFileObjects } from '../schemas/itemfileObjects';
-import { DroptableFileObject } from '../schemas/droptableFileObjects';
-import { FileObjectMap, registryKey } from '../objectInfos';
-import { StatFileObjects } from '../schemas/statfileObjects';
+import { MetaskillSchema } from '../schemas/metaskillSchema';
+import { MobSchema } from '../schemas/mobSchema';
+import { ItemSchema } from '../schemas/itemSchema';
+import { DroptableSchema } from '../schemas/droptableSchema';
+import { Schema, registryKey } from '../objectInfos';
+import { StatSchema } from '../schemas/statSchema';
 
 function resetFileChecks() {
     for (const key of Object.keys(ActiveFileTypeInfo) as (keyof typeof ActiveFileTypeInfo)[]) {
@@ -122,7 +122,7 @@ export function updateSubscriptions(document: vscode.TextDocument) {
 }
 
 interface FileTypeInfo {
-    schema?: FileObjectMap;
+    schema?: Schema;
     key: registryKey;
     configKey: keyof typeof fileRegexConfigCache;
     subscriptionHandler: keyof typeof ScribeSubscriptionHandler.registry;
@@ -131,31 +131,31 @@ const FileTypeInfoMap: {
     [K in registryKey]: FileTypeInfo;
 } = {
     metaskill: {
-        schema: MetaskillFileObjects,
+        schema: MetaskillSchema,
         key: 'metaskill',
         configKey: 'Metaskill',
         subscriptionHandler: 'metaskill',
     },
     mob: {
-        schema: MobFileObjects,
+        schema: MobSchema,
         key: 'mob',
         configKey: 'Mob',
         subscriptionHandler: 'mob',
     },
     item: {
-        schema: ItemFileObjects,
+        schema: ItemSchema,
         key: 'item',
         configKey: 'Item',
         subscriptionHandler: 'item',
     },
     droptable: {
-        schema: DroptableFileObject,
+        schema: DroptableSchema,
         key: 'droptable',
         configKey: 'Droptable',
         subscriptionHandler: 'droptable',
     },
     stat: {
-        schema: StatFileObjects,
+        schema: StatSchema,
         key: 'stat',
         configKey: 'Stat',
         subscriptionHandler: 'stat',

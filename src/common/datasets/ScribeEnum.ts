@@ -221,9 +221,9 @@ export const ScribeEnumHandler = {
         Log.debug(`Registered Enum ${identifier}`);
     },
 
-    async expandEnum(identifier: string, object: AbstractScribeEnum) {
+    async expandEnum(identifier: string, enumObject: AbstractScribeEnum) {
         const existing = ScribeEnumHandler.enums.get(identifier.toLowerCase())!;
-        const newDataset = await object.waitForDataset();
+        const newDataset = await enumObject.waitForDataset();
         existing.expandDataset(newDataset);
     },
 

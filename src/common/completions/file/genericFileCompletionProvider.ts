@@ -1,9 +1,9 @@
 import * as vscode from 'vscode';
 
 import { generateFileCompletion } from '../../utils/completionhelper';
-import { FileObjectMap } from '../../objectInfos';
+import { Schema } from '../../objectInfos';
 
-export function genericFileCompletionProvider(fileobjectmap: FileObjectMap) {
+export function genericFileCompletionProvider(schema: Schema) {
     return vscode.languages.registerCompletionItemProvider(
         ['mythicscript', 'yaml'],
         {
@@ -13,7 +13,7 @@ export function genericFileCompletionProvider(fileobjectmap: FileObjectMap) {
                 _token: vscode.CancellationToken,
                 context: vscode.CompletionContext
             ) {
-                return generateFileCompletion(document, position, context, fileobjectmap);
+                return generateFileCompletion(document, position, context, schema);
             },
         },
         '\n'

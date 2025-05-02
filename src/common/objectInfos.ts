@@ -1,4 +1,4 @@
-export enum FileObjectTypes {
+export enum SchemaElementTypes {
     BOOLEAN = 'boolean',
     STRING = 'string',
     INTEGER = 'integer',
@@ -15,48 +15,52 @@ export enum FileObjectTypes {
     ENUM = 'enum',
 }
 
-export enum FileObjectSpecialKeys {
+export enum SchemaElementSpecialKeys {
     WILDKEY = '*KEY',
 }
 
-type BaseFileObject = {
+type BaseSchemaElement = {
     link?: string;
     description?: string;
     values?: string[];
     display?: string;
 };
-type EnumFileObject = BaseFileObject & {
-    type: FileObjectTypes.ENUM;
+type EnumSchemaElement = BaseSchemaElement & {
+    type: SchemaElementTypes.ENUM;
     dataset: string;
 };
-type ListFileObject = BaseFileObject & {
-    type: FileObjectTypes.LIST;
+type ListSchemaElement = BaseSchemaElement & {
+    type: SchemaElementTypes.LIST;
     dataset?: string;
-    keys?: FileObjectMap;
+    keys?: Schema;
 };
-export type KeyFileObject = BaseFileObject & {
-    type: FileObjectTypes.KEY;
-    keys: FileObjectMap;
+export type KeySchemaElement = BaseSchemaElement & {
+    type: SchemaElementTypes.KEY;
+    keys: Schema;
 };
-type OtherFileObject = BaseFileObject & {
+type OtherSchemaElement = BaseSchemaElement & {
     type: Exclude<
-        FileObjectTypes,
-        FileObjectTypes.ENUM | FileObjectTypes.LIST | FileObjectTypes.KEY
+        SchemaElementTypes,
+        SchemaElementTypes.ENUM | SchemaElementTypes.LIST | SchemaElementTypes.KEY
     >;
 };
 
-export type FileObject = EnumFileObject | ListFileObject | KeyFileObject | OtherFileObject;
+export type SchemaElement =
+    | EnumSchemaElement
+    | ListSchemaElement
+    | KeySchemaElement
+    | OtherSchemaElement;
 
-type DefaultFileObjectMap = Record<string, FileObject>;
-type SpecialFileObjectbaseMap = { display: string };
+type DefaultSchemaElementMap = Record<string, SchemaElement>;
+type SpecialSchemaElementBaseMap = { display: string };
 
-export type WildKeyFileObject = SpecialFileObjectbaseMap & KeyFileObject;
+export type WildKeySchemaElement = SpecialSchemaElementBaseMap & KeySchemaElement;
 
 type SpecialKeys = {
-    [FileObjectSpecialKeys.WILDKEY]?: WildKeyFileObject;
+    [SchemaElementSpecialKeys.WILDKEY]?: WildKeySchemaElement;
 };
 
-export type FileObjectMap = DefaultFileObjectMap & SpecialKeys;
+export type Schema = DefaultSchemaElementMap & SpecialKeys;
 
 export const keyAliases = {
     Skills: [

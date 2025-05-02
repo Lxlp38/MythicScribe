@@ -1,7 +1,7 @@
 import * as vscode from 'vscode';
-import { getObjectInTree } from '@common/utils/schemautils';
+import { getSchemaElementInTree } from '@common/utils/schemautils';
 
-import { FileObjectMap } from '../../objectInfos';
+import { Schema } from '../../objectInfos';
 import {
     MythicAttribute,
     AbstractScribeMechanicRegistry,
@@ -15,19 +15,16 @@ export type KeyDependantMechanicLikeHover = {
     registry: AbstractScribeMechanicRegistry;
 };
 
-export function hoverProvider(
-    fileobject: FileObjectMap,
-    ...keydependencies: KeyDependantMechanicLikeHover[]
-) {
+export function hoverProvider(schema: Schema, ...keydependencies: KeyDependantMechanicLikeHover[]) {
     return vscode.languages.registerHoverProvider(['mythicscript', 'yaml'], {
         provideHover(
             document: vscode.TextDocument,
             position: vscode.Position
         ): vscode.ProviderResult<vscode.Hover> {
-            const locationAction = CursorLocationAction.forFileObject(
+            const locationAction = CursorLocationAction.forSchema(
                 document,
                 position,
-                fileobject,
+                schema,
                 findHoverForFileElement,
                 getHoverForAttribute,
                 getHover,
@@ -147,13 +144,13 @@ ${description ? description : 'No description provided.'}`);
 
 function findHoverForFileElement(
     keys: string[],
-    type: FileObjectMap,
+    type: Schema,
     link: string | undefined
 ): vscode.Hover | undefined {
     if (keys.length === 0) {
         return undefined;
     }
-    const object = getObjectInTree(keys, type);
+    const object = getSchemaElementInTree(keys, type);
     if (!object) {
         return undefined;
     }

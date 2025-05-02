@@ -4,7 +4,7 @@ import path from 'path';
 import * as vscode from 'vscode';
 
 import { getDocumentLastPosition, waitForMythicScript } from '..';
-import { MetaskillFileObjects } from '../../../src/common/schemas/metaskillFileObjects';
+import { MetaskillSchema } from '../../../src/common/schemas/metaskillSchema';
 
 suite('Metaskill File Completions', () => {
     setup(async () => {
@@ -44,7 +44,7 @@ suite('Metaskill File Completions', () => {
                 );
 
                 assert.ok(completions);
-                const expectedCompletions = Object.keys(MetaskillFileObjects);
+                const expectedCompletions = Object.keys(MetaskillSchema);
                 const actualCompletions = completions.items.map((item) => item.label);
                 assert.deepStrictEqual(actualCompletions.sort(), expectedCompletions.sort());
             }

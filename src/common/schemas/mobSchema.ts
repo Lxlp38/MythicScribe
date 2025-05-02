@@ -6,58 +6,58 @@ import {
 
 import { generateNumbersInRange } from '../utils/schemautils';
 import {
-    FileObjectMap,
-    FileObjectSpecialKeys,
-    FileObjectTypes,
-    KeyFileObject,
+    Schema,
+    SchemaElementSpecialKeys,
+    SchemaElementTypes,
+    KeySchemaElement,
 } from '../objectInfos';
 
-export const MobFileObjects: FileObjectMap = {
+export const MobSchema: Schema = {
     Type: {
-        type: FileObjectTypes.ENUM,
+        type: SchemaElementTypes.ENUM,
         dataset: 'MYTHICENTITY',
         link: 'https://git.lumine.io/mythiccraft/MythicMobs/-/wikis/Mobs/Mobs#type',
         description: 'The Entity Type of the mob.',
     },
     Template: {
-        type: FileObjectTypes.ENUM,
+        type: SchemaElementTypes.ENUM,
         dataset: 'mob',
         link: 'https://git.lumine.io/mythiccraft/MythicMobs/-/wikis/Mobs/Templates',
         description: 'The templates for the mob.',
     },
     Exclude: {
-        type: FileObjectTypes.LIST,
+        type: SchemaElementTypes.LIST,
         link: 'https://git.lumine.io/mythiccraft/MythicMobs/-/wikis/Mobs/Templates#excluding-elements',
         description: 'A list of elements the mob should not inherit.',
     },
     Display: {
-        type: FileObjectTypes.STRING,
+        type: SchemaElementTypes.STRING,
         link: 'https://git.lumine.io/mythiccraft/MythicMobs/-/wikis/Mobs/Mobs#display',
         description: 'The display name of the mob.',
     },
     Health: {
-        type: FileObjectTypes.FLOAT,
+        type: SchemaElementTypes.FLOAT,
         link: 'https://git.lumine.io/mythiccraft/MythicMobs/-/wikis/Mobs/Mobs#health',
         description: 'The health of the mob.',
     },
     Damage: {
-        type: FileObjectTypes.FLOAT,
+        type: SchemaElementTypes.FLOAT,
         link: 'https://git.lumine.io/mythiccraft/MythicMobs/-/wikis/Mobs/Mobs#damage',
         description: 'The damage of the mob.',
     },
     Armor: {
-        type: FileObjectTypes.FLOAT,
+        type: SchemaElementTypes.FLOAT,
         link: 'https://git.lumine.io/mythiccraft/MythicMobs/-/wikis/Mobs/Mobs#armor',
         description: 'The armor points of the mob.',
     },
     HealthBar: {
-        type: FileObjectTypes.KEY,
+        type: SchemaElementTypes.KEY,
         keys: {
             Enabled: {
-                type: FileObjectTypes.BOOLEAN,
+                type: SchemaElementTypes.BOOLEAN,
             },
             Offset: {
-                type: FileObjectTypes.FLOAT,
+                type: SchemaElementTypes.FLOAT,
                 values: generateNumbersInRange(0.1, 2.0, 0.1, true),
             },
         },
@@ -65,225 +65,225 @@ export const MobFileObjects: FileObjectMap = {
         description: 'The health bar of the mob.',
     },
     BossBar: {
-        type: FileObjectTypes.KEY,
+        type: SchemaElementTypes.KEY,
         keys: {
             Enabled: {
-                type: FileObjectTypes.BOOLEAN,
+                type: SchemaElementTypes.BOOLEAN,
             },
             Title: {
-                type: FileObjectTypes.STRING,
+                type: SchemaElementTypes.STRING,
             },
             Range: {
-                type: FileObjectTypes.FLOAT,
+                type: SchemaElementTypes.FLOAT,
                 values: generateNumbersInRange(10, 100, 10, true),
             },
             Color: {
-                type: FileObjectTypes.ENUM,
+                type: SchemaElementTypes.ENUM,
                 dataset: 'BARCOLOR',
             },
             Style: {
-                type: FileObjectTypes.ENUM,
+                type: SchemaElementTypes.ENUM,
                 dataset: 'BARSTYLE',
             },
             CreateFog: {
-                type: FileObjectTypes.BOOLEAN,
+                type: SchemaElementTypes.BOOLEAN,
             },
             DarkenSky: {
-                type: FileObjectTypes.BOOLEAN,
+                type: SchemaElementTypes.BOOLEAN,
             },
             PlayMusic: {
-                type: FileObjectTypes.BOOLEAN,
+                type: SchemaElementTypes.BOOLEAN,
             },
         },
         link: 'https://git.lumine.io/mythiccraft/MythicMobs/-/wikis/Mobs/Mobs#bossbar',
         description: 'The boss bar of the mob.',
     },
     Faction: {
-        type: FileObjectTypes.STRING,
+        type: SchemaElementTypes.STRING,
         link: 'https://git.lumine.io/mythiccraft/MythicMobs/-/wikis/Mobs/Mobs#faction',
         description: 'The faction of the mob.',
     },
     Mount: {
-        type: FileObjectTypes.ENUM,
+        type: SchemaElementTypes.ENUM,
         dataset: 'mob',
         link: 'https://git.lumine.io/mythiccraft/MythicMobs/-/wikis/Mobs/Mobs#mount',
         description: 'The mount of the mob.',
     },
     Options: {
-        type: FileObjectTypes.KEY,
+        type: SchemaElementTypes.KEY,
         link: 'https://git.lumine.io/mythiccraft/MythicMobs/-/wikis/Mobs/Options',
         description: 'The options of the mob.',
         keys: {},
     },
     Modules: {
-        type: FileObjectTypes.KEY,
+        type: SchemaElementTypes.KEY,
         link: 'https://git.lumine.io/mythiccraft/MythicMobs/-/wikis/Mobs/Mobs#modules',
         description: 'The modules of the mob.',
         keys: {
             ThreatTable: {
-                type: FileObjectTypes.BOOLEAN,
+                type: SchemaElementTypes.BOOLEAN,
             },
             ImmunityTable: {
-                type: FileObjectTypes.BOOLEAN,
+                type: SchemaElementTypes.BOOLEAN,
             },
         },
     },
     AIGoalSelectors: {
-        type: FileObjectTypes.LIST,
+        type: SchemaElementTypes.LIST,
         link: 'https://git.lumine.io/mythiccraft/MythicMobs/-/wikis/Mobs/Custom-AI#ai-goal-selectors',
         description: 'The AI goal selectors of the mob.',
     },
     AITargetSelectors: {
-        type: FileObjectTypes.LIST,
+        type: SchemaElementTypes.LIST,
         link: 'https://git.lumine.io/mythiccraft/MythicMobs/-/wikis/Mobs/Custom-AI#ai-target-selectors',
         description: 'The AI target selectors of the mob.',
     },
     Drops: {
-        type: FileObjectTypes.LIST,
+        type: SchemaElementTypes.LIST,
         dataset: 'ITEM',
         link: 'https://git.lumine.io/mythiccraft/MythicMobs/-/wikis/Mobs/Mobs#drops',
         description: 'The drops of the mob.',
     },
     DamageModifiers: {
-        type: FileObjectTypes.LIST,
+        type: SchemaElementTypes.LIST,
         dataset: 'DAMAGECAUSE',
         values: generateNumbersInRange(-1.0, 2.0, 0.1, true),
         link: 'https://git.lumine.io/mythiccraft/MythicMobs/-/wikis/Mobs/Mobs#damagemodifiers',
         description: 'The damage modifiers of the mob.',
     },
     Equipment: {
-        type: FileObjectTypes.LIST,
+        type: SchemaElementTypes.LIST,
         dataset: 'ITEM',
         link: 'https://git.lumine.io/mythiccraft/MythicMobs/-/wikis/Mobs/Mobs#equipment',
         description: 'The equipment of the mob.',
     },
     KillMessages: {
-        type: FileObjectTypes.LIST,
+        type: SchemaElementTypes.LIST,
         link: 'https://git.lumine.io/mythiccraft/MythicMobs/-/wikis/Mobs/Mobs#killmessages',
         description: 'The kill messages of the mob.',
     },
     LevelModifiers: {
-        type: FileObjectTypes.KEY,
+        type: SchemaElementTypes.KEY,
         link: 'https://git.lumine.io/mythiccraft/MythicMobs/-/wikis/Mobs/Mobs#levelmodifiers',
         description: 'The level modifiers of the mob.',
         keys: {
             Health: {
-                type: FileObjectTypes.FLOAT,
+                type: SchemaElementTypes.FLOAT,
             },
             Damage: {
-                type: FileObjectTypes.FLOAT,
+                type: SchemaElementTypes.FLOAT,
             },
             Armor: {
-                type: FileObjectTypes.FLOAT,
+                type: SchemaElementTypes.FLOAT,
             },
             KnockbackResistance: {
-                type: FileObjectTypes.FLOAT,
+                type: SchemaElementTypes.FLOAT,
                 values: generateNumbersInRange(0.0, 1.0, 0.1, true),
             },
             Power: {
-                type: FileObjectTypes.FLOAT,
+                type: SchemaElementTypes.FLOAT,
             },
             MovementSpeed: {
-                type: FileObjectTypes.FLOAT,
+                type: SchemaElementTypes.FLOAT,
                 values: generateNumbersInRange(0.0, 0.4, 0.05, true),
             },
         },
     },
     Disguise: {
-        type: FileObjectTypes.ENUM,
+        type: SchemaElementTypes.ENUM,
         dataset: 'ENTITYTYPE',
         link: 'https://git.lumine.io/mythiccraft/MythicMobs/-/wikis/Mobs/Mobs#disguise',
         description: 'The disguise of the mob.',
     },
     Skills: {
-        type: FileObjectTypes.LIST,
+        type: SchemaElementTypes.LIST,
         link: 'https://git.lumine.io/mythiccraft/MythicMobs/-/wikis/Mobs/Mobs#skills',
         description: 'The skills of the mob.',
     },
     Nameplate: {
-        type: FileObjectTypes.KEY,
+        type: SchemaElementTypes.KEY,
         link: 'https://git.lumine.io/mythiccraft/MythicMobs/-/wikis/Mobs/Mobs#nameplate',
         description: 'The nameplate of the mob.',
         keys: {
             Enabled: {
-                type: FileObjectTypes.BOOLEAN,
+                type: SchemaElementTypes.BOOLEAN,
             },
             Offset: {
-                type: FileObjectTypes.FLOAT,
+                type: SchemaElementTypes.FLOAT,
                 values: generateNumbersInRange(0.1, 2.0, 0.1, true),
             },
             Scale: {
-                type: FileObjectTypes.VECTOR,
+                type: SchemaElementTypes.VECTOR,
                 values: ['1,1,1'],
             },
             Mounted: {
-                type: FileObjectTypes.BOOLEAN,
+                type: SchemaElementTypes.BOOLEAN,
             },
         },
     },
     Hearing: {
-        type: FileObjectTypes.KEY,
+        type: SchemaElementTypes.KEY,
         link: 'https://git.lumine.io/mythiccraft/MythicMobs/-/wikis/Mobs/Mobs#hearing',
         description: 'The hearing of the mob.',
         keys: {
             Enabled: {
-                type: FileObjectTypes.BOOLEAN,
+                type: SchemaElementTypes.BOOLEAN,
             },
         },
     },
     Totem: {
-        type: FileObjectTypes.KEY,
+        type: SchemaElementTypes.KEY,
         link: 'https://git.lumine.io/mythiccraft/MythicMobs/-/wikis/Mobs/Mobs#totem',
         description:
             'Allows you to configure a custom structure that, once built, will summon a mob',
         keys: {
             Head: {
-                type: FileObjectTypes.ENUM,
+                type: SchemaElementTypes.ENUM,
                 dataset: 'MATERIAL',
                 description:
                     'The block that once placed will prompt the plugin to check for a totem',
             },
             Pattern: {
-                type: FileObjectTypes.LIST,
+                type: SchemaElementTypes.LIST,
                 description:
                     'A list of offset vectors and materials that define what the totem should look like',
             },
             Replacement: {
-                type: FileObjectTypes.LIST,
+                type: SchemaElementTypes.LIST,
                 description: 'Optional list of replacements blocks for the pattern',
             },
         },
     },
     Variables: {
-        type: FileObjectTypes.KEY_LIST,
+        type: SchemaElementTypes.KEY_LIST,
         link: 'https://git.lumine.io/mythiccraft/MythicMobs/-/wikis/Mobs/Mobs#variables',
         description: 'The variables of the mob.',
     },
     Trades: {
-        type: FileObjectTypes.KEY,
+        type: SchemaElementTypes.KEY,
         link: 'https://git.lumine.io/mythiccraft/MythicMobs/-/wikis/Mobs/Mobs#trades',
         description: 'The trades of the mob.',
         keys: {
-            [FileObjectSpecialKeys.WILDKEY]: {
-                type: FileObjectTypes.KEY,
+            [SchemaElementSpecialKeys.WILDKEY]: {
+                type: SchemaElementTypes.KEY,
                 display: 'Insert Trade Internal Name',
                 description: 'The internal name of the trade.',
                 keys: {
                     Item1: {
-                        type: FileObjectTypes.STRING,
+                        type: SchemaElementTypes.STRING,
                         description: 'The first item in the trade.',
                     },
                     Item2: {
-                        type: FileObjectTypes.STRING,
+                        type: SchemaElementTypes.STRING,
                         description: 'The second item in the trade.',
                     },
                     MaxUses: {
-                        type: FileObjectTypes.INTEGER,
+                        type: SchemaElementTypes.INTEGER,
                         values: generateNumbersInRange(1, 100, 1, false),
                         description: 'The maximum number of uses for the trade.',
                     },
                     Result: {
-                        type: FileObjectTypes.STRING,
+                        type: SchemaElementTypes.STRING,
                         description: 'The resulting item of the trade.',
                     },
                 },
@@ -297,10 +297,10 @@ addEnumLoadedFunction('moboption', (target: AbstractScribeEnum) => {
 });
 
 export function addMobOptions(options: Map<string, EnumDatasetValue>) {
-    const mobOptions = (MobFileObjects.Options as KeyFileObject).keys;
+    const mobOptions = (MobSchema.Options as KeySchemaElement).keys;
     for (const [name, body] of options) {
         mobOptions[name] = {
-            type: FileObjectTypes.STRING,
+            type: SchemaElementTypes.STRING,
             link:
                 'https://git.lumine.io/mythiccraft/MythicMobs/-/wikis/Mobs/Options#' +
                 name.toLowerCase(),
