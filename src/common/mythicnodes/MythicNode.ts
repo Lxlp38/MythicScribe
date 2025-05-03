@@ -4,11 +4,11 @@ import {
     fromPlaceholderNodeIdentifierToRegistryKey,
     parseWrittenPlaceholder,
 } from '@common/datasets/ScribePlaceholder';
+import { ConditionActions } from '@common/schemas/conditionActions';
 
 import { checkFileType } from '../subscriptions/SubscriptionHelper';
 import Log from '../utils/logger';
 import { getFileParserPolicyConfig } from '../utils/configutils';
-import { ConditionActions } from '../schemas/conditionActions';
 import { timeCounter } from '../utils/timeUtils';
 import { openDocumentTactfully } from '../utils/uriutils';
 import { executeGetObjectLinkedToAttribute } from '../utils/cursorutils';
@@ -100,8 +100,6 @@ interface NodeElement extends NodeBaseElement {
     text: string;
 }
 
-//let NodeMatchTime = 0;
-
 export class MythicNode {
     templates: Set<string> = new Set();
     outEdge: { [K in registryKey]: Set<string> } = {
@@ -121,7 +119,6 @@ export class MythicNode {
         public name: NodeElement,
         public body: NodeBaseElement
     ) {
-        //const time = timeCounter();
         if (this.description.text) {
             for (const type of registryKey) {
                 this.matchDecorators(this.description.text, type).forEach((decorator) => {
@@ -147,39 +144,29 @@ export class MythicNode {
             .map((line) => line.replace(/\s*#.*/, ''))
             .join('\n');
 
-        if (this.registry.type === 'mob' || this.registry.type === 'item') {
-            this.matchTemplate(this.body.text).forEach((template) => {
-                if (this.templates.has(template)) {
-                    Log.warn(
-                        `Duplicate template ${template} found in ${this.registry.type} ${this.name.text}`
-                    );
-                }
-                this.templates.add(template);
-            });
-        } else if (this.registry.type === 'metaskill') {
-            this.matchConditionActions(this.body.text).forEach((action) => {
-                this.outEdge.metaskill.add(action);
-            });
-        }
+        this.findNodeEdges(this.body.text);
+
+        body.text = undefined;
+    }
+
+    protected findNodeEdges(body: string): void {
         for (const type of registryKey) {
-            this.matchAttributes(this.body.text, type).forEach((attribute) => {
+            this.matchAttributes(body, type).forEach((attribute) => {
                 this.outEdge[type].add(attribute);
             });
         }
 
-        this.matchSkillShortcut(this.body.text).forEach((skillShortcut) => {
+        this.matchSkillShortcut(body).forEach((skillShortcut) => {
             this.outEdge.metaskill.add(skillShortcut);
         });
-        this.matchPlaceholder(this.body.text);
-        delete body.text;
-        //NodeMatchTime += time.delta();
+        this.matchPlaceholder(body);
     }
 
     get hash(): string {
         return `${this.document.uri.toString()}#${this.range.start.line}`;
     }
 
-    private matchTemplate(body: string, regex = /^\s*Template(s)?:.*/gm): string[] {
+    protected matchTemplate(body: string, regex = /^\s*Template(s)?:.*/gm): string[] {
         const match = body.match(regex);
         const templateList: string[] = [];
         if (match) {
@@ -205,18 +192,6 @@ export class MythicNode {
         return parsedTemplates;
     }
 
-    private matchConditionActions(body: string): string[] {
-        const conditionActionRegex = new RegExp(
-            `\\s(?:${ConditionActions.getConditionActions().join('|')})\\s([\\w\\-_]+)`,
-            'gi'
-        );
-        const matches = body.matchAll(conditionActionRegex);
-        const conditionActions: string[] = [];
-        for (const match of matches) {
-            conditionActions.push(match[1]);
-        }
-        return conditionActions;
-    }
     private matchAttributes(body: string, type: registryKey): string[] {
         const attributeRegex = new RegExp(
             `[{;}]\\s*(?<attribute>${Array.from(MythicNodeHandler.registry[type].referenceAttributes).join('|')})\\s*=\\s*(?<value>[\\w\\-_]+)\\s*[;}]`,
@@ -271,6 +246,142 @@ export class MythicNode {
     }
 }
 
+// Represents a MythicNode specifically for metaskills, extending the base functionality
+// to include condition actions as additional edges.
+export class MetaskillMythicNode extends MythicNode {
+    protected findNodeEdges(body: string): void {
+        super.findNodeEdges(body);
+        this.matchConditionActions(body).forEach((action) => {
+            this.outEdge.metaskill.add(action);
+        });
+    }
+
+    private matchConditionActions(body: string): string[] {
+        const conditionActionRegex = new RegExp(
+            `\\s(?:${ConditionActions.getConditionActions().join('|')})\\s([\\w\\-_]+)`,
+            'gi'
+        );
+        const matches = body.matchAll(conditionActionRegex);
+        const conditionActions: string[] = [];
+        for (const match of matches) {
+            conditionActions.push(match[1]);
+        }
+        return conditionActions;
+    }
+}
+
+// Represents a MythicNode that supports templates, adding functionality to handle
+// and validate templates within the node body.
+export class TemplatableMythicNode extends MythicNode {
+    protected findNodeEdges(body: string): void {
+        super.findNodeEdges(body);
+        this.matchTemplate(body).forEach((template) => {
+            if (this.templates.has(template)) {
+                Log.warn(
+                    `Duplicate template ${template} found in ${this.registry.type} ${this.name.text}`
+                );
+            }
+            this.templates.add(template);
+        });
+    }
+}
+
+// Represents a MythicNode for stats, extending functionality to include parent stats
+// and trigger stats as additional edges.
+export class StatMythicNode extends MythicNode {
+    protected findNodeEdges(body: string): void {
+        super.findNodeEdges(body);
+        this.findParentStat(body).forEach((template) => {
+            if (this.templates.has(template)) {
+                Log.warn(
+                    `Duplicate template ${template} found in ${this.registry.type} ${this.name.text}`
+                );
+            }
+            this.templates.add(template);
+        });
+
+        this.findTriggerStat(body).forEach((outStat) => {
+            if (this.outEdge.stat.has(outStat)) {
+                Log.warn(
+                    `Duplicate TriggerStat ${outStat} found in ${this.registry.type} ${this.name.text}`
+                );
+            }
+            this.outEdge.stat.add(outStat);
+        });
+    }
+
+    private findParentStat(body: string): string[] {
+        const parentStatRegex = /(?<=ParentStats:)(\s*- [\w_\-]+\s*)*/gm;
+        const match = body.match(parentStatRegex);
+        const matches: string[] = [];
+        if (match) {
+            const parentStatMatches = match[0]
+                .split('\n')
+                .map((line) => line.replace('-', '').trim());
+            for (const stat of parentStatMatches) {
+                if (stat.length > 0) {
+                    matches.push(stat);
+                }
+            }
+        }
+        return matches;
+    }
+
+    private findTriggerStat(body: string): string[] {
+        const triggerStatRegex = /(?<=TriggerStats:)(\s*- [\w_\-]+\s[\w_\-]+\s*)*/gm;
+        const match = body.match(triggerStatRegex);
+        const matches: string[] = [];
+        if (match) {
+            const triggerStatMatches = match[0]
+                .split('\n')
+                .map((line) => line.replace('-', '').trim().split(' ')[0]);
+            for (const stat of triggerStatMatches) {
+                if (stat.length > 0) {
+                    matches.push(stat);
+                }
+            }
+        }
+        return matches;
+    }
+}
+
+// Represents a MythicNode for random spawns, adding functionality to handle mob types
+// and templates specific to random spawn configurations.
+export class RandomSpawnMythicNode extends MythicNode {
+    protected findNodeEdges(body: string): void {
+        super.findNodeEdges(body);
+
+        const typelist = this.findTypeList(body);
+        (typelist.length > 0 ? typelist : this.matchTemplate(body, /^\s*Type(s)?:.*/gm)).forEach(
+            (mob) => {
+                if (this.outEdge.mob.has(mob)) {
+                    Log.warn(
+                        `Duplicate mob ${mob} found in ${this.registry.type} ${this.name.text}`
+                    );
+                }
+                this.outEdge.mob.add(mob);
+            }
+        );
+    }
+
+    private findTypeList(body: string): string[] {
+        const triggerStatRegex = /(?<=Types:)(\s*- [\w_\-]+\s\d+\s*)*/gm;
+        const match = body.match(triggerStatRegex);
+        const matches: string[] = [];
+        if (match) {
+            const triggerStatMatches = match[0]
+                .split('\n')
+                .map((line) => line.replace('-', '').trim().split(' ')[0]);
+            for (const stat of triggerStatMatches) {
+                if (stat.length > 0) {
+                    matches.push(stat);
+                }
+            }
+        }
+        return matches;
+    }
+}
+
 export class MockMythicNode extends MythicNode {
     constructor(registry: MythicNodeRegistry, name: string, creator: MythicNode) {
         const document = vscode.workspace.textDocuments[0];
@@ -302,7 +413,10 @@ export class MythicNodeRegistry {
     nodesByDocument: Map<string, MythicNode[]> = new Map();
     decoratorRegex: RegExp;
 
-    constructor(registry: keyof typeof MythicNodeHandler.registry) {
+    constructor(
+        registry: keyof typeof MythicNodeHandler.registry,
+        private clazz: typeof MythicNode = MythicNode
+    ) {
         this.type = registry;
         this.decoratorRegex = new RegExp(`^\\s*#\\s?@${registry}?\\s*[\\w\\-_]*\\s*:.+`, 'gm');
     }
@@ -363,7 +477,7 @@ export class MythicNodeRegistry {
             );
             const matchEnd = document.positionAt(match.index + match[0].length);
 
-            const node = new MythicNode(
+            const node = new this.clazz(
                 this,
                 document,
                 new vscode.Range(matchStart, matchEnd),
@@ -392,13 +506,13 @@ export class MythicNodeRegistry {
 
 export namespace MythicNodeHandler {
     export const registry: Record<registryKey, MythicNodeRegistry> = {
-        metaskill: new MythicNodeRegistry('metaskill'),
-        mob: new MythicNodeRegistry('mob'),
-        item: new MythicNodeRegistry('item'),
+        metaskill: new MythicNodeRegistry('metaskill', MetaskillMythicNode),
+        mob: new MythicNodeRegistry('mob', TemplatableMythicNode),
+        item: new MythicNodeRegistry('item', TemplatableMythicNode),
         droptable: new MythicNodeRegistry('droptable'),
-        stat: new MythicNodeRegistry('stat'),
+        stat: new MythicNodeRegistry('stat', StatMythicNode),
         placeholder: new MythicNodeRegistry('placeholder'),
-        randomspawn: new MythicNodeRegistry('randomspawn'),
+        randomspawn: new MythicNodeRegistry('randomspawn', RandomSpawnMythicNode),
     };
 
     export function getRegistry(key: string): MythicNodeRegistry | undefined {
