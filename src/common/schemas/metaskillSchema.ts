@@ -1,5 +1,5 @@
-import { generateNumbersInRange } from '../utils/schemautils';
-import { Schema, SchemaElementTypes } from '../objectInfos';
+import { generateNumbersInRange, inheritSchemaOptions } from '../utils/schemautils';
+import { DefaultPlugins, Schema, SchemaElementTypes } from '../objectInfos';
 
 export const MetaskillSchema: Schema = {
     Skills: {
@@ -37,13 +37,21 @@ export const MetaskillSchema: Schema = {
         description: 'Whether the metaskill should be cancelled if there are no targets.',
     },
     FailedConditionsSkill: {
-        type: SchemaElementTypes.STRING,
+        type: SchemaElementTypes.ENUM,
+        dataset: 'METASKILL',
         link: 'https://git.lumine.io/mythiccraft/MythicMobs/-/wikis/Skills/Metaskills#failedconditionsskill',
         description: 'The name of the metaskill to cast if the conditions fail.',
     },
     OnCooldownSkill: {
-        type: SchemaElementTypes.STRING,
+        type: SchemaElementTypes.ENUM,
+        dataset: 'METASKILL',
         link: 'https://git.lumine.io/mythiccraft/MythicMobs/-/wikis/Skills/Metaskills#oncooldownskill',
         description: 'The name of the metaskill to cast if the metaskill is on cooldown.',
     },
 };
+
+inheritSchemaOptions(
+    MetaskillSchema,
+    'https://git.lumine.io/mythiccraft/MythicMobs/-/wikis/Skills/Metaskills',
+    DefaultPlugins.MythicMobs
+);

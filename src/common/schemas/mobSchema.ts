@@ -4,12 +4,13 @@ import {
     EnumDatasetValue,
 } from '@common/datasets/ScribeEnum';
 
-import { generateNumbersInRange } from '../utils/schemautils';
+import { generateNumbersInRange, inheritSchemaOptions } from '../utils/schemautils';
 import {
     Schema,
     SchemaElementSpecialKeys,
     SchemaElementTypes,
     KeySchemaElement,
+    DefaultPlugins,
 } from '../objectInfos';
 
 export const MobSchema: Schema = {
@@ -566,3 +567,9 @@ export function addMobOptions(options: Map<string, EnumDatasetValue>) {
         };
     }
 }
+
+inheritSchemaOptions(
+    MobSchema,
+    'https://git.lumine.io/mythiccraft/MythicMobs/-/wikis/Mobs',
+    DefaultPlugins.MythicMobs
+);

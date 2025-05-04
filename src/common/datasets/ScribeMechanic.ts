@@ -1,7 +1,7 @@
 import * as vscode from 'vscode';
 import { getDirectoryFiles } from '@node/datasets/ScribeMechanic';
 
-import { checkEnabledPlugin } from '../utils/configutils';
+import { isPluginEnabled } from '../utils/configutils';
 import { AbstractScribeEnum, ScribeEnumHandler } from './ScribeEnum';
 import { ctx } from '../../MythicScribe';
 import { ScribeCloneableFile } from './datasets';
@@ -45,7 +45,7 @@ export abstract class AbstractScribeMechanicRegistry {
 
     async addMechanic(...mechanic: Mechanic[]) {
         mechanic.forEach((m) => {
-            if (!checkEnabledPlugin(m.plugin)) {
+            if (!isPluginEnabled(m.plugin)) {
                 return;
             }
             const mythicMechanic = new MythicMechanic(m, this);

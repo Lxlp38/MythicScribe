@@ -4,6 +4,7 @@ import {
     SchemaElementSpecialKeys,
     SchemaElementTypes,
 } from '../objectInfos';
+import { isPluginEnabled } from './configutils';
 
 /**
  * Generates an array of numbers in a specified range, formatted as strings.
@@ -67,37 +68,59 @@ export function expandSchemaToMap(obj: Schema, insert: Schema) {
     }
 }
 
-export function getSchemaElementInTree(
-    keys: string[],
-    type: Schema,
-    link?: string
-): SchemaElement | undefined {
+export function inheritSchemaOptions(schema: Schema, link?: string, plugin?: string) {
+    for (const key in schema) {
+        const value = schema[key];
+        // If the current schema element does not have a 'link', inherit it from the parent.
+        if (!value.link) {
+            value.link = link;
+        }
+        // If the current schema element does not have a 'plugin', inherit it from the parent.
+        if (!value.plugin) {
+            value.plugin = plugin;
+        }
+
+        // If the schema element has keys, recursively propagate 'link' and 'plugin'.
+        if ('keys' in value && value.keys) {
+            inheritSchemaOptions(value.keys, value.link, value.plugin);
+        }
+    }
+}
+
+export function filterSchemaWithEnabledPlugins(schema: Schema): Schema {
+    const filteredSchema: Schema = {};
+    for (const key in schema) {
+        const value = schema[key];
+        if (value.plugin === undefined || isPluginEnabled(value.plugin)) {
+            filteredSchema[key] = value;
+            if ('keys' in filteredSchema[key] && filteredSchema[key].keys) {
+                filteredSchema[key].keys = filterSchemaWithEnabledPlugins(filteredSchema[key].keys);
+            }
+        }
+    }
+    return filteredSchema;
+}
+
+export function getSchemaElement(keys: string[], type: Schema): SchemaElement | undefined {
     const key = keys[0];
     keys = keys.slice(1);
     const object = type[key];
     if (!object) {
-        return handleSpecialSchemaElements(keys, type, link);
+        return handleSpecialSchemaElements(keys, type);
     }
     if (keys.length === 0) {
-        if (!object.link) {
-            object.link = link;
-        }
         return object;
     }
     if (object.type === SchemaElementTypes.KEY && object.keys) {
         const newobject = object.keys;
-        return getSchemaElementInTree(keys, newobject, object.link);
+        return getSchemaElement(keys, newobject);
     }
     return undefined;
 }
 
-function handleSpecialSchemaElements(
-    keys: string[],
-    type: Schema,
-    link?: string
-): SchemaElement | undefined {
+function handleSpecialSchemaElements(keys: string[], type: Schema): SchemaElement | undefined {
     if (SchemaElementSpecialKeys.WILDKEY in type) {
-        const wildkey = handleWildKeySchemaElement(keys, type, link);
+        const wildkey = handleWildKeySchemaElement(keys, type);
         if (wildkey) {
             return wildkey;
         }
@@ -105,20 +128,13 @@ function handleSpecialSchemaElements(
     return undefined;
 }
 
-function handleWildKeySchemaElement(
-    keys: string[],
-    type: Schema,
-    link?: string
-): SchemaElement | undefined {
+function handleWildKeySchemaElement(keys: string[], type: Schema): SchemaElement | undefined {
     const wildcardObject = type[SchemaElementSpecialKeys.WILDKEY]!;
-    if (!wildcardObject.link) {
-        wildcardObject.link = link;
-    }
     if (keys.length === 0) {
         return wildcardObject;
     }
     if (wildcardObject.keys) {
-        return getSchemaElementInTree(keys, wildcardObject.keys, wildcardObject.link);
+        return getSchemaElement(keys, wildcardObject.keys);
     }
     return undefined;
 }

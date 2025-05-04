@@ -243,7 +243,7 @@ export async function finallySetEnabledPlugins() {
     }
 }
 
-export function checkEnabledPlugin(plugin: string) {
+export function isPluginEnabled(plugin: string) {
     if (enabledPluginsCache[plugin] !== undefined) {
         return enabledPluginsCache[plugin];
     }

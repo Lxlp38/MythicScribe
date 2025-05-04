@@ -1,5 +1,5 @@
-import { generateNumbersInRange } from '../utils/schemautils';
-import { Schema, SchemaElementTypes } from '../objectInfos';
+import { generateNumbersInRange, inheritSchemaOptions } from '../utils/schemautils';
+import { DefaultPlugins, Schema, SchemaElementTypes } from '../objectInfos';
 
 export const StatSchema: Schema = {
     Enabled: {
@@ -145,3 +145,9 @@ export const StatSchema: Schema = {
         link: 'https://git.lumine.io/mythiccraft/MythicMobs/-/wikis/Stats#custom-stat-options',
     },
 };
+
+inheritSchemaOptions(
+    StatSchema,
+    'https://git.lumine.io/mythiccraft/MythicMobs/-/wikis/Stats',
+    DefaultPlugins.MythicMobs
+);

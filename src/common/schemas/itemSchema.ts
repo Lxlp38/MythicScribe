@@ -1,10 +1,20 @@
-import { addSchemaAliases, generateNumbersInRange } from '../utils/schemautils';
-import { Schema, SchemaElementSpecialKeys, SchemaElementTypes } from '../objectInfos';
+import {
+    addSchemaAliases,
+    generateNumbersInRange,
+    inheritSchemaOptions,
+} from '../utils/schemautils';
+import {
+    DefaultPlugins,
+    Schema,
+    SchemaElementSpecialKeys,
+    SchemaElementTypes,
+} from '../objectInfos';
 
 const Generation: Schema = {
     Generation: {
         type: SchemaElementTypes.KEY_LIST,
         link: 'https://git.lumine.io/mythiccraft/mythiccrucible/-/wikis/ResourcePack-Generator',
+        plugin: DefaultPlugins.MythicCrucible,
     },
 };
 
@@ -12,24 +22,30 @@ const ConsumeEffects: Schema = {
     ConsumeEffects: {
         type: SchemaElementTypes.LIST,
         description: 'Effects to apply when the item is consumed',
+        plugin: DefaultPlugins.MythicCrucible,
     },
 };
 
 const FurnitureStatesCompatibleOptions: Schema = {
     CanPlaceUnderwater: {
         type: SchemaElementTypes.BOOLEAN,
+        plugin: DefaultPlugins.MythicCrucible,
     },
     GlowingFrame: {
         type: SchemaElementTypes.BOOLEAN,
+        plugin: DefaultPlugins.MythicCrucible,
     },
     Lights: {
         type: SchemaElementTypes.LIST,
+        plugin: DefaultPlugins.MythicCrucible,
     },
     Barriers: {
         type: SchemaElementTypes.LIST,
+        plugin: DefaultPlugins.MythicCrucible,
     },
     Model: {
         type: SchemaElementTypes.INTEGER,
+        plugin: DefaultPlugins.MythicCrucible,
     },
     ...Generation,
 };
@@ -78,6 +94,7 @@ export const ItemSchema: Schema = {
         link: 'https://git.lumine.io/mythiccraft/MythicMobs/-/wikis/Items/Items#attributes',
         description:
             'Allows the addition of item attributes, such as health, to certain armor slots',
+
         keys: {
             All: {
                 type: SchemaElementTypes.KEY_LIST,
@@ -434,21 +451,25 @@ export const ItemSchema: Schema = {
         type: SchemaElementTypes.LIST,
         link: 'https://git.lumine.io/mythiccraft/mythiccrucible/-/wikis/Usage',
         description: 'Sets the skills of the item',
+        plugin: DefaultPlugins.MythicCrucible,
     },
     FurnitureSkills: {
         type: SchemaElementTypes.LIST,
         link: 'https://git.lumine.io/mythiccraft/mythiccrucible/-/wikis/Furniture#furniture-skills',
         description: 'Sets the furniture skills of the item',
+        plugin: DefaultPlugins.MythicCrucible,
     },
     CustomBlockSkills: {
         type: SchemaElementTypes.LIST,
         link: 'https://git.lumine.io/mythiccraft/mythiccrucible/-/wikis/Custom-Blocks',
         description: 'Sets the custom block skills of the item',
+        plugin: DefaultPlugins.MythicCrucible,
     },
     CustomDurability: {
         type: SchemaElementTypes.KEY,
         link: 'https://git.lumine.io/mythiccraft/mythiccrucible/-/wikis/CustomDurability',
         description: 'Sets the custom durability of the item',
+        plugin: DefaultPlugins.MythicCrucible,
         keys: {
             Durability: {
                 type: SchemaElementTypes.INTEGER,
@@ -459,6 +480,7 @@ export const ItemSchema: Schema = {
         type: SchemaElementTypes.KEY,
         link: 'https://git.lumine.io/mythiccraft/mythiccrucible/-/wikis/Recipes',
         description: 'Sets the recipes of the item',
+        plugin: DefaultPlugins.MythicCrucible,
         keys: {
             [SchemaElementSpecialKeys.WILDKEY]: {
                 type: SchemaElementTypes.KEY,
@@ -482,16 +504,19 @@ export const ItemSchema: Schema = {
         type: SchemaElementTypes.KEY_LIST,
         link: 'https://git.lumine.io/mythiccraft/mythiccrucible/-/wikis/Augments',
         description: 'Sets the augmentation slots of the item',
+        plugin: DefaultPlugins.MythicCrucible,
     },
     EquipmentSet: {
         type: SchemaElementTypes.STRING,
         link: 'https://git.lumine.io/mythiccraft/mythiccrucible/-/wikis/Sets',
         description: 'Sets the set of the item',
+        plugin: DefaultPlugins.MythicCrucible,
     },
     CustomBlock: {
         type: SchemaElementTypes.KEY,
         link: 'https://git.lumine.io/mythiccraft/mythiccrucible/-/wikis/Custom-Blocks',
         description: 'Sets the custom block of the item',
+        plugin: DefaultPlugins.MythicCrucible,
         keys: {
             Type: {
                 type: SchemaElementTypes.STRING,
@@ -523,11 +548,13 @@ export const ItemSchema: Schema = {
         type: SchemaElementTypes.STRING,
         link: 'https://git.lumine.io/mythiccraft/mythiccrucible/-/wikis',
         description: 'Sets the type of the item',
+        plugin: DefaultPlugins.MythicCrucible,
     },
     Furniture: {
         type: SchemaElementTypes.KEY,
         link: 'https://git.lumine.io/mythiccraft/mythiccrucible/-/wikis/Furniture',
         description: 'Sets the furniture of the item',
+        plugin: DefaultPlugins.MythicCrucible,
         keys: {
             Material: {
                 type: SchemaElementTypes.ENUM,
@@ -627,7 +654,8 @@ export const ItemSchema: Schema = {
     Inventory: {
         type: SchemaElementTypes.KEY,
         link: 'https://git.lumine.io/mythiccraft/mythiccrucible/-/wikis/Bags',
-        description: 'Thets the bag options',
+        description: 'Sets the bag options',
+        plugin: DefaultPlugins.MythicCrucible,
         keys: {
             Title: {
                 type: SchemaElementTypes.STRING,
@@ -745,3 +773,9 @@ addSchemaAliases(ItemSchema, {
     Model: ['CustomModelData'],
     Group: ['ItemType'],
 });
+
+inheritSchemaOptions(
+    ItemSchema,
+    'https://git.lumine.io/mythiccraft/MythicMobs/-/wikis/Items/Items',
+    DefaultPlugins.MythicMobs
+);

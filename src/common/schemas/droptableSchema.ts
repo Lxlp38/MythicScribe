@@ -1,5 +1,5 @@
-import { generateNumbersInRange } from '../utils/schemautils';
-import { Schema, SchemaElementTypes } from '../objectInfos';
+import { generateNumbersInRange, inheritSchemaOptions } from '../utils/schemautils';
+import { DefaultPlugins, Schema, SchemaElementTypes } from '../objectInfos';
 
 export const DroptableSchema: Schema = {
     TotalItems: {
@@ -56,3 +56,9 @@ export const DroptableSchema: Schema = {
         description: 'A list of items that can drop from the table.',
     },
 };
+
+inheritSchemaOptions(
+    DroptableSchema,
+    'https://git.lumine.io/mythiccraft/MythicMobs/-/wikis/drops/DropTables',
+    DefaultPlugins.MythicMobs
+);

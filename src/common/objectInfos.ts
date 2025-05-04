@@ -24,6 +24,7 @@ type BaseSchemaElement = {
     description?: string;
     values?: string[];
     display?: string;
+    plugin?: string;
 };
 type EnumSchemaElement = BaseSchemaElement & {
     type: SchemaElementTypes.ENUM;
@@ -97,4 +98,11 @@ export type registryKey = (typeof registryKey)[number];
 
 export function isBoolean(value: string): boolean {
     return value === 'Boolean' || value === 'PlaceholderBoolean';
+}
+
+export enum DefaultPlugins {
+    MythicMobs = 'MythicMobs',
+    ModelEngine = 'ModelEngine',
+    MythicCrucible = 'MythicCrucible',
+    MythicRPG = 'MythicRPG',
 }

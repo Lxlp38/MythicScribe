@@ -1,5 +1,5 @@
-import { Schema, SchemaElementTypes } from '@common/objectInfos';
-import { generateNumbersInRange } from '@common/utils/schemautils';
+import { DefaultPlugins, Schema, SchemaElementTypes } from '@common/objectInfos';
+import { generateNumbersInRange, inheritSchemaOptions } from '@common/utils/schemautils';
 
 export const RandomSpawnSchema: Schema = {
     Action: {
@@ -86,3 +86,9 @@ export const RandomSpawnSchema: Schema = {
         link: 'https://git.lumine.io/mythiccraft/MythicMobs/-/wikis/Random-Spawns',
     },
 };
+
+inheritSchemaOptions(
+    RandomSpawnSchema,
+    'https://git.lumine.io/mythiccraft/MythicMobs/-/wikis/Random-Spawns',
+    DefaultPlugins.MythicMobs
+);

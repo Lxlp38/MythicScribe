@@ -292,7 +292,8 @@
           "default": {
             "MythicMobs": true,
             "ModelEngine": true,
-            "MythicCrucible": true
+            "MythicCrucible": true,
+            "MythicRPG": true
           },
           "description": "Enable / Disable specific plugins' datasets",
           "title": "Enabled Plugins",

@@ -21,7 +21,8 @@ import {
 } from '../objectInfos';
 import { MythicMechanic } from '../datasets/ScribeMechanic';
 import { EnumDatasetValue, ScribeEnumHandler } from '../datasets/ScribeEnum';
-import { getSchemaElementInTree } from './schemautils';
+import { filterSchemaWithEnabledPlugins, getSchemaElement } from './schemautils';
+import { isPluginEnabled } from './configutils';
 
 export const retriggerCompletionsCommand: vscode.Command = {
     command: 'editor.action.triggerSuggest',
@@ -33,13 +34,14 @@ export async function generateFileCompletion(
     document: vscode.TextDocument,
     position: vscode.Position,
     context: vscode.CompletionContext,
-    type: Schema
+    schema: Schema
 ): Promise<vscode.CompletionItem[] | undefined> {
+    const filteredSchema = filterSchemaWithEnabledPlugins(schema);
     if (isEmptyLine(document, position.line)) {
-        return fileCompletions(document, position, type);
+        return fileCompletions(document, position, filteredSchema);
     }
     if (context.triggerKind === vscode.CompletionTriggerKind.Invoke) {
-        return getCompletionForInvocation(document, position, context, type);
+        return getCompletionForInvocation(document, position, context, filteredSchema);
     }
 
     return undefined;
@@ -201,18 +203,13 @@ export function addMechanicCompletions(
 export function fileCompletions(
     document: vscode.TextDocument,
     position: vscode.Position,
-    objectmap: Schema
+    schema: Schema
 ): vscode.CompletionItem[] | undefined {
     const keys = getParentKeys(document, position).reverse();
     if (keys.length === 0) {
         return undefined;
     }
-
-    const result = fileCompletionFindNodesOnLevel(
-        objectmap,
-        getKeyNameFromYamlKey(keys).slice(1),
-        1
-    );
+    const result = fileCompletionFindNodesOnLevel(schema, getKeyNameFromYamlKey(keys).slice(1), 1);
     if (!result) {
         return undefined;
     }
@@ -275,10 +272,10 @@ function fileCompletionFindNodesOnLevel(
 }
 
 // Completes the key itself
-function fileCompletionForSchema(objectMap: Schema, indentation: string): vscode.CompletionItem[] {
+function fileCompletionForSchema(schema: Schema, indentation: string): vscode.CompletionItem[] {
     const completionItems: vscode.CompletionItem[] = [];
 
-    Object.entries(objectMap).forEach(([key, value]) => {
+    Object.entries(schema).forEach(([key, value]) => {
         if (key === SchemaElementSpecialKeys.WILDKEY) {
             const completionItem = new vscode.CompletionItem(
                 (value as WildKeySchemaElement).display,
@@ -363,8 +360,8 @@ async function getKeyObjectCompletion(
     keys: string[],
     type: Schema
 ): Promise<vscode.CompletionItem[] | undefined> {
-    const object = getSchemaElementInTree(keys, type);
-    if (!object) {
+    const object = getSchemaElement(keys, type);
+    if (!object || (object.plugin && !isPluginEnabled(object.plugin))) {
         return undefined;
     }
 
@@ -406,8 +403,8 @@ function getListObjectCompletion(
     position: vscode.Position,
     context: vscode.CompletionContext
 ): vscode.CompletionItem[] | undefined {
-    const object = getSchemaElementInTree(keys, type);
-    if (!object) {
+    const object = getSchemaElement(keys, type);
+    if (!object || (object.plugin && !isPluginEnabled(object.plugin))) {
         return undefined;
     }
 

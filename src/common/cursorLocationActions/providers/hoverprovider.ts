@@ -1,7 +1,7 @@
 import * as vscode from 'vscode';
-import { getSchemaElementInTree } from '@common/utils/schemautils';
+import { getSchemaElement } from '@common/utils/schemautils';
 
-import { Schema } from '../../objectInfos';
+import { Schema, SchemaElement } from '../../objectInfos';
 import {
     MythicAttribute,
     AbstractScribeMechanicRegistry,
@@ -129,34 +129,29 @@ async function getHoverForAttribute(attribute: MythicAttribute): Promise<vscode.
     return new vscode.Hover(hoverContent);
 }
 
-function getHoverForFileElement(
-    title: string,
-    description: string | undefined,
-    link: string | undefined
-): vscode.Hover {
+function getHoverForFileElement(title: string, schemaElement: SchemaElement): vscode.Hover {
     const hoverContent = new vscode.MarkdownString(`
-## [${title}](${link})
+## [${title}](${schemaElement.link})
 
-${description ? description : 'No description provided.'}`);
+${schemaElement.description ? schemaElement.description : 'No description provided.'}
+
+---
+
+##### Plugin: ${schemaElement.plugin || 'Base'}
+
+---
+`);
     hoverContent.isTrusted = true;
     return new vscode.Hover(hoverContent);
 }
 
-function findHoverForFileElement(
-    keys: string[],
-    type: Schema,
-    link: string | undefined
-): vscode.Hover | undefined {
+function findHoverForFileElement(keys: string[], type: Schema): vscode.Hover | undefined {
     if (keys.length === 0) {
         return undefined;
     }
-    const object = getSchemaElementInTree(keys, type);
+    const object = getSchemaElement(keys, type);
     if (!object) {
         return undefined;
     }
-    return getHoverForFileElement(
-        keys.pop()!,
-        object.description,
-        object.link ? object.link : link
-    );
+    return getHoverForFileElement(keys.pop()!, object);
 }
