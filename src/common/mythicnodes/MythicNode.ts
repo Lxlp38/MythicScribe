@@ -365,14 +365,14 @@ export class RandomSpawnMythicNode extends MythicNode {
     }
 
     private findTypeList(body: string): string[] {
-        const triggerStatRegex = /(?<=Types:)(\s*- [\w_\-]+\s\d+\s*)*/gm;
-        const match = body.match(triggerStatRegex);
+        const typeRegex = /(?<=Types:)(\s*- [\w_\-]+\s\d+\s*)*/gm;
+        const match = body.match(typeRegex);
         const matches: string[] = [];
         if (match) {
-            const triggerStatMatches = match[0]
+            const typeMatches = match[0]
                 .split('\n')
                 .map((line) => line.replace('-', '').trim().split(' ')[0]);
-            for (const stat of triggerStatMatches) {
+            for (const stat of typeMatches) {
                 if (stat.length > 0) {
                     matches.push(stat);
                 }

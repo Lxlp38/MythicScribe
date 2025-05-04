@@ -13,6 +13,7 @@ import {
     PreviousSymbolRegexes
 } from '../../../src/common/utils/yamlutils';
 
+
 suite('YAML Utils', () => {
     let document: vscode.TextDocument;
     let position: vscode.Position;
@@ -44,6 +45,18 @@ suite('YAML Utils', () => {
     });
 
     suite('getParentKeys', () => {
+        const parentKeysMap = [
+            {
+                key: 'parent1',
+                line: 1,
+                indent: 2,
+            },
+            {
+                key: 'root',
+                line: 0,
+                indent: 0,
+            },
+        ]    
         test('getParentKeys should return parent keys correctly', () => {
             (document.lineAt as sinon.SinonStub).callsFake((index: number) => ({
                 text: lines[index],
@@ -51,18 +64,7 @@ suite('YAML Utils', () => {
 
             position = new vscode.Position(2, 0); // Position at 'child1: value1'
             const keys = getParentKeys(document, position);
-            assert.deepStrictEqual(keys, [
-                {
-                    key: 'parent1',
-                    line: 1,
-                    indent: 2,
-                },
-                {
-                    key: 'root',
-                    line: 0,
-                    indent: 0,
-                },
-            ]);
+            assert.deepStrictEqual(keys, parentKeysMap);
         });
 
         test('getParentKeys should include current line key if getLineKey is true', () => {
@@ -77,17 +79,7 @@ suite('YAML Utils', () => {
                     key: 'child1',
                     line: 2,
                     indent: 4,
-                },
-                {
-                    key: 'parent1',
-                    line: 1,
-                    indent: 2,
-                },
-                {
-                    key: 'root',
-                    line: 0,
-                    indent: 0,
-                },
+                }, ...parentKeysMap
             ]);
         });
 

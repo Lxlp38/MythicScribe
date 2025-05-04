@@ -51,8 +51,6 @@ export function getConditionCompletionItems(
     );
     const wordBefore = yamlutils.getWordBeforePosition(document, position);
 
-    let space = ' ';
-
     const completionItems: vscode.CompletionItem[] = [];
     const lastIsConditionAction = ConditionActions.getConditionActions().includes(wordBefore);
     if (lastIsConditionAction) {
@@ -76,6 +74,20 @@ export function getConditionCompletionItems(
         }
         return undefined;
     }
+
+    handleBracketsCompletions(document.lineAt(position.line).text, completionItems, context);
+
+    completionItems.push(...ScribeMechanicHandler.registry.condition.mechanicCompletions);
+    return completionItems;
+}
+
+function handleBracketsCompletions(
+    line: string,
+    completionItems: vscode.CompletionItem[],
+    context: vscode.CompletionContext
+) {
+    let space = ' ';
+
     if (
         context.triggerKind === vscode.CompletionTriggerKind.Invoke &&
         context.triggerCharacter === undefined
@@ -95,8 +107,8 @@ export function getConditionCompletionItems(
     openBraceCompletion.command = retriggerCompletionsCommand;
     completionItems.push(openBraceCompletion);
 
-    const openBraceCount = (document.getText().match(/\(/g) || []).length;
-    const closeBraceCount = (document.getText().match(/\)/g) || []).length;
+    const openBraceCount = (line.match(/\(/g) || []).length;
+    const closeBraceCount = (line.match(/\)/g) || []).length;
     if (openBraceCount > closeBraceCount) {
         const closeBraceCompletion = new vscode.CompletionItem(
             ')',
@@ -107,10 +119,6 @@ export function getConditionCompletionItems(
         closeBraceCompletion.command = retriggerCompletionsCommand;
         completionItems.push(closeBraceCompletion);
     }
-
-    completionItems.push(...ScribeMechanicHandler.registry.condition.mechanicCompletions);
-
-    return completionItems;
 }
 
 function addOperatorsToConditionLine(completionItems: vscode.CompletionItem[]) {
