@@ -22,12 +22,13 @@ export const MobSchema: Schema = {
     },
     Template: {
         type: SchemaElementTypes.ENUM,
-        dataset: 'mob',
+        dataset: 'MOB',
         link: 'https://git.lumine.io/mythiccraft/MythicMobs/-/wikis/Mobs/Templates',
         description: 'The templates for the mob.',
     },
     Exclude: {
         type: SchemaElementTypes.LIST,
+        dataset: 'MOBSCHEMA',
         link: 'https://git.lumine.io/mythiccraft/MythicMobs/-/wikis/Mobs/Templates#excluding-elements',
         description: 'A list of elements the mob should not inherit.',
     },

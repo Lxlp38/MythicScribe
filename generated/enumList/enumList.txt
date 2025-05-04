@@ -73,4 +73,10 @@ customplaceholder
 randomspawn
 targeter
 mythicitem
+mobschema
+itemschema
+metaskillschema
+droptableschema
+statschema
+randomspawnschema
 conditions

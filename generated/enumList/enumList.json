@@ -375,6 +375,36 @@
     "type": "Scripted"
   },
   {
+    "id": "mobschema",
+    "path": null,
+    "type": "Scripted"
+  },
+  {
+    "id": "itemschema",
+    "path": null,
+    "type": "Scripted"
+  },
+  {
+    "id": "metaskillschema",
+    "path": null,
+    "type": "Scripted"
+  },
+  {
+    "id": "droptableschema",
+    "path": null,
+    "type": "Scripted"
+  },
+  {
+    "id": "statschema",
+    "path": null,
+    "type": "Scripted"
+  },
+  {
+    "id": "randomspawnschema",
+    "path": null,
+    "type": "Scripted"
+  },
+  {
     "id": "conditions",
     "path": null,
     "type": "Scripted"

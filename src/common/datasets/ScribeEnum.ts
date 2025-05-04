@@ -1,4 +1,11 @@
 import * as vscode from 'vscode';
+import { Schema } from '@common/objectInfos';
+import { MobSchema } from '@common/schemas/mobSchema';
+import { StatSchema } from '@common/schemas/statSchema';
+import { ItemSchema } from '@common/schemas/itemSchema';
+import { MetaskillSchema } from '@common/schemas/metaskillSchema';
+import { DroptableSchema } from '@common/schemas/droptableSchema';
+import { RandomSpawnSchema } from '@common/schemas/randomSpawnSchema';
 
 import { minecraftVersion } from '../utils/configutils';
 import { ScribeCloneableFile, fetchJsonFromLocalFile, fetchJsonFromURL } from './datasets';
@@ -302,6 +309,20 @@ export const ScribeEnumHandler = {
         this.addScriptedEnum(scriptedEnums.RandomSpawn, () =>
             fromMythicNodeToEnum(MythicNodeHandler.registry.randomspawn.getNodes())
         );
+
+        // Schemas
+        this.addScriptedEnum(scriptedEnums.MobSchema, () => fromSchemaToEnum(MobSchema));
+        this.addScriptedEnum(scriptedEnums.ItemSchema, () => fromSchemaToEnum(ItemSchema));
+        this.addScriptedEnum(scriptedEnums.MetaskillSchema, () =>
+            fromSchemaToEnum(MetaskillSchema)
+        );
+        this.addScriptedEnum(scriptedEnums.DroptableSchema, () =>
+            fromSchemaToEnum(DroptableSchema)
+        );
+        this.addScriptedEnum(scriptedEnums.StatSchema, () => fromSchemaToEnum(StatSchema));
+        this.addScriptedEnum(scriptedEnums.RandomSpawnSchema, () =>
+            fromSchemaToEnum(RandomSpawnSchema)
+        );
     },
 };
 
@@ -318,9 +339,17 @@ function fromMechanicRegistryToEnum(registry: AbstractScribeMechanicRegistry) {
 function fromMythicNodeToEnum(nodes: Map<string, MythicNode>) {
     const metaskills: Map<string, EnumDatasetValue> = new Map();
     nodes.forEach((node) => {
-        metaskills.set(node.name.text, { description: '' });
+        metaskills.set(node.name.text, { description: node.description.text || '' });
     });
     return metaskills;
+}
+
+function fromSchemaToEnum(schema: Schema) {
+    const schemaEnum: Map<string, EnumDatasetValue> = new Map();
+    Object.entries(schema).forEach(([key, value]) => {
+        schemaEnum.set(key, { description: value.description });
+    });
+    return schemaEnum;
 }
 
 async function insertTargeterCompletion() {

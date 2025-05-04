@@ -298,6 +298,30 @@
 ### Path: `null`
 ### Type: `Scripted`
 
+# `mobschema`
+### Path: `null`
+### Type: `Scripted`
+
+# `itemschema`
+### Path: `null`
+### Type: `Scripted`
+
+# `metaskillschema`
+### Path: `null`
+### Type: `Scripted`
+
+# `droptableschema`
+### Path: `null`
+### Type: `Scripted`
+
+# `statschema`
+### Path: `null`
+### Type: `Scripted`
+
+# `randomspawnschema`
+### Path: `null`
+### Type: `Scripted`
+
 # `conditions`
 ### Path: `null`
 ### Type: `Scripted`

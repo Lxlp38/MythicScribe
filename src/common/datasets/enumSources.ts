@@ -67,10 +67,14 @@ export enum scriptedEnums {
     Color = 'color',
     RGBColor = 'rgbcolor',
     Boolean = 'boolean',
+
+    // List of all mechanic types
     MechanicList = 'mechaniclist',
     TargeterList = 'targeterlist',
     TriggerList = 'triggerlist',
     ConditionList = 'conditionlist',
+
+    // Node-related datasets
     Mob = 'mob',
     Item = 'item',
     Metaskill = 'metaskill',
@@ -80,6 +84,14 @@ export enum scriptedEnums {
     RandomSpawn = 'randomspawn',
     Targeter = 'targeter',
     MythicItem = 'mythicitem',
+
+    // First "level" of the schemas, without nested keys
+    MobSchema = 'mobschema',
+    ItemSchema = 'itemschema',
+    MetaskillSchema = 'metaskillschema',
+    DroptableSchema = 'droptableschema',
+    StatSchema = 'statschema',
+    RandomSpawnSchema = 'randomspawnschema',
 }
 
 export enum attributeSpecialValues {
