@@ -3,7 +3,7 @@ import * as yamlutils from '@common/utils/yamlutils';
 import { ActiveFileTypeInfo } from '@common/subscriptions/SubscriptionHelper';
 import { getMechanicLine } from '@common/utils/yamlutils';
 import { keyAliases } from '@common/objectInfos';
-import { retriggerCompletionsCommand } from '@common/utils/completionhelper';
+import { getCharBefore, retriggerCompletionsCommand } from '@common/utils/completionhelper';
 
 export function mechaniclineCompletionProvider() {
     return vscode.languages.registerCompletionItemProvider(
@@ -28,9 +28,7 @@ export function mechaniclineCompletionProvider() {
                     return undefined;
                 }
 
-                const charBefore = document.getText(
-                    new vscode.Range(position.translate(0, -1), position)
-                );
+                const charBefore = getCharBefore(document, position, 1);
                 if (charBefore !== ' ') {
                     return undefined;
                 }

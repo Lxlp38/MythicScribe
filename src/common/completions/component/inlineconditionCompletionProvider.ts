@@ -1,6 +1,10 @@
 import * as vscode from 'vscode';
 import { keyAliases } from '@common/objectInfos';
-import { checkShouldComplete, retriggerCompletionsCommand } from '@common/utils/completionhelper';
+import {
+    checkShouldComplete,
+    getCharBefore,
+    retriggerCompletionsCommand,
+} from '@common/utils/completionhelper';
 import { ScribeMechanicHandler } from '@common/datasets/ScribeMechanic';
 
 export function inlineConditionCompletionProvider() {
@@ -24,14 +28,10 @@ export function inlineConditionCompletionProvider() {
                 }
                 const completionItems: vscode.CompletionItem[] = [];
 
-                const charBefore0 = document.getText(
-                    new vscode.Range(position.translate(0, -1), position)
-                );
+                const charBefore0 = getCharBefore(document, position, 1);
                 switch (charBefore0) {
                     case '?': {
-                        const charBefore1 = document.getText(
-                            new vscode.Range(position.translate(0, -2), position)
-                        );
+                        const charBefore1 = getCharBefore(document, position, 2);
                         if (charBefore1 !== ' ?') {
                             return undefined;
                         }
@@ -49,9 +49,7 @@ export function inlineConditionCompletionProvider() {
                         break;
                     }
                     case '~': {
-                        const charBefore2 = document.getText(
-                            new vscode.Range(position.translate(0, -3), position)
-                        );
+                        const charBefore2 = getCharBefore(document, position, 3);
                         if (charBefore2 !== ' ?~') {
                             return undefined;
                         }
@@ -66,9 +64,7 @@ export function inlineConditionCompletionProvider() {
                         break;
                     }
                     case '!': {
-                        const charBefore3 = document.getText(
-                            new vscode.Range(position.translate(0, -3), position)
-                        );
+                        const charBefore3 = getCharBefore(document, position, 3);
                         if (charBefore3 !== ' ?!' && charBefore3 !== '?~!') {
                             return undefined;
                         }

@@ -1,7 +1,7 @@
 import * as vscode from 'vscode';
 import * as yamlutils from '@common/utils/yamlutils';
 import { keyAliases } from '@common/objectInfos';
-import { retriggerCompletionsCommand } from '@common/utils/completionhelper';
+import { getCharBefore, retriggerCompletionsCommand } from '@common/utils/completionhelper';
 import { MythicNodeHandler } from '@common/mythicnodes/MythicNode';
 
 export function inlineMetaskillCompletionProvider() {
@@ -14,14 +14,12 @@ export function inlineMetaskillCompletionProvider() {
                     return undefined;
                 }
 
-                const lastTwoChars = document.getText(
-                    new vscode.Range(position.translate(0, -2), position)
-                );
+                const lastTwoChars = getCharBefore(document, position, 2);
                 if (lastTwoChars !== '=[') {
                     return undefined;
                 }
 
-                return [provideInlinemetaskillCompletion()];
+                return [provideInlineMetaskillCompletion()];
             },
         },
         '['
@@ -38,9 +36,7 @@ export function metaskillCompletionProvider() {
                     return undefined;
                 }
 
-                const lastChars = document.getText(
-                    new vscode.Range(position.translate(0, -6), position)
-                );
+                const lastChars = getCharBefore(document, position, 6);
                 if (lastChars !== 'skill:') {
                     return undefined;
                 }
@@ -54,7 +50,7 @@ export function metaskillCompletionProvider() {
     );
 }
 
-function provideInlinemetaskillCompletion() {
+function provideInlineMetaskillCompletion() {
     const indent = yamlutils.getDefaultIndentation();
     const indentation = ' '.repeat(indent);
 

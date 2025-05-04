@@ -6,9 +6,9 @@ import { AbstractScribeEnum, ScribeEnumHandler } from './ScribeEnum';
 import { ctx } from '../../MythicScribe';
 import { ScribeCloneableFile } from './datasets';
 import { addMechanicCompletions } from '../utils/completionhelper';
-import { attributeSpecialValues } from './enumSources';
+import { attributeSpecialValues, scriptedEnums } from './enumSources';
 import { MythicNodeHandler } from '../mythicnodes/MythicNode';
-import { registryKey } from '../objectInfos';
+import { isBoolean, registryKey } from '../objectInfos';
 import { timeCounter } from '../utils/timeUtils';
 import Log from '../utils/logger';
 
@@ -302,7 +302,11 @@ export class MythicAttribute {
         this.list = attribute.list || false;
 
         if (!attribute.enum) {
-            return;
+            if (isBoolean(attribute.type)) {
+                attribute.enum = scriptedEnums.Boolean;
+            } else {
+                return;
+            }
         }
 
         if (attribute.enum.toLowerCase() in attributeSpecialValues) {

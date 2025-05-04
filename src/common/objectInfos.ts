@@ -94,3 +94,7 @@ export const registryKey = [
     'randomspawn',
 ] as const;
 export type registryKey = (typeof registryKey)[number];
+
+export function isBoolean(value: string): boolean {
+    return value === 'Boolean' || value === 'PlaceholderBoolean';
+}

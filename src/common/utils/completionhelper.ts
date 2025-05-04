@@ -1,7 +1,17 @@
 import * as vscode from 'vscode';
 
-import * as yamlutils from './yamlutils';
-import { previousSymbol } from './yamlutils';
+import {
+    getDefaultIndentation,
+    getIndentation,
+    getKeyNameFromYamlKey,
+    getParentKeys,
+    isAfterComment,
+    isEmptyLine,
+    isKey,
+    isList,
+    previousSymbol,
+    PreviousSymbolRegexes,
+} from './yamlutils';
 import {
     Schema,
     SchemaElement,
@@ -25,9 +35,10 @@ export async function generateFileCompletion(
     context: vscode.CompletionContext,
     type: Schema
 ): Promise<vscode.CompletionItem[] | undefined> {
-    if (yamlutils.isEmptyLine(document, position.line)) {
+    if (isEmptyLine(document, position.line)) {
         return fileCompletions(document, position, type);
-    } else if (context.triggerKind === vscode.CompletionTriggerKind.Invoke) {
+    }
+    if (context.triggerKind === vscode.CompletionTriggerKind.Invoke) {
         return getCompletionForInvocation(document, position, context, type);
     }
 
@@ -53,22 +64,18 @@ export function getListCompletionNeededSpaces(
     }
 
     if (context.triggerCharacter === undefined) {
-        const specialSymbol = previousSymbol(
-            yamlutils.PreviousSymbolRegexes.nonspace,
-            document,
-            position
-        );
+        const specialSymbol = previousSymbol(PreviousSymbolRegexes.nonspace, document, position);
         if (specialSymbol !== '-') {
             return undefined;
         }
-        const charBefore = document.getText(new vscode.Range(position.translate(0, -1), position));
+        const charBefore = getCharBefore(document, position, 1);
         if (charBefore === '-') {
             return ' ';
         } else {
             return '';
         }
     } else {
-        const charBefore2 = document.getText(new vscode.Range(position.translate(0, -2), position));
+        const charBefore2 = getCharBefore(document, position, 2);
         if (charBefore2 !== '- ') {
             return undefined;
         }
@@ -92,7 +99,7 @@ export function checkShouldComplete(
     symbol: string[]
 ) {
     return (
-        !yamlutils.isAfterComment(document, position) &&
+        !isAfterComment(document, position) &&
         checkShouldKeyCompleteExec(document, position, keylist) &&
         checkShouldPrefixCompleteExec(document, position, context, symbol)
     );
@@ -103,7 +110,7 @@ export function checkShouldKeyComplete(
     position: vscode.Position,
     keylist: string[]
 ) {
-    if (yamlutils.isAfterComment(document, position)) {
+    if (isAfterComment(document, position)) {
         return false;
     }
     return checkShouldKeyCompleteExec(document, position, keylist);
@@ -113,7 +120,7 @@ function checkShouldKeyCompleteExec(
     position: vscode.Position,
     keylist: string[]
 ) {
-    const keys = yamlutils.getParentKeys(document, position);
+    const keys = getParentKeys(document, position);
     if (!keylist.includes(keys[0].key)) {
         return false;
     }
@@ -127,7 +134,7 @@ export function checkShouldPrefixComplete(
     symbol: string[],
     depth = 0
 ) {
-    if (yamlutils.isAfterComment(document, position)) {
+    if (isAfterComment(document, position)) {
         return false;
     }
     return checkShouldPrefixCompleteExec(document, position, context, symbol, depth);
@@ -142,7 +149,7 @@ function checkShouldPrefixCompleteExec(
     // called via invocation
     if (context.triggerKind === vscode.CompletionTriggerKind.Invoke) {
         const mypreviousSpecialSymbol = previousSymbol(
-            yamlutils.PreviousSymbolRegexes.default,
+            PreviousSymbolRegexes.default,
             document,
             position,
             depth
@@ -154,31 +161,31 @@ function checkShouldPrefixCompleteExec(
     }
 
     // called via trigger character
-    const charBefore0 = document.getText(new vscode.Range(position.translate(0, -1), position));
-    if (symbol.includes(charBefore0)) {
+    const charBefore = getCharBefore(document, position, 1);
+    if (symbol.includes(charBefore)) {
         return true;
     }
     return false;
 }
 
 export function addMechanicCompletions(
-    target: MythicMechanic[],
+    mechanicList: MythicMechanic[],
     completionItems: vscode.CompletionItem[],
     defaultExtend?: string
 ) {
-    target.forEach((item: MythicMechanic) => {
-        item.name.forEach((name: string) => {
+    mechanicList.forEach((mechanic: MythicMechanic) => {
+        mechanic.name.forEach((name: string) => {
             const completionItem = new vscode.CompletionItem(
                 name,
                 vscode.CompletionItemKind.Function
             );
-            completionItem.detail = `${item.description}`;
+            completionItem.detail = `${mechanic.description}`;
             completionItem.kind = vscode.CompletionItemKind.Function;
             if (
-                item.getMyAttributes().length === 0 &&
-                item.extends &&
+                mechanic.getMyAttributes().length === 0 &&
+                mechanic.extends &&
                 defaultExtend &&
-                item.extends === defaultExtend
+                mechanic.extends === defaultExtend
             ) {
                 completionItem.insertText = new vscode.SnippetString(name);
             } else {
@@ -196,24 +203,22 @@ export function fileCompletions(
     position: vscode.Position,
     objectmap: Schema
 ): vscode.CompletionItem[] | undefined {
-    const keys = yamlutils.getParentKeys(document, position).reverse();
+    const keys = getParentKeys(document, position).reverse();
     if (keys.length === 0) {
         return undefined;
     }
 
     const result = fileCompletionFindNodesOnLevel(
         objectmap,
-        yamlutils.getKeyNameFromYamlKey(keys).slice(1),
+        getKeyNameFromYamlKey(keys).slice(1),
         1
     );
     if (!result) {
         return undefined;
     }
     const [keyobjects, level] = result;
-    const thislineindentation = yamlutils.getIndentation(document.lineAt(position.line).text);
-    const indentation = ' '.repeat(
-        (level - thislineindentation / 2) * yamlutils.getDefaultIndentation()
-    );
+    const thislineindentation = getIndentation(document.lineAt(position.line).text);
+    const indentation = ' '.repeat((level - thislineindentation / 2) * getDefaultIndentation());
 
     if (!keyobjects) {
         return undefined;
@@ -227,47 +232,46 @@ export function fileCompletions(
 }
 
 function fileCompletionFindNodesOnLevel(
-    objectmap: Schema,
+    schema: Schema,
     keys: string[],
     level: number
 ): [Schema | SchemaElement, number] | null {
     if (keys.length === 0) {
-        return [objectmap, level];
+        return [schema, level];
     }
 
     const key = keys[0];
 
-    const selectedObject = objectmap[key];
-
-    if (selectedObject) {
-        if (selectedObject.type === SchemaElementTypes.KEY && selectedObject.keys) {
+    if (!(key in schema)) {
+        if (SchemaElementSpecialKeys.WILDKEY in schema) {
+            const wildcardObject = schema[SchemaElementSpecialKeys.WILDKEY]!;
             const result = fileCompletionFindNodesOnLevel(
-                selectedObject.keys,
+                wildcardObject.keys,
                 keys.slice(1),
                 level + 1
             );
             return result;
         }
-        if (selectedObject.type === SchemaElementTypes.KEY_LIST) {
-            return [selectedObject, level + 1];
-        }
-        if (selectedObject.type === SchemaElementTypes.LIST) {
-            return [selectedObject, level];
-        }
-        return [objectmap, level];
+        return null;
     }
 
-    if (SchemaElementSpecialKeys.WILDKEY in objectmap) {
-        const wildcardObject = objectmap[SchemaElementSpecialKeys.WILDKEY]!;
+    const selectedElement = schema[key];
+
+    if (selectedElement.type === SchemaElementTypes.KEY && selectedElement.keys) {
         const result = fileCompletionFindNodesOnLevel(
-            wildcardObject.keys,
+            selectedElement.keys,
             keys.slice(1),
             level + 1
         );
         return result;
     }
-
-    return null;
+    if (selectedElement.type === SchemaElementTypes.KEY_LIST) {
+        return [selectedElement, level + 1];
+    }
+    if (selectedElement.type === SchemaElementTypes.LIST) {
+        return [selectedElement, level];
+    }
+    return [schema, level];
 }
 
 // Completes the key itself
@@ -346,12 +350,10 @@ export async function getCompletionForInvocation(
     context: vscode.CompletionContext,
     type: Schema
 ): Promise<vscode.CompletionItem[] | undefined> {
-    const keys = yamlutils.getKeyNameFromYamlKey(
-        yamlutils.getParentKeys(document, position, true).reverse()
-    );
-    if (yamlutils.isKey(document, position.line)) {
+    const keys = getKeyNameFromYamlKey(getParentKeys(document, position, true).reverse());
+    if (isKey(document, position.line)) {
         return getKeyObjectCompletion(keys.slice(1), type);
-    } else if (yamlutils.isList(document, position.line)) {
+    } else if (isList(document, position.line)) {
         return getListObjectCompletion(keys.slice(1), type, document, position, context);
     }
     return undefined;
@@ -432,10 +434,34 @@ function getListObjectCompletion(
     return undefined;
 }
 
+/**
+ * Creates a completion item for an enum value.
+ *
+ * @param item - The dataset value containing metadata about the enum.
+ * @param value - The string representation of the enum value.
+ * @returns A `vscode.CompletionItem` representing the enum value for autocompletion.
+ */
 export function getEnumCompletion(item: EnumDatasetValue, value: string) {
     const completionItem = new vscode.CompletionItem(value, vscode.CompletionItemKind.Enum);
-    if (item.description) {
-        completionItem.detail = item.description;
-    }
+    completionItem.detail = item.description;
     return completionItem;
+}
+
+/**
+ * Retrieves the character(s) before a specified position in a text document.
+ *
+ * @param document - The text document from which to retrieve the character(s).
+ * @param position - The position in the document to check before.
+ * @param offset - The number of characters to look back from the specified position.
+ * @returns The character(s) before the specified position, or an empty string if the offset exceeds the position's character index.
+ */
+export function getCharBefore(
+    document: vscode.TextDocument,
+    position: vscode.Position,
+    offset: number
+): string {
+    if (position.character < offset) {
+        return '';
+    }
+    return document.getText(new vscode.Range(position.translate(0, -offset), position));
 }

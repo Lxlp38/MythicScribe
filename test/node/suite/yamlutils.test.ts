@@ -52,8 +52,16 @@ suite('YAML Utils', () => {
             position = new vscode.Position(2, 0); // Position at 'child1: value1'
             const keys = getParentKeys(document, position);
             assert.deepStrictEqual(keys, [
-                ['parent1', 1, 2],
-                ['root', 0, 0],
+                {
+                    key: 'parent1',
+                    line: 1,
+                    indent: 2,
+                },
+                {
+                    key: 'root',
+                    line: 0,
+                    indent: 0,
+                },
             ]);
         });
 
@@ -65,9 +73,21 @@ suite('YAML Utils', () => {
             position = new vscode.Position(2, 0); // Position at 'child1: value1'
             const keys = getParentKeys(document, position, true);
             assert.deepStrictEqual(keys, [
-                ['child1', 2, 4],
-                ['parent1', 1, 2],
-                ['root', 0, 0],
+                {
+                    key: 'child1',
+                    line: 2,
+                    indent: 4,
+                },
+                {
+                    key: 'parent1',
+                    line: 1,
+                    indent: 2,
+                },
+                {
+                    key: 'root',
+                    line: 0,
+                    indent: 0,
+                },
             ]);
         });
 

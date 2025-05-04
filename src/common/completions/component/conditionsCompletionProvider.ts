@@ -4,6 +4,7 @@ import { keyAliases } from '@common/objectInfos';
 import { ConditionActions } from '@common/schemas/conditionActions';
 import {
     checkShouldKeyComplete,
+    getCharBefore,
     retriggerCompletionsCommand,
 } from '@common/utils/completionhelper';
 import { ScribeMechanicHandler } from '@common/datasets/ScribeMechanic';
@@ -40,8 +41,8 @@ export function getConditionCompletionItems(
     position: vscode.Position,
     context: vscode.CompletionContext
 ) {
-    const charBefore = document.getText(new vscode.Range(position.translate(0, -2), position));
-    if (charBefore[1] === '{') {
+    const charBefore = getCharBefore(document, position, 2);
+    if (charBefore.length === 0 || charBefore[1] === '{') {
         return undefined;
     }
 

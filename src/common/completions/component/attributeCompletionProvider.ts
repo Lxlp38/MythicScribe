@@ -8,6 +8,7 @@ import {
 import { EnumDatasetValue } from '@common/datasets/ScribeEnum';
 import {
     checkShouldPrefixComplete,
+    getCharBefore,
     getEnumCompletion,
     retriggerCompletionsCommand,
 } from '@common/utils/completionhelper';
@@ -29,9 +30,7 @@ export function attributeCompletionProvider() {
                     return undefined;
                 }
 
-                const charBefore = document.getText(
-                    new vscode.Range(position.translate(0, -2), position)
-                );
+                const charBefore = getCharBefore(document, position, 2);
                 if (charBefore === ';;' || charBefore === '{;') {
                     const edit = new vscode.WorkspaceEdit();
                     edit.delete(
@@ -96,27 +95,20 @@ export function attributeCompletionProvider() {
                             aliases = attribute.name;
                     }
 
-                    const attributeType = attribute.type;
-                    const attributeEnum = attribute.enum;
                     const completionItem = new vscode.CompletionItem(
                         mainname,
                         vscode.CompletionItemKind.Field
                     );
+
+                    completionItem.insertText = new vscode.SnippetString(mainname + '=');
                     completionItem.label = `${aliases.join(', ')}`;
                     completionItem.detail = `${attribute.description}`;
-                    completionItem.kind = vscode.CompletionItemKind.Field;
-
-                    if (attributeType === 'Boolean') {
-                        completionItem.insertText = new vscode.SnippetString(
-                            mainname + '=' + '${1|true,false|}'
-                        );
-                    } else if (attributeEnum) {
-                        completionItem.insertText = new vscode.SnippetString(mainname + '=');
-                        completionItem.command = retriggerCompletionsCommand;
-                    } else {
-                        completionItem.insertText = new vscode.SnippetString(mainname + '=');
-                    }
                     completionItem.sortText = index.toString();
+
+                    if (attribute.enum) {
+                        completionItem.command = retriggerCompletionsCommand;
+                    }
+
                     index++;
                     completionItems.push(completionItem);
                 });
@@ -144,46 +136,17 @@ export function attributeValueCompletionProvider() {
                 }
 
                 const keys = yamlutils.getParentKeys(document, position);
-                const completionItems: vscode.CompletionItem[] = [];
 
                 const attributeInfo = searchForLinkedAttribute(document, position, keys);
 
-                if (!attributeInfo) {
-                    return null;
-                }
-
-                const charBefore0 = document.getText(
-                    new vscode.Range(position.translate(0, -1), position)
-                );
-
-                const attributeType = attributeInfo.type;
-                const attributeEnum = attributeInfo.enum ? attributeInfo.enum : null;
-                const attributeList = attributeInfo.list;
-
-                if (charBefore0 === ',') {
-                    if (!attributeList) {
-                        return undefined;
-                    }
-                }
-
-                if (attributeType === 'Boolean') {
-                    completionItems.push(
-                        new vscode.CompletionItem('true', vscode.CompletionItemKind.Value)
-                    );
-                    completionItems.push(
-                        new vscode.CompletionItem('false', vscode.CompletionItemKind.Value)
-                    );
-                } else if (attributeEnum) {
-                    if (!attributeEnum) {
-                        return undefined;
-                    }
-                    attributeEnum.getDataset().forEach((value: EnumDatasetValue, key: string) => {
-                        const completionItem = getEnumCompletion(value, key);
-                        completionItems.push(completionItem);
-                    });
-                } else {
+                if (!attributeInfo || !attributeInfo.enum) {
                     return undefined;
                 }
+
+                const completionItems: vscode.CompletionItem[] = [];
+                attributeInfo.enum.getDataset().forEach((value: EnumDatasetValue, key: string) => {
+                    completionItems.push(getEnumCompletion(value, key));
+                });
 
                 return completionItems;
             },
