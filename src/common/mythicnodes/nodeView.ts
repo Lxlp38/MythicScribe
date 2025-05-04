@@ -67,6 +67,7 @@ const NodeTypeToAdditionalData: Record<registryKey, NodeData> = {
     stat: { shape: 'barrel', color: '#cc0000' },
     placeholder: { shape: 'rhomboid', color: '#cc6600' },
     randomspawn: { shape: 'round-hexagon', color: '#00cccc' },
+    reagent: { shape: 'round-pentagon', color: '#cc00cc' },
 };
 
 const UnknownNodeData: NodeData = { color: '#807e7a', unknown: true };
@@ -135,6 +136,7 @@ const GraphOptions = {
             { label: 'Hide Stats', value: 'stat' as registryKey },
             { label: 'Hide Custom Placeholders', value: 'placeholder' as registryKey },
             { label: 'Hide Random Spawns', value: 'randomspawn' as registryKey },
+            { label: 'Hide Reagents', value: 'reagent' as registryKey },
         ],
     },
 };

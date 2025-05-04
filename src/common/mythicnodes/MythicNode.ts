@@ -110,6 +110,7 @@ export class MythicNode {
         stat: new Set(),
         placeholder: new Set(),
         randomspawn: new Set(),
+        reagent: new Set(),
     };
     constructor(
         public registry: MythicNodeRegistry,
@@ -173,6 +174,16 @@ export class MythicNode {
             templateList.push(...this.processTemplate(match));
         }
         return templateList;
+    }
+    protected matchSingleEntry(
+        body: string,
+        regex = /^\s*Entry:\s*(?<entry>.*)/m
+    ): string | undefined {
+        const match = body.match(regex);
+        if (match && match.groups && match.groups.entry) {
+            return match.groups.entry.trim();
+        }
+        return undefined;
     }
     private matchDecorators(body: string, type: registryKey): string[] {
         const regex = MythicNodeHandler.registry[type].decoratorRegex;
@@ -382,6 +393,24 @@ export class RandomSpawnMythicNode extends MythicNode {
     }
 }
 
+class ReagentMythicNode extends MythicNode {
+    protected findNodeEdges(body: string): void {
+        super.findNodeEdges(body);
+
+        const regexes: RegExp[] = [
+            /^\s*MaxValue:\s*stat.(?<entry>.*)/m,
+            /^\s*MinValue:\s*stat.(?<entry>.*)/m,
+        ];
+
+        regexes.forEach((regex) => {
+            const value = this.matchSingleEntry(body, regex);
+            if (value) {
+                this.outEdge.stat.add(value);
+            }
+        });
+    }
+}
+
 export class MockMythicNode extends MythicNode {
     constructor(registry: MythicNodeRegistry, name: string, creator: MythicNode) {
         const document = vscode.workspace.textDocuments[0];
@@ -513,6 +542,7 @@ export namespace MythicNodeHandler {
         stat: new MythicNodeRegistry('stat', StatMythicNode),
         placeholder: new MythicNodeRegistry('placeholder'),
         randomspawn: new MythicNodeRegistry('randomspawn', RandomSpawnMythicNode),
+        reagent: new MythicNodeRegistry('reagent', ReagentMythicNode),
     };
 
     export function getRegistry(key: string): MythicNodeRegistry | undefined {

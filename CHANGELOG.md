@@ -6,7 +6,9 @@
 - Placeholder completions
   - Placeholder Support for nodes, completions and hovers
 - Hover and Go To Definition support for Placeholder Segments that use a Mob/Item/Custom Placeholder/Stat Id (for instance, <caster.stat.example> or <placeholder.test>)
-- RandomSpawns File Type Recognition, with Nodes, Completions, Hovers and all the good stuff
+- File Type Recognition, with Nodes, Completions, Hovers and all the good stuff for
+  - RandomSpawns
+  - Reagents
 - Mob Options, DropOptions and DisplayOptions Completions
 - File Completions added by disabled plugins will not be shown
   

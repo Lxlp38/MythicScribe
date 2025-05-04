@@ -1,5 +1,6 @@
 import { generateNumbersInRange, inheritSchemaOptions } from '../utils/schemautils';
 import { DefaultPlugins, Schema, SchemaElementTypes } from '../objectInfos';
+import { Generation } from './itemSchema';
 
 export const MetaskillSchema: Schema = {
     Skills: {
@@ -47,6 +48,97 @@ export const MetaskillSchema: Schema = {
         dataset: 'METASKILL',
         link: 'https://git.lumine.io/mythiccraft/MythicMobs/-/wikis/Skills/Metaskills#oncooldownskill',
         description: 'The name of the metaskill to cast if the metaskill is on cooldown.',
+    },
+    Spell: {
+        type: SchemaElementTypes.BOOLEAN,
+        link: 'https://git.lumine.io/mythiccraft/mythicrpg/-/wikis/Spells#functional-options',
+        description: 'Turns the skill into a spell and allows players to learn it if set to true',
+        plugin: DefaultPlugins.MythicRPG,
+    },
+    LearnConditions: {
+        type: SchemaElementTypes.LIST,
+        link: 'https://git.lumine.io/mythiccraft/mythicrpg/-/wikis/Spells#functional-options',
+        description: 'A list of conditions that must be met to learn the spell.',
+        plugin: DefaultPlugins.MythicRPG,
+    },
+    Trigger: {
+        type: SchemaElementTypes.ENUM,
+        dataset: 'trigger',
+        link: 'https://git.lumine.io/mythiccraft/mythicrpg/-/wikis/Spells#functional-options',
+        description: 'What triggers the spell. Defaults to ~onCombat.',
+        plugin: DefaultPlugins.MythicRPG,
+    },
+    Targeter: {
+        type: SchemaElementTypes.ENUM,
+        dataset: 'targeter',
+        link: 'https://git.lumine.io/mythiccraft/mythicrpg/-/wikis/Spells#functional-options',
+        description:
+            "The main targeter for the spell. Defaults to @self. The spell will fail to cast and not consume resources if a valid target isn't found.",
+        plugin: DefaultPlugins.MythicRPG,
+    },
+    Cost: {
+        type: SchemaElementTypes.LIST,
+        dataset: 'REAGENT',
+        values: generateNumbersInRange(0, 100, 1, true),
+        link: 'https://git.lumine.io/mythiccraft/mythicrpg/-/wikis/Spells#functional-options',
+        description: 'A list of reagents this spell costs to cast.',
+        plugin: DefaultPlugins.MythicRPG,
+    },
+    Global: {
+        type: SchemaElementTypes.BOOLEAN,
+        link: 'https://git.lumine.io/mythiccraft/mythicrpg/-/wikis/Spells#functional-options',
+        description:
+            'Makes it a global spell, causing it to be automatically applied to all players.',
+        plugin: DefaultPlugins.MythicRPG,
+    },
+    Upgrades: {
+        type: SchemaElementTypes.INTEGER,
+        link: 'https://git.lumine.io/mythiccraft/mythicrpg/-/wikis/Spells#functional-options',
+        description: 'The maximum level the spell can reach. Defaults to 1.',
+        plugin: DefaultPlugins.MythicRPG,
+    },
+    Bindable: {
+        type: SchemaElementTypes.BOOLEAN,
+        link: 'https://git.lumine.io/mythiccraft/mythicrpg/-/wikis/Spells#functional-options',
+        description:
+            'Whether the slot from which this spell can be cast can be binded. Defaults to false. Once binded, the ~onUse trigger is needed to cast the skill.',
+        plugin: DefaultPlugins.MythicRPG,
+    },
+    Display: {
+        type: SchemaElementTypes.STRING,
+        link: 'https://git.lumine.io/mythiccraft/mythicrpg/-/wikis/Spells#aesthetic-options',
+        description: 'The display name of the spell',
+        plugin: DefaultPlugins.MythicRPG,
+    },
+    Description: {
+        type: SchemaElementTypes.LIST,
+        link: 'https://git.lumine.io/mythiccraft/mythicrpg/-/wikis/Spells#aesthetic-options',
+        description: 'A description of what the spell does for GUIs and info commands.',
+        plugin: DefaultPlugins.MythicRPG,
+    },
+    Icon: {
+        type: SchemaElementTypes.KEY,
+        link: 'https://git.lumine.io/mythiccraft/mythicrpg/-/wikis/Spells#aesthetic-options',
+        description: 'The icon representing the spell.',
+        plugin: DefaultPlugins.MythicRPG,
+        keys: {
+            Material: {
+                type: SchemaElementTypes.ENUM,
+                description: 'The material of the icon.',
+                dataset: 'MATERIAL',
+            },
+            Model: {
+                type: SchemaElementTypes.STRING,
+                description: 'The model of the icon.',
+            },
+            ...Generation,
+        },
+    },
+    KillMessage: {
+        type: SchemaElementTypes.LIST,
+        link: 'https://git.lumine.io/mythiccraft/mythicrpg/-/wikis/Spells#aesthetic-options',
+        description: 'A list of kill messages associated with the spell.',
+        plugin: DefaultPlugins.MythicRPG,
     },
 };
 

@@ -93,6 +93,7 @@ export const registryKey = [
     'stat',
     'placeholder',
     'randomspawn',
+    'reagent',
 ] as const;
 export type registryKey = (typeof registryKey)[number];
 

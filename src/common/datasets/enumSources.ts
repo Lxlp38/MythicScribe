@@ -82,8 +82,13 @@ export enum scriptedEnums {
     Stat = 'stat',
     CustomPlaceholder = 'customplaceholder',
     RandomSpawn = 'randomspawn',
-    Targeter = 'targeter',
     MythicItem = 'mythicitem',
+    Reagent = 'reagent',
+
+    // Specialized datasets
+    Targeter = 'targeter',
+    Trigger = 'trigger',
+    ReagentValue = 'reagentvalue',
 
     // First "level" of the schemas, without nested keys
     MobSchema = 'mobschema',
@@ -92,6 +97,7 @@ export enum scriptedEnums {
     DroptableSchema = 'droptableschema',
     StatSchema = 'statschema',
     RandomSpawnSchema = 'randomspawnschema',
+    ReagentSchema = 'reagentschema',
 }
 
 export enum attributeSpecialValues {

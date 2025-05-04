@@ -1,5 +1,7 @@
 import * as vscode from 'vscode';
 import { RandomSpawnSchema } from '@common/schemas/randomSpawnSchema';
+import Log from '@common/utils/logger';
+import { ReagentSchema } from '@common/schemas/reagentSchema';
 
 import {
     checkMythicMobsFile,
@@ -31,9 +33,11 @@ export const ActiveFileTypeInfo: { [K in ActiveFileTypeInfoKeys]: boolean } = {
     stat: false,
     placeholder: false,
     randomspawn: false,
+    reagent: false,
 };
 
 export const extensionEnabler = vscode.window.onDidChangeActiveTextEditor((editor) => {
+    Log.debug('MythicScribe active editor changed');
     if (!editor) {
         return;
     }
@@ -173,6 +177,12 @@ const FileTypeInfoMap: {
         key: 'randomspawn',
         configKey: 'RandomSpawn',
         subscriptionHandler: 'randomspawn',
+    },
+    reagent: {
+        schema: ReagentSchema,
+        key: 'reagent',
+        configKey: 'Reagent',
+        subscriptionHandler: 'reagent',
     },
 };
 

@@ -6,6 +6,8 @@ import { ItemSchema } from '@common/schemas/itemSchema';
 import { MetaskillSchema } from '@common/schemas/metaskillSchema';
 import { DroptableSchema } from '@common/schemas/droptableSchema';
 import { RandomSpawnSchema } from '@common/schemas/randomSpawnSchema';
+import { generateNumbersInRange } from '@common/utils/schemautils';
+import { ReagentSchema } from '@common/schemas/reagentSchema';
 
 import { minecraftVersion } from '../utils/configutils';
 import { ScribeCloneableFile, fetchJsonFromLocalFile, fetchJsonFromURL } from './datasets';
@@ -281,7 +283,26 @@ export const ScribeEnumHandler = {
             fromMechanicRegistryToEnum(ScribeMechanicHandler.registry.condition)
         );
 
-        this.addScriptedEnum(scriptedEnums.Targeter, insertTargeterCompletion);
+        this.addScriptedEnum(scriptedEnums.Targeter, () =>
+            fromMechanicRegistryToEnum(
+                ScribeMechanicHandler.registry.targeter,
+                (name) => '@' + name
+            )
+        );
+        this.addScriptedEnum(scriptedEnums.Trigger, () =>
+            fromMechanicRegistryToEnum(ScribeMechanicHandler.registry.trigger, (name) => '~' + name)
+        );
+        this.addScriptedEnum(scriptedEnums.ReagentValue, () => {
+            const ret = fromMythicNodeToEnum(MythicNodeHandler.registry.stat.getNodes());
+            const ret2 = new Map<string, EnumDatasetValue>();
+            ret.forEach((value, key) => {
+                ret2.set('stat.' + key, value);
+            });
+            generateNumbersInRange(0, 5, 1, true).forEach((value) => {
+                ret2.set(value, { description: '' });
+            });
+            return ret2;
+        });
 
         this.addScriptedEnum(scriptedEnums.Mob, () =>
             fromMythicNodeToEnum(MythicNodeHandler.registry.mob.getNodes())
@@ -309,6 +330,9 @@ export const ScribeEnumHandler = {
         this.addScriptedEnum(scriptedEnums.RandomSpawn, () =>
             fromMythicNodeToEnum(MythicNodeHandler.registry.randomspawn.getNodes())
         );
+        this.addScriptedEnum(scriptedEnums.Reagent, () =>
+            fromMythicNodeToEnum(MythicNodeHandler.registry.reagent.getNodes())
+        );
 
         // Schemas
         this.addScriptedEnum(scriptedEnums.MobSchema, () => fromSchemaToEnum(MobSchema));
@@ -323,20 +347,24 @@ export const ScribeEnumHandler = {
         this.addScriptedEnum(scriptedEnums.RandomSpawnSchema, () =>
             fromSchemaToEnum(RandomSpawnSchema)
         );
+        this.addScriptedEnum(scriptedEnums.ReagentSchema, () => fromSchemaToEnum(ReagentSchema));
     },
 };
 
-function fromMechanicRegistryToEnum(registry: AbstractScribeMechanicRegistry) {
+function fromMechanicRegistryToEnum(
+    registry: AbstractScribeMechanicRegistry,
+    nameParser: (name: string) => string = (name) => name
+): Map<string, EnumDatasetValue> {
     const mechanics: Map<string, EnumDatasetValue> = new Map();
     registry.getMechanics().forEach((mechanic) => {
         mechanic.name.forEach((name) => {
-            mechanics.set(name, { description: mechanic.description });
+            mechanics.set(nameParser(name), { description: mechanic.description });
         });
     });
     return mechanics;
 }
 
-function fromMythicNodeToEnum(nodes: Map<string, MythicNode>) {
+function fromMythicNodeToEnum(nodes: Map<string, MythicNode>): Map<string, EnumDatasetValue> {
     const metaskills: Map<string, EnumDatasetValue> = new Map();
     nodes.forEach((node) => {
         metaskills.set(node.name.text, { description: node.description.text || '' });
@@ -344,26 +372,10 @@ function fromMythicNodeToEnum(nodes: Map<string, MythicNode>) {
     return metaskills;
 }
 
-function fromSchemaToEnum(schema: Schema) {
+function fromSchemaToEnum(schema: Schema): Map<string, EnumDatasetValue> {
     const schemaEnum: Map<string, EnumDatasetValue> = new Map();
     Object.entries(schema).forEach(([key, value]) => {
         schemaEnum.set(key, { description: value.description });
     });
     return schemaEnum;
-}
-
-async function insertTargeterCompletion() {
-    const editor = vscode.window.activeTextEditor;
-    if (!editor) {
-        return;
-    }
-
-    const position = editor.selection.active;
-
-    // Insert the color at the current position
-    await editor.edit((editBuilder) => {
-        editBuilder.insert(position, '@');
-    });
-
-    vscode.commands.executeCommand('editor.action.triggerSuggest');
 }

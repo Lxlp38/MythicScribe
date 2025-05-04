@@ -19,6 +19,7 @@ export const fileRegexConfigCache = {
     Stat: undefined as string | undefined,
     Placeholder: undefined as string | undefined,
     RandomSpawn: undefined as string | undefined,
+    Reagent: undefined as string | undefined,
 };
 
 const fileParsingPolicyConfigCache = {

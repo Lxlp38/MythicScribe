@@ -10,7 +10,7 @@ import {
     SchemaElementTypes,
 } from '../objectInfos';
 
-const Generation: Schema = {
+export const Generation: Schema = {
     Generation: {
         type: SchemaElementTypes.KEY_LIST,
         link: 'https://git.lumine.io/mythiccraft/mythiccrucible/-/wikis/ResourcePack-Generator',
@@ -778,4 +778,10 @@ inheritSchemaOptions(
     ItemSchema,
     'https://git.lumine.io/mythiccraft/MythicMobs/-/wikis/Items/Items',
     DefaultPlugins.MythicMobs
+);
+
+inheritSchemaOptions(
+    Generation,
+    'https://git.lumine.io/mythiccraft/mythiccrucible/-/wikis/ResourcePack-Generator',
+    DefaultPlugins.MythicCrucible
 );
