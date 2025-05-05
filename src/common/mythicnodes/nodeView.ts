@@ -67,6 +67,7 @@ const NodeTypeToAdditionalData: Record<registryKey, NodeData> = {
     stat: { shape: 'barrel', color: '#cc0000' },
     placeholder: { shape: 'rhomboid', color: '#cc6600' },
     randomspawn: { shape: 'round-hexagon', color: '#00cccc' },
+    archetype: { shape: 'round-rectangle', color: '#cc00ff' },
     reagent: { shape: 'round-pentagon', color: '#cc00cc' },
 };
 

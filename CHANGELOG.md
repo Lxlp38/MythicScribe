@@ -8,9 +8,9 @@
 - Hover and Go To Definition support for Placeholder Segments that use a Mob/Item/Custom Placeholder/Stat Id (for instance, <caster.stat.example> or <placeholder.test>)
 - File Type Recognition, with Nodes, Completions, Hovers and all the good stuff for
   - RandomSpawns
+  - Archetypes
   - Reagents
 - Mob Options, DropOptions and DisplayOptions Completions
-- File Completions added by disabled plugins will not be shown
   
 #### Commands
 - `MythicScribe.putSelectionInsideInlineMetaskill` command and context menu item to put the selected text inside of an inline metaskill
@@ -20,6 +20,8 @@
 - Displayed information regarding Formatter errors should now be more concise and meaningful
 - File Completions now include completions for certain keys with arbitrary values (For example, the Furniture's States or a Mob's Trades)
 - Adding a Custom Enum Dataset with the same name as another loaded Enum Dataset will now merge them
+- File Completions added by disabled plugins will not be shown
+- Hovers for Schema Elements will also specify the plugin adding that element
 
 ### Fixed
 - Condition Actions having no syntax highlighting

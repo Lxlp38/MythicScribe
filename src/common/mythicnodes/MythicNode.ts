@@ -110,6 +110,7 @@ export class MythicNode {
         stat: new Set(),
         placeholder: new Set(),
         randomspawn: new Set(),
+        archetype: new Set(),
         reagent: new Set(),
     };
     constructor(
@@ -184,6 +185,17 @@ export class MythicNode {
             return match.groups.entry.trim();
         }
         return undefined;
+    }
+    protected matchList(body: string, regex = /(?<=ListEntry:)(\s*- [\w_\-]+\s*)*/gm): string[] {
+        const match = body.match(regex);
+        if (!match) {
+            return [];
+        }
+        const matches = match[0]
+            .split('\n')
+            .map((line) => line.replace('-', '').trim())
+            .filter((line) => line.length > 0);
+        return matches;
     }
     private matchDecorators(body: string, type: registryKey): string[] {
         const regex = MythicNodeHandler.registry[type].decoratorRegex;
@@ -302,57 +314,29 @@ export class TemplatableMythicNode extends MythicNode {
 export class StatMythicNode extends MythicNode {
     protected findNodeEdges(body: string): void {
         super.findNodeEdges(body);
-        this.findParentStat(body).forEach((template) => {
-            if (this.templates.has(template)) {
-                Log.warn(
-                    `Duplicate template ${template} found in ${this.registry.type} ${this.name.text}`
-                );
-            }
-            this.templates.add(template);
-        });
 
-        this.findTriggerStat(body).forEach((outStat) => {
-            if (this.outEdge.stat.has(outStat)) {
-                Log.warn(
-                    `Duplicate TriggerStat ${outStat} found in ${this.registry.type} ${this.name.text}`
-                );
-            }
-            this.outEdge.stat.add(outStat);
-        });
-    }
-
-    private findParentStat(body: string): string[] {
-        const parentStatRegex = /(?<=ParentStats:)(\s*- [\w_\-]+\s*)*/gm;
-        const match = body.match(parentStatRegex);
-        const matches: string[] = [];
-        if (match) {
-            const parentStatMatches = match[0]
-                .split('\n')
-                .map((line) => line.replace('-', '').trim());
-            for (const stat of parentStatMatches) {
-                if (stat.length > 0) {
-                    matches.push(stat);
+        this.matchList(body, /(?<=ParentStats:)(\s*- [\w_\-]+\s.*(?:\n|$))*/gm).forEach(
+            (template) => {
+                if (this.templates.has(template)) {
+                    Log.warn(
+                        `Duplicate template ${template} found in ${this.registry.type} ${this.name.text}`
+                    );
                 }
+                this.templates.add(template);
             }
-        }
-        return matches;
-    }
+        );
 
-    private findTriggerStat(body: string): string[] {
-        const triggerStatRegex = /(?<=TriggerStats:)(\s*- [\w_\-]+\s[\w_\-]+\s*)*/gm;
-        const match = body.match(triggerStatRegex);
-        const matches: string[] = [];
-        if (match) {
-            const triggerStatMatches = match[0]
-                .split('\n')
-                .map((line) => line.replace('-', '').trim().split(' ')[0]);
-            for (const stat of triggerStatMatches) {
-                if (stat.length > 0) {
-                    matches.push(stat);
+        this.matchList(body, /(?<=TriggerStats:)(\s*- [\w_\-]+\s.*(?:\n|$))*/gm).forEach(
+            (outStat) => {
+                outStat = outStat.split(' ')[0];
+                if (this.outEdge.stat.has(outStat)) {
+                    Log.warn(
+                        `Duplicate TriggerStat ${outStat} found in ${this.registry.type} ${this.name.text}`
+                    );
                 }
+                this.outEdge.stat.add(outStat);
             }
-        }
-        return matches;
+        );
     }
 }
 
@@ -362,7 +346,11 @@ export class RandomSpawnMythicNode extends MythicNode {
     protected findNodeEdges(body: string): void {
         super.findNodeEdges(body);
 
-        const typelist = this.findTypeList(body);
+        const typelist: string[] = [];
+        this.matchList(body, /(?<=Types:)(\s*- [\w_\-]+\s\d+\s*)*/gm).forEach((mob) => {
+            typelist.push(mob.split(' ')[0]);
+        });
+
         (typelist.length > 0 ? typelist : this.matchTemplate(body, /^\s*Type(s)?:.*/gm)).forEach(
             (mob) => {
                 if (this.outEdge.mob.has(mob)) {
@@ -374,22 +362,28 @@ export class RandomSpawnMythicNode extends MythicNode {
             }
         );
     }
+}
 
-    private findTypeList(body: string): string[] {
-        const typeRegex = /(?<=Types:)(\s*- [\w_\-]+\s\d+\s*)*/gm;
-        const match = body.match(typeRegex);
-        const matches: string[] = [];
-        if (match) {
-            const typeMatches = match[0]
-                .split('\n')
-                .map((line) => line.replace('-', '').trim().split(' ')[0]);
-            for (const stat of typeMatches) {
-                if (stat.length > 0) {
-                    matches.push(stat);
-                }
+class ArchetypeMythicNode extends MythicNode {
+    protected findNodeEdges(body: string): void {
+        super.findNodeEdges(body);
+
+        this.matchList(body, /(?<=BaseStats:)(\s*- [\w_\-]+\s.*(?:\n|$))*/gm).forEach((stat) => {
+            stat = stat.split(' ')[0];
+            this.outEdge.stat.add(stat);
+        });
+
+        this.matchList(body, /(?<=StatModifiers:)(\s*- [\w_\-]+\s.*(?:\n|$))*/gm).forEach(
+            (stat) => {
+                stat = stat.split(' ')[0];
+                this.outEdge.stat.add(stat);
             }
-        }
-        return matches;
+        );
+
+        this.matchList(body, /(?<=Bindings:)(\s*- [\w_\-]+\s.*(?:\n|$))*/gm).forEach((skill) => {
+            skill = skill.split(' ')[1];
+            this.outEdge.metaskill.add(skill);
+        });
     }
 }
 
@@ -542,6 +536,7 @@ export namespace MythicNodeHandler {
         stat: new MythicNodeRegistry('stat', StatMythicNode),
         placeholder: new MythicNodeRegistry('placeholder'),
         randomspawn: new MythicNodeRegistry('randomspawn', RandomSpawnMythicNode),
+        archetype: new MythicNodeRegistry('archetype', ArchetypeMythicNode),
         reagent: new MythicNodeRegistry('reagent', ReagentMythicNode),
     };
 

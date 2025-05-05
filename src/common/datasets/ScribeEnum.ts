@@ -330,6 +330,9 @@ export const ScribeEnumHandler = {
         this.addScriptedEnum(scriptedEnums.RandomSpawn, () =>
             fromMythicNodeToEnum(MythicNodeHandler.registry.randomspawn.getNodes())
         );
+        this.addScriptedEnum(scriptedEnums.Archetype, () =>
+            fromMythicNodeToEnum(MythicNodeHandler.registry.archetype.getNodes())
+        );
         this.addScriptedEnum(scriptedEnums.Reagent, () =>
             fromMythicNodeToEnum(MythicNodeHandler.registry.reagent.getNodes())
         );

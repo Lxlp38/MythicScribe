@@ -1,6 +1,7 @@
 import * as vscode from 'vscode';
 import { RandomSpawnSchema } from '@common/schemas/randomSpawnSchema';
 import { ReagentSchema } from '@common/schemas/reagentSchema';
+import { ArchetypeSchema } from '@common/schemas/archetypeSchema';
 
 import { keyAliases, TriggerType } from '../objectInfos';
 import { triggerfileCompletionProvider } from '../completions/file/triggerfileCompletionProvider';
@@ -259,6 +260,19 @@ class PlaceholderSubscriptionHandler extends AbstractScribeSubscription {
     }
 }
 
+class ArchetypeSubscriptionHandler extends AbstractScribeSubscription {
+    constructor() {
+        super(
+            [
+                () => genericFileCompletionProvider(ArchetypeSchema),
+                () => hoverProvider(ArchetypeSchema),
+                () => triggerfileCompletionProvider(TriggerType.ARCHETYPE, ['Skills']),
+            ],
+            [enableFileSpecificSuggestions]
+        );
+    }
+}
+
 class ReagentSubscriptionHandler extends AbstractScribeSubscription {
     constructor() {
         super(
@@ -298,6 +312,7 @@ export const ScribeSubscriptionHandler = {
         stat: new StatSubscriptionHandler(),
         placeholder: new PlaceholderSubscriptionHandler(),
         randomspawn: new RandomSpawnSubscriptionHandler(),
+        archetype: new ArchetypeSubscriptionHandler(),
         reagent: new ReagentSubscriptionHandler(),
     },
 

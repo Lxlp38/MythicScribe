@@ -83,6 +83,7 @@ export enum scriptedEnums {
     CustomPlaceholder = 'customplaceholder',
     RandomSpawn = 'randomspawn',
     MythicItem = 'mythicitem',
+    Archetype = 'archetype',
     Reagent = 'reagent',
 
     // Specialized datasets

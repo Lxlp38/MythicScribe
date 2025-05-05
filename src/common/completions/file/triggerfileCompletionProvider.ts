@@ -44,7 +44,6 @@ export function triggerfileCompletionProvider(
                                 vscode.CompletionItemKind.Function
                             );
                             completionItem.detail = `${item.description}`;
-                            completionItem.kind = vscode.CompletionItemKind.Function;
                             completionItem.insertText = new vscode.SnippetString(name + ' $0');
                             completionItem.command = retriggerCompletionsCommand;
                             completionItems.push(completionItem);

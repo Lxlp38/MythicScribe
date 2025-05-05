@@ -334,6 +334,10 @@
               "type": "string",
               "description": "Regex to identify RandomSpawn files."
             },
+            "Archetype": {
+              "type": "string",
+              "description": "Regex to identify Archetype files."
+            },
             "Reagent": {
               "type": "string",
               "description": "Regex to identify Reagent files."
@@ -348,6 +352,7 @@
             "Stat": "[\\\\\\/]stats.((yaml)|(yml)|(txt))",
             "Placeholder": "[\\\\\\/]placeholders.((yaml)|(yml)|(txt))",
             "RandomSpawn": "[\\\\\\/][Rr]andom[Ss]pawns[\\\\\\/]",
+            "Archetype": "[\\\\\\/][Aa]rchetypes[\\\\\\/]",
             "Reagent": "[\\\\\\/]reagents.((yaml)|(yml)|(txt))"
           },
           "additionalProperties": false,

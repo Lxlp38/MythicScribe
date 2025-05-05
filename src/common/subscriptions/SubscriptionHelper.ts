@@ -2,6 +2,7 @@ import * as vscode from 'vscode';
 import { RandomSpawnSchema } from '@common/schemas/randomSpawnSchema';
 import Log from '@common/utils/logger';
 import { ReagentSchema } from '@common/schemas/reagentSchema';
+import { ArchetypeSchema } from '@common/schemas/archetypeSchema';
 
 import {
     checkMythicMobsFile,
@@ -33,6 +34,7 @@ export const ActiveFileTypeInfo: { [K in ActiveFileTypeInfoKeys]: boolean } = {
     stat: false,
     placeholder: false,
     randomspawn: false,
+    archetype: false,
     reagent: false,
 };
 
@@ -177,6 +179,12 @@ const FileTypeInfoMap: {
         key: 'randomspawn',
         configKey: 'RandomSpawn',
         subscriptionHandler: 'randomspawn',
+    },
+    archetype: {
+        schema: ArchetypeSchema,
+        key: 'archetype',
+        configKey: 'Archetype',
+        subscriptionHandler: 'archetype',
     },
     reagent: {
         schema: ReagentSchema,
