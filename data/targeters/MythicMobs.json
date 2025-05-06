@@ -721,7 +721,7 @@
                     "sortby"
                 ],
                 "type": "String",
-                "description": "How to sort the targeted entities/locations",
+                "description": "How to sort the targeted entities/locations. Distance-based sorts are made against the mechanic's origin",
                 "link": "https://git.lumine.io/mythiccraft/MythicMobs/-/wikis/Skills/Targeters#common-entity-targeters-attributes",
                 "default_value": "",
                 "enum": "NONE,RANDOM,NEAREST,FURTHEST,HIGHEST_HEALTH,LOWEST_HEALTH,HIGHEST_THREAT,LOWEST_THREAT"
@@ -1115,7 +1115,7 @@
                     "sortby"
                 ],
                 "type": "String",
-                "description": "How to sort the targeted entities/locations",
+                "description": "How to sort the targeted entities/locations. Distance-based sorts are made against the mechanic's origin",
                 "link": "https://git.lumine.io/mythiccraft/MythicMobs/-/wikis/Skills/Targeters#common-location-targeters-attributes",
                 "default_value": "",
                 "enum": "NONE,RANDOM,NEAREST,FURTHEST"

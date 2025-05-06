@@ -147,6 +147,73 @@
     },
     {
         "plugin": "MythicCrucible",
+        "class": "ConsumeHeldDurabilityMechanic",
+        "extends": "SkillMechanic",
+        "implements": [
+            "INoTargetSkill"
+        ],
+        "name": [
+            "consumehelddurability"
+        ],
+        "description": "Consumes durability from the held item",
+        "link": "https://git.lumine.io/mythiccraft/mythiccrucible/-/wikis/Skills/Mechanics/ConsumeHeldDurability",
+        "attributes": [
+            {
+                "name": [
+                    "amount",
+                    "a"
+                ],
+                "type": "Integer",
+                "description": "Amount to consume",
+                "link": "https://git.lumine.io/mythiccraft/mythiccrucible/-/wikis/Skills/Mechanics/ConsumeHeldDurability",
+                "default_value": "1"
+            },
+            {
+                "name": [
+                    "breakitem",
+                    "b",
+                    "break"
+                ],
+                "type": "Boolean",
+                "description": "Whether the item can break because of this mechanic",
+                "link": "https://git.lumine.io/mythiccraft/mythiccrucible/-/wikis/Skills/Mechanics/ConsumeHeldDurability",
+                "default_value": "true"
+            },
+            {
+                "name": [
+                    "breaksound",
+                    "s"
+                ],
+                "type": "String",
+                "description": "The sound to emit if the item were to break",
+                "link": "https://git.lumine.io/mythiccraft/mythiccrucible/-/wikis/Skills/Mechanics/ConsumeHeldDurability",
+                "default_value": "entity.item.break",
+                "enum": "Sound"
+            },
+            {
+                "name": [
+                    "breakvolume",
+                    "v"
+                ],
+                "type": "Float",
+                "description": "The volume of the break sound",
+                "link": "https://git.lumine.io/mythiccraft/mythiccrucible/-/wikis/Skills/Mechanics/ConsumeHeldDurability",
+                "default_value": "1.0"
+            },
+            {
+                "name": [
+                    "breakpitch",
+                    "p"
+                ],
+                "type": "Float",
+                "description": "The pitch of the break sound",
+                "link": "https://git.lumine.io/mythiccraft/mythiccrucible/-/wikis/Skills/Mechanics/ConsumeHeldDurability",
+                "default_value": "1.0"
+            }
+        ]
+    },
+    {
+        "plugin": "MythicCrucible",
         "class": "ConsumeItemDurabilityMechanic",
         "extends": "SkillMechanic",
         "implements": [
@@ -661,7 +728,32 @@
         ],
         "description": "Removes the furniture at the target location",
         "link": "https://git.lumine.io/mythiccraft/mythiccrucible/-/wikis/Skills/Mechanics/furnitureremoveat",
-        "attributes": []
+        "attributes": [
+            {
+                "name": [
+                    "dodrops",
+                    "drops",
+                    "drop",
+                    "d"
+                ],
+                "type": "Boolean",
+                "description": "If the Furniture should drops its Drops once removed",
+                "link": "https://git.lumine.io/mythiccraft/mythiccrucible/-/wikis/Skills/Mechanics/furnitureremoveat",
+                "default_value": "false"
+            },
+            {
+                "name": [
+                    "onremoveskill",
+                    "onremove",
+                    "then"
+                ],
+                "type": "String",
+                "description": "The Metaskill to execute against the removed furniture",
+                "link": "https://git.lumine.io/mythiccraft/mythiccrucible/-/wikis/Skills/Mechanics/furnitureremoveat",
+                "default_value": "",
+                "enum": "Metaskill"
+            }
+        ]
     },
     {
         "plugin": "MythicCrucible",
@@ -690,6 +782,21 @@
                 "default_value": "false"
             }
         ]
+    },
+    {
+        "plugin": "MythicCrucible",
+        "class": "RemoveTriggeringItem",
+        "extends": "SkillMechanic",
+        "implements": [
+            "INoTargetSkill"
+        ],
+        "name": [
+            "removeTriggeringItem",
+            "rti"
+        ],
+        "description": "Removes the Item entity that triggered the SkillTree",
+        "link": "https://git.lumine.io/mythiccraft/mythiccrucible/-/wikis/Skills/Mechanics/RemoveTriggeringItem",
+        "attributes": []
     },
     {
         "plugin": "MythicCrucible",
@@ -825,6 +932,16 @@
                 "description": "If the overwritten Furniture should drop its Drops once removed",
                 "link": "https://git.lumine.io/mythiccraft/mythiccrucible/-/wikis/Skills/Mechanics/FurnitureSetAt",
                 "default_value": "false"
+            },
+            {
+                "name": [
+                    "keepRotation",
+                    "kr"
+                ],
+                "type": "Boolean",
+                "description": "Whether, when overwriting a furniture, the overwritten furniture's rotation should be kept",
+                "link": "https://git.lumine.io/mythiccraft/mythiccrucible/-/wikis/Skills/Mechanics/FurnitureSetAt",
+                "default_value": null
             }
         ]
     },
@@ -1149,6 +1266,21 @@
                 "default_value": "HEAD"
             }
         ]
+    },
+    {
+        "plugin": "MythicCrucible",
+        "class": "SnapshotUsedBowMechanic",
+        "extends": "SkillMechanic",
+        "implements": [
+            "INoTargetSkill"
+        ],
+        "name": [
+            "snapshotUsedBow",
+            "snapshotBow"
+        ],
+        "description": "Snapshots the state of the held bow for use with later projectile damage mechanics  \nInformation saved:\n- item that triggered the skilltree\n- equipped item\n- bow tension\n- bow enchantments\n- bow's arrow damage",
+        "link": "https://git.lumine.io/mythiccraft/mythiccrucible/-/wikis/Skills/Mechanics/SnapshotUsedBow",
+        "attributes": []
     },
     {
         "plugin": "MythicCrucible",

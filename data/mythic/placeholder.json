@@ -394,5 +394,20 @@
     },
     "font.{FontName}": {
         "description": "Returns the character associated with the custom font named `{FontName}`"
+    },
+    "caster.archetype.[group]": {
+        "description": "Returns the caster's [archetype](/Archetypes) from the specified `group`<br>Defaults to `NONE`"
+    },
+    "caster.archetype.level.[group]": {
+        "description": "Returns the caster's [archetype](/Archetypes) level from the specified `group`"
+    },
+    "caster.archetype.exp.[group]": {
+        "description": "Returns the caster's [archetype](/Archetypes) experience from the specified `group`"
+    },
+    "caster.archetype.exp.goal.[group]": {
+        "description": "Returns the caster's [archetype](/Archetypes) experience goal from the specified `group`"
+    },
+    "skill.var.click-type": {
+        "description": "The type of the click used to interact with a [menu button](/Custom-Menus#button-skills). Returns `1` if rightclick was used, `0` otherwise"
     }
 }

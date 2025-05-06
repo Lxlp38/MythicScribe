@@ -290,11 +290,31 @@
 ### Path: `null`
 ### Type: `Scripted`
 
+# `mythicitem`
+### Path: `null`
+### Type: `Scripted`
+
+# `archetype`
+### Path: `null`
+### Type: `Scripted`
+
+# `reagent`
+### Path: `null`
+### Type: `Scripted`
+
 # `targeter`
 ### Path: `null`
 ### Type: `Scripted`
 
-# `mythicitem`
+# `trigger`
+### Path: `null`
+### Type: `Scripted`
+
+# `reagentvalue`
+### Path: `null`
+### Type: `Scripted`
+
+# `spell`
 ### Path: `null`
 ### Type: `Scripted`
 
@@ -319,6 +339,10 @@
 ### Type: `Scripted`
 
 # `randomspawnschema`
+### Path: `null`
+### Type: `Scripted`
+
+# `reagentschema`
 ### Path: `null`
 ### Type: `Scripted`
 

@@ -50,7 +50,8 @@
         "implements": [
             "Block",
             "Furniture",
-            "Item"
+            "Item",
+            "Archetype"
         ],
         "name": [
             "onBlock_Break",
@@ -68,7 +69,8 @@
         "implements": [
             "Block",
             "Furniture",
-            "Item"
+            "Item",
+            "Archetype"
         ],
         "name": [
             "onBlock_Place",
@@ -159,7 +161,8 @@
         "plugin": "MythicMobs",
         "class": "CONSUME",
         "implements": [
-            "Item"
+            "Item",
+            "Archetype"
         ],
         "name": [
             "onConsume",
@@ -189,12 +192,13 @@
         "plugin": "MythicMobs",
         "class": "CROUCH",
         "implements": [
-            "Item"
+            "Item",
+            "Archetype"
         ],
         "name": [
             "onCrouch"
         ],
-        "description": "Executes the skill when the player holding or equipping the item starts to crouch",
+        "description": "Executes the skill when the player holding or equipping the item starts to crouch\n> The associated [@trigger](https://git.lumine.io/mythiccraft/mythiccrucible/-/wikis/../../../MythicMobs/-/wikis/Skills/Targeters/Trigger) is the player itself",
         "link": "https://git.lumine.io/mythiccraft/mythiccrucible/-/wikis/Skills/Triggers/onCrouch",
         "attributes": []
     },
@@ -219,7 +223,8 @@
         "class": "DEATH",
         "implements": [
             "Mob",
-            "Item"
+            "Item",
+            "Archetype"
         ],
         "name": [
             "onDeath"
@@ -288,7 +293,8 @@
         "plugin": "MythicMobs",
         "class": "FISH",
         "implements": [
-            "Item"
+            "Item",
+            "Archetype"
         ],
         "name": [
             "onFish",
@@ -303,7 +309,8 @@
         "plugin": "MythicMobs",
         "class": "FISH_BITE",
         "implements": [
-            "Item"
+            "Item",
+            "Archetype"
         ],
         "name": [
             "onFish_Bite",
@@ -319,7 +326,8 @@
         "plugin": "MythicMobs",
         "class": "FISH_CATCH_ENTITY",
         "implements": [
-            "Item"
+            "Item",
+            "Archetype"
         ],
         "name": [
             "onFishgrab",
@@ -335,7 +343,8 @@
         "plugin": "MythicMobs",
         "class": "FISH_CATCH_FISH",
         "implements": [
-            "Item"
+            "Item",
+            "Archetype"
         ],
         "name": [
             "onFishcatch",
@@ -353,7 +362,8 @@
         "plugin": "MythicMobs",
         "class": "FISH_FAIL",
         "implements": [
-            "Item"
+            "Item",
+            "Archetype"
         ],
         "name": [
             "onFish_Fail",
@@ -361,14 +371,15 @@
             "onFishingfail"
         ],
         "description": "When a player holding or equipping the item fails to catch a bite while fishing usually due to poor timing",
-        "link": "https://git.lumine.io/mythiccraft/mythiccrucible/-/wikis/Skills/Triggers/onFishingFail",
+        "link": "https://git.lumine.io/mythiccraft/mythiccrucible/-/wikis/Skills/Triggers/onFishFail",
         "attributes": []
     },
     {
         "plugin": "MythicMobs",
         "class": "FISH_GROUND",
         "implements": [
-            "Item"
+            "Item",
+            "Archetype"
         ],
         "name": [
             "onFish_Ground",
@@ -383,7 +394,8 @@
         "plugin": "MythicMobs",
         "class": "FISH_REEL",
         "implements": [
-            "Item"
+            "Item",
+            "Archetype"
         ],
         "name": [
             "onFish_Reel",
@@ -391,7 +403,7 @@
             "onFishreel"
         ],
         "description": "When a player holding or equipping the item reels in their hook without receiving any bites",
-        "link": "https://git.lumine.io/mythiccraft/mythiccrucible/-/wikis/Skills/Triggers/onFishingReel",
+        "link": "https://git.lumine.io/mythiccraft/mythiccrucible/-/wikis/Skills/Triggers/onFishReel",
         "attributes": []
     },
     {
@@ -414,7 +426,8 @@
         "implements": [
             "Mob",
             "Furniture",
-            "Item"
+            "Item",
+            "Archetype"
         ],
         "name": [
             "onInteract"
@@ -443,7 +456,8 @@
         "plugin": "MythicMobs",
         "class": "ITEM_PICKUP",
         "implements": [
-            "Item"
+            "Item",
+            "Archetype"
         ],
         "name": [
             "onItem_Pickup",
@@ -459,7 +473,8 @@
         "plugin": "MythicMobs",
         "class": "JOIN",
         "implements": [
-            "Item"
+            "Item",
+            "Archetype"
         ],
         "name": [
             "onJoin"
@@ -485,7 +500,8 @@
         "plugin": "MythicMobs",
         "class": "KILL",
         "implements": [
-            "Item"
+            "Item",
+            "Archetype"
         ],
         "name": [
             "onKill"
@@ -647,7 +663,8 @@
         "plugin": "MythicMobs",
         "class": "RESPAWN",
         "implements": [
-            "Item"
+            "Item",
+            "Archetype"
         ],
         "name": [
             "onRespawn"
@@ -660,7 +677,8 @@
         "plugin": "MythicMobs",
         "class": "RIGHTCLICK",
         "implements": [
-            "Item"
+            "Item",
+            "Archetype"
         ],
         "name": [
             "onRightclick"
@@ -674,7 +692,8 @@
         "class": "SHOOT",
         "implements": [
             "Mob",
-            "Item"
+            "Item",
+            "Archetype"
         ],
         "name": [
             "onShoot",
@@ -718,7 +737,8 @@
         "class": "SPAWN",
         "implements": [
             "Mob",
-            "Item"
+            "Item",
+            "Archetype"
         ],
         "name": [
             "onSpawn"
@@ -744,7 +764,8 @@
         "plugin": "MythicMobs",
         "class": "SPLASH_POTION",
         "implements": [
-            "Item"
+            "Item",
+            "Archetype"
         ],
         "name": [
             "onSplash_Potion",
@@ -841,12 +862,13 @@
         "plugin": "MythicMobs",
         "class": "UNCROUCH",
         "implements": [
-            "Item"
+            "Item",
+            "Archetype"
         ],
         "name": [
             "onUncrouch"
         ],
-        "description": "Executes the skill when the player holding or equipping the item stops to crouch",
+        "description": "Executes the skill when the player holding or equipping the item stops to crouch\n> The associated [@trigger](https://git.lumine.io/mythiccraft/mythiccrucible/-/wikis/../../../MythicMobs/-/wikis/Skills/Targeters/Trigger) is the player itself",
         "link": "https://git.lumine.io/mythiccraft/mythiccrucible/-/wikis/Skills/Triggers/onUnCrouch",
         "attributes": []
     },

@@ -177,6 +177,12 @@ function handleLinkedAttribute<T>(
     const keys = yamlutils.getParentKeys(document, position);
     const attribute = searchForLinkedAttribute(document, position, keys);
     if (!attribute?.enum || !registryKey.includes(attribute.enum.identifier as registryKey)) {
+        if (attribute?.enum?.identifier === 'spell') {
+            const metaskill = MythicNodeHandler.registry.metaskill.getNode(word);
+            if (metaskill) {
+                return callback(metaskill, wordRange);
+            }
+        }
         return undefined;
     }
 

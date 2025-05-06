@@ -90,6 +90,7 @@ export enum scriptedEnums {
     Targeter = 'targeter',
     Trigger = 'trigger',
     ReagentValue = 'reagentvalue',
+    Spell = 'spell',
 
     // First "level" of the schemas, without nested keys
     MobSchema = 'mobschema',

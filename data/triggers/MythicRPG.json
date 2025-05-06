@@ -1,0 +1,41 @@
+[
+    {
+        "plugin": "MythicRPG",
+        "class": "CLASS_GAIN",
+        "implements": [
+            "Archetype"
+        ],
+        "name": [
+            "onClassgain"
+        ],
+        "description": "Triggers when the archetype is gained",
+        "link": "https://git.lumine.io/mythiccraft/mythicrpg/-/wikis/Skills/Triggers/onClassGain",
+        "attributes": []
+    },
+    {
+        "plugin": "MythicRPG",
+        "class": "CLASS_LOSS",
+        "implements": [
+            "Archetype"
+        ],
+        "name": [
+            "onClassloss"
+        ],
+        "description": "Triggers when the archetype is lost/removed",
+        "link": "https://git.lumine.io/mythiccraft/mythicrpg/-/wikis/Skills/Triggers/onClassLoss",
+        "attributes": []
+    },
+    {
+        "plugin": "MythicRPG",
+        "class": "LEVEL_UP",
+        "implements": [
+            "Archetype"
+        ],
+        "name": [
+            "onLevelup"
+        ],
+        "description": "Triggers when the [archetype](https://git.lumine.io/mythiccraft/mythicrpg/-/wikis/Archetypes) [levels up](https://git.lumine.io/mythiccraft/mythicrpg/-/wikis/Archetypes/Leveling)",
+        "link": "https://git.lumine.io/mythiccraft/mythicrpg/-/wikis/Skills/Triggers/onLevelUp",
+        "attributes": []
+    }
+]

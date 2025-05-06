@@ -14,7 +14,7 @@ import { openDocumentTactfully } from '../utils/uriutils';
 import { executeGetObjectLinkedToAttribute } from '../utils/cursorutils';
 import { registryKey } from '../objectInfos';
 
-type NodeEntry = Map<string, MythicNode>;
+export type NodeEntry = Map<string, MythicNode>;
 
 enum ParserIntructions {
     // Disable parsing for the file
@@ -113,6 +113,8 @@ export class MythicNode {
         archetype: new Set(),
         reagent: new Set(),
     };
+    metadata = new Map<string, string>();
+
     constructor(
         public registry: MythicNodeRegistry,
         public document: vscode.TextDocument,
@@ -277,6 +279,11 @@ export class MetaskillMythicNode extends MythicNode {
         this.matchConditionActions(body).forEach((action) => {
             this.outEdge.metaskill.add(action);
         });
+
+        const spell = this.matchSingleEntry(body, /^\s*Spell:\s*(?<entry>.*)/m);
+        if (spell && spell.toLowerCase() === 'true') {
+            this.metadata.set('spell', 'true');
+        }
     }
 
     private matchConditionActions(body: string): string[] {
@@ -392,8 +399,8 @@ class ReagentMythicNode extends MythicNode {
         super.findNodeEdges(body);
 
         const regexes: RegExp[] = [
-            /^\s*MaxValue:\s*stat.(?<entry>.*)/m,
-            /^\s*MinValue:\s*stat.(?<entry>.*)/m,
+            /^\s*MaxValue:\s*stat\.(?<entry>.*)/m,
+            /^\s*MinValue:\s*stat\.(?<entry>.*)/m,
         ];
 
         regexes.forEach((regex) => {
@@ -405,23 +412,24 @@ class ReagentMythicNode extends MythicNode {
     }
 }
 
+const mockRange = new vscode.Range(0, 0, 0, 0);
 export class MockMythicNode extends MythicNode {
     constructor(registry: MythicNodeRegistry, name: string, creator: MythicNode) {
         const document = vscode.workspace.textDocuments[0];
         const range = creator.range;
         const description = {
-            text: 'Mock description',
-            range: new vscode.Range(0, 0, 0, 0),
+            text: undefined,
+            range: mockRange,
         };
         const body = {
-            text: 'Mock body',
-            range: new vscode.Range(0, 0, 0, 0),
+            text: undefined,
+            range: mockRange,
         };
-        const MockName = {
+        const mockName = {
             text: name,
             range: creator.name.range,
         };
-        super(registry, document, range, description, MockName, body);
+        super(registry, document, range, description, mockName, body);
     }
     get hash(): string {
         return `Mock:${this.name.text}@${this.registry.type}`;

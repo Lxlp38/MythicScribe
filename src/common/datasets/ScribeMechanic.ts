@@ -113,7 +113,7 @@ class ScribeMechanicRegistry extends AbstractScribeMechanicRegistry {
     readonly regex: RegExp = /(?<=\s- )[\w:]+/gm;
     readonly type: ObjectType = ObjectType.MECHANIC;
     readonly folder: string = 'mechanics';
-    readonly files = ['MythicMobs', 'MythicCrucible', 'ModelEngine'];
+    readonly files = ['MythicMobs', 'MythicCrucible', 'ModelEngine', 'MythicRPG'];
 }
 class ScribeTargeterRegistry extends AbstractScribeMechanicRegistry {
     readonly regex: RegExp = /(?<=[\s=]@)[\w:]+/gm;
@@ -125,7 +125,7 @@ class ScribeConditionRegistry extends AbstractScribeMechanicRegistry {
     readonly regex: RegExp = /(?<=[\s\|\&][-\(\|\&\)] )[\w:]+/gm;
     readonly type: ObjectType = ObjectType.CONDITION;
     readonly folder: string = 'conditions';
-    readonly files = ['MythicMobs', 'ModelEngine'];
+    readonly files = ['MythicMobs', 'ModelEngine', 'MythicRPG'];
 }
 class ScribeInlineConditionRegistry extends ScribeConditionRegistry {
     readonly regex: RegExp = /(?<=\s(\?)|(\?!)|(\?~)|(\?~!))[\w:]+/gm;
@@ -147,7 +147,7 @@ class ScribeTriggerRegistry extends AbstractScribeMechanicRegistry {
     readonly regex: RegExp = /(?<=\s~)on[\w:]+/gm;
     readonly type: ObjectType = ObjectType.TRIGGER;
     readonly folder: string = 'triggers';
-    readonly files = ['MythicMobs', 'MythicCrucible'];
+    readonly files = ['MythicMobs', 'MythicCrucible', 'MythicRPG'];
 }
 class ScribeAITargetRegistry extends AbstractScribeMechanicRegistry {
     readonly regex: RegExp = /(?<=\s- )[\w:]+/gm;
@@ -232,6 +232,9 @@ export class MythicMechanic {
     }
 
     public inheritAttributes() {
+        if (this.hasAlreadyInheritedAttributes) {
+            return;
+        }
         if (!this.extends) {
             this.finalizeAttributes();
             return;

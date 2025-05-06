@@ -1,0 +1,121 @@
+[
+    {
+        "plugin": "MythicRPG",
+        "class": "ArchetypeCondition",
+        "extends": "SkillCondition",
+        "implements": [
+            "IEntityCondition"
+        ],
+        "name": [
+            "archetype",
+            "class"
+        ],
+        "description": "This condition checks if the player has a certain type of Archetype in a defined group. This allows you to check for various types of classes/professions/races/etc of a player.",
+        "link": "https://git.lumine.io/mythiccraft/mythicrpg/-/wikis/Skills/Conditions/Archetype",
+        "attributes": [
+            {
+                "name": [
+                    "group",
+                    "g"
+                ],
+                "type": "PlaceholderString",
+                "description": "The archetype group",
+                "link": "https://git.lumine.io/mythiccraft/mythicrpg/-/wikis/Skills/Conditions/Archetype",
+                "default_value": "CLASS"
+            },
+            {
+                "name": [
+                    "archetypes",
+                    "archetype",
+                    "type",
+                    "types",
+                    "a",
+                    "classes",
+                    "class",
+                    "c"
+                ],
+                "type": "String",
+                "description": "The class of the provided archetype group",
+                "link": "https://git.lumine.io/mythiccraft/mythicrpg/-/wikis/Skills/Conditions/Archetype",
+                "default_value": "none"
+            }
+        ]
+    },
+    {
+        "plugin": "MythicRPG",
+        "class": "ArchetypeLevelCondition",
+        "extends": "SkillCondition",
+        "implements": [
+            "IEntityCondition"
+        ],
+        "name": [
+            "archetypelevel",
+            "classlevel"
+        ],
+        "description": "This condition checks if the player has a certain level of the Archetype in a defined group. This allows you to check for certain progression states of a player.",
+        "link": "https://git.lumine.io/mythiccraft/mythicrpg/-/wikis/Skills/Conditions/ArchetypeLevel",
+        "attributes": [
+            {
+                "name": [
+                    "level",
+                    "l"
+                ],
+                "type": "String",
+                "description": "The archetype level to check",
+                "link": "https://git.lumine.io/mythiccraft/mythicrpg/-/wikis/Skills/Conditions/ArchetypeLevel",
+                "default_value": "none"
+            },
+            {
+                "name": [
+                    "group",
+                    "g"
+                ],
+                "type": "PlaceholderString",
+                "description": "The archetype group",
+                "link": "https://git.lumine.io/mythiccraft/mythicrpg/-/wikis/Skills/Conditions/ArchetypeLevel",
+                "default_value": "CLASS"
+            },
+            {
+                "name": [
+                    "archetype",
+                    "type",
+                    "a",
+                    "class",
+                    "c"
+                ],
+                "type": "String",
+                "description": "The class of the provided archetype group",
+                "link": "https://git.lumine.io/mythiccraft/mythicrpg/-/wikis/Skills/Conditions/ArchetypeLevel",
+                "default_value": "none"
+            }
+        ]
+    },
+    {
+        "plugin": "MythicRPG",
+        "class": "HasLearnedSpell",
+        "extends": "SkillCondition",
+        "implements": [
+            "IEntityCondition"
+        ],
+        "name": [
+            "hasLearnedSpell",
+            "hasSpell"
+        ],
+        "description": "Whether the target player has learned the given spell",
+        "link": "https://git.lumine.io/mythiccraft/mythicrpg/-/wikis/Skills/Conditions/HasLearnedSpell",
+        "attributes": [
+            {
+                "name": [
+                    "id",
+                    "spell",
+                    "s"
+                ],
+                "type": "PlaceholderString",
+                "description": "The spell to check against",
+                "link": "https://git.lumine.io/mythiccraft/mythicrpg/-/wikis/Skills/Conditions/HasLearnedSpell",
+                "default_value": "FIREBALL ",
+                "enum": "Spell"
+            }
+        ]
+    }
+]

@@ -16,7 +16,7 @@ import Log from '../utils/logger';
 import { AbstractScribeMechanicRegistry, Attribute, ScribeMechanicHandler } from './ScribeMechanic';
 import { insertColor } from '../color/colorprovider';
 import { localEnums, scriptedEnums, volatileEnums } from './enumSources';
-import { MythicNode, MythicNodeHandler } from '../mythicnodes/MythicNode';
+import { MythicNode, MythicNodeHandler, NodeEntry } from '../mythicnodes/MythicNode';
 import { timeCounter } from '../utils/timeUtils';
 
 const enumLoadedEventEmitter = new vscode.EventEmitter<AbstractScribeEnum>();
@@ -302,6 +302,16 @@ export const ScribeEnumHandler = {
                 ret2.set(value, { description: '' });
             });
             return ret2;
+        });
+        this.addScriptedEnum(scriptedEnums.Spell, () => {
+            const metaskills = MythicNodeHandler.registry.metaskill.getNodes();
+            const spells: NodeEntry = new Map();
+            metaskills.forEach((value, key) => {
+                if (value.metadata.get('spell') === 'true') {
+                    spells.set(key, value);
+                }
+            });
+            return fromMythicNodeToEnum(spells);
         });
 
         this.addScriptedEnum(scriptedEnums.Mob, () =>

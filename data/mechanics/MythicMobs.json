@@ -8709,7 +8709,8 @@
                 "type": "String",
                 "description": "Start direction of the projectile. For now, it only works if inherited by a missile mechanic",
                 "link": "https://git.lumine.io/mythiccraft/MythicMobs/-/wikis/Skills/Mechanics/projectile",
-                "default_value": "@Targeted"
+                "default_value": "@Targeted",
+                "enum": "Targeter"
             },
             {
                 "name": [
@@ -9213,7 +9214,8 @@
                 "type": "String",
                 "description": "The type of the projectile to use. Can be `NORMAL`,`SPECTRAL`,`TRIDENT`",
                 "link": "https://git.lumine.io/mythiccraft/MythicMobs/-/wikis/Skills/Mechanics/projectile",
-                "default_value": "NORMAL"
+                "default_value": "NORMAL",
+                "enum": "NORMAL,SPECTRAL,TRIDENT"
             },
             {
                 "name": [
@@ -9742,7 +9744,8 @@
                 "type": "String",
                 "description": "The mob of the bullet",
                 "link": "https://git.lumine.io/mythiccraft/MythicMobs/-/wikis/Skills/Mechanics/projectile",
-                "default_value": "SkeletalKnight"
+                "default_value": "SkeletalKnight",
+                "enum": "Mob"
             },
             {
                 "name": [

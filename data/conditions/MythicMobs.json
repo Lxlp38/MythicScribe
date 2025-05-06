@@ -3842,6 +3842,21 @@
     },
     {
         "plugin": "MythicMobs",
+        "class": "ServerIsPaperCondition",
+        "extends": "SkillCondition",
+        "implements": [
+            "ICasterCondition"
+        ],
+        "name": [
+            "serverispaper",
+            "ispaper"
+        ],
+        "description": "Checks whether the server is running a fork of paper",
+        "link": "https://git.lumine.io/mythiccraft/MythicMobs/-/wikis/Skills/Conditions/ServerIsPaper",
+        "attributes": []
+    },
+    {
+        "plugin": "MythicMobs",
         "class": "ServerNMSVersionCondition",
         "extends": "SkillCondition",
         "implements": [
@@ -3865,6 +3880,84 @@
                 "description": "The version to check for",
                 "link": "https://git.lumine.io/mythiccraft/MythicMobs/-/wikis/Skills/Conditions/servernmsversion",
                 "default_value": "v1_19_R1_2"
+            }
+        ]
+    },
+    {
+        "plugin": "MythicMobs",
+        "class": "ServerVersionAfterCondition",
+        "extends": "SkillCondition",
+        "implements": [
+            "ICasterCondition"
+        ],
+        "name": [
+            "serverVersionAfterOrEqual",
+            "serverAfterEq",
+            "serverAfter",
+            "versionAfterEq",
+            "versionAfter"
+        ],
+        "description": "Checks whether the server is after or equal to a specific version",
+        "link": "https://git.lumine.io/mythiccraft/MythicMobs/-/wikis/Skills/Conditions/ServerVersionAfterOrEqual",
+        "attributes": [
+            {
+                "name": [
+                    "version",
+                    "v",
+                    "sv"
+                ],
+                "type": "String",
+                "description": "The version to check against",
+                "link": "https://git.lumine.io/mythiccraft/MythicMobs/-/wikis/Skills/Conditions/ServerVersionAfterOrEqual",
+                "default_value": "1.19.3"
+            },
+            {
+                "name": [
+                    "inclusive",
+                    "i"
+                ],
+                "type": "Boolean",
+                "description": "Whether the condition should check if the current version is exactly the specified one",
+                "link": "https://git.lumine.io/mythiccraft/MythicMobs/-/wikis/Skills/Conditions/ServerVersionAfterOrEqual",
+                "default_value": "true"
+            }
+        ]
+    },
+    {
+        "plugin": "MythicMobs",
+        "class": "ServerVersionBeforeCondition",
+        "extends": "SkillCondition",
+        "implements": [
+            "ICasterCondition"
+        ],
+        "name": [
+            "serverVersionBefore",
+            "serverBefore",
+            "versionBefore"
+        ],
+        "description": "Checks whether the server is before a specific version",
+        "link": "https://git.lumine.io/mythiccraft/MythicMobs/-/wikis/Skills/Conditions/ServerVersionBefore",
+        "attributes": [
+            {
+                "name": [
+                    "version",
+                    "v",
+                    "sv"
+                ],
+                "type": "String",
+                "description": "The version to check against",
+                "link": "https://git.lumine.io/mythiccraft/MythicMobs/-/wikis/Skills/Conditions/ServerVersionBefore",
+                "default_value": "1.19.3"
+            },
+            {
+                "name": [
+                    "inclusive",
+                    "i"
+                ],
+                "type": "Boolean",
+                "description": "Whether the condition should check if the current version is exactly the specified one",
+                "link": "https://git.lumine.io/mythiccraft/MythicMobs/-/wikis/Skills/Conditions/ServerVersionBefore",
+                "default_value": "true"
             }
         ]
     },

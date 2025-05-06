@@ -1,0 +1,272 @@
+[
+    {
+        "plugin": "MythicRPG",
+        "class": "GiveExperienceMechanic",
+        "extends": "SkillMechanic",
+        "implements": [
+            "ITargetedEntitySkill",
+            "INoTargetSkill"
+        ],
+        "name": [
+            "giveMythicExperience",
+            "giveRPGExperience"
+        ],
+        "description": "Gives a player experience",
+        "link": "https://git.lumine.io/mythiccraft/mythicrpg/-/wikis/Skills/Mechanics/GiveMythicExperience",
+        "attributes": [
+            {
+                "name": [
+                    "amount",
+                    "a"
+                ],
+                "type": "String",
+                "description": "The affected archetype",
+                "link": "https://git.lumine.io/mythiccraft/mythicrpg/-/wikis/Skills/Mechanics/GiveMythicExperience",
+                "default_value": "",
+                "enum": "Archetype"
+            },
+            {
+                "name": [
+                    "source",
+                    "s",
+                    "type",
+                    "t"
+                ],
+                "type": "String",
+                "description": "The [source](https://git.lumine.io/mythiccraft/mythicrpg/-/wikis/Archetypes/Leveling#experience-sources) of the experience",
+                "link": "https://git.lumine.io/mythiccraft/mythicrpg/-/wikis/Skills/Mechanics/GiveMythicExperience",
+                "default_value": ""
+            },
+            {
+                "name": [
+                    "archetype",
+                    "a"
+                ],
+                "type": "String",
+                "description": "The affected archetype",
+                "link": "https://git.lumine.io/mythiccraft/mythicrpg/-/wikis/Skills/Mechanics/GiveMythicExperience",
+                "default_value": ""
+            },
+            {
+                "name": [
+                    "group",
+                    "g"
+                ],
+                "type": "String",
+                "description": "The affected group",
+                "link": "https://git.lumine.io/mythiccraft/mythicrpg/-/wikis/Skills/Mechanics/GiveMythicExperience",
+                "default_value": "CLASS"
+            }
+        ]
+    },
+    {
+        "plugin": "MythicRPG",
+        "class": "ModifyResourceMechanic",
+        "extends": "SkillMechanic",
+        "implements": [
+            "ITargetedEntitySkill",
+            "INoTargetSkill"
+        ],
+        "name": [
+            "modifyresource",
+            "modifyreagent",
+            "mana"
+        ],
+        "description": "Modifies the target player's given reagent",
+        "link": "https://git.lumine.io/mythiccraft/mythicrpg/-/wikis/Skills/Mechanics/ModifyResource",
+        "attributes": [
+            {
+                "name": [
+                    "amount",
+                    "a"
+                ],
+                "type": "String",
+                "description": "The amount of the modification",
+                "link": "https://git.lumine.io/mythiccraft/mythicrpg/-/wikis/Skills/Mechanics/ModifyResource",
+                "default_value": "1"
+            },
+            {
+                "name": [
+                    "resource",
+                    "reagent",
+                    "res",
+                    "r"
+                ],
+                "type": "String",
+                "description": "The reagent to modify",
+                "link": "https://git.lumine.io/mythiccraft/mythicrpg/-/wikis/Skills/Mechanics/ModifyResource",
+                "default_value": "Mana",
+                "enum": "Reagent"
+            }
+        ]
+    },
+    {
+        "plugin": "MythicRPG",
+        "class": "OpenCustomMenuMechanic",
+        "extends": "SkillMechanic",
+        "implements": [
+            "ITargetedEntitySkill",
+            "INoTargetSkill"
+        ],
+        "name": [
+            "openCustomMenu",
+            "openMenu"
+        ],
+        "description": "Opens a [custom menu](https://git.lumine.io/mythiccraft/mythicrpg/-/wikis/Custom-Menus)",
+        "link": "https://git.lumine.io/mythiccraft/mythicrpg/-/wikis/Skills/Mechanics/OpenCustomMenu",
+        "attributes": [
+            {
+                "name": [
+                    "menu",
+                    "m"
+                ],
+                "type": "PlaceholderString",
+                "description": "The menu to open",
+                "link": "https://git.lumine.io/mythiccraft/mythicrpg/-/wikis/Skills/Mechanics/OpenCustomMenu",
+                "default_value": "default"
+            }
+        ]
+    },
+    {
+        "plugin": "MythicRPG",
+        "class": "SetArchetypeMechanic",
+        "extends": "SkillMechanic",
+        "implements": [
+            "ITargetedEntitySkill",
+            "INoTargetSkill"
+        ],
+        "name": [
+            "setArchetype",
+            "setClass"
+        ],
+        "description": "Sets the target player's archetype",
+        "link": "https://git.lumine.io/mythiccraft/mythicrpg/-/wikis/Skills/Mechanics/SetArchetype",
+        "attributes": [
+            {
+                "name": [
+                    "group",
+                    "g"
+                ],
+                "type": "PlaceholderString",
+                "description": "The group to set",
+                "link": "https://git.lumine.io/mythiccraft/mythicrpg/-/wikis/Skills/Mechanics/SetArchetype",
+                "default_value": "CLASS"
+            },
+            {
+                "name": [
+                    "archetype",
+                    "type",
+                    "a",
+                    "class",
+                    "c"
+                ],
+                "type": "PlaceholderString",
+                "description": "The archetype to set",
+                "link": "https://git.lumine.io/mythiccraft/mythicrpg/-/wikis/Skills/Mechanics/SetArchetype",
+                "default_value": "",
+                "enum": "Archetype"
+            }
+        ]
+    },
+    {
+        "plugin": "MythicRPG",
+        "class": "SetCustomMenuButtonMechanic",
+        "extends": "SkillMechanic",
+        "implements": [
+            "INoTargetSkill"
+        ],
+        "name": [
+            "SetCustomMenuButton"
+        ],
+        "description": "Sets a specific slot of the opened [custom menu](https://git.lumine.io/mythiccraft/mythicrpg/-/wikis/Custom-Menus) to the specified button.  \nWill work as long as the player has an opened [custom menu](https://git.lumine.io/mythiccraft/mythicrpg/-/wikis/Custom-Menus), even if it's not casted from within the menu itself.",
+        "link": "https://git.lumine.io/mythiccraft/mythicrpg/-/wikis/Skills/Mechanics/SetCustomMenuButton",
+        "attributes": [
+            {
+                "name": [
+                    "slot",
+                    "s"
+                ],
+                "type": "PlaceholderInteger",
+                "description": "The slot to modify",
+                "link": "https://git.lumine.io/mythiccraft/mythicrpg/-/wikis/Skills/Mechanics/SetCustomMenuButton",
+                "default_value": "0"
+            },
+            {
+                "name": [
+                    "icon",
+                    "i"
+                ],
+                "type": "PlaceholderString",
+                "description": "The button to set on the slot",
+                "link": "https://git.lumine.io/mythiccraft/mythicrpg/-/wikis/Skills/Mechanics/SetCustomMenuButton",
+                "default_value": "default"
+            }
+        ]
+    },
+    {
+        "plugin": "MythicRPG",
+        "class": "SpellForgetMechanic",
+        "extends": "SkillMechanic",
+        "implements": [
+            "ITargetedEntitySkill",
+            "INoTargetSkill"
+        ],
+        "name": [
+            "forgetRPGSpell",
+            "forgetSpell"
+        ],
+        "description": "Make the target player unlearn a [spell](https://git.lumine.io/mythiccraft/mythicrpg/-/wikis/Spells)",
+        "link": "https://git.lumine.io/mythiccraft/mythicrpg/-/wikis/Skills/Mechanics/ForgetSpell",
+        "attributes": [
+            {
+                "name": [
+                    "spell",
+                    "s"
+                ],
+                "type": "PlaceholderString",
+                "description": "The [spell](https://git.lumine.io/mythiccraft/mythicrpg/-/wikis/Spells) to remove",
+                "link": "https://git.lumine.io/mythiccraft/mythicrpg/-/wikis/Skills/Mechanics/ForgetSpell",
+                "default_value": "",
+                "enum": "Spell"
+            }
+        ]
+    },
+    {
+        "plugin": "MythicRPG",
+        "class": "SpellTeachMechanic",
+        "extends": "SkillMechanic",
+        "implements": [
+            "ITargetedEntitySkill",
+            "INoTargetSkill"
+        ],
+        "name": [
+            "teachRPGSpell",
+            "teachSpell"
+        ],
+        "description": "Teaches a player a [spell](https://git.lumine.io/mythiccraft/mythicrpg/-/wikis/Spells)",
+        "link": "https://git.lumine.io/mythiccraft/mythicrpg/-/wikis/Skills/Mechanics/TeachSpell",
+        "attributes": [
+            {
+                "name": [
+                    "spell",
+                    "s"
+                ],
+                "type": "PlaceholderString",
+                "description": "The [spell](https://git.lumine.io/mythiccraft/mythicrpg/-/wikis/Spells) to teach",
+                "link": "https://git.lumine.io/mythiccraft/mythicrpg/-/wikis/Skills/Mechanics/TeachSpell",
+                "default_value": "",
+                "enum": "Spell"
+            },
+            {
+                "name": [
+                    "level",
+                    "l"
+                ],
+                "type": "PlaceholderInteger",
+                "description": "The level of the taught spell",
+                "link": "https://git.lumine.io/mythiccraft/mythicrpg/-/wikis/Skills/Mechanics/TeachSpell",
+                "default_value": "1"
+            }
+        ]
+    }
+]

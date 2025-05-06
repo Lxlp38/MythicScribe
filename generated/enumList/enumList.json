@@ -365,12 +365,37 @@
     "type": "Scripted"
   },
   {
+    "id": "mythicitem",
+    "path": null,
+    "type": "Scripted"
+  },
+  {
+    "id": "archetype",
+    "path": null,
+    "type": "Scripted"
+  },
+  {
+    "id": "reagent",
+    "path": null,
+    "type": "Scripted"
+  },
+  {
     "id": "targeter",
     "path": null,
     "type": "Scripted"
   },
   {
-    "id": "mythicitem",
+    "id": "trigger",
+    "path": null,
+    "type": "Scripted"
+  },
+  {
+    "id": "reagentvalue",
+    "path": null,
+    "type": "Scripted"
+  },
+  {
+    "id": "spell",
     "path": null,
     "type": "Scripted"
   },
@@ -401,6 +426,11 @@
   },
   {
     "id": "randomspawnschema",
+    "path": null,
+    "type": "Scripted"
+  },
+  {
+    "id": "reagentschema",
     "path": null,
     "type": "Scripted"
   },
