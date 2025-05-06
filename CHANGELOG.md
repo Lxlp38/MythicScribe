@@ -10,6 +10,7 @@
   - RandomSpawns
   - Archetypes
   - Reagents
+  - Custom MythicRPG Menus
 - Mob Options, DropOptions and DisplayOptions Completions
   
 #### Commands

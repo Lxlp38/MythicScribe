@@ -2,6 +2,7 @@ import * as vscode from 'vscode';
 import { RandomSpawnSchema } from '@common/schemas/randomSpawnSchema';
 import { ReagentSchema } from '@common/schemas/reagentSchema';
 import { ArchetypeSchema } from '@common/schemas/archetypeSchema';
+import { MenuSchema } from '@common/schemas/menuSchema';
 
 import { keyAliases, TriggerType } from '../objectInfos';
 import { triggerfileCompletionProvider } from '../completions/file/triggerfileCompletionProvider';
@@ -260,6 +261,23 @@ class PlaceholderSubscriptionHandler extends AbstractScribeSubscription {
     }
 }
 
+class RandomSpawnSubscriptionHandler extends AbstractScribeSubscription {
+    constructor() {
+        super(
+            [
+                () => genericFileCompletionProvider(RandomSpawnSchema),
+                () =>
+                    hoverProvider(RandomSpawnSchema, {
+                        keys: ['Conditions'],
+                        registry: ScribeMechanicHandler.registry.condition,
+                    }),
+                () => conditionCompletionProvider(),
+            ],
+            [enableFileSpecificSuggestions]
+        );
+    }
+}
+
 class ArchetypeSubscriptionHandler extends AbstractScribeSubscription {
     constructor() {
         super(
@@ -285,18 +303,10 @@ class ReagentSubscriptionHandler extends AbstractScribeSubscription {
     }
 }
 
-class RandomSpawnSubscriptionHandler extends AbstractScribeSubscription {
+class MenuSubscriptionHandler extends AbstractScribeSubscription {
     constructor() {
         super(
-            [
-                () => genericFileCompletionProvider(RandomSpawnSchema),
-                () =>
-                    hoverProvider(RandomSpawnSchema, {
-                        keys: ['Conditions'],
-                        registry: ScribeMechanicHandler.registry.condition,
-                    }),
-                () => conditionCompletionProvider(),
-            ],
+            [() => genericFileCompletionProvider(MenuSchema), () => hoverProvider(MenuSchema)],
             [enableFileSpecificSuggestions]
         );
     }
@@ -314,6 +324,7 @@ export const ScribeSubscriptionHandler = {
         randomspawn: new RandomSpawnSubscriptionHandler(),
         archetype: new ArchetypeSubscriptionHandler(),
         reagent: new ReagentSubscriptionHandler(),
+        menu: new MenuSubscriptionHandler(),
     },
 
     disposeAll() {

@@ -69,6 +69,7 @@ const NodeTypeToAdditionalData: Record<registryKey, NodeData> = {
     randomspawn: { shape: 'round-hexagon', color: '#00cccc' },
     archetype: { shape: 'round-rectangle', color: '#cc00ff' },
     reagent: { shape: 'round-pentagon', color: '#cc00cc' },
+    menu: { shape: 'round-rectangle', color: '#ff00cc' },
 };
 
 const UnknownNodeData: NodeData = { color: '#807e7a', unknown: true };

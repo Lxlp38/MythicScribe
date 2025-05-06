@@ -8,6 +8,7 @@ import { DroptableSchema } from '@common/schemas/droptableSchema';
 import { RandomSpawnSchema } from '@common/schemas/randomSpawnSchema';
 import { generateNumbersInRange } from '@common/utils/schemautils';
 import { ReagentSchema } from '@common/schemas/reagentSchema';
+import { MenuSchema } from '@common/schemas/menuSchema';
 
 import { minecraftVersion } from '../utils/configutils';
 import { ScribeCloneableFile, fetchJsonFromLocalFile, fetchJsonFromURL } from './datasets';
@@ -346,6 +347,9 @@ export const ScribeEnumHandler = {
         this.addScriptedEnum(scriptedEnums.Reagent, () =>
             fromMythicNodeToEnum(MythicNodeHandler.registry.reagent.getNodes())
         );
+        this.addScriptedEnum(scriptedEnums.Menu, () =>
+            fromMythicNodeToEnum(MythicNodeHandler.registry.menu.getNodes())
+        );
 
         // Schemas
         this.addScriptedEnum(scriptedEnums.MobSchema, () => fromSchemaToEnum(MobSchema));
@@ -361,6 +365,7 @@ export const ScribeEnumHandler = {
             fromSchemaToEnum(RandomSpawnSchema)
         );
         this.addScriptedEnum(scriptedEnums.ReagentSchema, () => fromSchemaToEnum(ReagentSchema));
+        this.addScriptedEnum(scriptedEnums.MenuSchema, () => fromSchemaToEnum(MenuSchema));
     },
 };
 

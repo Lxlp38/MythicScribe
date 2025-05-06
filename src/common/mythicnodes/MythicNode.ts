@@ -112,6 +112,7 @@ export class MythicNode {
         randomspawn: new Set(),
         archetype: new Set(),
         reagent: new Set(),
+        menu: new Set(),
     };
     metadata = new Map<string, string>();
 
@@ -546,6 +547,7 @@ export namespace MythicNodeHandler {
         randomspawn: new MythicNodeRegistry('randomspawn', RandomSpawnMythicNode),
         archetype: new MythicNodeRegistry('archetype', ArchetypeMythicNode),
         reagent: new MythicNodeRegistry('reagent', ReagentMythicNode),
+        menu: new MythicNodeRegistry('menu'),
     };
 
     export function getRegistry(key: string): MythicNodeRegistry | undefined {

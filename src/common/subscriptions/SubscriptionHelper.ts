@@ -3,20 +3,21 @@ import { RandomSpawnSchema } from '@common/schemas/randomSpawnSchema';
 import Log from '@common/utils/logger';
 import { ReagentSchema } from '@common/schemas/reagentSchema';
 import { ArchetypeSchema } from '@common/schemas/archetypeSchema';
+import { MenuSchema } from '@common/schemas/menuSchema';
+import { StatSchema } from '@common/schemas/statSchema';
+import { MetaskillSchema } from '@common/schemas/metaskillSchema';
+import { MobSchema } from '@common/schemas/mobSchema';
+import { ItemSchema } from '@common/schemas/itemSchema';
+import { DroptableSchema } from '@common/schemas/droptableSchema';
 
+import { AbstractScribeSubscription, ScribeSubscriptionHandler } from './SubscriptionHandler';
 import {
     checkMythicMobsFile,
     enableMythicScriptSyntax,
     checkFileEnabled,
     fileRegexConfigCache,
 } from '../utils/configutils';
-import { AbstractScribeSubscription, ScribeSubscriptionHandler } from './SubscriptionHandler';
-import { MetaskillSchema } from '../schemas/metaskillSchema';
-import { MobSchema } from '../schemas/mobSchema';
-import { ItemSchema } from '../schemas/itemSchema';
-import { DroptableSchema } from '../schemas/droptableSchema';
 import { Schema, registryKey } from '../objectInfos';
-import { StatSchema } from '../schemas/statSchema';
 
 function resetFileChecks() {
     for (const key of Object.keys(ActiveFileTypeInfo) as (keyof typeof ActiveFileTypeInfo)[]) {
@@ -36,6 +37,7 @@ export const ActiveFileTypeInfo: { [K in ActiveFileTypeInfoKeys]: boolean } = {
     randomspawn: false,
     archetype: false,
     reagent: false,
+    menu: false,
 };
 
 export const extensionEnabler = vscode.window.onDidChangeActiveTextEditor((editor) => {
@@ -191,6 +193,12 @@ const FileTypeInfoMap: {
         key: 'reagent',
         configKey: 'Reagent',
         subscriptionHandler: 'reagent',
+    },
+    menu: {
+        schema: MenuSchema,
+        key: 'menu',
+        configKey: 'Menu',
+        subscriptionHandler: 'menu',
     },
 };
 

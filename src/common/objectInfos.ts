@@ -95,6 +95,7 @@ export const registryKey = [
     'randomspawn',
     'archetype',
     'reagent',
+    'menu',
 ] as const;
 export type registryKey = (typeof registryKey)[number];
 

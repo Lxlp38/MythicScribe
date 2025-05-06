@@ -341,6 +341,10 @@
             "Reagent": {
               "type": "string",
               "description": "Regex to identify Reagent files."
+            },
+            "Menu": {
+              "type": "string",
+              "description": "Regex to identify Menu files."
             }
           },
           "default": {
@@ -353,7 +357,8 @@
             "Placeholder": "[\\\\\\/]placeholders.((yaml)|(yml)|(txt))",
             "RandomSpawn": "[\\\\\\/][Rr]andom[Ss]pawns[\\\\\\/]",
             "Archetype": "[\\\\\\/][Aa]rchetypes[\\\\\\/]",
-            "Reagent": "[\\\\\\/]reagents.((yaml)|(yml)|(txt))"
+            "Reagent": "[\\\\\\/]reagents.((yaml)|(yml)|(txt))",
+            "Menu": "[\\\\\\/][Mm]enus[\\\\\\/]"
           },
           "additionalProperties": false,
           "description": "Regexes used against each document's file path: if it matches, the document will be considered as being a specific type of file, enabling specific functionalities.",

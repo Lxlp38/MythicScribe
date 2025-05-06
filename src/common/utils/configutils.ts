@@ -21,6 +21,7 @@ export const fileRegexConfigCache = {
     RandomSpawn: undefined as string | undefined,
     Archetype: undefined as string | undefined,
     Reagent: undefined as string | undefined,
+    Menu: undefined as string | undefined,
 };
 
 const fileParsingPolicyConfigCache = {

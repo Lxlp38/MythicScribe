@@ -2,6 +2,33 @@ import { generateNumbersInRange, inheritSchemaOptions } from '../utils/schemauti
 import { DefaultPlugins, Schema, SchemaElementTypes } from '../objectInfos';
 import { Generation } from './itemSchema';
 
+const customCommand: Schema = {
+    Command: {
+        type: SchemaElementTypes.KEY,
+        description:
+            'The field Command allows the metaskill it is used into to be regarded as a command, also enabling all of the relative options',
+        plugin: DefaultPlugins.MythicRPG,
+        link: 'https://git.lumine.io/mythiccraft/mythicrpg/-/wikis/Skill-Commands',
+        keys: {
+            Id: {
+                type: SchemaElementTypes.STRING,
+                description: 'The unique identifier for the command.',
+                link: 'https://git.lumine.io/mythiccraft/mythicrpg/-/wikis/Skill-Commands#id',
+            },
+            Aliases: {
+                type: SchemaElementTypes.LIST,
+                description: 'A list of aliases for the command.',
+                link: 'https://git.lumine.io/mythiccraft/mythicrpg/-/wikis/Skill-Commands#aliases',
+            },
+            Completions: {
+                type: SchemaElementTypes.KEY_LIST,
+                description: 'The completions for the command.',
+                link: 'https://git.lumine.io/mythiccraft/mythicrpg/-/wikis/Skill-Commands#completions',
+            },
+        },
+    },
+};
+
 export const MetaskillSchema: Schema = {
     Skills: {
         type: SchemaElementTypes.LIST,
@@ -140,6 +167,7 @@ export const MetaskillSchema: Schema = {
         description: 'A list of kill messages associated with the spell.',
         plugin: DefaultPlugins.MythicRPG,
     },
+    ...customCommand,
 };
 
 inheritSchemaOptions(

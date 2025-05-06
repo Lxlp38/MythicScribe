@@ -85,6 +85,7 @@ export enum scriptedEnums {
     MythicItem = 'mythicitem',
     Archetype = 'archetype',
     Reagent = 'reagent',
+    Menu = 'menu',
 
     // Specialized datasets
     Targeter = 'targeter',
@@ -100,6 +101,7 @@ export enum scriptedEnums {
     StatSchema = 'statschema',
     RandomSpawnSchema = 'randomspawnschema',
     ReagentSchema = 'reagentschema',
+    MenuSchema = 'menuschema',
 }
 
 export enum attributeSpecialValues {
