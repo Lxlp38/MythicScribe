@@ -18,6 +18,7 @@ import {
     SchemaElementTypes,
     SchemaElementSpecialKeys,
     WildKeySchemaElement,
+    getKeySchema,
 } from '../objectInfos';
 import { MythicMechanic } from '../datasets/ScribeMechanic';
 import { EnumDatasetValue, ScribeEnumHandler } from '../datasets/ScribeEnum';
@@ -213,18 +214,17 @@ export function fileCompletions(
     if (!result) {
         return undefined;
     }
-    const [keyobjects, level] = result;
+    const [schemaObject, level] = result;
     const thislineindentation = getIndentation(document.lineAt(position.line).text);
     const indentation = ' '.repeat((level - thislineindentation / 2) * getDefaultIndentation());
 
-    if (!keyobjects) {
+    if (!schemaObject) {
         return undefined;
     }
-
-    if (keyobjects.type) {
-        return fileCompletionForSchemaElement(keyobjects as SchemaElement, indentation);
+    if (schemaObject.type) {
+        return fileCompletionForSchemaElement(schemaObject as SchemaElement, indentation);
     } else {
-        return fileCompletionForSchema(keyobjects as Schema, indentation);
+        return fileCompletionForSchema(schemaObject as Schema, indentation);
     }
 }
 
@@ -243,7 +243,7 @@ function fileCompletionFindNodesOnLevel(
         if (SchemaElementSpecialKeys.WILDKEY in schema) {
             const wildcardObject = schema[SchemaElementSpecialKeys.WILDKEY]!;
             const result = fileCompletionFindNodesOnLevel(
-                wildcardObject.keys,
+                getKeySchema(wildcardObject.keys),
                 keys.slice(1),
                 level + 1
             );
@@ -255,8 +255,11 @@ function fileCompletionFindNodesOnLevel(
     const selectedElement = schema[key];
 
     if (selectedElement.type === SchemaElementTypes.KEY && selectedElement.keys) {
+        if (selectedElement.maxDepth) {
+            return [getKeySchema(selectedElement.keys), level + 1];
+        }
         const result = fileCompletionFindNodesOnLevel(
-            selectedElement.keys,
+            getKeySchema(selectedElement.keys),
             keys.slice(1),
             level + 1
         );
@@ -275,10 +278,10 @@ function fileCompletionFindNodesOnLevel(
 function fileCompletionForSchema(schema: Schema, indentation: string): vscode.CompletionItem[] {
     const completionItems: vscode.CompletionItem[] = [];
 
-    Object.entries(schema).forEach(([key, value]) => {
+    Object.entries(schema).forEach(([key, element]) => {
         if (key === SchemaElementSpecialKeys.WILDKEY) {
             const completionItem = new vscode.CompletionItem(
-                (value as WildKeySchemaElement).display,
+                (element as WildKeySchemaElement).display,
                 vscode.CompletionItemKind.File
             );
             completionItem.insertText = new vscode.SnippetString(indentation + '$1' + ':');
@@ -287,19 +290,19 @@ function fileCompletionForSchema(schema: Schema, indentation: string): vscode.Co
         }
 
         const completionItem = new vscode.CompletionItem(key, vscode.CompletionItemKind.File);
-        if (value.type === SchemaElementTypes.LIST) {
+        if (element.type === SchemaElementTypes.LIST) {
             completionItem.insertText = new vscode.SnippetString(
                 indentation + key + ':\n' + indentation + '- $0'
             );
-        } else if (value.type === SchemaElementTypes.BOOLEAN) {
+        } else if (element.type === SchemaElementTypes.BOOLEAN) {
             completionItem.insertText = new vscode.SnippetString(
                 indentation + key + ': ${1|true,false|}$0'
             );
-        } else if (value.type === SchemaElementTypes.KEY) {
+        } else if (element.type === SchemaElementTypes.KEY) {
             completionItem.insertText = new vscode.SnippetString(
                 indentation + key + ':\n' + indentation + '  $0'
             );
-        } else if (value.type === SchemaElementTypes.KEY_LIST) {
+        } else if (element.type === SchemaElementTypes.KEY_LIST) {
             completionItem.insertText = new vscode.SnippetString(
                 indentation + key + ':\n' + indentation + '  $1: $2$0'
             );
@@ -307,7 +310,7 @@ function fileCompletionForSchema(schema: Schema, indentation: string): vscode.Co
             completionItem.insertText = new vscode.SnippetString(indentation + key + ': $0');
         }
 
-        completionItem.detail = value.description;
+        completionItem.detail = element.description;
         completionItem.command = retriggerCompletionsCommand;
         completionItems.push(completionItem);
     });
@@ -317,17 +320,17 @@ function fileCompletionForSchema(schema: Schema, indentation: string): vscode.Co
 
 // Completes the key's values prefix on newline
 function fileCompletionForSchemaElement(
-    object: SchemaElement,
+    element: SchemaElement,
     indentation: string
 ): vscode.CompletionItem[] {
     const completionItems: vscode.CompletionItem[] = [];
 
-    if (object.type === SchemaElementTypes.LIST) {
+    if (element.type === SchemaElementTypes.LIST) {
         const completionItem = new vscode.CompletionItem('-', vscode.CompletionItemKind.Snippet);
         completionItem.insertText = new vscode.SnippetString(indentation + '- $0');
         completionItem.command = retriggerCompletionsCommand;
         completionItems.push(completionItem);
-    } else if (object.type === SchemaElementTypes.KEY_LIST) {
+    } else if (element.type === SchemaElementTypes.KEY_LIST) {
         const completionItem = new vscode.CompletionItem(
             'New Key',
             vscode.CompletionItemKind.Snippet

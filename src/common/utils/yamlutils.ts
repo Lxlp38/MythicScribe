@@ -7,7 +7,7 @@ import {
     ScribeMechanicHandler,
 } from '../datasets/ScribeMechanic';
 import { getSquareBracketObject } from './cursorutils';
-import { SchemaElement, Schema, SchemaElementSpecialKeys } from '../objectInfos';
+import { SchemaElement, Schema, SchemaElementSpecialKeys, getKeySchema } from '../objectInfos';
 import { ArrayListNode } from './genericDataStructures';
 import { checkFileType } from '../subscriptions/SubscriptionHelper';
 
@@ -115,6 +115,18 @@ export function getParentKeys(
     return keys;
 }
 
+export function getRootKey(
+    document: vscode.TextDocument,
+    position: vscode.Position,
+    getLineKey: boolean = false
+): YamlKey | undefined {
+    const keys = getParentKeys(document, position, getLineKey);
+    if (keys.length > 0) {
+        return keys[keys.length - 1];
+    }
+    return undefined;
+}
+
 export function getDocumentKeys(text: string): YamlKey[] {
     const keys: YamlKey[] = [];
     const similDoc = text.split('\n');
@@ -173,7 +185,7 @@ function buildYamlKeyTree(
 
             // If the file object defines nested keys, use that mapping for its children.
             if (schemaElement && 'keys' in schemaElement && schemaElement.keys) {
-                childSchema = schemaElement.keys;
+                childSchema = getKeySchema(schemaElement.keys);
             }
         }
 

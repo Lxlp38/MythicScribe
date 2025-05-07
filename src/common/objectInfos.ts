@@ -33,11 +33,12 @@ type EnumSchemaElement = BaseSchemaElement & {
 type ListSchemaElement = BaseSchemaElement & {
     type: SchemaElementTypes.LIST;
     dataset?: string;
-    keys?: Schema;
+    keys?: Schema | (() => Schema);
 };
 export type KeySchemaElement = BaseSchemaElement & {
     type: SchemaElementTypes.KEY;
-    keys: Schema;
+    keys: Schema | (() => Schema);
+    maxDepth?: boolean;
 };
 type OtherSchemaElement = BaseSchemaElement & {
     type: Exclude<
@@ -108,4 +109,11 @@ export enum DefaultPlugins {
     ModelEngine = 'ModelEngine',
     MythicCrucible = 'MythicCrucible',
     MythicRPG = 'MythicRPG',
+}
+
+export function getKeySchema(maybeSchema: Schema | (() => Schema)): Schema {
+    if (typeof maybeSchema === 'function') {
+        return maybeSchema();
+    }
+    return maybeSchema;
 }

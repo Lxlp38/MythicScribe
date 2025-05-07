@@ -1,8 +1,11 @@
+import * as vscode from 'vscode';
 import {
     AbstractScribeEnum,
     addEnumLoadedFunction,
     EnumDatasetValue,
 } from '@common/datasets/ScribeEnum';
+import { getRootKey } from '@common/utils/yamlutils';
+import { MobMythicNode, MythicNodeHandler } from '@common/mythicnodes/MythicNode';
 
 import { generateNumbersInRange, inheritSchemaOptions } from '../utils/schemautils';
 import {
@@ -11,6 +14,7 @@ import {
     SchemaElementTypes,
     KeySchemaElement,
     DefaultPlugins,
+    getKeySchema,
 } from '../objectInfos';
 
 export const MobSchema: Schema = {
@@ -257,9 +261,11 @@ export const MobSchema: Schema = {
         },
     },
     Variables: {
-        type: SchemaElementTypes.KEY_LIST,
+        type: SchemaElementTypes.KEY,
         link: 'https://git.lumine.io/mythiccraft/MythicMobs/-/wikis/Mobs/Mobs#variables',
         description: 'The variables of the mob.',
+        maxDepth: true,
+        keys: getMobVariables,
     },
     Trades: {
         type: SchemaElementTypes.KEY,
@@ -557,7 +563,7 @@ addEnumLoadedFunction('moboption', (target: AbstractScribeEnum) => {
 });
 
 export function addMobOptions(options: Map<string, EnumDatasetValue>) {
-    const mobOptions = (MobSchema.Options as KeySchemaElement).keys;
+    const mobOptions = getKeySchema((MobSchema.Options as KeySchemaElement).keys);
     for (const [name, body] of options) {
         mobOptions[name] = {
             type: SchemaElementTypes.STRING,
@@ -574,3 +580,28 @@ inheritSchemaOptions(
     'https://git.lumine.io/mythiccraft/MythicMobs/-/wikis/Mobs',
     DefaultPlugins.MythicMobs
 );
+
+function getMobVariables(): Schema {
+    const cursorPosition = vscode.window.activeTextEditor?.selection.active;
+    const activeDocument = vscode.window.activeTextEditor?.document;
+    if (!cursorPosition || !activeDocument) {
+        return {};
+    }
+    const mob = getRootKey(activeDocument, cursorPosition)?.key.trim();
+    if (!mob) {
+        return {};
+    }
+    const mobNode = MythicNodeHandler.registry.mob.getNode(mob);
+    if (!mobNode) {
+        return {};
+    }
+    const variables = (mobNode as MobMythicNode).missingVariables;
+
+    const ret: Schema = {};
+    variables.forEach((value) => {
+        ret[value] = {
+            type: SchemaElementTypes.STRING,
+        };
+    });
+    return ret;
+}

@@ -3,6 +3,7 @@ import {
     Schema,
     SchemaElementSpecialKeys,
     SchemaElementTypes,
+    getKeySchema,
 } from '../objectInfos';
 import { isPluginEnabled } from './configutils';
 
@@ -80,8 +81,9 @@ export function inheritSchemaOptions(schema: Schema, link?: string, plugin?: str
             value.plugin = plugin;
         }
 
-        // If the schema element has keys, recursively propagate 'link' and 'plugin'.
-        if ('keys' in value && value.keys) {
+        // If the schema element has keys and they are not a function, recursively propagate 'link' and 'plugin'.
+        // This ensures we only process objects and not callable functions.
+        if ('keys' in value && value.keys && typeof value.keys !== 'function') {
             inheritSchemaOptions(value.keys, value.link, value.plugin);
         }
     }
@@ -94,7 +96,13 @@ export function filterSchemaWithEnabledPlugins(schema: Schema): Schema {
         if (value.plugin === undefined || isPluginEnabled(value.plugin)) {
             filteredSchema[key] = value;
             if ('keys' in filteredSchema[key] && filteredSchema[key].keys) {
-                filteredSchema[key].keys = filterSchemaWithEnabledPlugins(filteredSchema[key].keys);
+                if (typeof filteredSchema[key].keys === 'function') {
+                    filteredSchema[key].keys = filteredSchema[key].keys;
+                } else {
+                    filteredSchema[key].keys = filterSchemaWithEnabledPlugins(
+                        filteredSchema[key].keys
+                    );
+                }
             }
         }
     }
@@ -113,7 +121,7 @@ export function getSchemaElement(keys: string[], type: Schema): SchemaElement | 
     }
     if (object.type === SchemaElementTypes.KEY && object.keys) {
         const newobject = object.keys;
-        return getSchemaElement(keys, newobject);
+        return getSchemaElement(keys, getKeySchema(newobject));
     }
     return undefined;
 }
@@ -134,7 +142,7 @@ function handleWildKeySchemaElement(keys: string[], type: Schema): SchemaElement
         return wildcardObject;
     }
     if (wildcardObject.keys) {
-        return getSchemaElement(keys, wildcardObject.keys);
+        return getSchemaElement(keys, getKeySchema(wildcardObject.keys));
     }
     return undefined;
 }

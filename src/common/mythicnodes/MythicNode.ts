@@ -114,7 +114,7 @@ export class MythicNode {
         reagent: new Set(),
         menu: new Set(),
     };
-    metadata = new Map<string, string>();
+    metadata = new Map<string, unknown>();
 
     constructor(
         public registry: MythicNodeRegistry,
@@ -314,6 +314,80 @@ export class TemplatableMythicNode extends MythicNode {
             }
             this.templates.add(template);
         });
+    }
+}
+
+const variablesRegex =
+    /^(?<indent>\s*)Variables:\n(?<variables>((\k<indent> +.*\n)|(\s*?\n)|^\s*#.*)*)/gim;
+const variableEntryRegex = /^\s*(?<variable>[\w\-_]+)\s*:/gim;
+
+export class MobMythicNode extends TemplatableMythicNode {
+    protected findNodeEdges(body: string): void {
+        super.findNodeEdges(body);
+
+        const variables = this.matchVariables(body);
+        if (variables) {
+            this.metadata.set('variables', variables);
+        }
+    }
+
+    private matchVariables(body: string) {
+        const variableBody = body.matchAll(variablesRegex);
+        let firstVariablesKey;
+        // I am aware this is dumb, but otherwise it bugs out for no reason
+        for (const vb of variableBody) {
+            firstVariablesKey = vb;
+            break;
+        }
+        if (!firstVariablesKey) {
+            return;
+        }
+        const templateVariables: Set<string> = new Set();
+        const variables = firstVariablesKey.groups?.variables.matchAll(variableEntryRegex);
+        if (variables) {
+            for (const variable of variables) {
+                //console.log(variable);
+                const variableName = variable.groups?.variable;
+                if (variableName) {
+                    templateVariables.add(variableName);
+                }
+            }
+        }
+        return templateVariables;
+    }
+
+    get variables(): Set<string> {
+        const fetchedVariables = new Set<string>();
+
+        const thisVariables = this.metadata.get('variables') as Set<string> | undefined;
+        if (thisVariables) {
+            thisVariables.forEach((variable) => {
+                fetchedVariables.add(variable);
+            });
+        }
+
+        for (const templateNode of this.templates) {
+            const template = MythicNodeHandler.registry.mob.getNode(templateNode);
+            if (template) {
+                const templateVariables = (template as MobMythicNode).variables;
+                if (templateVariables) {
+                    templateVariables.forEach((variable) => {
+                        fetchedVariables.add(variable);
+                    });
+                }
+            }
+        }
+
+        return fetchedVariables;
+    }
+
+    get missingVariables(): Set<string> {
+        const variables = this.variables;
+        const thisVariables = this.metadata.get('variables') as Set<string> | undefined;
+        thisVariables?.forEach((thisVariable) => {
+            variables.delete(thisVariable);
+        });
+        return variables;
     }
 }
 
@@ -539,7 +613,7 @@ export class MythicNodeRegistry {
 export namespace MythicNodeHandler {
     export const registry: Record<registryKey, MythicNodeRegistry> = {
         metaskill: new MythicNodeRegistry('metaskill', MetaskillMythicNode),
-        mob: new MythicNodeRegistry('mob', TemplatableMythicNode),
+        mob: new MythicNodeRegistry('mob', MobMythicNode),
         item: new MythicNodeRegistry('item', TemplatableMythicNode),
         droptable: new MythicNodeRegistry('droptable'),
         stat: new MythicNodeRegistry('stat', StatMythicNode),
