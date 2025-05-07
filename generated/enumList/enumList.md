@@ -1,3 +1,7 @@
+# `achievementcriteria`
+### Path: `mythic/achievementcriteria.json`
+### Type: `Static`
+
 # `paperattributeoperation`
 ### Path: `mythic/paperattributeoperation.json`
 ### Type: `Static`
@@ -140,6 +144,10 @@
 
 # `sound`
 ### Path: `minecraft/sound.json`
+### Type: `Volatile`
+
+# `advancementdisplayframe`
+### Path: `paper/advancementdisplayframe.json`
 ### Type: `Volatile`
 
 # `paperattribute`
@@ -302,6 +310,14 @@
 ### Path: `null`
 ### Type: `Scripted`
 
+# `menu`
+### Path: `null`
+### Type: `Scripted`
+
+# `achievement`
+### Path: `null`
+### Type: `Scripted`
+
 # `targeter`
 ### Path: `null`
 ### Type: `Scripted`
@@ -343,6 +359,14 @@
 ### Type: `Scripted`
 
 # `reagentschema`
+### Path: `null`
+### Type: `Scripted`
+
+# `menuschema`
+### Path: `null`
+### Type: `Scripted`
+
+# `achievementschema`
 ### Path: `null`
 ### Type: `Scripted`
 

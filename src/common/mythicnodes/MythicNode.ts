@@ -113,6 +113,7 @@ export class MythicNode {
         archetype: new Set(),
         reagent: new Set(),
         menu: new Set(),
+        achievement: new Set(),
     };
     metadata = new Map<string, unknown>();
 
@@ -181,13 +182,26 @@ export class MythicNode {
     }
     protected matchSingleEntry(
         body: string,
-        regex = /^\s*Entry:\s*(?<entry>.*)/m
+        regex: RegExp = /^\s*Entry:\s*(?<entry>.*)/m
     ): string | undefined {
         const match = body.match(regex);
         if (match && match.groups && match.groups.entry) {
             return match.groups.entry.trim();
         }
         return undefined;
+    }
+    protected matchMultipleEntries(
+        body: string,
+        regex: RegExp = /^\s*Entry:\s*(?<entry>.*)/gm
+    ): string[] {
+        const match = body.matchAll(regex);
+        const entries: string[] = [];
+        for (const entry of match) {
+            if (entry.groups && entry.groups.entry) {
+                entries.push(entry.groups.entry.trim());
+            }
+        }
+        return entries;
     }
     protected matchList(body: string, regex = /(?<=ListEntry:)(\s*- [\w_\-]+\s*)*/gm): string[] {
         const match = body.match(regex);
@@ -487,6 +501,19 @@ class ReagentMythicNode extends MythicNode {
     }
 }
 
+class AchievementMythicNode extends MythicNode {
+    protected findNodeEdges(body: string): void {
+        super.findNodeEdges(body);
+
+        this.matchMultipleEntries(body, /^\s*MobType:\s*(?<entry>.*)/gm).forEach((mob) => {
+            if (this.outEdge.mob.has(mob)) {
+                Log.warn(`Duplicate Mob ${mob} found in ${this.registry.type} ${this.name.text}`);
+            }
+            this.outEdge.mob.add(mob);
+        });
+    }
+}
+
 const mockRange = new vscode.Range(0, 0, 0, 0);
 export class MockMythicNode extends MythicNode {
     constructor(registry: MythicNodeRegistry, name: string, creator: MythicNode) {
@@ -622,6 +649,7 @@ export namespace MythicNodeHandler {
         archetype: new MythicNodeRegistry('archetype', ArchetypeMythicNode),
         reagent: new MythicNodeRegistry('reagent', ReagentMythicNode),
         menu: new MythicNodeRegistry('menu'),
+        achievement: new MythicNodeRegistry('achievement', AchievementMythicNode),
     };
 
     export function getRegistry(key: string): MythicNodeRegistry | undefined {

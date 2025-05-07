@@ -293,7 +293,8 @@
             "MythicMobs": true,
             "ModelEngine": true,
             "MythicCrucible": true,
-            "MythicRPG": true
+            "MythicRPG": true,
+            "MythicAchievements": true
           },
           "description": "Enable / Disable specific plugins' datasets",
           "title": "Enabled Plugins",
@@ -345,6 +346,10 @@
             "Menu": {
               "type": "string",
               "description": "Regex to identify Menu files."
+            },
+            "Achievement": {
+              "type": "string",
+              "description": "Regex to identify Achievement files."
             }
           },
           "default": {
@@ -358,7 +363,8 @@
             "RandomSpawn": "[\\\\\\/][Rr]andom[Ss]pawns[\\\\\\/]",
             "Archetype": "[\\\\\\/][Aa]rchetypes[\\\\\\/]",
             "Reagent": "[\\\\\\/]reagents.((yaml)|(yml)|(txt))",
-            "Menu": "[\\\\\\/][Mm]enus[\\\\\\/]"
+            "Menu": "[\\\\\\/][Mm]enus[\\\\\\/]",
+            "Achievement": "[\\\\\\/][Aa]chievements[\\\\\\/]"
           },
           "additionalProperties": false,
           "description": "Regexes used against each document's file path: if it matches, the document will be considered as being a specific type of file, enabling specific functionalities.",

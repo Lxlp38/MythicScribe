@@ -9,6 +9,7 @@ import { MetaskillSchema } from '@common/schemas/metaskillSchema';
 import { MobSchema } from '@common/schemas/mobSchema';
 import { ItemSchema } from '@common/schemas/itemSchema';
 import { DroptableSchema } from '@common/schemas/droptableSchema';
+import { AchievementSchema } from '@common/schemas/achievementSchema';
 
 import { AbstractScribeSubscription, ScribeSubscriptionHandler } from './SubscriptionHandler';
 import {
@@ -38,6 +39,7 @@ export const ActiveFileTypeInfo: { [K in ActiveFileTypeInfoKeys]: boolean } = {
     archetype: false,
     reagent: false,
     menu: false,
+    achievement: false,
 };
 
 export const extensionEnabler = vscode.window.onDidChangeActiveTextEditor((editor) => {
@@ -199,6 +201,12 @@ const FileTypeInfoMap: {
         key: 'menu',
         configKey: 'Menu',
         subscriptionHandler: 'menu',
+    },
+    achievement: {
+        schema: AchievementSchema,
+        key: 'achievement',
+        configKey: 'Achievement',
+        subscriptionHandler: 'achievement',
     },
 };
 

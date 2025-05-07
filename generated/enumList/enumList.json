@@ -1,5 +1,10 @@
 [
   {
+    "id": "achievementcriteria",
+    "path": "mythic/achievementcriteria.json",
+    "type": "Static"
+  },
+  {
     "id": "paperattributeoperation",
     "path": "mythic/paperattributeoperation.json",
     "type": "Static"
@@ -177,6 +182,11 @@
   {
     "id": "sound",
     "path": "minecraft/sound.json",
+    "type": "Volatile"
+  },
+  {
+    "id": "advancementdisplayframe",
+    "path": "paper/advancementdisplayframe.json",
     "type": "Volatile"
   },
   {
@@ -380,6 +390,16 @@
     "type": "Scripted"
   },
   {
+    "id": "menu",
+    "path": null,
+    "type": "Scripted"
+  },
+  {
+    "id": "achievement",
+    "path": null,
+    "type": "Scripted"
+  },
+  {
     "id": "targeter",
     "path": null,
     "type": "Scripted"
@@ -431,6 +451,16 @@
   },
   {
     "id": "reagentschema",
+    "path": null,
+    "type": "Scripted"
+  },
+  {
+    "id": "menuschema",
+    "path": null,
+    "type": "Scripted"
+  },
+  {
+    "id": "achievementschema",
     "path": null,
     "type": "Scripted"
   },

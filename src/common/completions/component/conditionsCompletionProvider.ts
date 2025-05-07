@@ -11,7 +11,7 @@ import { ScribeMechanicHandler } from '@common/datasets/ScribeMechanic';
 
 import { addMetaskillsToConditionLine } from './inlinemetaskillCompletionProvider';
 
-export function conditionCompletionProvider() {
+export function conditionCompletionProvider(keys: string[] = keyAliases.Conditions) {
     return vscode.languages.registerCompletionItemProvider(
         ['mythicscript', 'yaml'],
         {
@@ -21,7 +21,7 @@ export function conditionCompletionProvider() {
                 _token: vscode.CancellationToken,
                 context: vscode.CompletionContext
             ) {
-                if (!checkShouldKeyComplete(document, position, keyAliases.Conditions)) {
+                if (!checkShouldKeyComplete(document, position, keys)) {
                     return undefined;
                 }
                 return getConditionCompletionItems(document, position, context);

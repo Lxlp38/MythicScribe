@@ -32,6 +32,7 @@ const Shape = [
     'tag',
     'round-tag',
     'vee',
+    'polygon',
 ] as const;
 
 type Shape = (typeof Shape)[number];
@@ -45,7 +46,9 @@ interface NodeAdditionalData {
     shape?: Shape;
     color?: string;
     unknown?: boolean;
+    shapePolygonPoints?: string;
 }
+
 type NodeData = NodeCompulsoryData & NodeAdditionalData;
 
 type EdgeAdditionalData = {
@@ -60,16 +63,29 @@ type EdgeAdditionalData = {
 };
 
 const NodeTypeToAdditionalData: Record<registryKey, NodeData> = {
-    mob: { shape: 'rectangle', color: '#007acc' },
+    mob: {
+        shape: 'polygon',
+        color: '#007acc',
+        shapePolygonPoints:
+            //    '-0.2, 0.4, -0.2, 0.8, 0.2, 0.8, 0.2, 0.4, 0.4, 0.4, 0.4, 0, 0.2, 0, 0.2, -0.6, -0.2, -0.6, -0.2, 0, -0.4, 0, -0.4, 0.4',
+            //'-1 -1, -1 1, 1, 1, 1 -1, 0.50166 -1, 0.50166, -0.25143, 0.24931, -0.25143, 0.25194, -0.00697, 0.74526, -0.00171, 0.74272, 0.48984, 0.25155, 0.49509, 0.25194, -0.00697, -0.25234, 0.00092, -0.24725, 0.49509, -0.7486, 0.50035, -0.75431, 0.0035, -0.25234, 0.00092, -0.25234, -0.25669, -0.49411, -0.25669, -0.50683, -0.9927, -0.2536, -0.99485, -0.25488, -0.75087, 0.24137, -0.7535, 0.24901 -0.99723, -1 -1',
+            '-1.00 1.00, -1.00 -1.00, 1.00 -1.00, 1.00 1.00, 0.50 1.00, 0.50 0.25, 0.25 0.25, 0.25 0, 0.75 0.00, 0.75 -0.5, 0.25 -0.50, 0.25 0.01, -0.25 -0.00, -0.25 -0.50, -0.75 -0.50, -0.75 -0.00, -0.25 -0.00, -0.25 0.25, -0.5 0.25, -0.5 1, -0.25 1, -0.25 0.75, 0.25 0.75, 0.25 1.00, -1.00 1.00',
+    },
     item: { shape: 'triangle', color: '#00cc00' },
     metaskill: { shape: 'ellipse', color: '#ffcc00' },
-    droptable: { shape: 'diamond', color: '#cc00cc' },
+    droptable: { shape: 'diamond', color: '#15c867' },
     stat: { shape: 'barrel', color: '#cc0000' },
     placeholder: { shape: 'rhomboid', color: '#cc6600' },
-    randomspawn: { shape: 'round-hexagon', color: '#00cccc' },
-    archetype: { shape: 'round-rectangle', color: '#cc00ff' },
-    reagent: { shape: 'round-pentagon', color: '#cc00cc' },
-    menu: { shape: 'round-rectangle', color: '#ff00cc' },
+    randomspawn: { shape: 'round-tag', color: '#00cccc' },
+    archetype: {
+        shape: 'concave-hexagon',
+        color: '#0b5394',
+        // shapePolygonPoints:
+        //     '-0.23 0.86, -0.23 0.17, -0.46 0.16, -0.46 -0.53, -0.22 -0.53, -0.23 -0.99, 0.24 -0.99, 0.24 -0.53, 0.47 -0.52, 0.47 0.17, 0.24 0.17, 0.24 0.86',
+    },
+    reagent: { shape: 'vee', color: '#cc00cc' },
+    menu: { shape: 'cut-rectangle', color: '#8fce00' },
+    achievement: { shape: 'star', color: '#ffd966' },
 };
 
 const UnknownNodeData: NodeData = { color: '#807e7a', unknown: true };
@@ -119,6 +135,11 @@ enum selectedElementsType {
     selectedDocument,
 }
 
+const GraphOptionsFilters = Object.entries(NodeTypeToAdditionalData).map(([key]) => ({
+    label: `Hide ${key.charAt(0).toUpperCase() + key.slice(1)}`,
+    value: key as registryKey,
+}));
+
 const GraphOptions = {
     selectedElements: {
         query: 'What elements do you want to see in the graph?',
@@ -130,16 +151,7 @@ const GraphOptions = {
     },
     filters: {
         query: 'Select the elements to hide',
-        options: [
-            { label: 'Hide Mobs', value: 'mob' as registryKey },
-            { label: 'Hide Items', value: 'item' as registryKey },
-            { label: 'Hide Metaskills', value: 'metaskill' as registryKey },
-            { label: 'Hide Droptables', value: 'droptable' as registryKey },
-            { label: 'Hide Stats', value: 'stat' as registryKey },
-            { label: 'Hide Custom Placeholders', value: 'placeholder' as registryKey },
-            { label: 'Hide Random Spawns', value: 'randomspawn' as registryKey },
-            { label: 'Hide Reagents', value: 'reagent' as registryKey },
-        ],
+        options: GraphOptionsFilters,
     },
 };
 
@@ -261,6 +273,14 @@ function buildCytoscapeElements(
         }
     }
 
+    /**
+     * Cycles through nodes in the source map, transferring their data to a target array
+     * while removing corresponding entries from the deprecation target map.
+     *
+     * @param source - A map containing MythicNode objects, keyed by their identifiers.
+     * @param deprecationTarget - A map from which nodes with matching identifiers will be removed.
+     * @param data - Additional data to be merged into each node's data during processing.
+     */
     function cycleNodes(
         source: Map<string, MythicNode>,
         deprecationTarget: Map<string, MythicNode>,

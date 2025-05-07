@@ -1,5 +1,6 @@
 export const volatileEnums = [
     'minecraft/sound.json',
+    'paper/advancementdisplayframe.json',
     'paper/paperattribute.json',
     'paper/barcolor.json',
     'paper/barstyle.json',
@@ -26,6 +27,7 @@ export const volatileEnums = [
 ];
 
 export const localEnums = [
+    'mythic/achievementcriteria.json',
     'mythic/paperattributeoperation.json',
     'mythic/audience.json',
     'mythic/culltype.json',
@@ -86,6 +88,7 @@ export enum scriptedEnums {
     Archetype = 'archetype',
     Reagent = 'reagent',
     Menu = 'menu',
+    Achievement = 'achievement',
 
     // Specialized datasets
     Targeter = 'targeter',
@@ -102,6 +105,7 @@ export enum scriptedEnums {
     RandomSpawnSchema = 'randomspawnschema',
     ReagentSchema = 'reagentschema',
     MenuSchema = 'menuschema',
+    AchievementSchema = 'achievementschema',
 }
 
 export enum attributeSpecialValues {

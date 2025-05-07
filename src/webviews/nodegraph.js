@@ -114,6 +114,9 @@ function renderGraph(graphData) {
                     color: '#fff',
                     'border-width': 0,
                     shape: 'data(shape)',
+                    'shape-polygon-points': function (ele) {
+                        return ele.data('shapePolygonPoints') || 'none';
+                    },
                     'text-outline-color': '#000000',
                     'text-outline-width': function (ele) {
                         return 2 + ele.degree() / 10;
@@ -166,9 +169,11 @@ function renderGraph(graphData) {
     cyContextMenuInstance = cy.contextMenus(contextMenusOptions);
 
     function resetNodesAndEdges(opacity = null) {
-        cy.elements().style('opacity', opacity);
-        cy.nodes().style('border-width', null);
-        cy.edges().style('line-gradient-stop-colors', null);
+        cy.batch(() => {
+            cy.elements().style('opacity', opacity);
+            cy.nodes().style('border-width', null);
+            cy.edges().style('line-gradient-stop-colors', null);
+        });
     }
 
     cy.on('select', 'node', function (evt) {
@@ -182,55 +187,57 @@ function renderGraph(graphData) {
         const outboundNodes = selectedNode.outgoers('node');
         const outboundEdges = selectedNode.outgoers('edge');
 
-        inboundNodes.style({
-            opacity: 0.9,
-            'border-width': 4,
-            'border-color': 'orange',
-        });
-        inboundEdges.forEach((edge) => {
-            if (edge.data('type') === 'inheritance') {
-                edge.style({
-                    opacity: 0.9,
-                    'line-gradient-stop-colors': 'red',
-                });
-                edge.source().style({
-                    'border-color': 'red',
-                    'border-width': 4,
-                });
-            } else {
-                edge.style({
-                    opacity: 0.9,
-                    'line-gradient-stop-colors': 'orange',
-                });
-            }
-        });
+        cy.batch(() => {
+            inboundNodes.style({
+                opacity: 0.9,
+                'border-width': 4,
+                'border-color': 'orange',
+            });
+            inboundEdges.forEach((edge) => {
+                if (edge.data('type') === 'inheritance') {
+                    edge.style({
+                        opacity: 0.9,
+                        'line-gradient-stop-colors': 'red',
+                    });
+                    edge.source().style({
+                        'border-color': 'red',
+                        'border-width': 4,
+                    });
+                } else {
+                    edge.style({
+                        opacity: 0.9,
+                        'line-gradient-stop-colors': 'orange',
+                    });
+                }
+            });
 
-        outboundNodes.style({
-            opacity: 0.9,
-            'border-width': 4,
-            'border-color': 'blue',
-        });
-        outboundEdges.forEach((edge) => {
-            if (edge.data('type') === 'inheritance') {
-                edge.style({
-                    opacity: 0.9,
-                    'line-gradient-stop-colors': 'green',
-                });
-                edge.target().style({
-                    'border-color': 'green',
-                    'border-width': 4,
-                });
-            } else {
-                edge.style({
-                    opacity: 0.9,
-                    'line-gradient-stop-colors': 'blue',
-                });
-            }
-        });
+            outboundNodes.style({
+                opacity: 0.9,
+                'border-width': 4,
+                'border-color': 'blue',
+            });
+            outboundEdges.forEach((edge) => {
+                if (edge.data('type') === 'inheritance') {
+                    edge.style({
+                        opacity: 0.9,
+                        'line-gradient-stop-colors': 'green',
+                    });
+                    edge.target().style({
+                        'border-color': 'green',
+                        'border-width': 4,
+                    });
+                } else {
+                    edge.style({
+                        opacity: 0.9,
+                        'line-gradient-stop-colors': 'blue',
+                    });
+                }
+            });
 
-        selectedNode.style('border-color', '#FFD700');
-        selectedNode.style('border-width', 4);
-        selectedNode.style('opacity', 1);
+            selectedNode.style('border-color', '#FFD700');
+            selectedNode.style('border-width', 4);
+            selectedNode.style('opacity', 1);
+        });
     });
 
     cy.on('unselect', 'node', function () {

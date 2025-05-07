@@ -1,0 +1,21 @@
+{
+    "Manual": {
+        "description": "Simple criteria that can only be manually triggered from a command, a skill, or the API.<br>Triggered by the /mythicachievements increment [name] [achievement] [criteria] command"
+    },
+    "Conditional": {
+        "description": "Simple criteria that check if the player meets the given conditions every so often"
+    },
+    "BlockBreak": {
+        "description": "Triggered when a player breaks a block of the given type."
+    },
+    "BlockPlace": {
+        "description": "Triggered when a player places a block of the given type."
+    },
+    "KillMob": {
+        "description": "Triggered when a player kills a non-MythicMob entity of the given type."
+    },
+    "KillMythicMob": {
+        "description": "Triggered when a player kills a mythic mob of the given type."
+    }
+
+}

@@ -3,6 +3,7 @@ import { RandomSpawnSchema } from '@common/schemas/randomSpawnSchema';
 import { ReagentSchema } from '@common/schemas/reagentSchema';
 import { ArchetypeSchema } from '@common/schemas/archetypeSchema';
 import { MenuSchema } from '@common/schemas/menuSchema';
+import { AchievementSchema } from '@common/schemas/achievementSchema';
 
 import { keyAliases, TriggerType } from '../objectInfos';
 import { triggerfileCompletionProvider } from '../completions/file/triggerfileCompletionProvider';
@@ -312,6 +313,23 @@ class MenuSubscriptionHandler extends AbstractScribeSubscription {
     }
 }
 
+class AchievementSubscriptionHandler extends AbstractScribeSubscription {
+    constructor() {
+        super(
+            [
+                () => genericFileCompletionProvider(AchievementSchema),
+                () =>
+                    hoverProvider(AchievementSchema, {
+                        keys: keyAliases.Conditions,
+                        registry: ScribeMechanicHandler.registry.condition,
+                    }),
+                () => conditionCompletionProvider(['Conditions']),
+            ],
+            [enableFileSpecificSuggestions]
+        );
+    }
+}
+
 export const ScribeSubscriptionHandler = {
     registry: {
         global: new GlobalSubscriptionHandler(),
@@ -325,6 +343,7 @@ export const ScribeSubscriptionHandler = {
         archetype: new ArchetypeSubscriptionHandler(),
         reagent: new ReagentSubscriptionHandler(),
         menu: new MenuSubscriptionHandler(),
+        achievement: new AchievementSubscriptionHandler(),
     },
 
     disposeAll() {

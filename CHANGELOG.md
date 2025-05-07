@@ -11,6 +11,7 @@
   - Archetypes
   - Reagents
   - Custom MythicRPG Menus
+  - Achievements
 - Mob Options, DropOptions and DisplayOptions Completions
 - Mob Variables Completions for the variables set on upstream Templates
   

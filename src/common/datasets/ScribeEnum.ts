@@ -9,6 +9,7 @@ import { RandomSpawnSchema } from '@common/schemas/randomSpawnSchema';
 import { generateNumbersInRange } from '@common/utils/schemautils';
 import { ReagentSchema } from '@common/schemas/reagentSchema';
 import { MenuSchema } from '@common/schemas/menuSchema';
+import { AchievementSchema } from '@common/schemas/achievementSchema';
 
 import { minecraftVersion } from '../utils/configutils';
 import { ScribeCloneableFile, fetchJsonFromLocalFile, fetchJsonFromURL } from './datasets';
@@ -271,6 +272,7 @@ export const ScribeEnumHandler = {
         this.addScriptedEnum(scriptedEnums.Color, insertColor);
         this.addScriptedEnum(scriptedEnums.RGBColor, () => insertColor(undefined, '255,255,255'));
 
+        // mechanic List-related datasets
         this.addScriptedEnum(scriptedEnums.MechanicList, () =>
             fromMechanicRegistryToEnum(ScribeMechanicHandler.registry.mechanic)
         );
@@ -284,6 +286,7 @@ export const ScribeEnumHandler = {
             fromMechanicRegistryToEnum(ScribeMechanicHandler.registry.condition)
         );
 
+        // Special cases
         this.addScriptedEnum(scriptedEnums.Targeter, () =>
             fromMechanicRegistryToEnum(
                 ScribeMechanicHandler.registry.targeter,
@@ -315,6 +318,7 @@ export const ScribeEnumHandler = {
             return fromMythicNodeToEnum(spells);
         });
 
+        // Node-related datasets
         this.addScriptedEnum(scriptedEnums.Mob, () =>
             fromMythicNodeToEnum(MythicNodeHandler.registry.mob.getNodes())
         );
@@ -366,6 +370,9 @@ export const ScribeEnumHandler = {
         );
         this.addScriptedEnum(scriptedEnums.ReagentSchema, () => fromSchemaToEnum(ReagentSchema));
         this.addScriptedEnum(scriptedEnums.MenuSchema, () => fromSchemaToEnum(MenuSchema));
+        this.addScriptedEnum(scriptedEnums.AchievementSchema, () =>
+            fromSchemaToEnum(AchievementSchema)
+        );
     },
 };
 

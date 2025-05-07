@@ -22,6 +22,7 @@ export const fileRegexConfigCache = {
     Archetype: undefined as string | undefined,
     Reagent: undefined as string | undefined,
     Menu: undefined as string | undefined,
+    Achievement: undefined as string | undefined,
 };
 
 const fileParsingPolicyConfigCache = {

@@ -97,6 +97,7 @@ export const registryKey = [
     'archetype',
     'reagent',
     'menu',
+    'achievement',
 ] as const;
 export type registryKey = (typeof registryKey)[number];
 
@@ -109,6 +110,7 @@ export enum DefaultPlugins {
     ModelEngine = 'ModelEngine',
     MythicCrucible = 'MythicCrucible',
     MythicRPG = 'MythicRPG',
+    MythicAchievements = 'MythicAchievements',
 }
 
 export function getKeySchema(maybeSchema: Schema | (() => Schema)): Schema {
