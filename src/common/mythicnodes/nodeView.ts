@@ -1,4 +1,5 @@
 import * as vscode from 'vscode';
+import Log from '@common/utils/logger';
 
 import { MockMythicNode, MythicNode, MythicNodeHandler } from './MythicNode';
 import { registryKey } from '../objectInfos';
@@ -46,7 +47,7 @@ interface NodeAdditionalData {
     shape?: Shape;
     color?: string;
     unknown?: boolean;
-    shapePolygonPoints?: string;
+    image?: registryKey;
 }
 
 type NodeData = NodeCompulsoryData & NodeAdditionalData;
@@ -64,28 +65,24 @@ type EdgeAdditionalData = {
 
 const NodeTypeToAdditionalData: Record<registryKey, NodeData> = {
     mob: {
-        shape: 'polygon',
+        shape: 'rectangle',
         color: '#007acc',
-        shapePolygonPoints:
-            //    '-0.2, 0.4, -0.2, 0.8, 0.2, 0.8, 0.2, 0.4, 0.4, 0.4, 0.4, 0, 0.2, 0, 0.2, -0.6, -0.2, -0.6, -0.2, 0, -0.4, 0, -0.4, 0.4',
-            //'-1 -1, -1 1, 1, 1, 1 -1, 0.50166 -1, 0.50166, -0.25143, 0.24931, -0.25143, 0.25194, -0.00697, 0.74526, -0.00171, 0.74272, 0.48984, 0.25155, 0.49509, 0.25194, -0.00697, -0.25234, 0.00092, -0.24725, 0.49509, -0.7486, 0.50035, -0.75431, 0.0035, -0.25234, 0.00092, -0.25234, -0.25669, -0.49411, -0.25669, -0.50683, -0.9927, -0.2536, -0.99485, -0.25488, -0.75087, 0.24137, -0.7535, 0.24901 -0.99723, -1 -1',
-            '-1.00 1.00, -1.00 -1.00, 1.00 -1.00, 1.00 1.00, 0.50 1.00, 0.50 0.25, 0.25 0.25, 0.25 0, 0.75 0.00, 0.75 -0.5, 0.25 -0.50, 0.25 0.01, -0.25 -0.00, -0.25 -0.50, -0.75 -0.50, -0.75 -0.00, -0.25 -0.00, -0.25 0.25, -0.5 0.25, -0.5 1, -0.25 1, -0.25 0.75, 0.25 0.75, 0.25 1.00, -1.00 1.00',
+        image: 'mob',
     },
-    item: { shape: 'triangle', color: '#00cc00' },
-    metaskill: { shape: 'ellipse', color: '#ffcc00' },
-    droptable: { shape: 'diamond', color: '#15c867' },
-    stat: { shape: 'barrel', color: '#cc0000' },
-    placeholder: { shape: 'rhomboid', color: '#cc6600' },
-    randomspawn: { shape: 'round-tag', color: '#00cccc' },
+    item: { shape: 'triangle', color: '#00cc00', image: 'item' },
+    metaskill: { shape: 'ellipse', color: '#ffcc00', image: 'metaskill' },
+    droptable: { shape: 'diamond', color: '#15c867', image: 'droptable' },
+    stat: { shape: 'barrel', color: '#cc0000', image: 'stat' },
+    placeholder: { shape: 'rhomboid', color: '#cc6600', image: 'placeholder' },
+    randomspawn: { shape: 'round-tag', color: '#00cccc', image: 'randomspawn' },
     archetype: {
         shape: 'concave-hexagon',
         color: '#0b5394',
-        // shapePolygonPoints:
-        //     '-0.23 0.86, -0.23 0.17, -0.46 0.16, -0.46 -0.53, -0.22 -0.53, -0.23 -0.99, 0.24 -0.99, 0.24 -0.53, 0.47 -0.52, 0.47 0.17, 0.24 0.17, 0.24 0.86',
+        image: 'archetype',
     },
-    reagent: { shape: 'vee', color: '#cc00cc' },
-    menu: { shape: 'cut-rectangle', color: '#8fce00' },
-    achievement: { shape: 'star', color: '#ffd966' },
+    reagent: { shape: 'vee', color: '#cc00cc', image: 'reagent' },
+    menu: { shape: 'cut-rectangle', color: '#8fce00', image: 'menu' },
+    achievement: { shape: 'star', color: '#ffd966', image: 'achievement' },
 };
 
 const UnknownNodeData: NodeData = { color: '#807e7a', unknown: true };
@@ -357,8 +354,8 @@ export async function showNodeGraph(): Promise<void> {
     }
 
     openWebView = vscode.window.createWebviewPanel(
-        'inheritanceGraph', // Identifies the type of the webview. Used internally
-        'Inheritance Graph', // Title of the panel displayed to the user
+        'mythicNodeGraph', // Identifies the type of the webview. Used internally
+        'Mythic Node Graph', // Title of the panel displayed to the user
         vscode.ViewColumn.One, // Editor column to show the new webview panel in
         {
             enableScripts: true,
@@ -443,14 +440,37 @@ function processMessage(
     });
 }
 
+function processWebViewImageUri(webviewPanel: vscode.WebviewPanel, target: string) {
+    const imagePathOnDisk = vscode.Uri.joinPath(ctx.extensionUri, 'assets', 'nodegraph', target);
+    return webviewPanel.webview.asWebviewUri(imagePathOnDisk);
+}
+
 function getWebviewContent(): string {
+    if (!openWebView) {
+        Log.error('Webview is not declared! Something has gone very wrong!');
+        return '';
+    }
     const scriptPathOnDisk = vscode.Uri.joinPath(
         ctx.extensionUri,
         'out',
         'webviews',
         'nodegraph.js'
     );
-    const scriptUri = openWebView!.webview.asWebviewUri(scriptPathOnDisk);
+    const scriptUri = openWebView.webview.asWebviewUri(scriptPathOnDisk);
+
+    const imageUriMap: Record<registryKey, vscode.Uri> = {
+        mob: processWebViewImageUri(openWebView, 'mob.svg'),
+        metaskill: processWebViewImageUri(openWebView, 'metaskill.svg'),
+        item: processWebViewImageUri(openWebView, 'item.svg'),
+        droptable: processWebViewImageUri(openWebView, 'droptable.svg'),
+        placeholder: processWebViewImageUri(openWebView, 'placeholder.svg'),
+        randomspawn: processWebViewImageUri(openWebView, 'randomspawn.svg'),
+        stat: processWebViewImageUri(openWebView, 'stat.svg'),
+        archetype: processWebViewImageUri(openWebView, 'archetype.svg'),
+        reagent: processWebViewImageUri(openWebView, 'reagent.svg'),
+        menu: processWebViewImageUri(openWebView, 'menu.svg'),
+        achievement: processWebViewImageUri(openWebView, 'achievement.svg'),
+    };
 
     // Note: Added dagre and cytoscape-dagre script tags
     return /*html*/ `
@@ -459,7 +479,7 @@ function getWebviewContent(): string {
 
 <head>
     <meta charset="UTF-8" />
-    <title>Inheritance Graph</title>
+    <title>Mythic Node Graph</title>
     <style>
         html,
         body,
@@ -570,6 +590,19 @@ function getWebviewContent(): string {
         <button id="refresh-button" class="search-button" title="Refresh the graph">🔄</button>
     </div>
     <div id="cy"></div>
+    
+
+    <input type="hidden" id="mobSvgUri" value="${imageUriMap.mob}">
+    <input type="hidden" id="metaskillSvgUri" value="${imageUriMap.metaskill}">
+    <input type="hidden" id="itemSvgUri" value="${imageUriMap.item}">
+    <input type="hidden" id="droptableSvgUri" value="${imageUriMap.droptable}">
+    <input type="hidden" id="placeholderSvgUri" value="${imageUriMap.placeholder}">
+    <input type="hidden" id="randomspawnSvgUri" value="${imageUriMap.randomspawn}">
+    <input type="hidden" id="statSvgUri" value="${imageUriMap.stat}">
+    <input type="hidden" id="archetypeSvgUri" value="${imageUriMap.archetype}">
+    <input type="hidden" id="reagentSvgUri" value="${imageUriMap.reagent}">
+    <input type="hidden" id="menuSvgUri" value="${imageUriMap.menu}">
+    <input type="hidden" id="achievementSvgUri" value="${imageUriMap.achievement}">
     <script src="${scriptUri}"></script>
 </body>
 </html>

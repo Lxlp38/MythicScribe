@@ -766,6 +766,11 @@ export const ItemSchema: Schema = {
         },
     },
     ...Generation,
+    BlockStates: {
+        type: SchemaElementTypes.LIST,
+        description: 'Allows you to specify the block states of items',
+        link: 'https://git.lumine.io/mythiccraft/MythicMobs/-/wikis/Items/Items#blockstates',
+    },
 };
 
 addSchemaAliases(ItemSchema, {

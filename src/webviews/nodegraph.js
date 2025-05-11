@@ -8,6 +8,20 @@ cytoscape.use(fcose);
 let cy = null;
 let cyContextMenuInstance = null;
 
+const svgMap = {
+    mob: document.getElementById('mobSvgUri').value,
+    metaskill: document.getElementById('metaskillSvgUri').value,
+    item: document.getElementById('itemSvgUri').value,
+    droptable: document.getElementById('droptableSvgUri').value,
+    placeholder: document.getElementById('placeholderSvgUri').value,
+    randomspawn: document.getElementById('randomspawnSvgUri').value,
+    archetype: document.getElementById('archetypeSvgUri').value,
+    reagent: document.getElementById('reagentSvgUri').value,
+    stat: document.getElementById('statSvgUri').value,
+    menu: document.getElementById('menuSvgUri').value,
+    achievement: document.getElementById('achievementSvgUri').value,
+};
+
 const cylayout = {
     name: 'fcose',
     animate: false,
@@ -114,9 +128,18 @@ function renderGraph(graphData) {
                     color: '#fff',
                     'border-width': 0,
                     shape: 'data(shape)',
-                    'shape-polygon-points': function (ele) {
-                        return ele.data('shapePolygonPoints') || 'none';
+                    // 'shape-polygon-points': function (ele) {
+                    //     return ele.data('shapePolygonPoints') || 'none';
+                    // },
+                    'background-image': function (ele) {
+                        const image = ele.data('image');
+                        if (image && image in svgMap) {
+                            return svgMap[image];
+                        }
+                        return 'none';
                     },
+                    'background-image-opacity': 0.7,
+                    'background-fit': 'contain',
                     'text-outline-color': '#000000',
                     'text-outline-width': function (ele) {
                         return 2 + ele.degree() / 10;
