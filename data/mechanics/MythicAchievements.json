@@ -1,0 +1,99 @@
+[
+    {
+        "plugin": "MythicAchievements",
+        "class": "GrantAchievementMechanic",
+        "extends": "SkillMechanic",
+        "implements": [
+            "ITargetedEntitySkill"
+        ],
+        "name": [
+            "GrantAchievement",
+            "GIVEACHIEVEMENT"
+        ],
+        "description": "Grants the player a mythic achievement.",
+        "link": "https://git.lumine.io/mythiccraft/mythicachievements/-/wikis/Skills/Mechanics/GrantAchievement",
+        "attributes": [
+            {
+                "name": [
+                    "achievement",
+                    "achieve",
+                    "a"
+                ],
+                "type": "String",
+                "description": "The achievement to grant.",
+                "link": "https://git.lumine.io/mythiccraft/mythicachievements/-/wikis/Skills/Mechanics/GrantAchievement",
+                "default_value": "",
+                "enum": "Achievement"
+            },
+            {
+                "name": [
+                    "giverewards"
+                ],
+                "type": "Boolean",
+                "description": "Whether to give the associated rewards",
+                "link": "https://git.lumine.io/mythiccraft/mythicachievements/-/wikis/Skills/Mechanics/GrantAchievement",
+                "default_value": "false"
+            },
+            {
+                "name": [
+                    "force",
+                    "f",
+                    "forcegive"
+                ],
+                "type": "Boolean",
+                "description": "Whether the achievement should be forcibly given even if the player has already completed it",
+                "link": "https://git.lumine.io/mythiccraft/mythicachievements/-/wikis/Skills/Mechanics/GrantAchievement",
+                "default_value": "false"
+            }
+        ]
+    },
+    {
+        "plugin": "MythicAchievements",
+        "class": "IncrementAchievementMechanic",
+        "extends": "SkillMechanic",
+        "implements": [
+            "ITargetedEntitySkill"
+        ],
+        "name": [
+            "IncrementAchievement",
+            "PROGRESSACHIEVEMENT"
+        ],
+        "description": "Increment criteria of achievement by a specified amount. Useful if the criteria is a manual one.",
+        "link": "https://git.lumine.io/mythiccraft/mythicachievements/-/wikis/Skills/Mechanics/IncrementAchievement",
+        "attributes": [
+            {
+                "name": [
+                    "achievement",
+                    "achieve",
+                    "a"
+                ],
+                "type": "String",
+                "description": "The achievement to increment.",
+                "link": "https://git.lumine.io/mythiccraft/mythicachievements/-/wikis/Skills/Mechanics/IncrementAchievement",
+                "default_value": "",
+                "enum": "Achievement"
+            },
+            {
+                "name": [
+                    "criteria",
+                    "crit",
+                    "c"
+                ],
+                "type": "String",
+                "description": "The criteria to increase.",
+                "link": "https://git.lumine.io/mythiccraft/mythicachievements/-/wikis/Skills/Mechanics/IncrementAchievement",
+                "default_value": "",
+                "enum": "AchievementCriteria"
+            },
+            {
+                "name": [
+                    "amount"
+                ],
+                "type": "Integer",
+                "description": "The amount it should increase by.",
+                "link": "https://git.lumine.io/mythiccraft/mythicachievements/-/wikis/Skills/Mechanics/IncrementAchievement",
+                "default_value": "1"
+            }
+        ]
+    }
+]

@@ -32,7 +32,8 @@
                 "type": "String",
                 "description": "A list of furniture types to check against",
                 "link": "https://git.lumine.io/mythiccraft/mythiccrucible/-/wikis/Skills/Targeters/FurnitureInRadius",
-                "default_value": ""
+                "default_value": "",
+                "enum": "Furniture"
             }
         ]
     },

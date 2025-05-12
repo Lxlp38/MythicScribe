@@ -140,7 +140,7 @@
                 "description": "A list of materials or MMOItem's block name to check. Does also support wildcards and block tags",
                 "link": "https://git.lumine.io/mythiccraft/MythicMobs/-/wikis/Skills/Conditions/blocktype",
                 "default_value": "DIRT",
-                "enum": "Material",
+                "enum": "Block",
                 "list": true
             }
         ]
@@ -193,7 +193,7 @@
                 "description": "A list of [materials](https://hub.spigotmc.org/javadocs/bukkit/org/bukkit/Material.html) to check against",
                 "link": "https://git.lumine.io/mythiccraft/MythicMobs/-/wikis/Skills/Conditions/BlockTypeInRadius",
                 "default_value": "DIRT",
-                "enum": "Material",
+                "enum": "Block",
                 "list": true
             }
         ]
@@ -3303,7 +3303,7 @@
                 "description": "A list of materials. The condition will match if one is found. Does also support wildcards and block tags",
                 "link": "https://git.lumine.io/mythiccraft/MythicMobs/-/wikis/Skills/Conditions/onblock",
                 "default_value": "STONE",
-                "enum": "Material",
+                "enum": "Block",
                 "list": true
             }
         ]
@@ -4477,7 +4477,7 @@
                 "description": "A list of [materials](https://hub.spigotmc.org/javadocs/bukkit/org/bukkit/Material.html) to check against",
                 "link": "https://git.lumine.io/mythiccraft/MythicMobs/-/wikis/Skills/Conditions/TriggerBlockType",
                 "default_value": "DIRT",
-                "enum": "Item"
+                "enum": "Block"
             }
         ]
     },

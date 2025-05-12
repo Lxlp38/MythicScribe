@@ -167,6 +167,13 @@ function handleTemplates<T>(
     return undefined;
 }
 
+const specialAttributeEnumToRegistryKey: Record<string, registryKey> = {
+    spell: 'metaskill',
+    block: 'item',
+    customblock: 'item',
+    furniture: 'item',
+};
+
 function handleLinkedAttribute<T>(
     document: vscode.TextDocument,
     position: vscode.Position,
@@ -176,11 +183,16 @@ function handleLinkedAttribute<T>(
 ) {
     const keys = yamlutils.getParentKeys(document, position);
     const attribute = searchForLinkedAttribute(document, position, keys);
-    if (!attribute?.enum || !registryKey.includes(attribute.enum.identifier as registryKey)) {
-        if (attribute?.enum?.identifier === 'spell') {
-            const metaskill = MythicNodeHandler.registry.metaskill.getNode(word);
-            if (metaskill) {
-                return callback(metaskill, wordRange);
+    if (!attribute?.enum) {
+        return undefined;
+    }
+
+    if (!registryKey.includes(attribute.enum.identifier as registryKey)) {
+        if (attribute.enum.identifier.toLowerCase() in specialAttributeEnumToRegistryKey) {
+            const registryKey = specialAttributeEnumToRegistryKey[attribute.enum.identifier];
+            const node = MythicNodeHandler.registry[registryKey].getNode(word);
+            if (node) {
+                return callback(node, wordRange);
             }
         }
         return undefined;

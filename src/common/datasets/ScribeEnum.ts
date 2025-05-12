@@ -287,6 +287,11 @@ export const ScribeEnumHandler = {
         );
 
         // Special cases
+        this.addScriptedEnum(scriptedEnums.Item, () => {
+            const mythicitems = fromMythicNodeToEnum(MythicNodeHandler.registry.item.getNodes());
+            const paperitems = ScribeEnumHandler.getEnum('material')!.getDataset();
+            return new Map([...mythicitems, ...paperitems]);
+        });
         this.addScriptedEnum(scriptedEnums.Targeter, () =>
             fromMechanicRegistryToEnum(
                 ScribeMechanicHandler.registry.targeter,
@@ -317,16 +322,36 @@ export const ScribeEnumHandler = {
             });
             return fromMythicNodeToEnum(spells);
         });
+        this.addScriptedEnum(scriptedEnums.Furniture, () => {
+            const items = MythicNodeHandler.registry.item.getNodes();
+            const furnitures: NodeEntry = new Map();
+            items.forEach((value, key) => {
+                if (value.metadata.get('type') === 'furniture') {
+                    furnitures.set(key, value);
+                }
+            });
+            return fromMythicNodeToEnum(furnitures);
+        });
+        this.addScriptedEnum(scriptedEnums.CustomBlock, () => {
+            const items = MythicNodeHandler.registry.item.getNodes();
+            const customBlocks: NodeEntry = new Map();
+            items.forEach((value, key) => {
+                if (value.metadata.get('type') === 'block') {
+                    customBlocks.set(key, value);
+                }
+            });
+            return fromMythicNodeToEnum(customBlocks);
+        });
+        this.addScriptedEnum(scriptedEnums.Block, () => {
+            const customBlocks = ScribeEnumHandler.getEnum(scriptedEnums.CustomBlock)!.getDataset();
+            const paperitems = ScribeEnumHandler.getEnum('material')!.getDataset();
+            return new Map([...customBlocks, ...paperitems]);
+        });
 
         // Node-related datasets
         this.addScriptedEnum(scriptedEnums.Mob, () =>
             fromMythicNodeToEnum(MythicNodeHandler.registry.mob.getNodes())
         );
-        this.addScriptedEnum(scriptedEnums.Item, () => {
-            const mythicitems = fromMythicNodeToEnum(MythicNodeHandler.registry.item.getNodes());
-            const paperitems = ScribeEnumHandler.getEnum('material')!.getDataset();
-            return new Map([...mythicitems, ...paperitems]);
-        });
         this.addScriptedEnum(scriptedEnums.MythicItem, () =>
             fromMythicNodeToEnum(MythicNodeHandler.registry.item.getNodes())
         );

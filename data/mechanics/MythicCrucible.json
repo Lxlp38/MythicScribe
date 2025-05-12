@@ -682,7 +682,8 @@
                 "type": "PlaceholderString",
                 "description": "The furniture to place",
                 "link": "https://git.lumine.io/mythiccraft/mythiccrucible/-/wikis/Skills/Mechanics/PlaceFurnitureAt",
-                "default_value": ""
+                "default_value": "",
+                "enum": "Furniture"
             }
         ]
     },
@@ -898,7 +899,8 @@
                 "type": "PlaceholderString",
                 "description": "The Furniture to place",
                 "link": "https://git.lumine.io/mythiccraft/mythiccrucible/-/wikis/Skills/Mechanics/FurnitureSetAt",
-                "default_value": ""
+                "default_value": "",
+                "enum": "Furniture"
             },
             {
                 "name": [

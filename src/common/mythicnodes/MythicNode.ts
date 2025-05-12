@@ -405,6 +405,17 @@ export class MobMythicNode extends TemplatableMythicNode {
     }
 }
 
+export class ItemMythicNode extends TemplatableMythicNode {
+    protected findNodeEdges(body: string): void {
+        super.findNodeEdges(body);
+
+        const type = this.matchSingleEntry(body, /^\s*Type:\s*(?<entry>.*)/m);
+        if (type && ['block', 'furniture'].includes(type.toLowerCase())) {
+            this.metadata.set('type', type.toLowerCase());
+        }
+    }
+}
+
 // Represents a MythicNode for stats, extending functionality to include parent stats
 // and trigger stats as additional edges.
 export class StatMythicNode extends MythicNode {
@@ -641,7 +652,7 @@ export namespace MythicNodeHandler {
     export const registry: Record<registryKey, MythicNodeRegistry> = {
         metaskill: new MythicNodeRegistry('metaskill', MetaskillMythicNode),
         mob: new MythicNodeRegistry('mob', MobMythicNode),
-        item: new MythicNodeRegistry('item', TemplatableMythicNode),
+        item: new MythicNodeRegistry('item', ItemMythicNode),
         droptable: new MythicNodeRegistry('droptable'),
         stat: new MythicNodeRegistry('stat', StatMythicNode),
         placeholder: new MythicNodeRegistry('placeholder'),

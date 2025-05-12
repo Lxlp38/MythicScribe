@@ -113,7 +113,13 @@ class ScribeMechanicRegistry extends AbstractScribeMechanicRegistry {
     readonly regex: RegExp = /(?<=\s- )[\w:]+/gm;
     readonly type: ObjectType = ObjectType.MECHANIC;
     readonly folder: string = 'mechanics';
-    readonly files = ['MythicMobs', 'MythicCrucible', 'ModelEngine', 'MythicRPG'];
+    readonly files = [
+        'MythicMobs',
+        'MythicCrucible',
+        'ModelEngine',
+        'MythicRPG',
+        'MythicAchievements',
+    ];
 }
 class ScribeTargeterRegistry extends AbstractScribeMechanicRegistry {
     readonly regex: RegExp = /(?<=[\s=]@)[\w:]+/gm;
@@ -125,7 +131,7 @@ class ScribeConditionRegistry extends AbstractScribeMechanicRegistry {
     readonly regex: RegExp = /(?<=[\s\|\&][-\(\|\&\)] )[\w:]+/gm;
     readonly type: ObjectType = ObjectType.CONDITION;
     readonly folder: string = 'conditions';
-    readonly files = ['MythicMobs', 'ModelEngine', 'MythicRPG'];
+    readonly files = ['MythicMobs', 'ModelEngine', 'MythicRPG', 'MythicAchievements'];
 }
 class ScribeInlineConditionRegistry extends ScribeConditionRegistry {
     readonly regex: RegExp = /(?<=\s(\?)|(\?!)|(\?~)|(\?~!))[\w:]+/gm;

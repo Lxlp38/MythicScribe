@@ -345,11 +345,6 @@
     "type": "Scripted"
   },
   {
-    "id": "item",
-    "path": null,
-    "type": "Scripted"
-  },
-  {
     "id": "metaskill",
     "path": null,
     "type": "Scripted"
@@ -400,6 +395,11 @@
     "type": "Scripted"
   },
   {
+    "id": "item",
+    "path": null,
+    "type": "Scripted"
+  },
+  {
     "id": "targeter",
     "path": null,
     "type": "Scripted"
@@ -416,6 +416,21 @@
   },
   {
     "id": "spell",
+    "path": null,
+    "type": "Scripted"
+  },
+  {
+    "id": "furniture",
+    "path": null,
+    "type": "Scripted"
+  },
+  {
+    "id": "customblock",
+    "path": null,
+    "type": "Scripted"
+  },
+  {
+    "id": "block",
     "path": null,
     "type": "Scripted"
   },

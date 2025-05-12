@@ -2,7 +2,6 @@
     "HEAD": {
         "name": [
             "HEAD",
-            "4",
             "HELMET",
             "HELM",
             "HAT"
@@ -14,7 +13,6 @@
         "name":
         [
             "CHEST",
-            "3",
             "CHESTPIECE",
             "CHESTPLATE",
             "BODY"
@@ -26,7 +24,6 @@
         "name":
         [
             "LEGS",
-            "2",
             "LEGGINGS",
             "PANTS"
         ],
@@ -37,7 +34,6 @@
         "name":
         [
             "FEET",
-            "1",
             "BOOTS",
             "SHOES"
         ],
@@ -48,7 +44,6 @@
         "name":
         [
             "HAND",
-            "0",
             "MAINHAND",
             "WEAPON"
         ],
@@ -59,7 +54,6 @@
         "name":
         [
             "OFFHAND",
-            "5",
             "SHIELD"
         ],
         "description": "Off hand slot"

@@ -67,7 +67,6 @@ targeterlist
 triggerlist
 conditionlist
 mob
-item
 metaskill
 droptable
 stat
@@ -78,10 +77,14 @@ archetype
 reagent
 menu
 achievement
+item
 targeter
 trigger
 reagentvalue
 spell
+furniture
+customblock
+block
 mobschema
 itemschema
 metaskillschema

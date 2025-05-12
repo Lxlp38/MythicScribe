@@ -1207,7 +1207,7 @@
                 "description": "The [type of block](https://hub.spigotmc.org/javadocs/bukkit/org/bukkit/Material.html) used for the blockmask",
                 "link": "https://git.lumine.io/mythiccraft/MythicMobs/-/wikis/Skills/Mechanics/BlockMask",
                 "default_value": "GRAVEL",
-                "enum": "Material"
+                "enum": "Block"
             },
             {
                 "name": [
@@ -9025,7 +9025,7 @@
                 "description": "The material of the bullet",
                 "link": "https://git.lumine.io/mythiccraft/MythicMobs/-/wikis/Skills/Mechanics/projectile",
                 "default_value": "STONE",
-                "enum": "Material"
+                "enum": "Block"
             },
             {
                 "name": [
@@ -11105,7 +11105,7 @@
                 "description": "The type of toast to send. MUST BE LOWERCASE. Options are: `challenge`, `task` or `goal`.",
                 "link": "https://git.lumine.io/mythiccraft/MythicMobs/-/wikis/Skills/Mechanics/sendtoast",
                 "default_value": "challenge",
-                "enum": "challenge,task,goal"
+                "enum": "AdvancementDisplayFrame"
             }
         ]
     },
@@ -11192,7 +11192,7 @@
                 "description": "The material for the block to be set to",
                 "link": "https://git.lumine.io/mythiccraft/MythicMobs/-/wikis/Skills/Mechanics/setblocktype",
                 "default_value": "[DIRT](https://hub.spigotmc.org/javadocs/spigot/org/bukkit/Material.html \"CLICK ME to view valid block materials\")",
-                "enum": "Material"
+                "enum": "Block"
             },
             {
                 "name": [
@@ -14394,7 +14394,7 @@
                 "description": "The [material](https://hub.spigotmc.org/javadocs/bukkit/org/bukkit/Material.html) of the falling block",
                 "link": "https://git.lumine.io/mythiccraft/MythicMobs/-/wikis/Skills/Mechanics/SummonFallingBlock",
                 "default_value": "DIRT",
-                "enum": "Material"
+                "enum": "Block"
             }
         ]
     },

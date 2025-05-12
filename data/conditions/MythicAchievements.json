@@ -1,0 +1,29 @@
+[
+    {
+        "plugin": "MythicAchievements",
+        "class": "HasAchievementCondition",
+        "extends": "SkillCondition",
+        "implements": [
+            "IEntityCondition"
+        ],
+        "name": [
+            "HASACHIEVEMENT"
+        ],
+        "description": "Checks if the player has a mythic achievement.",
+        "link": "https://git.lumine.io/mythiccraft/mythicachievements/-/wikis/Skills/Conditions/HasAchievement",
+        "attributes": [
+            {
+                "name": [
+                    "achievement",
+                    "achieve",
+                    "a"
+                ],
+                "type": "String",
+                "description": "The achievement to check for.",
+                "link": "https://git.lumine.io/mythiccraft/mythicachievements/-/wikis/Skills/Conditions/HasAchievement",
+                "default_value": "",
+                "enum": "Achievement"
+            }
+        ]
+    }
+]

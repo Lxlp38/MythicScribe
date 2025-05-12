@@ -274,10 +274,6 @@
 ### Path: `null`
 ### Type: `Scripted`
 
-# `item`
-### Path: `null`
-### Type: `Scripted`
-
 # `metaskill`
 ### Path: `null`
 ### Type: `Scripted`
@@ -318,6 +314,10 @@
 ### Path: `null`
 ### Type: `Scripted`
 
+# `item`
+### Path: `null`
+### Type: `Scripted`
+
 # `targeter`
 ### Path: `null`
 ### Type: `Scripted`
@@ -331,6 +331,18 @@
 ### Type: `Scripted`
 
 # `spell`
+### Path: `null`
+### Type: `Scripted`
+
+# `furniture`
+### Path: `null`
+### Type: `Scripted`
+
+# `customblock`
+### Path: `null`
+### Type: `Scripted`
+
+# `block`
 ### Path: `null`
 ### Type: `Scripted`
 

@@ -983,7 +983,7 @@
                 "description": "The block type to target",
                 "link": "https://git.lumine.io/mythiccraft/MythicMobs/-/wikis/Mobs/ai/goals/movetoblock",
                 "default_value": "IRON_ORE",
-                "enum": "Material"
+                "enum": "Block"
             },
             {
                 "name": [

@@ -245,7 +245,7 @@ export const MobSchema: Schema = {
         keys: {
             Head: {
                 type: SchemaElementTypes.ENUM,
-                dataset: 'MATERIAL',
+                dataset: 'BLOCK',
                 description:
                     'The block that once placed will prompt the plugin to check for a totem',
             },

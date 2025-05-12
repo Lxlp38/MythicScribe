@@ -78,7 +78,6 @@ export enum scriptedEnums {
 
     // Node-related datasets
     Mob = 'mob',
-    Item = 'item',
     Metaskill = 'metaskill',
     Droptable = 'droptable',
     Stat = 'stat',
@@ -91,10 +90,14 @@ export enum scriptedEnums {
     Achievement = 'achievement',
 
     // Specialized datasets
+    Item = 'item',
     Targeter = 'targeter',
     Trigger = 'trigger',
     ReagentValue = 'reagentvalue',
     Spell = 'spell',
+    Furniture = 'furniture',
+    CustomBlock = 'customblock',
+    Block = 'block',
 
     // First "level" of the schemas, without nested keys
     MobSchema = 'mobschema',
