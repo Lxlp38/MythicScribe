@@ -40,14 +40,16 @@ type Shape = (typeof Shape)[number];
 
 type EdgeType = 'inheritance' | 'association';
 
+type extendedRegistryKey = registryKey | 'furniture' | 'block';
+
 interface NodeCompulsoryData {
     color: string;
 }
-interface NodeAdditionalData {
+
+interface NodeAdditionalData extends Partial<NodeCompulsoryData> {
     shape?: Shape;
-    color?: string;
     unknown?: boolean;
-    image?: string;
+    image?: extendedRegistryKey;
 }
 
 type NodeData = NodeCompulsoryData & NodeAdditionalData;
@@ -69,7 +71,7 @@ const NodeTypeToAdditionalData: Record<registryKey, NodeData> = {
         color: '#007acc',
         image: 'mob',
     },
-    item: { shape: 'triangle', color: '#00cc00', image: 'item' },
+    item: { shape: 'bottom-round-rectangle', color: '#00cc00', image: 'item' },
     metaskill: { shape: 'ellipse', color: '#ffcc00', image: 'metaskill' },
     droptable: { shape: 'diamond', color: '#15c867', image: 'droptable' },
     stat: { shape: 'barrel', color: '#cc0000', image: 'stat' },
@@ -86,8 +88,25 @@ const NodeTypeToAdditionalData: Record<registryKey, NodeData> = {
     achievement: { shape: 'star', color: '#ffd966', image: 'achievement' },
 };
 
+const NodeSpecialTypeToAdditionalData: Partial<
+    Record<registryKey, (node: MythicNode) => NodeAdditionalData | undefined>
+> = {
+    item: (node: MythicNode) => {
+        switch (node.getClosestTemplatedMetadata('type')) {
+            case 'furniture':
+                return FurnitureNodeData;
+            case 'block':
+                return BlockNodeData;
+        }
+        return undefined;
+    },
+};
+
 const UnknownNodeData: NodeData = { color: '#807e7a', unknown: true };
 const outOfScopeNodeData: NodeData = { color: '#000000', unknown: false };
+
+const FurnitureNodeData: NodeAdditionalData = { image: 'furniture' };
+const BlockNodeData: NodeAdditionalData = { image: 'block' };
 
 const EdgeTypeToAdditionalData: Record<EdgeType, EdgeAdditionalData> = {
     inheritance: {
@@ -293,6 +312,7 @@ function buildCytoscapeElements(
                     registry: node.registry.type,
                     nodeName: node.name.text,
                     ...NodeTypeToAdditionalData[node.registry.type],
+                    ...NodeSpecialTypeToAdditionalData[node.registry.type]?.(node),
                     ...data,
                 },
             });
@@ -459,7 +479,7 @@ function getWebviewContent(): string {
     );
     const scriptUri = openWebView.webview.asWebviewUri(scriptPathOnDisk);
 
-    const imageUriMap: Record<registryKey, vscode.Uri> = {
+    const imageUriMap: Record<extendedRegistryKey, vscode.Uri> = {
         mob: processWebViewImageUri(openWebView, 'mob.svg'),
         metaskill: processWebViewImageUri(openWebView, 'metaskill.svg'),
         item: processWebViewImageUri(openWebView, 'item.svg'),
@@ -472,6 +492,9 @@ function getWebviewContent(): string {
         reagent: processWebViewImageUri(openWebView, 'reagent.svg'),
         menu: processWebViewImageUri(openWebView, 'menu.svg'),
         achievement: processWebViewImageUri(openWebView, 'achievement.svg'),
+
+        furniture: processWebViewImageUri(openWebView, 'furniture.svg'),
+        block: processWebViewImageUri(openWebView, 'block.svg'),
     };
 
     // Note: Added dagre and cytoscape-dagre script tags
@@ -593,7 +616,6 @@ function getWebviewContent(): string {
     </div>
     <div id="cy"></div>
     
-
     <input type="hidden" id="mobSvgUri" value="${imageUriMap.mob}">
     <input type="hidden" id="metaskillSvgUri" value="${imageUriMap.metaskill}">
     <input type="hidden" id="itemSvgUri" value="${imageUriMap.item}">
@@ -606,6 +628,10 @@ function getWebviewContent(): string {
     <input type="hidden" id="reagentSvgUri" value="${imageUriMap.reagent}">
     <input type="hidden" id="menuSvgUri" value="${imageUriMap.menu}">
     <input type="hidden" id="achievementSvgUri" value="${imageUriMap.achievement}">
+
+    <input type="hidden" id="furnitureSvgUri" value="${imageUriMap.furniture}">
+    <input type="hidden" id="blockSvgUri" value="${imageUriMap.block}">
+
     <script src="${scriptUri}"></script>
 </body>
 </html>

@@ -545,7 +545,8 @@ export const ItemSchema: Schema = {
         },
     },
     Type: {
-        type: SchemaElementTypes.STRING,
+        type: SchemaElementTypes.ENUM,
+        dataset: 'ITEMTYPE',
         link: 'https://git.lumine.io/mythiccraft/mythiccrucible/-/wikis',
         description: 'Sets the type of the item',
         plugin: DefaultPlugins.MythicCrucible,

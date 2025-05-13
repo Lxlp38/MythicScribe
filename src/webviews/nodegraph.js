@@ -21,6 +21,9 @@ const svgMap = {
     pin: document.getElementById('pinSvgUri').value,
     menu: document.getElementById('menuSvgUri').value,
     achievement: document.getElementById('achievementSvgUri').value,
+
+    furniture: document.getElementById('furnitureSvgUri').value,
+    block: document.getElementById('blockSvgUri').value,
 };
 
 const cylayout = {

@@ -285,6 +285,24 @@ export class MythicNode {
             }
         }
     }
+
+    public getClosestTemplatedMetadata(target: string): unknown | undefined {
+        if (this.metadata.has(target)) {
+            return this.metadata.get(target);
+        }
+        let latestMedatata: unknown | undefined;
+        for (const template of this.templates) {
+            const templateNode = this.registry.getNode(template);
+            if (templateNode) {
+                const metadata = templateNode.getClosestTemplatedMetadata(target);
+                if (metadata) {
+                    latestMedatata = metadata;
+                    continue;
+                }
+            }
+        }
+        return latestMedatata;
+    }
 }
 
 // Represents a MythicNode specifically for metaskills, extending the base functionality
