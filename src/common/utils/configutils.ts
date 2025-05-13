@@ -248,7 +248,21 @@ export async function finallySetEnabledPlugins() {
     }
 }
 
-export function isPluginEnabled(plugin: string) {
+/**
+ * Determines whether a specified plugin is enabled.
+ *
+ * If the plugin is not specified (`undefined`), it is considered enabled by default.
+ * If the plugin's enabled state is cached, the cached value is returned.
+ * Otherwise, the function checks the enabled plugins list, updates the cache,
+ * and returns the plugin's enabled state.
+ *
+ * @param plugin - The name of the plugin to check, or `undefined` to default to enabled.
+ * @returns `true` if the plugin is enabled, `false` otherwise.
+ */
+export function isPluginEnabled(plugin: string | undefined) {
+    if (plugin === undefined) {
+        return true;
+    }
     if (enabledPluginsCache[plugin] !== undefined) {
         return enabledPluginsCache[plugin];
     }

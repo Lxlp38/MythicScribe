@@ -364,7 +364,7 @@ async function getKeyObjectCompletion(
     type: Schema
 ): Promise<vscode.CompletionItem[] | undefined> {
     const object = getSchemaElement(keys, type);
-    if (!object || (object.plugin && !isPluginEnabled(object.plugin))) {
+    if (!object || !isPluginEnabled(object.plugin)) {
         return undefined;
     }
 
@@ -407,7 +407,7 @@ function getListObjectCompletion(
     context: vscode.CompletionContext
 ): vscode.CompletionItem[] | undefined {
     const object = getSchemaElement(keys, type);
-    if (!object || (object.plugin && !isPluginEnabled(object.plugin))) {
+    if (!object || !isPluginEnabled(object.plugin)) {
         return undefined;
     }
 
