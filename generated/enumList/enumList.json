@@ -55,6 +55,11 @@
     "type": "Static"
   },
   {
+    "id": "itemtype",
+    "path": "mythic/itemtype.json",
+    "type": "Static"
+  },
+  {
     "id": "mythicentity",
     "path": "mythic/mythicentity.json",
     "type": "Static"

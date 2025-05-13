@@ -42,6 +42,10 @@
 ### Path: `mythic/itemrarity.json`
 ### Type: `Static`
 
+# `itemtype`
+### Path: `mythic/itemtype.json`
+### Type: `Static`
+
 # `mythicentity`
 ### Path: `mythic/mythicentity.json`
 ### Type: `Static`

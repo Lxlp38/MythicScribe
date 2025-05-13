@@ -286,15 +286,15 @@ export class MythicNode {
         }
     }
 
-    public getClosestTemplatedMetadata(target: string): unknown | undefined {
+    public getClosestTemplatedMetadata<T>(target: string): T | undefined {
         if (this.metadata.has(target)) {
-            return this.metadata.get(target);
+            return this.metadata.get(target) as T;
         }
-        let latestMedatata: unknown | undefined;
+        let latestMedatata: T | undefined;
         for (const template of this.templates) {
             const templateNode = this.registry.getNode(template);
             if (templateNode) {
-                const metadata = templateNode.getClosestTemplatedMetadata(target);
+                const metadata = templateNode.getClosestTemplatedMetadata<T>(target);
                 if (metadata) {
                     latestMedatata = metadata;
                     continue;
@@ -316,7 +316,7 @@ export class MetaskillMythicNode extends MythicNode {
 
         const spell = this.matchSingleEntry(body, /^\s*Spell:\s*(?<entry>.*)/m);
         if (spell && spell.toLowerCase() === 'true') {
-            this.metadata.set('spell', 'true');
+            this.metadata.set('spell', true);
         }
     }
 

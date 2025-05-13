@@ -9,6 +9,7 @@ furnitureplacement
 furnituretype
 glowcolor
 itemrarity
+itemtype
 mythicentity
 moboption
 particle

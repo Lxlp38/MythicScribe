@@ -24,6 +24,7 @@ const svgMap = {
 
     furniture: document.getElementById('furnitureSvgUri').value,
     block: document.getElementById('blockSvgUri').value,
+    spell: document.getElementById('spellSvgUri').value,
 };
 
 const cylayout = {

@@ -40,7 +40,7 @@ type Shape = (typeof Shape)[number];
 
 type EdgeType = 'inheritance' | 'association';
 
-type extendedRegistryKey = registryKey | 'furniture' | 'block';
+type extendedRegistryKey = registryKey | 'furniture' | 'block' | 'spell';
 
 interface NodeCompulsoryData {
     color: string;
@@ -83,7 +83,7 @@ const NodeTypeToAdditionalData: Record<registryKey, NodeData> = {
         color: '#0b5394',
         image: 'archetype',
     },
-    reagent: { shape: 'vee', color: '#cc00cc', image: 'reagent' },
+    reagent: { shape: 'round-heptagon', color: '#cc00cc', image: 'reagent' },
     menu: { shape: 'cut-rectangle', color: '#8fce00', image: 'menu' },
     achievement: { shape: 'star', color: '#ffd966', image: 'achievement' },
 };
@@ -92,11 +92,17 @@ const NodeSpecialTypeToAdditionalData: Partial<
     Record<registryKey, (node: MythicNode) => NodeAdditionalData | undefined>
 > = {
     item: (node: MythicNode) => {
-        switch (node.getClosestTemplatedMetadata('type')) {
+        switch (node.getClosestTemplatedMetadata<string>('type')) {
             case 'furniture':
-                return FurnitureNodeData;
+                return { image: 'furniture' };
             case 'block':
-                return BlockNodeData;
+                return { image: 'block' };
+        }
+        return undefined;
+    },
+    metaskill: (node: MythicNode) => {
+        if (node.metadata.get('spell') === true) {
+            return { image: 'spell' };
         }
         return undefined;
     },
@@ -104,9 +110,6 @@ const NodeSpecialTypeToAdditionalData: Partial<
 
 const UnknownNodeData: NodeData = { color: '#807e7a', unknown: true };
 const outOfScopeNodeData: NodeData = { color: '#000000', unknown: false };
-
-const FurnitureNodeData: NodeAdditionalData = { image: 'furniture' };
-const BlockNodeData: NodeAdditionalData = { image: 'block' };
 
 const EdgeTypeToAdditionalData: Record<EdgeType, EdgeAdditionalData> = {
     inheritance: {
@@ -150,6 +153,7 @@ enum selectedElementsType {
     all,
     openDocuments,
     selectedDocument,
+    blank,
 }
 
 const GraphOptionsFilters = Object.entries(NodeTypeToAdditionalData).map(([key]) => ({
@@ -164,6 +168,7 @@ const GraphOptions = {
             { label: 'All', value: selectedElementsType.all },
             { label: 'Only Open Documents', value: selectedElementsType.openDocuments },
             { label: 'Selected Document', value: selectedElementsType.selectedDocument },
+            { label: 'Blank Graph', value: selectedElementsType.blank },
         ],
     },
     filters: {
@@ -201,6 +206,8 @@ function fetchSelectedElements(selectedElements: selectedElementsType) {
                 });
             });
             break;
+        case selectedElementsType.blank:
+            return [];
     }
     return openUris;
 }
@@ -495,6 +502,7 @@ function getWebviewContent(): string {
 
         furniture: processWebViewImageUri(openWebView, 'furniture.svg'),
         block: processWebViewImageUri(openWebView, 'block.svg'),
+        spell: processWebViewImageUri(openWebView, 'spell.svg'),
     };
 
     // Note: Added dagre and cytoscape-dagre script tags
@@ -631,6 +639,7 @@ function getWebviewContent(): string {
 
     <input type="hidden" id="furnitureSvgUri" value="${imageUriMap.furniture}">
     <input type="hidden" id="blockSvgUri" value="${imageUriMap.block}">
+    <input type="hidden" id="spellSvgUri" value="${imageUriMap.spell}">
 
     <script src="${scriptUri}"></script>
 </body>

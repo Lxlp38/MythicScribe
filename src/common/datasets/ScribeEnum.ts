@@ -319,7 +319,7 @@ export const ScribeEnumHandler = {
             const metaskills = MythicNodeHandler.registry.metaskill.getNodes();
             const spells: NodeEntry = new Map();
             metaskills.forEach((value, key) => {
-                if (value.metadata.get('spell') === 'true') {
+                if (value.metadata.get('spell') === true) {
                     spells.set(key, value);
                 }
             });
@@ -329,7 +329,7 @@ export const ScribeEnumHandler = {
             const items = MythicNodeHandler.registry.item.getNodes();
             const furnitures: NodeEntry = new Map();
             items.forEach((value, key) => {
-                if (value.metadata.get('type') === 'furniture') {
+                if (value.getClosestTemplatedMetadata<string>('type') === 'furniture') {
                     furnitures.set(key, value);
                 }
             });
@@ -339,7 +339,7 @@ export const ScribeEnumHandler = {
             const items = MythicNodeHandler.registry.item.getNodes();
             const customBlocks: NodeEntry = new Map();
             items.forEach((value, key) => {
-                if (value.metadata.get('type') === 'block') {
+                if (value.getClosestTemplatedMetadata<string>('type') === 'block') {
                     customBlocks.set(key, value);
                 }
             });

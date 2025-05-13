@@ -128,8 +128,8 @@ You can download Dev Builds from the [Github Repository](https://github.com/Lxlp
 - [@maecy](https://twitter.com/maecy_official?s=21&t=ZBZ5BDKcoa6LYFwgd690_A), for creating and providing this extension's ⭐awesome⭐ icon and the [Stellius Team](https://stellius.net/) in general for the collaboration!
 - [Game-icons.net](https://game-icons.net/) for the awesome icons used in the Node View! In particular, the icons used have been made by
   - [Delapouite](https://delapouite.com/)
-    - [mob](/assets/nodegraph/mob.svg), [item](/assets/nodegraph/item.svg), [placeholder](/assets/nodegraph/placeholder.svg), [stat](/assets/nodegraph/stat.svg), [pin](/assets/nodegraph/pin.svg), [achievement](/assets/nodegraph/achievement.svg)
+    - [mob](/assets/nodegraph/mob.svg), [placeholder](/assets/nodegraph/placeholder.svg), [stat](/assets/nodegraph/stat.svg), [pin](/assets/nodegraph/pin.svg), [block](/assets/nodegraph/block.svg), [achievement](/assets/nodegraph/achievement.svg)
   - [Lorc](https://lorcblog.blogspot.com/)
-    - [metaskill](/assets/nodegraph/metaskill.svg), [droptable](/assets/nodegraph/droptable.svg), [randomspawn](/assets/nodegraph/randomspawn.svg), [archetype](/assets/nodegraph/archetype.svg), [menu](/assets/nodegraph/menu.svg)
+    - [metaskill](/assets/nodegraph/metaskill.svg), [item](/assets/nodegraph/item.svg), [droptable](/assets/nodegraph/droptable.svg), [randomspawn](/assets/nodegraph/randomspawn.svg), [archetype](/assets/nodegraph/archetype.svg), [spell](/assets/nodegraph/spell.svg), [menu](/assets/nodegraph/menu.svg)
   - Caro Asercion
-    - [reagent](/assets/nodegraph/reagent.svg)
+    - [furniture](/assets/nodegraph/furniture.svg), [reagent](/assets/nodegraph/reagent.svg)
