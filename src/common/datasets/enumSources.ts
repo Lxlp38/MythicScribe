@@ -81,6 +81,7 @@ export enum scriptedEnums {
     Metaskill = 'metaskill',
     Droptable = 'droptable',
     Stat = 'stat',
+    Pin = 'pin',
     CustomPlaceholder = 'customplaceholder',
     RandomSpawn = 'randomspawn',
     MythicItem = 'mythicitem',

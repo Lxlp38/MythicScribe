@@ -6,6 +6,7 @@
 - File Type support (with Nodes, Completions, Hovers and all the good stuff) for
   - Custom Placeholders
   - RandomSpawns
+  - Pins
   - Archetypes
   - Reagents
   - Custom MythicRPG Menus
@@ -36,6 +37,7 @@
 - Formatter not working when comments were placed on the same line as a key
 - Formatter not working when comments had specific indents in specific instances
 - `MythicScribe.emptybracketautomaticremoval` config not being fetched correctly
+- Issue with the Node handler that prevented some nodes whose value was used in some mechanic from being linked correctly
 
 
 ## [1.6.0]

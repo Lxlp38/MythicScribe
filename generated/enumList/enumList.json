@@ -360,6 +360,11 @@
     "type": "Scripted"
   },
   {
+    "id": "pin",
+    "path": null,
+    "type": "Scripted"
+  },
+  {
     "id": "customplaceholder",
     "path": null,
     "type": "Scripted"

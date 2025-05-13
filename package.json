@@ -327,6 +327,10 @@
               "type": "string",
               "description": "Regex to identify Stat files."
             },
+            "Pin": {
+              "type": "string",
+              "description": "Regex to identify Pin files."
+            },
             "Placeholder": {
               "type": "string",
               "description": "Regex to identify Custom Placeholders files."
@@ -359,6 +363,7 @@
             "Metaskill": "[\\\\\\/][Ss]kills[\\\\\\/]",
             "Droptable": "[\\\\\\/][Dd]rop[Tt]ables[\\\\\\/]",
             "Stat": "[\\\\\\/]stats.((yaml)|(yml)|(txt))",
+            "Pin": "[\\\\\\/]pins.((yaml)|(yml)|(txt))",
             "Placeholder": "[\\\\\\/]placeholders.((yaml)|(yml)|(txt))",
             "RandomSpawn": "[\\\\\\/][Rr]andom[Ss]pawns[\\\\\\/]",
             "Archetype": "[\\\\\\/][Aa]rchetypes[\\\\\\/]",

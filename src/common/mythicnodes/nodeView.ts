@@ -47,7 +47,7 @@ interface NodeAdditionalData {
     shape?: Shape;
     color?: string;
     unknown?: boolean;
-    image?: registryKey;
+    image?: string;
 }
 
 type NodeData = NodeCompulsoryData & NodeAdditionalData;
@@ -73,6 +73,7 @@ const NodeTypeToAdditionalData: Record<registryKey, NodeData> = {
     metaskill: { shape: 'ellipse', color: '#ffcc00', image: 'metaskill' },
     droptable: { shape: 'diamond', color: '#15c867', image: 'droptable' },
     stat: { shape: 'barrel', color: '#cc0000', image: 'stat' },
+    pin: { shape: 'round-hexagon', color: '#d59b87', image: 'pin' },
     placeholder: { shape: 'rhomboid', color: '#cc6600', image: 'placeholder' },
     randomspawn: { shape: 'round-tag', color: '#00cccc', image: 'randomspawn' },
     archetype: {
@@ -466,6 +467,7 @@ function getWebviewContent(): string {
         placeholder: processWebViewImageUri(openWebView, 'placeholder.svg'),
         randomspawn: processWebViewImageUri(openWebView, 'randomspawn.svg'),
         stat: processWebViewImageUri(openWebView, 'stat.svg'),
+        pin: processWebViewImageUri(openWebView, 'pin.svg'),
         archetype: processWebViewImageUri(openWebView, 'archetype.svg'),
         reagent: processWebViewImageUri(openWebView, 'reagent.svg'),
         menu: processWebViewImageUri(openWebView, 'menu.svg'),
@@ -599,6 +601,7 @@ function getWebviewContent(): string {
     <input type="hidden" id="placeholderSvgUri" value="${imageUriMap.placeholder}">
     <input type="hidden" id="randomspawnSvgUri" value="${imageUriMap.randomspawn}">
     <input type="hidden" id="statSvgUri" value="${imageUriMap.stat}">
+    <input type="hidden" id="pinSvgUri" value="${imageUriMap.pin}">
     <input type="hidden" id="archetypeSvgUri" value="${imageUriMap.archetype}">
     <input type="hidden" id="reagentSvgUri" value="${imageUriMap.reagent}">
     <input type="hidden" id="menuSvgUri" value="${imageUriMap.menu}">

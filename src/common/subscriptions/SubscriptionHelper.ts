@@ -26,14 +26,14 @@ function resetFileChecks() {
     }
 }
 
-type ActiveFileTypeInfoKeys = registryKey | 'enabled';
-export const ActiveFileTypeInfo: { [K in ActiveFileTypeInfoKeys]: boolean } = {
+export const ActiveFileTypeInfo: Record<registryKey | 'enabled', boolean> = {
     enabled: false,
     metaskill: false,
     mob: false,
     item: false,
     droptable: false,
     stat: false,
+    pin: false,
     placeholder: false,
     randomspawn: false,
     archetype: false,
@@ -171,6 +171,12 @@ const FileTypeInfoMap: {
         key: 'stat',
         configKey: 'Stat',
         subscriptionHandler: 'stat',
+    },
+    pin: {
+        schema: undefined,
+        key: 'pin',
+        configKey: 'Pin',
+        subscriptionHandler: 'pin',
     },
     placeholder: {
         schema: undefined,

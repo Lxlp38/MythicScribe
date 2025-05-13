@@ -70,6 +70,7 @@ mob
 metaskill
 droptable
 stat
+pin
 customplaceholder
 randomspawn
 mythicitem

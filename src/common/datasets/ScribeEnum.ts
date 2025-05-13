@@ -58,6 +58,9 @@ export abstract class AbstractScribeEnum {
         return this.dataset;
     }
     async waitForDataset(): Promise<Map<string, EnumDatasetValue>> {
+        if (this.loaded) {
+            return this.dataset;
+        }
         return new Promise((resolve) => {
             const interval = setInterval(() => {
                 if (this.loaded) {
@@ -363,6 +366,9 @@ export const ScribeEnumHandler = {
         );
         this.addScriptedEnum(scriptedEnums.Stat, () =>
             fromMythicNodeToEnum(MythicNodeHandler.registry.stat.getNodes())
+        );
+        this.addScriptedEnum(scriptedEnums.Pin, () =>
+            fromMythicNodeToEnum(MythicNodeHandler.registry.pin.getNodes())
         );
         this.addScriptedEnum(scriptedEnums.CustomPlaceholder, () =>
             fromMythicNodeToEnum(MythicNodeHandler.registry.placeholder.getNodes())

@@ -417,20 +417,19 @@ function updateNodeRegistryAttribute(attr: MythicAttribute, mechanic = attr.mech
     }
 
     const key = attr.enum.identifier as registryKey;
-    if (!key) {
-        return;
-    }
 
     for (const n of mechanic.name) {
-        if (!MythicNodeHandler.registry[key].referenceMap.has(n)) {
-            MythicNodeHandler.registry[key].referenceMap.set(n, new Set());
+        const entry = n.toLowerCase();
+        if (!MythicNodeHandler.registry[key].referenceMap.has(entry)) {
+            MythicNodeHandler.registry[key].referenceMap.set(entry, new Set());
         }
         for (const name of attr.name) {
-            MythicNodeHandler.registry[key].referenceMap.get(n)?.add(name);
+            MythicNodeHandler.registry[key].referenceMap.get(entry)!.add(name.toLowerCase());
         }
     }
+
     const correctedNames = attr.name.map((n) =>
-        n.replaceAll('(', '\\(').replaceAll(')', '\\)').replaceAll('$', '\\$')
+        n.toLowerCase().replaceAll('(', '\\(').replaceAll(')', '\\)').replaceAll('$', '\\$')
     );
     for (const n of correctedNames) {
         MythicNodeHandler.registry[key].referenceAttributes.add(n);

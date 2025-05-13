@@ -807,7 +807,8 @@
                 "type": "PlaceholderString",
                 "description": "The pin to check against",
                 "link": "https://git.lumine.io/mythiccraft/MythicMobs/-/wikis/Skills/Conditions/DistanceFromPin",
-                "default_value": ""
+                "default_value": "",
+                "enum": "Pin"
             },
             {
                 "name": [
@@ -1987,7 +1988,8 @@
                 "type": "PlaceholderString",
                 "description": "The first [pin](https://git.lumine.io/mythiccraft/MythicMobs/-/wikis/Pins)",
                 "link": "https://git.lumine.io/mythiccraft/MythicMobs/-/wikis/Skills/Conditions/InPinRegion",
-                "default_value": ""
+                "default_value": "",
+                "enum": "Pin"
             },
             {
                 "name": [
@@ -1997,7 +1999,8 @@
                 "type": "PlaceholderString",
                 "description": "The second [pin](https://git.lumine.io/mythiccraft/MythicMobs/-/wikis/Pins)",
                 "link": "https://git.lumine.io/mythiccraft/MythicMobs/-/wikis/Skills/Conditions/InPinRegion",
-                "default_value": ""
+                "default_value": "",
+                "enum": "Pin"
             }
         ]
     },
@@ -3344,7 +3347,8 @@
                 "type": "PlaceholderString",
                 "description": "The pin to check against",
                 "link": "https://git.lumine.io/mythiccraft/MythicMobs/-/wikis/Skills/Conditions/OriginDistanceFromPin",
-                "default_value": ""
+                "default_value": "",
+                "enum": "Pin"
             },
             {
                 "name": [

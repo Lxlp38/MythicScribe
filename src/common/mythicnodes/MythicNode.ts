@@ -102,12 +102,13 @@ interface NodeElement extends NodeBaseElement {
 
 export class MythicNode {
     templates: Set<string> = new Set();
-    outEdge: { [K in registryKey]: Set<string> } = {
+    outEdge: Record<registryKey, Set<string>> = {
         metaskill: new Set(),
         mob: new Set(),
         item: new Set(),
         droptable: new Set(),
         stat: new Set(),
+        pin: new Set(),
         placeholder: new Set(),
         randomspawn: new Set(),
         archetype: new Set(),
@@ -655,6 +656,7 @@ export namespace MythicNodeHandler {
         item: new MythicNodeRegistry('item', ItemMythicNode),
         droptable: new MythicNodeRegistry('droptable'),
         stat: new MythicNodeRegistry('stat', StatMythicNode),
+        pin: new MythicNodeRegistry('pin'),
         placeholder: new MythicNodeRegistry('placeholder'),
         randomspawn: new MythicNodeRegistry('randomspawn', RandomSpawnMythicNode),
         archetype: new MythicNodeRegistry('archetype', ArchetypeMythicNode),

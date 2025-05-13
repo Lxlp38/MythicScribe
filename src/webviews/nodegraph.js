@@ -18,6 +18,7 @@ const svgMap = {
     archetype: document.getElementById('archetypeSvgUri').value,
     reagent: document.getElementById('reagentSvgUri').value,
     stat: document.getElementById('statSvgUri').value,
+    pin: document.getElementById('pinSvgUri').value,
     menu: document.getElementById('menuSvgUri').value,
     achievement: document.getElementById('achievementSvgUri').value,
 };

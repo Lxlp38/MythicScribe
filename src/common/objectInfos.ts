@@ -92,6 +92,7 @@ export const registryKey = [
     'item',
     'droptable',
     'stat',
+    'pin',
     'placeholder',
     'randomspawn',
     'archetype',

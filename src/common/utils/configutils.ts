@@ -17,6 +17,7 @@ export const fileRegexConfigCache = {
     Item: undefined as string | undefined,
     Droptable: undefined as string | undefined,
     Stat: undefined as string | undefined,
+    Pin: undefined as string | undefined,
     Placeholder: undefined as string | undefined,
     RandomSpawn: undefined as string | undefined,
     Archetype: undefined as string | undefined,

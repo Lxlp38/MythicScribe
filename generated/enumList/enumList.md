@@ -286,6 +286,10 @@
 ### Path: `null`
 ### Type: `Scripted`
 
+# `pin`
+### Path: `null`
+### Type: `Scripted`
+
 # `customplaceholder`
 ### Path: `null`
 ### Type: `Scripted`

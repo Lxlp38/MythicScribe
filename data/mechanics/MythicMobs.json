@@ -5513,7 +5513,8 @@
                 "type": "PlaceholderString",
                 "description": "The pin to move",
                 "link": "https://git.lumine.io/mythiccraft/MythicMobs/-/wikis/Skills/Mechanics/MovePin",
-                "default_value": ""
+                "default_value": "",
+                "enum": "Pin"
             }
         ]
     },

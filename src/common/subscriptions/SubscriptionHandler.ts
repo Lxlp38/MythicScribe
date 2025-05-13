@@ -256,6 +256,12 @@ class StatSubscriptionHandler extends AbstractScribeSubscription {
     }
 }
 
+class PinSubscriptionHandler extends AbstractScribeSubscription {
+    constructor() {
+        super([], []);
+    }
+}
+
 class PlaceholderSubscriptionHandler extends AbstractScribeSubscription {
     constructor() {
         super([], []);
@@ -338,6 +344,7 @@ export const ScribeSubscriptionHandler = {
         item: new ItemScribeSubscription(),
         droptable: new DroptableSubscriptionHandler(),
         stat: new StatSubscriptionHandler(),
+        pin: new PinSubscriptionHandler(),
         placeholder: new PlaceholderSubscriptionHandler(),
         randomspawn: new RandomSpawnSubscriptionHandler(),
         archetype: new ArchetypeSubscriptionHandler(),

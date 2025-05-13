@@ -114,7 +114,8 @@
                 "type": "PlaceholderString",
                 "description": "The first [pin](https://git.lumine.io/mythiccraft/MythicMobs/-/wikis/Pins)",
                 "link": "https://git.lumine.io/mythiccraft/MythicMobs/-/wikis/Skills/Targeters/BlocksInPinRegion",
-                "default_value": ""
+                "default_value": "",
+                "enum": "Pin"
             },
             {
                 "name": [
@@ -124,7 +125,8 @@
                 "type": "PlaceholderString",
                 "description": "The second [pin](https://git.lumine.io/mythiccraft/MythicMobs/-/wikis/Pins)",
                 "link": "https://git.lumine.io/mythiccraft/MythicMobs/-/wikis/Skills/Targeters/BlocksInPinRegion",
-                "default_value": ""
+                "default_value": "",
+                "enum": "Pin"
             }
         ]
     },
@@ -1767,7 +1769,8 @@
                 "type": "PlaceholderString",
                 "description": "The name of the [pin](https://git.lumine.io/mythiccraft/MythicMobs/-/wikis/Pins) to target",
                 "link": "https://git.lumine.io/mythiccraft/MythicMobs/-/wikis/Skills/Targeters/Pin",
-                "default_value": ""
+                "default_value": "",
+                "enum": "Pin"
             },
             {
                 "name": [
