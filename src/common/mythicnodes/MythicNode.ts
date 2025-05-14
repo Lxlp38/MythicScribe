@@ -286,22 +286,20 @@ export class MythicNode {
         }
     }
 
-    public getClosestTemplatedMetadata<T>(target: string): T | undefined {
+    public getTemplatedMetadata<T>(target: string): T | undefined {
         if (this.metadata.has(target)) {
             return this.metadata.get(target) as T;
         }
-        let latestMedatata: T | undefined;
-        for (const template of this.templates) {
+        for (const template of Array.from(this.templates).reverse()) {
             const templateNode = this.registry.getNode(template);
             if (templateNode) {
-                const metadata = templateNode.getClosestTemplatedMetadata<T>(target);
+                const metadata = templateNode.getTemplatedMetadata<T>(target);
                 if (metadata) {
-                    latestMedatata = metadata;
-                    continue;
+                    return metadata;
                 }
             }
         }
-        return latestMedatata;
+        return undefined;
     }
 }
 

@@ -92,7 +92,7 @@ const NodeSpecialTypeToAdditionalData: Partial<
     Record<registryKey, (node: MythicNode) => NodeAdditionalData | undefined>
 > = {
     item: (node: MythicNode) => {
-        switch (node.getClosestTemplatedMetadata<string>('type')) {
+        switch (node.getTemplatedMetadata<string>('type')) {
             case 'furniture':
                 return { image: 'furniture' };
             case 'block':

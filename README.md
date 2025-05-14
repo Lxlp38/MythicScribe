@@ -126,10 +126,22 @@ You can download Dev Builds from the [Github Repository](https://github.com/Lxlp
 
 # Credits and Acknowledgements
 - [@maecy](https://twitter.com/maecy_official?s=21&t=ZBZ5BDKcoa6LYFwgd690_A), for creating and providing this extension's ⭐awesome⭐ icon and the [Stellius Team](https://stellius.net/) in general for the collaboration!
-- [Game-icons.net](https://game-icons.net/) for the awesome icons used in the Node View! In particular, the icons used have been made by
+- [Game-icons.net](https://game-icons.net/) for the awesome icons used in the Node View! All images are licensed under [CC BY 3.0](https://creativecommons.org/licenses/by/3.0/). In particular, the icons used have been made by
   - [Delapouite](https://delapouite.com/)
-    - [mob](/assets/nodegraph/mob.svg), [placeholder](/assets/nodegraph/placeholder.svg), [stat](/assets/nodegraph/stat.svg), [pin](/assets/nodegraph/pin.svg), [block](/assets/nodegraph/block.svg), [achievement](/assets/nodegraph/achievement.svg)
+    - [mob](/assets/nodegraph/mob.svg) ([source](https://game-icons.net/1x1/delapouite/spiked-dragon-head.html))
+    - [placeholder](/assets/nodegraph/placeholder.svg) ([source](https://game-icons.net/1x1/delapouite/price-tag.html))
+    - [stat](/assets/nodegraph/stat.svg) ([source](https://game-icons.net/1x1/delapouite/upgrade.html))
+    - [pin](/assets/nodegraph/pin.svg) ([source](https://game-icons.net/1x1/delapouite/pin.html))
+    - [block](/assets/nodegraph/block.svg) ([source](https://game-icons.net/1x1/delapouite/cube.html))
+    - [achievement](/assets/nodegraph/achievement.svg) ([source](https://game-icons.net/1x1/delapouite/round-star.html))
   - [Lorc](https://lorcblog.blogspot.com/)
-    - [metaskill](/assets/nodegraph/metaskill.svg), [item](/assets/nodegraph/item.svg), [droptable](/assets/nodegraph/droptable.svg), [randomspawn](/assets/nodegraph/randomspawn.svg), [archetype](/assets/nodegraph/archetype.svg), [spell](/assets/nodegraph/spell.svg), [menu](/assets/nodegraph/menu.svg)
+    - [metaskill](/assets/nodegraph/metaskill.svg) ([source](https://game-icons.net/1x1/lorc/scroll-unfurled.html))
+    - [item](/assets/nodegraph/item.svg) ([source](https://game-icons.net/1x1/lorc/sword-spade.html))
+    - [droptable](/assets/nodegraph/droptable.svg) ([source](https://game-icons.net/1x1/lorc/swap-bag.html))
+    - [randomspawn](/assets/nodegraph/randomspawn.svg) ([source](https://game-icons.net/1x1/lorc/rally-the-troops.html))
+    - [archetype](/assets/nodegraph/archetype.svg) ([source](https://game-icons.net/1x1/lorc/strong.html))
+    - [spell](/assets/nodegraph/spell.svg) ([source](https://game-icons.net/1x1/lorc/magic-swirl.html))
+    - [menu](/assets/nodegraph/menu.svg) ([source](https://game-icons.net/1x1/delapouite/hamburger-menu.html))
   - Caro Asercion
-    - [furniture](/assets/nodegraph/furniture.svg), [reagent](/assets/nodegraph/reagent.svg)
+    - [furniture](/assets/nodegraph/furniture.svg) ([source](https://game-icons.net/1x1/caro-asercion/armchair.html))
+    - [reagent](/assets/nodegraph/reagent.svg) ([source](https://game-icons.net/1x1/caro-asercion/round-potion.html))

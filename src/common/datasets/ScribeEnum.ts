@@ -329,7 +329,7 @@ export const ScribeEnumHandler = {
             const items = MythicNodeHandler.registry.item.getNodes();
             const furnitures: NodeEntry = new Map();
             items.forEach((value, key) => {
-                if (value.getClosestTemplatedMetadata<string>('type') === 'furniture') {
+                if (value.getTemplatedMetadata<string>('type') === 'furniture') {
                     furnitures.set(key, value);
                 }
             });
@@ -339,7 +339,7 @@ export const ScribeEnumHandler = {
             const items = MythicNodeHandler.registry.item.getNodes();
             const customBlocks: NodeEntry = new Map();
             items.forEach((value, key) => {
-                if (value.getClosestTemplatedMetadata<string>('type') === 'block') {
+                if (value.getTemplatedMetadata<string>('type') === 'block') {
                     customBlocks.set(key, value);
                 }
             });
