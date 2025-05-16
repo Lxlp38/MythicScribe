@@ -258,7 +258,7 @@ function buildCytoscapeElements(
         cyNodesFoundNodes.set(node.hash, node);
 
         const templateProvider = MythicNodeHandler.registry[node.registry.type];
-        for (const template of node.templates) {
+        for (const [template] of node.templates) {
             let templateNode = templateProvider.getNode(template);
             if (templateNode) {
                 cyNodesUnknownNodes.set(templateNode.hash, templateNode);
@@ -280,7 +280,7 @@ function buildCytoscapeElements(
             if (!node.outEdge[subtype]) {
                 continue;
             }
-            for (const selectedOutEdge of node.outEdge[subtype]) {
+            for (const [selectedOutEdge] of node.outEdge[subtype]) {
                 const edgeNode = MythicNodeHandler.registry[subtype].getNode(selectedOutEdge);
                 if (!edgeNode) {
                     continue;

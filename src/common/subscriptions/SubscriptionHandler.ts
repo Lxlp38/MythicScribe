@@ -131,7 +131,12 @@ class ItemScribeSubscription extends AbstractScribeSubscription {
                 () => triggerfileCompletionProvider(TriggerType.ITEM, ['Skills']),
                 () => triggerfileCompletionProvider(TriggerType.FURNITURE, ['FurnitureSkills']),
                 () => triggerfileCompletionProvider(TriggerType.BLOCK, ['CustomBlockSkills']),
-                () => hoverProvider(ItemSchema),
+                () => conditionCompletionProvider(['EquipConditions']),
+                () =>
+                    hoverProvider(ItemSchema, {
+                        keys: ['EquipConditions'],
+                        registry: ScribeMechanicHandler.registry.condition,
+                    }),
             ],
             [enableFileSpecificSuggestions]
         );

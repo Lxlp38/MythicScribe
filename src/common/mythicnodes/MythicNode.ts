@@ -100,9 +100,14 @@ interface NodeElement extends NodeBaseElement {
     text: string;
 }
 
+type NodeReferenceValue = Map<string, vscode.Range[]>;
+type NodeReference = Partial<Record<registryKey, NodeReferenceValue>>;
+
+type CompactNodeReference = { name: string; range: vscode.Range };
+
 export class MythicNode {
-    templates: Set<string> = new Set();
-    outEdge: Partial<Record<registryKey, Set<string>>> = {};
+    templates: NodeReferenceValue = new Map();
+    outEdge: NodeReference = {};
     metadata = new Map<string, unknown>();
 
     constructor(
@@ -116,7 +121,7 @@ export class MythicNode {
         if (this.description.text) {
             for (const type of registryKey) {
                 this.matchDecorators(this.description.text, type).forEach((decorator) => {
-                    this.addEdge(type, decorator);
+                    this.addEdge(type, decorator.name, decorator.range);
                 });
             }
         }
@@ -129,13 +134,13 @@ export class MythicNode {
 
         for (const type of registryKey) {
             this.matchDecorators(this.body.text, type).forEach((decorator) => {
-                this.addEdge(type, decorator);
+                this.addEdge(type, decorator.name, decorator.range);
             });
         }
 
         this.body.text = this.body.text
             .split('\n')
-            .map((line) => line.replace(/\s*#.*/, ''))
+            .map((line) => line.replace(/(^|\s)\s*#.*/m, ''))
             .join('\n');
 
         this.findNodeEdges(this.body.text);
@@ -143,11 +148,83 @@ export class MythicNode {
         body.text = undefined;
     }
 
-    protected addEdge(registry: registryKey, entry: string) {
-        if (!this.outEdge[registry]) {
-            this.outEdge[registry] = new Set();
+    get hash(): string {
+        return `${this.document.uri.toString()}#${this.range.start.line}`;
+    }
+
+    protected normalizeRelativeRange(range: vscode.Range): vscode.Range {
+        const newStart = this.body.range.start.line + range.start.line;
+        const newEnd = this.body.range.start.line + range.end.line;
+        const newRange = new vscode.Range(
+            newStart,
+            range.start.character,
+            newEnd,
+            range.end.character
+        );
+        return newRange;
+    }
+
+    protected calculateRelativeRangeFromBody(body: string, match: RegExpExecArray): vscode.Range {
+        const matchStart = match.index;
+        const matchText = match[0];
+        const matchEnd = matchStart + matchText.length;
+
+        const lines = body.split('\n');
+        let startLine = 0;
+        let startPos = matchStart;
+        let endLine = 0;
+        let endPos = matchEnd;
+
+        // Calculate start line and position
+        for (; startLine < lines.length; startLine++) {
+            const lineLength = lines[startLine].length + 1; // +1 for newline
+
+            if (startPos < lineLength) {
+                break;
+            }
+            startPos -= lineLength;
         }
-        this.outEdge[registry].add(entry);
+
+        // Calculate end line and position
+        endLine = startLine;
+        endPos = startPos + matchText.length;
+
+        for (; endLine < lines.length; endLine++) {
+            const lineLength = lines[endLine].length + 1;
+
+            if (endPos <= lineLength) {
+                break;
+            }
+            endPos -= lineLength;
+        }
+
+        // Ensure we don't go beyond document bounds
+        startLine = Math.min(startLine, lines.length - 1);
+        endLine = Math.min(endLine, lines.length - 1);
+
+        // Ensure positions are within line bounds
+        startPos = Math.min(startPos, lines[startLine].length);
+        endPos = Math.min(endPos, lines[endLine].length);
+
+        return new vscode.Range(startLine, startPos, endLine, endPos);
+    }
+
+    protected addEdge(registry: registryKey, entry: string, ...ranges: vscode.Range[]): void {
+        if (!this.outEdge[registry]) {
+            this.outEdge[registry] = new Map();
+        }
+        if (!this.outEdge[registry].has(entry)) {
+            this.outEdge[registry].set(entry, []);
+        }
+        for (const range of ranges) {
+            this.outEdge[registry].get(entry)!.push(this.normalizeRelativeRange(range));
+        }
+        // console.log({
+        //     this: this.name.text,
+        //     registry,
+        //     entry,
+        //     edge: this.outEdge[registry].get(entry),
+        // });
     }
 
     public hasEdge(registry: registryKey, entry: string): boolean {
@@ -158,69 +235,113 @@ export class MythicNode {
     }
 
     protected findNodeEdges(body: string): void {
-        this.matchAttributes(body).forEach(({ registry, entry }) => this.addEdge(registry, entry));
+        this.matchAttributes(body).forEach(({ registry, name, range }) =>
+            this.addEdge(registry, name, range)
+        );
 
         this.matchSkillShortcut(body).forEach((skillShortcut) => {
-            this.addEdge('metaskill', skillShortcut);
+            this.addEdge('metaskill', skillShortcut.name, skillShortcut.range);
         });
         this.matchPlaceholder(body);
     }
 
-    get hash(): string {
-        return `${this.document.uri.toString()}#${this.range.start.line}`;
-    }
-
-    protected matchTemplate(body: string, regex = /^\s*Template(s)?:.*/gm): string[] {
-        const match = body.match(regex);
-        const templateList: string[] = [];
-        if (match) {
-            templateList.push(...this.processTemplate(match));
+    protected matchTemplate(body: string, regex = /^\s*Template(s)?:.*/gm): CompactNodeReference[] {
+        const matches = body.matchAll(regex);
+        const templateList: ReturnType<typeof this.matchTemplate> = [];
+        for (const match of matches) {
+            const range = this.calculateRelativeRangeFromBody(body, match);
+            for (const template of this.processTemplate(match)) {
+                templateList.push({
+                    name: template,
+                    range,
+                });
+            }
+            break;
         }
         return templateList;
     }
     protected matchSingleEntry(
         body: string,
         regex: RegExp = /^\s*Entry:\s*(?<entry>.*)/m
-    ): string | undefined {
-        const match = body.match(regex);
+    ): CompactNodeReference | undefined {
+        const matches = body.matchAll(regex);
+        if (!matches) {
+            return undefined;
+        }
+        let match: RegExpExecArray | undefined;
+        for (const m of matches) {
+            match = m;
+            break;
+        }
         if (match && match.groups && match.groups.entry) {
-            return match.groups.entry.trim();
+            const range = this.calculateRelativeRangeFromBody(body, match);
+            return {
+                name: match.groups.entry.trim(),
+                range,
+            };
         }
         return undefined;
     }
     protected matchMultipleEntries(
         body: string,
         regex: RegExp = /^\s*Entry:\s*(?<entry>.*)/gm
-    ): string[] {
+    ): CompactNodeReference[] {
         const match = body.matchAll(regex);
-        const entries: string[] = [];
+        const entries: ReturnType<typeof this.matchMultipleEntries> = [];
         for (const entry of match) {
             if (entry.groups && entry.groups.entry) {
-                entries.push(entry.groups.entry.trim());
+                const range = this.calculateRelativeRangeFromBody(body, entry);
+                entries.push({
+                    name: entry.groups.entry.trim(),
+                    range,
+                });
             }
         }
         return entries;
     }
-    protected matchList(body: string, regex = /(?<=ListEntry:)(\s*- [\w_\-]+\s*)*/gm): string[] {
-        const match = body.match(regex);
+    protected matchList(
+        body: string,
+        regex = /(?<=ListEntry:)(\s*- [\w_\-]+\s*)*/gm
+    ): CompactNodeReference[] {
+        const matches = body.matchAll(regex);
+        if (!matches) {
+            return [];
+        }
+        let match: RegExpExecArray | undefined;
+        for (const m of matches) {
+            match = m;
+            break;
+        }
         if (!match) {
             return [];
         }
-        const matches = match[0]
+        const range = this.calculateRelativeRangeFromBody(body, match);
+        const matchList = match[0]
             .split('\n')
             .map((line) => line.replace('-', '').trim())
-            .filter((line) => line.length > 0);
-        return matches;
+            .filter((line) => line.length > 0)
+            .map((line) => ({
+                name: line,
+                range,
+            }));
+        return matchList;
     }
-    private matchDecorators(body: string, type: registryKey): string[] {
+    private matchDecorators(body: string, type: registryKey): CompactNodeReference[] {
         const regex = MythicNodeHandler.registry[type].decoratorRegex;
         const matches = body.matchAll(regex);
-        const decorators: string[] = [];
+        const decorators: ReturnType<typeof this.matchDecorators> = [];
         for (const match of matches) {
-            decorators.push(...this.processTemplate(match));
+            const range = this.calculateRelativeRangeFromBody(body, match);
+            for (const decorator of this.processTemplate(match)) {
+                decorators.push({
+                    name: decorator,
+                    range,
+                });
+            }
         }
         return decorators;
     }
+
     processTemplate(match: RegExpMatchArray): string[] {
         const parsedTemplates = match[0]
             .split(':')[1]
@@ -230,7 +351,9 @@ export class MythicNode {
         return parsedTemplates;
     }
 
-    private matchAttributes(body: string): { registry: registryKey; entry: string }[] {
+    private matchAttributes(
+        body: string
+    ): { registry: registryKey; name: string; range: vscode.Range }[] {
         const attributes: ReturnType<typeof this.matchAttributes> = [];
         const matches = body.matchAll(attributeRegex);
         for (const match of matches) {
@@ -245,9 +368,11 @@ export class MythicNode {
                     object.toLowerCase()
                 );
                 if (objectMatch && objectMatch.has(match.groups!.attribute.toLowerCase())) {
+                    const range = this.calculateRelativeRangeFromBody(body, match);
                     attributes.push({
                         registry: type,
-                        entry: match.groups!.value,
+                        name: match.groups!.value,
+                        range,
                     });
                     break;
                 }
@@ -256,12 +381,17 @@ export class MythicNode {
         return attributes;
     }
 
-    private matchSkillShortcut(body: string): string[] {
+    private matchSkillShortcut(body: string): CompactNodeReference[] {
         const skillShortcutRegex = /-\sskill:([\w\-_]+)/g;
         const matches = body.matchAll(skillShortcutRegex);
-        const skillShortcuts: string[] = [];
+        const skillShortcuts: ReturnType<typeof this.matchSkillShortcut> = [];
         for (const match of matches) {
-            skillShortcuts.push(match[1]);
+            const range = this.calculateRelativeRangeFromBody(body, match);
+            const name = match[1].trim();
+            skillShortcuts.push({
+                name,
+                range,
+            });
         }
         return skillShortcuts;
     }
@@ -271,11 +401,12 @@ export class MythicNode {
         const matches = body.matchAll(placeholderRegex);
         for (const match of matches) {
             const nodes = parseWrittenPlaceholder(match[1]);
+            const range = this.calculateRelativeRangeFromBody(body, match);
             let i = 0;
             for (const node of nodes) {
                 const registry = fromPlaceholderNodeIdentifierToRegistryKey(node);
                 if (registry) {
-                    this.addEdge(registry, match[1].split('.')[i]);
+                    this.addEdge(registry, match[1].split('.')[i], range);
                 }
                 i++;
             }
@@ -287,7 +418,7 @@ export class MythicNode {
             return this.metadata.get(target) as T;
         }
         for (const template of Array.from(this.templates).reverse()) {
-            const templateNode = this.registry.getNode(template);
+            const templateNode = this.registry.getNode(template[0]);
             if (templateNode) {
                 const metadata = templateNode.getTemplatedMetadata<T>(target);
                 if (metadata) {
@@ -308,8 +439,8 @@ export class MetaskillMythicNode extends MythicNode {
             this.addEdge('metaskill', action);
         });
 
-        const spell = this.matchSingleEntry(body, /^\s*Spell:\s*(?<entry>.*)/m);
-        if (spell && spell.toLowerCase() === 'true') {
+        const spell = this.matchSingleEntry(body, /^\s*Spell:\s*(?<entry>.*)/gm);
+        if (spell && spell.name.toLowerCase() === 'true') {
             this.metadata.set('spell', true);
         }
     }
@@ -334,12 +465,12 @@ export class TemplatableMythicNode extends MythicNode {
     protected findNodeEdges(body: string): void {
         super.findNodeEdges(body);
         this.matchTemplate(body).forEach((template) => {
-            if (this.templates.has(template)) {
+            if (this.templates.has(template.name)) {
                 Log.warn(
                     `Duplicate template ${template} found in ${this.registry.type} ${this.name.text}`
                 );
             }
-            this.templates.add(template);
+            this.templates.set(template.name, [template.range]);
         });
     }
 }
@@ -394,7 +525,7 @@ export class MobMythicNode extends TemplatableMythicNode {
         }
 
         for (const templateNode of this.templates) {
-            const template = MythicNodeHandler.registry.mob.getNode(templateNode);
+            const template = MythicNodeHandler.registry.mob.getNode(templateNode[0]);
             if (template) {
                 const templateVariables = (template as MobMythicNode).variables;
                 if (templateVariables) {
@@ -422,9 +553,9 @@ export class ItemMythicNode extends TemplatableMythicNode {
     protected findNodeEdges(body: string): void {
         super.findNodeEdges(body);
 
-        const type = this.matchSingleEntry(body, /^\s*Type:\s*(?<entry>.*)/m);
-        if (type && ['block', 'furniture'].includes(type.toLowerCase())) {
-            this.metadata.set('type', type.toLowerCase());
+        const type = this.matchSingleEntry(body, /^\s*Type:\s*(?<entry>.*)/gm);
+        if (type && ['block', 'furniture'].includes(type.name.toLowerCase())) {
+            this.metadata.set('type', type.name.toLowerCase());
         }
     }
 }
@@ -437,24 +568,24 @@ export class StatMythicNode extends MythicNode {
 
         this.matchList(body, /(?<=ParentStats:)(\s*- [\w_\-]+\s.*(?:\n|$))*/gm).forEach(
             (template) => {
-                if (this.templates.has(template)) {
+                if (this.templates.has(template.name)) {
                     Log.warn(
                         `Duplicate template ${template} found in ${this.registry.type} ${this.name.text}`
                     );
                 }
-                this.templates.add(template);
+                this.templates.set(template.name, [template.range]);
             }
         );
 
         this.matchList(body, /(?<=TriggerStats:)(\s*- [\w_\-]+\s.*(?:\n|$))*/gm).forEach(
             (outStat) => {
-                outStat = outStat.split(' ')[0];
-                if (this.hasEdge('stat', outStat)) {
+                const outStatName = outStat.name.split(' ')[0];
+                if (this.hasEdge('stat', outStatName)) {
                     Log.warn(
-                        `Duplicate TriggerStat ${outStat} found in ${this.registry.type} ${this.name.text}`
+                        `Duplicate TriggerStat ${outStatName} found in ${this.registry.type} ${this.name.text}`
                     );
                 }
-                this.addEdge('stat', outStat);
+                this.addEdge('stat', outStatName, outStat.range);
             }
         );
     }
@@ -466,19 +597,22 @@ export class RandomSpawnMythicNode extends MythicNode {
     protected findNodeEdges(body: string): void {
         super.findNodeEdges(body);
 
-        const typelist: string[] = [];
+        const typelist: CompactNodeReference[] = [];
         this.matchList(body, /(?<=Types:)(\s*- [\w_\-]+\s\d+\s*)*/gm).forEach((mob) => {
-            typelist.push(mob.split(' ')[0]);
+            typelist.push({
+                name: mob.name.split(' ')[0],
+                range: mob.range,
+            });
         });
 
         (typelist.length > 0 ? typelist : this.matchTemplate(body, /^\s*Type(s)?:.*/gm)).forEach(
             (mob) => {
-                if (this.hasEdge('mob', mob)) {
+                if (this.hasEdge('mob', mob.name)) {
                     Log.warn(
                         `Duplicate mob ${mob} found in ${this.registry.type} ${this.name.text}`
                     );
                 }
-                this.addEdge('mob', mob);
+                this.addEdge('mob', mob.name, mob.range);
             }
         );
     }
@@ -489,20 +623,20 @@ class ArchetypeMythicNode extends MythicNode {
         super.findNodeEdges(body);
 
         this.matchList(body, /(?<=BaseStats:)(\s*- [\w_\-]+\s.*(?:\n|$))*/gm).forEach((stat) => {
-            stat = stat.split(' ')[0];
-            this.addEdge('stat', stat);
+            const statName = stat.name.split(' ')[0];
+            this.addEdge('stat', statName, stat.range);
         });
 
         this.matchList(body, /(?<=StatModifiers:)(\s*- [\w_\-]+\s.*(?:\n|$))*/gm).forEach(
             (stat) => {
-                stat = stat.split(' ')[0];
-                this.addEdge('stat', stat);
+                const statName = stat.name.split(' ')[0];
+                this.addEdge('stat', statName, stat.range);
             }
         );
 
         this.matchList(body, /(?<=Bindings:)(\s*- [\w_\-]+\s.*(?:\n|$))*/gm).forEach((skill) => {
-            skill = skill.split(' ')[1];
-            this.addEdge('metaskill', skill);
+            const skillName = skill.name.split(' ')[1];
+            this.addEdge('metaskill', skillName, skill.range);
         });
     }
 }
@@ -512,14 +646,14 @@ class ReagentMythicNode extends MythicNode {
         super.findNodeEdges(body);
 
         const regexes: RegExp[] = [
-            /^\s*MaxValue:\s*stat\.(?<entry>.*)/m,
-            /^\s*MinValue:\s*stat\.(?<entry>.*)/m,
+            /^\s*MaxValue:\s*stat\.(?<entry>.*)/gm,
+            /^\s*MinValue:\s*stat\.(?<entry>.*)/gm,
         ];
 
         regexes.forEach((regex) => {
             const stat = this.matchSingleEntry(body, regex);
             if (stat) {
-                this.addEdge('stat', stat);
+                this.addEdge('stat', stat.name, stat.range);
             }
         });
     }
@@ -530,10 +664,10 @@ class AchievementMythicNode extends MythicNode {
         super.findNodeEdges(body);
 
         this.matchMultipleEntries(body, /^\s*MobType:\s*(?<entry>.*)/gm).forEach((mob) => {
-            if (this.hasEdge('mob', mob)) {
+            if (this.hasEdge('mob', mob.name)) {
                 Log.warn(`Duplicate Mob ${mob} found in ${this.registry.type} ${this.name.text}`);
             }
-            this.addEdge('mob', mob);
+            this.addEdge('mob', mob.name, mob.range);
         });
     }
 }
@@ -670,7 +804,7 @@ function updateAttributeRegex() {
         }
     }
     attributeRegex = new RegExp(
-        `(?<=[{;}])\\s*(?<attribute>${Array.from(attributes).join('|')})\\s*=\\s*(?<value>[\\w\\-_]+)\\s*(?=[;}])`,
+        `(?<=[\\{;]\\s*)(?<attribute>${Array.from(attributes).join('|')})\\s*=\\s*(?<value>[\\w\\-_]+)(?=\\s*[;\\}])`,
         'gi'
     );
 }

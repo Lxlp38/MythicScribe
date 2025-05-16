@@ -772,6 +772,58 @@ export const ItemSchema: Schema = {
         description: 'Allows you to specify the block states of items',
         link: 'https://git.lumine.io/mythiccraft/MythicMobs/-/wikis/Items/Items#blockstates',
     },
+    ArrowDamage: {
+        type: SchemaElementTypes.FLOAT,
+        description:
+            'The damage the arrows fired from this item will do. Does not influence other projectile types',
+        link: 'https://git.lumine.io/mythiccraft/mythiccrucible/-/wikis/Items#arrowdamage',
+        plugin: DefaultPlugins.MythicCrucible,
+    },
+    EquipSlot: {
+        type: SchemaElementTypes.ENUM,
+        dataset: 'EQUIPSLOT',
+        description:
+            'The Slot where the equipment is supposed to be used. If used elsewhere, its Stats will not apply',
+        link: 'https://git.lumine.io/mythiccraft/MythicMobs/-/wikis/Items/Items#equipslot',
+        plugin: DefaultPlugins.MythicCrucible,
+    },
+    EquipSlotSkill: {
+        type: SchemaElementTypes.ENUM,
+        dataset: 'METASKILL',
+        description:
+            'The MetaSkill to be executed once the item is equipped in the correct slot, if any.',
+        link: 'https://git.lumine.io/mythiccraft/MythicMobs/-/wikis/Items/Items#equipslotskill',
+        plugin: DefaultPlugins.MythicCrucible,
+    },
+    EquipConditions: {
+        type: SchemaElementTypes.LIST,
+        description:
+            'A list of Conditions to be matched in order for the item to apply its stats once equipped.',
+        link: 'https://git.lumine.io/mythiccraft/MythicMobs/-/wikis/Items/Items#equipconditions',
+        plugin: DefaultPlugins.MythicCrucible,
+    },
+    EquipLevel: {
+        type: SchemaElementTypes.INTEGER,
+        description:
+            'The required level the player must be at in order for the item to apply its stats once equipped. Defaults to 0.',
+        link: 'https://git.lumine.io/mythiccraft/MythicMobs/-/wikis/Items/Items#equiplevel',
+        plugin: DefaultPlugins.MythicCrucible,
+    },
+    EquipLevelSkill: {
+        type: SchemaElementTypes.ENUM,
+        dataset: 'METASKILL',
+        description:
+            'The MetaSkill to be executed once the item is equipped with the correct level',
+        link: 'https://git.lumine.io/mythiccraft/MythicMobs/-/wikis/Items/Items#equiplevelskill',
+        plugin: DefaultPlugins.MythicCrucible,
+    },
+    EquipLevelKey: {
+        type: SchemaElementTypes.STRING,
+        description:
+            "The key of the Player Level Provider to be used to evaluate the player's level. Defaults to evaluating the player's vanilla experience level",
+        link: 'https://git.lumine.io/mythiccraft/MythicMobs/-/wikis/Items/Items#equiplevelkey',
+        plugin: DefaultPlugins.MythicCrucible,
+    },
 };
 
 addSchemaAliases(ItemSchema, {
