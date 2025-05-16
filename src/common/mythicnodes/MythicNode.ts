@@ -102,20 +102,7 @@ interface NodeElement extends NodeBaseElement {
 
 export class MythicNode {
     templates: Set<string> = new Set();
-    outEdge: Record<registryKey, Set<string>> = {
-        metaskill: new Set(),
-        mob: new Set(),
-        item: new Set(),
-        droptable: new Set(),
-        stat: new Set(),
-        pin: new Set(),
-        placeholder: new Set(),
-        randomspawn: new Set(),
-        archetype: new Set(),
-        reagent: new Set(),
-        menu: new Set(),
-        achievement: new Set(),
-    };
+    outEdge: Partial<Record<registryKey, Set<string>>> = {};
     metadata = new Map<string, unknown>();
 
     constructor(
@@ -129,7 +116,7 @@ export class MythicNode {
         if (this.description.text) {
             for (const type of registryKey) {
                 this.matchDecorators(this.description.text, type).forEach((decorator) => {
-                    this.outEdge[type].add(decorator);
+                    this.addEdge(type, decorator);
                 });
             }
         }
@@ -142,7 +129,7 @@ export class MythicNode {
 
         for (const type of registryKey) {
             this.matchDecorators(this.body.text, type).forEach((decorator) => {
-                this.outEdge[type].add(decorator);
+                this.addEdge(type, decorator);
             });
         }
 
@@ -156,13 +143,25 @@ export class MythicNode {
         body.text = undefined;
     }
 
+    protected addEdge(registry: registryKey, entry: string) {
+        if (!this.outEdge[registry]) {
+            this.outEdge[registry] = new Set();
+        }
+        this.outEdge[registry].add(entry);
+    }
+
+    public hasEdge(registry: registryKey, entry: string): boolean {
+        if (!this.outEdge[registry]) {
+            return false;
+        }
+        return this.outEdge[registry].has(entry);
+    }
+
     protected findNodeEdges(body: string): void {
-        this.matchAttributes(body).forEach(({ registry, entry }) =>
-            this.outEdge[registry].add(entry)
-        );
+        this.matchAttributes(body).forEach(({ registry, entry }) => this.addEdge(registry, entry));
 
         this.matchSkillShortcut(body).forEach((skillShortcut) => {
-            this.outEdge.metaskill.add(skillShortcut);
+            this.addEdge('metaskill', skillShortcut);
         });
         this.matchPlaceholder(body);
     }
@@ -276,7 +275,7 @@ export class MythicNode {
             for (const node of nodes) {
                 const registry = fromPlaceholderNodeIdentifierToRegistryKey(node);
                 if (registry) {
-                    this.outEdge[registry].add(match[1].split('.')[i]);
+                    this.addEdge(registry, match[1].split('.')[i]);
                 }
                 i++;
             }
@@ -306,7 +305,7 @@ export class MetaskillMythicNode extends MythicNode {
     protected findNodeEdges(body: string): void {
         super.findNodeEdges(body);
         this.matchConditionActions(body).forEach((action) => {
-            this.outEdge.metaskill.add(action);
+            this.addEdge('metaskill', action);
         });
 
         const spell = this.matchSingleEntry(body, /^\s*Spell:\s*(?<entry>.*)/m);
@@ -450,12 +449,12 @@ export class StatMythicNode extends MythicNode {
         this.matchList(body, /(?<=TriggerStats:)(\s*- [\w_\-]+\s.*(?:\n|$))*/gm).forEach(
             (outStat) => {
                 outStat = outStat.split(' ')[0];
-                if (this.outEdge.stat.has(outStat)) {
+                if (this.hasEdge('stat', outStat)) {
                     Log.warn(
                         `Duplicate TriggerStat ${outStat} found in ${this.registry.type} ${this.name.text}`
                     );
                 }
-                this.outEdge.stat.add(outStat);
+                this.addEdge('stat', outStat);
             }
         );
     }
@@ -474,12 +473,12 @@ export class RandomSpawnMythicNode extends MythicNode {
 
         (typelist.length > 0 ? typelist : this.matchTemplate(body, /^\s*Type(s)?:.*/gm)).forEach(
             (mob) => {
-                if (this.outEdge.mob.has(mob)) {
+                if (this.hasEdge('mob', mob)) {
                     Log.warn(
                         `Duplicate mob ${mob} found in ${this.registry.type} ${this.name.text}`
                     );
                 }
-                this.outEdge.mob.add(mob);
+                this.addEdge('mob', mob);
             }
         );
     }
@@ -491,19 +490,19 @@ class ArchetypeMythicNode extends MythicNode {
 
         this.matchList(body, /(?<=BaseStats:)(\s*- [\w_\-]+\s.*(?:\n|$))*/gm).forEach((stat) => {
             stat = stat.split(' ')[0];
-            this.outEdge.stat.add(stat);
+            this.addEdge('stat', stat);
         });
 
         this.matchList(body, /(?<=StatModifiers:)(\s*- [\w_\-]+\s.*(?:\n|$))*/gm).forEach(
             (stat) => {
                 stat = stat.split(' ')[0];
-                this.outEdge.stat.add(stat);
+                this.addEdge('stat', stat);
             }
         );
 
         this.matchList(body, /(?<=Bindings:)(\s*- [\w_\-]+\s.*(?:\n|$))*/gm).forEach((skill) => {
             skill = skill.split(' ')[1];
-            this.outEdge.metaskill.add(skill);
+            this.addEdge('metaskill', skill);
         });
     }
 }
@@ -518,9 +517,9 @@ class ReagentMythicNode extends MythicNode {
         ];
 
         regexes.forEach((regex) => {
-            const value = this.matchSingleEntry(body, regex);
-            if (value) {
-                this.outEdge.stat.add(value);
+            const stat = this.matchSingleEntry(body, regex);
+            if (stat) {
+                this.addEdge('stat', stat);
             }
         });
     }
@@ -531,10 +530,10 @@ class AchievementMythicNode extends MythicNode {
         super.findNodeEdges(body);
 
         this.matchMultipleEntries(body, /^\s*MobType:\s*(?<entry>.*)/gm).forEach((mob) => {
-            if (this.outEdge.mob.has(mob)) {
+            if (this.hasEdge('mob', mob)) {
                 Log.warn(`Duplicate Mob ${mob} found in ${this.registry.type} ${this.name.text}`);
             }
-            this.outEdge.mob.add(mob);
+            this.addEdge('mob', mob);
         });
     }
 }

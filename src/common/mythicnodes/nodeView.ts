@@ -277,6 +277,9 @@ function buildCytoscapeElements(
         }
 
         for (const subtype of iterableKeys) {
+            if (!node.outEdge[subtype]) {
+                continue;
+            }
             for (const selectedOutEdge of node.outEdge[subtype]) {
                 const edgeNode = MythicNodeHandler.registry[subtype].getNode(selectedOutEdge);
                 if (!edgeNode) {
