@@ -157,11 +157,9 @@ export class MythicNode {
     }
 
     protected findNodeEdges(body: string): void {
-        for (const type of registryKey) {
-            this.matchAttributes(body, type).forEach((attribute) => {
-                this.outEdge[type].add(attribute);
-            });
-        }
+        this.matchAttributes(body).forEach(({ registry, entry }) =>
+            this.outEdge[registry].add(entry)
+        );
 
         this.matchSkillShortcut(body).forEach((skillShortcut) => {
             this.outEdge.metaskill.add(skillShortcut);
@@ -233,13 +231,9 @@ export class MythicNode {
         return parsedTemplates;
     }
 
-    private matchAttributes(body: string, type: registryKey): string[] {
-        const attributeRegex = new RegExp(
-            `[{;}]\\s*(?<attribute>${Array.from(MythicNodeHandler.registry[type].referenceAttributes).join('|')})\\s*=\\s*(?<value>[\\w\\-_]+)\\s*[;}]`,
-            'gi'
-        );
+    private matchAttributes(body: string): { registry: registryKey; entry: string }[] {
+        const attributes: ReturnType<typeof this.matchAttributes> = [];
         const matches = body.matchAll(attributeRegex);
-        const attributes: string[] = [];
         for (const match of matches) {
             const object = executeGetObjectLinkedToAttribute(
                 body.substring(0, match.index + 1)
@@ -247,19 +241,22 @@ export class MythicNode {
             if (!object) {
                 continue;
             }
-            const objectMatch = MythicNodeHandler.registry[type].referenceMap.get(
-                object.toLowerCase()
-            );
-            if (!objectMatch) {
-                continue;
+            for (const type of registryKey) {
+                const objectMatch = MythicNodeHandler.registry[type].referenceMap.get(
+                    object.toLowerCase()
+                );
+                if (objectMatch && objectMatch.has(match.groups!.attribute.toLowerCase())) {
+                    attributes.push({
+                        registry: type,
+                        entry: match.groups!.value,
+                    });
+                    break;
+                }
             }
-            if (!objectMatch.has(match.groups!.attribute.toLowerCase())) {
-                continue;
-            }
-            attributes.push(match.groups!.value);
         }
         return attributes;
     }
+
     private matchSkillShortcut(body: string): string[] {
         const skillShortcutRegex = /-\sskill:([\w\-_]+)/g;
         const matches = body.matchAll(skillShortcutRegex);
@@ -665,6 +662,20 @@ export class MythicNodeRegistry {
     }
 }
 
+let attributeRegex: RegExp;
+function updateAttributeRegex() {
+    const attributes = new Set<string>();
+    for (const type of registryKey) {
+        for (const attribute of MythicNodeHandler.registry[type].referenceAttributes) {
+            attributes.add(attribute);
+        }
+    }
+    attributeRegex = new RegExp(
+        `(?<=[{;}])\\s*(?<attribute>${Array.from(attributes).join('|')})\\s*=\\s*(?<value>[\\w\\-_]+)\\s*(?=[;}])`,
+        'gi'
+    );
+}
+
 export namespace MythicNodeHandler {
     export const registry: Record<registryKey, MythicNodeRegistry> = {
         metaskill: new MythicNodeRegistry('metaskill', MetaskillMythicNode),
@@ -706,6 +717,7 @@ export namespace MythicNodeHandler {
 
     export async function scanAllDocuments(): Promise<void> {
         clearNodes();
+        updateAttributeRegex();
 
         const time = timeCounter();
         Log.debug('Scanning all documents');

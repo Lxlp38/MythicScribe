@@ -2,7 +2,7 @@ import * as vscode from 'vscode';
 import Log from '@common/utils/logger';
 
 import { MockMythicNode, MythicNode, MythicNodeHandler } from './MythicNode';
-import { registryKey } from '../objectInfos';
+import { extendedRegistryKey, registryKey } from '../objectInfos';
 import { ctx } from '../../MythicScribe';
 
 let openWebView: vscode.WebviewPanel | undefined = undefined;
@@ -39,8 +39,6 @@ const Shape = [
 type Shape = (typeof Shape)[number];
 
 type EdgeType = 'inheritance' | 'association';
-
-type extendedRegistryKey = registryKey | 'furniture' | 'block' | 'spell';
 
 interface NodeCompulsoryData {
     color: string;
@@ -333,12 +331,10 @@ function buildCytoscapeElements(
 }
 
 export async function showNodeGraph(): Promise<void> {
-    const cancellationToken = new vscode.CancellationTokenSource();
     const selectedElements = await vscode.window
         .showQuickPick(
             GraphOptions.selectedElements.options.map((option) => option.label),
-            { title: GraphOptions.selectedElements.query },
-            cancellationToken.token
+            { title: GraphOptions.selectedElements.query }
         )
         .then((selected) => {
             if (!selected) {
@@ -352,33 +348,30 @@ export async function showNodeGraph(): Promise<void> {
             }
             return selectedOption.value;
         });
-    if (cancellationToken.token.isCancellationRequested) {
-        return;
-    }
     const selectedFilters = await vscode.window
         .showQuickPick(
             GraphOptions.filters.options.map((option) => option.label),
-            { title: GraphOptions.filters.query, canPickMany: true },
-            cancellationToken.token
+            { title: GraphOptions.filters.query, canPickMany: true }
         )
         .then((selected) => {
             if (!selected) {
                 return;
             }
-            return selected.map((selected) => {
-                const selectedOption = GraphOptions.filters.options.find(
-                    (option) => option.label === selected
-                );
-                return selectedOption!.value;
-            });
+            return selected
+                .map((selected) => {
+                    const selectedOption = GraphOptions.filters.options.find(
+                        (option) => option.label === selected
+                    );
+                    if (!selectedOption) {
+                        return undefined;
+                    }
+                    return selectedOption.value;
+                })
+                .filter((value) => value !== undefined);
         });
-    if (cancellationToken.token.isCancellationRequested) {
-        return;
-    }
 
     if (openWebView) {
         openWebView.dispose();
-        openWebView = undefined;
     }
 
     openWebView = vscode.window.createWebviewPanel(
@@ -486,26 +479,13 @@ function getWebviewContent(): string {
     );
     const scriptUri = openWebView.webview.asWebviewUri(scriptPathOnDisk);
 
-    const imageUriMap: Record<extendedRegistryKey, vscode.Uri> = {
-        mob: processWebViewImageUri(openWebView, 'mob.svg'),
-        metaskill: processWebViewImageUri(openWebView, 'metaskill.svg'),
-        item: processWebViewImageUri(openWebView, 'item.svg'),
-        droptable: processWebViewImageUri(openWebView, 'droptable.svg'),
-        placeholder: processWebViewImageUri(openWebView, 'placeholder.svg'),
-        randomspawn: processWebViewImageUri(openWebView, 'randomspawn.svg'),
-        stat: processWebViewImageUri(openWebView, 'stat.svg'),
-        pin: processWebViewImageUri(openWebView, 'pin.svg'),
-        archetype: processWebViewImageUri(openWebView, 'archetype.svg'),
-        reagent: processWebViewImageUri(openWebView, 'reagent.svg'),
-        menu: processWebViewImageUri(openWebView, 'menu.svg'),
-        achievement: processWebViewImageUri(openWebView, 'achievement.svg'),
-
-        furniture: processWebViewImageUri(openWebView, 'furniture.svg'),
-        block: processWebViewImageUri(openWebView, 'block.svg'),
-        spell: processWebViewImageUri(openWebView, 'spell.svg'),
-    };
-
-    // Note: Added dagre and cytoscape-dagre script tags
+    const imageUriMap: Record<extendedRegistryKey, vscode.Uri> = extendedRegistryKey.reduce(
+        (acc, key) => {
+            acc[key] = processWebViewImageUri(openWebView!, `${key}.svg`);
+            return acc;
+        },
+        {} as Record<extendedRegistryKey, vscode.Uri>
+    );
     return /*html*/ `
 <!DOCTYPE html>
 <html lang="en">
@@ -624,22 +604,12 @@ function getWebviewContent(): string {
     </div>
     <div id="cy"></div>
     
-    <input type="hidden" id="mobSvgUri" value="${imageUriMap.mob}">
-    <input type="hidden" id="metaskillSvgUri" value="${imageUriMap.metaskill}">
-    <input type="hidden" id="itemSvgUri" value="${imageUriMap.item}">
-    <input type="hidden" id="droptableSvgUri" value="${imageUriMap.droptable}">
-    <input type="hidden" id="placeholderSvgUri" value="${imageUriMap.placeholder}">
-    <input type="hidden" id="randomspawnSvgUri" value="${imageUriMap.randomspawn}">
-    <input type="hidden" id="statSvgUri" value="${imageUriMap.stat}">
-    <input type="hidden" id="pinSvgUri" value="${imageUriMap.pin}">
-    <input type="hidden" id="archetypeSvgUri" value="${imageUriMap.archetype}">
-    <input type="hidden" id="reagentSvgUri" value="${imageUriMap.reagent}">
-    <input type="hidden" id="menuSvgUri" value="${imageUriMap.menu}">
-    <input type="hidden" id="achievementSvgUri" value="${imageUriMap.achievement}">
-
-    <input type="hidden" id="furnitureSvgUri" value="${imageUriMap.furniture}">
-    <input type="hidden" id="blockSvgUri" value="${imageUriMap.block}">
-    <input type="hidden" id="spellSvgUri" value="${imageUriMap.spell}">
+    ${extendedRegistryKey
+        .map(
+            (key) => `
+        <input type="hidden" id="${key}SvgUri" value="${imageUriMap[key]}">`
+        )
+        .join('\n')}
 
     <script src="${scriptUri}"></script>
 </body>

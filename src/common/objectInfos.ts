@@ -102,6 +102,9 @@ export const registryKey = [
 ] as const;
 export type registryKey = (typeof registryKey)[number];
 
+export const extendedRegistryKey = [...registryKey, 'furniture', 'block', 'spell'] as const;
+export type extendedRegistryKey = (typeof extendedRegistryKey)[number];
+
 export function isBoolean(value: string): boolean {
     return value === 'Boolean' || value === 'PlaceholderBoolean';
 }

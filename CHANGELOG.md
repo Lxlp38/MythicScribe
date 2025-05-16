@@ -18,6 +18,7 @@
 - Mob Options, DropOptions and DisplayOptions Completions
 - Furniture and Custom Block Completions and Hovers
 - Background Images for Nodes in the Mythic Node Graph for easier discernment of node types
+- New MythicScribe context menu on right click on a MythicScript file
 
 #### Commands
 - `MythicScribe.putSelectionInsideInlineMetaskill` command and context menu item to put the selected text inside of an inline metaskill
@@ -38,7 +39,11 @@
 - Formatter not working when comments had specific indents in specific instances
 - `MythicScribe.emptybracketautomaticremoval` config not being fetched correctly
 - Issue with the Node handler that prevented some nodes whose value was used in some mechanic from being linked correctly
+- Revamped Node Attribute Handling: it is now (slightly) faster and correctly registers some outgoing edges that, under some circumstances, were previously ignored
+  - For instance: the mechanic `projectile{onStart=SkillB;onHit=SkillB;onEnd=SkillC}` used to not register `SkillB` as an outgoing edge
 
+### Removed
+- `MythicScribe.disableAcceptSuggestionOnEnter` configuration: It was only used to send a reminder if the option was found to be enabled, but since then I have discovered how to disable it for MythicScript files by default, so if someone has it enabled, they must have manually set it as such. Under these circumstances, this configuration has become redundant
 
 ## [1.6.0]
 

@@ -50,17 +50,60 @@
     "menus": {
       "editor/context": [
         {
-          "command": "MythicScribe.showNodeGraph",
-          "when": "editorLangId == mythicscript",
-          "group": "mythicscribe"
-        },
-        {
-          "command": "MythicScribe.putSelectionInsideInlineMetaskill",
+          "submenu": "mythicscribe",
           "when": "editorLangId == mythicscript",
           "group": "mythicscribe"
         }
+      ],
+      "mythicscribe": [
+        {
+          "command": "MythicScribe.showNodeGraph",
+          "group": "mythicscribe.nodegraph"
+        },
+        {
+          "submenu": "mythicscribe.dataset",
+          "group": "mythicscribe.other"
+        },
+        {
+          "command": "MythicScribe.putSelectionInsideInlineMetaskill",
+          "group": "mythicscribe.other.action",
+          "when": "editorHasSelection && editorLangId == mythicscript"
+        },
+        {
+          "command": "MythicScribe.openLogs",
+          "group": "mythicscribe.other"
+        }
+      ],
+      "mythicscribe.dataset": [
+        {
+          "command": "MythicScribe.addCustomDataset",
+          "group": "mythicscribe.customdataset"
+        },
+        {
+          "command": "MythicScribe.removeCustomDataset",
+          "group": "mythicscribe.customdataset"
+        },
+        {
+          "command": "MythicScribe.createBundleDataset",
+          "group": "mythicscribe.customdataset"
+        },
+        {
+          "command": "MythicScribe.loadDatasets",
+          "group": "mythicscribe.dataset"
+        }
       ]
     },
+    "submenus": [
+      {
+        "id": "mythicscribe",
+        "label": "MythicScribe",
+        "icon": "/assets/icon128x128.png"
+      },
+      {
+        "id": "mythicscribe.dataset",
+        "label": "Datasets"
+      }
+    ],
     "commands": [
       {
         "command": "MythicScribe.addCustomDataset",
@@ -84,7 +127,7 @@
       },
       {
         "command": "MythicScribe.loadDatasets",
-        "title": "Load Datasets",
+        "title": "Reload Datasets",
         "category": "MythicScribe"
       },
       {
@@ -226,12 +269,6 @@
           "type": "boolean",
           "default": true,
           "description": "Whether file specific suggestions (metaskill files, mob files) should be shown."
-        },
-        "MythicScribe.disableAcceptSuggestionOnEnter": {
-          "title": "Reminder to Remove Accept Suggestion on Enter",
-          "type": "boolean",
-          "default": true,
-          "description": "Enable the reminder to disable the editor.acceptSuggestionOnEnter config."
         },
         "MythicScribe.attributeAliasUsedInCompletions": {
           "title": "Attribute Alias Used in Completions",

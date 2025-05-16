@@ -90,7 +90,6 @@ It provides hover text with information about the pointed object and offers auto
 * `MythicScribe.enableShortcuts`: Whether the Shortcuts feature should be active
 * `MythicScribe.enableEmptyBracketsAutomaticRemoval`: Enable the removal of empty curly brackets `{}` by moving the cursor past them
 * `MythicScribe.enableFileSpecificSuggestions`: Whether file specific suggestions (metaskill files, mob files) should be shown
-* `MythicScribe.disableAcceptSuggestionOnEnter`: Whether the reminder to disable `editor.acceptSuggestionOnEnter` should be shown
 * `MythicScribe.attributeAliasUsedInCompletions`: Which attribute alias to use for completions. Defaults to `main`
 * `MythicScribe.customDatasets`: Which Custom Dataset to load and from where
 * `MythicScribe.enabledPlugins`: Enable / Disable specific plugins' datasets. Plugin names are added automatically
@@ -101,7 +100,10 @@ It provides hover text with information about the pointed object and offers auto
   * `parseOnModification`
   * `parsingGlobPattern`
   * `excludeGlobPattern`
-
+* `MythicScribe.colorProviderOptions`: Set some options to customize the color provider's behavior
+  * `alwaysEnabled`
+  * `backgroundColor`
+  * `charColor`
 # Extension Commands
 
 * `MythicScribe.addCustomDataset`: Adds a Custom Dataset from either a local path or a link
