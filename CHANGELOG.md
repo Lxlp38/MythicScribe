@@ -20,9 +20,12 @@
 - Background Images for Nodes in the Mythic Node Graph for easier discernment of node types
 - New MythicScribe context menu on right click on a MythicScript file
 
-#### Commands
+#### Commands & Configs
 - `MythicScribe.putSelectionInsideInlineMetaskill` command and context menu item to put the selected text inside of an inline metaskill
 - `MythicScribe.colorProviderOptions` config to customize the behavior of the color provider
+
+#### Test Features
+- Diagnostics. You can enable them by using the `MythicScribe.diagnosticsPolicy.enabled` config
 
 ### Changed
 - Displayed information regarding Formatter errors should now be more concise and meaningful

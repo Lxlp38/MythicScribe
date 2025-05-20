@@ -1,7 +1,7 @@
 import * as vscode from 'vscode';
 
 import { MythicMechanic, MythicAttribute } from '../datasets/ScribeMechanic';
-import { Schema, keyAliases, registryKey } from '../objectInfos';
+import { Schema, keyAliases, registryKey, specialAttributeEnumToRegistryKey } from '../objectInfos';
 import { getCursorSkills, getCursorObject } from '../utils/cursorutils';
 import * as yamlutils from '../utils/yamlutils';
 import { MythicNode, MythicNodeHandler } from '../mythicnodes/MythicNode';
@@ -166,13 +166,6 @@ function handleTemplates<T>(
     }
     return undefined;
 }
-
-const specialAttributeEnumToRegistryKey: Record<string, registryKey> = {
-    spell: 'metaskill',
-    block: 'item',
-    customblock: 'item',
-    furniture: 'item',
-};
 
 function handleLinkedAttribute<T>(
     document: vscode.TextDocument,

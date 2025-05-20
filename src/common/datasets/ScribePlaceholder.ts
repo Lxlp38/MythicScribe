@@ -219,15 +219,15 @@ export function fromPlaceholderNodeIdentifierToRegistryKey(
     let maybeRegistryKey = '';
     switch (identifier) {
         case '{mythicitem}':
-            maybeRegistryKey = 'item';
-            break;
+            return 'item';
         case '{customplaceholder}':
-            maybeRegistryKey = 'placeholder';
-            break;
+            return 'placeholder';
     }
-    maybeRegistryKey = identifier.replace('{', '').replace('}', '');
-    if (registryKey.includes(maybeRegistryKey as registryKey)) {
-        return maybeRegistryKey as registryKey;
+    if (identifier.startsWith('{') && identifier.endsWith('}')) {
+        maybeRegistryKey = identifier.slice(1, -1).toLowerCase();
+        if (registryKey.includes(maybeRegistryKey as registryKey)) {
+            return maybeRegistryKey as registryKey;
+        }
     }
     return undefined;
 }

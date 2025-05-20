@@ -41,6 +41,10 @@ const colorProviderOptionsConfigCache = {
     charColor: undefined as string | undefined,
 };
 
+const diagnosticsPolicyConfigCache = {
+    enabled: undefined as boolean | undefined,
+};
+
 let configChangeFunctionCallbacks: (() => void)[] | undefined;
 function getConfigChangeFunctionCallbacks() {
     if (configChangeFunctionCallbacks === undefined) {
@@ -65,6 +69,7 @@ function resetConfigCache() {
     resetSpecificConfig(fileRegexConfigCache);
     resetSpecificConfig(fileParsingPolicyConfigCache);
     resetSpecificConfig(colorProviderOptionsConfigCache);
+    resetSpecificConfig(diagnosticsPolicyConfigCache);
     for (const callback of getConfigChangeFunctionCallbacks()) {
         callback();
     }
@@ -126,6 +131,15 @@ export function getColorProviderOptionsConfig(key: keyof typeof colorProviderOpt
             .get('colorProviderOptions.' + key);
     }
     return colorProviderOptionsConfigCache[key];
+}
+
+export function getDiagnosticsPolicyConfig(key: keyof typeof diagnosticsPolicyConfigCache) {
+    if (diagnosticsPolicyConfigCache[key] === undefined) {
+        diagnosticsPolicyConfigCache[key] = vscode.workspace
+            .getConfiguration('MythicScribe')
+            .get('diagnosticsPolicy.' + key);
+    }
+    return diagnosticsPolicyConfigCache[key];
 }
 
 export function enableEmptyBracketsAutomaticRemoval(): boolean {

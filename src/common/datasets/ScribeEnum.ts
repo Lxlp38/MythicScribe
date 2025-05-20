@@ -57,6 +57,13 @@ export abstract class AbstractScribeEnum {
     getDataset(): Map<string, EnumDatasetValue> {
         return this.dataset;
     }
+    has(key: string, caseInsensitive = false): boolean {
+        return (
+            this.dataset.has(key) ||
+            (caseInsensitive &&
+                Array.from(this.dataset.keys()).some((k) => k.toLowerCase() === key.toLowerCase()))
+        );
+    }
     async waitForDataset(): Promise<Map<string, EnumDatasetValue>> {
         if (this.loaded) {
             return this.dataset;

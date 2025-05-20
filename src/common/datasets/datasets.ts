@@ -24,7 +24,7 @@ const GITHUB_API_COMMITS_BASE_URL =
     'https://api.github.com/repos/Lxlp38/MythicScribe/commits?path=';
 const GITHUB_API_COMMITS_URL = 'https://api.github.com/repos/Lxlp38/MythicScribe/commits?path=data';
 
-let shouldUpdateGithubDatasets = true;
+let shouldUpdateGithubDatasets = false;
 
 let edcsUri: vscode.Uri;
 export function setEdcsUri() {

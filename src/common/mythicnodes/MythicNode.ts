@@ -5,10 +5,17 @@ import {
     parseWrittenPlaceholder,
 } from '@common/datasets/ScribePlaceholder';
 import { ConditionActions } from '@common/schemas/conditionActions';
+import {
+    createDiagnostic,
+    NodeDiagnostic,
+    NodeRawDiagnostic,
+    ScribeDiagnostics,
+} from '@common/diagnostics/ScribeDiagnostics';
+import { ScribeEnumHandler } from '@common/datasets/ScribeEnum';
 
 import { checkFileType } from '../subscriptions/SubscriptionHelper';
 import Log from '../utils/logger';
-import { getFileParserPolicyConfig } from '../utils/configutils';
+import { getDiagnosticsPolicyConfig, getFileParserPolicyConfig } from '../utils/configutils';
 import { timeCounter } from '../utils/timeUtils';
 import { openDocumentTactfully } from '../utils/uriutils';
 import { executeGetObjectLinkedToAttribute } from '../utils/cursorutils';
@@ -36,7 +43,7 @@ vscode.workspace.onDidSaveTextDocument((document) => {
     }
     const type = checkFileType(document.uri)?.key;
     if (type) {
-        MythicNodeHandler.registry[type].resetDocument(document);
+        MythicNodeHandler.registry[type].updateDocument(document);
     }
 });
 
@@ -46,7 +53,7 @@ vscode.workspace.onDidChangeTextDocument((event) => {
     }
     const type = checkFileType(event.document.uri)?.key;
     if (type) {
-        MythicNodeHandler.registry[type].resetDocument(event.document);
+        MythicNodeHandler.registry[type].updateDocument(event.document);
     }
 });
 
@@ -56,7 +63,7 @@ vscode.workspace.onDidRenameFiles(async (event) => {
         const newType = checkFileType(newUri)?.key;
 
         if (oldType) {
-            MythicNodeHandler.registry[oldType].clearNodesByDocument(oldUri);
+            MythicNodeHandler.registry[oldType].clearDocument(oldUri);
         }
 
         if (newType) {
@@ -64,7 +71,7 @@ vscode.workspace.onDidRenameFiles(async (event) => {
             if (!newDocument) {
                 continue;
             }
-            MythicNodeHandler.registry[newType].scanDocument(newDocument);
+            MythicNodeHandler.registry[newType].updateDocument(newDocument);
         }
     }
 });
@@ -77,7 +84,7 @@ vscode.workspace.onDidCreateFiles(async (event) => {
         }
         const type = checkFileType(document.uri)?.key;
         if (type) {
-            MythicNodeHandler.registry[type].scanDocument(document);
+            MythicNodeHandler.registry[type].updateDocument(document);
         }
     }
 });
@@ -86,7 +93,7 @@ vscode.workspace.onDidDeleteFiles(async (event) => {
     for (const file of event.files) {
         const type = checkFileType(file)?.key;
         if (type) {
-            MythicNodeHandler.registry[type].clearNodesByDocument(file);
+            MythicNodeHandler.registry[type].clearDocument(file);
         }
     }
 });
@@ -106,7 +113,7 @@ type NodeReference = Partial<Record<registryKey, NodeReferenceValue>>;
 type CompactNodeReference = { name: string; range: vscode.Range };
 
 export class MythicNode {
-    templates: NodeReferenceValue = new Map();
+    templates: NodeReferenceValue = new Map<string, vscode.Range[]>();
     outEdge: NodeReference = {};
     metadata = new Map<string, unknown>();
 
@@ -152,7 +159,7 @@ export class MythicNode {
         return `${this.document.uri.toString()}#${this.range.start.line}`;
     }
 
-    protected normalizeRelativeRange(range: vscode.Range): vscode.Range {
+    public normalizeRelativeRange(range: vscode.Range): vscode.Range {
         const newStart = this.body.range.start.line + range.start.line;
         const newEnd = this.body.range.start.line + range.end.line;
         const newRange = new vscode.Range(
@@ -245,7 +252,10 @@ export class MythicNode {
         this.matchPlaceholder(body);
     }
 
-    protected matchTemplate(body: string, regex = /^\s*Template(s)?:.*/gm): CompactNodeReference[] {
+    protected matchTemplate(
+        body: string,
+        regex = /(?<=^\s*)Template(s)?:.*/gm
+    ): CompactNodeReference[] {
         const matches = body.matchAll(regex);
         const templateList: ReturnType<typeof this.matchTemplate> = [];
         for (const match of matches) {
@@ -466,8 +476,11 @@ export class TemplatableMythicNode extends MythicNode {
         super.findNodeEdges(body);
         this.matchTemplate(body).forEach((template) => {
             if (this.templates.has(template.name)) {
-                Log.warn(
-                    `Duplicate template ${template} found in ${this.registry.type} ${this.name.text}`
+                createDiagnostic(NodeRawDiagnostic)(
+                    this,
+                    template.range,
+                    `Duplicate template ${template.name} found in ${this.registry.type} ${this.name.text}`,
+                    vscode.DiagnosticSeverity.Warning
                 );
             }
             this.templates.set(template.name, [template.range]);
@@ -569,8 +582,11 @@ export class StatMythicNode extends MythicNode {
         this.matchList(body, /(?<=ParentStats:)(\s*- [\w_\-]+\s.*(?:\n|$))*/gm).forEach(
             (template) => {
                 if (this.templates.has(template.name)) {
-                    Log.warn(
-                        `Duplicate template ${template} found in ${this.registry.type} ${this.name.text}`
+                    createDiagnostic(NodeRawDiagnostic)(
+                        this,
+                        template.range,
+                        `Duplicate template ${template.name} found in ${this.registry.type} ${this.name.text}`,
+                        vscode.DiagnosticSeverity.Warning
                     );
                 }
                 this.templates.set(template.name, [template.range]);
@@ -581,8 +597,11 @@ export class StatMythicNode extends MythicNode {
             (outStat) => {
                 const outStatName = outStat.name.split(' ')[0];
                 if (this.hasEdge('stat', outStatName)) {
-                    Log.warn(
-                        `Duplicate TriggerStat ${outStatName} found in ${this.registry.type} ${this.name.text}`
+                    createDiagnostic(NodeRawDiagnostic)(
+                        this,
+                        outStat.range,
+                        `Duplicate TriggerStat ${outStatName} found in ${this.registry.type} ${this.name.text}`,
+                        vscode.DiagnosticSeverity.Warning
                     );
                 }
                 this.addEdge('stat', outStatName, outStat.range);
@@ -608,8 +627,11 @@ export class RandomSpawnMythicNode extends MythicNode {
         (typelist.length > 0 ? typelist : this.matchTemplate(body, /^\s*Type(s)?:.*/gm)).forEach(
             (mob) => {
                 if (this.hasEdge('mob', mob.name)) {
-                    Log.warn(
-                        `Duplicate mob ${mob} found in ${this.registry.type} ${this.name.text}`
+                    createDiagnostic(NodeRawDiagnostic)(
+                        this,
+                        mob.range,
+                        `Duplicate mob ${mob.name} found in ${this.registry.type} ${this.name.text}`,
+                        vscode.DiagnosticSeverity.Warning
                     );
                 }
                 this.addEdge('mob', mob.name, mob.range);
@@ -665,7 +687,12 @@ class AchievementMythicNode extends MythicNode {
 
         this.matchMultipleEntries(body, /^\s*MobType:\s*(?<entry>.*)/gm).forEach((mob) => {
             if (this.hasEdge('mob', mob.name)) {
-                Log.warn(`Duplicate Mob ${mob} found in ${this.registry.type} ${this.name.text}`);
+                createDiagnostic(NodeRawDiagnostic)(
+                    this,
+                    mob.range,
+                    `Duplicate Mob ${mob.name} found in ${this.registry.type} ${this.name.text}`,
+                    vscode.DiagnosticSeverity.Warning
+                );
             }
             this.addEdge('mob', mob.name, mob.range);
         });
@@ -702,14 +729,18 @@ export class MythicNodeRegistry {
     referenceMap: Map<string, Set<string>> = new Map();
     nodes: NodeEntry = new Map();
     nodesByDocument: Map<string, MythicNode[]> = new Map();
+    diagnosticsByDocument: Map<string, vscode.Diagnostic[]> = new Map();
     decoratorRegex: RegExp;
+    backingDataset: string | undefined;
 
     constructor(
         registry: keyof typeof MythicNodeHandler.registry,
-        private clazz: typeof MythicNode = MythicNode
+        private clazz: typeof MythicNode = MythicNode,
+        backingDataset?: string
     ) {
         this.type = registry;
         this.decoratorRegex = new RegExp(`^\\s*#\\s?@${registry}?\\s*[\\w\\-_]*\\s*:.+`, 'gm');
+        this.backingDataset = backingDataset;
     }
 
     registerNode(node: MythicNode): void {
@@ -724,6 +755,15 @@ export class MythicNodeRegistry {
 
     getNode(name: string): MythicNode | undefined {
         return this.nodes.get(name);
+    }
+
+    hasNode(name: string): boolean {
+        return (
+            this.nodes.has(name) ||
+            (this.backingDataset === undefined
+                ? false
+                : !!ScribeEnumHandler.getEnum(this.backingDataset)?.has(name, true))
+        );
     }
 
     getNodes(): NodeEntry {
@@ -748,6 +788,17 @@ export class MythicNodeRegistry {
             });
         }
         this.nodesByDocument.delete(uri.toString());
+    }
+
+    clearDiagnosticsByDocument(uri: vscode.Uri): void {
+        ScribeDiagnostics.delete(uri);
+        const diagnostics = this.diagnosticsByDocument.get(uri.toString());
+        if (diagnostics && diagnostics.length > 0) {
+            diagnostics.forEach((diagnostic) => {
+                Log.trace(`Unregistered ${this.type} ${diagnostic.message} in ${uri.toString()}`);
+            });
+        }
+        this.diagnosticsByDocument.delete(uri.toString());
     }
 
     scanDocument(document: vscode.TextDocument): void {
@@ -788,10 +839,49 @@ export class MythicNodeRegistry {
             this.registerNode(node);
         }
     }
-
-    resetDocument(document: vscode.TextDocument): void {
-        this.clearNodesByDocument(document.uri);
+    updateDocument(document: vscode.TextDocument): void {
+        this.clearDocument(document.uri);
         this.scanDocument(document);
+        if (!getDiagnosticsPolicyConfig('enabled')) {
+            return;
+        }
+        this.checkForBrokenEdges(document.uri);
+        this.updateDiagnostics(document.uri);
+    }
+
+    updateDiagnostics(uri: vscode.Uri) {
+        ScribeDiagnostics.set(uri, this.diagnosticsByDocument.get(uri.toString()));
+    }
+
+    clearDocument(uri: vscode.Uri): void {
+        this.clearNodesByDocument(uri);
+        this.clearDiagnosticsByDocument(uri);
+    }
+
+    checkForBrokenEdges(uri: vscode.Uri): void {
+        const nodes = this.nodesByDocument.get(uri.toString());
+        if (!nodes) {
+            return;
+        }
+        for (const node of nodes.values()) {
+            for (const [registry, entries] of Object.entries(node.outEdge)) {
+                for (const [entry, ranges] of entries) {
+                    const edgeNode =
+                        MythicNodeHandler.registry[registry as registryKey].hasNode(entry);
+                    if (edgeNode) {
+                        continue;
+                    }
+                    for (const range of ranges) {
+                        createDiagnostic(NodeDiagnostic)(
+                            node,
+                            range,
+                            `Unresolved ${registry} at ${node.name.text} -> ${entry}`,
+                            vscode.DiagnosticSeverity.Warning
+                        );
+                    }
+                }
+            }
+        }
     }
 }
 
@@ -813,7 +903,7 @@ export namespace MythicNodeHandler {
     export const registry: Record<registryKey, MythicNodeRegistry> = {
         metaskill: new MythicNodeRegistry('metaskill', MetaskillMythicNode),
         mob: new MythicNodeRegistry('mob', MobMythicNode),
-        item: new MythicNodeRegistry('item', ItemMythicNode),
+        item: new MythicNodeRegistry('item', ItemMythicNode, 'material'),
         droptable: new MythicNodeRegistry('droptable'),
         stat: new MythicNodeRegistry('stat', StatMythicNode),
         pin: new MythicNodeRegistry('pin'),
@@ -898,6 +988,18 @@ export namespace MythicNodeHandler {
             registry[type].scanDocument(file);
         }
         Log.custom(vscode.LogLevel.Trace, 'Time Report', `Document Scan Time: ${time.step()} ms`);
+
+        if (getDiagnosticsPolicyConfig('enabled')) {
+            for (const [type, file] of openedFiles) {
+                registry[type].checkForBrokenEdges(file.uri);
+                registry[type].updateDiagnostics(file.uri);
+            }
+        }
+        Log.custom(
+            vscode.LogLevel.Trace,
+            'Time Report',
+            `Document Node Check Time: ${time.step()} ms`
+        );
 
         //Log.custom(vscode.LogLevel.Trace, 'Time Report', `Node Match Time: ${NodeMatchTime} ms`);
 

@@ -105,6 +105,13 @@ export type registryKey = (typeof registryKey)[number];
 export const extendedRegistryKey = [...registryKey, 'furniture', 'block', 'spell'] as const;
 export type extendedRegistryKey = (typeof extendedRegistryKey)[number];
 
+export const specialAttributeEnumToRegistryKey: Record<string, registryKey> = {
+    spell: 'metaskill',
+    block: 'item',
+    customblock: 'item',
+    furniture: 'item',
+};
+
 export function isBoolean(value: string): boolean {
     return value === 'Boolean' || value === 'PlaceholderBoolean';
 }

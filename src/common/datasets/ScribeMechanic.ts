@@ -8,7 +8,7 @@ import { ScribeCloneableFile } from './datasets';
 import { addMechanicCompletions } from '../utils/completionhelper';
 import { attributeSpecialValues, scriptedEnums } from './enumSources';
 import { MythicNodeHandler } from '../mythicnodes/MythicNode';
-import { isBoolean, registryKey } from '../objectInfos';
+import { isBoolean, registryKey, specialAttributeEnumToRegistryKey } from '../objectInfos';
 import { timeCounter } from '../utils/timeUtils';
 import Log from '../utils/logger';
 
@@ -412,11 +412,18 @@ export const ScribeMechanicHandler = {
 };
 
 function updateNodeRegistryAttribute(attr: MythicAttribute, mechanic = attr.mechanic) {
-    if (!attr.enum || !registryKey.includes(attr.enum.identifier as registryKey)) {
+    let enumIdentifier = attr.enum?.identifier;
+    if (!enumIdentifier) {
+        return;
+    }
+    if (enumIdentifier in specialAttributeEnumToRegistryKey) {
+        enumIdentifier = specialAttributeEnumToRegistryKey[enumIdentifier] as registryKey;
+    }
+    if (!registryKey.includes(enumIdentifier as registryKey)) {
         return;
     }
 
-    const key = attr.enum.identifier as registryKey;
+    const key = enumIdentifier as registryKey;
 
     for (const n of mechanic.name) {
         const entry = n.toLowerCase();

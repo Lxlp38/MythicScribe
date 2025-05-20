@@ -471,6 +471,22 @@
             "parallelParsingLimit": 10
           }
         },
+        "MythicScribe.diagnosticsPolicy": {
+          "title": "Diagnostics Policy",
+          "description": "The policies to use when showing diagnostics.",
+          "type": "object",
+          "additionalProperties": false,
+          "properties": {
+            "enabled": {
+              "title": "Show Diagnostics",
+              "type": "boolean",
+              "description": "Whether to show diagnostics."
+            }
+          },
+          "default": {
+            "enabled": false
+          }
+        },
         "MythicScribe.colorProviderOptions": {
           "title": "Color Provider Options",
           "description": "The options to use for the color provider.",
