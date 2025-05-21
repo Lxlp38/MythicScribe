@@ -6,6 +6,38 @@ import { extendedRegistryKey, registryKey } from '../objectInfos';
 import { ctx } from '../../MythicScribe';
 
 let openWebView: vscode.WebviewPanel | undefined = undefined;
+const webViewDisposables: vscode.Disposable[] = [];
+
+function disposeWebView() {
+    if (openWebView) {
+        openWebView.dispose();
+        openWebView = undefined;
+        webViewDisposables.forEach((disposable) => {
+            disposable.dispose();
+        });
+        webViewDisposables.length = 0;
+    }
+}
+function createWebView() {
+    disposeWebView();
+    openWebView = vscode.window.createWebviewPanel(
+        'mythicNodeGraph', // Identifies the type of the webview. Used internally
+        'Mythic Node Graph', // Title of the panel displayed to the user
+        vscode.ViewColumn.One, // Editor column to show the new webview panel in
+        {
+            enableScripts: true,
+            retainContextWhenHidden: true,
+            enableFindWidget: true,
+        }
+    );
+    openWebView.onDidDispose(
+        () => {
+            disposeWebView();
+        },
+        null,
+        webViewDisposables
+    );
+}
 
 const Shape = [
     'ellipse',
@@ -133,18 +165,19 @@ const EdgeTypeToAdditionalData: Record<EdgeType, EdgeAdditionalData> = {
 };
 
 interface CytoscapeNode {
-    data: {
+    data: NodeData & {
         id: string;
-        label?: string;
-        shape?: Shape;
+        label: string;
         registry: registryKey;
-        nodeName: string;
-        unknown?: boolean;
     };
 }
 
 interface CytoscapeEdge {
-    data: { id: string; source: string; target: string };
+    data: Partial<EdgeAdditionalData> & {
+        id: string;
+        source: string;
+        target: string;
+    };
 }
 
 enum selectedElementsType {
@@ -210,7 +243,8 @@ function fetchSelectedElements(selectedElements: selectedElementsType) {
     return openUris;
 }
 
-const PastFilters: registryKey[] = [];
+type CyNodesMap = Record<'found' | 'unknown' | 'outOfScope', Map<string, MythicNode>>;
+
 function buildCytoscapeElements(
     selectedElements: selectedElementsType = selectedElementsType.all,
     selectedFilters: registryKey[] = [],
@@ -219,16 +253,23 @@ function buildCytoscapeElements(
     nodes: CytoscapeNode[];
     edges: CytoscapeEdge[];
 } {
+    if (selectedElements === selectedElementsType.blank) {
+        return {
+            nodes: [],
+            edges: [],
+        };
+    }
+
     const openUris: string[] = [];
     let iterableKeys = Array.from(registryKey);
-    const cyNodesFoundNodes: Map<string, MythicNode> = new Map();
-    const cyNodesUnknownNodes: Map<string, MythicNode> = new Map();
-    const cyNodesOutOfScopeNodes: Map<string, MythicNode> = new Map();
+    const cyNodesMap: CyNodesMap = {
+        found: new Map<string, MythicNode>(),
+        unknown: new Map<string, MythicNode>(),
+        outOfScope: new Map<string, MythicNode>(),
+    };
     const cyNodes: CytoscapeNode[] = [];
     const cyEdges: CytoscapeEdge[] = [];
 
-    PastFilters.length = 0;
-    PastFilters.push(...selectedFilters);
     if (selectedFilters.length > 0) {
         iterableKeys = iterableKeys.filter((key) => !selectedFilters.includes(key));
     }
@@ -254,17 +295,44 @@ function buildCytoscapeElements(
         );
     }
 
+    buildCytoscapeElements_CollectElements(iterableKeys, iterableNodes, cyNodesMap, cyEdges);
+
+    cycleNodes(cyNodes, cyNodesMap.found, cyNodesMap.unknown, { unknown: false });
+    cycleNodes(cyNodes, cyNodesMap.unknown, cyNodesMap.outOfScope, UnknownNodeData);
+    cycleNodes(cyNodes, cyNodesMap.outOfScope, new Map(), outOfScopeNodeData);
+
+    return { nodes: cyNodes, edges: cyEdges };
+}
+
+/**
+ * Populates Cytoscape node and edge collections based on the provided MythicNode data.
+ *
+ * Iterates over the given nodes and their relationships, updating the `cyNodesMap` with found,
+ * unknown, and out-of-scope nodes, and appending corresponding edges to the `cyEdges` array.
+ * Handles both template inheritance and subtype associations for each node.
+ *
+ * @param iterableKeys - An array of registry keys representing possible subtypes for association edges.
+ * @param iterableNodes - An array of MythicNode instances to process and add to the Cytoscape graph.
+ * @param cyNodesMap - A map object categorizing nodes as found, unknown, or out-of-scope.
+ * @param cyEdges - An array to which new CytoscapeEdge objects will be appended, representing relationships.
+ */
+function buildCytoscapeElements_CollectElements(
+    iterableKeys: registryKey[],
+    iterableNodes: MythicNode[],
+    cyNodesMap: CyNodesMap,
+    cyEdges: CytoscapeEdge[]
+) {
     for (const node of iterableNodes) {
-        cyNodesFoundNodes.set(node.hash, node);
+        cyNodesMap.found.set(node.hash, node);
 
         const templateProvider = MythicNodeHandler.registry[node.registry.type];
         for (const [template] of node.templates) {
             let templateNode = templateProvider.getNode(template);
             if (templateNode) {
-                cyNodesUnknownNodes.set(templateNode.hash, templateNode);
+                cyNodesMap.unknown.set(templateNode.hash, templateNode);
             } else {
                 templateNode = new MockMythicNode(node.registry, template, node);
-                cyNodesOutOfScopeNodes.set(templateNode.hash, templateNode);
+                cyNodesMap.outOfScope.set(templateNode.hash, templateNode);
             }
             cyEdges.push({
                 data: {
@@ -285,7 +353,7 @@ function buildCytoscapeElements(
                 if (!edgeNode) {
                     continue;
                 }
-                cyNodesUnknownNodes.set(edgeNode.hash, edgeNode);
+                cyNodesMap.unknown.set(edgeNode.hash, edgeNode);
                 cyEdges.push({
                     data: {
                         id: `${getIdName(node)}_to_${getIdName(edgeNode)}`,
@@ -297,40 +365,44 @@ function buildCytoscapeElements(
             }
         }
     }
+}
 
-    /**
-     * Cycles through nodes in the source map, transferring their data to a target array
-     * while removing corresponding entries from the deprecation target map.
-     *
-     * @param source - A map containing MythicNode objects, keyed by their identifiers.
-     * @param deprecationTarget - A map from which nodes with matching identifiers will be removed.
-     * @param data - Additional data to be merged into each node's data during processing.
-     */
-    function cycleNodes(
-        source: Map<string, MythicNode>,
-        deprecationTarget: Map<string, MythicNode>,
-        data: NodeAdditionalData
-    ) {
-        source.forEach((node, identifier) => {
-            deprecationTarget.delete(identifier);
-            cyNodes.push({
-                data: {
-                    id: getIdName(node),
-                    label: node.name.text,
-                    registry: node.registry.type,
-                    nodeName: node.name.text,
-                    ...NodeTypeToAdditionalData[node.registry.type],
-                    ...NodeSpecialTypeToAdditionalData[node.registry.type]?.(node),
-                    ...data,
-                },
-            });
+/**
+ * Iterates over the nodes in the `source` map, removes each node from the `deprecationTarget` map,
+ * and adds a corresponding Cytoscape node object to the `cyNodes` array.
+ *
+ * Each Cytoscape node object is constructed with data properties including:
+ * - `id`: The unique identifier for the node, generated by `getIdName(node)`.
+ * - `label`: The display name of the node.
+ * - `registry`: The type of the node's registry.
+ * - Additional properties from `NodeTypeToAdditionalData` and, if available,
+ *   from `NodeSpecialTypeToAdditionalData` based on the node's registry type.
+ * - Any extra properties provided in the `data` parameter.
+ *
+ * @param cyNodes - The array to which new Cytoscape node objects will be pushed.
+ * @param source - A map of node identifiers to `MythicNode` objects to process.
+ * @param deprecationTarget - A map from which processed node identifiers will be removed.
+ * @param data - Additional data to merge into each Cytoscape node's data object.
+ */
+function cycleNodes(
+    cyNodes: CytoscapeNode[],
+    source: Map<string, MythicNode>,
+    deprecationTarget: Map<string, MythicNode>,
+    data: NodeAdditionalData
+) {
+    source.forEach((node, identifier) => {
+        deprecationTarget.delete(identifier);
+        cyNodes.push({
+            data: {
+                id: getIdName(node),
+                label: node.name.text,
+                registry: node.registry.type,
+                ...NodeTypeToAdditionalData[node.registry.type],
+                ...(NodeSpecialTypeToAdditionalData[node.registry.type]?.(node) ?? {}),
+                ...data,
+            },
         });
-    }
-    cycleNodes(cyNodesFoundNodes, cyNodesUnknownNodes, { unknown: false });
-    cycleNodes(cyNodesUnknownNodes, cyNodesOutOfScopeNodes, UnknownNodeData);
-    cycleNodes(cyNodesOutOfScopeNodes, new Map(), outOfScopeNodeData);
-
-    return { nodes: cyNodes, edges: cyEdges };
+    });
 }
 
 export async function showNodeGraph(): Promise<void> {
@@ -373,25 +445,12 @@ export async function showNodeGraph(): Promise<void> {
                 .filter((value) => value !== undefined);
         });
 
-    if (openWebView) {
-        openWebView.dispose();
-    }
+    createWebView();
 
-    openWebView = vscode.window.createWebviewPanel(
-        'mythicNodeGraph', // Identifies the type of the webview. Used internally
-        'Mythic Node Graph', // Title of the panel displayed to the user
-        vscode.ViewColumn.One, // Editor column to show the new webview panel in
-        {
-            enableScripts: true,
-            retainContextWhenHidden: true,
-            enableFindWidget: true,
-        }
-    );
-
-    openWebView.webview.html = getWebviewContent();
+    openWebView!.webview.html = getWebviewContent();
 
     const data = buildCytoscapeElements(selectedElements, selectedFilters);
-    openWebView.webview.postMessage({ type: 'graphData', data: data });
+    openWebView!.webview.postMessage({ type: 'graphData', data: data });
     processMessage(selectedElements, selectedFilters);
 }
 
@@ -399,69 +458,107 @@ function processMessage(
     selectedElements: selectedElementsType | undefined,
     selectedFilters: registryKey[] | undefined
 ) {
-    openWebView!.webview.onDidReceiveMessage((message) => {
-        switch (message.type) {
-            case 'goToNode':
-                const node = MythicNodeHandler.registry[
-                    message.data.registry as registryKey
-                ].getNode(message.data.nodeName as string);
-                if (!node) {
-                    return;
-                }
-                vscode.window.showTextDocument(node.document, {
-                    selection: new vscode.Range(node.name.range.start, node.name.range.start),
-                });
-                break;
-            case 'discoverNode':
-                const newNode = MythicNodeHandler.registry[
-                    message.data.registry as registryKey
-                ].getNode(message.data.nodeName as string);
-                if (!newNode) {
-                    return;
-                }
-                const updatedData = buildCytoscapeElements(
-                    selectedElementsType.all,
-                    selectedFilters,
-                    [newNode]
-                );
-                openWebView!.webview.postMessage({ type: 'addGraphData', data: updatedData });
-                break;
-            case 'refresh':
-                const refreshedData = buildCytoscapeElements(selectedElements, selectedFilters);
-                openWebView!.webview.postMessage({ type: 'refreshedData', data: refreshedData });
-                break;
-            case 'export':
-                const messageData = message.data;
-                vscode.window
-                    .showSaveDialog({ saveLabel: 'Export Graph', filters: { json: ['json'] } })
-                    .then((uri) => {
-                        if (!uri) {
-                            return;
-                        }
-                        vscode.workspace.fs.writeFile(
-                            uri,
-                            Buffer.from(JSON.stringify(messageData, null, 2))
+    openWebView!.webview.onDidReceiveMessage(
+        (message) => {
+            switch (message.type) {
+                case 'goToNode':
+                    const node = MythicNodeHandler.registry[
+                        message.data.registry as registryKey
+                    ].getNode(message.data.label as string);
+                    if (!node) {
+                        return;
+                    }
+                    vscode.window.showTextDocument(node.document, {
+                        selection: new vscode.Range(node.name.range.start, node.name.range.start),
+                    });
+                    break;
+                case 'goToEdge':
+                    function getData(type: 'source' | 'target') {
+                        const data = (message.data[type] as string).split('_');
+                        const registry = data.shift() as registryKey;
+                        const name = data.join('_');
+                        return {
+                            registry,
+                            name,
+                        };
+                    }
+                    const source = getData('source');
+                    const target = getData('target');
+                    const targetNode = MythicNodeHandler.registry[target.registry].getNode(
+                        target.name
+                    );
+                    if (!targetNode) {
+                        return;
+                    }
+                    let edge = targetNode.outEdge[source.registry]?.get(source.name);
+                    if (!edge && target.registry === source.registry) {
+                        const sourceNode = MythicNodeHandler.registry[source.registry].getNode(
+                            source.name
                         );
-                        return;
-                    });
-                break;
-            case 'import':
-                vscode.window
-                    .showOpenDialog({ canSelectMany: false, openLabel: 'Import Graph' })
-                    .then(async (uri) => {
-                        if (!uri) {
-                            return;
-                        }
-                        const file = await vscode.workspace.fs.readFile(uri[0]);
-                        openWebView!.webview.postMessage({
-                            type: 'importedData',
-                            data: JSON.parse(file.toString()),
+                        edge = sourceNode?.templates.get(target.name);
+                    }
+                    if (edge) {
+                        vscode.window.showTextDocument(targetNode.document, {
+                            selection: Array.isArray(edge) ? edge[0] : edge,
                         });
+                    }
+                    break;
+                case 'discoverNode':
+                    const newNode = MythicNodeHandler.registry[
+                        message.data.registry as registryKey
+                    ].getNode(message.data.label as string);
+                    if (!newNode) {
                         return;
+                    }
+                    const updatedData = buildCytoscapeElements(
+                        selectedElementsType.all,
+                        selectedFilters,
+                        [newNode]
+                    );
+                    openWebView!.webview.postMessage({ type: 'addGraphData', data: updatedData });
+                    break;
+                case 'refresh':
+                    const refreshedData = buildCytoscapeElements(selectedElements, selectedFilters);
+                    openWebView!.webview.postMessage({
+                        type: 'refreshedData',
+                        data: refreshedData,
                     });
-                break;
-        }
-    });
+                    break;
+                case 'export':
+                    const messageData = message.data;
+                    vscode.window
+                        .showSaveDialog({ saveLabel: 'Export Graph', filters: { json: ['json'] } })
+                        .then((uri) => {
+                            if (!uri) {
+                                return;
+                            }
+                            vscode.workspace.fs.writeFile(
+                                uri,
+                                Buffer.from(JSON.stringify(messageData, null, 2))
+                            );
+                            return;
+                        });
+                    break;
+                case 'import':
+                    vscode.window
+                        .showOpenDialog({ canSelectMany: false, openLabel: 'Import Graph' })
+                        .then(async (uri) => {
+                            if (!uri) {
+                                return;
+                            }
+                            const file = await vscode.workspace.fs.readFile(uri[0]);
+                            openWebView!.webview.postMessage({
+                                type: 'importedData',
+                                data: JSON.parse(file.toString()),
+                            });
+                            return;
+                        });
+                    break;
+            }
+        },
+        undefined,
+        webViewDisposables
+    );
 }
 
 function processWebViewImageUri(webviewPanel: vscode.WebviewPanel, target: string) {

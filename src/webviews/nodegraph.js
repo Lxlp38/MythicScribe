@@ -91,7 +91,22 @@ const contextMenusOptions = {
                     type: 'goToNode',
                     data: nodeData,
                 };
-                vscode.postMessage(message, '*');
+                vscode.postMessage(message);
+            },
+        },
+        {
+            id: 'goToEdge',
+            content: 'Go to Edge Definition',
+            tooltipText: 'Navigate to the edge in the source code',
+            selector: 'edge',
+            onClickFunction: (event) => {
+                const edge = event.target;
+                const edgeData = edge.data();
+                const message = {
+                    type: 'goToEdge',
+                    data: edgeData,
+                };
+                vscode.postMessage(message);
             },
         },
         {
@@ -108,7 +123,7 @@ const contextMenusOptions = {
                         type: 'discoverNode',
                         data: nodeData,
                     };
-                    vscode.postMessage(message, '*');
+                    vscode.postMessage(message);
                 }
             },
         },
