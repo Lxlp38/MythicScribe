@@ -2311,6 +2311,31 @@
     },
     {
         "plugin": "MythicMobs",
+        "class": "ItemGroupOnCooldownCondition",
+        "extends": "SkillCondition",
+        "implements": [
+            "IEntityCondition"
+        ],
+        "name": [
+            "itemGroupOnCooldown"
+        ],
+        "description": "Checks whether the target player has the specified item group on cooldown.  \nDo also check out the related [SetItemGroupCooldown mechanic](https://git.lumine.io/mythiccraft/MythicMobs/-/wikis/Skills/Mechanics/SetItemGroupCooldown)",
+        "link": "https://git.lumine.io/mythiccraft/MythicMobs/-/wikis/Skills/Conditions/ItemGroupOnCooldown",
+        "attributes": [
+            {
+                "name": [
+                    "group",
+                    "g"
+                ],
+                "type": "PlaceholderString",
+                "description": "the group to check against",
+                "link": "https://git.lumine.io/mythiccraft/MythicMobs/-/wikis/Skills/Conditions/ItemGroupOnCooldown",
+                "default_value": ""
+            }
+        ]
+    },
+    {
+        "plugin": "MythicMobs",
         "class": "ItemIsSimilarCondition",
         "extends": "SkillCondition",
         "implements": [

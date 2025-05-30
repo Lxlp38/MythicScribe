@@ -58,6 +58,9 @@ export async function activate(context: vscode.ExtensionContext) {
             'MythicScribe.putSelectionInsideInlineMetaskill',
             putSelectionInsideInlineMetaskill
         ),
+        vscode.commands.registerCommand('MythicScribe.openSettings', () => {
+            vscode.commands.executeCommand('workbench.action.openSettings', 'MythicScribe');
+        }),
 
         // Formatter
         getFormatter(),

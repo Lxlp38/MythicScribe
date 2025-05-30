@@ -183,6 +183,39 @@
     },
     {
         "plugin": "MythicMobs",
+        "class": "ParentHurtByGoal",
+        "extends": "WrappedPathfindingGoal",
+        "implements": [
+            "PathfinderHolder"
+        ],
+        "name": [
+            "parentHurtBy",
+            "parentHurtByTarget",
+            "parentDamager",
+            "parentAttacker"
+        ],
+        "description": "Targets the entity that attacks the mob's parent",
+        "link": "https://git.lumine.io/mythiccraft/MythicMobs/-/wikis/Mobs/ai/targets/ParentHurtBy",
+        "attributes": []
+    },
+    {
+        "plugin": "MythicMobs",
+        "class": "ParentHurtGoal",
+        "extends": "WrappedPathfindingGoal",
+        "implements": [
+            "PathfinderHolder"
+        ],
+        "name": [
+            "parentTarget",
+            "parentHurt",
+            "parentAttack"
+        ],
+        "description": "Targets the entity that is being hit by the caster's parent",
+        "link": "https://git.lumine.io/mythiccraft/MythicMobs/-/wikis/Mobs/ai/targets/ParentTarget",
+        "attributes": []
+    },
+    {
+        "plugin": "MythicMobs",
         "class": "PlayersGoal",
         "extends": "WrappedPathfindingGoal",
         "implements": [

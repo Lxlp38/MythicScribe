@@ -1,4 +1,6 @@
-export const volatileEnums = [
+type EnumEntry = string | [string, string];
+
+export const volatileEnums: EnumEntry[] = [
     'minecraft/sound.json',
     'paper/advancementdisplayframe.json',
     'paper/paperattribute.json',
@@ -26,7 +28,7 @@ export const volatileEnums = [
     'paper/worldenvironment.json',
 ];
 
-export const localEnums = [
+export const localEnums: EnumEntry[] = [
     'mythic/achievementcriteria.json',
     'mythic/paperattributeoperation.json',
     'mythic/audience.json',
@@ -51,6 +53,7 @@ export const localEnums = [
     'mythic/statsmodifier.json',
     'mythic/stattype.json',
     'mythic/variablescope.json',
+    'mythic/variabletype.json',
     'mythic/mechanicScoped/addtrade_action.json',
     'mythic/mechanicScoped/displaytransformation_action.json',
     'mythic/mechanicScoped/modifyprojectile_action.json',

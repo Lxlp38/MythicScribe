@@ -398,7 +398,7 @@ function cycleNodes(
                 label: node.name.text,
                 registry: node.registry.type,
                 ...NodeTypeToAdditionalData[node.registry.type],
-                ...(NodeSpecialTypeToAdditionalData[node.registry.type]?.(node) ?? {}),
+                ...NodeSpecialTypeToAdditionalData[node.registry.type]?.(node),
                 ...data,
             },
         });
@@ -482,21 +482,34 @@ function processMessage(
                             name,
                         };
                     }
+                    const type = message.data.type as EdgeType;
                     const source = getData('source');
                     const target = getData('target');
+
+                    if (type === 'inheritance') {
+                        const sourceNode = MythicNodeHandler.registry[source.registry].getNode(
+                            source.name
+                        );
+                        if (!sourceNode) {
+                            return;
+                        }
+                        const edge = sourceNode.templates.get(target.name);
+                        if (edge) {
+                            vscode.window.showTextDocument(sourceNode.document, {
+                                selection: Array.isArray(edge) ? edge[0] : edge,
+                            });
+                            return;
+                        }
+                        return;
+                    }
+
                     const targetNode = MythicNodeHandler.registry[target.registry].getNode(
                         target.name
                     );
                     if (!targetNode) {
                         return;
                     }
-                    let edge = targetNode.outEdge[source.registry]?.get(source.name);
-                    if (!edge && target.registry === source.registry) {
-                        const sourceNode = MythicNodeHandler.registry[source.registry].getNode(
-                            source.name
-                        );
-                        edge = sourceNode?.templates.get(target.name);
-                    }
+                    const edge = targetNode.outEdge[source.registry]?.get(source.name);
                     if (edge) {
                         vscode.window.showTextDocument(targetNode.document, {
                             selection: Array.isArray(edge) ? edge[0] : edge,

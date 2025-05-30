@@ -1098,9 +1098,9 @@
                     "faulty"
                 ],
                 "type": "Boolean",
-                "description": "Whether the mechanic should use the old vector formula. Defaults to true",
+                "description": "Whether the mechanic should use the old vector formula",
                 "link": "https://git.lumine.io/mythiccraft/MythicMobs/-/wikis/Skills/Targeters#common-location-targeters-attributes",
-                "default_value": ""
+                "default_value": "false"
             },
             {
                 "name": [

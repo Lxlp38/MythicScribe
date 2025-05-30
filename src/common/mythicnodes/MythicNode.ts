@@ -392,7 +392,7 @@ export class MythicNode {
     }
 
     private matchSkillShortcut(body: string): CompactNodeReference[] {
-        const skillShortcutRegex = /-\sskill:([\w\-_]+)/g;
+        const skillShortcutRegex = /(?<=-\sskill:)([\w\-_]+)/g;
         const matches = body.matchAll(skillShortcutRegex);
         const skillShortcuts: ReturnType<typeof this.matchSkillShortcut> = [];
         for (const match of matches) {
@@ -489,8 +489,8 @@ export class TemplatableMythicNode extends MythicNode {
 }
 
 const variablesRegex =
-    /^(?<indent>\s*)Variables:\n(?<variables>((\k<indent> +.*\n)|(\s*?\n)|^\s*#.*)*)/gim;
-const variableEntryRegex = /^\s*(?<variable>[\w\-_]+)\s*:/gim;
+    /^\r?\n?(?<indent>\s*)Variables:\r?\n(?<variables>((\k<indent> +.*\r?\n)|(\s*?\r?\n)|^\s*#.*)*)/m;
+const variableEntryRegex = /^\s*(?<variable>[\w\-_]+)\s*:/gm;
 
 export class MobMythicNode extends TemplatableMythicNode {
     protected findNodeEdges(body: string): void {
@@ -503,21 +503,14 @@ export class MobMythicNode extends TemplatableMythicNode {
     }
 
     private matchVariables(body: string) {
-        const variableBody = body.matchAll(variablesRegex);
-        let firstVariablesKey;
-        // I am aware this is dumb, but otherwise it bugs out for no reason
-        for (const vb of variableBody) {
-            firstVariablesKey = vb;
-            break;
-        }
-        if (!firstVariablesKey) {
+        const variableBody = body.match(variablesRegex);
+        if (!variableBody) {
             return;
         }
         const templateVariables: Set<string> = new Set();
-        const variables = firstVariablesKey.groups?.variables.matchAll(variableEntryRegex);
+        const variables = variableBody.groups?.variables.matchAll(variableEntryRegex);
         if (variables) {
             for (const variable of variables) {
-                //console.log(variable);
                 const variableName = variable.groups?.variable;
                 if (variableName) {
                     templateVariables.add(variableName);
@@ -548,7 +541,6 @@ export class MobMythicNode extends TemplatableMythicNode {
                 }
             }
         }
-
         return fetchedVariables;
     }
 

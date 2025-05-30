@@ -239,6 +239,9 @@
     "target.fovoffset{rotation=0;absolute=true}": {
         "description": "Returns the angular offset (in degrees) between the direction the caster is looking and the direction from the caster to the target entity. This offset can be used to determine how far the target is from the caster's center of view"
     },
+    "target.distance": {
+        "description": "Return the distance between the caster and the mechanic's target. If the target cannot be found in the caster's world, returns the maximum double value"
+    },
     "trigger.uuid": {
         "description": "Returns the UUID of the entity triggering the skill"
     },
@@ -302,6 +305,9 @@
     "trigger.raytrace.{Float}": {
         "description": "Returns the name of the block being looked at by the trigger if within {Float} range, if # is specified. If only <trigger.raytrace> is used, then the range defaults to `4.5`. If no block is found, `AIR` is returned."
     },
+    "trigger.distance": {
+        "description": "Return the distance between the caster and the skilltree's trigger. If the trigger cannot be found in the caster's world, returns the maximum double value"
+    },
     "drop.amount": {
         "description": "Returns the amount dropped while used in specific drop types"
     },
@@ -316,6 +322,15 @@
     },
     "random.float.#to#": {
         "description": "Returns a random float number in the specified range"
+    },
+    "utils.epoch": {
+        "description": "Returns the current epoch"
+    },
+    "utils.epoch.millis": {
+        "description": "Returns the amount of milliseconds of the current epoch"
+    },
+    "utils.epoch.ticks": {
+        "description": "Returns the current epoch, converted in ticks. Assumes that the server always maintains 20 ticks per second. Accounts for milliseconds. <br>While unorthodox, since time within Minecraft (and by extension Mythic) is measured in ticks, this may be of some help streamlining some processes where converting the normal epoch time to accomodate for ticks may be burdensome if done at scale"
     },
     "item.amount": {
         "description": "Returns the amount of the item that triggered the skill"

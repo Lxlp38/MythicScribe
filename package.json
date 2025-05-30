@@ -65,13 +65,17 @@
           "group": "mythicscribe.other"
         },
         {
+          "command": "MythicScribe.openLogs",
+          "group": "mythicscribe.other"
+        },
+        {
+          "command": "MythicScribe.openSettings",
+          "group": "mythicscribe.other"
+        },
+        {
           "command": "MythicScribe.putSelectionInsideInlineMetaskill",
           "group": "mythicscribe.other.action",
           "when": "editorHasSelection && editorLangId == mythicscript"
-        },
-        {
-          "command": "MythicScribe.openLogs",
-          "group": "mythicscribe.other"
         }
       ],
       "mythicscribe.dataset": [
@@ -123,6 +127,11 @@
       {
         "command": "MythicScribe.openLogs",
         "title": "Open Logs",
+        "category": "MythicScribe"
+      },
+      {
+        "command": "MythicScribe.openSettings",
+        "title": "Open Settings",
         "category": "MythicScribe"
       },
       {

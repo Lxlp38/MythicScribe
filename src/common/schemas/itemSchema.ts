@@ -50,7 +50,101 @@ const FurnitureStatesCompatibleOptions: Schema = {
     ...Generation,
 };
 
+const ItemOptions: Schema = {
+    Options: {
+        type: SchemaElementTypes.KEY,
+        link: 'https://git.lumine.io/mythiccraft/MythicMobs/-/wikis/Items/Items#options',
+        description:
+            'A special field that includes various item options, such as color or append type',
+        keys: {
+            Repairable: {
+                type: SchemaElementTypes.BOOLEAN,
+                link: 'https://git.lumine.io/mythiccraft/MythicMobs/-/wikis/Items/Options#repairable',
+                description:
+                    'Sets the repair cost of the item to maximum, making it completely uneditable in anvils and/or enchantment tables. Defaults to false.',
+            },
+            RepairCost: {
+                type: SchemaElementTypes.INTEGER,
+                link: 'https://git.lumine.io/mythiccraft/MythicMobs/-/wikis/Items/Options#repaircost',
+                description:
+                    'Sets the repair cost of the item. If set to less than 0, the vanilla one will be used. Defaults to -1.',
+            },
+            Unbreakable: {
+                type: SchemaElementTypes.BOOLEAN,
+                link: 'https://git.lumine.io/mythiccraft/MythicMobs/-/wikis/Items/Options#unbreakable',
+                description:
+                    'Sets the unbreakable tag on the item. Items with this set to true will not lose durability. Defaults to false.',
+            },
+            Glint: {
+                type: SchemaElementTypes.BOOLEAN,
+                link: 'https://git.lumine.io/mythiccraft/MythicMobs/-/wikis/Items/Options#glint',
+                description:
+                    'Adds the enchantment glint visual effect to an item. Defaults to false.',
+            },
+            HideFlags: {
+                type: SchemaElementTypes.BOOLEAN,
+                link: 'https://git.lumine.io/mythiccraft/MythicMobs/-/wikis/Items/Options#hideflags',
+                description:
+                    "Hides all the item flags, making things like enchants not visible in the item's lore. Defaults to false.",
+            },
+            PreventStacking: {
+                type: SchemaElementTypes.BOOLEAN,
+                link: 'https://git.lumine.io/mythiccraft/MythicMobs/-/wikis/Items/Options#preventstacking',
+                description: 'Prevents the item from stacking to similar items. Defaults to false.',
+            },
+            StackSize: {
+                type: SchemaElementTypes.INTEGER,
+                link: 'https://git.lumine.io/mythiccraft/MythicMobs/-/wikis/Items/Options#stacksize',
+                description:
+                    'Sets the maximum stack size of the item. Defaults to 64. If set to 1, the item will not stack.',
+                values: generateNumbersInRange(1, 64, 1),
+            },
+            ItemModel: {
+                type: SchemaElementTypes.STRING,
+                link: 'https://git.lumine.io/mythiccraft/MythicMobs/-/wikis/Items/Options#itemmodel',
+                description: 'The model that should be applied to the item.',
+            },
+            Player: {
+                type: SchemaElementTypes.STRING,
+                link: 'https://git.lumine.io/mythiccraft/MythicMobs/-/wikis/Items/Options#player',
+                description:
+                    'Sets the texture of the player head. The value must be the IGN of the target player.',
+            },
+            SkinTexture: {
+                type: SchemaElementTypes.STRING,
+                link: 'https://git.lumine.io/mythiccraft/MythicMobs/-/wikis/Items/Options#skintexture',
+                description: 'Sets the texture of the player head using a SkinURL.',
+            },
+            Color: {
+                type: SchemaElementTypes.ENUM,
+                dataset: 'RGBCOLOR',
+                link: 'https://git.lumine.io/mythiccraft/MythicMobs/-/wikis/Items/Options#color',
+                description:
+                    'Dyes the armor piece to a color according to RGB settings or a predefined color.',
+            },
+            GenerateUUID: {
+                type: SchemaElementTypes.BOOLEAN,
+                link: 'https://git.lumine.io/mythiccraft/MythicMobs/-/wikis/Items/Options#generateuuid',
+                description: 'Applies a random UUID to the item upon generation',
+            },
+            GenerateTimestamp: {
+                type: SchemaElementTypes.BOOLEAN,
+                link: 'https://git.lumine.io/mythiccraft/MythicMobs/-/wikis/Items/Options#generatetimestamp',
+                description: 'Applies a timestamp to the item upon generation',
+            },
+            FireResistant: {
+                type: SchemaElementTypes.BOOLEAN,
+                link: 'https://git.lumine.io/mythiccraft/MythicMobs/-/wikis/Items/Options#fireresistant',
+                description:
+                    'Makes the item fire resistant, preventing it from burning in lava or fire',
+            },
+        },
+    },
+};
+
 export const ItemSchema: Schema = {
+    ...ItemOptions,
+    ...Generation,
     Material: {
         type: SchemaElementTypes.ENUM,
         dataset: 'MATERIAL',
@@ -125,72 +219,6 @@ export const ItemSchema: Schema = {
         description:
             'Sets the default amount of items to give when this item is being called by the plugin',
         values: generateNumbersInRange(1, 12, 1),
-    },
-    Options: {
-        type: SchemaElementTypes.KEY,
-        link: 'https://git.lumine.io/mythiccraft/MythicMobs/-/wikis/Items/Items#options',
-        description:
-            'A special field that includes various item options, such as color or append type',
-        keys: {
-            Repairable: {
-                type: SchemaElementTypes.BOOLEAN,
-                link: 'https://git.lumine.io/mythiccraft/MythicMobs/-/wikis/Items/Options#repairable',
-                description:
-                    'Sets the repair cost of the item to maximum, making it completely uneditable in anvils and/or enchantment tables. Defaults to false.',
-            },
-            RepairCost: {
-                type: SchemaElementTypes.INTEGER,
-                link: 'https://git.lumine.io/mythiccraft/MythicMobs/-/wikis/Items/Options#repaircost',
-                description:
-                    'Sets the repair cost of the item. If set to less than 0, the vanilla one will be used. Defaults to -1.',
-            },
-            Unbreakable: {
-                type: SchemaElementTypes.BOOLEAN,
-                link: 'https://git.lumine.io/mythiccraft/MythicMobs/-/wikis/Items/Options#unbreakable',
-                description:
-                    'Sets the unbreakable tag on the item. Items with this set to true will not lose durability. Defaults to false.',
-            },
-            Glint: {
-                type: SchemaElementTypes.BOOLEAN,
-                link: 'https://git.lumine.io/mythiccraft/MythicMobs/-/wikis/Items/Options#glint',
-                description:
-                    'Adds the enchantment glint visual effect to an item. Defaults to false.',
-            },
-            HideFlags: {
-                type: SchemaElementTypes.BOOLEAN,
-                link: 'https://git.lumine.io/mythiccraft/MythicMobs/-/wikis/Items/Options#hideflags',
-                description:
-                    "Hides all the item flags, making things like enchants not visible in the item's lore. Defaults to false.",
-            },
-            PreventStacking: {
-                type: SchemaElementTypes.BOOLEAN,
-                link: 'https://git.lumine.io/mythiccraft/MythicMobs/-/wikis/Items/Options#preventstacking',
-                description: 'Prevents the item from stacking to similar items. Defaults to false.',
-            },
-            ItemModel: {
-                type: SchemaElementTypes.STRING,
-                link: 'https://git.lumine.io/mythiccraft/MythicMobs/-/wikis/Items/Options#itemmodel',
-                description: 'The model that should be applied to the item.',
-            },
-            Player: {
-                type: SchemaElementTypes.STRING,
-                link: 'https://git.lumine.io/mythiccraft/MythicMobs/-/wikis/Items/Options#player',
-                description:
-                    'Sets the texture of the player head. The value must be the IGN of the target player.',
-            },
-            SkinTexture: {
-                type: SchemaElementTypes.STRING,
-                link: 'https://git.lumine.io/mythiccraft/MythicMobs/-/wikis/Items/Options#skintexture',
-                description: 'Sets the texture of the player head using a SkinURL.',
-            },
-            Color: {
-                type: SchemaElementTypes.ENUM,
-                dataset: 'RGBCOLOR',
-                link: 'https://git.lumine.io/mythiccraft/MythicMobs/-/wikis/Items/Options#color',
-                description:
-                    'Dyes the armor piece to a color according to RGB settings or a predefined color.',
-            },
-        },
     },
     Glider: {
         type: SchemaElementTypes.BOOLEAN,
@@ -766,7 +794,6 @@ export const ItemSchema: Schema = {
             },
         },
     },
-    ...Generation,
     BlockStates: {
         type: SchemaElementTypes.LIST,
         description: 'Allows you to specify the block states of items',

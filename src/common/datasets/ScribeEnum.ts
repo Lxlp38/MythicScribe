@@ -166,13 +166,13 @@ class LambdaScribeEnum extends AbstractScribeEnum {
 }
 
 class ScriptedEnum extends AbstractScribeEnum {
-    private func: () => Map<string, EnumDatasetValue> | void;
-    constructor(identifier: string, func: () => Map<string, EnumDatasetValue> | void) {
+    private callback: () => Map<string, EnumDatasetValue> | void;
+    constructor(identifier: string, callback: () => Map<string, EnumDatasetValue> | void) {
         super(identifier, '');
-        this.func = func;
+        this.callback = callback;
     }
     getDataset(): Map<string, EnumDatasetValue> {
-        const ret = this.func();
+        const ret = this.callback();
         if (ret) {
             return ret;
         }

@@ -311,6 +311,20 @@
     },
     {
         "plugin": "MythicMobs",
+        "class": "ArmAnimationOffhandMechanic",
+        "extends": "SkillMechanic",
+        "implements": [
+            "INoTargetSkill"
+        ],
+        "name": [
+            "swingOffhand"
+        ],
+        "description": "Makes the casting player swing their offhand",
+        "link": "https://git.lumine.io/mythiccraft/MythicMobs/-/wikis/Skills/Mechanics/SwingOffhand",
+        "attributes": []
+    },
+    {
+        "plugin": "MythicMobs",
         "class": "ArrowVolleyMechanic",
         "extends": "SkillMechanic",
         "implements": [
@@ -519,7 +533,7 @@
             "buff",
             "debuff"
         ],
-        "description": "The Aura mechanic acts as a status effect on the target entity, and can\ntrigger other skills over its duration. Auras allow you to create custom\nstatus effects (i.e. buffs and debuffs) that are tracked for their\nduration and can also be used in other mechanics and conditions.  \n\n| [Implemented Placeholders](https://git.lumine.io/mythiccraft/MythicMobs/-/wikis/Skills/Placeholders#variable-placeholders)         |\n|------------------------------------|\n| `<skill.var.aura-name>`            |\n| `<skill.var.aura-type>`            |\n| `<skill.var.aura-charges>`         |\n| `<skill.var.aura-duration>`        |\n| `<skill.var.aura-duration-millis>` |\n| `<skill.var.aura-stacks>`          |",
+        "description": "The Aura mechanic acts as a status effect on the target entity, and can\ntrigger other skills over its duration. Auras allow you to create custom\nstatus effects (i.e. buffs and debuffs) that are tracked for their\nduration and can also be used in other mechanics and conditions.  \n\n[[_TOC_]]\n\n| [Implemented Placeholders](https://git.lumine.io/mythiccraft/MythicMobs/-/wikis/Skills/Placeholders#variable-placeholders)         |\n|------------------------------------|\n| `<skill.var.aura-name>`            |\n| `<skill.var.aura-type>`            |\n| `<skill.var.aura-charges>`         |\n| `<skill.var.aura-duration>`        |\n| `<skill.var.aura-duration-millis>` |\n| `<skill.var.aura-stacks>`          |",
         "link": "https://git.lumine.io/mythiccraft/MythicMobs/-/wikis/Skills/Mechanics/aura",
         "attributes": [
             {
@@ -551,6 +565,17 @@
                 "description": "The type of the aura. It's similar to its name",
                 "link": "https://git.lumine.io/mythiccraft/MythicMobs/-/wikis/Skills/Mechanics/aura",
                 "default_value": ""
+            },
+            {
+                "name": [
+                    "attachmenttype",
+                    "attachment",
+                    "attach"
+                ],
+                "type": "String",
+                "description": "The [Attachment](#attachment-types) to apply to the entity the aura is applied to",
+                "link": "https://git.lumine.io/mythiccraft/MythicMobs/-/wikis/Skills/Mechanics/aura",
+                "default_value": "NONE"
             },
             {
                 "name": [
@@ -637,7 +662,7 @@
                 "type": "Boolean",
                 "description": "Merges all auras of the same name applied by one entity to another into one aura (Prevents a mob from being able to stack an aura multiple times on the same entity)",
                 "link": "https://git.lumine.io/mythiccraft/MythicMobs/-/wikis/Skills/Mechanics/aura",
-                "default_value": ""
+                "default_value": "`false` if any among `mergeAll`, `overwriteAll` or `overwriteSameCaster` is `true`"
             },
             {
                 "name": [
@@ -817,6 +842,111 @@
                 "link": "https://git.lumine.io/mythiccraft/MythicMobs/-/wikis/Skills/Mechanics/aura",
                 "default_value": "",
                 "enum": "Metaskill"
+            },
+            {
+                "name": [
+                    "attachmentmodel",
+                    "attachmodel",
+                    "model"
+                ],
+                "type": "PlaceholderString",
+                "description": "The model of the attachment",
+                "link": "https://git.lumine.io/mythiccraft/MythicMobs/-/wikis/Skills/Mechanics/aura",
+                "default_value": ""
+            },
+            {
+                "name": [
+                    "attachmentstate",
+                    "attachstate",
+                    "state"
+                ],
+                "type": "PlaceholderString",
+                "description": "The state the model will be playing",
+                "link": "https://git.lumine.io/mythiccraft/MythicMobs/-/wikis/Skills/Mechanics/aura",
+                "default_value": ""
+            },
+            {
+                "name": [
+                    "attachmentcolor",
+                    "attachcolor"
+                ],
+                "type": "PlaceholderString",
+                "description": "The color applied to the model",
+                "link": "https://git.lumine.io/mythiccraft/MythicMobs/-/wikis/Skills/Mechanics/aura",
+                "default_value": ""
+            },
+            {
+                "name": [
+                    "attachmentscale",
+                    "attachscale"
+                ],
+                "type": "PlaceholderDouble",
+                "description": "The scale of the model",
+                "link": "https://git.lumine.io/mythiccraft/MythicMobs/-/wikis/Skills/Mechanics/aura",
+                "default_value": "1"
+            },
+            {
+                "name": [
+                    "attachmentViewRadius",
+                    "attackviewradius"
+                ],
+                "type": "Integer",
+                "description": "The view radius of the model. Leave as -1 to use ModelEngine's default settings",
+                "link": "https://git.lumine.io/mythiccraft/MythicMobs/-/wikis/Skills/Mechanics/aura",
+                "default_value": "-1"
+            },
+            {
+                "name": [
+                    "attachmentEnchanted",
+                    "attachEnchanted",
+                    "enchanted"
+                ],
+                "type": "Boolean",
+                "description": "Whether the model should have an enchantment glint applied to it",
+                "link": "https://git.lumine.io/mythiccraft/MythicMobs/-/wikis/Skills/Mechanics/aura",
+                "default_value": "false"
+            },
+            {
+                "name": [
+                    "attachmentGlowing",
+                    "attachGlowing",
+                    "glowing"
+                ],
+                "type": "Boolean",
+                "description": "Whether the model should be glowing",
+                "link": "https://git.lumine.io/mythiccraft/MythicMobs/-/wikis/Skills/Mechanics/aura",
+                "default_value": "false"
+            },
+            {
+                "name": [
+                    "attachmentCulling",
+                    "attachCulling",
+                    "culling"
+                ],
+                "type": "Boolean",
+                "description": "Whether the model should be able to be culled by ModelEngine",
+                "link": "https://git.lumine.io/mythiccraft/MythicMobs/-/wikis/Skills/Mechanics/aura",
+                "default_value": "true"
+            },
+            {
+                "name": [
+                    "attachmentglowcolor",
+                    "attachglowcolor"
+                ],
+                "type": "PlaceholderString",
+                "description": "The glow color of the model, if `attachmentGlowing` is set to `true`",
+                "link": "https://git.lumine.io/mythiccraft/MythicMobs/-/wikis/Skills/Mechanics/aura",
+                "default_value": ""
+            },
+            {
+                "name": [
+                    "attachmentoffset",
+                    "attachoffset"
+                ],
+                "type": "String",
+                "description": "The model's offset from the attached entity, in a `x,y,z,yaw,pitch` format.<br>Can also be written as `x,y,z` or `x,y,z,yaw`",
+                "link": "https://git.lumine.io/mythiccraft/MythicMobs/-/wikis/Skills/Mechanics/aura",
+                "default_value": "0,0,0,0,0"
             }
         ]
     },
@@ -4660,7 +4790,7 @@
                 "type": "PlaceholderDouble",
                 "description": "Added variance to where the mob will land",
                 "link": "https://git.lumine.io/mythiccraft/MythicMobs/-/wikis/Skills/Mechanics/leap",
-                "default_value": "1"
+                "default_value": "0"
             }
         ]
     },
@@ -4931,7 +5061,6 @@
         "class": "MessageMechanic",
         "extends": "SkillMechanic",
         "implements": [
-            "INoTargetSkill",
             "ITargetedEntitySkill",
             "ITargetedLocationSkill"
         ],
@@ -5183,6 +5312,17 @@
                 "description": "The number of attempts the projectile will make to **decrease** its y-location before terminating itself, when the projectiles is \"hugging\" either a block or a liquid",
                 "link": "https://git.lumine.io/mythiccraft/MythicMobs/-/wikis/Skills/Mechanics/missile",
                 "default_value": "10"
+            },
+            {
+                "name": [
+                    "startWithParentVelocity",
+                    "swpv",
+                    "spv"
+                ],
+                "type": "Boolean",
+                "description": "Whether the missile, if called from another projectile, should start with the same velocity as the parent projectile",
+                "link": "https://git.lumine.io/mythiccraft/MythicMobs/-/wikis/Skills/Mechanics/missile",
+                "default_value": "false"
             },
             {
                 "name": [
@@ -8850,6 +8990,16 @@
             },
             {
                 "name": [
+                    "doEndSkillOnHit",
+                    "esoh"
+                ],
+                "type": "Boolean",
+                "description": "Whether the onEnd metaskill should be run when the projectile ends by hitting an entity",
+                "link": "https://git.lumine.io/mythiccraft/MythicMobs/-/wikis/Skills/Mechanics/projectile",
+                "default_value": "true"
+            },
+            {
+                "name": [
                     "hitself"
                 ],
                 "type": "Boolean",
@@ -11082,10 +11232,10 @@
                     "i"
                 ],
                 "type": "String",
-                "description": "The icon to send. Accepts any valid MATERIAL.",
+                "description": "The icon to send. Accepts any valid MATERIAL or Mythic Item",
                 "link": "https://git.lumine.io/mythiccraft/MythicMobs/-/wikis/Skills/Mechanics/sendtoast",
                 "default_value": "diamond_sword",
-                "enum": "Material"
+                "enum": "Item"
             },
             {
                 "name": [
@@ -11506,6 +11656,43 @@
                 "description": "The value to set the width to",
                 "link": "https://git.lumine.io/mythiccraft/MythicMobs/-/wikis/Skills/Mechanics/SetInteractionSize",
                 "default_value": "1"
+            }
+        ]
+    },
+    {
+        "plugin": "MythicMobs",
+        "class": "SetItemGroupCooldownMechanic",
+        "extends": "SkillMechanic",
+        "implements": [
+            "ITargetedEntitySkill"
+        ],
+        "name": [
+            "setItemGroupCooldown"
+        ],
+        "description": "Sets the cooldown on an item group for the target player",
+        "link": "https://git.lumine.io/mythiccraft/MythicMobs/-/wikis/Skills/Mechanics/SetItemGroupCooldown",
+        "attributes": [
+            {
+                "name": [
+                    "key",
+                    "k",
+                    "group",
+                    "g"
+                ],
+                "type": "PlaceholderString",
+                "description": "The group to set the cooldown to",
+                "link": "https://git.lumine.io/mythiccraft/MythicMobs/-/wikis/Skills/Mechanics/SetItemGroupCooldown",
+                "default_value": "minecraft:item_group"
+            },
+            {
+                "name": [
+                    "ticks",
+                    "t"
+                ],
+                "type": "PlaceholderInteger",
+                "description": "The amount of ticks the cooldown will last",
+                "link": "https://git.lumine.io/mythiccraft/MythicMobs/-/wikis/Skills/Mechanics/SetItemGroupCooldown",
+                "default_value": "20"
             }
         ]
     },
@@ -12065,7 +12252,7 @@
         "name": [
             "setspeed"
         ],
-        "description": "Causes the target to change its speed attribute",
+        "description": "Causes the target to change its speed attribute\n\n> The [MovementSpeed](https://git.lumine.io/mythiccraft/MythicMobs/-/wikis/Mobs/Options#movementspeed) option must be explicitly set for this to work!",
         "link": "https://git.lumine.io/mythiccraft/MythicMobs/-/wikis/Skills/Mechanics/setspeed",
         "attributes": [
             {
@@ -15551,6 +15738,37 @@
                 "description": "Whether the totem should terminate upon hitting an entity",
                 "link": "https://git.lumine.io/mythiccraft/MythicMobs/-/wikis/Skills/Mechanics/totem",
                 "default_value": "false"
+            },
+            {
+                "name": [
+                    "hugsurface",
+                    "hs"
+                ],
+                "type": "Boolean",
+                "description": "Whether or not the totem should be aligned with the ground",
+                "link": "https://git.lumine.io/mythiccraft/MythicMobs/-/wikis/Skills/Mechanics/totem",
+                "default_value": "false"
+            },
+            {
+                "name": [
+                    "heightfromsurface",
+                    "hfs"
+                ],
+                "type": "Float",
+                "description": "How high above the surface the totem should align itself if HugSurface is set to true",
+                "link": "https://git.lumine.io/mythiccraft/MythicMobs/-/wikis/Skills/Mechanics/totem",
+                "default_value": "0.5"
+            },
+            {
+                "name": [
+                    "hugliquid",
+                    "hugwater",
+                    "huglava"
+                ],
+                "type": "Boolean",
+                "description": "Whether, when using hugSurface, a liquid can also count as a \"surface\" the totem can align itself with",
+                "link": "https://git.lumine.io/mythiccraft/MythicMobs/-/wikis/Skills/Mechanics/totem",
+                "default_value": "false"
             }
         ]
     },
@@ -15744,6 +15962,7 @@
                 "description": "The [type](https://git.lumine.io/mythiccraft/MythicMobs/-/wikis/skills/variables#variable_types) of the variable. Set to STRING if you are using text instead of numbers",
                 "link": "https://git.lumine.io/mythiccraft/MythicMobs/-/wikis/Skills/Mechanics/setvariable",
                 "default_value": "INTEGER",
+                "enum": "VariableType",
                 "inheritable": false
             },
             {
@@ -16237,7 +16456,8 @@
                 "name": [
                     "conditions",
                     "cond",
-                    "c"
+                    "c",
+                    "until"
                 ],
                 "type": "String",
                 "description": "Conditions to check against. When the conditions are met, the metaskill will continue",

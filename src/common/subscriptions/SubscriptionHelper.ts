@@ -43,7 +43,7 @@ export const ActiveFileTypeInfo: Record<registryKey | 'enabled', boolean> = {
 };
 
 export const extensionEnabler = vscode.window.onDidChangeActiveTextEditor((editor) => {
-    Log.debug('MythicScribe active editor changed');
+    Log.trace('MythicScribe active editor changed');
     if (!editor) {
         return;
     }
