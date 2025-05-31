@@ -111,6 +111,7 @@ export enum scriptedEnums {
     DroptableSchema = 'droptableschema',
     StatSchema = 'statschema',
     RandomSpawnSchema = 'randomspawnschema',
+    PlaceholderSchema = 'placeholderschema',
     ReagentSchema = 'reagentschema',
     MenuSchema = 'menuschema',
     AchievementSchema = 'achievementschema',

@@ -120,6 +120,11 @@
     "type": "Static"
   },
   {
+    "id": "variabletype",
+    "path": "mythic/variabletype.json",
+    "type": "Static"
+  },
+  {
     "id": "addtrade_action",
     "path": "mythic/mechanicScoped/addtrade_action.json",
     "type": "Static"
@@ -471,6 +476,11 @@
   },
   {
     "id": "randomspawnschema",
+    "path": null,
+    "type": "Scripted"
+  },
+  {
+    "id": "placeholderschema",
     "path": null,
     "type": "Scripted"
   },

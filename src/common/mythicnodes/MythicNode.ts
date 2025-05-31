@@ -6,10 +6,10 @@ import {
 } from '@common/datasets/ScribePlaceholder';
 import { ConditionActions } from '@common/schemas/conditionActions';
 import {
-    createDiagnostic,
+    createNodeDiagnostic,
     NodeDiagnostic,
     NodeRawDiagnostic,
-    ScribeDiagnostics,
+    NodeDiagnosticCollection,
 } from '@common/diagnostics/ScribeDiagnostics';
 import { ScribeEnumHandler } from '@common/datasets/ScribeEnum';
 
@@ -476,7 +476,7 @@ export class TemplatableMythicNode extends MythicNode {
         super.findNodeEdges(body);
         this.matchTemplate(body).forEach((template) => {
             if (this.templates.has(template.name)) {
-                createDiagnostic(NodeRawDiagnostic)(
+                createNodeDiagnostic(NodeRawDiagnostic)(
                     this,
                     template.range,
                     `Duplicate template ${template.name} found in ${this.registry.type} ${this.name.text}`,
@@ -574,7 +574,7 @@ export class StatMythicNode extends MythicNode {
         this.matchList(body, /(?<=ParentStats:)(\s*- [\w_\-]+\s.*(?:\n|$))*/gm).forEach(
             (template) => {
                 if (this.templates.has(template.name)) {
-                    createDiagnostic(NodeRawDiagnostic)(
+                    createNodeDiagnostic(NodeRawDiagnostic)(
                         this,
                         template.range,
                         `Duplicate template ${template.name} found in ${this.registry.type} ${this.name.text}`,
@@ -589,7 +589,7 @@ export class StatMythicNode extends MythicNode {
             (outStat) => {
                 const outStatName = outStat.name.split(' ')[0];
                 if (this.hasEdge('stat', outStatName)) {
-                    createDiagnostic(NodeRawDiagnostic)(
+                    createNodeDiagnostic(NodeRawDiagnostic)(
                         this,
                         outStat.range,
                         `Duplicate TriggerStat ${outStatName} found in ${this.registry.type} ${this.name.text}`,
@@ -619,7 +619,7 @@ export class RandomSpawnMythicNode extends MythicNode {
         (typelist.length > 0 ? typelist : this.matchTemplate(body, /^\s*Type(s)?:.*/gm)).forEach(
             (mob) => {
                 if (this.hasEdge('mob', mob.name)) {
-                    createDiagnostic(NodeRawDiagnostic)(
+                    createNodeDiagnostic(NodeRawDiagnostic)(
                         this,
                         mob.range,
                         `Duplicate mob ${mob.name} found in ${this.registry.type} ${this.name.text}`,
@@ -679,7 +679,7 @@ class AchievementMythicNode extends MythicNode {
 
         this.matchMultipleEntries(body, /^\s*MobType:\s*(?<entry>.*)/gm).forEach((mob) => {
             if (this.hasEdge('mob', mob.name)) {
-                createDiagnostic(NodeRawDiagnostic)(
+                createNodeDiagnostic(NodeRawDiagnostic)(
                     this,
                     mob.range,
                     `Duplicate Mob ${mob.name} found in ${this.registry.type} ${this.name.text}`,
@@ -783,7 +783,7 @@ export class MythicNodeRegistry {
     }
 
     clearDiagnosticsByDocument(uri: vscode.Uri): void {
-        ScribeDiagnostics.delete(uri);
+        NodeDiagnosticCollection.delete(uri);
         const diagnostics = this.diagnosticsByDocument.get(uri.toString());
         if (diagnostics && diagnostics.length > 0) {
             diagnostics.forEach((diagnostic) => {
@@ -842,7 +842,7 @@ export class MythicNodeRegistry {
     }
 
     updateDiagnostics(uri: vscode.Uri) {
-        ScribeDiagnostics.set(uri, this.diagnosticsByDocument.get(uri.toString()));
+        NodeDiagnosticCollection.set(uri, this.diagnosticsByDocument.get(uri.toString()));
     }
 
     clearDocument(uri: vscode.Uri): void {
@@ -864,7 +864,7 @@ export class MythicNodeRegistry {
                         continue;
                     }
                     for (const range of ranges) {
-                        createDiagnostic(NodeDiagnostic)(
+                        createNodeDiagnostic(NodeDiagnostic)(
                             node,
                             range,
                             `Unresolved ${registry} at ${node.name.text} -> ${entry}`,
@@ -957,7 +957,7 @@ export namespace MythicNodeHandler {
             include,
             exclude && exclude !== '' ? exclude : undefined
         );
-        Log.custom(vscode.LogLevel.Trace, 'Time Report', `Document Find Time: ${time.step()} ms`);
+        Log.log(`Document Find Time: ${time.step()} ms`, vscode.LogLevel.Debug, 'Time Report');
 
         const tasks = files.map((file) => limit(() => processFile(file)));
         const results = await Promise.allSettled(tasks);
@@ -974,31 +974,29 @@ export namespace MythicNodeHandler {
                 Log.debug(`Reason ${index}: ${rejection.reason}`)
             );
         }
-        Log.custom(vscode.LogLevel.Trace, 'Time Report', `Document Open Time: ${time.step()} ms`);
+        Log.log(`Document Open Time: ${time.step()} ms`, vscode.LogLevel.Debug, 'Time Report');
 
         for (const [type, file] of openedFiles) {
             registry[type].scanDocument(file);
         }
-        Log.custom(vscode.LogLevel.Trace, 'Time Report', `Document Scan Time: ${time.step()} ms`);
+        Log.log(`Document Scan Time: ${time.step()} ms`, vscode.LogLevel.Debug, 'Time Report');
 
         if (getDiagnosticsPolicyConfig('enabled')) {
             for (const [type, file] of openedFiles) {
                 registry[type].checkForBrokenEdges(file.uri);
                 registry[type].updateDiagnostics(file.uri);
             }
+            Log.log(
+                `Document Node Check Time: ${time.step()} ms`,
+                vscode.LogLevel.Debug,
+                'Time Report'
+            );
         }
-        Log.custom(
-            vscode.LogLevel.Trace,
-            'Time Report',
-            `Document Node Check Time: ${time.step()} ms`
-        );
 
-        //Log.custom(vscode.LogLevel.Trace, 'Time Report', `Node Match Time: ${NodeMatchTime} ms`);
-
-        Log.custom(
-            vscode.LogLevel.Trace,
-            'Time Report',
-            `Total Time for File Parsing: ${time.stop()}`
+        Log.log(
+            `Total Time for File Parsing: ${time.stop()}`,
+            vscode.LogLevel.Debug,
+            'Time Report'
         );
         Log.debug('Finished scanning all documents');
     }

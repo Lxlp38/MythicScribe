@@ -15,7 +15,7 @@ export const ReagentSchema: Schema = {
     MaxValue: {
         type: SchemaElementTypes.ENUM,
         dataset: 'REAGENTVALUE',
-        description: 'The minimum value of the reagent.',
+        description: 'The maximum value of the reagent.',
         values: generateNumbersInRange(0, 100, 1, true),
     },
     Global: {

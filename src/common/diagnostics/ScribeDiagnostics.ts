@@ -2,9 +2,9 @@ import type { MythicNode } from '@common/mythicnodes/MythicNode';
 import { getDiagnosticsPolicyConfig } from '@common/utils/configutils';
 import * as vscode from 'vscode';
 
-export const ScribeDiagnostics = vscode.languages.createDiagnosticCollection('MythicScribe');
+export const NodeDiagnosticCollection = vscode.languages.createDiagnosticCollection('MythicScribe');
 
-export function createDiagnostic(clazz: typeof NodeDiagnostic) {
+export function createNodeDiagnostic(clazz: typeof NodeDiagnostic) {
     return function (
         node: MythicNode,
         range: vscode.Range,

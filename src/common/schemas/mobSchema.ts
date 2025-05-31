@@ -562,7 +562,7 @@ addEnumLoadedFunction('moboption', (target: AbstractScribeEnum) => {
     addMobOptions(target.getDataset());
 });
 
-export function addMobOptions(options: Map<string, EnumDatasetValue>) {
+function addMobOptions(options: Map<string, EnumDatasetValue>) {
     const mobOptions = getKeySchema((MobSchema.Options as KeySchemaElement).keys);
     for (const [name, body] of options) {
         mobOptions[name] = {
@@ -577,7 +577,7 @@ export function addMobOptions(options: Map<string, EnumDatasetValue>) {
 
 inheritSchemaOptions(
     MobSchema,
-    'https://git.lumine.io/mythiccraft/MythicMobs/-/wikis/Mobs',
+    'https://git.lumine.io/mythiccraft/MythicMobs/-/wikis/Mobs/Mobs',
     DefaultPlugins.MythicMobs
 );
 

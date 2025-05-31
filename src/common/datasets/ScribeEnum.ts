@@ -10,6 +10,7 @@ import { generateNumbersInRange } from '@common/utils/schemautils';
 import { ReagentSchema } from '@common/schemas/reagentSchema';
 import { MenuSchema } from '@common/schemas/menuSchema';
 import { AchievementSchema } from '@common/schemas/achievementSchema';
+import { PlaceholderSchema } from '@common/schemas/placeholderSchema';
 
 import { minecraftVersion } from '../utils/configutils';
 import { ScribeCloneableFile, fetchJsonFromLocalFile, fetchJsonFromURL } from './datasets';
@@ -405,6 +406,9 @@ export const ScribeEnumHandler = {
         this.addScriptedEnum(scriptedEnums.StatSchema, () => fromSchemaToEnum(StatSchema));
         this.addScriptedEnum(scriptedEnums.RandomSpawnSchema, () =>
             fromSchemaToEnum(RandomSpawnSchema)
+        );
+        this.addScriptedEnum(scriptedEnums.PlaceholderSchema, () =>
+            fromSchemaToEnum(PlaceholderSchema)
         );
         this.addScriptedEnum(scriptedEnums.ReagentSchema, () => fromSchemaToEnum(ReagentSchema));
         this.addScriptedEnum(scriptedEnums.MenuSchema, () => fromSchemaToEnum(MenuSchema));

@@ -22,6 +22,7 @@ statexecutionpoint
 statsmodifier
 stattype
 variablescope
+variabletype
 addtrade_action
 displaytransformation_action
 modifyprojectile_action
@@ -93,6 +94,7 @@ metaskillschema
 droptableschema
 statschema
 randomspawnschema
+placeholderschema
 reagentschema
 menuschema
 achievementschema

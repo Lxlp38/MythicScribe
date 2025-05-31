@@ -4,8 +4,9 @@ import { ReagentSchema } from '@common/schemas/reagentSchema';
 import { ArchetypeSchema } from '@common/schemas/archetypeSchema';
 import { MenuSchema } from '@common/schemas/menuSchema';
 import { AchievementSchema } from '@common/schemas/achievementSchema';
+import { PlaceholderSchema } from '@common/schemas/placeholderSchema';
 
-import { keyAliases, TriggerType } from '../objectInfos';
+import { keyAliases, registryKey, TriggerType } from '../objectInfos';
 import { triggerfileCompletionProvider } from '../completions/file/triggerfileCompletionProvider';
 import { mechanicCompletionProvider } from '../completions/component/mechanicsCompletionProvider';
 import {
@@ -269,7 +270,18 @@ class PinSubscriptionHandler extends AbstractScribeSubscription {
 
 class PlaceholderSubscriptionHandler extends AbstractScribeSubscription {
     constructor() {
-        super([], []);
+        super(
+            [
+                () => genericFileCompletionProvider(PlaceholderSchema),
+                () =>
+                    hoverProvider(PlaceholderSchema, {
+                        keys: ['Conditions'],
+                        registry: ScribeMechanicHandler.registry.condition,
+                    }),
+                () => conditionCompletionProvider(['Conditions']),
+            ],
+            [enableFileSpecificSuggestions]
+        );
     }
 }
 
@@ -341,7 +353,12 @@ class AchievementSubscriptionHandler extends AbstractScribeSubscription {
     }
 }
 
-export const ScribeSubscriptionHandler = {
+interface ScribeSubscriptionHandler {
+    registry: Record<registryKey | 'global', AbstractScribeSubscription>;
+    disposeAll(): void;
+}
+
+export const ScribeSubscriptionHandler: ScribeSubscriptionHandler = {
     registry: {
         global: new GlobalSubscriptionHandler(),
         mob: new MobScribeSubscription(),
@@ -358,7 +375,7 @@ export const ScribeSubscriptionHandler = {
         achievement: new AchievementSubscriptionHandler(),
     },
 
-    disposeAll() {
+    disposeAll(): void {
         Object.values(this.registry).forEach((handler) => {
             handler.disposeAll();
         });

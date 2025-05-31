@@ -10,6 +10,7 @@ import { MobSchema } from '@common/schemas/mobSchema';
 import { ItemSchema } from '@common/schemas/itemSchema';
 import { DroptableSchema } from '@common/schemas/droptableSchema';
 import { AchievementSchema } from '@common/schemas/achievementSchema';
+import { PlaceholderSchema } from '@common/schemas/placeholderSchema';
 
 import { AbstractScribeSubscription, ScribeSubscriptionHandler } from './SubscriptionHandler';
 import {
@@ -128,7 +129,7 @@ export function updateSubscriptions(document: vscode.TextDocument) {
         ActiveFileTypeInfo[info.key] = fileSpecificEnabler(
             ActiveFileTypeInfo[info.key],
             checkFileEnabled(uri, info.configKey),
-            ScribeSubscriptionHandler.registry[info.subscriptionHandler]
+            ScribeSubscriptionHandler.registry[info.key]
         );
     }
 }
@@ -137,7 +138,6 @@ interface FileTypeInfo {
     schema?: Schema;
     key: registryKey;
     configKey: keyof typeof fileRegexConfigCache;
-    subscriptionHandler: keyof typeof ScribeSubscriptionHandler.registry;
 }
 const FileTypeInfoMap: {
     [K in registryKey]: FileTypeInfo;
@@ -146,73 +146,61 @@ const FileTypeInfoMap: {
         schema: MetaskillSchema,
         key: 'metaskill',
         configKey: 'Metaskill',
-        subscriptionHandler: 'metaskill',
     },
     mob: {
         schema: MobSchema,
         key: 'mob',
         configKey: 'Mob',
-        subscriptionHandler: 'mob',
     },
     item: {
         schema: ItemSchema,
         key: 'item',
         configKey: 'Item',
-        subscriptionHandler: 'item',
     },
     droptable: {
         schema: DroptableSchema,
         key: 'droptable',
         configKey: 'Droptable',
-        subscriptionHandler: 'droptable',
     },
     stat: {
         schema: StatSchema,
         key: 'stat',
         configKey: 'Stat',
-        subscriptionHandler: 'stat',
     },
     pin: {
         schema: undefined,
         key: 'pin',
         configKey: 'Pin',
-        subscriptionHandler: 'pin',
     },
     placeholder: {
-        schema: undefined,
+        schema: PlaceholderSchema,
         key: 'placeholder',
         configKey: 'Placeholder',
-        subscriptionHandler: 'placeholder',
     },
     randomspawn: {
         schema: RandomSpawnSchema,
         key: 'randomspawn',
         configKey: 'RandomSpawn',
-        subscriptionHandler: 'randomspawn',
     },
     archetype: {
         schema: ArchetypeSchema,
         key: 'archetype',
         configKey: 'Archetype',
-        subscriptionHandler: 'archetype',
     },
     reagent: {
         schema: ReagentSchema,
         key: 'reagent',
         configKey: 'Reagent',
-        subscriptionHandler: 'reagent',
     },
     menu: {
         schema: MenuSchema,
         key: 'menu',
         configKey: 'Menu',
-        subscriptionHandler: 'menu',
     },
     achievement: {
         schema: AchievementSchema,
         key: 'achievement',
         configKey: 'Achievement',
-        subscriptionHandler: 'achievement',
     },
 };
 

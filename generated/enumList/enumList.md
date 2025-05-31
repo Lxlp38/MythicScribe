@@ -94,6 +94,10 @@
 ### Path: `mythic/variablescope.json`
 ### Type: `Static`
 
+# `variabletype`
+### Path: `mythic/variabletype.json`
+### Type: `Static`
+
 # `addtrade_action`
 ### Path: `mythic/mechanicScoped/addtrade_action.json`
 ### Type: `Static`
@@ -375,6 +379,10 @@
 ### Type: `Scripted`
 
 # `randomspawnschema`
+### Path: `null`
+### Type: `Scripted`
+
+# `placeholderschema`
 ### Path: `null`
 ### Type: `Scripted`
 
