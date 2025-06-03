@@ -487,9 +487,9 @@
           "additionalProperties": false,
           "properties": {
             "enabled": {
-              "title": "Show Diagnostics",
+              "title": "Enable Diagnostics",
               "type": "boolean",
-              "description": "Whether to show diagnostics."
+              "description": "Whether to enable diagnostics."
             }
           },
           "default": {
