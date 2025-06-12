@@ -1,5 +1,6 @@
 import * as vscode from 'vscode';
 import Log from '@common/utils/logger';
+import { getNodeGraphConfig } from '@common/utils/configutils';
 
 import { MockMythicNode, MythicNode, MythicNodeHandler } from './MythicNode';
 import { extendedRegistryKey, registryKey } from '../objectInfos';
@@ -723,6 +724,7 @@ function getWebviewContent(): string {
         <input type="hidden" id="${key}SvgUri" value="${imageUriMap[key]}">`
         )
         .join('\n')}
+    <input type="hidden" id="wheelSensitivity" value="${getNodeGraphConfig('wheelSensitivity') || 2}">
 
     <script src="${scriptUri}"></script>
 </body>

@@ -27,6 +27,15 @@ const svgMap = {
     spell: document.getElementById('spellSvgUri').value,
 };
 
+const wheelSensitivity = document.getElementById('wheelSensitivity').value
+    ? parseFloat(document.getElementById('wheelSensitivity').value)
+    : 2;
+if (isNaN(wheelSensitivity) || wheelSensitivity <= 0) {
+    // eslint-disable-next-line no-console
+    console.warn('Invalid wheel sensitivity value, using default of 2');
+    wheelSensitivity = 2;
+}
+
 const cylayout = {
     name: 'fcose',
     animate: false,
@@ -206,7 +215,7 @@ function renderGraph(graphData) {
         ],
         layout: cylayout,
         zoom: 10,
-        wheelSensitivity: 0.25,
+        wheelSensitivity: wheelSensitivity,
     });
 
     cyContextMenuInstance = cy.contextMenus(contextMenusOptions);

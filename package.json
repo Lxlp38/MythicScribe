@@ -533,6 +533,23 @@
             "backgroundColor": "same",
             "charColor": "none"
           }
+        },
+        "MythicScribe.nodeGraph": {
+          "title": "Node Graph Options",
+          "description": "Options for the Node Graph feature.",
+          "type": "object",
+          "additionalProperties": false,
+          "properties": {
+            "wheelSensitivity": {
+              "title": "Wheel Sensitivity",
+              "type": "number",
+              "default": 2,
+              "description": "The sensitivity of the mouse wheel for zooming in the Node Graph."
+            }
+          },
+          "default": {
+            "wheelSensitivity": 2
+          }
         }
       }
     }
