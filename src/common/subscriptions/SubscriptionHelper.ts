@@ -11,6 +11,7 @@ import { ItemSchema } from '@common/schemas/itemSchema';
 import { DroptableSchema } from '@common/schemas/droptableSchema';
 import { AchievementSchema } from '@common/schemas/achievementSchema';
 import { PlaceholderSchema } from '@common/schemas/placeholderSchema';
+import { EquipmentSetSchema } from '@common/schemas/equipmentsetSchema';
 
 import { AbstractScribeSubscription, ScribeSubscriptionHandler } from './SubscriptionHandler';
 import {
@@ -37,6 +38,7 @@ export const ActiveFileTypeInfo: Record<registryKey | 'enabled', boolean> = {
     pin: false,
     placeholder: false,
     randomspawn: false,
+    equipmentset: false,
     archetype: false,
     reagent: false,
     menu: false,
@@ -181,6 +183,11 @@ const FileTypeInfoMap: {
         schema: RandomSpawnSchema,
         key: 'randomspawn',
         configKey: 'RandomSpawn',
+    },
+    equipmentset: {
+        schema: EquipmentSetSchema,
+        key: 'equipmentset',
+        configKey: 'EquipmentSet',
     },
     archetype: {
         schema: ArchetypeSchema,

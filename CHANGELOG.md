@@ -4,9 +4,10 @@
 
 ### Added
 - File Type support (with Nodes, Completions, Hovers and all the good stuff) for
+  - Pins
   - Custom Placeholders
   - RandomSpawns
-  - Pins
+  - Equipment Sets
   - Archetypes
   - Reagents
   - Custom MythicRPG Menus

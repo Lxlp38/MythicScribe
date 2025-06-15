@@ -5,6 +5,7 @@ import { ArchetypeSchema } from '@common/schemas/archetypeSchema';
 import { MenuSchema } from '@common/schemas/menuSchema';
 import { AchievementSchema } from '@common/schemas/achievementSchema';
 import { PlaceholderSchema } from '@common/schemas/placeholderSchema';
+import { EquipmentSetSchema } from '@common/schemas/equipmentsetSchema';
 
 import { keyAliases, registryKey, TriggerType } from '../objectInfos';
 import { triggerfileCompletionProvider } from '../completions/file/triggerfileCompletionProvider';
@@ -302,6 +303,18 @@ class RandomSpawnSubscriptionHandler extends AbstractScribeSubscription {
     }
 }
 
+class EquipmentSetSubscriptionHandler extends AbstractScribeSubscription {
+    constructor() {
+        super(
+            [
+                () => genericFileCompletionProvider(EquipmentSetSchema),
+                () => hoverProvider(EquipmentSetSchema),
+            ],
+            [enableFileSpecificSuggestions]
+        );
+    }
+}
+
 class ArchetypeSubscriptionHandler extends AbstractScribeSubscription {
     constructor() {
         super(
@@ -369,6 +382,7 @@ export const ScribeSubscriptionHandler: ScribeSubscriptionHandler = {
         pin: new PinSubscriptionHandler(),
         placeholder: new PlaceholderSubscriptionHandler(),
         randomspawn: new RandomSpawnSubscriptionHandler(),
+        equipmentset: new EquipmentSetSubscriptionHandler(),
         archetype: new ArchetypeSubscriptionHandler(),
         reagent: new ReagentSubscriptionHandler(),
         menu: new MenuSubscriptionHandler(),

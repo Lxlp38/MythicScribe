@@ -20,6 +20,7 @@ export const fileRegexConfigCache = {
     Pin: undefined as string | undefined,
     Placeholder: undefined as string | undefined,
     RandomSpawn: undefined as string | undefined,
+    EquipmentSet: undefined as string | undefined,
     Archetype: undefined as string | undefined,
     Reagent: undefined as string | undefined,
     Menu: undefined as string | undefined,

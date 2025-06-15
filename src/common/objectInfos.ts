@@ -95,6 +95,7 @@ export const registryKey = [
     'pin',
     'placeholder',
     'randomspawn',
+    'equipmentset',
     'archetype',
     'reagent',
     'menu',

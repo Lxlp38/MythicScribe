@@ -11,6 +11,7 @@ import { ReagentSchema } from '@common/schemas/reagentSchema';
 import { MenuSchema } from '@common/schemas/menuSchema';
 import { AchievementSchema } from '@common/schemas/achievementSchema';
 import { PlaceholderSchema } from '@common/schemas/placeholderSchema';
+import { EquipmentSetSchema } from '@common/schemas/equipmentsetSchema';
 
 import { minecraftVersion } from '../utils/configutils';
 import { ScribeCloneableFile, fetchJsonFromLocalFile, fetchJsonFromURL } from './datasets';
@@ -384,6 +385,9 @@ export const ScribeEnumHandler = {
         this.addScriptedEnum(scriptedEnums.RandomSpawn, () =>
             fromMythicNodeToEnum(MythicNodeHandler.registry.randomspawn.getNodes())
         );
+        this.addScriptedEnum(scriptedEnums.EquipmentSet, () =>
+            fromMythicNodeToEnum(MythicNodeHandler.registry.equipmentset.getNodes())
+        );
         this.addScriptedEnum(scriptedEnums.Archetype, () =>
             fromMythicNodeToEnum(MythicNodeHandler.registry.archetype.getNodes())
         );
@@ -409,6 +413,9 @@ export const ScribeEnumHandler = {
         );
         this.addScriptedEnum(scriptedEnums.PlaceholderSchema, () =>
             fromSchemaToEnum(PlaceholderSchema)
+        );
+        this.addScriptedEnum(scriptedEnums.EquipmentSetSchema, () =>
+            fromSchemaToEnum(EquipmentSetSchema)
         );
         this.addScriptedEnum(scriptedEnums.ReagentSchema, () => fromSchemaToEnum(ReagentSchema));
         this.addScriptedEnum(scriptedEnums.MenuSchema, () => fromSchemaToEnum(MenuSchema));

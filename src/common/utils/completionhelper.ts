@@ -124,6 +124,9 @@ function checkShouldKeyCompleteExec(
     keylist: string[]
 ) {
     const keys = getParentKeys(document, position);
+    if (keys.length === 0) {
+        return false;
+    }
     if (!keylist.includes(keys[0].key)) {
         return false;
     }

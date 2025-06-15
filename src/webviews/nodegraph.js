@@ -15,6 +15,7 @@ const svgMap = {
     droptable: document.getElementById('droptableSvgUri').value,
     placeholder: document.getElementById('placeholderSvgUri').value,
     randomspawn: document.getElementById('randomspawnSvgUri').value,
+    equipmentset: document.getElementById('equipmentsetSvgUri').value,
     archetype: document.getElementById('archetypeSvgUri').value,
     reagent: document.getElementById('reagentSvgUri').value,
     stat: document.getElementById('statSvgUri').value,
@@ -27,7 +28,7 @@ const svgMap = {
     spell: document.getElementById('spellSvgUri').value,
 };
 
-const wheelSensitivity = document.getElementById('wheelSensitivity').value
+let wheelSensitivity = document.getElementById('wheelSensitivity').value
     ? parseFloat(document.getElementById('wheelSensitivity').value)
     : 2;
 if (isNaN(wheelSensitivity) || wheelSensitivity <= 0) {

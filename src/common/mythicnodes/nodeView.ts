@@ -109,6 +109,7 @@ const NodeTypeToAdditionalData: Record<registryKey, NodeData> = {
     pin: { shape: 'round-hexagon', color: '#d59b87', image: 'pin' },
     placeholder: { shape: 'rhomboid', color: '#cc6600', image: 'placeholder' },
     randomspawn: { shape: 'round-tag', color: '#00cccc', image: 'randomspawn' },
+    equipmentset: { shape: 'round-pentagon', color: '#ff8c00', image: 'equipmentset' },
     archetype: {
         shape: 'concave-hexagon',
         color: '#0b5394',

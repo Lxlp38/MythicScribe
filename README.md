@@ -141,6 +141,7 @@ You can download Dev Builds from the [Github Repository](https://github.com/Lxlp
     - [item](/assets/nodegraph/item.svg) ([source](https://game-icons.net/1x1/lorc/sword-spade.html))
     - [droptable](/assets/nodegraph/droptable.svg) ([source](https://game-icons.net/1x1/lorc/swap-bag.html))
     - [randomspawn](/assets/nodegraph/randomspawn.svg) ([source](https://game-icons.net/1x1/lorc/rally-the-troops.html))
+    - [equipmentset](/assets/nodegraph/equipmentset.svg) ([source](https://game-icons.net/1x1/lorc/battle-gear.html))
     - [archetype](/assets/nodegraph/archetype.svg) ([source](https://game-icons.net/1x1/lorc/strong.html))
     - [spell](/assets/nodegraph/spell.svg) ([source](https://game-icons.net/1x1/lorc/magic-swirl.html))
     - [menu](/assets/nodegraph/menu.svg) ([source](https://game-icons.net/1x1/delapouite/hamburger-menu.html))

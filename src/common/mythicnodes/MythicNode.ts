@@ -562,6 +562,11 @@ export class ItemMythicNode extends TemplatableMythicNode {
         if (type && ['block', 'furniture'].includes(type.name.toLowerCase())) {
             this.metadata.set('type', type.name.toLowerCase());
         }
+
+        const equipmentSet = this.matchSingleEntry(body, /^\s*EquipmentSet:\s*(?<entry>.*)/gm);
+        if (equipmentSet) {
+            this.addEdge('equipmentset', equipmentSet.name, equipmentSet.range);
+        }
     }
 }
 
@@ -901,6 +906,7 @@ export namespace MythicNodeHandler {
         pin: new MythicNodeRegistry('pin'),
         placeholder: new MythicNodeRegistry('placeholder'),
         randomspawn: new MythicNodeRegistry('randomspawn', RandomSpawnMythicNode),
+        equipmentset: new MythicNodeRegistry('equipmentset'),
         archetype: new MythicNodeRegistry('archetype', ArchetypeMythicNode),
         reagent: new MythicNodeRegistry('reagent', ReagentMythicNode),
         menu: new MythicNodeRegistry('menu'),

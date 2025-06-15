@@ -385,6 +385,10 @@
               "type": "string",
               "description": "Regex to identify RandomSpawn files."
             },
+            "EquipmentSet": {
+              "type": "string",
+              "description": "Regex to identify Equipment Set files."
+            },
             "Archetype": {
               "type": "string",
               "description": "Regex to identify Archetype files."
@@ -412,6 +416,7 @@
             "Pin": "[\\\\\\/]pins.((yaml)|(yml)|(txt))",
             "Placeholder": "[\\\\\\/]placeholders.((yaml)|(yml)|(txt))",
             "RandomSpawn": "[\\\\\\/][Rr]andom[Ss]pawns[\\\\\\/]",
+            "EquipmentSet": "[\\\\\\/]equipment-sets.((yaml)|(yml)|(txt))",
             "Archetype": "[\\\\\\/][Aa]rchetypes[\\\\\\/]",
             "Reagent": "[\\\\\\/]reagents.((yaml)|(yml)|(txt))",
             "Menu": "[\\\\\\/][Mm]enus[\\\\\\/]",

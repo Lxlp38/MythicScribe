@@ -535,7 +535,8 @@ export const ItemSchema: Schema = {
         plugin: DefaultPlugins.MythicCrucible,
     },
     EquipmentSet: {
-        type: SchemaElementTypes.STRING,
+        type: SchemaElementTypes.ENUM,
+        dataset: 'EQUIPMENTSET',
         link: 'https://git.lumine.io/mythiccraft/mythiccrucible/-/wikis/Sets',
         description: 'Sets the set of the item',
         plugin: DefaultPlugins.MythicCrucible,
