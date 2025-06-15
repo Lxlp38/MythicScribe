@@ -1,0 +1,96 @@
+import { showInfoMessageWithOptions } from '@common/utils/logger';
+import * as vscode from 'vscode';
+
+const disposables: Record<string, vscode.Disposable[]> = {};
+let uuid = 0;
+
+export function externalToolWarning() {
+    showInfoMessageWithOptions('External tools are disabled in the configuration.', {
+        'Open Settings': {
+            target: 'workbench.action.openSettings',
+            action: 'MythicScribe.allowExternalTools',
+            type: 'command',
+        },
+    });
+    return;
+}
+
+export function openExternalWebview(
+    name: string,
+    link: string,
+    addons: string[] = [],
+    iframeListener: string = '',
+    listener: (message: unknown) => void = () => {}
+): void {
+    uuid += 1;
+    const uuidStr = uuid.toString();
+    if (disposables[uuidStr]) {
+        disposables[uuidStr].forEach((d) => d.dispose());
+        disposables[uuidStr] = [];
+    } else {
+        disposables[uuidStr] = [];
+    }
+
+    const panel = vscode.window.createWebviewPanel('webview', name, vscode.ViewColumn.One, {
+        enableScripts: true,
+        retainContextWhenHidden: true,
+    });
+
+    panel.webview.html = getWebviewContent(name, link, addons, iframeListener);
+    panel.onDidDispose(() => {
+        disposables[uuidStr].forEach((d) => d.dispose());
+        delete disposables[uuidStr];
+    });
+    disposables[uuidStr].push(panel);
+    createMessageListener(uuidStr, panel, listener);
+}
+
+function createMessageListener(
+    uuid: string,
+    panel: vscode.WebviewPanel,
+    listener: (message: unknown) => void
+): vscode.Disposable {
+    const disposable = panel.webview.onDidReceiveMessage(listener, null, disposables[uuid]);
+
+    return disposable;
+}
+
+function getWebviewContent(
+    name: string,
+    url: string,
+    addons: string[],
+    messageHandler: string
+): string {
+    return /*html*/ `<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>${name}</title>
+    <style>
+        body, html {
+            margin: 0;
+            padding: 0;
+            width: 100%;
+            height: 100%;
+            overflow: hidden;
+        }
+        iframe {
+            border: none;
+            width: 100%;
+            height: 100%;
+        }
+    </style>
+</head>
+<body>
+    <iframe src="${url}"></iframe>
+    ${addons.join('\n')}
+    <script>
+        const vscode = acquireVsCodeApi();
+        window.addEventListener('message', (event) => {
+            const message = event.data;
+            ${messageHandler}
+        });
+</body>
+</html>`;
+}

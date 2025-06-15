@@ -128,6 +128,8 @@ You can download Dev Builds from the [Github Repository](https://github.com/Lxlp
 
 # Credits and Acknowledgements
 - [@maecy](https://twitter.com/maecy_official?s=21&t=ZBZ5BDKcoa6LYFwgd690_A), for creating and providing this extension's ⭐awesome⭐ icon and the [Stellius Team](https://stellius.net/) in general for the collaboration!
+- MythicScribe is integrated with some External Tools:
+  - [AuraFX](https://aurafx.vercel.app/) by [sleepsweetly](https://github.com/sleepsweetly)
 - [Game-icons.net](https://game-icons.net/) for the awesome icons used in the Node View! All images are licensed under [CC BY 3.0](https://creativecommons.org/licenses/by/3.0/). In particular, the icons used have been made by
   - [Delapouite](https://delapouite.com/)
     - [mob](/assets/nodegraph/mob.svg) ([source](https://game-icons.net/1x1/delapouite/spiked-dragon-head.html))

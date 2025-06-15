@@ -117,6 +117,15 @@ export async function openLogs(): Promise<void> {
     Log.show();
 }
 
+type InfoMessageType = 'external' | 'command';
+type InfoMessageOptions = {
+    [key: string]: {
+        type: InfoMessageType;
+        target: string;
+        action?: string;
+    };
+};
+
 /**
  * Displays an information message with selectable options.
  *
@@ -126,16 +135,20 @@ export async function openLogs(): Promise<void> {
  * The function shows an information message with the provided options. When an option is selected,
  * it opens the corresponding URL in the default web browser.
  */
-export async function showInfoMessageWithOptions(
-    message: string,
-    options: { [key: string]: string }
-) {
+export async function showInfoMessageWithOptions(message: string, options: InfoMessageOptions) {
     Log.debug(message);
     const optionKeys = Object.keys(options);
     return vscode.window.showInformationMessage(message, ...optionKeys).then((selected) => {
         if (selected) {
-            Log.debug(`Opened ${options[selected]}`);
-            return vscode.env.openExternal(vscode.Uri.parse(options[selected]));
+            const sel = options[selected];
+            switch (sel.type) {
+                case 'external':
+                    Log.debug(`Opened ${sel.target}`);
+                    return vscode.env.openExternal(vscode.Uri.parse(sel.target));
+                case 'command':
+                    Log.debug(`Executed command: ${sel.target}`);
+                    return vscode.commands.executeCommand(sel.target, sel.action);
+            }
         }
         return undefined;
     });

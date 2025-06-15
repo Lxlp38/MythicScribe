@@ -61,6 +61,10 @@
           "group": "mythicscribe.nodegraph"
         },
         {
+          "submenu": "mythicscribe.tools",
+          "group": "mythicscribe.tools"
+        },
+        {
           "submenu": "mythicscribe.dataset",
           "group": "mythicscribe.other"
         },
@@ -95,6 +99,12 @@
           "command": "MythicScribe.loadDatasets",
           "group": "mythicscribe.dataset"
         }
+      ],
+      "mythicscribe.tools": [
+        {
+          "command": "MythicScribe.aurafx",
+          "group": "mythicscribe.tools"
+        }
       ]
     },
     "submenus": [
@@ -106,6 +116,10 @@
       {
         "id": "mythicscribe.dataset",
         "label": "Datasets"
+      },
+      {
+        "id": "mythicscribe.tools",
+        "label": "Tools"
       }
     ],
     "commands": [
@@ -147,6 +161,11 @@
       {
         "command": "MythicScribe.putSelectionInsideInlineMetaskill",
         "title": "Put Selection Inside Inline Metaskill",
+        "category": "MythicScribe"
+      },
+      {
+        "command": "MythicScribe.aurafx",
+        "title": "AuraFX",
         "category": "MythicScribe"
       }
     ],
@@ -555,7 +574,13 @@
           "default": {
             "wheelSensitivity": 2
           }
-        }
+        },
+        "MythicScribe.allowExternalTools": {
+            "title": "Allow External Tools",
+            "type": "boolean",
+            "default": false,
+            "description": "Whether to allow external tools to be used with MythicScribe."
+          }
       }
     }
   },

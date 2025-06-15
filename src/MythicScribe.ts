@@ -1,4 +1,5 @@
 import * as vscode from 'vscode';
+import { openAuraFXWebview } from '@common/webviews/views/aurafx';
 
 import * as SubscriptionHelper from './common/subscriptions/SubscriptionHelper';
 import { getFormatter } from './common/formatter/formatter';
@@ -61,6 +62,7 @@ export async function activate(context: vscode.ExtensionContext) {
         vscode.commands.registerCommand('MythicScribe.openSettings', () => {
             vscode.commands.executeCommand('workbench.action.openSettings', 'MythicScribe');
         }),
+        vscode.commands.registerCommand('MythicScribe.aurafx', openAuraFXWebview),
 
         // Formatter
         getFormatter(),
@@ -82,8 +84,11 @@ export function checkExtensionVersion(): boolean {
     const savedVersion = ctx.globalState.get<string>('extensionVersion');
     Log.debug(`Current version: ${version}, Saved version: ${savedVersion}`);
     if (version && version !== savedVersion) {
-        const checkExtensionVersionOptions: { [key: string]: string } = {
-            'Check Changelogs': 'https://github.com/Lxlp38/MythicScribe/blob/master/CHANGELOG.md',
+        const checkExtensionVersionOptions: Parameters<typeof showInfoMessageWithOptions>[1] = {
+            'Check Changelogs': {
+                target: 'https://github.com/Lxlp38/MythicScribe/blob/master/CHANGELOG.md',
+                type: 'external',
+            },
         };
         showInfoMessageWithOptions(
             `Updated MythicScribe to version ${version}\nYou may need to restart VSCode for changes to take effect`,

@@ -8,6 +8,7 @@ const configCache = {
     datasetSource: undefined as string | undefined,
     attributeAliasUsedInCompletions: undefined as string | undefined,
     isAlwaysEnabled: undefined as boolean | undefined,
+    allowExternalTools: undefined as boolean | undefined,
 };
 
 export const fileRegexConfigCache = {
@@ -86,6 +87,13 @@ export const configHandler = vscode.workspace.onDidChangeConfiguration((e) => {
         resetConfigCache();
     }
 });
+
+export function getGenericConfig(key: keyof typeof configCache) {
+    if (configCache[key] === undefined) {
+        configCache[key] = vscode.workspace.getConfiguration('MythicScribe').get(key);
+    }
+    return configCache[key];
+}
 
 // Check for enabled features
 export function isAlwaysEnabled() {
