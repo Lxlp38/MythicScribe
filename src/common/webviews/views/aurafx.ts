@@ -1,14 +1,14 @@
 import { getGenericConfig } from '@common/utils/configutils';
-import Log from '@common/utils/logger';
 
-import { externalToolWarning, openExternalWebview } from '../common';
+import { externalToolOpened as openExternalTool, externalToolWarning } from '../common';
+
+const aurafxLink = 'https://aurafx.vercel.app/';
+const name = 'AuraFX by Sleepsweety';
 
 export function openAuraFXWebview(): void {
     if (!!getGenericConfig('allowExternalTools') === false) {
-        return externalToolWarning();
+        return externalToolWarning(aurafxLink);
     }
-    Log.warn(
-        'Opening an External Tool: AuraFX.\n\n\nExternal Tools are not handled by MythicScribe, but by third parties.'
-    );
-    return openExternalWebview('AuraFX by Sleepsweety', 'https://aurafx.vercel.app/');
+    openExternalTool(name, aurafxLink);
+    return;
 }

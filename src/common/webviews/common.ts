@@ -4,14 +4,32 @@ import * as vscode from 'vscode';
 const disposables: Record<string, vscode.Disposable[]> = {};
 let uuid = 0;
 
-export function externalToolWarning() {
+export function externalToolWarning(link: string): void {
     showInfoMessageWithOptions('External tools are disabled in the configuration.', {
         'Open Settings': {
             target: 'workbench.action.openSettings',
             action: 'MythicScribe.allowExternalTools',
             type: 'command',
         },
+        'Open in Browser': {
+            target: link,
+            type: 'external',
+        },
     });
+    return;
+}
+
+export function externalToolOpened(name: string, link: string): void {
+    showInfoMessageWithOptions(
+        `Opening an External Tool: ${name}.\n\n\nExternal Tools are not handled by MythicScribe, but by third parties.`,
+        {
+            'Open in Browser': {
+                target: link,
+                type: 'external',
+            },
+        }
+    );
+    openExternalWebview(name, link);
     return;
 }
 

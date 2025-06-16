@@ -165,7 +165,8 @@
       },
       {
         "command": "MythicScribe.aurafx",
-        "title": "AuraFX",
+        "title": "AuraFX (by Sleepsweety)",
+        "shortTitle": "AuraFX",
         "category": "MythicScribe"
       }
     ],
