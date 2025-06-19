@@ -21,7 +21,7 @@
 - Background Images for Nodes in the Mythic Node Graph for easier discernment of node types
 - New MythicScribe context menu on right click on a MythicScript file
 - External Tools support
-  - [AuraFX](https://aurafx.vercel.app/) by [sleepsweetly](https://github.com/sleepsweetly)
+  - [AuraFX](https://aurafx.vercel.app?source=MythicScribe) by [sleepsweetly](https://github.com/sleepsweetly)
 
 #### Commands & Configs
 - `MythicScribe.putSelectionInsideInlineMetaskill` command and context menu item to put the selected text inside of an inline metaskill

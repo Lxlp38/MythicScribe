@@ -19,7 +19,11 @@ export function externalToolWarning(link: string): void {
     return;
 }
 
-export function externalToolOpened(name: string, link: string): void {
+export function openToolExternally(link: string): void {
+    vscode.env.openExternal(vscode.Uri.parse(link));
+}
+
+export function openToolInternally(name: string, link: string): void {
     showInfoMessageWithOptions(
         `Opening an External Tool: ${name}.\n\n\nExternal Tools are not handled by MythicScribe, but by third parties.`,
         {
