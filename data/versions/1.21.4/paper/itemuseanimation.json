@@ -1,0 +1,35 @@
+{
+    "BLOCK": {
+        "description": ""
+    },
+    "BOW": {
+        "description": ""
+    },
+    "BRUSH": {
+        "description": ""
+    },
+    "BUNDLE": {
+        "description": ""
+    },
+    "CROSSBOW": {
+        "description": ""
+    },
+    "DRINK": {
+        "description": ""
+    },
+    "EAT": {
+        "description": ""
+    },
+    "NONE": {
+        "description": ""
+    },
+    "SPEAR": {
+        "description": ""
+    },
+    "SPYGLASS": {
+        "description": ""
+    },
+    "TOOT_HORN": {
+        "description": ""
+    }
+}

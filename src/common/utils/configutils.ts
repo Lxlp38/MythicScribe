@@ -239,6 +239,10 @@ export function minecraftVersion() {
     const config = vscode.workspace.getConfiguration('MythicScribe');
     const value = config.get<string>('minecraftVersion');
 
+    if (value === 'latest') {
+        return MinecraftVersions[0];
+    }
+
     // Check if the value is invalid
     if (typeof value !== 'string' || !MinecraftVersions.includes(value)) {
         const inspected = config.inspect<string>('minecraftVersion');
@@ -258,10 +262,10 @@ export function minecraftVersion() {
         Log.warn(
             'Invalid MythicScribe.minecraftVersion configuration value detected. Resetting to default value "latest".'
         );
-        return 'latest';
+        return MinecraftVersions[0];
     }
 
-    return config.get<string>('minecraftVersion');
+    return value;
 }
 
 function getEnabledPlugins(): { [key: string]: boolean } {

@@ -8126,6 +8126,16 @@
             },
             {
                 "name": [
+                    "directionTowardsTarget",
+                    "dtt"
+                ],
+                "type": "Boolean",
+                "description": "Whether the yaw/pitch should be calculated so that the drawn shape aims to the target",
+                "link": "https://git.lumine.io/mythiccraft/MythicMobs/-/wikis/Skills/Mechanics/polygon",
+                "default_value": "false"
+            },
+            {
+                "name": [
                     "onpointskill",
                     "onpoint",
                     "op"
@@ -8218,6 +8228,39 @@
                 ],
                 "type": "PlaceholderDouble",
                 "description": "The offset on the Z axis",
+                "link": "https://git.lumine.io/mythiccraft/MythicMobs/-/wikis/Skills/Mechanics/polygon",
+                "default_value": "0"
+            },
+            {
+                "name": [
+                    "targetxoffset",
+                    "txo",
+                    "tx"
+                ],
+                "type": "PlaceholderDouble",
+                "description": "Target X-axis offset",
+                "link": "https://git.lumine.io/mythiccraft/MythicMobs/-/wikis/Skills/Mechanics/polygon",
+                "default_value": "0"
+            },
+            {
+                "name": [
+                    "targetyoffset",
+                    "tyo",
+                    "ty"
+                ],
+                "type": "PlaceholderDouble",
+                "description": "Target Y-axis offset",
+                "link": "https://git.lumine.io/mythiccraft/MythicMobs/-/wikis/Skills/Mechanics/polygon",
+                "default_value": "0"
+            },
+            {
+                "name": [
+                    "targetzoffset",
+                    "tzo",
+                    "tz"
+                ],
+                "type": "PlaceholderDouble",
+                "description": "Target Z-axis offset",
                 "link": "https://git.lumine.io/mythiccraft/MythicMobs/-/wikis/Skills/Mechanics/polygon",
                 "default_value": "0"
             },
@@ -8902,7 +8945,7 @@
                     "verticaloffset",
                     "vo"
                 ],
-                "type": "PlaceholderFloat",
+                "type": "PlaceholderAngle",
                 "description": "Vertical Offset will add a [slope](https://en.wikipedia.org/wiki/Grade_(slope)) to the projectile's starting direction. To give it a specific angle, you can use [this image](https://en.wikipedia.org/wiki/Grade_(slope)#/media/File:Slope_quadrant.svg) as reference: the value you need will be the number shown in red divided by 100 (so if you want 40\u00b0, you will need to input 83.9/100 = `0.839`)",
                 "link": "https://git.lumine.io/mythiccraft/MythicMobs/-/wikis/Skills/Mechanics/projectile",
                 "default_value": "0"
@@ -8912,7 +8955,7 @@
                     "horizontaloffset",
                     "ho"
                 ],
-                "type": "PlaceholderFloat",
+                "type": "PlaceholderAngle",
                 "description": "Horizontal Offset will rotate the projectile's horizontal starting velocity around a 360-degree axis",
                 "link": "https://git.lumine.io/mythiccraft/MythicMobs/-/wikis/Skills/Mechanics/projectile",
                 "default_value": "0"
@@ -12044,6 +12087,32 @@
                 "description": "The value the pitch will be set to",
                 "link": "https://git.lumine.io/mythiccraft/MythicMobs/-/wikis/Skills/Mechanics/SetPitch",
                 "default_value": "0"
+            }
+        ]
+    },
+    {
+        "plugin": "MythicMobs",
+        "class": "SetPoseMechanic",
+        "extends": "SkillMechanic",
+        "implements": [
+            "ITargetedEntitySkill"
+        ],
+        "name": [
+            "setpose"
+        ],
+        "description": "Sets the entity's [pose](https://jd.papermc.io/paper/1.21.6/org/bukkit/entity/Pose.html)",
+        "link": "https://git.lumine.io/mythiccraft/MythicMobs/-/wikis/Skills/Mechanics/SetPose",
+        "attributes": [
+            {
+                "name": [
+                    "pose",
+                    "p"
+                ],
+                "type": "PlaceholderString",
+                "description": "The pose to assign",
+                "link": "https://git.lumine.io/mythiccraft/MythicMobs/-/wikis/Skills/Mechanics/SetPose",
+                "default_value": "",
+                "enum": "EntityPose"
             }
         ]
     },
@@ -15758,6 +15827,16 @@
                 "description": "How high above the surface the totem should align itself if HugSurface is set to true",
                 "link": "https://git.lumine.io/mythiccraft/MythicMobs/-/wikis/Skills/Mechanics/totem",
                 "default_value": "0.5"
+            },
+            {
+                "name": [
+                    "faceAwayFromCaster",
+                    "fafc"
+                ],
+                "type": "Boolean",
+                "description": "Whether the totem should face away from the caster when first placed",
+                "link": "https://git.lumine.io/mythiccraft/MythicMobs/-/wikis/Skills/Mechanics/totem",
+                "default_value": "false"
             },
             {
                 "name": [

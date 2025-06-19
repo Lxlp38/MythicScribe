@@ -14,6 +14,7 @@ export const volatileEnums: EnumEntry[] = [
     'paper/enchantment.json',
     'paper/enderdragonphase.json',
     'paper/entitytype.json',
+    'paper/entitypose.json',
     'paper/fireworkeffecttype.json',
     'paper/fluidcollisionmode.json',
     'paper/gamemode.json',

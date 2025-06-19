@@ -355,7 +355,7 @@
                     "angle",
                     "a"
                 ],
-                "type": "Double",
+                "type": "PlaceholderAngle",
                 "description": "The angle of the cone",
                 "link": "https://git.lumine.io/mythiccraft/MythicMobs/-/wikis/Skills/Targeters/Cone",
                 "default_value": "90"
@@ -444,6 +444,73 @@
         "description": "Provides no target.  \nUseful for mechanics with no target input",
         "link": "https://git.lumine.io/mythiccraft/MythicMobs/-/wikis/Skills/Targeters/None",
         "attributes": []
+    },
+    {
+        "plugin": "MythicMobs",
+        "class": "EntitiesInConeTargeter",
+        "extends": "IEntitySelector",
+        "name": [
+            "livingInCone",
+            "entitiesInCone",
+            "livingEntitiesInCone",
+            "LEIC",
+            "EIC"
+        ],
+        "description": "Targets all living entities in cone with a specified angle, length and rotation relative to facing direction",
+        "link": "https://git.lumine.io/mythiccraft/MythicMobs/-/wikis/Skills/Targeters/LivingInCone",
+        "attributes": [
+            {
+                "name": [
+                    "angle",
+                    "a"
+                ],
+                "type": "PlaceholderAngle",
+                "description": "The angle of the cone",
+                "link": "https://git.lumine.io/mythiccraft/MythicMobs/-/wikis/Skills/Targeters/LivingInCone",
+                "default_value": "90"
+            },
+            {
+                "name": [
+                    "range",
+                    "r"
+                ],
+                "type": "PlaceholderDouble",
+                "description": "The length of the cone",
+                "link": "https://git.lumine.io/mythiccraft/MythicMobs/-/wikis/Skills/Targeters/LivingInCone",
+                "default_value": "16"
+            },
+            {
+                "name": [
+                    "yoffset",
+                    "yo"
+                ],
+                "type": "PlaceholderDouble",
+                "description": "The y offset to be added to the generated cone's location",
+                "link": "https://git.lumine.io/mythiccraft/MythicMobs/-/wikis/Skills/Targeters/LivingInCone",
+                "default_value": "0"
+            },
+            {
+                "name": [
+                    "rotation",
+                    "rot"
+                ],
+                "type": "PlaceholderDouble",
+                "description": "The rotation of the cone",
+                "link": "https://git.lumine.io/mythiccraft/MythicMobs/-/wikis/Skills/Targeters/LivingInCone",
+                "default_value": "0"
+            },
+            {
+                "name": [
+                    "usepitch",
+                    "pitch",
+                    "p"
+                ],
+                "type": "Boolean",
+                "description": "Whether to generate the cone also depending on the caster's pitch",
+                "link": "https://git.lumine.io/mythiccraft/MythicMobs/-/wikis/Skills/Targeters/LivingInCone",
+                "default_value": "false"
+            }
+        ]
     },
     {
         "plugin": "MythicMobs",
@@ -1232,73 +1299,6 @@
                 "type": "Boolean",
                 "description": "If the line should be drawn from the origin of the metaskill",
                 "link": "https://git.lumine.io/mythiccraft/MythicMobs/-/wikis/Skills/Targeters/Line",
-                "default_value": "false"
-            }
-        ]
-    },
-    {
-        "plugin": "MythicMobs",
-        "class": "LivingInConeTargeter",
-        "extends": "IEntitySelector",
-        "name": [
-            "livingInCone",
-            "entitiesInCone",
-            "livingEntitiesInCone",
-            "LEIC",
-            "EIC"
-        ],
-        "description": "Targets all living entities in cone with a specified angle, length and rotation relative to facing direction",
-        "link": "https://git.lumine.io/mythiccraft/MythicMobs/-/wikis/Skills/Targeters/LivingInCone",
-        "attributes": [
-            {
-                "name": [
-                    "angle",
-                    "a"
-                ],
-                "type": "PlaceholderDouble",
-                "description": "The angle of the cone",
-                "link": "https://git.lumine.io/mythiccraft/MythicMobs/-/wikis/Skills/Targeters/LivingInCone",
-                "default_value": "90"
-            },
-            {
-                "name": [
-                    "range",
-                    "r"
-                ],
-                "type": "PlaceholderDouble",
-                "description": "The length of the cone",
-                "link": "https://git.lumine.io/mythiccraft/MythicMobs/-/wikis/Skills/Targeters/LivingInCone",
-                "default_value": "16"
-            },
-            {
-                "name": [
-                    "yoffset",
-                    "yo"
-                ],
-                "type": "PlaceholderDouble",
-                "description": "The y offset to be added to the generated cone's location",
-                "link": "https://git.lumine.io/mythiccraft/MythicMobs/-/wikis/Skills/Targeters/LivingInCone",
-                "default_value": "0"
-            },
-            {
-                "name": [
-                    "rotation",
-                    "rot"
-                ],
-                "type": "PlaceholderDouble",
-                "description": "The rotation of the cone",
-                "link": "https://git.lumine.io/mythiccraft/MythicMobs/-/wikis/Skills/Targeters/LivingInCone",
-                "default_value": "0"
-            },
-            {
-                "name": [
-                    "usepitch",
-                    "pitch",
-                    "p"
-                ],
-                "type": "Boolean",
-                "description": "Whether to generate the cone also depending on the caster's pitch",
-                "link": "https://git.lumine.io/mythiccraft/MythicMobs/-/wikis/Skills/Targeters/LivingInCone",
                 "default_value": "false"
             }
         ]

@@ -1,1 +1,92 @@
-{}
+{
+    "BLOCK_EXPLOSION": {
+        "description": "Damage caused by being in the area when a block explodes."
+    },
+    "CONTACT": {
+        "description": "Damage caused when an entity contacts a block such as a Cactus,\n Dripstone (Stalagmite) or Berry Bush."
+    },
+    "CRAMMING": {
+        "description": "Damage caused when an entity is colliding with too many entities due\n to the maxEntityCramming game rule."
+    },
+    "CUSTOM": {
+        "description": "Custom damage."
+    },
+    "DRAGON_BREATH": {
+        "description": "Damage caused by a dragon breathing fire."
+    },
+    "DROWNING": {
+        "description": "Damage caused by running out of air while in water"
+    },
+    "DRYOUT": {
+        "description": "Damage caused when an entity that should be in water is not."
+    },
+    "ENTITY_ATTACK": {
+        "description": "Damage caused when an entity attacks another entity."
+    },
+    "ENTITY_EXPLOSION": {
+        "description": "Damage caused by being in the area when an entity, such as a\n Creeper, explodes."
+    },
+    "ENTITY_SWEEP_ATTACK": {
+        "description": "Damage caused when an entity attacks another entity in a sweep attack."
+    },
+    "FALL": {
+        "description": "Damage caused when an entity falls a distance greater than 3 blocks"
+    },
+    "FALLING_BLOCK": {
+        "description": "Damage caused by being hit by a falling block which deals damage"
+    },
+    "FIRE": {
+        "description": "Damage caused by direct exposure to fire"
+    },
+    "FIRE_TICK": {
+        "description": "Damage caused due to burns caused by fire"
+    },
+    "FLY_INTO_WALL": {
+        "description": "Damage caused when an entity runs into a wall."
+    },
+    "FREEZE": {
+        "description": "Damage caused from freezing."
+    },
+    "HOT_FLOOR": {
+        "description": "Damage caused when an entity steps on Material.MAGMA_BLOCK."
+    },
+    "LAVA": {
+        "description": "Damage caused by direct exposure to lava"
+    },
+    "LIGHTNING": {
+        "description": "Damage caused by being struck by lightning"
+    },
+    "MAGIC": {
+        "description": "Damage caused by being hit by a damage potion or spell"
+    },
+    "MELTING": {
+        "description": "Damage caused due to a snowman melting"
+    },
+    "POISON": {
+        "description": "Damage caused due to an ongoing poison effect"
+    },
+    "PROJECTILE": {
+        "description": "Damage caused when attacked by a projectile."
+    },
+    "SONIC_BOOM": {
+        "description": "Damage caused by the Sonic Boom attack from Warden"
+    },
+    "STARVATION": {
+        "description": "Damage caused by starving due to having an empty hunger bar"
+    },
+    "SUFFOCATION": {
+        "description": "Damage caused by being put in a block"
+    },
+    "SUICIDE": {
+        "description": "Damage caused by committing suicide."
+    },
+    "THORNS": {
+        "description": "Damage caused in retaliation to another attack by the Thorns\n enchantment."
+    },
+    "VOID": {
+        "description": "Damage caused by falling into the void"
+    },
+    "WITHER": {
+        "description": "Damage caused by Wither potion effect"
+    }
+}

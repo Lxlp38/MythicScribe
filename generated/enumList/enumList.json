@@ -255,6 +255,11 @@
     "type": "Volatile"
   },
   {
+    "id": "entitypose",
+    "path": "paper/entitypose.json",
+    "type": "Volatile"
+  },
+  {
     "id": "fireworkeffecttype",
     "path": "paper/fireworkeffecttype.json",
     "type": "Volatile"
@@ -385,6 +390,11 @@
     "type": "Scripted"
   },
   {
+    "id": "equipmentset",
+    "path": null,
+    "type": "Scripted"
+  },
+  {
     "id": "mythicitem",
     "path": null,
     "type": "Scripted"
@@ -481,6 +491,11 @@
   },
   {
     "id": "placeholderschema",
+    "path": null,
+    "type": "Scripted"
+  },
+  {
+    "id": "equipmentsetschema",
     "path": null,
     "type": "Scripted"
   },

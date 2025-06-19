@@ -209,7 +209,9 @@ export const ScribeEnumHandler = {
     loadEnumDatasets(): void {
         ScribeEnumHandler.emptyDatasets();
         const time = timeCounter();
-        Log.debug('Loading Enum Datasets');
+        const targetVersion = minecraftVersion();
+        this.version = targetVersion;
+        Log.debug('Loading Enum Datasets. Target Minecraft Version:', targetVersion);
         this.enumDefinitions.forEach(({ clazz, items }) => {
             items.forEach((item) => {
                 if (Array.isArray(item)) {

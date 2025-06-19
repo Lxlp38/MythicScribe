@@ -202,6 +202,10 @@
 ### Path: `paper/entitytype.json`
 ### Type: `Volatile`
 
+# `entitypose`
+### Path: `paper/entitypose.json`
+### Type: `Volatile`
+
 # `fireworkeffecttype`
 ### Path: `paper/fireworkeffecttype.json`
 ### Type: `Volatile`
@@ -306,6 +310,10 @@
 ### Path: `null`
 ### Type: `Scripted`
 
+# `equipmentset`
+### Path: `null`
+### Type: `Scripted`
+
 # `mythicitem`
 ### Path: `null`
 ### Type: `Scripted`
@@ -383,6 +391,10 @@
 ### Type: `Scripted`
 
 # `placeholderschema`
+### Path: `null`
+### Type: `Scripted`
+
+# `equipmentsetschema`
 ### Path: `null`
 ### Type: `Scripted`
 

@@ -1,1 +1,101 @@
-{}
+{
+    "ABSORPTION": {
+        "description": "Increases the maximum health of an entity with health that cannot be\n regenerated, but is refilled every 30 seconds."
+    },
+    "BAD_OMEN": {
+        "description": "Triggers a raid when the player enters a village.\n oof."
+    },
+    "BLINDNESS": {
+        "description": "Blinds an entity."
+    },
+    "CONDUIT_POWER": {
+        "description": "Effects granted by a nearby conduit."
+    },
+    "CONFUSION": {
+        "description": "Warps vision on the client."
+    },
+    "DAMAGE_RESISTANCE": {
+        "description": "Decreases damage dealt to an entity."
+    },
+    "DARKNESS": {
+        "description": "Causes the player's vision to dim occasionally."
+    },
+    "DOLPHINS_GRACE": {
+        "description": "Increses underwater movement speed.\n Squee'ek uh'k kk'kkkk squeek eee'eek."
+    },
+    "FAST_DIGGING": {
+        "description": "Increases dig speed."
+    },
+    "FIRE_RESISTANCE": {
+        "description": "Stops fire damage."
+    },
+    "GLOWING": {
+        "description": "Outlines the entity so that it can be seen from afar."
+    },
+    "HARM": {
+        "description": "Hurts an entity."
+    },
+    "HEAL": {
+        "description": "Heals an entity."
+    },
+    "HEALTH_BOOST": {
+        "description": "Increases the maximum health of an entity."
+    },
+    "HERO_OF_THE_VILLAGE": {
+        "description": "Reduces the cost of villager trades.\n \\o/."
+    },
+    "HUNGER": {
+        "description": "Increases hunger."
+    },
+    "INCREASE_DAMAGE": {
+        "description": "Increases damage dealt."
+    },
+    "INVISIBILITY": {
+        "description": "Grants invisibility."
+    },
+    "JUMP": {
+        "description": "Increases jump height."
+    },
+    "LEVITATION": {
+        "description": "Causes the entity to float into the air."
+    },
+    "LUCK": {
+        "description": "Loot table luck."
+    },
+    "NIGHT_VISION": {
+        "description": "Allows an entity to see in the dark."
+    },
+    "POISON": {
+        "description": "Deals damage to an entity over time."
+    },
+    "REGENERATION": {
+        "description": "Regenerates health."
+    },
+    "SATURATION": {
+        "description": "Increases the food level of an entity each tick."
+    },
+    "SLOW": {
+        "description": "Decreases movement speed."
+    },
+    "SLOW_DIGGING": {
+        "description": "Decreases dig speed."
+    },
+    "SLOW_FALLING": {
+        "description": "Slows entity fall rate."
+    },
+    "SPEED": {
+        "description": "Increases movement speed."
+    },
+    "UNLUCK": {
+        "description": "Loot table unluck."
+    },
+    "WATER_BREATHING": {
+        "description": "Allows breathing underwater."
+    },
+    "WEAKNESS": {
+        "description": "Decreases damage dealt by an entity."
+    },
+    "WITHER": {
+        "description": "Deals damage to an entity over time and gives the health to the\n shooter."
+    }
+}

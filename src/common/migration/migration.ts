@@ -63,10 +63,10 @@ export async function changeCustomDatasetsSource(
 
 export async function doVersionSpecificMigrations(scope: vscode.ConfigurationTarget) {
     Log.debug('Running version specific migrations for', scope.toString());
-    await Promise.all([
-        migrateConfiguration('regexForMythicmobsFile', 'fileRegex', 'MythicMobs', scope),
-        migrateConfiguration('regexForMobFile', 'fileRegex', 'Mob', scope),
-        migrateConfiguration('regexForItemFile', 'fileRegex', 'Item', scope),
-        migrateConfiguration('regexForMetaskillFile', 'fileRegex', 'Metaskill', scope),
-    ]);
+    // await Promise.all([
+    //     migrateConfiguration('regexForMythicmobsFile', 'fileRegex', 'MythicMobs', scope),
+    //     migrateConfiguration('regexForMobFile', 'fileRegex', 'Mob', scope),
+    //     migrateConfiguration('regexForItemFile', 'fileRegex', 'Item', scope),
+    //     migrateConfiguration('regexForMetaskillFile', 'fileRegex', 'Metaskill', scope),
+    // ]);
 }

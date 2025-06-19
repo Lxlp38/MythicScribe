@@ -242,6 +242,9 @@
     "target.distance": {
         "description": "Return the distance between the caster and the mechanic's target. If the target cannot be found in the caster's world, returns the maximum double value"
     },
+    "target.distancesquared": {
+        "description": "Return the squared distance between the caster and the mechanic's target. If the target cannot be found in the caster's world, returns the maximum double value"
+    },
     "trigger.uuid": {
         "description": "Returns the UUID of the entity triggering the skill"
     },
@@ -307,6 +310,9 @@
     },
     "trigger.distance": {
         "description": "Return the distance between the caster and the skilltree's trigger. If the trigger cannot be found in the caster's world, returns the maximum double value"
+    },
+    "trigger.distancesquared": {
+        "description": "Return the squared distance between the caster and the skilltree's trigger. If the target cannot be found in the caster's world, returns the maximum double value"
     },
     "drop.amount": {
         "description": "Returns the amount dropped while used in specific drop types"

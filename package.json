@@ -1,7 +1,7 @@
 {
   "name": "mythicscribe",
   "displayName": "MythicScribe",
-  "version": "1.6.1-dev",
+  "version": "1.7.0",
   "icon": "assets/icon128x128.png",
   "description": "Offers support for MythicMobs scripting",
   "license": "SEE LICENSE IN LICENSE.txt",
@@ -233,6 +233,8 @@
           "type": "string",
           "enum": [
             "latest",
+            "1.21.5",
+            "1.21.4",
             "1.21.3",
             "1.21.1",
             "1.20.6",
@@ -577,11 +579,11 @@
           }
         },
         "MythicScribe.allowExternalTools": {
-            "title": "Allow External Tools",
-            "type": "boolean",
-            "default": false,
-            "description": "Whether to allow external tools to be used with MythicScribe."
-          }
+          "title": "Allow External Tools",
+          "type": "boolean",
+          "default": false,
+          "description": "Whether to allow external tools to be used with MythicScribe."
+        }
       }
     }
   },

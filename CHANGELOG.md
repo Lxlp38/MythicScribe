@@ -1,6 +1,6 @@
 # Changelog
 
-## [Unreleased]
+## [1.7.0]
 
 ### Added
 - File Type support (with Nodes, Completions, Hovers and all the good stuff) for
@@ -15,13 +15,14 @@
 - Placeholder completions
   - Placeholder Support for nodes, completions and hovers
   - Hover and Go To Definition support for Placeholder Segments that use a Mob/Item/Custom Placeholder/Stat Id (for instance, <caster.stat.example> or <placeholder.test>)
+- External Tools support
+  - [AuraFX](https://aurafx.vercel.app?source=MythicScribe) by [sleepsweetly](https://github.com/sleepsweetly)
 - Mob Variables Completions for the variables set on upstream Templates
 - Mob Options, DropOptions and DisplayOptions Completions
 - Furniture and Custom Block Completions and Hovers
 - Background Images for Nodes in the Mythic Node Graph for easier discernment of node types
 - New MythicScribe context menu on right click on a MythicScript file
-- External Tools support
-  - [AuraFX](https://aurafx.vercel.app?source=MythicScribe) by [sleepsweetly](https://github.com/sleepsweetly)
+- Added datasets for MC 1.21.5
 
 #### Commands & Configs
 - `MythicScribe.putSelectionInsideInlineMetaskill` command and context menu item to put the selected text inside of an inline metaskill

@@ -49,6 +49,7 @@ dye
 enchantment
 enderdragonphase
 entitytype
+entitypose
 fireworkeffecttype
 fluidcollisionmode
 gamemode
@@ -75,6 +76,7 @@ stat
 pin
 customplaceholder
 randomspawn
+equipmentset
 mythicitem
 archetype
 reagent
@@ -95,6 +97,7 @@ droptableschema
 statschema
 randomspawnschema
 placeholderschema
+equipmentsetschema
 reagentschema
 menuschema
 achievementschema

@@ -680,6 +680,17 @@
                 "description": "Whether the current target should be dropped when the mob starts following the owner",
                 "link": "https://git.lumine.io/mythiccraft/MythicMobs/-/wikis/Mobs/ai/goals/GoToOwner",
                 "default_value": "true"
+            },
+            {
+                "name": [
+                    "teleportToWorld",
+                    "tow",
+                    "ttw"
+                ],
+                "type": "Boolean",
+                "description": "Whether the mob will teleport if the owner is in a different world",
+                "link": "https://git.lumine.io/mythiccraft/MythicMobs/-/wikis/Mobs/ai/goals/GoToOwner",
+                "default_value": "true"
             }
         ]
     },
@@ -735,6 +746,17 @@
                 ],
                 "type": "Boolean",
                 "description": "Whether the current target should be dropped when the mob starts following the parent",
+                "link": "https://git.lumine.io/mythiccraft/MythicMobs/-/wikis/Mobs/ai/goals/GoToParent",
+                "default_value": "true"
+            },
+            {
+                "name": [
+                    "teleportToWorld",
+                    "tow",
+                    "ttw"
+                ],
+                "type": "Boolean",
+                "description": "Whether the mob will teleport if the parent is in a different world",
                 "link": "https://git.lumine.io/mythiccraft/MythicMobs/-/wikis/Mobs/ai/goals/GoToParent",
                 "default_value": "true"
             }
@@ -1077,7 +1099,21 @@
     },
     {
         "plugin": "MythicMobs",
-        "class": "MoveTowardsConditionalGoal",
+        "class": "MoveTowardsRestrictionGoal",
+        "extends": "WrappedPathfindingGoal",
+        "implements": [
+            "PathfinderHolder"
+        ],
+        "name": [
+            "moveTowardsRestriction"
+        ],
+        "description": "Make a mob move towards its \"Restriction Point\" for some Entities (for instance, the village of a Villager)",
+        "link": "https://git.lumine.io/mythiccraft/MythicMobs/-/wikis/Mobs/ai/goals/MoveTowardsRestriction",
+        "attributes": []
+    },
+    {
+        "plugin": "MythicMobs",
+        "class": "MoveTowardsTargetGoal",
         "extends": "WrappedPathfindingGoal",
         "implements": [
             "PathfinderHolder"
@@ -1090,6 +1126,16 @@
         "attributes": [
             {
                 "name": [
+                    "speed",
+                    "s"
+                ],
+                "type": "Double",
+                "description": "The speed of the movement",
+                "link": "https://git.lumine.io/mythiccraft/MythicMobs/-/wikis/Mobs/ai/goals/MoveTowardsTarget",
+                "default_value": "0.9"
+            },
+            {
+                "name": [
                     "maxrange",
                     "range",
                     "r"
@@ -1100,20 +1146,6 @@
                 "default_value": "32.0"
             }
         ]
-    },
-    {
-        "plugin": "MythicMobs",
-        "class": "MoveTowardsRestrictionGoal",
-        "extends": "WrappedPathfindingGoal",
-        "implements": [
-            "PathfinderHolder"
-        ],
-        "name": [
-            "moveTowardsRestriction"
-        ],
-        "description": "Make a mob move towards its \"Restriction Point\" for some Entities (for instance, the village of a Villager)",
-        "link": "https://git.lumine.io/mythiccraft/MythicMobs/-/wikis/Mobs/ai/goals/MoveTowardsRestriction",
-        "attributes": []
     },
     {
         "plugin": "MythicMobs",
