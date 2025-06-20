@@ -235,7 +235,7 @@ export function getLogLevel() {
     return undefined;
 }
 
-export function minecraftVersion() {
+export function getMinecraftVersion(): MinecraftVersions {
     const config = vscode.workspace.getConfiguration('MythicScribe');
     const value = config.get<string>('minecraftVersion');
 
@@ -244,7 +244,7 @@ export function minecraftVersion() {
     }
 
     // Check if the value is invalid
-    if (typeof value !== 'string' || !MinecraftVersions.includes(value)) {
+    if (typeof value !== 'string' || !(MinecraftVersions as readonly string[]).includes(value)) {
         const inspected = config.inspect<string>('minecraftVersion');
         let target: vscode.ConfigurationTarget | undefined;
 
@@ -265,7 +265,7 @@ export function minecraftVersion() {
         return MinecraftVersions[0];
     }
 
-    return value;
+    return value as MinecraftVersions;
 }
 
 function getEnabledPlugins(): { [key: string]: boolean } {

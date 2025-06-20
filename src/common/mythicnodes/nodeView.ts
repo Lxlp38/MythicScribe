@@ -596,7 +596,7 @@ function getWebviewContent(): string {
 
     const imageUriMap: Record<extendedRegistryKey, vscode.Uri> = extendedRegistryKey.reduce(
         (acc, key) => {
-            acc[key] = processWebViewImageUri(openWebView!, `${key}.svg`);
+            acc[key] = processWebViewImageUri(openWebView!, `${key}.png`);
             return acc;
         },
         {} as Record<extendedRegistryKey, vscode.Uri>

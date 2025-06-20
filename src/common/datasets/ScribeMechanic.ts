@@ -419,7 +419,7 @@ function updateNodeRegistryAttribute(attr: MythicAttribute, mechanic = attr.mech
     if (enumIdentifier in specialAttributeEnumToRegistryKey) {
         enumIdentifier = specialAttributeEnumToRegistryKey[enumIdentifier] as registryKey;
     }
-    if (!registryKey.includes(enumIdentifier as registryKey)) {
+    if (!(registryKey as readonly string[]).includes(enumIdentifier)) {
         return;
     }
 

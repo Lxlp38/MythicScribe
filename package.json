@@ -1,37 +1,35 @@
 {
   "name": "mythicscribe",
   "displayName": "MythicScribe",
-  "version": "1.7.0",
+  "version": "1.7.3",
   "icon": "assets/icon128x128.png",
-  "description": "Offers support for MythicMobs scripting",
+  "description": "Provides support for any Minecraft Plugin of the MythicCraft Suite",
   "license": "SEE LICENSE IN LICENSE.txt",
   "publisher": "Lxlp",
   "author": {
     "name": "Lxlp"
   },
   "pricing": "Free",
-  "funding": {
-    "type": "github",
+  "sponsor": {
     "url": "https://github.com/sponsors/Lxlp38"
   },
   "keywords": [
     "mythicmobs",
-    "mythic",
     "modelengine",
     "crucible",
-    "minecraft"
+    "mythicrpg"
   ],
   "repository": {
     "type": "git",
     "url": "https://github.com/Lxlp38/MythicScribe"
   },
-  "homepage": "https://github.com/Lxlp38/MythicScribe/blob/master/README.md",
   "engines": {
     "vscode": "^1.93.0"
   },
   "categories": [
     "Programming Languages",
-    "Formatters"
+    "Formatters",
+    "Visualization"
   ],
   "activationEvents": [
     "onLanguage:yaml"
@@ -348,7 +346,7 @@
             "required": [
               "elementType",
               "source",
-              "pathOrUrl"
+              "path"
             ]
           },
           "default": []

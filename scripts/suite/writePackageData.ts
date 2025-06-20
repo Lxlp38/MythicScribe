@@ -3,7 +3,7 @@ import * as fs from 'fs';
 import * as path from 'path';
 
 const map = {
-    'minecraftVersion': MinecraftVersions,
+    'minecraftVersion': ['latest', ...MinecraftVersions],
     'datasetSource': DatasetSource,
     'attributeAliasUsedInCompletions': attributeAliasUsedInCompletions,
     'customDatasets.elementType': CustomDatasetElementType,

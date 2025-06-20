@@ -225,7 +225,7 @@ export function fromPlaceholderNodeIdentifierToRegistryKey(
     }
     if (identifier.startsWith('{') && identifier.endsWith('}')) {
         maybeRegistryKey = identifier.slice(1, -1).toLowerCase();
-        if (registryKey.includes(maybeRegistryKey as registryKey)) {
+        if ((registryKey as readonly string[]).includes(maybeRegistryKey)) {
             return maybeRegistryKey as registryKey;
         }
     }

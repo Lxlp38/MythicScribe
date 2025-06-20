@@ -47,6 +47,10 @@ export namespace CursorLocationAction {
             );
         }
 
+        if (keys.length === 0) {
+            return undefined;
+        }
+
         if (keyAliases.Skills.includes(keys[0].key)) {
             const result = getCursorSkills(document, position, keys[0].line);
             if (!result) {
@@ -180,7 +184,7 @@ function handleLinkedAttribute<T>(
         return undefined;
     }
 
-    if (!registryKey.includes(attribute.enum.identifier as registryKey)) {
+    if (!(registryKey as readonly string[]).includes(attribute.enum.identifier)) {
         if (attribute.enum.identifier.toLowerCase() in specialAttributeEnumToRegistryKey) {
             const registryKey = specialAttributeEnumToRegistryKey[attribute.enum.identifier];
             const node = MythicNodeHandler.registry[registryKey].getNode(word);

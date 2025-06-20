@@ -7,7 +7,8 @@ export const MinecraftVersions = [
     '1.20.5',
     '1.20.4',
     '1.19.4',
-];
+] as const;
+export type MinecraftVersions = (typeof MinecraftVersions)[number];
 
 export const DatasetSource = ['Local', 'GitHub'] as const;
 export type DatasetSource = (typeof DatasetSource)[number];

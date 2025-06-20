@@ -13,7 +13,7 @@ import { AchievementSchema } from '@common/schemas/achievementSchema';
 import { PlaceholderSchema } from '@common/schemas/placeholderSchema';
 import { EquipmentSetSchema } from '@common/schemas/equipmentsetSchema';
 
-import { minecraftVersion } from '../utils/configutils';
+import { getMinecraftVersion } from '../utils/configutils';
 import { ScribeCloneableFile, fetchJsonFromLocalFile, fetchJsonFromURL } from './datasets';
 import { ctx } from '../../MythicScribe';
 import Log from '../utils/logger';
@@ -192,7 +192,7 @@ export interface EnumDatasetValue {
 }
 
 export const ScribeEnumHandler = {
-    version: minecraftVersion(),
+    version: getMinecraftVersion(),
     enums: new Map<string, AbstractScribeEnum>(),
 
     enumDefinitions: [
@@ -209,7 +209,7 @@ export const ScribeEnumHandler = {
     loadEnumDatasets(): void {
         ScribeEnumHandler.emptyDatasets();
         const time = timeCounter();
-        const targetVersion = minecraftVersion();
+        const targetVersion = getMinecraftVersion();
         this.version = targetVersion;
         Log.debug('Loading Enum Datasets. Target Minecraft Version:', targetVersion);
         this.enumDefinitions.forEach(({ clazz, items }) => {
