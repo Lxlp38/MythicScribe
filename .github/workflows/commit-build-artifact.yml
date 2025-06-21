@@ -30,7 +30,9 @@ jobs:
         run: npm run buildtag
 
       - name: List files after packaging
-        run: ls -al
+        run: |
+          ls -al
+          vsce ls
 
       - name: Upload .vsix as an artifact
         uses: actions/upload-artifact@v4

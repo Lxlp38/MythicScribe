@@ -1,9 +1,9 @@
 {
   "name": "mythicscribe",
   "displayName": "MythicScribe",
-  "version": "1.7.3",
+  "version": "1.7.4",
   "icon": "assets/icon128x128.png",
-  "description": "Provides support for any Minecraft Plugin of the MythicCraft Suite",
+  "description": "Provides configuration support for plugins of the MythicCraft suite",
   "license": "SEE LICENSE IN LICENSE.txt",
   "publisher": "Lxlp",
   "author": {
@@ -56,60 +56,59 @@
       "mythicscribe": [
         {
           "command": "MythicScribe.showNodeGraph",
-          "group": "mythicscribe.nodegraph"
+          "group": "nodegraph"
         },
         {
           "submenu": "mythicscribe.tools",
-          "group": "mythicscribe.tools"
+          "group": "other@2"
         },
         {
           "submenu": "mythicscribe.dataset",
-          "group": "mythicscribe.other"
+          "group": "other@1"
         },
         {
           "command": "MythicScribe.openLogs",
-          "group": "mythicscribe.other"
+          "group": "other@3"
         },
         {
           "command": "MythicScribe.openSettings",
-          "group": "mythicscribe.other"
+          "group": "other@4"
         },
         {
           "command": "MythicScribe.putSelectionInsideInlineMetaskill",
-          "group": "mythicscribe.other.action",
+          "group": "other.action",
           "when": "editorHasSelection && editorLangId == mythicscript"
         }
       ],
       "mythicscribe.dataset": [
         {
           "command": "MythicScribe.addCustomDataset",
-          "group": "mythicscribe.customdataset"
+          "group": "customdataset@1"
         },
         {
           "command": "MythicScribe.removeCustomDataset",
-          "group": "mythicscribe.customdataset"
+          "group": "customdataset@2"
         },
         {
           "command": "MythicScribe.createBundleDataset",
-          "group": "mythicscribe.customdataset"
+          "group": "customdataset@3"
         },
         {
           "command": "MythicScribe.loadDatasets",
-          "group": "mythicscribe.dataset"
+          "group": "dataset"
         }
       ],
       "mythicscribe.tools": [
         {
           "command": "MythicScribe.aurafx",
-          "group": "mythicscribe.tools"
+          "group": "tools"
         }
       ]
     },
     "submenus": [
       {
         "id": "mythicscribe",
-        "label": "MythicScribe",
-        "icon": "/assets/icon128x128.png"
+        "label": "MythicScribe"
       },
       {
         "id": "mythicscribe.dataset",
@@ -186,28 +185,7 @@
       {
         "language": "mythicscript",
         "scopeName": "source.mythicscript",
-        "path": "./syntaxes/mythicscript.tmLanguage.json",
-        "injectTo": [
-          "source.yaml"
-        ]
-      }
-    ],
-    "completionItemProviders": [
-      {
-        "language": "mythicscript",
-        "triggerCharacters": [
-          " ",
-          "@",
-          "?",
-          "!",
-          "~",
-          "{",
-          ";",
-          "-",
-          "(",
-          ")",
-          "\n"
-        ]
+        "path": "./syntaxes/mythicscript.tmLanguage.json"
       }
     ],
     "configuration": {
@@ -493,6 +471,7 @@
             "parallelParsingLimit": {
               "title": "Parallel Parsing Limit",
               "type": "number",
+              "minimum": 1,
               "description": "The maximum number of files to parse in parallel on startup or after the datasets are reloaded. Will decrease performance if set too high when a *very* large amount of files is present."
             }
           },

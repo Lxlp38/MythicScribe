@@ -1,19 +1,16 @@
-import { ActiveFileTypeInfo } from '@common/subscriptions/SubscriptionHelper';
 import { addConfigChangeFunction, getColorProviderOptionsConfig } from '@common/utils/configutils';
 import * as vscode from 'vscode';
 
-interface DecorationMap {
-    decorationType: vscode.TextEditorDecorationType;
-    ranges: vscode.Range[];
-}
-const decorationTypeMap = new Map<string, vscode.TextEditorDecorationType>();
-
-class ScribeColorProvider implements vscode.DocumentColorProvider {
+import { DecorationMap, DecorationProvider } from '../../providers/decorationProvider';
+class ScribeColorProvider
+    extends DecorationProvider<vscode.Color>
+    implements vscode.DocumentColorProvider
+{
     readonly colorRegex =
         /(?<=\S)#[A-Fa-f0-9]{6}(?![A-Fa-f0-9])|(?<=Color: )(\d{1,3}),(\d{1,3}),(\d{1,3})/g;
-    private oldDecorations = new Map<string, DecorationMap>();
-    private textEditorNeedsUpdate: boolean = false;
-    private oldDecorationsMap = new Map<string, Map<string, DecorationMap>>();
+
+    protected onDidChangeActiveTextEditorRetCondition: () => boolean = () =>
+        getColorProviderOptionsConfig('alwaysEnabled') as boolean;
 
     registry = {
         char: {
@@ -65,26 +62,11 @@ class ScribeColorProvider implements vscode.DocumentColorProvider {
     };
 
     constructor() {
-        vscode.window.onDidChangeActiveTextEditor(this.onDidChangeActiveTextEditor.bind(this));
+        super();
         addConfigChangeFunction(this.clearDecorations.bind(this));
     }
 
-    private onDidChangeActiveTextEditor(editor: vscode.TextEditor | undefined) {
-        if (
-            (!getColorProviderOptionsConfig('alwaysEnabled') as boolean) &&
-            !ActiveFileTypeInfo.enabled
-        ) {
-            return;
-        }
-        if (editor && this.textEditorNeedsUpdate) {
-            const doc = this.oldDecorationsMap.get(editor.document.uri.toString());
-            if (doc) {
-                this.updateDecorations(doc);
-            }
-        }
-    }
-
-    private getColorKey(color: vscode.Color): string {
+    getDecorationTypeKey(color: vscode.Color): string {
         return `${color.red},${color.green},${color.blue}`;
     }
 
@@ -114,7 +96,7 @@ class ScribeColorProvider implements vscode.DocumentColorProvider {
         return defaultReturnValue;
     }
 
-    private createDecoration(color: vscode.Color) {
+    protected createDecorationType(color: vscode.Color) {
         return vscode.window.createTextEditorDecorationType({
             rangeBehavior: vscode.DecorationRangeBehavior.ClosedClosed,
             cursor: 'pointer',
@@ -133,40 +115,6 @@ class ScribeColorProvider implements vscode.DocumentColorProvider {
         });
     }
 
-    private getDecoration(color: vscode.Color) {
-        const key = this.getColorKey(color);
-        if (decorationTypeMap.has(key)) {
-            return decorationTypeMap.get(key)!;
-        }
-        const decoration = this.createDecoration(color);
-        decorationTypeMap.set(key, decoration);
-        return decoration;
-    }
-
-    private getRange(i: number, match: RegExpExecArray): vscode.Range {
-        const startPos = new vscode.Position(i, match.index);
-        const endPos = new vscode.Position(i, match.index + match[0].length);
-        return new vscode.Range(startPos, endPos);
-    }
-
-    clearDecorations() {
-        decorationTypeMap.forEach((value) => {
-            value.dispose();
-        });
-        decorationTypeMap.clear();
-        this.oldDecorations.forEach((value) => {
-            value.decorationType.dispose();
-        });
-        this.oldDecorations.clear();
-        this.oldDecorationsMap.forEach((value) => {
-            value.forEach((value) => {
-                value.decorationType.dispose();
-            });
-        });
-        this.oldDecorationsMap.clear();
-        this.textEditorNeedsUpdate = true;
-    }
-
     private addColorInformation(
         colors: vscode.ColorInformation[],
         decorations: Map<string, DecorationMap>,
@@ -174,17 +122,8 @@ class ScribeColorProvider implements vscode.DocumentColorProvider {
         match: RegExpExecArray,
         color: vscode.Color
     ) {
-        const range = this.getRange(i, match);
+        const range = this.addDecoration(decorations, i, match, color);
         colors.push(new vscode.ColorInformation(range, color));
-        const decorationType = this.getDecoration(color);
-        const key = this.getColorKey(color);
-        if (!decorations.has(key)) {
-            decorations.set(key, {
-                decorationType,
-                ranges: [],
-            });
-        }
-        decorations.get(key)!.ranges.push(range);
     }
 
     provideDocumentColors(
@@ -231,23 +170,6 @@ class ScribeColorProvider implements vscode.DocumentColorProvider {
         }
 
         return colors;
-    }
-
-    private updateDecorations(decorations: Map<string, DecorationMap>) {
-        const activeEditor = vscode.window.activeTextEditor;
-        if (!activeEditor) {
-            this.textEditorNeedsUpdate = true;
-            return;
-        }
-        this.oldDecorations.forEach((value) => {
-            activeEditor.setDecorations(value.decorationType, []);
-        });
-        this.oldDecorations.clear();
-        decorations.forEach((value) => {
-            activeEditor.setDecorations(value.decorationType, value.ranges);
-            this.oldDecorations.set(value.decorationType.key, value);
-        });
-        this.textEditorNeedsUpdate = false;
     }
 
     provideColorPresentations(

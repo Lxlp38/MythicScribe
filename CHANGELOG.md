@@ -1,5 +1,10 @@
 # Changelog
 
+## [Unreleased]
+
+### Added
+- Decorations for delay mechanics inside of metaskills, showing the accumulated delay since the start of the metaskill itself  
+
 ## [1.7.0]
 
 ### Added

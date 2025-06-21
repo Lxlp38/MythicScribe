@@ -55,3 +55,10 @@ jobs:
           files: './mythicscribe-${{ steps.extract_version.outputs.VERSION }}.vsix'
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+      
+      # Publish the extension to the Visual Studio Code Marketplace
+      - name: Publish to VS Code Marketplace
+        run: vsce publish
+        env:
+          VSCE_PAT: ${{ secrets.AZURE_RELEASE_TOKEN }}
+          

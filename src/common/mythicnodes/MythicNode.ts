@@ -5,14 +5,14 @@ import {
     parseWrittenPlaceholder,
 } from '@common/datasets/ScribePlaceholder';
 import { ConditionActions } from '@common/schemas/conditionActions';
+import { ScribeEnumHandler } from '@common/datasets/ScribeEnum';
+
 import {
     createNodeDiagnostic,
     NodeDiagnostic,
     NodeRawDiagnostic,
     NodeDiagnosticCollection,
-} from '@common/diagnostics/ScribeDiagnostics';
-import { ScribeEnumHandler } from '@common/datasets/ScribeEnum';
-
+} from '../../providers/diagnosticProvider';
 import { checkFileType } from '../subscriptions/SubscriptionHelper';
 import Log from '../utils/logger';
 import { getDiagnosticsPolicyConfig, getFileParserPolicyConfig } from '../utils/configutils';
@@ -20,6 +20,7 @@ import { timeCounter } from '../utils/timeUtils';
 import { openDocumentTactfully } from '../utils/uriutils';
 import { executeGetObjectLinkedToAttribute } from '../utils/cursorutils';
 import { registryKey } from '../objectInfos';
+import { DecorationMap, DecorationProvider } from '../../providers/decorationProvider';
 
 export type NodeEntry = Map<string, MythicNode>;
 
@@ -37,6 +38,26 @@ const NodeRegex =
 // const NodeRegex =
 //     /(?<descriptionkey>(?<description>(?:^#.*$\r?\n\r?)*)^(?<key>[\w\-\_]+):)(?<body>(?:.*(?:\r?\n\r?(?=^[\s#](?!\g<descriptionkey>)))?)*)/gm;
 
+class NodeDecorations extends DecorationProvider<string> {
+    constructor() {
+        super();
+    }
+
+    protected getDecorationTypeKey(input: string): string {
+        return 'delayDecorationType@' + input;
+    }
+    protected createDecorationType(_input: string): vscode.TextEditorDecorationType {
+        return vscode.window.createTextEditorDecorationType({
+            after: {
+                color: 'gray',
+                margin: '0 0 0 1em',
+            },
+        });
+    }
+}
+
+const nodeDecorations = new NodeDecorations();
+
 vscode.workspace.onDidSaveTextDocument((document) => {
     if (!getFileParserPolicyConfig('parseOnSave')) {
         return;
@@ -44,6 +65,11 @@ vscode.workspace.onDidSaveTextDocument((document) => {
     const type = checkFileType(document.uri)?.key;
     if (type) {
         MythicNodeHandler.registry[type].updateDocument(document);
+
+        const activeEditor = vscode.window.activeTextEditor;
+        if (activeEditor && activeEditor.document.uri.toString() === document.uri.toString()) {
+            updateActiveEditorDecorations();
+        }
     }
 });
 
@@ -97,6 +123,33 @@ vscode.workspace.onDidDeleteFiles(async (event) => {
         }
     }
 });
+
+vscode.window.onDidChangeVisibleTextEditors(() => {
+    updateActiveEditorDecorations();
+});
+
+function updateActiveEditorDecorations() {
+    const editor = vscode.window.activeTextEditor;
+    if (!editor) {
+        return;
+    }
+    const type = checkFileType(editor.document.uri)?.key;
+    if (!type) {
+        return;
+    }
+    const temp = MythicNodeHandler.registry[type].decorationsByDocument.get(
+        editor.document.uri.toString()
+    );
+    if (!temp) {
+        return;
+    }
+    for (const [_key, decoration] of temp) {
+        editor.setDecorations(decoration.decorationType, []);
+        if (decoration.options.length > 0) {
+            editor.setDecorations(decoration.decorationType, decoration.options);
+        }
+    }
+}
 
 interface NodeBaseElement {
     text: string | undefined;
@@ -453,6 +506,8 @@ export class MetaskillMythicNode extends MythicNode {
         if (spell && spell.name.toLowerCase() === 'true') {
             this.metadata.set('spell', true);
         }
+
+        this.matchDelays(body);
     }
 
     private matchConditionActions(body: string): string[] {
@@ -466,6 +521,95 @@ export class MetaskillMythicNode extends MythicNode {
             conditionActions.push(match[1]);
         }
         return conditionActions;
+    }
+
+    private matchDelays(body: string): void {
+        type delay = { integer: number; string: string; intra: number };
+        const delays: delay[] = [{ integer: 0, string: '', intra: 0 }];
+        const regex = /(- delay ([^\s]*))|\[|\]/gm;
+        const matches = body.matchAll(regex);
+
+        for (const match of matches) {
+            if (match[0] === '[') {
+                delays.push({
+                    integer: delays[delays.length - 1].integer,
+                    string: delays[delays.length - 1].string,
+                    intra: delays[delays.length - 1].intra,
+                });
+                continue;
+            } else if (match[0] === ']') {
+                if (delays.length === 1) {
+                    continue;
+                }
+                delays.pop();
+                continue;
+            } else if (!match[2]) {
+                continue;
+            }
+
+            const delayString = match[2].trim();
+            const delayInteger = parseInt(delayString);
+
+            if (isNaN(delayInteger)) {
+                delays[delays.length - 1].string +=
+                    (delays[delays.length - 1].string.length > 0 ? '+' : '') + delayString;
+            } else {
+                if (delayInteger === 0) {
+                    delays[delays.length - 1].intra += 1;
+                } else {
+                    delays[delays.length - 1].integer += delayInteger;
+                    delays[delays.length - 1].intra = 0;
+                }
+            }
+
+            let text = '⟶ ';
+            let status = [0, 0, 0];
+            if (delays[delays.length - 1].integer > 0) {
+                text += delays[delays.length - 1].integer;
+                status[0] = 1;
+            }
+            if (delays[delays.length - 1].string.length > 0) {
+                if (status[0] === 1) {
+                    text += '+';
+                }
+                text += delays[delays.length - 1].string;
+                status[1] = 1;
+            }
+            if (delays[delays.length - 1].intra > 0) {
+                if (status[0] === 1 || status[1] === 1) {
+                    text += ' ticks and ';
+                }
+                text += `${delays[delays.length - 1].intra} intraticks`;
+                status[2] = 1;
+            } else {
+                text += ' ticks';
+            }
+
+            if (status.every((s) => s === 0)) {
+                continue;
+            }
+
+            if (!this.registry.decorationsByDocument.has(this.document.uri.toString())) {
+                this.registry.decorationsByDocument.set(
+                    this.document.uri.toString(),
+                    new Map<string, DecorationMap>()
+                );
+            }
+
+            nodeDecorations.addDecoration(
+                this.registry.decorationsByDocument.get(this.document.uri.toString())!,
+                this.normalizeRelativeRange(this.calculateRelativeRangeFromBody(body, match)),
+                match,
+                text,
+                {
+                    renderOptions: {
+                        after: {
+                            contentText: text,
+                        },
+                    },
+                }
+            );
+        }
     }
 }
 
@@ -727,6 +871,7 @@ export class MythicNodeRegistry {
     nodes: NodeEntry = new Map();
     nodesByDocument: Map<string, MythicNode[]> = new Map();
     diagnosticsByDocument: Map<string, vscode.Diagnostic[]> = new Map();
+    decorationsByDocument: Map<string, Map<string, DecorationMap>> = new Map();
     decoratorRegex: RegExp;
     backingDataset: string | undefined;
 
@@ -798,6 +943,19 @@ export class MythicNodeRegistry {
         this.diagnosticsByDocument.delete(uri.toString());
     }
 
+    clearDecorationsByDocument(uri: vscode.Uri): void {
+        const activeEditor = vscode.window.activeTextEditor;
+        if (activeEditor && activeEditor.document.uri.toString() === uri.toString()) {
+            const decorations = this.decorationsByDocument.get(uri.toString());
+            if (decorations) {
+                for (const [_key, decoration] of decorations) {
+                    activeEditor.setDecorations(decoration.decorationType, []);
+                }
+            }
+        }
+        this.decorationsByDocument.delete(uri.toString());
+    }
+
     scanDocument(document: vscode.TextDocument): void {
         if (document.lineAt(0).text === ParserIntructions.DISABLE_PARSING) {
             Log.debug(`Parsing disabled for ${document.uri.toString()}`);
@@ -853,6 +1011,7 @@ export class MythicNodeRegistry {
     clearDocument(uri: vscode.Uri): void {
         this.clearNodesByDocument(uri);
         this.clearDiagnosticsByDocument(uri);
+        this.clearDecorationsByDocument(uri);
     }
 
     checkForBrokenEdges(uri: vscode.Uri): void {
@@ -953,7 +1112,7 @@ export namespace MythicNodeHandler {
 
         const limitAmount = getFileParserPolicyConfig('parallelParsingLimit') as number;
         if (limitAmount <= 0) {
-            Log.warn('File Parsing disabled because parallelParsingLimit is set to <0');
+            Log.warn('File Parsing disabled because parallelParsingLimit is set to <=0');
             return;
         }
         const limit = pLimit(limitAmount);
@@ -1005,5 +1164,6 @@ export namespace MythicNodeHandler {
             'Time Report'
         );
         Log.debug('Finished scanning all documents');
+        updateActiveEditorDecorations();
     }
 }
