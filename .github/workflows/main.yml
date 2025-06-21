@@ -19,7 +19,7 @@ jobs:
       - name: Set up Node.js
         uses: actions/setup-node@v3
         with:
-          node-version: '20'
+          node-version: '22'
 
       # Extract version from tag
       - name: Extract version from tag
@@ -55,7 +55,11 @@ jobs:
           files: './mythicscribe-${{ steps.extract_version.outputs.VERSION }}.vsix'
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-      
+
+      # Install vsce
+      - name: Install vsce
+        run: npm install -g @vscode/vsce
+
       # Publish the extension to the Visual Studio Code Marketplace
       - name: Publish to VS Code Marketplace
         run: vsce publish

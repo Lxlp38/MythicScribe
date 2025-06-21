@@ -529,22 +529,22 @@ export class MetaskillMythicNode extends MythicNode {
         const regex = /(- delay ([^\s]*))|\[|\]/gm;
         const matches = body.matchAll(regex);
 
-        for (const match of matches) {
+        function findDelays(match: RegExpExecArray): boolean {
             if (match[0] === '[') {
                 delays.push({
                     integer: delays[delays.length - 1].integer,
                     string: delays[delays.length - 1].string,
                     intra: delays[delays.length - 1].intra,
                 });
-                continue;
+                return false;
             } else if (match[0] === ']') {
                 if (delays.length === 1) {
-                    continue;
+                    return false;
                 }
                 delays.pop();
-                continue;
+                return false;
             } else if (!match[2]) {
-                continue;
+                return false;
             }
 
             const delayString = match[2].trim();
@@ -561,25 +561,33 @@ export class MetaskillMythicNode extends MythicNode {
                     delays[delays.length - 1].intra = 0;
                 }
             }
+            return true;
+        }
+
+        for (const match of matches) {
+            if (!findDelays(match)) {
+                continue;
+            }
+            const lastDelay = delays[delays.length - 1];
 
             let text = '⟶ ';
             let status = [0, 0, 0];
-            if (delays[delays.length - 1].integer > 0) {
-                text += delays[delays.length - 1].integer;
+            if (lastDelay.integer > 0) {
+                text += lastDelay.integer;
                 status[0] = 1;
             }
-            if (delays[delays.length - 1].string.length > 0) {
+            if (lastDelay.string.length > 0) {
                 if (status[0] === 1) {
                     text += '+';
                 }
-                text += delays[delays.length - 1].string;
+                text += lastDelay.string;
                 status[1] = 1;
             }
-            if (delays[delays.length - 1].intra > 0) {
+            if (lastDelay.intra > 0) {
                 if (status[0] === 1 || status[1] === 1) {
                     text += ' ticks and ';
                 }
-                text += `${delays[delays.length - 1].intra} intraticks`;
+                text += `${lastDelay.intra} intraticks`;
                 status[2] = 1;
             } else {
                 text += ' ticks';
