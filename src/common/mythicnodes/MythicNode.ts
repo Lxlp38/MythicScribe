@@ -15,7 +15,11 @@ import {
 } from '../../providers/diagnosticProvider';
 import { checkFileType } from '../subscriptions/SubscriptionHelper';
 import Log from '../utils/logger';
-import { getDiagnosticsPolicyConfig, getFileParserPolicyConfig } from '../utils/configutils';
+import {
+    getDecorationOptionsConfig,
+    getDiagnosticsPolicyConfig,
+    getFileParserPolicyConfig,
+} from '../utils/configutils';
 import { timeCounter } from '../utils/timeUtils';
 import { openDocumentTactfully } from '../utils/uriutils';
 import { executeGetObjectLinkedToAttribute } from '../utils/cursorutils';
@@ -38,21 +42,38 @@ const NodeRegex =
 // const NodeRegex =
 //     /(?<descriptionkey>(?<description>(?:^#.*$\r?\n\r?)*)^(?<key>[\w\-\_]+):)(?<body>(?:.*(?:\r?\n\r?(?=^[\s#](?!\g<descriptionkey>)))?)*)/gm;
 
-class NodeDecorations extends DecorationProvider<string> {
+type NodeDecorationType = Parameters<typeof getDecorationOptionsConfig>[0];
+class NodeDecorations extends DecorationProvider<NodeDecorationType> {
     constructor() {
         super();
     }
-
-    protected getDecorationTypeKey(input: string): string {
-        return 'delayDecorationType@' + input;
-    }
-    protected createDecorationType(_input: string): vscode.TextEditorDecorationType {
-        return vscode.window.createTextEditorDecorationType({
+    registry: Record<NodeDecorationType, vscode.DecorationRenderOptions> = {
+        delayTracking: {
             after: {
                 color: 'gray',
                 margin: '0 0 0 1em',
             },
-        });
+        },
+    };
+
+    public addNodeDecoration(
+        decorations: Map<string, DecorationMap>,
+        index: number | vscode.Range,
+        match: RegExpExecArray,
+        input: NodeDecorationType,
+        options?: Partial<vscode.DecorationOptions>
+    ) {
+        if (!getDecorationOptionsConfig(input)) {
+            return;
+        }
+        this.addDecoration(decorations, index, match, input, options);
+    }
+
+    protected getDecorationTypeKey(input: NodeDecorationType): string {
+        return input;
+    }
+    protected createDecorationType(input: NodeDecorationType): vscode.TextEditorDecorationType {
+        return vscode.window.createTextEditorDecorationType(this.registry[input]);
     }
 }
 
@@ -507,7 +528,9 @@ export class MetaskillMythicNode extends MythicNode {
             this.metadata.set('spell', true);
         }
 
-        this.matchDelays(body);
+        if (getDecorationOptionsConfig('delayTracking')) {
+            this.matchDelays(body);
+        }
     }
 
     private matchConditionActions(body: string): string[] {
@@ -526,7 +549,7 @@ export class MetaskillMythicNode extends MythicNode {
     private matchDelays(body: string): void {
         type delay = { integer: number; string: string; intra: number };
         const delays: delay[] = [{ integer: 0, string: '', intra: 0 }];
-        const regex = /(- delay ([^\s]*))|\[|\]/gm;
+        const regex = /(- delay ([^\s]*))|\[|\]|(^\s*[^#:\s]+:)/gm;
         const matches = body.matchAll(regex);
 
         function findDelays(match: RegExpExecArray): boolean {
@@ -542,6 +565,14 @@ export class MetaskillMythicNode extends MythicNode {
                     return false;
                 }
                 delays.pop();
+                return false;
+            } else if (match[3]) {
+                delays.length = 0;
+                delays.push({
+                    integer: 0,
+                    string: '',
+                    intra: 0,
+                });
                 return false;
             } else if (!match[2]) {
                 return false;
@@ -604,11 +635,11 @@ export class MetaskillMythicNode extends MythicNode {
                 );
             }
 
-            nodeDecorations.addDecoration(
+            nodeDecorations.addNodeDecoration(
                 this.registry.decorationsByDocument.get(this.document.uri.toString())!,
                 this.normalizeRelativeRange(this.calculateRelativeRangeFromBody(body, match)),
                 match,
-                text,
+                'delayTracking',
                 {
                     renderOptions: {
                         after: {

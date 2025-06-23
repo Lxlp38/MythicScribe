@@ -6,9 +6,6 @@
     <a href="https://github.com/Lxlp38/MythicScribe/releases">
       <img alt="GitHub Release" src="https://img.shields.io/github/v/release/Lxlp38/MythicScribe">
     </a>
-    <a href="https://www.codefactor.io/repository/github/lxlp38/mythicscribe/overview/master">
-      <img src="https://www.codefactor.io/repository/github/lxlp38/mythicscribe/badge/master" alt="CodeFactor" />
-    </a>
     <a href="https://github.com/Lxlp38/MythicScribe/blob/master/LICENSE.txt">
       <img alt="GitHub License" src="https://img.shields.io/github/license/Lxlp38/MythicScribe">
     </a>
@@ -39,8 +36,6 @@ It provides hover text with information about the pointed object and offers auto
     - [Go To Definition](#go-to-definition)
     - [Created Skill/Mobs/Items/Stats Autocompletions](#created-skillmobsitemsstats-autocompletions)
   - [Config Visualization](#config-visualization)
-- [Extension Settings](#extension-settings)
-- [Extension Commands](#extension-commands)
 - [Known Issues](#known-issues)
 - [Dev Builds](#dev-builds)
 - [Credits and Acknowledgements](#credits-and-acknowledgements)
@@ -72,46 +67,6 @@ It provides hover text with information about the pointed object and offers auto
 ![Node Graph](https://raw.githubusercontent.com/Lxlp38/MythicScribe/refs/heads/master/demos/NodeGraph-demo.gif)
 ![Node Go To Definition](https://raw.githubusercontent.com/Lxlp38/MythicScribe/refs/heads/master/demos/NodeDefinition-demo.gif)
 
-
-
-# Extension Settings
-
-* `MythicScribe.alwaysEnabled`: When enabled, the extension will no longer do any check to see if a document is a MythicMobs one
-* `MythicScribe.fileRegex`: Configure what files are recognized as Mythic ones based on a configurable regex made against their path 
-  * `MythicMobs`: The regex to determine if the file is a Mythic one at all
-  * `Metaskill`: The regex to identify Metaskill files
-  * `Mob`: The regex to identify Mob files
-  * `Item`: The regex to identify Item files
-  * `Droptable`: The regex to identify Droptable files
-  * `Stat`: The regex to identify Stat files
-* `MythicScribe.enableMythicScriptSyntax`: Whether the extension should automatically convert the document types from yaml to MythicScript if it's recognized as a MythicMobs file. This does not change the file or its extension in any way, while also enabling mythic-specific syntax highlighting
-* `MythicScribe.datasetSource`: Which dataset to use. `GitHub` or `Local`
-* `MythicScribe.minecraftVersion`: Specify the minecraft version whose datasets to use 
-* `MythicScribe.enableShortcuts`: Whether the Shortcuts feature should be active
-* `MythicScribe.enableEmptyBracketsAutomaticRemoval`: Enable the removal of empty curly brackets `{}` by moving the cursor past them
-* `MythicScribe.enableFileSpecificSuggestions`: Whether file specific suggestions (metaskill files, mob files) should be shown
-* `MythicScribe.attributeAliasUsedInCompletions`: Which attribute alias to use for completions. Defaults to `main`
-* `MythicScribe.customDatasets`: Which Custom Dataset to load and from where
-* `MythicScribe.enabledPlugins`: Enable / Disable specific plugins' datasets. Plugin names are added automatically
-* `MythicScribe.logLevel`: Set the Extension's log level
-* `MythicScribe.fileParsingPolicy`: Set the Extension's policies regarding file parsing
-  * `parseOnStartup`
-  * `parseOnSave`
-  * `parseOnModification`
-  * `parsingGlobPattern`
-  * `excludeGlobPattern`
-* `MythicScribe.colorProviderOptions`: Set some options to customize the color provider's behavior
-  * `alwaysEnabled`
-  * `backgroundColor`
-  * `charColor`
-# Extension Commands
-
-* `MythicScribe.addCustomDataset`: Adds a Custom Dataset from either a local path or a link
-* `MythicScribe.removeCustomDataset`: Removes one or multiple Custom Datasets
-* `MythicScribe.createBundleDataset`: Creates a Bundle Dataset based on other Custom Datasets you have previously added
-* `MythicScribe.openLogs`: Opens the Extension's logs. For debugging purposes
-* `MythicScribe.loadDatasets`: (Re)loads the Datasets manually
-* `MythicScribe.showNodeGraph`: Shows a graph of all the configurations parsed. Can be filtered based on configuration type and whether or not it's an open editor
 
 # Known Issues
 

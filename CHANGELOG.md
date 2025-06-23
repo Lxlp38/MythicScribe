@@ -1,9 +1,9 @@
 # Changelog
 
-## [Unreleased]
+## [1.7.5]
 
 ### Added
-- Decorations for delay mechanics inside of metaskills, showing the accumulated delay since the start of the metaskill itself  
+- Decorations for delay mechanics inside of metaskills, showing the accumulated delay since the start of the metaskill itself. Can be enabled via the configuration `MythicScribe.decorationOptions.delayTracking`
 
 ## [1.7.0]
 

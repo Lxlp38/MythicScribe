@@ -51,6 +51,10 @@ const nodeGraphConfigCache = {
     wheelSensitivity: undefined as number | undefined,
 };
 
+const decorationOptions = {
+    delayTracking: undefined as boolean | undefined,
+};
+
 let configChangeFunctionCallbacks: (() => void)[] | undefined;
 function getConfigChangeFunctionCallbacks() {
     if (configChangeFunctionCallbacks === undefined) {
@@ -77,6 +81,7 @@ function resetConfigCache() {
     resetSpecificConfig(colorProviderOptionsConfigCache);
     resetSpecificConfig(diagnosticsPolicyConfigCache);
     resetSpecificConfig(nodeGraphConfigCache);
+    resetSpecificConfig(decorationOptions);
     for (const callback of getConfigChangeFunctionCallbacks()) {
         callback();
     }
@@ -163,6 +168,15 @@ export function getNodeGraphConfig(key: keyof typeof nodeGraphConfigCache) {
             .get('nodeGraph.' + key);
     }
     return nodeGraphConfigCache[key];
+}
+
+export function getDecorationOptionsConfig(key: keyof typeof decorationOptions) {
+    if (decorationOptions[key] === undefined) {
+        decorationOptions[key] = vscode.workspace
+            .getConfiguration('MythicScribe')
+            .get('decorationOptions.' + key);
+    }
+    return decorationOptions[key];
 }
 
 export function enableEmptyBracketsAutomaticRemoval(): boolean {

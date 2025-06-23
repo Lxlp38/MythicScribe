@@ -18,7 +18,7 @@ const copyFixturesPlugin = {
                 return;
             }
             const srcDir = path.resolve(__dirname, 'test/fixtures');
-            const outDir = path.resolve(__dirname, 'out/test/fixtures');
+            const outDir = path.resolve(__dirname, 'dist/test/fixtures');
 
             // Ensure the output directory exists
             if (!fs.existsSync(outDir)) {
@@ -33,7 +33,7 @@ const copyFixturesPlugin = {
 };
 
 async function main() {
-    const outDir = path.resolve(__dirname, 'out');
+    const outDir = path.resolve(__dirname, 'dist');
     if (fs.existsSync(outDir)) {
         fs.rmSync(outDir, { recursive: true, force: true });
     }
@@ -57,7 +57,7 @@ async function main() {
         sourcemap: !production,
         sourcesContent: false,
         platform: 'node',
-        outdir: 'out/node',
+        outdir: 'dist/node',
         external: ['vscode'],
         logLevel: 'silent',
         plugins: [esbuildProblemMatcherPlugin, copyFixturesPlugin],
@@ -73,7 +73,7 @@ async function main() {
         sourcemap: !production,
         sourcesContent: false,
         platform: 'browser',
-        outfile: 'out/web/MythicScribe.js',
+        outfile: 'dist/web/MythicScribe.js',
         external: ['vscode'],
         logLevel: 'silent',
         plugins: [
@@ -101,7 +101,7 @@ async function main() {
         sourcemap: !production,
         sourcesContent: false,
         platform: 'browser',
-        outdir: 'out/webviews',
+        outdir: 'dist/webviews',
         logLevel: 'silent',
         plugins: [
             esbuildProblemMatcherPlugin,
