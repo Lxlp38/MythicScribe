@@ -25,7 +25,7 @@ const copyFixturesPlugin = {
                 fs.mkdirSync(outDir, { recursive: true });
             }
 
-            // Copy files from src/test/fixtures to out/test/fixtures
+            // Copy files from src/test/fixtures to dist/test/fixtures
             fs.cpSync(srcDir, outDir, { recursive: true });
             console.log('Fixtures copied successfully!');
         });

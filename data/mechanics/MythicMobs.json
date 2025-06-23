@@ -8946,7 +8946,7 @@
                     "vo"
                 ],
                 "type": "PlaceholderAngle",
-                "description": "Vertical Offset will add a [slope](https://en.wikipedia.org/wiki/Grade_(slope)) to the projectile's starting direction. To give it a specific angle, you can use [this image](https://en.wikipedia.org/wiki/Grade_(slope)#/media/File:Slope_quadrant.svg) as reference: the value you need will be the number shown in red divided by 100 (so if you want 40\u00b0, you will need to input 83.9/100 = `0.839`)",
+                "description": "Vertical Offset will add a [slope](https://en.wikipedia.org/wiki/Grade_(slope)) to the projectile's starting direction. To give it a specific angle, you can use [this image](https://en.wikipedia.org/wiki/Grade_(slope)) as reference: the value you need will be the number shown in red divided by 100 (so if you want 40\u00b0, you will need to input 83.9/100 = `0.839`)",
                 "link": "https://git.lumine.io/mythiccraft/MythicMobs/-/wikis/Skills/Mechanics/projectile",
                 "default_value": "0"
             },

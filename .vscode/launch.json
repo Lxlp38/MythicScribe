@@ -13,7 +13,7 @@
 				"--extensionDevelopmentPath=${workspaceFolder}"
 			],
 			"outFiles": [
-				"${workspaceFolder}/out/node/**/*.js"
+				"${workspaceFolder}/dist/node/**/*.js"
 			],
 			"preLaunchTask": "${defaultBuildTask}"
 		},
@@ -23,11 +23,11 @@
 			"request": "launch",
 			"args": [
 				"--extensionDevelopmentPath=${workspaceFolder}",
-				"--extensionTestsPath=${workspaceFolder}/out/test/index",
+				"--extensionTestsPath=${workspaceFolder}/dist/test/index",
 				"--showExplorer"
 			],
 			"outFiles": [
-				"${workspaceFolder}/out/node/test/**/*.js"
+				"${workspaceFolder}/dist/node/test/**/*.js"
 			],
 			"preLaunchTask": "${defaultBuildTask}"
 		},
@@ -40,7 +40,7 @@
 			  "--extensionDevelopmentPath=${workspaceFolder}",
 			  "--extensionDevelopmentKind=web"
 			],
-			"outFiles": ["${workspaceFolder}/out/web/**/*.js"],
+			"outFiles": ["${workspaceFolder}/dist/web/**/*.js"],
 			"preLaunchTask": "${defaultBuildTask}"
 		}
 	]

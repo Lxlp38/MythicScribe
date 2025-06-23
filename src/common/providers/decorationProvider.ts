@@ -79,8 +79,8 @@ export abstract class DecorationProvider<T> {
             value.decorationType.dispose();
         });
         this.oldDecorations.clear();
-        this.oldDecorationsMap.forEach((value) => {
-            value.forEach((value) => {
+        this.oldDecorationsMap.forEach((map) => {
+            map.forEach((value) => {
                 value.decorationType.dispose();
             });
         });

@@ -14,7 +14,7 @@ export function createNodeDiagnostic(clazz: typeof NodeDiagnostic) {
         if (!getDiagnosticsPolicyConfig('enabled')) {
             return;
         }
-        new clazz(node, range, message, severity);
+        return new clazz(node, range, message, severity);
     };
 }
 

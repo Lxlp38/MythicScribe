@@ -1,9 +1,12 @@
 # Changelog
 
-## [1.7.5]
+## [1.7.6]
 
 ### Added
 - Decorations for delay mechanics inside of metaskills, showing the accumulated delay since the start of the metaskill itself. Can be enabled via the configuration `MythicScribe.decorationOptions.delayTracking`
+
+### Fixed
+- Mythic Node View's "Go To Edge" feature returning wrong range when used against the edge of a template 
 
 ## [1.7.0]
 

@@ -8,24 +8,24 @@ cytoscape.use(fcose);
 let cy = null;
 let cyContextMenuInstance = null;
 
-const svgMap = {
-    mob: document.getElementById('mobSvgUri').value,
-    metaskill: document.getElementById('metaskillSvgUri').value,
-    item: document.getElementById('itemSvgUri').value,
-    droptable: document.getElementById('droptableSvgUri').value,
-    placeholder: document.getElementById('placeholderSvgUri').value,
-    randomspawn: document.getElementById('randomspawnSvgUri').value,
-    equipmentset: document.getElementById('equipmentsetSvgUri').value,
-    archetype: document.getElementById('archetypeSvgUri').value,
-    reagent: document.getElementById('reagentSvgUri').value,
-    stat: document.getElementById('statSvgUri').value,
-    pin: document.getElementById('pinSvgUri').value,
-    menu: document.getElementById('menuSvgUri').value,
-    achievement: document.getElementById('achievementSvgUri').value,
+const imgMap = {
+    mob: document.getElementById('mobImgUri').value,
+    metaskill: document.getElementById('metaskillImgUri').value,
+    item: document.getElementById('itemImgUri').value,
+    droptable: document.getElementById('droptableImgUri').value,
+    placeholder: document.getElementById('placeholderImgUri').value,
+    randomspawn: document.getElementById('randomspawnImgUri').value,
+    equipmentset: document.getElementById('equipmentsetImgUri').value,
+    archetype: document.getElementById('archetypeImgUri').value,
+    reagent: document.getElementById('reagentImgUri').value,
+    stat: document.getElementById('statImgUri').value,
+    pin: document.getElementById('pinImgUri').value,
+    menu: document.getElementById('menuImgUri').value,
+    achievement: document.getElementById('achievementImgUri').value,
 
-    furniture: document.getElementById('furnitureSvgUri').value,
-    block: document.getElementById('blockSvgUri').value,
-    spell: document.getElementById('spellSvgUri').value,
+    furniture: document.getElementById('furnitureImgUri').value,
+    block: document.getElementById('blockImgUri').value,
+    spell: document.getElementById('spellImgUri').value,
 };
 
 let wheelSensitivity = document.getElementById('wheelSensitivity').value
@@ -163,8 +163,8 @@ function renderGraph(graphData) {
                     // },
                     'background-image': function (ele) {
                         const image = ele.data('image');
-                        if (image && image in svgMap) {
-                            return svgMap[image];
+                        if (image && image in imgMap) {
+                            return imgMap[image];
                         }
                         return 'none';
                     },

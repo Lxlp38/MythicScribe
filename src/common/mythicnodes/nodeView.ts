@@ -28,7 +28,10 @@ function createWebView() {
         {
             enableScripts: true,
             retainContextWhenHidden: true,
-            enableFindWidget: true,
+            localResourceRoots: [
+                vscode.Uri.joinPath(ctx.extensionUri, 'assets', 'nodegraph'),
+                vscode.Uri.joinPath(ctx.extensionUri, 'dist', 'webviews'),
+            ],
         }
     );
     openWebView.onDidDispose(
@@ -588,7 +591,7 @@ function getWebviewContent(): string {
     }
     const scriptPathOnDisk = vscode.Uri.joinPath(
         ctx.extensionUri,
-        'out',
+        'dist',
         'webviews',
         'nodegraph.js'
     );
@@ -607,6 +610,8 @@ function getWebviewContent(): string {
 
 <head>
     <meta charset="UTF-8" />
+    <meta http-equiv="Content-Security-Policy" content="default-src 'none'; style-src 'unsafe-inline'; img-src ${openWebView.webview.cspSource} https: data:; script-src ${openWebView.webview.cspSource};">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Mythic Node Graph</title>
     <style>
         html,
@@ -722,7 +727,7 @@ function getWebviewContent(): string {
     ${extendedRegistryKey
         .map(
             (key) => `
-        <input type="hidden" id="${key}SvgUri" value="${imageUriMap[key]}">`
+        <input type="hidden" id="${key}ImgUri" value="${imageUriMap[key]}">`
         )
         .join('\n')}
     <input type="hidden" id="wheelSensitivity" value="${getNodeGraphConfig('wheelSensitivity') || 2}">

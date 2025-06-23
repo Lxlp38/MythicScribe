@@ -1,7 +1,7 @@
 import { addConfigChangeFunction, getColorProviderOptionsConfig } from '@common/utils/configutils';
 import * as vscode from 'vscode';
 
-import { DecorationMap, DecorationProvider } from '../../providers/decorationProvider';
+import { DecorationMap, DecorationProvider } from '../providers/decorationProvider';
 class ScribeColorProvider
     extends DecorationProvider<vscode.Color>
     implements vscode.DocumentColorProvider

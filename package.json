@@ -1,7 +1,7 @@
 {
   "name": "mythicscribe",
   "displayName": "MythicScribe",
-  "version": "1.7.5",
+  "version": "1.7.6",
   "icon": "assets/icon128x128.png",
   "description": "Provides configuration support for plugins of the MythicCraft suite",
   "license": "SEE LICENSE IN LICENSE.txt",
@@ -32,6 +32,8 @@
     "Visualization",
     "Other"
   ],
+  "preview": false,
+  "qna": "marketplace",
   "activationEvents": [
     "onLanguage:yaml"
   ],

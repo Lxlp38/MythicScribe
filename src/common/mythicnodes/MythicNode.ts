@@ -12,7 +12,7 @@ import {
     NodeDiagnostic,
     NodeRawDiagnostic,
     NodeDiagnosticCollection,
-} from '../../providers/diagnosticProvider';
+} from '../providers/diagnosticProvider';
 import { checkFileType } from '../subscriptions/SubscriptionHelper';
 import Log from '../utils/logger';
 import {
@@ -24,7 +24,7 @@ import { timeCounter } from '../utils/timeUtils';
 import { openDocumentTactfully } from '../utils/uriutils';
 import { executeGetObjectLinkedToAttribute } from '../utils/cursorutils';
 import { registryKey } from '../objectInfos';
-import { DecorationMap, DecorationProvider } from '../../providers/decorationProvider';
+import { DecorationMap, DecorationProvider } from '../providers/decorationProvider';
 
 export type NodeEntry = Map<string, MythicNode>;
 
@@ -666,7 +666,7 @@ export class TemplatableMythicNode extends MythicNode {
                     vscode.DiagnosticSeverity.Warning
                 );
             }
-            this.templates.set(template.name, [template.range]);
+            this.templates.set(template.name, [this.normalizeRelativeRange(template.range)]);
         });
     }
 }
