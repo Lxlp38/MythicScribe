@@ -1,6 +1,6 @@
 import { type DecorationMap, DecorationProvider } from '@common/providers/decorationProvider';
 import { checkFileType } from '@common/subscriptions/SubscriptionHelper';
-import { getDecorationOptionsConfig } from '@common/utils/configutils';
+import { ConfigProvider } from '@common/utils/configutils';
 import * as vscode from 'vscode';
 import { scribeCodeLensProvider } from '@common/providers/codeLensProvider';
 
@@ -8,7 +8,9 @@ import { executeFunctionAfterActivation } from '@common/../MythicScribe';
 
 import { MythicNode, MythicNodeHandler } from '../MythicNode';
 
-export type NodeDecorationType = Parameters<typeof getDecorationOptionsConfig>[0];
+export type NodeDecorationType = Parameters<
+    typeof ConfigProvider.registry.decorationOptions.get
+>[0];
 export class NodeDecorations extends DecorationProvider<NodeDecorationType, NodeDecorationType> {
     constructor() {
         super();
@@ -42,7 +44,7 @@ export class NodeDecorations extends DecorationProvider<NodeDecorationType, Node
         options?: Parameters<typeof this.addDecoration>[3],
         codeLens?: Omit<vscode.CodeLens, 'range'> & { range?: vscode.Range }
     ) {
-        if (!getDecorationOptionsConfig(input)) {
+        if (!ConfigProvider.registry.decorationOptions.get(input)) {
             return;
         }
         const uri = node.document.uri.toString();

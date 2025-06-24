@@ -1,4 +1,4 @@
-import { addConfigChangeFunction, getColorProviderOptionsConfig } from '@common/utils/configutils';
+import { addConfigChangeFunction, ConfigProvider } from '@common/utils/configutils';
 import * as vscode from 'vscode';
 
 import { DecorationMap, DecorationProvider } from '../providers/decorationProvider';
@@ -10,7 +10,7 @@ class ScribeColorProvider
         /(?<=\S)#[A-Fa-f0-9]{6}(?![A-Fa-f0-9])|(?<=Color: )(\d{1,3}),(\d{1,3}),(\d{1,3})/g;
 
     protected onDidChangeActiveTextEditorRetCondition: () => boolean = () =>
-        getColorProviderOptionsConfig('alwaysEnabled') as boolean;
+        ConfigProvider.registry.colorProviderOptions.get('alwaysEnabled') as boolean;
 
     registry = {
         char: {
@@ -102,13 +102,13 @@ class ScribeColorProvider
             cursor: 'pointer',
             ...this.getDecorationSegmentConfig(
                 color,
-                getColorProviderOptionsConfig('backgroundColor') as string,
+                ConfigProvider.registry.colorProviderOptions.get('backgroundColor') as string,
                 this.registry.background,
                 this.registry.background.same(color)
             ),
             ...this.getDecorationSegmentConfig(
                 color,
-                getColorProviderOptionsConfig('charColor') as string,
+                ConfigProvider.registry.colorProviderOptions.get('charColor') as string,
                 this.registry.char,
                 this.registry.char.none(color)
             ),

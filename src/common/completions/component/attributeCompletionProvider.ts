@@ -13,7 +13,7 @@ import {
     retriggerCompletionsCommand,
 } from '@common/utils/completionhelper';
 import * as yamlutils from '@common/utils/yamlutils';
-import { getAttributeAliasUsedInCompletions } from '@common/utils/configutils';
+import { ConfigProvider } from '@common/utils/configutils';
 import { getObjectLinkedToAttribute } from '@common/utils/cursorutils';
 
 export function attributeCompletionProvider() {
@@ -59,7 +59,9 @@ export function attributeCompletionProvider() {
                 const attributes = mechanic.getAttributes();
                 let index = 10000;
 
-                const attributeAliasUsedInCompletions = getAttributeAliasUsedInCompletions();
+                const attributeAliasUsedInCompletions = ConfigProvider.registry.generic.get(
+                    'attributeAliasUsedInCompletions'
+                );
 
                 const completionItems: vscode.CompletionItem[] = [];
 

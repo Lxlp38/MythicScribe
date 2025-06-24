@@ -3,12 +3,44 @@ import * as vscode from 'vscode';
 import Log from './logger';
 import { MinecraftVersions, attributeAliasUsedInCompletions, DatasetSource } from '../packageData';
 
-const configCache = {
+class ConfigCache<T extends Record<string, string | boolean | number | undefined>> {
+    private cache: T;
+    private prefix: string;
+
+    constructor(initialCache: T, prefix: string = '') {
+        this.cache = initialCache;
+        this.prefix = prefix ? `${prefix}.` : '';
+    }
+
+    get<K extends keyof T>(key: K): T[K] {
+        if (this.cache[key] === undefined) {
+            this.cache[key] = vscode.workspace
+                .getConfiguration('MythicScribe')
+                .get(this.prefix + String(key)) as T[K];
+        }
+        return this.cache[key];
+    }
+
+    reset() {
+        for (const key in this.cache) {
+            if (Object.hasOwn(this.cache, key)) {
+                this.cache[key] = undefined as T[typeof key];
+            }
+        }
+    }
+}
+
+const genericConfigCache = {
     enableMythicScriptSyntax: undefined as boolean | undefined,
-    datasetSource: undefined as string | undefined,
-    attributeAliasUsedInCompletions: undefined as string | undefined,
-    isAlwaysEnabled: undefined as boolean | undefined,
+    datasetSource: undefined as DatasetSource | undefined,
+    attributeAliasUsedInCompletions: undefined as attributeAliasUsedInCompletions | undefined,
+    alwaysEnabled: undefined as boolean | undefined,
     allowExternalTools: undefined as boolean | undefined,
+    enableEmptyBracketsAutomaticRemoval: undefined as boolean | undefined,
+    enableFileSpecificSuggestions: undefined as boolean | undefined,
+    enableShortcuts: undefined as boolean | undefined,
+    minecraftVersion: undefined as string | undefined,
+    logLevel: undefined as string | undefined,
 };
 
 export const fileRegexConfigCache = {
@@ -56,6 +88,28 @@ const decorationOptions = {
     soundPlayback: undefined as boolean | undefined,
 };
 
+export const ConfigProvider = {
+    registry: {
+        generic: new ConfigCache(genericConfigCache),
+        fileRegex: new ConfigCache(fileRegexConfigCache, 'fileRegex'),
+        fileParsingPolicy: new ConfigCache(fileParsingPolicyConfigCache, 'fileParsingPolicy'),
+        colorProviderOptions: new ConfigCache(
+            colorProviderOptionsConfigCache,
+            'colorProviderOptions'
+        ),
+        diagnosticsPolicy: new ConfigCache(diagnosticsPolicyConfigCache, 'diagnosticsPolicy'),
+        nodeGraph: new ConfigCache(nodeGraphConfigCache, 'nodeGraph'),
+        decorationOptions: new ConfigCache(decorationOptions, 'decorationOptions'),
+    },
+
+    reset() {
+        Log.debug('Resetting generic config cache');
+        (Object.keys(this.registry) as Array<keyof typeof this.registry>).forEach((key) => {
+            this.registry[key].reset();
+        });
+    },
+};
+
 let configChangeFunctionCallbacks: (() => void)[] | undefined;
 function getConfigChangeFunctionCallbacks() {
     if (configChangeFunctionCallbacks === undefined) {
@@ -68,21 +122,8 @@ export function addConfigChangeFunction(callback: () => void) {
 }
 
 function resetConfigCache() {
-    function resetSpecificConfig(cache: { [key: string]: string | boolean | number | undefined }) {
-        for (const key in cache) {
-            if (cache.hasOwnProperty(key)) {
-                cache[key as keyof typeof cache] = undefined;
-            }
-        }
-    }
     Log.debug('Resetting config cache');
-    resetSpecificConfig(configCache);
-    resetSpecificConfig(fileRegexConfigCache);
-    resetSpecificConfig(fileParsingPolicyConfigCache);
-    resetSpecificConfig(colorProviderOptionsConfigCache);
-    resetSpecificConfig(diagnosticsPolicyConfigCache);
-    resetSpecificConfig(nodeGraphConfigCache);
-    resetSpecificConfig(decorationOptions);
+    ConfigProvider.reset();
     for (const callback of getConfigChangeFunctionCallbacks()) {
         callback();
     }
@@ -94,23 +135,6 @@ export const configHandler = vscode.workspace.onDidChangeConfiguration((e) => {
     }
 });
 
-export function getGenericConfig(key: keyof typeof configCache) {
-    if (configCache[key] === undefined) {
-        configCache[key] = vscode.workspace.getConfiguration('MythicScribe').get(key);
-    }
-    return configCache[key];
-}
-
-// Check for enabled features
-export function isAlwaysEnabled() {
-    if (configCache.isAlwaysEnabled === undefined) {
-        configCache.isAlwaysEnabled = vscode.workspace
-            .getConfiguration('MythicScribe')
-            .get('alwaysEnabled');
-    }
-    return configCache.isAlwaysEnabled;
-}
-
 function checkFileRegex(uri: vscode.Uri, regex: string | undefined): boolean {
     if (regex && new RegExp(regex).test(uri.fsPath)) {
         return true;
@@ -121,108 +145,13 @@ export function checkFileEnabled(
     uri: vscode.Uri,
     configKey: keyof typeof fileRegexConfigCache
 ): boolean {
-    if (fileRegexConfigCache[configKey] === undefined) {
-        fileRegexConfigCache[configKey] = vscode.workspace
-            .getConfiguration('MythicScribe')
-            .get<string>('fileRegex.' + configKey);
-    }
-    return checkFileRegex(uri, fileRegexConfigCache[configKey]);
+    return checkFileRegex(uri, ConfigProvider.registry.fileRegex.get(configKey));
 }
 export function checkMythicMobsFile(uri: vscode.Uri): boolean {
-    if (isAlwaysEnabled()) {
+    if (ConfigProvider.registry.generic.get('alwaysEnabled')) {
         return true;
     }
     return checkFileEnabled(uri, 'MythicMobs');
-}
-
-export function getFileParserPolicyConfig(key: keyof typeof fileParsingPolicyConfigCache) {
-    if (fileParsingPolicyConfigCache[key] === undefined) {
-        fileParsingPolicyConfigCache[key] = vscode.workspace
-            .getConfiguration('MythicScribe')
-            .get('fileParsingPolicy.' + key);
-    }
-    return fileParsingPolicyConfigCache[key];
-}
-
-export function getColorProviderOptionsConfig(key: keyof typeof colorProviderOptionsConfigCache) {
-    if (colorProviderOptionsConfigCache[key] === undefined) {
-        colorProviderOptionsConfigCache[key] = vscode.workspace
-            .getConfiguration('MythicScribe')
-            .get('colorProviderOptions.' + key);
-    }
-    return colorProviderOptionsConfigCache[key];
-}
-
-export function getDiagnosticsPolicyConfig(key: keyof typeof diagnosticsPolicyConfigCache) {
-    if (diagnosticsPolicyConfigCache[key] === undefined) {
-        diagnosticsPolicyConfigCache[key] = vscode.workspace
-            .getConfiguration('MythicScribe')
-            .get('diagnosticsPolicy.' + key);
-    }
-    return diagnosticsPolicyConfigCache[key];
-}
-
-export function getNodeGraphConfig(key: keyof typeof nodeGraphConfigCache) {
-    if (nodeGraphConfigCache[key] === undefined) {
-        nodeGraphConfigCache[key] = vscode.workspace
-            .getConfiguration('MythicScribe')
-            .get('nodeGraph.' + key);
-    }
-    return nodeGraphConfigCache[key];
-}
-
-export function getDecorationOptionsConfig(key: keyof typeof decorationOptions) {
-    if (decorationOptions[key] === undefined) {
-        decorationOptions[key] = vscode.workspace
-            .getConfiguration('MythicScribe')
-            .get('decorationOptions.' + key);
-    }
-    return decorationOptions[key];
-}
-
-export function enableEmptyBracketsAutomaticRemoval(): boolean {
-    const ret = vscode.workspace
-        .getConfiguration('MythicScribe')
-        .get('enableEmptyBracketsAutomaticRemoval') as boolean;
-    return ret;
-}
-
-export function enableFileSpecificSuggestions(): boolean {
-    return (
-        vscode.workspace.getConfiguration('MythicScribe').get('enableFileSpecificSuggestions') ||
-        true
-    );
-}
-
-export function enableShortcuts(): boolean {
-    return vscode.workspace.getConfiguration('MythicScribe').get('enableShortcuts') || true;
-}
-
-export function datasetSource(): DatasetSource {
-    if (configCache.datasetSource === undefined) {
-        configCache.datasetSource = vscode.workspace
-            .getConfiguration('MythicScribe')
-            .get('datasetSource');
-    }
-    return configCache.datasetSource as DatasetSource;
-}
-
-export function enableMythicScriptSyntax() {
-    if (configCache.enableMythicScriptSyntax === undefined) {
-        configCache.enableMythicScriptSyntax = vscode.workspace
-            .getConfiguration('MythicScribe')
-            .get('enableMythicScriptSyntax');
-    }
-    return configCache.enableMythicScriptSyntax;
-}
-
-export function getAttributeAliasUsedInCompletions(): attributeAliasUsedInCompletions {
-    if (configCache.attributeAliasUsedInCompletions === undefined) {
-        configCache.attributeAliasUsedInCompletions = vscode.workspace
-            .getConfiguration('MythicScribe')
-            .get('attributeAliasUsedInCompletions');
-    }
-    return configCache.attributeAliasUsedInCompletions as attributeAliasUsedInCompletions;
 }
 
 export function getLogLevel() {
@@ -243,7 +172,7 @@ export function getLogLevel() {
         }
     }
 
-    const returnValue = vscode.workspace.getConfiguration('MythicScribe').get('logLevel');
+    const returnValue = ConfigProvider.registry.generic.get('logLevel');
     if (typeof returnValue === 'string') {
         return fromStringToNumber(returnValue);
     }
@@ -252,7 +181,7 @@ export function getLogLevel() {
 
 export function getMinecraftVersion(): MinecraftVersions {
     const config = vscode.workspace.getConfiguration('MythicScribe');
-    const value = config.get<string>('minecraftVersion');
+    const value = ConfigProvider.registry.generic.get('minecraftVersion');
 
     if (value === 'latest') {
         return MinecraftVersions[0];

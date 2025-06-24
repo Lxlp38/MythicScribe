@@ -1,5 +1,5 @@
 import { checkFileType } from '@common/subscriptions/SubscriptionHelper';
-import { getFileParserPolicyConfig } from '@common/utils/configutils';
+import { ConfigProvider } from '@common/utils/configutils';
 import { openDocumentTactfully } from '@common/utils/uriutils';
 import * as vscode from 'vscode';
 
@@ -17,7 +17,7 @@ export function loadNodeEvents() {
     eventsLoaded = true;
     vscode.workspace.onDidSaveTextDocument(
         (document) => {
-            if (!getFileParserPolicyConfig('parseOnSave')) {
+            if (!ConfigProvider.registry.fileParsingPolicy.get('parseOnSave')) {
                 return;
             }
             const type = checkFileType(document.uri)?.key;
@@ -39,7 +39,7 @@ export function loadNodeEvents() {
 
     vscode.workspace.onDidChangeTextDocument(
         (event) => {
-            if (!getFileParserPolicyConfig('parseOnModification')) {
+            if (!ConfigProvider.registry.fileParsingPolicy.get('parseOnModification')) {
                 return;
             }
             const type = checkFileType(event.document.uri)?.key;

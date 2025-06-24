@@ -1,5 +1,5 @@
 import type { MythicNode } from '@common/mythicnodes/MythicNode';
-import { getDiagnosticsPolicyConfig } from '@common/utils/configutils';
+import { ConfigProvider } from '@common/utils/configutils';
 import * as vscode from 'vscode';
 
 export const NodeDiagnosticCollection = vscode.languages.createDiagnosticCollection('MythicScribe');
@@ -11,7 +11,7 @@ export function createNodeDiagnostic(clazz: typeof NodeDiagnostic) {
         message: string,
         severity: vscode.DiagnosticSeverity
     ) {
-        if (!getDiagnosticsPolicyConfig('enabled')) {
+        if (!ConfigProvider.registry.diagnosticsPolicy.get('enabled')) {
             return;
         }
         return new clazz(node, range, message, severity);

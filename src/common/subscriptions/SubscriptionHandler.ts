@@ -10,11 +10,7 @@ import { EquipmentSetSchema } from '@common/schemas/equipmentsetSchema';
 import { keyAliases, registryKey, TriggerType } from '../objectInfos';
 import { triggerfileCompletionProvider } from '../completions/file/triggerfileCompletionProvider';
 import { mechanicCompletionProvider } from '../completions/component/mechanicsCompletionProvider';
-import {
-    enableEmptyBracketsAutomaticRemoval,
-    enableFileSpecificSuggestions,
-    enableShortcuts,
-} from '../utils/configutils';
+import { ConfigProvider } from '../utils/configutils';
 import {
     attributeCompletionProvider,
     attributeValueCompletionProvider,
@@ -140,7 +136,7 @@ class ItemScribeSubscription extends AbstractScribeSubscription {
                         registry: ScribeMechanicHandler.registry.condition,
                     }),
             ],
-            [enableFileSpecificSuggestions]
+            [() => ConfigProvider.registry.generic.get('enableFileSpecificSuggestions') as boolean]
         );
     }
 }
@@ -174,7 +170,7 @@ class MobScribeSubscription extends AbstractScribeSubscription {
                         }
                     ),
             ],
-            [enableFileSpecificSuggestions]
+            [() => ConfigProvider.registry.generic.get('enableFileSpecificSuggestions') as boolean]
         );
     }
 }
@@ -191,7 +187,7 @@ class SkillScribeSubscription extends AbstractScribeSubscription {
                         registry: ScribeMechanicHandler.registry.condition,
                     }),
             ],
-            [enableFileSpecificSuggestions]
+            [() => ConfigProvider.registry.generic.get('enableFileSpecificSuggestions') as boolean]
         );
     }
 }
@@ -227,13 +223,24 @@ class GlobalSubscriptionHandler extends AbstractScribeSubscription {
 
 class TextChangesSubscriptionHandler extends AbstractScribeSubscription {
     constructor() {
-        super([() => removeBracketsTextListener()], [enableEmptyBracketsAutomaticRemoval]);
+        super(
+            [() => removeBracketsTextListener()],
+            [
+                () =>
+                    ConfigProvider.registry.generic.get(
+                        'enableEmptyBracketsAutomaticRemoval'
+                    ) as boolean,
+            ]
+        );
     }
 }
 
 class ShortcutsSubscriptionHandler extends AbstractScribeSubscription {
     constructor() {
-        super([() => shortcutsProvider()], [enableShortcuts]);
+        super(
+            [() => shortcutsProvider()],
+            [() => ConfigProvider.registry.generic.get('enableShortcuts') as boolean]
+        );
     }
 }
 
@@ -249,7 +256,7 @@ class DroptableSubscriptionHandler extends AbstractScribeSubscription {
                     }),
                 () => conditionCompletionProvider(),
             ],
-            [enableFileSpecificSuggestions]
+            [() => ConfigProvider.registry.generic.get('enableFileSpecificSuggestions') as boolean]
         );
     }
 }
@@ -258,7 +265,7 @@ class StatSubscriptionHandler extends AbstractScribeSubscription {
     constructor() {
         super(
             [() => genericFileCompletionProvider(StatSchema), () => hoverProvider(StatSchema)],
-            [enableFileSpecificSuggestions]
+            [() => ConfigProvider.registry.generic.get('enableFileSpecificSuggestions') as boolean]
         );
     }
 }
@@ -281,7 +288,7 @@ class PlaceholderSubscriptionHandler extends AbstractScribeSubscription {
                     }),
                 () => conditionCompletionProvider(['Conditions']),
             ],
-            [enableFileSpecificSuggestions]
+            [() => ConfigProvider.registry.generic.get('enableFileSpecificSuggestions') as boolean]
         );
     }
 }
@@ -298,7 +305,7 @@ class RandomSpawnSubscriptionHandler extends AbstractScribeSubscription {
                     }),
                 () => conditionCompletionProvider(),
             ],
-            [enableFileSpecificSuggestions]
+            [() => ConfigProvider.registry.generic.get('enableFileSpecificSuggestions') as boolean]
         );
     }
 }
@@ -310,7 +317,7 @@ class EquipmentSetSubscriptionHandler extends AbstractScribeSubscription {
                 () => genericFileCompletionProvider(EquipmentSetSchema),
                 () => hoverProvider(EquipmentSetSchema),
             ],
-            [enableFileSpecificSuggestions]
+            [() => ConfigProvider.registry.generic.get('enableFileSpecificSuggestions') as boolean]
         );
     }
 }
@@ -323,7 +330,7 @@ class ArchetypeSubscriptionHandler extends AbstractScribeSubscription {
                 () => hoverProvider(ArchetypeSchema),
                 () => triggerfileCompletionProvider(TriggerType.ARCHETYPE, ['Skills']),
             ],
-            [enableFileSpecificSuggestions]
+            [() => ConfigProvider.registry.generic.get('enableFileSpecificSuggestions') as boolean]
         );
     }
 }
@@ -335,7 +342,7 @@ class ReagentSubscriptionHandler extends AbstractScribeSubscription {
                 () => genericFileCompletionProvider(ReagentSchema),
                 () => hoverProvider(ReagentSchema),
             ],
-            [enableFileSpecificSuggestions]
+            [() => ConfigProvider.registry.generic.get('enableFileSpecificSuggestions') as boolean]
         );
     }
 }
@@ -344,7 +351,7 @@ class MenuSubscriptionHandler extends AbstractScribeSubscription {
     constructor() {
         super(
             [() => genericFileCompletionProvider(MenuSchema), () => hoverProvider(MenuSchema)],
-            [enableFileSpecificSuggestions]
+            [() => ConfigProvider.registry.generic.get('enableFileSpecificSuggestions') as boolean]
         );
     }
 }
@@ -361,7 +368,7 @@ class AchievementSubscriptionHandler extends AbstractScribeSubscription {
                     }),
                 () => conditionCompletionProvider(['Conditions']),
             ],
-            [enableFileSpecificSuggestions]
+            [() => ConfigProvider.registry.generic.get('enableFileSpecificSuggestions') as boolean]
         );
     }
 }

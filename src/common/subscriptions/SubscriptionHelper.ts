@@ -16,8 +16,8 @@ import { EquipmentSetSchema } from '@common/schemas/equipmentsetSchema';
 import { AbstractScribeSubscription, ScribeSubscriptionHandler } from './SubscriptionHandler';
 import {
     checkMythicMobsFile,
-    enableMythicScriptSyntax,
     checkFileEnabled,
+    ConfigProvider,
     fileRegexConfigCache,
 } from '../utils/configutils';
 import { Schema, registryKey } from '../objectInfos';
@@ -105,7 +105,7 @@ function fileSpecificEnabler(
  * @param document - The text document to check and update subscriptions for.
  */
 export function updateSubscriptions(document: vscode.TextDocument) {
-    if (enableMythicScriptSyntax()) {
+    if (ConfigProvider.registry.generic.get('enableMythicScriptSyntax')) {
         checkIfMythicScriptFile(document);
     }
     const uri = document.uri;

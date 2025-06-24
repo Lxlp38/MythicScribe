@@ -17,11 +17,7 @@ import {
 } from '../providers/diagnosticProvider';
 import { checkFileType } from '../subscriptions/SubscriptionHelper';
 import Log from '../utils/logger';
-import {
-    getDecorationOptionsConfig,
-    getDiagnosticsPolicyConfig,
-    getFileParserPolicyConfig,
-} from '../utils/configutils';
+import { ConfigProvider } from '../utils/configutils';
 import { timeCounter } from '../utils/timeUtils';
 import { executeGetObjectLinkedToAttribute } from '../utils/cursorutils';
 import { registryKey } from '../objectInfos';
@@ -513,7 +509,7 @@ export class MetaskillMythicNode extends MythicNode {
             this.metadata.set('spell', true);
         }
 
-        if (getDecorationOptionsConfig('delayTracking')) {
+        if (ConfigProvider.registry.decorationOptions.get('delayTracking')) {
             this.matchDelays(body);
         }
     }
@@ -1016,7 +1012,7 @@ export class MythicNodeRegistry {
     updateDocument(document: vscode.TextDocument): void {
         this.clearDocument(document.uri);
         this.scanDocument(document);
-        if (!getDiagnosticsPolicyConfig('enabled')) {
+        if (!ConfigProvider.registry.diagnosticsPolicy.get('enabled')) {
             return;
         }
         this.checkForBrokenEdges(document.uri);
@@ -1148,14 +1144,19 @@ export namespace MythicNodeHandler {
         Log.debug('Scanning all documents');
 
         const include =
-            (getFileParserPolicyConfig('parsingGlobPattern') as string | undefined) ||
-            '**/*.{yaml,yml}';
+            (ConfigProvider.registry.fileParsingPolicy.get('parsingGlobPattern') as
+                | string
+                | undefined) || '**/*.{yaml,yml}';
 
-        const exclude = getFileParserPolicyConfig('excludeGlobPattern') as string | undefined;
+        const exclude = ConfigProvider.registry.fileParsingPolicy.get('excludeGlobPattern') as
+            | string
+            | undefined;
 
         Log.debug(`Parsing files with include: ${include} and exclude: ${exclude}`);
 
-        const limitAmount = getFileParserPolicyConfig('parallelParsingLimit') as number;
+        const limitAmount = ConfigProvider.registry.fileParsingPolicy.get(
+            'parallelParsingLimit'
+        ) as number;
         if (limitAmount <= 0) {
             Log.warn('File Parsing disabled because parallelParsingLimit is set to <=0');
             return;
@@ -1191,7 +1192,7 @@ export namespace MythicNodeHandler {
         }
         Log.log(`Document Scan Time: ${time.step()} ms`, vscode.LogLevel.Debug, 'Time Report');
 
-        if (getDiagnosticsPolicyConfig('enabled')) {
+        if (ConfigProvider.registry.diagnosticsPolicy.get('enabled')) {
             for (const [type, file] of openedFiles) {
                 registry[type].checkForBrokenEdges(file.uri);
                 registry[type].updateDiagnostics(file.uri);

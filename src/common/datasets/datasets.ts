@@ -10,11 +10,7 @@ import {
     ensureComponentsExist,
     getRelativePath,
 } from '../utils/uriutils';
-import {
-    datasetSource,
-    finallySetEnabledPlugins,
-    getFileParserPolicyConfig,
-} from '../utils/configutils';
+import { ConfigProvider, finallySetEnabledPlugins } from '../utils/configutils';
 import { loadCustomDatasets } from './customDatasets';
 import { MythicNodeHandler } from '../mythicnodes/MythicNode';
 
@@ -57,7 +53,7 @@ export class ScribeCloneableFile<T> {
     }
 
     async get(): Promise<T[]> {
-        if (datasetSource() === 'GitHub') {
+        if (ConfigProvider.registry.generic.get('datasetSource') === 'GitHub') {
             if (!shouldUpdateGithubDatasets) {
                 const status = await ensureComponentsExist(this.edcsUri);
                 if (status === ComponentStatus.Exists) {
@@ -125,9 +121,12 @@ async function fetchNextHash(latestCommitHash: string) {
 }
 
 export async function loadDatasets() {
-    Log.debug('Loading datasets from', datasetSource() || 'undefined');
+    Log.debug(
+        'Loading datasets from',
+        ConfigProvider.registry.generic.get('datasetSource') || 'undefined'
+    );
 
-    if (datasetSource() === 'GitHub') {
+    if (ConfigProvider.registry.generic.get('datasetSource') === 'GitHub') {
         await initializeExtensionDatasetsClonedStorage();
         const latestCommitHash = ctx!.globalState.get<string>('latestCommitHash');
         const savedCommitHash = ctx!.globalState.get<string>('savedCommitHash');
@@ -149,7 +148,7 @@ export async function loadDatasets() {
     await Promise.allSettled([ScribeMechanicHandler.loadMechanicDatasets(), loadCustomDatasets()]);
     ScribeMechanicHandler.finalize();
     finallySetEnabledPlugins();
-    if (getFileParserPolicyConfig('parseOnStartup')) {
+    if (ConfigProvider.registry.fileParsingPolicy.get('parseOnStartup')) {
         MythicNodeHandler.scanAllDocuments();
     }
     datasetsLoadedEventEmitter.fire();
