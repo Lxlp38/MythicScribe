@@ -29,8 +29,8 @@ function createWebView() {
             enableScripts: true,
             retainContextWhenHidden: true,
             localResourceRoots: [
-                vscode.Uri.joinPath(ctx.extensionUri, 'assets', 'nodegraph'),
-                vscode.Uri.joinPath(ctx.extensionUri, 'dist', 'webviews'),
+                vscode.Uri.joinPath(ctx!.extensionUri, 'assets', 'nodegraph'),
+                vscode.Uri.joinPath(ctx!.extensionUri, 'dist', 'webviews'),
             ],
         }
     );
@@ -580,7 +580,7 @@ function processMessage(
 }
 
 function processWebViewImageUri(webviewPanel: vscode.WebviewPanel, target: string) {
-    const imagePathOnDisk = vscode.Uri.joinPath(ctx.extensionUri, 'assets', 'nodegraph', target);
+    const imagePathOnDisk = vscode.Uri.joinPath(ctx!.extensionUri, 'assets', 'nodegraph', target);
     return webviewPanel.webview.asWebviewUri(imagePathOnDisk);
 }
 
@@ -590,7 +590,7 @@ function getWebviewContent(): string {
         return '';
     }
     const scriptPathOnDisk = vscode.Uri.joinPath(
-        ctx.extensionUri,
+        ctx!.extensionUri,
         'dist',
         'webviews',
         'nodegraph.js'

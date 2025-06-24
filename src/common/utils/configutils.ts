@@ -53,6 +53,7 @@ const nodeGraphConfigCache = {
 
 const decorationOptions = {
     delayTracking: undefined as boolean | undefined,
+    soundPlayback: undefined as boolean | undefined,
 };
 
 let configChangeFunctionCallbacks: (() => void)[] | undefined;

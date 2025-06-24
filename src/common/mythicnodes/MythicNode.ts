@@ -5,7 +5,9 @@ import {
     parseWrittenPlaceholder,
 } from '@common/datasets/ScribePlaceholder';
 import { ConditionActions } from '@common/schemas/conditionActions';
-import { ScribeEnumHandler } from '@common/datasets/ScribeEnum';
+import { EnumDatasetValue, ScribeEnumHandler } from '@common/datasets/ScribeEnum';
+import { ScribeMechanicHandler } from '@common/datasets/ScribeMechanic';
+import { scribeCodeLensProvider as nodeLens } from '@common/providers/codeLensProvider';
 
 import {
     createNodeDiagnostic,
@@ -21,156 +23,23 @@ import {
     getFileParserPolicyConfig,
 } from '../utils/configutils';
 import { timeCounter } from '../utils/timeUtils';
-import { openDocumentTactfully } from '../utils/uriutils';
 import { executeGetObjectLinkedToAttribute } from '../utils/cursorutils';
 import { registryKey } from '../objectInfos';
-import { DecorationMap, DecorationProvider } from '../providers/decorationProvider';
+import { DecorationMap } from '../providers/decorationProvider';
+import { nodeDecorations, updateActiveEditorDecorations } from './utils/NodeDecorations';
+import { loadNodeEvents } from './utils/NodeEvents';
 
 export type NodeEntry = Map<string, MythicNode>;
+type NodeReferenceValue = Map<string, vscode.Range[]>;
+type NodeReference = Partial<Record<registryKey, NodeReferenceValue>>;
 
-enum ParserIntructions {
-    // Disable parsing for the file
-    DISABLE_PARSING = '# mythicscribe-disable file-parsing',
-}
+type CompactNodeReference = { name: string; range: vscode.Range };
 
-const NodeRegex =
-    /(?<descriptionkey>(?<description>(?:^#.*$\r?\n\r?)*)^(?<key>[\w\-\_]+):)(?<body>(?:.*(?:\r?\n\r?(?!((^#.*$\r?\n\r?)*)^([\w\-\_]+):))?)*)/gm;
-//  /(?<descriptionkey>(?<description>(?:^#.*$\r?\n\r?)*)^(?<key>[\w\-\_]+):)(?<body>(?:.*(?:\r?\n\r?(?=^[\s#](?!((^#.*$\r?\n\r?)*)^([\w\-\_]+):)))?)*)/gm;
-
-// This is what we could have had with proper regexes
-// But here we are, in ECMAScript
-// const NodeRegex =
-//     /(?<descriptionkey>(?<description>(?:^#.*$\r?\n\r?)*)^(?<key>[\w\-\_]+):)(?<body>(?:.*(?:\r?\n\r?(?=^[\s#](?!\g<descriptionkey>)))?)*)/gm;
-
-type NodeDecorationType = Parameters<typeof getDecorationOptionsConfig>[0];
-class NodeDecorations extends DecorationProvider<NodeDecorationType> {
-    constructor() {
-        super();
-    }
-    registry: Record<NodeDecorationType, vscode.DecorationRenderOptions> = {
-        delayTracking: {
-            after: {
-                color: 'gray',
-                margin: '0 0 0 1em',
-            },
-        },
-    };
-
-    public addNodeDecoration(
-        decorations: Map<string, DecorationMap>,
-        index: number | vscode.Range,
-        match: RegExpExecArray,
-        input: NodeDecorationType,
-        options?: Partial<vscode.DecorationOptions>
-    ) {
-        if (!getDecorationOptionsConfig(input)) {
-            return;
-        }
-        this.addDecoration(decorations, index, match, input, options);
-    }
-
-    protected getDecorationTypeKey(input: NodeDecorationType): string {
-        return input;
-    }
-    protected createDecorationType(input: NodeDecorationType): vscode.TextEditorDecorationType {
-        return vscode.window.createTextEditorDecorationType(this.registry[input]);
-    }
-}
-
-const nodeDecorations = new NodeDecorations();
-
-vscode.workspace.onDidSaveTextDocument((document) => {
-    if (!getFileParserPolicyConfig('parseOnSave')) {
-        return;
-    }
-    const type = checkFileType(document.uri)?.key;
-    if (type) {
-        MythicNodeHandler.registry[type].updateDocument(document);
-
-        const activeEditor = vscode.window.activeTextEditor;
-        if (activeEditor && activeEditor.document.uri.toString() === document.uri.toString()) {
-            updateActiveEditorDecorations();
-        }
-    }
-});
-
-vscode.workspace.onDidChangeTextDocument((event) => {
-    if (!getFileParserPolicyConfig('parseOnModification')) {
-        return;
-    }
-    const type = checkFileType(event.document.uri)?.key;
-    if (type) {
-        MythicNodeHandler.registry[type].updateDocument(event.document);
-    }
-});
-
-vscode.workspace.onDidRenameFiles(async (event) => {
-    for (const { oldUri, newUri } of event.files) {
-        const oldType = checkFileType(oldUri)?.key;
-        const newType = checkFileType(newUri)?.key;
-
-        if (oldType) {
-            MythicNodeHandler.registry[oldType].clearDocument(oldUri);
-        }
-
-        if (newType) {
-            const newDocument = await openDocumentTactfully(newUri);
-            if (!newDocument) {
-                continue;
-            }
-            MythicNodeHandler.registry[newType].updateDocument(newDocument);
-        }
-    }
-});
-
-vscode.workspace.onDidCreateFiles(async (event) => {
-    for (const file of event.files) {
-        const document = await openDocumentTactfully(file);
-        if (!document) {
-            continue;
-        }
-        const type = checkFileType(document.uri)?.key;
-        if (type) {
-            MythicNodeHandler.registry[type].updateDocument(document);
-        }
-    }
-});
-
-vscode.workspace.onDidDeleteFiles(async (event) => {
-    for (const file of event.files) {
-        const type = checkFileType(file)?.key;
-        if (type) {
-            MythicNodeHandler.registry[type].clearDocument(file);
-        }
-    }
-});
-
-vscode.window.onDidChangeVisibleTextEditors(() => {
-    updateActiveEditorDecorations();
-});
-
-function updateActiveEditorDecorations() {
-    const editor = vscode.window.activeTextEditor;
-    if (!editor) {
-        return;
-    }
-    const type = checkFileType(editor.document.uri)?.key;
-    if (!type) {
-        return;
-    }
-    const temp = MythicNodeHandler.registry[type].decorationsByDocument.get(
-        editor.document.uri.toString()
-    );
-    if (!temp) {
-        return;
-    }
-    for (const [_key, decoration] of temp) {
-        editor.setDecorations(decoration.decorationType, []);
-        if (decoration.options.length > 0) {
-            editor.setDecorations(decoration.decorationType, decoration.options);
-        }
-    }
-}
+type SoundMap = {
+    sound: string;
+    pitch?: number;
+    volume?: number;
+};
 
 interface NodeBaseElement {
     text: string | undefined;
@@ -181,10 +50,28 @@ interface NodeElement extends NodeBaseElement {
     text: string;
 }
 
-type NodeReferenceValue = Map<string, vscode.Range[]>;
-type NodeReference = Partial<Record<registryKey, NodeReferenceValue>>;
+enum ParserIntructions {
+    // Disable parsing for the file
+    DISABLE_PARSING = '# mythicscribe-disable file-parsing',
+}
 
-type CompactNodeReference = { name: string; range: vscode.Range };
+const NodeRegex =
+    /(?<descriptionkey>(?<description>(?:^#.*$\r?\n\r?)*)^(?<key>[\w\-\_]+):)(?<body>(?:.*(?:\r?\n\r?(?!((^#.*$\r?\n\r?)*)^([\w\-\_]+):))?)*)/gm;
+
+let attributeRegex: RegExp;
+const soundMechanicInfo = {
+    mechanic: [] as string[],
+    sound: [] as string[],
+    pitch: [] as string[],
+    volume: [] as string[],
+    defaults: {
+        sound: '',
+        pitch: '',
+        volume: '',
+    },
+};
+
+loadNodeEvents();
 
 export class MythicNode {
     templates: NodeReferenceValue = new Map<string, vscode.Range[]>();
@@ -219,6 +106,7 @@ export class MythicNode {
             });
         }
 
+        // Remove comments from the body text
         this.body.text = this.body.text
             .split('\n')
             .map((line) => line.replace(/(^|\s)\s*#.*/m, ''))
@@ -300,12 +188,6 @@ export class MythicNode {
         for (const range of ranges) {
             this.outEdge[registry].get(entry)!.push(this.normalizeRelativeRange(range));
         }
-        // console.log({
-        //     this: this.name.text,
-        //     registry,
-        //     entry,
-        //     edge: this.outEdge[registry].get(entry),
-        // });
     }
 
     public hasEdge(registry: registryKey, entry: string): boolean {
@@ -323,7 +205,86 @@ export class MythicNode {
         this.matchSkillShortcut(body).forEach((skillShortcut) => {
             this.addEdge('metaskill', skillShortcut.name, skillShortcut.range);
         });
-        this.matchPlaceholder(body);
+
+        this.matchPlaceholders(body);
+
+        this.matchSounds(body);
+    }
+
+    // Match all sound mechanics so that the decoration can be added
+    private matchSounds(body: string) {
+        const soundMechanics = this.matchSimpleMechanics(body, soundMechanicInfo.mechanic);
+        for (const mechanic of soundMechanics) {
+            const sound = mechanic.args.find((arg) =>
+                soundMechanicInfo.sound.includes(arg.attribute.trim().toLowerCase())
+            )?.value;
+            if (!sound) {
+                continue;
+            }
+            const firstsound = (
+                ScribeEnumHandler.getEnum('sound')?.getDataset().get(sound.toLowerCase()) as
+                    | (EnumDatasetValue & { sounds: string[] })
+                    | undefined
+            )?.sounds[0];
+            if (!firstsound) {
+                continue;
+            }
+            let pitchTemp = mechanic.args.find((arg) =>
+                soundMechanicInfo.pitch.includes(arg.attribute.trim().toLowerCase())
+            )?.value;
+            const pitch = pitchTemp
+                ? Math.min(Math.max(parseFloat(pitchTemp), 0.5), 2.0)
+                : undefined;
+            const volume = mechanic.args.find((arg) =>
+                soundMechanicInfo.volume.includes(arg.attribute.trim().toLowerCase())
+            )?.value;
+
+            if (!this.metadata.has('soundPlayback')) {
+                this.metadata.set('soundPlayback', []);
+            }
+            (this.metadata.get('soundPlayback') as SoundMap[]).push({
+                sound: firstsound,
+                pitch: pitch,
+                volume: volume ? parseFloat(volume) : undefined,
+            });
+
+            nodeDecorations.addNodeDecoration(this, mechanic.range, 'soundPlayback', undefined, {
+                range: mechanic.range,
+                isResolved: true,
+                command: {
+                    title: `▶ Play sound`,
+                    command: 'MythicScribe.external.minecraftsounds.playback',
+                    arguments: [
+                        undefined,
+                        {
+                            s0: firstsound,
+                            p0: pitch,
+                            v0: volume,
+                        },
+                    ],
+                },
+            });
+        }
+
+        const soundPlaybacks = this.metadata.get('soundPlayback') as SoundMap[] | undefined;
+        if (!soundPlaybacks || soundPlaybacks.length === 0) {
+            return;
+        }
+        const soundList: Record<string, string> = {};
+        soundPlaybacks.forEach((sound, index) => {
+            soundList[`s${index}`] = sound.sound || soundMechanicInfo.defaults.sound;
+            soundList[`p${index}`] = sound.pitch?.toString() || soundMechanicInfo.defaults.pitch;
+            soundList[`v${index}`] = sound.volume?.toString() || soundMechanicInfo.defaults.volume;
+        });
+        nodeDecorations.addNodeDecoration(this, this.name.range, 'soundPlayback', undefined, {
+            range: this.name.range,
+            isResolved: true,
+            command: {
+                title: `▶ Play all sounds`,
+                command: 'MythicScribe.external.minecraftsounds.playback',
+                arguments: [undefined, soundList],
+            },
+        });
     }
 
     protected matchTemplate(
@@ -480,7 +441,7 @@ export class MythicNode {
         return skillShortcuts;
     }
 
-    private matchPlaceholder(body: string) {
+    private matchPlaceholders(body: string) {
         const placeholderRegex = /<([\w\-_.]+)>/g;
         const matches = body.matchAll(placeholderRegex);
         for (const match of matches) {
@@ -495,6 +456,30 @@ export class MythicNode {
                 i++;
             }
         }
+    }
+
+    private matchSimpleMechanics(
+        body: string,
+        names: string[]
+    ): { name: string; range: vscode.Range; args: { attribute: string; value: string }[] }[] {
+        const acc: ReturnType<typeof this.matchSimpleMechanics> = [];
+        const regex = new RegExp(`- (?<name>${names.join('|')}){(?<args>.*)}`, 'gm');
+        const matches = body.matchAll(regex);
+        for (const match of matches) {
+            const range = this.normalizeRelativeRange(
+                this.calculateRelativeRangeFromBody(body, match)
+            );
+            const name = match.groups!.name;
+            const args: { attribute: string; value: string }[] = [];
+            match.groups!.args?.split(';').map((arg) => {
+                const [attribute, value] = arg.split('=').map((s) => s.trim());
+                if (attribute && value) {
+                    args.push({ attribute, value });
+                }
+            });
+            acc.push({ name, range, args });
+        }
+        return acc;
     }
 
     public getTemplatedMetadata<T>(target: string): T | undefined {
@@ -628,17 +613,9 @@ export class MetaskillMythicNode extends MythicNode {
                 continue;
             }
 
-            if (!this.registry.decorationsByDocument.has(this.document.uri.toString())) {
-                this.registry.decorationsByDocument.set(
-                    this.document.uri.toString(),
-                    new Map<string, DecorationMap>()
-                );
-            }
-
             nodeDecorations.addNodeDecoration(
-                this.registry.decorationsByDocument.get(this.document.uri.toString())!,
+                this,
                 this.normalizeRelativeRange(this.calculateRelativeRangeFromBody(body, match)),
-                match,
                 'delayTracking',
                 {
                     renderOptions: {
@@ -958,6 +935,8 @@ export class MythicNodeRegistry {
     clearNodes(): void {
         this.nodes.clear();
         this.nodesByDocument.clear();
+        this.diagnosticsByDocument.clear();
+        this.decorationsByDocument.clear();
     }
 
     clearNodesByDocument(uri: vscode.Uri): void {
@@ -1033,6 +1012,7 @@ export class MythicNodeRegistry {
             this.registerNode(node);
         }
     }
+
     updateDocument(document: vscode.TextDocument): void {
         this.clearDocument(document.uri);
         this.scanDocument(document);
@@ -1051,6 +1031,7 @@ export class MythicNodeRegistry {
         this.clearNodesByDocument(uri);
         this.clearDiagnosticsByDocument(uri);
         this.clearDecorationsByDocument(uri);
+        nodeLens.clearCodeLensesForDocument(uri);
     }
 
     checkForBrokenEdges(uri: vscode.Uri): void {
@@ -1080,8 +1061,7 @@ export class MythicNodeRegistry {
     }
 }
 
-let attributeRegex: RegExp;
-function updateAttributeRegex() {
+function updateGlobalVariables() {
     const attributes = new Set<string>();
     for (const type of registryKey) {
         for (const attribute of MythicNodeHandler.registry[type].referenceAttributes) {
@@ -1092,6 +1072,32 @@ function updateAttributeRegex() {
         `(?<=[\\{;]\\s*)(?<attribute>${Array.from(attributes).join('|')})\\s*=\\s*(?<value>[\\w\\-_]+)(?=\\s*[;\\}])`,
         'gi'
     );
+
+    const soundMechanic = ScribeMechanicHandler.registry.mechanic.getMechanicByName('sound');
+    if (soundMechanic) {
+        for (const name of soundMechanic.name) {
+            soundMechanicInfo.mechanic.push(name);
+        }
+
+        const soundAttribute = soundMechanic.getAttributeByName('sound');
+        soundMechanicInfo.defaults.sound =
+            soundAttribute?.default_value || 'entity.zombie.attack_iron_door';
+        for (const sound of soundAttribute?.name || []) {
+            soundMechanicInfo.sound.push(sound);
+        }
+
+        const volumeAttribute = soundMechanic.getAttributeByName('volume');
+        soundMechanicInfo.defaults.volume = volumeAttribute?.default_value || '1';
+        for (const volume of volumeAttribute?.name || []) {
+            soundMechanicInfo.volume.push(volume);
+        }
+
+        const pitchAttribute = soundMechanic.getAttributeByName('pitch');
+        soundMechanicInfo.defaults.pitch = pitchAttribute?.default_value || '1';
+        for (const pitch of pitchAttribute?.name || []) {
+            soundMechanicInfo.pitch.push(pitch);
+        }
+    }
 }
 
 export namespace MythicNodeHandler {
@@ -1136,7 +1142,7 @@ export namespace MythicNodeHandler {
 
     export async function scanAllDocuments(): Promise<void> {
         clearNodes();
-        updateAttributeRegex();
+        updateGlobalVariables();
 
         const time = timeCounter();
         Log.debug('Scanning all documents');

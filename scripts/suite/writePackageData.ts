@@ -11,10 +11,13 @@ const map = {
 }
 
 export function writePackageData(){
+    console.log('Writing package data...');
+    let count = 0;
     const packageJsonPath = path.resolve(__dirname, '../../package.json');
     const packageJson = JSON.parse(fs.readFileSync(packageJsonPath, 'utf-8'));
     
     for (const key in map) {
+        count++;
         if (key.includes('.')) {
             const [parent, child] = key.split('.');
             packageJson.contributes.configuration.properties[`MythicScribe.${parent}`].items.properties[child].enum = map[key as keyof typeof map];
@@ -25,4 +28,5 @@ export function writePackageData(){
     }
 
     fs.writeFileSync(packageJsonPath, JSON.stringify(packageJson, null, 2));
+    console.log(`Wrote ${count} properties to package.json.`);
 }

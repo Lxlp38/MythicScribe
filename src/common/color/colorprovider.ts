@@ -3,7 +3,7 @@ import * as vscode from 'vscode';
 
 import { DecorationMap, DecorationProvider } from '../providers/decorationProvider';
 class ScribeColorProvider
-    extends DecorationProvider<vscode.Color>
+    extends DecorationProvider<vscode.Color, string>
     implements vscode.DocumentColorProvider
 {
     readonly colorRegex =
@@ -122,7 +122,7 @@ class ScribeColorProvider
         match: RegExpExecArray,
         color: vscode.Color
     ) {
-        const range = this.addDecoration(decorations, i, match, color);
+        const range = this.addDecoration(decorations, { line: i, match: match }, color);
         colors.push(new vscode.ColorInformation(range, color));
     }
 

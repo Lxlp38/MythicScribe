@@ -65,7 +65,7 @@ export abstract class AbstractScribeSubscription {
      */
     enable(subscription: vscode.Disposable) {
         this.subscriptions.push(subscription);
-        ctx.subscriptions.push(subscription);
+        ctx!.subscriptions.push(subscription);
     }
 
     /**

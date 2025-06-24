@@ -11,6 +11,7 @@ enum EnumType {
 }
 
 export function generateEnumList() {
+    console.log('Generating enum list...');
     const enums: enumInfo[] = [];
     iterateOverEnum(enums, localEnums, EnumType.Static);
     iterateOverEnum(enums, volatileEnums, EnumType.Volatile);
@@ -33,6 +34,8 @@ export function generateEnumList() {
     fs.writeFileSync(outputPath_md, mdFileContent, 'utf8');
     fs.writeFileSync(outputPath_json, JSON.stringify(enums, null, 2), 'utf8');
     fs.writeFileSync(outputPath_txt, enums.map((value) => value.id).join('\n'), 'utf8');
+
+    console.log(`Generated a list containing ${enums.length} enums.`);
 }
 
 function iterateOverEnum(list: enumInfo[], source: (string | string[])[], type: string) {

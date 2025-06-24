@@ -40,7 +40,7 @@ export abstract class AbstractScribeMechanicRegistry {
     }
 
     get localPath(): string {
-        return vscode.Uri.joinPath(ctx.extensionUri, 'data', this.folder).toString();
+        return vscode.Uri.joinPath(ctx!.extensionUri, 'data', this.folder).toString();
     }
 
     async addMechanic(...mechanic: Mechanic[]) {

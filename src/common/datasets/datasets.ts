@@ -28,7 +28,7 @@ let shouldUpdateGithubDatasets = false;
 
 let edcsUri: vscode.Uri;
 export function setEdcsUri() {
-    edcsUri = vscode.Uri.joinPath(ctx.globalStorageUri, 'extensionDatasetsClonedStorage/');
+    edcsUri = vscode.Uri.joinPath(ctx!.globalStorageUri, 'extensionDatasetsClonedStorage/');
 }
 
 const datasetsLoadedEventEmitter = new vscode.EventEmitter<void>();
@@ -122,7 +122,7 @@ export async function loadDatasets() {
     if (datasetSource() === 'GitHub') {
         await initializeExtensionDatasetsClonedStorage();
         const latestCommitHash = await fetchLatestCommitHash();
-        const savedCommitHash = ctx.globalState.get<string>('latestCommitHash');
+        const savedCommitHash = ctx!.globalState.get<string>('latestCommitHash');
         if (!savedCommitHash || latestCommitHash !== savedCommitHash) {
             Log.debug(
                 'Commit hash mismatch, updating datasets',
@@ -131,7 +131,7 @@ export async function loadDatasets() {
                 latestCommitHash?.toString() || 'undefined'
             );
             shouldUpdateGithubDatasets = true;
-            ctx.globalState.update('latestCommitHash', latestCommitHash);
+            ctx!.globalState.update('latestCommitHash', latestCommitHash);
         } else {
             Log.debug('Commit hash matches, no need to update datasets');
         }

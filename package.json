@@ -5,7 +5,7 @@
   "icon": "assets/icon128x128.png",
   "description": "Provides configuration support for plugins of the MythicCraft suite",
   "license": "SEE LICENSE IN LICENSE.txt",
-  "publisher": "lxlp",
+  "publisher": "Lxlp",
   "author": {
     "name": "Lxlp"
   },
@@ -42,7 +42,7 @@
   "contributes": {
     "configurationDefaults": {
       "[mythicscript]": {
-        "editor.defaultFormatter": "lxlp.mythicscribe",
+        "editor.defaultFormatter": "Lxlp.mythicscribe",
         "editor.tabSize": 2,
         "editor.insertSpaces": true,
         "editor.acceptSuggestionOnEnter": "off"
@@ -103,7 +103,11 @@
       ],
       "tools": [
         {
-          "command": "MythicScribe.aurafx",
+          "command": "MythicScribe.external.aurafx",
+          "group": "tools"
+        },
+        {
+          "command": "MythicScribe.external.minecraftsounds",
           "group": "tools"
         }
       ]
@@ -156,9 +160,18 @@
         "title": "Put Selection Inside Inline Metaskill"
       },
       {
-        "command": "MythicScribe.aurafx",
+        "command": "MythicScribe.external.aurafx",
         "title": "AuraFX (by Sleepsweety)",
         "shortTitle": "AuraFX"
+      },
+      {
+        "command": "MythicScribe.external.minecraftsounds",
+        "title": "MinecraftSounds (by Morose)",
+        "shortTitle": "MinecraftSounds"
+      },
+      {
+        "command": "MythicScribe.external.minecraftsounds.playback",
+        "title": "Play Sound on MinecraftSounds"
       }
     ],
     "languages": [
@@ -214,34 +227,6 @@
           ],
           "default": "latest",
           "description": "The version of Minecraft that the extension should use for autocompletions."
-        },
-        "MythicScribe.regexForMythicmobsFile": {
-          "deprecationMessage": "This key is deprecated. Please use 'MythicScribe.fileRegex' instead.",
-          "title": "Regex for MythicMobs File",
-          "type": "string",
-          "default": "[\\\\\\/][Mm]ythic[Mm]obs[\\\\\\/]",
-          "description": "The regex used against each document's file path: if it matches, the document will be considered as being a MythicMobs one, enabling this extension."
-        },
-        "MythicScribe.regexForMetaskillFile": {
-          "deprecationMessage": "This key is deprecated. Please use 'MythicScribe.fileRegex' instead.",
-          "title": "Regex for MythicMobs Metaskills",
-          "type": "string",
-          "default": "[\\\\\\/][Ss]kills[\\\\\\/]",
-          "description": "The regex used against each document's file path: if it matches, the document will be considered as being a Metaskills one, enabling Metaskill files functionalities."
-        },
-        "MythicScribe.regexForMobFile": {
-          "deprecationMessage": "This key is deprecated. Please use 'MythicScribe.fileRegex' instead.",
-          "title": "Regex for MythicMobs Mobs",
-          "type": "string",
-          "default": "[\\\\\\/][Mm]obs[\\\\\\/]",
-          "description": "The regex used against each document's file path: if it matches, the document will be considered as being a Mob one, enabling Mob files functionalities."
-        },
-        "MythicScribe.regexForItemFile": {
-          "deprecationMessage": "This key is deprecated. Please use 'MythicScribe.fileRegex' instead.",
-          "title": "Regex for MythicMobs Items",
-          "type": "string",
-          "default": "[\\\\\\/][Ii]tems[\\\\\\/]",
-          "description": "The regex used against each document's file path: if it matches, the document will be considered as being an Item one, enabling Item files functionalities."
         },
         "MythicScribe.datasetSource": {
           "title": "Dataset",
@@ -554,7 +539,7 @@
           "title": "Allow External Tools",
           "type": "boolean",
           "default": false,
-          "description": "Whether to allow external tools to be used with MythicScribe."
+          "description": "Whether to allow external tools to be used from within MythicScribe, without being redirected to a browser."
         },
         "MythicScribe.decorationOptions": {
           "title": "Decoration Options",
@@ -567,10 +552,17 @@
               "type": "boolean",
               "default": false,
               "description": "Show a little decoration to the right of `delay` mechanics inside of Metaskill files, with the accumulated delay since the start of the Metaskill"
+            },
+            "soundPlayback": {
+              "title": "Sound Playback",
+              "type": "boolean",
+              "default": true,
+              "description": "Show prompts to play sounds on minecraftsounds.com for the sound mechanic"
             }
           },
           "default": {
-            "delayTracking": false
+            "delayTracking": true,
+            "soundPlayback": true
           }
         }
       }

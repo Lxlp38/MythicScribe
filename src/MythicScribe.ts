@@ -1,5 +1,7 @@
 import * as vscode from 'vscode';
 import { openAuraFXWebview } from '@common/webviews/views/aurafx';
+import { openMinecraftSoundsWebview } from '@common/webviews/views/minecraftsounds';
+import { scribeCodeLensProvider } from '@common/providers/codeLensProvider';
 
 import * as SubscriptionHelper from './common/subscriptions/SubscriptionHelper';
 import { getFormatter } from './common/formatter/formatter';
@@ -20,11 +22,36 @@ import { scribeColorProvider } from './common/color/colorprovider';
 import { showNodeGraph } from './common/mythicnodes/nodeView';
 import { putSelectionInsideInlineMetaskill } from './common/completions/component/inlinemetaskillCompletionProvider';
 
-export let ctx: vscode.ExtensionContext;
+export let ctx: vscode.ExtensionContext | undefined = undefined;
+
+let activationFunctionCallbacks: ((context: vscode.ExtensionContext) => void)[] | undefined;
+function getActivationFunctionCallbacks() {
+    if (activationFunctionCallbacks === undefined) {
+        activationFunctionCallbacks = [];
+    }
+    return activationFunctionCallbacks;
+}
+export function executeFunctionAfterActivation(
+    callback: (context: vscode.ExtensionContext) => void
+): void {
+    if (ctx) {
+        callback(ctx);
+    } else {
+        getActivationFunctionCallbacks().push(callback);
+    }
+}
 
 export async function activate(context: vscode.ExtensionContext) {
     ctx = context;
     Log.debug('Extension Activated');
+
+    for (const callback of getActivationFunctionCallbacks()) {
+        try {
+            callback(context);
+        } catch (error) {
+            Log.error(error, 'Error executing activation function:');
+        }
+    }
 
     setEdcsUri();
 
@@ -62,13 +89,26 @@ export async function activate(context: vscode.ExtensionContext) {
         vscode.commands.registerCommand('MythicScribe.openSettings', () => {
             vscode.commands.executeCommand('workbench.action.openSettings', 'MythicScribe');
         }),
-        vscode.commands.registerCommand('MythicScribe.aurafx', openAuraFXWebview),
+
+        vscode.commands.registerCommand('MythicScribe.external.aurafx', () => openAuraFXWebview()),
+        vscode.commands.registerCommand('MythicScribe.external.minecraftsounds', () =>
+            openMinecraftSoundsWebview()
+        ),
+        vscode.commands.registerCommand(
+            'MythicScribe.external.minecraftsounds.playback',
+            openMinecraftSoundsWebview
+        ),
 
         // Formatter
         getFormatter(),
 
         // Color Provider
-        vscode.languages.registerColorProvider('mythicscript', scribeColorProvider)
+        vscode.languages.registerColorProvider('mythicscript', scribeColorProvider),
+
+        vscode.languages.registerCodeLensProvider(
+            { scheme: 'file', language: 'mythicscript' },
+            scribeCodeLensProvider
+        )
     );
 
     const activeEditor = vscode.window.activeTextEditor;
@@ -80,8 +120,8 @@ export async function activate(context: vscode.ExtensionContext) {
 export function deactivate() {}
 
 export function checkExtensionVersion(): boolean {
-    const version = ctx.extension.packageJSON.version;
-    const savedVersion = ctx.globalState.get<string>('extensionVersion');
+    const version = ctx!.extension.packageJSON.version;
+    const savedVersion = ctx!.globalState.get<string>('extensionVersion');
     Log.debug(`Current version: ${version}, Saved version: ${savedVersion}`);
     if (version && version !== savedVersion) {
         const checkExtensionVersionOptions: Parameters<typeof showInfoMessageWithOptions>[1] = {
@@ -94,7 +134,7 @@ export function checkExtensionVersion(): boolean {
             `Updated MythicScribe to version ${version}\nYou may need to restart VSCode for changes to take effect`,
             checkExtensionVersionOptions
         );
-        ctx.globalState.update('extensionVersion', version);
+        ctx!.globalState.update('extensionVersion', version);
         return true;
     }
     return false;

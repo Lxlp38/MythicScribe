@@ -7,11 +7,13 @@ export type DecorationMap = {
     //options?: vscode.DecorationRenderOptions;
 };
 
-export abstract class DecorationProvider<T> {
-    protected decorationTypeMap = new Map<string, vscode.TextEditorDecorationType>();
-    protected oldDecorations = new Map<string, DecorationMap>();
+type Uri = ReturnType<typeof vscode.Uri.toString>;
+
+export abstract class DecorationProvider<T, D extends string = string> {
+    protected decorationTypeMap = new Map<D, vscode.TextEditorDecorationType>();
+    protected oldDecorations = new Map<Uri, DecorationMap>();
     protected textEditorNeedsUpdate: boolean = false;
-    protected oldDecorationsMap = new Map<string, Map<string, DecorationMap>>();
+    protected oldDecorationsMap = new Map<Uri, Map<string, DecorationMap>>();
 
     protected onDidChangeActiveTextEditorRetCondition: () => boolean = () => true;
 
@@ -31,7 +33,7 @@ export abstract class DecorationProvider<T> {
         }
     }
 
-    protected abstract getDecorationTypeKey(input: T): string;
+    protected abstract getDecorationTypeKey(input: T): D;
 
     protected abstract createDecorationType(input: T): vscode.TextEditorDecorationType;
 
@@ -53,12 +55,12 @@ export abstract class DecorationProvider<T> {
 
     public addDecoration(
         decorations: Map<string, DecorationMap>,
-        index: number | vscode.Range,
-        match: RegExpExecArray,
+        index: { line: number; match: RegExpExecArray } | vscode.Range,
         input: T,
         options?: Partial<vscode.DecorationOptions>
     ): vscode.Range {
-        const range = index instanceof vscode.Range ? index : this.getRange(index, match);
+        const range =
+            index instanceof vscode.Range ? index : this.getRange(index.line, index.match);
         const [decorationType, key] = this.getDecoration(input);
         if (!decorations.has(key)) {
             decorations.set(key, {

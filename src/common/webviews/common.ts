@@ -19,8 +19,28 @@ export function externalToolWarning(link: string): void {
     return;
 }
 
-export function openToolExternally(link: string): void {
-    vscode.env.openExternal(vscode.Uri.parse(link));
+export type LinkParameters = Record<string, string>;
+export function openToolExternally(
+    link: string,
+    parameters: LinkParameters = {},
+    anchorParameters: LinkParameters = {}
+): void {
+    parameters['utm_source'] = 'MythicScribe';
+    parameters['utm_medium'] = 'referral';
+    parameters['utm_campaign'] = 'tool_integration';
+    const par = parameters
+        ? '?' +
+          Object.entries(parameters)
+              .map(([parameter, arg]) => `${parameter}=${arg}`)
+              .join('&')
+        : '';
+    const anchor = anchorParameters
+        ? `#?${Object.entries(anchorParameters)
+              .map(([parameter, arg]) => `${parameter}=${arg}`)
+              .join('&')}`
+        : '';
+    const ret = vscode.Uri.parse(encodeURI(link + par + anchor));
+    vscode.env.openExternal(ret);
 }
 
 // export function openToolInternally(name: string, link: string): void {

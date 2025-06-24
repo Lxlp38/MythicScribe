@@ -86,3 +86,5 @@ You can download Dev Builds from the [Github Repository](https://github.com/Lxlp
   - Caro Asercion
     - [furniture](/assets/nodegraph/furniture.png) ([source](https://game-icons.net/1x1/caro-asercion/armchair.html))
     - [reagent](/assets/nodegraph/reagent.png) ([source](https://game-icons.net/1x1/caro-asercion/round-potion.html))
+  - [Skoll]
+    - [sound waves](/assets/utils/minecraftsounds.png) ([source](https://game-icons.net/1x1/skoll/sound-waves.html))

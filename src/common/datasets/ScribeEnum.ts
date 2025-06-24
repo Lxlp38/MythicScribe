@@ -139,7 +139,7 @@ export class StaticScribeEnum extends AbstractScribeEnum {
 }
 class LocalScribeEnum extends AbstractScribeEnum {
     constructor(identifier: string, path: string) {
-        const localPath = vscode.Uri.joinPath(ctx.extensionUri, 'data', path);
+        const localPath = vscode.Uri.joinPath(ctx!.extensionUri, 'data', path);
         super(identifier, localPath.fsPath);
         new ScribeCloneableFile<Enum>(localPath).get().then((data) => this.setDataset(data));
     }
