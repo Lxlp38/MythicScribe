@@ -116,13 +116,21 @@ export class ScribeCloneableFile<T> {
     }
 }
 
+async function fetchNextHash(latestCommitHash: string) {
+    const nextCommitHash = await fetchLatestCommitHash();
+    if (nextCommitHash && nextCommitHash !== latestCommitHash) {
+        Log.debug('Next commit hash:', nextCommitHash);
+        ctx!.globalState.update('latestCommitHash', nextCommitHash);
+    }
+}
+
 export async function loadDatasets() {
     Log.debug('Loading datasets from', datasetSource() || 'undefined');
 
     if (datasetSource() === 'GitHub') {
         await initializeExtensionDatasetsClonedStorage();
-        const latestCommitHash = await fetchLatestCommitHash();
-        const savedCommitHash = ctx!.globalState.get<string>('latestCommitHash');
+        const latestCommitHash = ctx!.globalState.get<string>('latestCommitHash');
+        const savedCommitHash = ctx!.globalState.get<string>('savedCommitHash');
         if (!savedCommitHash || latestCommitHash !== savedCommitHash) {
             Log.debug(
                 'Commit hash mismatch, updating datasets',
@@ -131,10 +139,11 @@ export async function loadDatasets() {
                 latestCommitHash?.toString() || 'undefined'
             );
             shouldUpdateGithubDatasets = true;
-            ctx!.globalState.update('latestCommitHash', latestCommitHash);
+            ctx!.globalState.update('savedCommitHash', latestCommitHash);
         } else {
             Log.debug('Commit hash matches, no need to update datasets');
         }
+        fetchNextHash(latestCommitHash || '');
     }
     ScribeEnumHandler.loadEnumDatasets();
     await Promise.allSettled([ScribeMechanicHandler.loadMechanicDatasets(), loadCustomDatasets()]);

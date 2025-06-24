@@ -6,6 +6,9 @@
 - Decorations for delay mechanics inside of metaskills, showing the accumulated delay since the start of the metaskill itself. Can be enabled via the configuration `MythicScribe.decorationOptions.delayTracking`
 - Decorations for sound mechanics, showing a prompt to play the sound on minecraftsounds.com
 
+### Changed
+- Slightly optimized the activation time when using the GitHub Dataset source
+
 ### Fixed
 - Mythic Node View's "Go To Edge" feature returning wrong range when used against the edge of a template 
 
