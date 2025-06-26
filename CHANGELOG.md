@@ -29,6 +29,7 @@
   - Hover and Go To Definition support for Placeholder Segments that use a Mob/Item/Custom Placeholder/Stat Id (for instance, <caster.stat.example> or <placeholder.test>)
 - External Tools support
   - [AuraFX](https://aurafx.vercel.app?source=MythicScribe) by [sleepsweetly](https://github.com/sleepsweetly)
+  - [MinecraftSounds](https://minecraftsounds.com/) by [Morose](https://github.com/xmorose)
 - Mob Variables Completions for the variables set on upstream Templates
 - Mob Options, DropOptions and DisplayOptions Completions
 - Furniture and Custom Block Completions and Hovers
