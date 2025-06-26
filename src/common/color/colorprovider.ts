@@ -1,4 +1,4 @@
-import { addConfigChangeFunction, ConfigProvider } from '@common/utils/configutils';
+import { addConfigChangeFunction, ConfigProvider } from '@common/providers/configProvider';
 import * as vscode from 'vscode';
 
 import { DecorationMap, DecorationProvider } from '../providers/decorationProvider';

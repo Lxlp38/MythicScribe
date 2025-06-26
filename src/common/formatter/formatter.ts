@@ -2,7 +2,7 @@ import * as vscode from 'vscode';
 import { parseDocument } from 'yaml';
 
 import { getDefaultIndentation, getDocumentSearchList, YamlKeyPairList } from '../utils/yamlutils';
-import Log from '../utils/logger';
+import { getLogger } from '../providers/loggerProvider';
 import { SchemaElementTypes } from '../objectInfos';
 
 type Comment = {
@@ -59,7 +59,7 @@ export function getFormatter() {
 
                 return [vscode.TextEdit.replace(fullRange, text)];
             } catch (error) {
-                Log.error(error, undefined, { silent: true });
+                getLogger().error(error, undefined, { silent: true });
                 return [];
             }
         },
@@ -124,7 +124,7 @@ function restoreCommentsExec(
         // Process the inline comment
         const inlineComment = comments.shift();
         if (!inlineComment) {
-            Log.warn('No inline comment to restore', { silent: true });
+            getLogger().warn('No inline comment to restore', { silent: true });
             return;
         }
         const inlineKey = inlineComment.inlinekey === true ? ':' : '';
@@ -146,7 +146,7 @@ function restoreCommentsExec(
     // Pick The Comment That Is Gonna Be Used
     const comment = comments.shift();
     if (!comment) {
-        Log.warn('No comment to restore', { silent: true });
+        getLogger().warn('No comment to restore', { silent: true });
         return;
     }
 
@@ -217,16 +217,16 @@ function normalizeYamlIndentation(par: FormatterParameters): string {
         });
         if (doc.errors) {
             doc.errors.forEach((error) => {
-                Log.error(error.message, error.name);
-                Log.debug(`Formatter error: ${error.code} ${error.name} ${error.message}`);
+                getLogger().error(error.message, error.name);
+                getLogger().debug(`Formatter error: ${error.code} ${error.name} ${error.message}`);
                 if (error.stack) {
-                    Log.trace(error.stack);
+                    getLogger().trace(error.stack);
                 }
             });
         }
         return doc.toString();
     } catch (error) {
-        Log.error(error, undefined, { silent: true });
+        getLogger().error(error, undefined, { silent: true });
     }
     return par.text;
 }

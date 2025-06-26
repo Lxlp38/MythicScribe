@@ -23,7 +23,7 @@ import {
 import { MythicMechanic } from '../datasets/ScribeMechanic';
 import { EnumDatasetValue, ScribeEnumHandler } from '../datasets/ScribeEnum';
 import { filterSchemaWithEnabledPlugins, getSchemaElement } from './schemautils';
-import { isPluginEnabled } from './configutils';
+import { isPluginEnabled } from '../providers/configProvider';
 
 export const retriggerCompletionsCommand: vscode.Command = {
     command: 'editor.action.triggerSuggest',

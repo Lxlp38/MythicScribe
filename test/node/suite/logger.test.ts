@@ -2,7 +2,7 @@ import * as sinon from 'sinon';
 import * as vscode from 'vscode';
 import { LogLevel } from 'vscode';
 
-import { Logger } from '../../../src/common/utils/logger';
+import { Logger } from '../../../src/common/providers/loggerProvider';
 
 suite('Logger', () => {
     let logger: Logger;

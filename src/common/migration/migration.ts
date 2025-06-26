@@ -1,6 +1,6 @@
 import * as vscode from 'vscode';
 
-import Log from '../utils/logger';
+import { getLogger } from '../providers/loggerProvider';
 
 export async function migrateConfiguration(
     oldKey: string,
@@ -27,7 +27,7 @@ export async function migrateConfiguration(
             await config.update(newkey, fileRegex, target);
             await config.update(oldKey, undefined, target);
 
-            Log.info(`Migrated ${oldKey} to ${newkey}`);
+            getLogger().info(`Migrated ${oldKey} to ${newkey}`);
         }
     }
 }
@@ -62,7 +62,7 @@ export async function changeCustomDatasetsSource(
 }
 
 export async function doVersionSpecificMigrations(scope: vscode.ConfigurationTarget) {
-    Log.debug('Running version specific migrations for', scope.toString());
+    getLogger().debug('Running version specific migrations for', scope.toString());
     // await Promise.all([
     //     migrateConfiguration('regexForMythicmobsFile', 'fileRegex', 'MythicMobs', scope),
     //     migrateConfiguration('regexForMobFile', 'fileRegex', 'Mob', scope),

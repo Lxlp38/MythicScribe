@@ -1,7 +1,7 @@
 import * as vscode from 'vscode';
 import { getDirectoryFiles } from '@node/datasets/ScribeMechanic';
 
-import { isPluginEnabled } from '../utils/configutils';
+import { isPluginEnabled } from '../providers/configProvider';
 import { AbstractScribeEnum, ScribeEnumHandler } from './ScribeEnum';
 import { ctx } from '../../MythicScribe';
 import { ScribeCloneableFile } from './datasets';
@@ -10,7 +10,7 @@ import { attributeSpecialValues, scriptedEnums } from './enumSources';
 import { MythicNodeHandler } from '../mythicnodes/MythicNode';
 import { isBoolean, registryKey, specialAttributeEnumToRegistryKey } from '../objectInfos';
 import { timeCounter } from '../utils/timeUtils';
-import Log from '../utils/logger';
+import { getLogger } from '../providers/loggerProvider';
 
 export enum ObjectType {
     MECHANIC = 'Mechanic',
@@ -61,7 +61,7 @@ export abstract class AbstractScribeMechanicRegistry {
             );
         });
         const uniquePlugins = Array.from(new Set(mechanic.map((m) => m.plugin))).sort();
-        Log.debug(
+        getLogger().debug(
             `Added ${mechanic.length} ${this.type}s. The registering Plugins are: ${uniquePlugins.join(', ')}`
         );
         return;
@@ -92,7 +92,7 @@ export abstract class AbstractScribeMechanicRegistry {
 
     async loadDataset() {
         const time = timeCounter();
-        Log.debug(`Loading ${this.type} Dataset`);
+        getLogger().debug(`Loading ${this.type} Dataset`);
         const directoryFiles: vscode.Uri[] = await getDirectoryFiles(this);
         const files = directoryFiles.map((file) => new ScribeCloneableFile<Mechanic>(file));
         const promises = files.map((file) => file.get());
@@ -101,11 +101,11 @@ export abstract class AbstractScribeMechanicRegistry {
             if (promise.status === 'fulfilled') {
                 return this.addMechanic(...promise.value);
             }
-            Log.error(`Failed to load ${this.type} dataset: ${promise.reason}`);
+            getLogger().error(`Failed to load ${this.type} dataset: ${promise.reason}`);
             return;
         });
         await Promise.allSettled(loadDatasetPromises);
-        Log.debug(`Loaded ${this.type} Dataset in`, time.stop());
+        getLogger().debug(`Loaded ${this.type} Dataset in`, time.stop());
         return;
     }
 }
@@ -323,7 +323,7 @@ export class MythicAttribute {
                 attributeSpecialValues[
                     attribute.enum.toLowerCase() as keyof typeof attributeSpecialValues
                 ];
-            Log.trace(
+            getLogger().trace(
                 `Attribute ${this.name[0]} from mechanic ${this.mechanic.class} has special value ${attribute.enum}`
             );
             return;
@@ -347,7 +347,7 @@ export class MythicAttribute {
             return;
         }
         if (mechanic.enumAddedAttributesCache.includes(scribeEnum.identifier)) {
-            Log.debug(
+            getLogger().debug(
                 `Enum ${scribeEnum.identifier} has already added attributes to the mechanic ${mechanic.class}`
             );
             return;
@@ -370,13 +370,13 @@ export const ScribeMechanicHandler = {
 
     async loadMechanicDatasets() {
         const time = timeCounter();
-        Log.debug('Loading Mechanic Datasets');
+        getLogger().debug('Loading Mechanic Datasets');
         ScribeMechanicHandler.emptyDatasets();
         const promises = Object.values(ScribeMechanicHandler.registry).map((registry) =>
             registry.loadDataset()
         );
         await Promise.allSettled(promises);
-        Log.debug('Loaded Mechanic Datasets in', time.stop());
+        getLogger().debug('Loaded Mechanic Datasets in', time.stop());
         return;
     },
 
@@ -389,7 +389,7 @@ export const ScribeMechanicHandler = {
         Object.values(ScribeMechanicHandler.registry).forEach((registry) =>
             registry.getMechanics().forEach((mechanic) => mechanic.inheritAttributes())
         );
-        Log.debug('Finalized all Mechanic Attributes');
+        getLogger().debug('Finalized all Mechanic Attributes');
     },
 
     updateNodeRegistry() {
@@ -400,14 +400,14 @@ export const ScribeMechanicHandler = {
                     .forEach((attr) => updateNodeRegistryAttribute(attr, mechanic));
             })
         );
-        Log.debug('Updated Node Registry with Enum References');
+        getLogger().debug('Updated Node Registry with Enum References');
     },
 
     emptyDatasets() {
         Object.values(ScribeMechanicHandler.registry).forEach((registry) =>
             registry.emptyDatasets()
         );
-        Log.debug('Mechanic Datasets emptied');
+        getLogger().debug('Mechanic Datasets emptied');
     },
 };
 

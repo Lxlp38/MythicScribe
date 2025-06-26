@@ -5,7 +5,7 @@ import * as path from 'path';
 
 import * as vscode from 'vscode';
 
-import { checkFileEnabled } from '../../../src/common/utils/configutils';
+import { checkFileEnabled } from '../../../src/common/providers/configProvider';
 import { waitForMythicScript } from '..';
 
 suite('Extension Test Suite', () => {

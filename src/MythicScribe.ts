@@ -11,13 +11,12 @@ import {
     removeCustomDataset,
 } from './common/datasets/customDatasets';
 import { doVersionSpecificMigrations } from './common/migration/migration';
-import Log, { openLogs, showInfoMessageWithOptions } from './common/utils/logger';
+import { getLogger, openLogs, showInfoMessageWithOptions } from './common/providers/loggerProvider';
 import {
     clearExtensionDatasetsClonedStorage,
     loadDatasets,
     setEdcsUri,
 } from './common/datasets/datasets';
-import { configHandler } from './common/utils/configutils';
 import { scribeColorProvider } from './common/color/colorprovider';
 import { showNodeGraph } from './common/mythicnodes/nodeView';
 import { putSelectionInsideInlineMetaskill } from './common/completions/component/inlinemetaskillCompletionProvider';
@@ -43,13 +42,13 @@ export function executeFunctionAfterActivation(
 
 export async function activate(context: vscode.ExtensionContext) {
     ctx = context;
-    Log.debug('Extension Activated');
+    getLogger().debug('Extension Activated');
 
     for (const callback of getActivationFunctionCallbacks()) {
         try {
             callback(context);
         } catch (error) {
-            Log.error(error, 'Error executing activation function:');
+            getLogger().error(error, 'Error executing activation callback function:');
         }
     }
 
@@ -58,7 +57,7 @@ export async function activate(context: vscode.ExtensionContext) {
     // Check if the extension has been updated
     if (checkExtensionVersion()) {
         // Run migrations if so
-        Log.debug('Running migrations');
+        getLogger().debug('Running migrations');
         await Promise.all([
             clearExtensionDatasetsClonedStorage(),
             doVersionSpecificMigrations(vscode.ConfigurationTarget.Global),
@@ -71,9 +70,6 @@ export async function activate(context: vscode.ExtensionContext) {
     context.subscriptions.push(
         // Subscription Handler
         SubscriptionHelper.extensionEnabler,
-
-        // Config Handler
-        configHandler,
 
         // Commands
         vscode.commands.registerCommand('MythicScribe.addCustomDataset', addCustomDataset),
@@ -105,6 +101,7 @@ export async function activate(context: vscode.ExtensionContext) {
         // Color Provider
         vscode.languages.registerColorProvider('mythicscript', scribeColorProvider),
 
+        // CodeLens Provider
         vscode.languages.registerCodeLensProvider(
             { scheme: 'file', language: 'mythicscript' },
             scribeCodeLensProvider
@@ -122,11 +119,11 @@ export function deactivate() {}
 export function checkExtensionVersion(): boolean {
     const version = ctx!.extension.packageJSON.version;
     const savedVersion = ctx!.globalState.get<string>('extensionVersion');
-    Log.debug(`Current version: ${version}, Saved version: ${savedVersion}`);
+    getLogger().debug(`Current version: ${version}, Saved version: ${savedVersion}`);
     if (version && version !== savedVersion) {
         const checkExtensionVersionOptions: Parameters<typeof showInfoMessageWithOptions>[1] = {
             'Check Changelogs': {
-                target: 'https://github.com/Lxlp38/MythicScribe/blob/master/CHANGELOG.md',
+                target: 'https://github.com/Lxlp38/MythicScribe/blob/master/CHANGEgetLogger().md',
                 type: 'external',
             },
         };

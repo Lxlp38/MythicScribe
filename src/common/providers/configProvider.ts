@@ -1,15 +1,34 @@
 import * as vscode from 'vscode';
 
-import Log from './logger';
-import { MinecraftVersions, attributeAliasUsedInCompletions, DatasetSource } from '../packageData';
+import { getLogger } from './loggerProvider';
+import {
+    MinecraftVersions,
+    attributeAliasUsedInCompletions,
+    DatasetSource,
+    LogLevel,
+} from '../packageData';
+import { executeFunctionAfterActivation } from '../../MythicScribe';
 
 class ConfigCache<T extends Record<string, string | boolean | number | undefined>> {
     private cache: T;
     private prefix: string;
+    private configChangeEvent: vscode.Disposable;
 
-    constructor(initialCache: T, prefix: string = '') {
+    constructor(initialCache: T, prefix?: string) {
         this.cache = initialCache;
         this.prefix = prefix ? `${prefix}.` : '';
+        const section = 'MythicScribe' + (prefix ? '.' + prefix : '');
+
+        this.configChangeEvent = vscode.workspace.onDidChangeConfiguration((e) => {
+            if (e.affectsConfiguration(section)) {
+                getLogger().trace(`${section} configuration changed`);
+                this.reset();
+            }
+        });
+
+        executeFunctionAfterActivation((context) => {
+            context.subscriptions.push(this.configChangeEvent);
+        });
     }
 
     get<K extends keyof T>(key: K): T[K] {
@@ -17,6 +36,7 @@ class ConfigCache<T extends Record<string, string | boolean | number | undefined
             this.cache[key] = vscode.workspace
                 .getConfiguration('MythicScribe')
                 .get(this.prefix + String(key)) as T[K];
+            getLogger().trace(`Config Cached: ${this.prefix}${String(key)} = ${this.cache[key]}`);
         }
         return this.cache[key];
     }
@@ -27,6 +47,11 @@ class ConfigCache<T extends Record<string, string | boolean | number | undefined
                 this.cache[key] = undefined as T[typeof key];
             }
         }
+    }
+
+    dispose() {
+        this.configChangeEvent.dispose();
+        getLogger().debug(`Disposed config cache for ${this.prefix}`);
     }
 }
 
@@ -40,7 +65,7 @@ const genericConfigCache = {
     enableFileSpecificSuggestions: undefined as boolean | undefined,
     enableShortcuts: undefined as boolean | undefined,
     minecraftVersion: undefined as string | undefined,
-    logLevel: undefined as string | undefined,
+    logLevel: undefined as LogLevel | undefined,
 };
 
 export const fileRegexConfigCache = {
@@ -103,10 +128,15 @@ export const ConfigProvider = {
     },
 
     reset() {
-        Log.debug('Resetting generic config cache');
-        (Object.keys(this.registry) as Array<keyof typeof this.registry>).forEach((key) => {
-            this.registry[key].reset();
-        });
+        getLogger().debug('Resetting config cache');
+        for (const key in this.registry) {
+            if (Object.hasOwn(this.registry, key)) {
+                this.registry[key as keyof typeof this.registry].reset();
+            }
+        }
+        for (const callback of getConfigChangeFunctionCallbacks()) {
+            callback();
+        }
     },
 };
 
@@ -121,20 +151,6 @@ export function addConfigChangeFunction(callback: () => void) {
     getConfigChangeFunctionCallbacks().push(callback);
 }
 
-function resetConfigCache() {
-    Log.debug('Resetting config cache');
-    ConfigProvider.reset();
-    for (const callback of getConfigChangeFunctionCallbacks()) {
-        callback();
-    }
-}
-export const configHandler = vscode.workspace.onDidChangeConfiguration((e) => {
-    if (e.affectsConfiguration('MythicScribe')) {
-        Log.debug('MythicScribe configuration changed');
-        resetConfigCache();
-    }
-});
-
 function checkFileRegex(uri: vscode.Uri, regex: string | undefined): boolean {
     if (regex && new RegExp(regex).test(uri.fsPath)) {
         return true;
@@ -148,35 +164,9 @@ export function checkFileEnabled(
     return checkFileRegex(uri, ConfigProvider.registry.fileRegex.get(configKey));
 }
 export function checkMythicMobsFile(uri: vscode.Uri): boolean {
-    if (ConfigProvider.registry.generic.get('alwaysEnabled')) {
-        return true;
-    }
-    return checkFileEnabled(uri, 'MythicMobs');
-}
-
-export function getLogLevel() {
-    function fromStringToNumber(string: string) {
-        switch (string) {
-            case 'error':
-                return vscode.LogLevel.Error;
-            case 'warn':
-                return vscode.LogLevel.Warning;
-            case 'info':
-                return vscode.LogLevel.Info;
-            case 'debug':
-                return vscode.LogLevel.Debug;
-            case 'trace':
-                return vscode.LogLevel.Trace;
-            default:
-                return vscode.LogLevel.Debug;
-        }
-    }
-
-    const returnValue = ConfigProvider.registry.generic.get('logLevel');
-    if (typeof returnValue === 'string') {
-        return fromStringToNumber(returnValue);
-    }
-    return undefined;
+    return (
+        ConfigProvider.registry.generic.get('alwaysEnabled') || checkFileEnabled(uri, 'MythicMobs')
+    );
 }
 
 export function getMinecraftVersion(): MinecraftVersions {
@@ -203,7 +193,7 @@ export function getMinecraftVersion(): MinecraftVersions {
 
         // Update the value only in the defined scope
         config.update('minecraftVersion', undefined, target);
-        Log.warn(
+        getLogger().warn(
             'Invalid MythicScribe.minecraftVersion configuration value detected. Resetting to default value "latest".'
         );
         return MinecraftVersions[0];

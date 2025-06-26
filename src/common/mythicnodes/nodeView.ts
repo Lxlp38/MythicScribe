@@ -1,6 +1,6 @@
 import * as vscode from 'vscode';
-import Log from '@common/utils/logger';
-import { ConfigProvider } from '@common/utils/configutils';
+import { getLogger } from '@common/providers/loggerProvider';
+import { ConfigProvider } from '@common/providers/configProvider';
 
 import { MockMythicNode, MythicNode, MythicNodeHandler } from './MythicNode';
 import { extendedRegistryKey, registryKey } from '../objectInfos';
@@ -586,7 +586,7 @@ function processWebViewImageUri(webviewPanel: vscode.WebviewPanel, target: strin
 
 function getWebviewContent(): string {
     if (!openWebView) {
-        Log.error('Webview is not declared! Something has gone very wrong!');
+        getLogger().error('Webview is not declared! Something has gone very wrong!');
         return '';
     }
     const scriptPathOnDisk = vscode.Uri.joinPath(

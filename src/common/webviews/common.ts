@@ -1,4 +1,4 @@
-import { showInfoMessageWithOptions } from '@common/utils/logger';
+import { showInfoMessageWithOptions } from '@common/providers/loggerProvider';
 import * as vscode from 'vscode';
 
 // const disposables: Record<string, vscode.Disposable[]> = {};

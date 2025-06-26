@@ -16,8 +16,8 @@ import {
     NodeDiagnosticCollection,
 } from '../providers/diagnosticProvider';
 import { checkFileType } from '../subscriptions/SubscriptionHelper';
-import Log from '../utils/logger';
-import { ConfigProvider } from '../utils/configutils';
+import { getLogger } from '../providers/loggerProvider';
+import { ConfigProvider } from '../providers/configProvider';
 import { timeCounter } from '../utils/timeUtils';
 import { executeGetObjectLinkedToAttribute } from '../utils/cursorutils';
 import { registryKey } from '../objectInfos';
@@ -904,7 +904,9 @@ export class MythicNodeRegistry {
             this.nodesByDocument.set(documentUri, []);
         }
         this.nodesByDocument.get(documentUri)?.push(node);
-        Log.trace(`Registered ${this.type} ${node.name.text} in ${node.document.uri.toString()}`);
+        getLogger().trace(
+            `Registered ${this.type} ${node.name.text} in ${node.document.uri.toString()}`
+        );
     }
 
     getNode(name: string): MythicNode | undefined {
@@ -939,7 +941,9 @@ export class MythicNodeRegistry {
         const nodesToRemove = this.nodesByDocument.get(uri.toString());
         if (nodesToRemove) {
             nodesToRemove.forEach((node) => {
-                Log.trace(`Unregistered ${this.type} ${node.name.text} in ${uri.toString()}`);
+                getLogger().trace(
+                    `Unregistered ${this.type} ${node.name.text} in ${uri.toString()}`
+                );
                 this.nodes.delete(node.name.text);
             });
         }
@@ -951,7 +955,9 @@ export class MythicNodeRegistry {
         const diagnostics = this.diagnosticsByDocument.get(uri.toString());
         if (diagnostics && diagnostics.length > 0) {
             diagnostics.forEach((diagnostic) => {
-                Log.trace(`Unregistered ${this.type} ${diagnostic.message} in ${uri.toString()}`);
+                getLogger().trace(
+                    `Unregistered ${this.type} ${diagnostic.message} in ${uri.toString()}`
+                );
             });
         }
         this.diagnosticsByDocument.delete(uri.toString());
@@ -972,7 +978,7 @@ export class MythicNodeRegistry {
 
     scanDocument(document: vscode.TextDocument): void {
         if (document.lineAt(0).text === ParserIntructions.DISABLE_PARSING) {
-            Log.debug(`Parsing disabled for ${document.uri.toString()}`);
+            getLogger().debug(`Parsing disabled for ${document.uri.toString()}`);
             return;
         }
         const matches = document.getText().matchAll(NodeRegex);
@@ -1141,7 +1147,7 @@ export namespace MythicNodeHandler {
         updateGlobalVariables();
 
         const time = timeCounter();
-        Log.debug('Scanning all documents');
+        getLogger().debug('Scanning all documents');
 
         const include =
             (ConfigProvider.registry.fileParsingPolicy.get('parsingGlobPattern') as
@@ -1152,13 +1158,13 @@ export namespace MythicNodeHandler {
             | string
             | undefined;
 
-        Log.debug(`Parsing files with include: ${include} and exclude: ${exclude}`);
+        getLogger().debug(`Parsing files with include: ${include} and exclude: ${exclude}`);
 
         const limitAmount = ConfigProvider.registry.fileParsingPolicy.get(
             'parallelParsingLimit'
         ) as number;
         if (limitAmount <= 0) {
-            Log.warn('File Parsing disabled because parallelParsingLimit is set to <=0');
+            getLogger().warn('File Parsing disabled because parallelParsingLimit is set to <=0');
             return;
         }
         const limit = pLimit(limitAmount);
@@ -1168,48 +1174,60 @@ export namespace MythicNodeHandler {
             include,
             exclude && exclude !== '' ? exclude : undefined
         );
-        Log.log(`Document Find Time: ${time.step()} ms`, vscode.LogLevel.Debug, 'Time Report');
+        getLogger().log(
+            `Document Find Time: ${time.step()} ms`,
+            vscode.LogLevel.Debug,
+            'Time Report'
+        );
 
         const tasks = files.map((file) => limit(() => processFile(file)));
         const results = await Promise.allSettled(tasks);
-        Log.debug(`Found ${results.length} files`);
+        getLogger().debug(`Found ${results.length} files`);
         const openedFiles = results
             .filter((result) => result.status === 'fulfilled')
             .map((result) => result.value)
             .filter((result) => result !== null);
-        Log.debug(`Opened ${openedFiles.length} files`);
+        getLogger().debug(`Opened ${openedFiles.length} files`);
         const rejected = results.filter((result) => result.status === 'rejected');
         if (rejected.length > 0) {
-            Log.debug(`Failed to open ${rejected.length} files`);
+            getLogger().debug(`Failed to open ${rejected.length} files`);
             rejected.forEach((rejection, index) =>
-                Log.debug(`Reason ${index}: ${rejection.reason}`)
+                getLogger().debug(`Reason ${index}: ${rejection.reason}`)
             );
         }
-        Log.log(`Document Open Time: ${time.step()} ms`, vscode.LogLevel.Debug, 'Time Report');
+        getLogger().log(
+            `Document Open Time: ${time.step()} ms`,
+            vscode.LogLevel.Debug,
+            'Time Report'
+        );
 
         for (const [type, file] of openedFiles) {
             registry[type].scanDocument(file);
         }
-        Log.log(`Document Scan Time: ${time.step()} ms`, vscode.LogLevel.Debug, 'Time Report');
+        getLogger().log(
+            `Document Scan Time: ${time.step()} ms`,
+            vscode.LogLevel.Debug,
+            'Time Report'
+        );
 
         if (ConfigProvider.registry.diagnosticsPolicy.get('enabled')) {
             for (const [type, file] of openedFiles) {
                 registry[type].checkForBrokenEdges(file.uri);
                 registry[type].updateDiagnostics(file.uri);
             }
-            Log.log(
+            getLogger().log(
                 `Document Node Check Time: ${time.step()} ms`,
                 vscode.LogLevel.Debug,
                 'Time Report'
             );
         }
 
-        Log.log(
+        getLogger().log(
             `Total Time for File Parsing: ${time.stop()}`,
             vscode.LogLevel.Debug,
             'Time Report'
         );
-        Log.debug('Finished scanning all documents');
+        getLogger().debug('Finished scanning all documents');
         updateActiveEditorDecorations();
     }
 }

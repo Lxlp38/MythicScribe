@@ -5,7 +5,7 @@ import {
     SchemaElementTypes,
     getKeySchema,
 } from '../objectInfos';
-import { isPluginEnabled } from './configutils';
+import { isPluginEnabled } from '../providers/configProvider';
 
 /**
  * Generates an array of numbers in a specified range, formatted as strings.

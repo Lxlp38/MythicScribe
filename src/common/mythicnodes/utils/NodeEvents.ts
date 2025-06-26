@@ -1,10 +1,11 @@
 import { checkFileType } from '@common/subscriptions/SubscriptionHelper';
-import { ConfigProvider } from '@common/utils/configutils';
+import { ConfigProvider } from '@common/providers/configProvider';
 import { openDocumentTactfully } from '@common/utils/uriutils';
 import * as vscode from 'vscode';
 
 import { MythicNodeHandler } from '../MythicNode';
 import { updateActiveEditorDecorations } from './NodeDecorations';
+import { executeFunctionAfterActivation } from '../../../MythicScribe';
 
 let eventsLoaded = false;
 
@@ -107,4 +108,8 @@ export function loadNodeEvents() {
         undefined,
         disposables
     );
+
+    executeFunctionAfterActivation((context) => {
+        context.subscriptions.push(...disposables);
+    });
 }

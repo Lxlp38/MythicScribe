@@ -1,6 +1,6 @@
 import * as vscode from 'vscode';
 
-import Log from '../utils/logger';
+import { getLogger } from '../providers/loggerProvider';
 import { ScribeMechanicHandler } from './ScribeMechanic';
 import { ScribeEnumHandler } from './ScribeEnum';
 import { ctx } from '../../MythicScribe';
@@ -10,7 +10,7 @@ import {
     ensureComponentsExist,
     getRelativePath,
 } from '../utils/uriutils';
-import { ConfigProvider, finallySetEnabledPlugins } from '../utils/configutils';
+import { ConfigProvider, finallySetEnabledPlugins } from '../providers/configProvider';
 import { loadCustomDatasets } from './customDatasets';
 import { MythicNodeHandler } from '../mythicnodes/MythicNode';
 
@@ -41,7 +41,7 @@ export class ScribeCloneableFile<T> {
         this.localUri = uri;
         this.githubUri = vscode.Uri.parse(convertRelativePathToGitHubUrl(this.relativePath));
         this.edcsUri = vscode.Uri.parse(vscode.Uri.joinPath(edcsUri, this.relativePath).toString());
-        Log.trace(
+        getLogger().trace(
             'ScribeCloneableFile',
             JSON.stringify({
                 relativePath: this.relativePath,
@@ -59,7 +59,11 @@ export class ScribeCloneableFile<T> {
                 if (status === ComponentStatus.Exists) {
                     return fetchJsonFromLocalFile<T>(this.edcsUri);
                 }
-                Log.debug('EDCS for', this.edcsUri.fsPath, 'is empty, fetching data from GitHub');
+                getLogger().debug(
+                    'EDCS for',
+                    this.edcsUri.fsPath,
+                    'is empty, fetching data from GitHub'
+                );
             }
 
             const data = await fetchJsonFromURL<T>(this.githubUri.toString());
@@ -67,7 +71,7 @@ export class ScribeCloneableFile<T> {
                 this.updateEDCS(data);
                 return data;
             }
-            Log.debug(
+            getLogger().debug(
                 'Failed to fetch data from GitHub for',
                 this.githubUri.fsPath,
                 'returning local data'
@@ -78,14 +82,14 @@ export class ScribeCloneableFile<T> {
 
     private async updateEDCS(data: T[]) {
         const json = JSON.stringify(data);
-        Log.trace('Feched data:', json);
+        getLogger().trace('Feched data:', json);
         const status = await ensureComponentsExist(this.edcsUri);
         if (status === ComponentStatus.Error) {
-            Log.warn(`Failed to ensure EDCS exists: ${this.edcsUri.fsPath}`);
+            getLogger().warn(`Failed to ensure EDCS exists: ${this.edcsUri.fsPath}`);
             return;
         }
         await vscode.workspace.fs.writeFile(this.edcsUri, Buffer.from(json));
-        Log.debug('Updated EDCS:', this.edcsUri.path);
+        getLogger().debug('Updated EDCS:', this.edcsUri.path);
     }
 
     async getModifiedTime(uri: vscode.Uri): Promise<number | null> {
@@ -93,7 +97,7 @@ export class ScribeCloneableFile<T> {
             const stats = await vscode.workspace.fs.stat(uri);
             return stats.mtime;
         } catch (error) {
-            Log.error(error);
+            getLogger().error(error);
             return null;
         }
     }
@@ -115,13 +119,13 @@ export class ScribeCloneableFile<T> {
 async function fetchNextHash(latestCommitHash: string) {
     const nextCommitHash = await fetchLatestCommitHash();
     if (nextCommitHash && nextCommitHash !== latestCommitHash) {
-        Log.debug('Next commit hash:', nextCommitHash);
+        getLogger().debug('Next commit hash:', nextCommitHash);
         ctx!.globalState.update('latestCommitHash', nextCommitHash);
     }
 }
 
 export async function loadDatasets() {
-    Log.debug(
+    getLogger().debug(
         'Loading datasets from',
         ConfigProvider.registry.generic.get('datasetSource') || 'undefined'
     );
@@ -131,7 +135,7 @@ export async function loadDatasets() {
         const latestCommitHash = ctx!.globalState.get<string>('latestCommitHash');
         const savedCommitHash = ctx!.globalState.get<string>('savedCommitHash');
         if (!savedCommitHash || latestCommitHash !== savedCommitHash) {
-            Log.debug(
+            getLogger().debug(
                 'Commit hash mismatch, updating datasets',
                 savedCommitHash?.toString() || 'undefined',
                 '-->',
@@ -140,7 +144,7 @@ export async function loadDatasets() {
             shouldUpdateGithubDatasets = true;
             ctx!.globalState.update('savedCommitHash', latestCommitHash);
         } else {
-            Log.debug('Commit hash matches, no need to update datasets');
+            getLogger().debug('Commit hash matches, no need to update datasets');
         }
         fetchNextHash(latestCommitHash || '');
     }
@@ -155,12 +159,12 @@ export async function loadDatasets() {
 }
 
 async function initializeExtensionDatasetsClonedStorage() {
-    Log.debug('Initializing extension datasets cloned storage');
+    getLogger().debug('Initializing extension datasets cloned storage');
     await ensureComponentsExist(edcsUri);
 }
 
 export async function clearExtensionDatasetsClonedStorage() {
-    Log.debug('Clearing extension datasets cloned storage');
+    getLogger().debug('Clearing extension datasets cloned storage');
     const exists = await vscode.workspace.fs.stat(edcsUri).then(
         () => true,
         () => false
@@ -173,24 +177,24 @@ export async function clearExtensionDatasetsClonedStorage() {
 
 // Function to fetch the latest commit hash from GitHub
 async function fetchLatestCommitHash(): Promise<string | null> {
-    Log.debug('Fetching latest commit hash from GitHub');
+    getLogger().debug('Fetching latest commit hash from GitHub');
     try {
         const response = await fetch(GITHUB_API_COMMITS_URL);
         const data = await response.json();
         if (Array.isArray(data) && data.length > 0 && typeof data[0].sha === 'string') {
-            Log.debug('Latest commit hash fetched: ' + data[0].sha);
+            getLogger().debug('Latest commit hash fetched: ' + data[0].sha);
             return data[0].sha;
         } else {
             throw new Error('Unexpected data format');
         }
     } catch (error) {
-        Log.error(error);
+        getLogger().error(error);
         return null;
     }
 }
 
 export async function fetchJsonFromURL<T>(url: string): Promise<T[] | undefined> {
-    Log.debug(`Fetching JSON data from URL: ${url}`);
+    getLogger().debug(`Fetching JSON data from URL: ${url}`);
     try {
         const response = await fetch(url);
         if (response.ok) {
@@ -199,18 +203,18 @@ export async function fetchJsonFromURL<T>(url: string): Promise<T[] | undefined>
             throw new Error(`Failed to fetch JSON data from URL: ${url}`);
         }
     } catch (error) {
-        Log.error(error);
+        getLogger().error(error);
         return undefined;
     }
 }
 
 export async function fetchJsonFromLocalFile<T>(filepath: vscode.Uri): Promise<T[]> {
-    Log.debug(`Fetching JSON data from local file: ${filepath}`);
+    getLogger().debug(`Fetching JSON data from local file: ${filepath}`);
     try {
         const fileData = await vscode.workspace.fs.readFile(filepath);
         return JSON.parse(Buffer.from(fileData).toString('utf8'));
     } catch (error) {
-        Log.error(error, `Couldn't fetch JSON data from local file ${filepath}`);
+        getLogger().error(error, `Couldn't fetch JSON data from local file ${filepath}`);
         return [];
     }
 }

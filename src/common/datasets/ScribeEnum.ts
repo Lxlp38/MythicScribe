@@ -12,11 +12,11 @@ import { MenuSchema } from '@common/schemas/menuSchema';
 import { AchievementSchema } from '@common/schemas/achievementSchema';
 import { PlaceholderSchema } from '@common/schemas/placeholderSchema';
 import { EquipmentSetSchema } from '@common/schemas/equipmentsetSchema';
+import { getMinecraftVersion } from '@common/providers/configProvider';
 
-import { getMinecraftVersion } from '../utils/configutils';
 import { ScribeCloneableFile, fetchJsonFromLocalFile, fetchJsonFromURL } from './datasets';
 import { ctx } from '../../MythicScribe';
-import Log from '../utils/logger';
+import { getLogger } from '../providers/loggerProvider';
 import { AbstractScribeMechanicRegistry, Attribute, ScribeMechanicHandler } from './ScribeMechanic';
 import { insertColor } from '../color/colorprovider';
 import { localEnums, scriptedEnums, volatileEnums } from './enumSources';
@@ -88,7 +88,7 @@ export abstract class AbstractScribeEnum {
         this.finalizeDataset();
     }
     expandDataset(data: Map<string, EnumDatasetValue>): void {
-        Log.debug(`Expanding Enum ${this.identifier} with ${data.size} entries`);
+        getLogger().debug(`Expanding Enum ${this.identifier} with ${data.size} entries`);
         this.loaded = false;
         const newDataset = new Map(Object.entries(data));
         newDataset.forEach((value, key) => {
@@ -113,9 +113,9 @@ export abstract class AbstractScribeEnum {
         this.updateCommaList();
         if (attributeMap.size > 0) {
             this.addedAttributes = Array.from(attributeMap.values());
-            Log.debug(`Enum ${this.identifier} added ${attributeMap.size} attributes`);
+            getLogger().debug(`Enum ${this.identifier} added ${attributeMap.size} attributes`);
         }
-        Log.debug(
+        getLogger().debug(
             `Mapped Enum ${this.identifier.toLowerCase()}`,
             'with',
             this.getDataset().size.toString(),
@@ -211,7 +211,7 @@ export const ScribeEnumHandler = {
         const time = timeCounter();
         const targetVersion = getMinecraftVersion();
         this.version = targetVersion;
-        Log.debug('Loading Enum Datasets. Target Minecraft Version:', targetVersion);
+        getLogger().debug('Loading Enum Datasets. Target Minecraft Version:', targetVersion);
         this.enumDefinitions.forEach(({ clazz, items }) => {
             items.forEach((item) => {
                 if (Array.isArray(item)) {
@@ -224,7 +224,7 @@ export const ScribeEnumHandler = {
             });
         });
         this.initializeScriptedEnums();
-        Log.debug('Loaded Enum Datasets in', time.stop());
+        getLogger().debug('Loaded Enum Datasets in', time.stop());
     },
 
     getEnum(identifier: string): AbstractScribeEnum | undefined {
@@ -238,12 +238,12 @@ export const ScribeEnumHandler = {
     ) {
         const enumObject = new oclass(identifier.toLowerCase(), path);
         if (ScribeEnumHandler.enums.has(identifier.toLowerCase())) {
-            Log.debug(`Enum ${identifier} already exists, adding new values to it instead`);
+            getLogger().debug(`Enum ${identifier} already exists, adding new values to it instead`);
             this.expandEnum(identifier, enumObject);
             return;
         }
         ScribeEnumHandler.enums.set(identifier.toLowerCase(), enumObject);
-        Log.debug(`Registered Enum ${identifier}`);
+        getLogger().debug(`Registered Enum ${identifier}`);
     },
 
     async expandEnum(identifier: string, enumObject: AbstractScribeEnum) {
@@ -255,30 +255,30 @@ export const ScribeEnumHandler = {
     addLambdaEnum(key: string, values: string[]) {
         const maybeEnum = ScribeEnumHandler.enums.get(key.toLowerCase());
         if (maybeEnum) {
-            Log.debug(`Lambda Enum ${key} already exists`);
+            getLogger().debug(`Lambda Enum ${key} already exists`);
             return maybeEnum;
         }
         const enumObject = new LambdaScribeEnum(key.toLowerCase(), values);
         ScribeEnumHandler.enums.set(key.toLowerCase(), enumObject);
-        Log.debug(`Registered Lambda Enum ${key}`);
+        getLogger().debug(`Registered Lambda Enum ${key}`);
         return enumObject;
     },
 
     addScriptedEnum(key: string, func: () => void) {
         const maybeEnum = ScribeEnumHandler.enums.get(key.toLowerCase());
         if (maybeEnum) {
-            Log.debug(`Scripted Enum ${key} already exists`);
+            getLogger().debug(`Scripted Enum ${key} already exists`);
             return maybeEnum;
         }
         const enumObject = new ScriptedEnum(key.toLowerCase(), func);
         ScribeEnumHandler.enums.set(key.toLowerCase(), enumObject);
-        Log.debug(`Registered Scripted Enum ${key}`);
+        getLogger().debug(`Registered Scripted Enum ${key}`);
         return enumObject;
     },
 
     emptyDatasets(): void {
         ScribeEnumHandler.enums.clear();
-        Log.debug('Emptied Enum Datasets');
+        getLogger().debug('Emptied Enum Datasets');
     },
 
     initializeScriptedEnums(): void {

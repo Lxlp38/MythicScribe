@@ -30,3 +30,6 @@ export type CustomDatasetElementType = (typeof CustomDatasetElementType)[number]
 
 export const CustomDatasetSource = ['File', 'Link'] as const;
 export type CustomDatasetSource = (typeof CustomDatasetSource)[number];
+
+export const LogLevel = ['error', 'warn', 'info', 'debug', 'trace'] as const;
+export type LogLevel = (typeof LogLevel)[number];

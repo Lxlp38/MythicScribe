@@ -2,7 +2,7 @@ import * as path from 'path';
 
 import * as vscode from 'vscode';
 
-import Log from './logger';
+import { getLogger } from '../providers/loggerProvider';
 import { GITHUB_BASE_URL } from '../datasets/datasets';
 
 export enum ComponentStatus {
@@ -39,13 +39,13 @@ export async function ensureComponentsExist(uri: vscode.Uri): Promise<ComponentS
                 const isDir = isDirectory(uri);
 
                 if (isDir) {
-                    Log.debug('Creating directory at', uri.fsPath);
+                    getLogger().debug('Creating directory at', uri.fsPath);
                     return await ensureDirectoryExists(uri);
                 }
-                Log.debug('Creating file at', uri.fsPath);
+                getLogger().debug('Creating file at', uri.fsPath);
                 return await fileExistancePipeline(uri);
             } else {
-                Log.error(error, 'Error while ensuring components exist');
+                getLogger().error(error, 'Error while ensuring components exist');
                 return ComponentStatus.Error;
             }
         }
@@ -66,11 +66,11 @@ async function ensureDirectoryExists(uri: vscode.Uri): Promise<ComponentStatus> 
                 await vscode.workspace.fs.createDirectory(uri);
                 return ComponentStatus.Created;
             } catch (error) {
-                Log.error(error, `Error while creating directory at ${uri.fsPath}`);
+                getLogger().error(error, `Error while creating directory at ${uri.fsPath}`);
                 return ComponentStatus.Error;
             }
         } else {
-            Log.error(error, `Error while ensuring directory ${uri.fsPath} exists`);
+            getLogger().error(error, `Error while ensuring directory ${uri.fsPath} exists`);
             return ComponentStatus.Error;
         }
     }
@@ -90,11 +90,11 @@ async function ensureFileExists(uri: vscode.Uri): Promise<ComponentStatus> {
                 await vscode.workspace.fs.writeFile(uri, new Uint8Array());
                 return ComponentStatus.Created;
             } catch (error) {
-                Log.error(error, `Error while creating file at ${uri.fsPath}`);
+                getLogger().error(error, `Error while creating file at ${uri.fsPath}`);
                 return ComponentStatus.Error;
             }
         } else {
-            Log.error(error, `Error while ensuring file ${uri.fsPath} exists`);
+            getLogger().error(error, `Error while ensuring file ${uri.fsPath} exists`);
             return ComponentStatus.Error;
         }
     }
@@ -141,7 +141,7 @@ export function convertLocalPathToGitHubUrl(relativePath: string): string {
  * ```
  */
 export async function fetchAllFilesInDirectory(directorypath: vscode.Uri): Promise<vscode.Uri[]> {
-    Log.debug(`Fetching all files in directory: ${directorypath.fsPath}`);
+    getLogger().debug(`Fetching all files in directory: ${directorypath.fsPath}`);
     const files = (await vscode.workspace.fs.readDirectory(directorypath))
         .filter((file) => file[1] === vscode.FileType.File)
         .map((file) => vscode.Uri.joinPath(directorypath, file[0]));

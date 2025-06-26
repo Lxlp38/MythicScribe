@@ -10,7 +10,7 @@ import { EquipmentSetSchema } from '@common/schemas/equipmentsetSchema';
 import { keyAliases, registryKey, TriggerType } from '../objectInfos';
 import { triggerfileCompletionProvider } from '../completions/file/triggerfileCompletionProvider';
 import { mechanicCompletionProvider } from '../completions/component/mechanicsCompletionProvider';
-import { ConfigProvider } from '../utils/configutils';
+import { ConfigProvider } from '../providers/configProvider';
 import {
     attributeCompletionProvider,
     attributeValueCompletionProvider,

@@ -1,7 +1,7 @@
 import * as vscode from 'vscode';
-import { LogLevel } from 'vscode';
+import { LogLevel } from '@common/packageData';
 
-import { addConfigChangeFunction, getLogLevel } from './configutils';
+import { addConfigChangeFunction, ConfigProvider } from './configProvider';
 
 type logOptions = {
     silent?: boolean;
@@ -9,53 +9,54 @@ type logOptions = {
 
 export class Logger {
     private outputChannel: vscode.OutputChannel;
-    private logLevel: LogLevel;
+    private logLevel: vscode.LogLevel;
 
-    constructor(outputChannelName: string, defaultLogLevel: LogLevel = LogLevel.Info) {
+    constructor(outputChannelName: string, defaultLogLevel: vscode.LogLevel = getLogLevel()) {
         this.outputChannel = vscode.window.createOutputChannel(outputChannelName, 'log');
         this.logLevel = defaultLogLevel;
         addConfigChangeFunction(this.updateLogLevel.bind(this));
-        this.debug('Logger initialized with a default log level of', LogLevel[defaultLogLevel]);
+        this.debug(
+            'Logger initialized with a default log level of',
+            vscode.LogLevel[defaultLogLevel]
+        );
     }
 
-    setLogLevel(logLevel: LogLevel): void {
+    setLogLevel(logLevel: vscode.LogLevel): void {
         this.logLevel = logLevel;
     }
 
     updateLogLevel(): void {
-        this.debug('Log level update has been called');
         const logLevel = getLogLevel();
-        if (logLevel !== undefined) {
-            this.debug(
-                `Updating log level from`,
-                LogLevel[this.logLevel],
-                'to',
-                LogLevel[logLevel]
-            );
-            this.setLogLevel(logLevel);
-        }
+        this.debug('Log level update has been called');
+        this.debug(
+            `Updating log level from`,
+            vscode.LogLevel[this.logLevel],
+            'to',
+            vscode.LogLevel[logLevel]
+        );
+        this.setLogLevel(logLevel);
     }
 
-    log(message: string, level: LogLevel = LogLevel.Info, type?: string): void {
+    log(message: string, level: vscode.LogLevel = vscode.LogLevel.Info, type?: string): void {
         if (level >= this.logLevel) {
             const timestamp = new Date().toISOString();
-            const levelString = type ?? LogLevel[level];
+            const levelString = type ?? vscode.LogLevel[level];
             this.outputChannel.appendLine(`${timestamp} [${levelString}] ${message}`);
         }
     }
 
     trace(...message: string[]): void {
         for (const msg of message) {
-            this.log(msg, LogLevel.Trace);
+            this.log(msg, vscode.LogLevel.Trace);
         }
     }
 
     debug(...message: string[]): void {
-        this.log(message.join(' '), LogLevel.Debug);
+        this.log(message.join(' '), vscode.LogLevel.Debug);
     }
 
     info(message: string, options: logOptions = {}): void {
-        this.log(message, LogLevel.Info);
+        this.log(message, vscode.LogLevel.Info);
         if (options.silent) {
             return;
         }
@@ -63,7 +64,7 @@ export class Logger {
     }
 
     warn(message: string, options: logOptions = {}): void {
-        this.log(message, LogLevel.Warning);
+        this.log(message, vscode.LogLevel.Warning);
         if (options.silent) {
             return;
         }
@@ -86,13 +87,13 @@ export class Logger {
     }
 
     private processError(message: string, error?: Error) {
-        this.log(message, LogLevel.Error);
+        this.log(message, vscode.LogLevel.Error);
         if (!error) {
             return;
         }
-        this.log(error.message, LogLevel.Error);
+        this.log(error.message, vscode.LogLevel.Error);
         if (error.stack) {
-            this.log(error.stack, LogLevel.Error);
+            this.log(error.stack, vscode.LogLevel.Error);
         }
     }
 
@@ -101,26 +102,33 @@ export class Logger {
     }
 }
 
-const Log = new Logger('MythicScribe', getLogLevel() || LogLevel.Debug);
-export default Log;
+const Loggers = {
+    MythicScribe: undefined as Logger | undefined,
+};
 
-/**
- * Opens the logs by updating the logs provider and displaying the logs in a text document.
- *
- * This function updates the logs provider with the virtual logs URI and then opens the logs
- * in a new text document within the VSCode editor. The document is opened in non-preview mode.
- * Once the document is opened, it sets the `isLogFileOpen` flag to true.
- *
- * @returns {Promise<void>} A promise that resolves when the logs are opened.
- */
-export async function openLogs(): Promise<void> {
-    Log.show();
+export function getLogger(loggerKey: keyof typeof Loggers = 'MythicScribe'): Logger {
+    if (!Loggers[loggerKey]) {
+        Loggers[loggerKey] = new Logger(loggerKey);
+    }
+    return Loggers[loggerKey];
 }
 
-type InfoMessageType = 'external' | 'command';
+/**
+ * Opens and displays the log output using the application's logger.
+ *
+ * This function calls the `show` method on the logger instance,
+ * making the logs visible to the user. Useful for debugging or
+ * monitoring application events.
+ *
+ * @public
+ */
+export function openLogs() {
+    getLogger().show();
+}
+
 type InfoMessageOptions = {
     [key: string]: {
-        type: InfoMessageType;
+        type: 'external' | 'command';
         target: string;
         action?: string;
     };
@@ -136,20 +144,36 @@ type InfoMessageOptions = {
  * it opens the corresponding URL in the default web browser.
  */
 export async function showInfoMessageWithOptions(message: string, options: InfoMessageOptions) {
-    Log.debug(message);
+    getLogger().debug(message);
     const optionKeys = Object.keys(options);
     return vscode.window.showInformationMessage(message, ...optionKeys).then((selected) => {
         if (selected) {
             const sel = options[selected];
             switch (sel.type) {
                 case 'external':
-                    Log.debug(`Opened ${sel.target}`);
+                    getLogger().debug(`Opened ${sel.target}`);
                     return vscode.env.openExternal(vscode.Uri.parse(sel.target));
                 case 'command':
-                    Log.debug(`Executed command: ${sel.target}`);
+                    getLogger().debug(`Executed command: ${sel.target}`);
                     return vscode.commands.executeCommand(sel.target, sel.action);
             }
         }
         return undefined;
     });
+}
+
+const LogLevelAssociation: Record<LogLevel, vscode.LogLevel> = {
+    error: vscode.LogLevel.Error,
+    warn: vscode.LogLevel.Warning,
+    info: vscode.LogLevel.Info,
+    debug: vscode.LogLevel.Debug,
+    trace: vscode.LogLevel.Trace,
+};
+
+function getLogLevel() {
+    const returnValue = ConfigProvider.registry.generic.get('logLevel');
+    if (returnValue) {
+        return LogLevelAssociation[returnValue as LogLevel] || vscode.LogLevel.Debug;
+    }
+    return vscode.LogLevel.Debug;
 }

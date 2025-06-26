@@ -1,6 +1,6 @@
 import * as vscode from 'vscode';
 import { RandomSpawnSchema } from '@common/schemas/randomSpawnSchema';
-import Log from '@common/utils/logger';
+import { getLogger } from '@common/providers/loggerProvider';
 import { ReagentSchema } from '@common/schemas/reagentSchema';
 import { ArchetypeSchema } from '@common/schemas/archetypeSchema';
 import { MenuSchema } from '@common/schemas/menuSchema';
@@ -19,7 +19,7 @@ import {
     checkFileEnabled,
     ConfigProvider,
     fileRegexConfigCache,
-} from '../utils/configutils';
+} from '../providers/configProvider';
 import { Schema, registryKey } from '../objectInfos';
 
 function resetFileChecks() {
@@ -46,7 +46,7 @@ export const ActiveFileTypeInfo: Record<registryKey | 'enabled', boolean> = {
 };
 
 export const extensionEnabler = vscode.window.onDidChangeActiveTextEditor((editor) => {
-    Log.trace('MythicScribe active editor changed');
+    getLogger().trace('MythicScribe active editor changed');
     if (!editor) {
         return;
     }

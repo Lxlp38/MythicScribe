@@ -13,7 +13,7 @@ import {
     retriggerCompletionsCommand,
 } from '@common/utils/completionhelper';
 import * as yamlutils from '@common/utils/yamlutils';
-import { ConfigProvider } from '@common/utils/configutils';
+import { ConfigProvider } from '@common/providers/configProvider';
 import { getObjectLinkedToAttribute } from '@common/utils/cursorutils';
 
 export function attributeCompletionProvider() {

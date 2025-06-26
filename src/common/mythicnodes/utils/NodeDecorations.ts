@@ -1,6 +1,6 @@
 import { type DecorationMap, DecorationProvider } from '@common/providers/decorationProvider';
 import { checkFileType } from '@common/subscriptions/SubscriptionHelper';
-import { ConfigProvider } from '@common/utils/configutils';
+import { ConfigProvider } from '@common/providers/configProvider';
 import * as vscode from 'vscode';
 import { scribeCodeLensProvider } from '@common/providers/codeLensProvider';
 

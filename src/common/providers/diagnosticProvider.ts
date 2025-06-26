@@ -1,5 +1,5 @@
 import type { MythicNode } from '@common/mythicnodes/MythicNode';
-import { ConfigProvider } from '@common/utils/configutils';
+import { ConfigProvider } from '@common/providers/configProvider';
 import * as vscode from 'vscode';
 
 export const NodeDiagnosticCollection = vscode.languages.createDiagnosticCollection('MythicScribe');

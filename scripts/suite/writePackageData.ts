@@ -1,13 +1,14 @@
-import { attributeAliasUsedInCompletions, CustomDatasetElementType, CustomDatasetSource, DatasetSource, MinecraftVersions } from './../../src/common/packageData';
+import { attributeAliasUsedInCompletions, CustomDatasetElementType, CustomDatasetSource, DatasetSource, LogLevel, MinecraftVersions } from './../../src/common/packageData';
 import * as fs from 'fs';
 import * as path from 'path';
 
-const map = {
-    'minecraftVersion': ['latest', ...MinecraftVersions],
-    'datasetSource': DatasetSource,
-    'attributeAliasUsedInCompletions': attributeAliasUsedInCompletions,
-    'customDatasets.elementType': CustomDatasetElementType,
-    'customDatasets.source': CustomDatasetSource,
+const map: {[key: string]: { values: readonly string[], default?: string}} = {
+    'minecraftVersion': {values: ['latest', ...MinecraftVersions]},
+    'datasetSource': {values: DatasetSource },
+    'attributeAliasUsedInCompletions': {values: attributeAliasUsedInCompletions},
+    'customDatasets.elementType': {values: CustomDatasetElementType},
+    'customDatasets.source': {values: CustomDatasetSource},
+    'logLevel': {values: LogLevel, default: 'debug'},
 }
 
 export function writePackageData(){
@@ -20,11 +21,11 @@ export function writePackageData(){
         count++;
         if (key.includes('.')) {
             const [parent, child] = key.split('.');
-            packageJson.contributes.configuration.properties[`MythicScribe.${parent}`].items.properties[child].enum = map[key as keyof typeof map];
+            packageJson.contributes.configuration.properties[`MythicScribe.${parent}`].items.properties[child].enum = map[key as keyof typeof map].values;
             continue;
         }
-        packageJson.contributes.configuration.properties[`MythicScribe.${key}`].enum = map[key as keyof typeof map];
-        packageJson.contributes.configuration.properties[`MythicScribe.${key}`].default = map[key as keyof typeof map][0];
+        packageJson.contributes.configuration.properties[`MythicScribe.${key}`].enum = map[key as keyof typeof map].values;
+        packageJson.contributes.configuration.properties[`MythicScribe.${key}`].default = map[key as keyof typeof map].default ?? map[key as keyof typeof map].values[0];
     }
 
     fs.writeFileSync(packageJsonPath, JSON.stringify(packageJson, null, 2));
