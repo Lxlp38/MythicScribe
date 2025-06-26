@@ -1,7 +1,7 @@
 {
   "name": "mythicscribe",
   "displayName": "MythicScribe",
-  "version": "1.7.6",
+  "version": "1.7.7",
   "icon": "assets/icon128x128.png",
   "description": "Provides configuration support for plugins of the MythicCraft suite",
   "license": "SEE LICENSE IN LICENSE.txt",
@@ -597,7 +597,7 @@
     "@vscode/test-cli": "^0.0.10",
     "@vscode/test-electron": "^2.4.1",
     "@vscode/test-web": "^0.0.66",
-    "@vscode/vsce": "^3.5.0",
+    "@vscode/vsce": "^3.6.0",
     "esbuild": ">=0.25.0",
     "eslint": "^9.17.0",
     "eslint-config-prettier": "^9.1.0",

@@ -49,7 +49,7 @@ async function main() {
         }));
         entryPoints.push(...testFiles);
     }
-    const ctx = await esbuild.context({
+    const node = await esbuild.context({
         entryPoints: entryPoints,
         bundle: true,
         format: 'cjs',
@@ -121,10 +121,10 @@ async function main() {
     });
 
     if (watch) {
-        await ctx.watch();
+        await node.watch();
     } else {
-        await ctx.rebuild();
-        await ctx.dispose();
+        await node.rebuild();
+        await node.dispose();
         await web.rebuild();
         await web.dispose();
         await webViews.rebuild();

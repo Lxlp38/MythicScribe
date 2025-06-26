@@ -1,10 +1,10 @@
 # Changelog
 
-## [1.7.6]
+## [1.7.7]
 
 ### Added
 - Decorations for delay mechanics inside of metaskills, showing the accumulated delay since the start of the metaskill itself. Can be enabled via the configuration `MythicScribe.decorationOptions.delayTracking`
-- Decorations for sound mechanics, showing a prompt to play the sound on minecraftsounds.com
+- Decorations for sound mechanics, controlled via the `MythicScribe.decorationOptions.soundPlayback` configuration, show a prompt to play the sound on minecraftsounds.com
 
 ### Changed
 - Slightly optimized the activation time when using the GitHub Dataset source
