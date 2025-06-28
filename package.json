@@ -550,7 +550,7 @@
             "delayTracking": {
               "title": "Delay Tracking",
               "type": "boolean",
-              "default": false,
+              "default": true,
               "description": "Show a little decoration to the right of `delay` mechanics inside of Metaskill files, with the accumulated delay since the start of the Metaskill"
             },
             "soundPlayback": {

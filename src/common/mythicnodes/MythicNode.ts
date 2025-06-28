@@ -33,8 +33,8 @@ type CompactNodeReference = { name: string; range: vscode.Range };
 
 type SoundMap = {
     sound: string;
-    pitch?: number;
-    volume?: number;
+    pitch?: string;
+    volume?: string;
 };
 
 interface NodeBaseElement {
@@ -238,11 +238,12 @@ export class MythicNode {
             if (!this.metadata.has('soundPlayback')) {
                 this.metadata.set('soundPlayback', []);
             }
-            (this.metadata.get('soundPlayback') as SoundMap[]).push({
-                sound: firstsound,
-                pitch: pitch,
-                volume: volume ? parseFloat(volume) : undefined,
-            });
+            const soundMap = {
+                sound: firstsound || soundMechanicInfo.defaults.sound,
+                pitch: pitch?.toString() || soundMechanicInfo.defaults.pitch,
+                volume: volume || soundMechanicInfo.defaults.volume,
+            };
+            (this.metadata.get('soundPlayback') as SoundMap[]).push(soundMap);
 
             nodeDecorations.addNodeDecoration(this, mechanic.range, 'soundPlayback', undefined, {
                 range: mechanic.range,
@@ -253,9 +254,9 @@ export class MythicNode {
                     arguments: [
                         undefined,
                         {
-                            s0: firstsound,
-                            p0: pitch,
-                            v0: volume,
+                            s0: soundMap.sound,
+                            p0: soundMap.pitch,
+                            v0: soundMap.volume,
                         },
                     ],
                 },
