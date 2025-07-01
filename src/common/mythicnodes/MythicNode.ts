@@ -225,24 +225,31 @@ export class MythicNode {
             if (!firstsound) {
                 continue;
             }
-            let pitchTemp = mechanic.args.find((arg) =>
+            const pitchTemp = mechanic.args.find((arg) =>
                 soundMechanicInfo.pitch.includes(arg.attribute.trim().toLowerCase())
             )?.value;
             const pitch = pitchTemp
                 ? Math.min(Math.max(parseFloat(pitchTemp), 0.5), 2.0)
                 : undefined;
-            const volume = mechanic.args.find((arg) =>
+
+            const volumeTemp = mechanic.args.find((arg) =>
                 soundMechanicInfo.volume.includes(arg.attribute.trim().toLowerCase())
             )?.value;
+            const volume = volumeTemp
+                ? Math.min(Math.max(parseFloat(volumeTemp), 0), 1)
+                : undefined;
 
+            const soundMap = {
+                sound: firstsound || soundMechanicInfo.defaults.sound,
+                pitch: pitch && !isNaN(pitch) ? pitch.toString() : soundMechanicInfo.defaults.pitch,
+                volume:
+                    volume && !isNaN(volume)
+                        ? volume.toString()
+                        : soundMechanicInfo.defaults.volume,
+            };
             if (!this.metadata.has('soundPlayback')) {
                 this.metadata.set('soundPlayback', []);
             }
-            const soundMap = {
-                sound: firstsound || soundMechanicInfo.defaults.sound,
-                pitch: pitch?.toString() || soundMechanicInfo.defaults.pitch,
-                volume: volume || soundMechanicInfo.defaults.volume,
-            };
             (this.metadata.get('soundPlayback') as SoundMap[]).push(soundMap);
 
             nodeDecorations.addNodeDecoration(this, mechanic.range, 'soundPlayback', undefined, {
@@ -270,8 +277,8 @@ export class MythicNode {
         const soundList: Record<string, string> = {};
         soundPlaybacks.forEach((sound, index) => {
             soundList[`s${index}`] = sound.sound || soundMechanicInfo.defaults.sound;
-            soundList[`p${index}`] = sound.pitch?.toString() || soundMechanicInfo.defaults.pitch;
-            soundList[`v${index}`] = sound.volume?.toString() || soundMechanicInfo.defaults.volume;
+            soundList[`p${index}`] = sound.pitch || soundMechanicInfo.defaults.pitch;
+            soundList[`v${index}`] = sound.volume || soundMechanicInfo.defaults.volume;
         });
         nodeDecorations.addNodeDecoration(this, this.name.range, 'soundPlayback', undefined, {
             range: this.name.range,

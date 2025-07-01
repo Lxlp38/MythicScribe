@@ -1,6 +1,6 @@
 # Changelog
 
-## [Unreleased]
+## [1.7.8]
 
 ### Fixed
 - Issue with badly formatted values when playing a non-complete sound mechanic via the NodeLens
