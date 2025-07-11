@@ -1,9 +1,9 @@
 {
   "name": "mythicscribe",
   "displayName": "MythicScribe",
-  "version": "1.7.8",
+  "version": "1.7.8-dev",
   "icon": "assets/icon128x128.png",
-  "description": "Provides configuration support for plugins of the MythicCraft suite",
+  "description": "Official extension for the MythicCraft suite, providing configuration support for its plugins",
   "license": "SEE LICENSE IN LICENSE.txt",
   "publisher": "Lxlp",
   "author": {

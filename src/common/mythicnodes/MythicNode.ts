@@ -21,9 +21,9 @@ import { ConfigProvider } from '../providers/configProvider';
 import { timeCounter } from '../utils/timeUtils';
 import { executeGetObjectLinkedToAttribute } from '../utils/cursorutils';
 import { registryKey } from '../objectInfos';
-import { DecorationMap } from '../providers/decorationProvider';
 import { nodeDecorations, updateActiveEditorDecorations } from './utils/NodeDecorations';
 import { loadNodeEvents } from './utils/NodeEvents';
+import { DocumentDataMap } from './utils/NodeDataStructures';
 
 export type NodeEntry = Map<string, MythicNode>;
 type NodeReferenceValue = Map<string, vscode.Range[]>;
@@ -211,9 +211,9 @@ export class MythicNode {
     private matchSounds(body: string) {
         const soundMechanics = this.matchSimpleMechanics(body, soundMechanicInfo.mechanic);
         for (const mechanic of soundMechanics) {
-            const sound = mechanic.args.find((arg) =>
-                soundMechanicInfo.sound.includes(arg.attribute.trim().toLowerCase())
-            )?.value;
+            const sound = mechanic.args
+                .find((arg) => soundMechanicInfo.sound.includes(arg.attribute.trim().toLowerCase()))
+                ?.value.replace(/^minecraft:/gm, '');
             if (!sound) {
                 continue;
             }
@@ -889,9 +889,7 @@ export class MythicNodeRegistry {
     referenceAttributes: Set<string> = new Set();
     referenceMap: Map<string, Set<string>> = new Map();
     nodes: NodeEntry = new Map();
-    nodesByDocument: Map<string, MythicNode[]> = new Map();
-    diagnosticsByDocument: Map<string, vscode.Diagnostic[]> = new Map();
-    decorationsByDocument: Map<string, Map<string, DecorationMap>> = new Map();
+    documentDataMap = new DocumentDataMap();
     decoratorRegex: RegExp;
     backingDataset: string | undefined;
 
@@ -908,10 +906,7 @@ export class MythicNodeRegistry {
     registerNode(node: MythicNode): void {
         this.nodes.set(node.name.text, node);
         const documentUri = node.document.uri.toString();
-        if (!this.nodesByDocument.has(documentUri)) {
-            this.nodesByDocument.set(documentUri, []);
-        }
-        this.nodesByDocument.get(documentUri)?.push(node);
+        this.documentDataMap.get(documentUri).addNode(node);
         getLogger().trace(
             `Registered ${this.type} ${node.name.text} in ${node.document.uri.toString()}`
         );
@@ -940,48 +935,50 @@ export class MythicNodeRegistry {
 
     clearNodes(): void {
         this.nodes.clear();
-        this.nodesByDocument.clear();
-        this.diagnosticsByDocument.clear();
-        this.decorationsByDocument.clear();
+        this.documentDataMap.clear();
     }
 
     clearNodesByDocument(uri: vscode.Uri): void {
-        const nodesToRemove = this.nodesByDocument.get(uri.toString());
+        const uriString = uri.toString();
+        const documentData = this.documentDataMap.get(uriString);
+        const nodesToRemove = documentData.nodes;
         if (nodesToRemove) {
             nodesToRemove.forEach((node) => {
-                getLogger().trace(
-                    `Unregistered ${this.type} ${node.name.text} in ${uri.toString()}`
-                );
+                getLogger().trace(`Unregistered ${this.type} ${node.name.text} in ${uriString}`);
                 this.nodes.delete(node.name.text);
             });
         }
-        this.nodesByDocument.delete(uri.toString());
+        documentData.clearNodes();
     }
 
     clearDiagnosticsByDocument(uri: vscode.Uri): void {
         NodeDiagnosticCollection.delete(uri);
-        const diagnostics = this.diagnosticsByDocument.get(uri.toString());
+        const uriString = uri.toString();
+        const documentData = this.documentDataMap.get(uriString);
+        const diagnostics = documentData.diagnostics;
         if (diagnostics && diagnostics.length > 0) {
             diagnostics.forEach((diagnostic) => {
                 getLogger().trace(
-                    `Unregistered ${this.type} ${diagnostic.message} in ${uri.toString()}`
+                    `Unregistered ${this.type} ${diagnostic.message} in ${uriString}`
                 );
             });
         }
-        this.diagnosticsByDocument.delete(uri.toString());
+        documentData.clearDiagnostics();
     }
 
     clearDecorationsByDocument(uri: vscode.Uri): void {
+        const uriString = uri.toString();
+        const documentData = this.documentDataMap.get(uriString);
         const activeEditor = vscode.window.activeTextEditor;
-        if (activeEditor && activeEditor.document.uri.toString() === uri.toString()) {
-            const decorations = this.decorationsByDocument.get(uri.toString());
+        if (activeEditor && activeEditor.document.uri.toString() === uriString) {
+            const decorations = documentData.decorations;
             if (decorations) {
                 for (const [_key, decoration] of decorations) {
                     activeEditor.setDecorations(decoration.decorationType, []);
                 }
             }
         }
-        this.decorationsByDocument.delete(uri.toString());
+        documentData.clearDecorations();
     }
 
     scanDocument(document: vscode.TextDocument): void {
@@ -1034,18 +1031,16 @@ export class MythicNodeRegistry {
     }
 
     updateDiagnostics(uri: vscode.Uri) {
-        NodeDiagnosticCollection.set(uri, this.diagnosticsByDocument.get(uri.toString()));
+        NodeDiagnosticCollection.set(uri, this.documentDataMap.get(uri.toString()).diagnostics);
     }
 
     clearDocument(uri: vscode.Uri): void {
-        this.clearNodesByDocument(uri);
-        this.clearDiagnosticsByDocument(uri);
-        this.clearDecorationsByDocument(uri);
+        this.documentDataMap.clearDocument(uri.toString());
         nodeLens.clearCodeLensesForDocument(uri);
     }
 
     checkForBrokenEdges(uri: vscode.Uri): void {
-        const nodes = this.nodesByDocument.get(uri.toString());
+        const nodes = this.documentDataMap.get(uri.toString()).nodes;
         if (!nodes) {
             return;
         }
@@ -1127,11 +1122,8 @@ export namespace MythicNodeHandler {
         achievement: new MythicNodeRegistry('achievement', AchievementMythicNode),
     };
 
-    export function getRegistry(key: string): MythicNodeRegistry | undefined {
-        if (!(key in registry)) {
-            return undefined;
-        }
-        return registry[key as keyof typeof registry];
+    export function getRegistry(key: keyof typeof registry): MythicNodeRegistry {
+        return registry[key];
     }
 
     export function clearNodes(): void {

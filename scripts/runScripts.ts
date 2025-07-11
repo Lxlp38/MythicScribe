@@ -1,5 +1,5 @@
 import { checkJsonFiles } from './suite/checkJsons';
-import {generateEnumList} from './suite/generateEnumList';
+import { generateEnumList } from './suite/generateEnumList';
 import { writePackageData } from './suite/writePackageData';
 
 const callbacks = [

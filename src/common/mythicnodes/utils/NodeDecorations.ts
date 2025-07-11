@@ -1,4 +1,4 @@
-import { type DecorationMap, DecorationProvider } from '@common/providers/decorationProvider';
+import { DecorationProvider } from '@common/providers/decorationProvider';
 import { checkFileType } from '@common/subscriptions/SubscriptionHelper';
 import { ConfigProvider } from '@common/providers/configProvider';
 import * as vscode from 'vscode';
@@ -48,10 +48,7 @@ export class NodeDecorations extends DecorationProvider<NodeDecorationType, Node
             return;
         }
         const uri = node.document.uri.toString();
-        if (!node.registry.decorationsByDocument.has(uri)) {
-            node.registry.decorationsByDocument.set(uri, new Map<string, DecorationMap>());
-        }
-        const decorations = node.registry.decorationsByDocument.get(uri)!;
+        const decorations = node.registry.documentDataMap.get(uri).decorations;
         const range = this.addDecoration(decorations, index, input, options);
         if (codeLens) {
             if (!codeLens.range) {
@@ -83,9 +80,9 @@ export function updateActiveEditorDecorations() {
     if (!type) {
         return;
     }
-    const temp = MythicNodeHandler.registry[type].decorationsByDocument.get(
+    const temp = MythicNodeHandler.registry[type].documentDataMap.get(
         editor.document.uri.toString()
-    );
+    ).decorations;
     if (!temp) {
         return;
     }

@@ -27,10 +27,7 @@ export class NodeDiagnostic extends vscode.Diagnostic {
     ) {
         super(range, message, severity);
         this.source = 'MythicScribe';
-        if (!node.registry.diagnosticsByDocument.has(node.document.uri.toString())) {
-            node.registry.diagnosticsByDocument.set(node.document.uri.toString(), []);
-        }
-        node.registry.diagnosticsByDocument.get(node.document.uri.toString())!.push(this);
+        node.registry.documentDataMap.get(node.document.uri.toString()).addDiagnostic(this);
     }
 }
 
