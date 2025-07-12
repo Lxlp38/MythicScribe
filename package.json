@@ -558,12 +558,19 @@
               "title": "Sound Playback",
               "type": "boolean",
               "default": true,
-              "description": "Show prompts to play sounds on minecraftsounds.com for the sound mechanic"
+              "description": "Show prompts to play sounds on minecraftsounds.com for the sound mechanics in the metaskill"
+            },
+            "specificSoundPlayback": {
+              "title": "Specific Sound Playback",
+              "type": "boolean",
+              "default": false,
+              "description": "Show prompts to play sounds on minecraftsounds.com for the specific sound mechanic"
             }
           },
           "default": {
             "delayTracking": true,
-            "soundPlayback": true
+            "soundPlayback": true,
+            "specificSoundPlayback": false
           }
         }
       }

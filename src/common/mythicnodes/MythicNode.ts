@@ -252,22 +252,28 @@ export class MythicNode {
             }
             (this.metadata.get('soundPlayback') as SoundMap[]).push(soundMap);
 
-            nodeDecorations.addNodeDecoration(this, mechanic.range, 'soundPlayback', undefined, {
-                range: mechanic.range,
-                isResolved: true,
-                command: {
-                    title: `▶ Play sound`,
-                    command: 'MythicScribe.external.minecraftsounds.playback',
-                    arguments: [
-                        undefined,
-                        {
-                            s0: soundMap.sound,
-                            p0: soundMap.pitch,
-                            v0: soundMap.volume,
-                        },
-                    ],
-                },
-            });
+            nodeDecorations.addNodeDecoration(
+                this,
+                mechanic.range,
+                'specificSoundPlayback',
+                undefined,
+                {
+                    range: mechanic.range,
+                    isResolved: true,
+                    command: {
+                        title: `▶ Play sound`,
+                        command: 'MythicScribe.external.minecraftsounds.playback',
+                        arguments: [
+                            undefined,
+                            {
+                                s0: soundMap.sound,
+                                p0: soundMap.pitch,
+                                v0: soundMap.volume,
+                            },
+                        ],
+                    },
+                }
+            );
         }
 
         const soundPlaybacks = this.metadata.get('soundPlayback') as SoundMap[] | undefined;

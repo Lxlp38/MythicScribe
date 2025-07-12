@@ -15,12 +15,14 @@ export class NodeDecorations extends DecorationProvider<NodeDecorationType, Node
     constructor() {
         super();
         executeFunctionAfterActivation((context) => {
-            this.registry.soundPlayback.gutterIconPath = vscode.Uri.joinPath(
+            const soundImage = vscode.Uri.joinPath(
                 context.extensionUri,
                 'assets',
                 'utils',
                 'minecraftsounds.png'
             );
+            this.registry.soundPlayback.gutterIconPath = soundImage;
+            this.registry.specificSoundPlayback.gutterIconPath = soundImage;
         });
         return;
     }
@@ -32,6 +34,10 @@ export class NodeDecorations extends DecorationProvider<NodeDecorationType, Node
             },
         },
         soundPlayback: {
+            gutterIconPath: undefined,
+            gutterIconSize: 'contain',
+        },
+        specificSoundPlayback: {
             gutterIconPath: undefined,
             gutterIconSize: 'contain',
         },

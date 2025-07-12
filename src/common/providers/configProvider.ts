@@ -112,6 +112,7 @@ const nodeGraphConfigCache = {
 const decorationOptions = {
     delayTracking: undefined as boolean | undefined,
     soundPlayback: undefined as boolean | undefined,
+    specificSoundPlayback: undefined as boolean | undefined,
 };
 
 const editorConfigCache = {

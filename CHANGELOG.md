@@ -2,10 +2,15 @@
 
 ## [Unreleased]
 
+### Added
+- `decorationOptions.specificSoundPlayback` configuration to better handle what kind of sound playback CodeLens should pop up. This configuration defaults to false, hiding all sound playback CodeLens *except* for the ones on top of Metaskills to play all sounds inside of it. If you want to hide *those* too, the `decorationOptions.soundPlayback` configuration can be set to false to hide those specifically
+
 ### Changed
 - When the `editor.acceptSuggestionOnEnter` config is set to anything but `false`, file-specific suggestions (the suggestions triggered when pressing enter) will not pop up automatically. They can, of course, still be programmatically called by using `ctrl+space`.  
   
   Beware: to actually modify the value of the setting, a yellow line should be seen on the left of the configuration box itself, with the text on hover "`This setting has been configured in the current scope`" and also a text in parenthesis saying "`(Also modified elsewhere)`" next to the configuration name. If those two things do not appear despite the setting's value being anything but `off`, you may need to set the config to something else *and then* to set it back to the value you want. Don't ask me why that's the case.
+
+- `decorationOptions.soundPlayback` now only handles the sound playback CodeLens on top of metaskills, and not those on top of sound mechanics
 
 ### Removed
 - Deprecated `MythicScribe.enableFileSpecificSuggestions` configuration. As stated above, file specific suggestions will be automatically shown depending on the value of the `editor.acceptSuggestionOnEnter` setting
