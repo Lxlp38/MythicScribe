@@ -251,6 +251,7 @@
           "description": "Enable the removal of empty curly brackets `{}` by moving the cursor past them."
         },
         "MythicScribe.enableFileSpecificSuggestions": {
+          "deprecationMessage": "This setting is deprecated. When the setting `editor.acceptSuggestionOnEnter` is set to anything other than `off`, file specific suggestions will be automatically disabled.",
           "title": "Enable File Specific Suggestions",
           "type": "boolean",
           "default": true,

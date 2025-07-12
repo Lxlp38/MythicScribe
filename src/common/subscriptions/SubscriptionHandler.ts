@@ -136,7 +136,7 @@ class ItemScribeSubscription extends AbstractScribeSubscription {
                         registry: ScribeMechanicHandler.registry.condition,
                     }),
             ],
-            [() => ConfigProvider.registry.generic.get('enableFileSpecificSuggestions') as boolean]
+            []
         );
     }
 }
@@ -170,7 +170,7 @@ class MobScribeSubscription extends AbstractScribeSubscription {
                         }
                     ),
             ],
-            [() => ConfigProvider.registry.generic.get('enableFileSpecificSuggestions') as boolean]
+            []
         );
     }
 }
@@ -187,7 +187,7 @@ class SkillScribeSubscription extends AbstractScribeSubscription {
                         registry: ScribeMechanicHandler.registry.condition,
                     }),
             ],
-            [() => ConfigProvider.registry.generic.get('enableFileSpecificSuggestions') as boolean]
+            []
         );
     }
 }
@@ -256,7 +256,7 @@ class DroptableSubscriptionHandler extends AbstractScribeSubscription {
                     }),
                 () => conditionCompletionProvider(),
             ],
-            [() => ConfigProvider.registry.generic.get('enableFileSpecificSuggestions') as boolean]
+            []
         );
     }
 }
@@ -265,7 +265,7 @@ class StatSubscriptionHandler extends AbstractScribeSubscription {
     constructor() {
         super(
             [() => genericFileCompletionProvider(StatSchema), () => hoverProvider(StatSchema)],
-            [() => ConfigProvider.registry.generic.get('enableFileSpecificSuggestions') as boolean]
+            []
         );
     }
 }
@@ -288,7 +288,7 @@ class PlaceholderSubscriptionHandler extends AbstractScribeSubscription {
                     }),
                 () => conditionCompletionProvider(['Conditions']),
             ],
-            [() => ConfigProvider.registry.generic.get('enableFileSpecificSuggestions') as boolean]
+            []
         );
     }
 }
@@ -305,7 +305,7 @@ class RandomSpawnSubscriptionHandler extends AbstractScribeSubscription {
                     }),
                 () => conditionCompletionProvider(),
             ],
-            [() => ConfigProvider.registry.generic.get('enableFileSpecificSuggestions') as boolean]
+            []
         );
     }
 }
@@ -317,7 +317,7 @@ class EquipmentSetSubscriptionHandler extends AbstractScribeSubscription {
                 () => genericFileCompletionProvider(EquipmentSetSchema),
                 () => hoverProvider(EquipmentSetSchema),
             ],
-            [() => ConfigProvider.registry.generic.get('enableFileSpecificSuggestions') as boolean]
+            []
         );
     }
 }
@@ -330,7 +330,7 @@ class ArchetypeSubscriptionHandler extends AbstractScribeSubscription {
                 () => hoverProvider(ArchetypeSchema),
                 () => triggerfileCompletionProvider(TriggerType.ARCHETYPE, ['Skills']),
             ],
-            [() => ConfigProvider.registry.generic.get('enableFileSpecificSuggestions') as boolean]
+            []
         );
     }
 }
@@ -342,7 +342,7 @@ class ReagentSubscriptionHandler extends AbstractScribeSubscription {
                 () => genericFileCompletionProvider(ReagentSchema),
                 () => hoverProvider(ReagentSchema),
             ],
-            [() => ConfigProvider.registry.generic.get('enableFileSpecificSuggestions') as boolean]
+            []
         );
     }
 }
@@ -351,7 +351,7 @@ class MenuSubscriptionHandler extends AbstractScribeSubscription {
     constructor() {
         super(
             [() => genericFileCompletionProvider(MenuSchema), () => hoverProvider(MenuSchema)],
-            [() => ConfigProvider.registry.generic.get('enableFileSpecificSuggestions') as boolean]
+            []
         );
     }
 }
@@ -368,7 +368,7 @@ class AchievementSubscriptionHandler extends AbstractScribeSubscription {
                     }),
                 () => conditionCompletionProvider(['Conditions']),
             ],
-            [() => ConfigProvider.registry.generic.get('enableFileSpecificSuggestions') as boolean]
+            []
         );
     }
 }

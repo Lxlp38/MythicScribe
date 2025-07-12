@@ -48,6 +48,7 @@ export const ActiveFileTypeInfo: Record<registryKey | 'enabled', boolean> = {
 export const extensionEnabler = vscode.window.onDidChangeActiveTextEditor((editor) => {
     getLogger().trace('MythicScribe active editor changed');
     if (!editor) {
+        disableAllSubscriptions();
         return;
     }
     updateSubscriptions(editor.document);
@@ -91,6 +92,11 @@ function fileSpecificEnabler(
     return newflagvalue;
 }
 
+function disableAllSubscriptions() {
+    ScribeSubscriptionHandler.disposeAll();
+    resetFileChecks();
+}
+
 /**
  * Updates the state of various subscriptions based on the provided document.
  *
@@ -116,8 +122,7 @@ export function updateSubscriptions(document: vscode.TextDocument) {
         if (ActiveFileTypeInfo.enabled) {
             ScribeSubscriptionHandler.registry.global.enableAll();
         } else {
-            ScribeSubscriptionHandler.disposeAll();
-            resetFileChecks();
+            disableAllSubscriptions();
             return;
         }
     }

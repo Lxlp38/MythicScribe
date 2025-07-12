@@ -2,6 +2,24 @@
 <div align="center"><h1>MythicScribe</h1></div>
 
 <div align="center">
+    <a href="https://github.com/Lxlp38/MythicScribe/releases">
+      <img alt="GitHub Release" src="https://img.shields.io/github/v/release/Lxlp38/MythicScribe">
+    </a>
+    <a href="https://github.com/Lxlp38/MythicScribe/blob/master/LICENSE.txt">
+      <img alt="GitHub License" src="https://img.shields.io/github/license/Lxlp38/MythicScribe">
+    </a>
+</div>
+
+<div align="center">
+    <a href="https://marketplace.visualstudio.com/items?itemName=Lxlp.mythicscribe">
+      <img alt="Visual Studio Marketplace" src="https://vsmarketplacebadges.dev/version-short/Lxlp.mythicscribe.png">
+    </a>
+    <a href="https://discord.gg/UgcPG5ADDe">
+        <img src="https://discordapp.com/api/guilds/1303771917022658591/widget.png?style=shield" alt="Discord Link"/>
+    </a>
+</div>
+
+<div align="center">
 A Visual Studio Code extension that connects your MythicMobs configurations with its documentation.
 </div>
 <div align="center">
@@ -87,5 +105,5 @@ You can download Dev Builds from the [Github Repository](https://github.com/Lxlp
   - Caro Asercion
     - [furniture](/assets/nodegraph/furniture.png) ([source](https://game-icons.net/1x1/caro-asercion/armchair.html))
     - [reagent](/assets/nodegraph/reagent.png) ([source](https://game-icons.net/1x1/caro-asercion/round-potion.html))
-  - [Skoll]
+  - Skoll
     - [sound waves](/assets/utils/minecraftsounds.png) ([source](https://game-icons.net/1x1/skoll/sound-waves.html))

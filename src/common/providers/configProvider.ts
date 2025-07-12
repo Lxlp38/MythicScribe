@@ -12,12 +12,14 @@ import { executeFunctionAfterActivation } from '../../MythicScribe';
 class ConfigCache<T extends Record<string, string | boolean | number | undefined>> {
     private cache: T;
     private prefix: string;
+    private plugin: string;
     private configChangeEvent: vscode.Disposable;
 
-    constructor(initialCache: T, prefix?: string) {
+    constructor(initialCache: T, prefix?: string, plugin: string = 'MythicScribe') {
         this.cache = initialCache;
         this.prefix = prefix ? `${prefix}.` : '';
-        const section = 'MythicScribe' + (prefix ? '.' + prefix : '');
+        this.plugin = plugin;
+        const section = plugin + (prefix ? '.' + prefix : '');
 
         this.configChangeEvent = vscode.workspace.onDidChangeConfiguration((e) => {
             if (e.affectsConfiguration(section)) {
@@ -34,7 +36,7 @@ class ConfigCache<T extends Record<string, string | boolean | number | undefined
     get<K extends keyof T>(key: K): T[K] {
         if (this.cache[key] === undefined) {
             this.cache[key] = vscode.workspace
-                .getConfiguration('MythicScribe')
+                .getConfiguration(this.plugin)
                 .get(this.prefix + String(key)) as T[K];
             getLogger().trace(`Config Cached: ${this.prefix}${String(key)} = ${this.cache[key]}`);
         }
@@ -62,7 +64,6 @@ const genericConfigCache = {
     alwaysEnabled: undefined as boolean | undefined,
     allowExternalTools: undefined as boolean | undefined,
     enableEmptyBracketsAutomaticRemoval: undefined as boolean | undefined,
-    enableFileSpecificSuggestions: undefined as boolean | undefined,
     enableShortcuts: undefined as boolean | undefined,
     minecraftVersion: undefined as string | undefined,
     logLevel: undefined as LogLevel | undefined,
@@ -113,6 +114,10 @@ const decorationOptions = {
     soundPlayback: undefined as boolean | undefined,
 };
 
+const editorConfigCache = {
+    acceptSuggestionOnEnter: undefined as 'off' | 'smart' | 'on' | undefined,
+};
+
 export const ConfigProvider = {
     registry: {
         generic: new ConfigCache(genericConfigCache),
@@ -125,6 +130,7 @@ export const ConfigProvider = {
         diagnosticsPolicy: new ConfigCache(diagnosticsPolicyConfigCache, 'diagnosticsPolicy'),
         nodeGraph: new ConfigCache(nodeGraphConfigCache, 'nodeGraph'),
         decorationOptions: new ConfigCache(decorationOptions, 'decorationOptions'),
+        editor: new ConfigCache(editorConfigCache, undefined, 'editor'),
     },
 
     reset() {

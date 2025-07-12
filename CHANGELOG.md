@@ -1,5 +1,15 @@
 # Changelog
 
+## [Unreleased]
+
+### Changed
+- When the `editor.acceptSuggestionOnEnter` config is set to anything but `false`, file-specific suggestions (the suggestions triggered when pressing enter) will not pop up automatically. They can, of course, still be programmatically called by using `ctrl+space`.  
+  
+  Beware: to actually modify the value of the setting, a yellow line should be seen on the left of the configuration box itself, with the text on hover "`This setting has been configured in the current scope`" and also a text in parenthesis saying "`(Also modified elsewhere)`" next to the configuration name. If those two things do not appear despite the setting's value being anything but `off`, you may need to set the config to something else *and then* to set it back to the value you want. Don't ask me why that's the case.
+
+### Removed
+- Deprecated `MythicScribe.enableFileSpecificSuggestions` configuration. As stated above, file specific suggestions will be automatically shown depending on the value of the `editor.acceptSuggestionOnEnter` setting
+
 ## [1.7.8]
 
 ### Fixed
