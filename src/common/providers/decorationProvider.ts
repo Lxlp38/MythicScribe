@@ -9,16 +9,22 @@ export type DecorationMap = {
 
 type Uri = ReturnType<typeof vscode.Uri.toString>;
 
-export abstract class DecorationProvider<T, D extends string = string> {
+export abstract class DecorationProvider<T, D extends string = string> extends vscode.Disposable {
     protected decorationTypeMap = new Map<D, vscode.TextEditorDecorationType>();
     protected oldDecorations = new Map<Uri, DecorationMap>();
     protected textEditorNeedsUpdate: boolean = false;
     protected oldDecorationsMap = new Map<Uri, Map<string, DecorationMap>>();
 
     protected onDidChangeActiveTextEditorRetCondition: () => boolean = () => true;
+    private changeActiveTextEditorListener: vscode.Disposable;
 
     constructor() {
-        vscode.window.onDidChangeActiveTextEditor(this.onDidChangeActiveTextEditor.bind(this));
+        super(() => {
+            this.onDispose();
+        });
+        this.changeActiveTextEditorListener = vscode.window.onDidChangeActiveTextEditor(
+            this.onDidChangeActiveTextEditor.bind(this)
+        );
     }
 
     private onDidChangeActiveTextEditor(editor: vscode.TextEditor | undefined) {
@@ -116,5 +122,10 @@ export abstract class DecorationProvider<T, D extends string = string> {
             this.oldDecorations.set(value.decorationType.key, value);
         });
         this.textEditorNeedsUpdate = false;
+    }
+
+    protected onDispose() {
+        this.clearDecorations();
+        this.changeActiveTextEditorListener.dispose();
     }
 }

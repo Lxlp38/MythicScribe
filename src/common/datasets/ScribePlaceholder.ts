@@ -1,15 +1,11 @@
 import * as vscode from 'vscode';
 import { registryKey } from '@common/objectInfos';
+import { globalCallbacks } from '@common/providers/callbackProvider';
 
+import { ScribeEnumHandler, AbstractScribeEnum, EnumDatasetValue } from './ScribeEnum';
 import { generateNumbersInRange } from '../utils/schemautils';
 import { MythicAttribute } from './ScribeMechanic';
 import { retriggerCompletionsCommand } from '../utils/completionhelper';
-import {
-    AbstractScribeEnum,
-    addEnumLoadedFunction,
-    EnumDatasetValue,
-    ScribeEnumHandler,
-} from './ScribeEnum';
 
 class PlaceholderSegment {
     public identifier: string;
@@ -232,8 +228,10 @@ export function fromPlaceholderNodeIdentifierToRegistryKey(
     return undefined;
 }
 
-addEnumLoadedFunction('placeholder', (target: AbstractScribeEnum) => {
-    initializePlaceholders(target.getDataset());
+globalCallbacks.activation.registerCallback('pre-activation', () => {
+    ScribeEnumHandler.enumCallback.registerCallback('placeholder', (target: AbstractScribeEnum) => {
+        initializePlaceholders(target.getDataset());
+    });
 });
 
 export async function initializePlaceholders(placeholderDataset: Map<string, EnumDatasetValue>) {

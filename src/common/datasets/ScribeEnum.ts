@@ -1,4 +1,5 @@
 import * as vscode from 'vscode';
+import { CallbackProvider } from '@common/providers/callbackProvider';
 import { Schema } from '@common/objectInfos';
 import { MobSchema } from '@common/schemas/mobSchema';
 import { StatSchema } from '@common/schemas/statSchema';
@@ -26,16 +27,16 @@ import { timeCounter } from '../utils/timeUtils';
 const enumLoadedEventEmitter = new vscode.EventEmitter<AbstractScribeEnum>();
 export const onEnumLoaded = enumLoadedEventEmitter.event;
 
-let enumLoadedFunctionCallbacks: Map<string, (arg0: AbstractScribeEnum) => void> | undefined;
-function getEnumLoadedFunctionCallbacks() {
-    if (enumLoadedFunctionCallbacks === undefined) {
-        enumLoadedFunctionCallbacks = new Map<string, (arg0: AbstractScribeEnum) => void>();
-    }
-    return enumLoadedFunctionCallbacks;
-}
-export function addEnumLoadedFunction(key: string, callback: (arg0: AbstractScribeEnum) => void) {
-    getEnumLoadedFunctionCallbacks().set(key, callback);
-}
+// let enumLoadedFunctionCallbacks: Map<string, (arg0: AbstractScribeEnum) => void> | undefined;
+// function getEnumLoadedFunctionCallbacks() {
+//     if (enumLoadedFunctionCallbacks === undefined) {
+//         enumLoadedFunctionCallbacks = new Map<string, (arg0: AbstractScribeEnum) => void>();
+//     }
+//     return enumLoadedFunctionCallbacks;
+// }
+// export function addEnumLoadedFunction(key: string, callback: (arg0: AbstractScribeEnum) => void) {
+//     getEnumLoadedFunctionCallbacks().set(key, callback);
+// }
 
 export abstract class AbstractScribeEnum {
     readonly identifier: string;
@@ -123,7 +124,8 @@ export abstract class AbstractScribeEnum {
         );
         this.loaded = true;
         enumLoadedEventEmitter.fire(this);
-        getEnumLoadedFunctionCallbacks().get(this.identifier)?.(this);
+        // getEnumLoadedFunctionCallbacks().get(this.identifier)?.(this);
+        ScribeEnumHandler.enumCallback.runCallbacks(this.identifier, this);
     }
 
     isLoaded(): boolean {
@@ -194,6 +196,7 @@ export interface EnumDatasetValue {
 export const ScribeEnumHandler = {
     version: getMinecraftVersion(),
     enums: new Map<string, AbstractScribeEnum>(),
+    enumCallback: new CallbackProvider<string, AbstractScribeEnum>(),
 
     enumDefinitions: [
         {

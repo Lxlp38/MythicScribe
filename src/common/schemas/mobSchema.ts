@@ -1,8 +1,8 @@
 import * as vscode from 'vscode';
 import {
     AbstractScribeEnum,
-    addEnumLoadedFunction,
     EnumDatasetValue,
+    ScribeEnumHandler,
 } from '@common/datasets/ScribeEnum';
 import { getRootKey } from '@common/utils/yamlutils';
 import { MobMythicNode, MythicNodeHandler } from '@common/mythicnodes/MythicNode';
@@ -558,7 +558,7 @@ export const MobSchema: Schema = {
     },
 };
 
-addEnumLoadedFunction('moboption', (target: AbstractScribeEnum) => {
+ScribeEnumHandler.enumCallback.registerCallback('moboption', (target: AbstractScribeEnum) => {
     addMobOptions(target.getDataset());
 });
 

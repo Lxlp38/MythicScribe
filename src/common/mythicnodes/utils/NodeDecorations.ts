@@ -4,9 +4,8 @@ import { ConfigProvider } from '@common/providers/configProvider';
 import * as vscode from 'vscode';
 import { scribeCodeLensProvider } from '@common/providers/codeLensProvider';
 
-import { executeFunctionAfterActivation } from '@common/../MythicScribe';
-
 import { MythicNode, MythicNodeHandler } from '../MythicNode';
+import { executeFunctionAfterActivation } from '../../../MythicScribe';
 
 export type NodeDecorationType = Parameters<
     typeof ConfigProvider.registry.decorationOptions.get

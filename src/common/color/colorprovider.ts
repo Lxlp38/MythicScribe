@@ -1,4 +1,4 @@
-import { addConfigChangeFunction, ConfigProvider } from '@common/providers/configProvider';
+import { ConfigProvider } from '@common/providers/configProvider';
 import * as vscode from 'vscode';
 
 import { DecorationMap, DecorationProvider } from '../providers/decorationProvider';
@@ -11,6 +11,8 @@ class ScribeColorProvider
 
     protected onDidChangeActiveTextEditorRetCondition: () => boolean = () =>
         ConfigProvider.registry.colorProviderOptions.get('alwaysEnabled') as boolean;
+
+    private configChangeCallbackSymbol: symbol;
 
     registry = {
         char: {
@@ -63,7 +65,19 @@ class ScribeColorProvider
 
     constructor() {
         super();
-        addConfigChangeFunction(this.clearDecorations.bind(this));
+        this.configChangeCallbackSymbol =
+            ConfigProvider.registry.colorProviderOptions.registerCallback(
+                'configChange',
+                this.clearDecorations.bind(this)
+            );
+    }
+
+    protected onDispose(): void {
+        super.onDispose();
+        ConfigProvider.registry.colorProviderOptions.unregisterCallback(
+            'configChange',
+            this.configChangeCallbackSymbol
+        );
     }
 
     getDecorationTypeKey(color: vscode.Color): string {

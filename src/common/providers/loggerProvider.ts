@@ -1,7 +1,7 @@
 import * as vscode from 'vscode';
 import { LogLevel } from '@common/packageData';
 
-import { addConfigChangeFunction, ConfigProvider } from './configProvider';
+import { ConfigProvider } from './configProvider';
 
 type logOptions = {
     silent?: boolean;
@@ -14,7 +14,10 @@ export class Logger {
     constructor(outputChannelName: string, defaultLogLevel: vscode.LogLevel = getLogLevel()) {
         this.outputChannel = vscode.window.createOutputChannel(outputChannelName, 'log');
         this.logLevel = defaultLogLevel;
-        addConfigChangeFunction(this.updateLogLevel.bind(this));
+        ConfigProvider.registry.generic.registerCallback(
+            'configChange',
+            this.updateLogLevel.bind(this)
+        );
         this.debug(
             'Logger initialized with a default log level of',
             vscode.LogLevel[defaultLogLevel]

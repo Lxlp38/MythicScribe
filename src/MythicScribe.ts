@@ -1,3 +1,4 @@
+import { globalCallbacks } from '@common/providers/callbackProvider';
 import * as vscode from 'vscode';
 import { openAuraFXWebview } from '@common/webviews/views/aurafx';
 import { openMinecraftSoundsWebview } from '@common/webviews/views/minecraftsounds';
@@ -23,20 +24,13 @@ import { putSelectionInsideInlineMetaskill } from './common/completions/componen
 
 export let ctx: vscode.ExtensionContext | undefined = undefined;
 
-let activationFunctionCallbacks: ((context: vscode.ExtensionContext) => void)[] | undefined;
-function getActivationFunctionCallbacks() {
-    if (activationFunctionCallbacks === undefined) {
-        activationFunctionCallbacks = [];
-    }
-    return activationFunctionCallbacks;
-}
 export function executeFunctionAfterActivation(
     callback: (context: vscode.ExtensionContext) => void
 ): void {
     if (ctx) {
         callback(ctx);
     } else {
-        getActivationFunctionCallbacks().push(callback);
+        globalCallbacks.activation.registerCallback('pre-activation', callback);
     }
 }
 
@@ -44,13 +38,8 @@ export async function activate(context: vscode.ExtensionContext) {
     ctx = context;
     getLogger().debug('Extension Activated');
 
-    for (const callback of getActivationFunctionCallbacks()) {
-        try {
-            callback(context);
-        } catch (error) {
-            getLogger().error(error, 'Error executing activation callback function:');
-        }
-    }
+    // Run pre-activation callbacks
+    globalCallbacks.activation.runCallbacks('pre-activation', context);
 
     setEdcsUri();
 
@@ -112,6 +101,9 @@ export async function activate(context: vscode.ExtensionContext) {
     if (activeEditor) {
         SubscriptionHelper.updateSubscriptions(activeEditor.document);
     }
+
+    // Run post-activation callbacks
+    globalCallbacks.activation.runCallbacks('post-activation', context);
 }
 
 export function deactivate() {}

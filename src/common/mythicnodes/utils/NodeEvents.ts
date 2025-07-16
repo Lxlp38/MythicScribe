@@ -1,7 +1,7 @@
+import * as vscode from 'vscode';
 import { checkFileType } from '@common/subscriptions/SubscriptionHelper';
 import { ConfigProvider } from '@common/providers/configProvider';
 import { openDocumentTactfully } from '@common/utils/uriutils';
-import * as vscode from 'vscode';
 
 import { MythicNodeHandler } from '../MythicNode';
 import { updateActiveEditorDecorations } from './NodeDecorations';

@@ -1155,6 +1155,7 @@ export namespace MythicNodeHandler {
         const time = timeCounter();
         getLogger().debug('Scanning all documents');
 
+        // Find the relevant documents
         const include =
             (ConfigProvider.registry.fileParsingPolicy.get('parsingGlobPattern') as
                 | string
@@ -1166,15 +1167,6 @@ export namespace MythicNodeHandler {
 
         getLogger().debug(`Parsing files with include: ${include} and exclude: ${exclude}`);
 
-        const limitAmount = ConfigProvider.registry.fileParsingPolicy.get(
-            'parallelParsingLimit'
-        ) as number;
-        if (limitAmount <= 0) {
-            getLogger().warn('File Parsing disabled because parallelParsingLimit is set to <=0');
-            return;
-        }
-        const limit = pLimit(limitAmount);
-
         time.step();
         const files = await vscode.workspace.findFiles(
             include,
@@ -1185,6 +1177,16 @@ export namespace MythicNodeHandler {
             vscode.LogLevel.Debug,
             'Time Report'
         );
+
+        // Process all files, filtering out those that are not relevant and opening up the rest
+        const limitAmount = ConfigProvider.registry.fileParsingPolicy.get(
+            'parallelParsingLimit'
+        ) as number;
+        if (limitAmount <= 0) {
+            getLogger().warn('File Parsing disabled because parallelParsingLimit is set to <=0');
+            return;
+        }
+        const limit = pLimit(limitAmount);
 
         const tasks = files.map((file) => limit(() => processFile(file)));
         const results = await Promise.allSettled(tasks);
@@ -1207,6 +1209,7 @@ export namespace MythicNodeHandler {
             'Time Report'
         );
 
+        // Scan all opened files
         for (const [type, file] of openedFiles) {
             registry[type].scanDocument(file);
         }

@@ -1,4 +1,4 @@
-import { DecorationMap } from '@common/providers/decorationProvider';
+import { type DecorationMap } from '@common/providers/decorationProvider';
 import * as vscode from 'vscode';
 
 import { type MythicNode } from '../MythicNode';

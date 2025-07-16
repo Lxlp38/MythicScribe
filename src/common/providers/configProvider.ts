@@ -7,15 +7,19 @@ import {
     DatasetSource,
     LogLevel,
 } from '../packageData';
+import { CallbackProvider } from './callbackProvider';
 import { executeFunctionAfterActivation } from '../../MythicScribe';
 
-class ConfigCache<T extends Record<string, string | boolean | number | undefined>> {
+class ConfigCache<
+    T extends Record<string, string | boolean | number | undefined>,
+> extends CallbackProvider<'configChange'> {
     private cache: T;
     private prefix: string;
     private plugin: string;
     private configChangeEvent: vscode.Disposable;
 
     constructor(initialCache: T, prefix?: string, plugin: string = 'MythicScribe') {
+        super();
         this.cache = initialCache;
         this.prefix = prefix ? `${prefix}.` : '';
         this.plugin = plugin;
@@ -49,6 +53,7 @@ class ConfigCache<T extends Record<string, string | boolean | number | undefined
                 this.cache[key] = undefined as T[typeof key];
             }
         }
+        this.runCallbacks('configChange');
     }
 
     dispose() {
@@ -134,29 +139,26 @@ export const ConfigProvider = {
         editor: new ConfigCache(editorConfigCache, undefined, 'editor'),
     },
 
-    reset() {
-        getLogger().debug('Resetting config cache');
-        for (const key in this.registry) {
-            if (Object.hasOwn(this.registry, key)) {
-                this.registry[key as keyof typeof this.registry].reset();
-            }
-        }
-        for (const callback of getConfigChangeFunctionCallbacks()) {
-            callback();
-        }
-    },
+    // reset() {
+    //     getLogger().debug('Resetting config cache');
+    //     for (const key in this.registry) {
+    //         if (Object.hasOwn(this.registry, key)) {
+    //             this.registry[key as keyof typeof this.registry].reset();
+    //         }
+    //     }
+    // },
 };
 
-let configChangeFunctionCallbacks: (() => void)[] | undefined;
-function getConfigChangeFunctionCallbacks() {
-    if (configChangeFunctionCallbacks === undefined) {
-        configChangeFunctionCallbacks = [];
-    }
-    return configChangeFunctionCallbacks;
-}
-export function addConfigChangeFunction(callback: () => void) {
-    getConfigChangeFunctionCallbacks().push(callback);
-}
+// let configChangeFunctionCallbacks: (() => void)[] | undefined;
+// function getConfigChangeFunctionCallbacks() {
+//     if (configChangeFunctionCallbacks === undefined) {
+//         configChangeFunctionCallbacks = [];
+//     }
+//     return configChangeFunctionCallbacks;
+// }
+// export function addConfigChangeFunction(callback: () => void) {
+//     getConfigChangeFunctionCallbacks().push(callback);
+// }
 
 function checkFileRegex(uri: vscode.Uri, regex: string | undefined): boolean {
     if (regex && new RegExp(regex).test(uri.fsPath)) {
