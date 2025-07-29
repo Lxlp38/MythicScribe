@@ -972,20 +972,20 @@ export class MythicNodeRegistry {
         documentData.clearDiagnostics();
     }
 
-    clearDecorationsByDocument(uri: vscode.Uri): void {
-        const uriString = uri.toString();
-        const documentData = this.documentDataMap.get(uriString);
-        const activeEditor = vscode.window.activeTextEditor;
-        if (activeEditor && activeEditor.document.uri.toString() === uriString) {
-            const decorations = documentData.decorations;
-            if (decorations) {
-                for (const [_key, decoration] of decorations) {
-                    activeEditor.setDecorations(decoration.decorationType, []);
-                }
-            }
-        }
-        documentData.clearDecorations();
-    }
+    // clearDecorationsByDocument(uri: vscode.Uri): void {
+    //     const uriString = uri.toString();
+    //     const documentData = this.documentDataMap.get(uriString);
+    //     const activeEditor = vscode.window.activeTextEditor;
+    //     if (activeEditor && activeEditor.document.uri.toString() === uriString) {
+    //         const decorations = documentData.decorations;
+    //         if (decorations) {
+    //             for (const [_key, decoration] of decorations) {
+    //                 activeEditor.setDecorations(decoration.decorationType, []);
+    //             }
+    //         }
+    //     }
+    //     documentData.clearDecorations();
+    // }
 
     scanDocument(document: vscode.TextDocument): void {
         if (document.lineAt(0).text === ParserIntructions.DISABLE_PARSING) {
@@ -1042,6 +1042,7 @@ export class MythicNodeRegistry {
 
     clearDocument(uri: vscode.Uri): void {
         this.documentDataMap.clearDocument(uri.toString());
+        nodeDecorations.resetCacheForDocument(uri);
         nodeLens.clearCodeLensesForDocument(uri);
     }
 

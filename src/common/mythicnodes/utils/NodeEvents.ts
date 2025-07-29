@@ -4,7 +4,7 @@ import { ConfigProvider } from '@common/providers/configProvider';
 import { openDocumentTactfully } from '@common/utils/uriutils';
 
 import { MythicNodeHandler } from '../MythicNode';
-import { updateActiveEditorDecorations } from './NodeDecorations';
+import { nodeDecorations, updateActiveEditorDecorations } from './NodeDecorations';
 import { executeFunctionAfterActivation } from '../../../MythicScribe';
 
 let eventsLoaded = false;
@@ -18,6 +18,9 @@ export function loadNodeEvents() {
     eventsLoaded = true;
     vscode.workspace.onDidSaveTextDocument(
         (document) => {
+            if (!document || !document.uri) {
+                return;
+            }
             if (!ConfigProvider.registry.fileParsingPolicy.get('parseOnSave')) {
                 return;
             }
@@ -40,6 +43,19 @@ export function loadNodeEvents() {
 
     vscode.workspace.onDidChangeTextDocument(
         (event) => {
+            if (event.contentChanges.length === 0) {
+                return;
+            }
+            if (
+                event.document.uri === vscode.window.activeTextEditor?.document.uri &&
+                event.document.uri !== undefined
+            ) {
+                nodeDecorations.removeDecorationsOnLine(
+                    vscode.window.activeTextEditor,
+                    event.contentChanges[0].range.start.line,
+                    'delayTracking'
+                );
+            }
             if (!ConfigProvider.registry.fileParsingPolicy.get('parseOnModification')) {
                 return;
             }

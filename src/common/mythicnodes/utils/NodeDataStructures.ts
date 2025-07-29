@@ -1,4 +1,3 @@
-import { type DecorationMap } from '@common/providers/decorationProvider';
 import * as vscode from 'vscode';
 
 import { type MythicNode } from '../MythicNode';
@@ -6,8 +5,7 @@ import { type MythicNode } from '../MythicNode';
 class DocumentData {
     constructor(
         public nodes: MythicNode[] = [],
-        public diagnostics: vscode.Diagnostic[] = [],
-        public decorations: Map<string, DecorationMap> = new Map()
+        public diagnostics: vscode.Diagnostic[] = []
     ) {}
 
     addNode(node: MythicNode): void {
@@ -16,15 +14,7 @@ class DocumentData {
     addDiagnostic(diagnostic: vscode.Diagnostic): void {
         this.diagnostics.push(diagnostic);
     }
-    addDecoration(key: string, decoration: DecorationMap): void {
-        if (!this.decorations.has(key)) {
-            this.decorations.set(key, decoration);
-        }
-    }
 
-    clearDecorations(): void {
-        this.decorations.clear();
-    }
     clearNodes(): void {
         this.nodes = [];
     }
@@ -49,7 +39,6 @@ export class DocumentDataMap extends Map<string, DocumentData> {
         this.forEach((metadata) => {
             metadata.clearNodes();
             metadata.clearDiagnostics();
-            metadata.clearDecorations();
         });
         super.clear();
     }
@@ -59,7 +48,6 @@ export class DocumentDataMap extends Map<string, DocumentData> {
             const metadata = this.get(uri);
             metadata.clearNodes();
             metadata.clearDiagnostics();
-            metadata.clearDecorations();
             this.delete(uri);
         }
     }

@@ -4,38 +4,46 @@ import * as vscode from 'vscode';
 export type DecorationMap = {
     decorationType: vscode.TextEditorDecorationType;
     options: vscode.DecorationOptions[];
-    //options?: vscode.DecorationRenderOptions;
 };
 
 type Uri = ReturnType<typeof vscode.Uri.toString>;
 
 export abstract class DecorationProvider<T, D extends string = string> extends vscode.Disposable {
-    protected decorationTypeMap = new Map<D, vscode.TextEditorDecorationType>();
-    protected oldDecorations = new Map<Uri, DecorationMap>();
-    protected textEditorNeedsUpdate: boolean = false;
-    protected oldDecorationsMap = new Map<Uri, Map<string, DecorationMap>>();
+    protected typeRegistry = new Map<D, vscode.TextEditorDecorationType>();
+
+    // Present status of the decorations for each document
+    protected decorationCache = new Map<Uri, Map<string, DecorationMap>>();
+
+    // Decorations that will have to be removed
+    protected oldDecorations = new Map<Uri, Set<vscode.TextEditorDecorationType>>();
 
     protected onDidChangeActiveTextEditorRetCondition: () => boolean = () => true;
-    private changeActiveTextEditorListener: vscode.Disposable;
+    private disposables: vscode.Disposable[] = [];
 
     constructor() {
         super(() => {
             this.onDispose();
         });
-        this.changeActiveTextEditorListener = vscode.window.onDidChangeActiveTextEditor(
-            this.onDidChangeActiveTextEditor.bind(this)
+        this.disposables.push(
+            vscode.window.onDidChangeActiveTextEditor(this.onDidChangeActiveTextEditor.bind(this)),
+            vscode.workspace.onDidCloseTextDocument((document) => {
+                this.resetCacheForDocument(document.uri);
+                this.oldDecorations.delete(document.uri.toString());
+            })
         );
     }
 
     private onDidChangeActiveTextEditor(editor: vscode.TextEditor | undefined) {
-        if (!this.onDidChangeActiveTextEditorRetCondition() && !ActiveFileTypeInfo.enabled) {
+        if (!editor) {
             return;
         }
-        if (editor && this.textEditorNeedsUpdate) {
-            const doc = this.oldDecorationsMap.get(editor.document.uri.toString());
-            if (doc) {
-                this.updateDecorations(doc);
-            }
+        if (!this.onDidChangeActiveTextEditorRetCondition() && !ActiveFileTypeInfo.enabled) {
+            this.clearOldDecorations(editor);
+            return;
+        }
+        const doc = this.decorationCache.get(editor.document.uri.toString());
+        if (doc) {
+            this.updateDecorations(doc, editor);
         }
     }
 
@@ -45,11 +53,11 @@ export abstract class DecorationProvider<T, D extends string = string> extends v
 
     protected getDecoration(input: T): [vscode.TextEditorDecorationType, string] {
         const key = this.getDecorationTypeKey(input);
-        if (this.decorationTypeMap.has(key)) {
-            return [this.decorationTypeMap.get(key)!, key];
+        if (this.typeRegistry.has(key)) {
+            return [this.typeRegistry.get(key)!, key];
         }
         const decoration = this.createDecorationType(input);
-        this.decorationTypeMap.set(key, decoration);
+        this.typeRegistry.set(key, decoration);
         return [decoration, key];
     }
 
@@ -79,53 +87,119 @@ export abstract class DecorationProvider<T, D extends string = string> extends v
     }
 
     protected clearDecorations() {
-        this.decorationTypeMap.forEach((value) => {
+        this.typeRegistry.forEach((value) => {
             value.dispose();
         });
-        this.decorationTypeMap.clear();
-        this.oldDecorations.forEach((value) => {
-            value.decorationType.dispose();
-        });
-        this.oldDecorations.clear();
-        this.oldDecorationsMap.forEach((map) => {
+        this.typeRegistry.clear();
+        this.clearAllOldDecorations();
+        this.decorationCache.forEach((map) => {
             map.forEach((value) => {
                 value.decorationType.dispose();
             });
         });
-        this.oldDecorationsMap.clear();
-        this.textEditorNeedsUpdate = true;
+        this.decorationCache.clear();
     }
 
     public updateDecorations(
         decorations: Map<string, DecorationMap>,
-        document?: vscode.TextDocument
+        editor: vscode.TextEditor | undefined
     ) {
-        if (document) {
-            if (decorations.size === 0) {
-                this.oldDecorationsMap.delete(document.uri.toString());
-            } else {
-                this.oldDecorationsMap.set(document.uri.toString(), decorations);
-            }
-        }
-
-        const activeEditor = vscode.window.activeTextEditor;
-        if (!activeEditor) {
-            this.textEditorNeedsUpdate = true;
+        if (!editor) {
             return;
         }
-        this.oldDecorations.forEach((value) => {
-            activeEditor.setDecorations(value.decorationType, []);
-        });
-        this.oldDecorations.clear();
+        this.clearOldDecorations(editor);
+
+        this.decorationCache.set(editor.document.uri.toString(), decorations);
+
         decorations.forEach((value) => {
-            activeEditor.setDecorations(value.decorationType, value.options);
-            this.oldDecorations.set(value.decorationType.key, value);
+            editor.setDecorations(value.decorationType, value.options);
         });
-        this.textEditorNeedsUpdate = false;
+        this.updateOldDecorations(editor, decorations);
+    }
+
+    public reapplyDecorations(editor: vscode.TextEditor) {
+        const uri = editor.document.uri.toString();
+        if (this.decorationCache.has(uri)) {
+            const decorations = this.decorationCache.get(uri)!;
+            this.updateDecorations(decorations, editor);
+            return;
+        }
+        this.clearOldDecorations(editor);
     }
 
     protected onDispose() {
         this.clearDecorations();
-        this.changeActiveTextEditorListener.dispose();
+        this.disposables.forEach((d) => d.dispose());
+    }
+
+    public clearAllOldDecorations() {
+        this.oldDecorations.forEach((decorationTypes, uri) => {
+            const editor = vscode.window.visibleTextEditors.find(
+                (e) => e.document.uri.toString() === uri
+            );
+            if (editor) {
+                decorationTypes.forEach((decorationType) => {
+                    editor.setDecorations(decorationType, []);
+                });
+            }
+        });
+        this.oldDecorations.clear();
+    }
+
+    public clearOldDecorations(editor: vscode.TextEditor) {
+        const uri = editor.document.uri.toString();
+        const old = this.oldDecorations.get(uri);
+        if (!old) {
+            return;
+        }
+        old.forEach((decorationType) => {
+            editor.setDecorations(decorationType, []);
+        });
+
+        this.oldDecorations.delete(uri);
+    }
+    public updateOldDecorations(
+        editor: vscode.TextEditor,
+        decorations: Map<string, DecorationMap>
+    ) {
+        const uri = editor.document.uri.toString();
+        if (!this.oldDecorations.has(uri)) {
+            this.oldDecorations.set(uri, new Set());
+        }
+        decorations.forEach((value) => {
+            this.oldDecorations.get(uri)!.add(value.decorationType);
+        });
+    }
+
+    public getCache(): Map<Uri, Map<string, DecorationMap>> {
+        return this.decorationCache;
+    }
+
+    public resetCacheForDocument(uri: vscode.Uri) {
+        const uriString = uri.toString();
+        if (this.decorationCache.has(uriString)) {
+            this.decorationCache.get(uriString)!.clear();
+            this.decorationCache.delete(uriString);
+        }
+    }
+
+    public removeDecorationsOnLine(editor: vscode.TextEditor | undefined, line: number, type: T) {
+        if (!editor) {
+            return;
+        }
+        const [decorationType, key] = this.getDecoration(type);
+        const decorations = this.decorationCache.get(editor.document.uri.toString());
+        if (decorations && decorations.has(key)) {
+            const options = decorations
+                .get(key)!
+                .options.filter((option) => option.range.start.line !== line);
+            if (options.length > 0) {
+                decorations.get(key)!.options = options;
+                editor.setDecorations(decorationType, options);
+            } else {
+                decorations.delete(key);
+                editor.setDecorations(decorationType, []);
+            }
+        }
     }
 }

@@ -9,8 +9,8 @@ class ScribeColorProvider
     readonly colorRegex =
         /(?<=\S)#[A-Fa-f0-9]{6}(?![A-Fa-f0-9])|(?<=Color: )(\d{1,3}),(\d{1,3}),(\d{1,3})/g;
 
-    protected onDidChangeActiveTextEditorRetCondition: () => boolean = () =>
-        ConfigProvider.registry.colorProviderOptions.get('alwaysEnabled') as boolean;
+    // protected onDidChangeActiveTextEditorRetCondition: () => boolean = () =>
+    //     ConfigProvider.registry.colorProviderOptions.get('alwaysEnabled') as boolean;
 
     private configChangeCallbackSymbol: symbol;
 
@@ -176,11 +176,14 @@ class ScribeColorProvider
                 }
             }
         }
-        this.updateDecorations(decorations);
+        const activeEditor = vscode.window.activeTextEditor;
+        if (activeEditor) {
+            this.updateDecorations(decorations, activeEditor);
+        }
         if (decorations.size === 0) {
-            this.oldDecorationsMap.delete(document.uri.toString());
+            this.decorationCache.delete(document.uri.toString());
         } else {
-            this.oldDecorationsMap.set(document.uri.toString(), decorations);
+            this.decorationCache.set(document.uri.toString(), decorations);
         }
 
         return colors;

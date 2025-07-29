@@ -1,10 +1,9 @@
-import { DecorationProvider } from '@common/providers/decorationProvider';
-import { checkFileType } from '@common/subscriptions/SubscriptionHelper';
+import { DecorationMap, DecorationProvider } from '@common/providers/decorationProvider';
 import { ConfigProvider } from '@common/providers/configProvider';
 import * as vscode from 'vscode';
 import { scribeCodeLensProvider } from '@common/providers/codeLensProvider';
 
-import { MythicNode, MythicNodeHandler } from '../MythicNode';
+import { MythicNode } from '../MythicNode';
 import { executeFunctionAfterActivation } from '../../../MythicScribe';
 
 export type NodeDecorationType = Parameters<
@@ -53,7 +52,10 @@ export class NodeDecorations extends DecorationProvider<NodeDecorationType, Node
             return;
         }
         const uri = node.document.uri.toString();
-        const decorations = node.registry.documentDataMap.get(uri).decorations;
+        if (!this.decorationCache.has(uri)) {
+            this.decorationCache.set(uri, new Map<string, DecorationMap>());
+        }
+        const decorations = this.decorationCache.get(uri)!;
         const range = this.addDecoration(decorations, index, input, options);
         if (codeLens) {
             if (!codeLens.range) {
@@ -81,17 +83,11 @@ export function updateActiveEditorDecorations() {
     if (!editor) {
         return;
     }
-    const type = checkFileType(editor.document.uri)?.key;
-    if (!type) {
+    const decorations = nodeDecorations.getCache().get(editor.document.uri.toString());
+    if (!decorations) {
         return;
     }
-    const temp = MythicNodeHandler.registry[type].documentDataMap.get(
-        editor.document.uri.toString()
-    ).decorations;
-    if (!temp) {
-        return;
-    }
-    for (const [_key, decoration] of temp) {
+    for (const [_key, decoration] of decorations) {
         editor.setDecorations(decoration.decorationType, []);
         if (decoration.options.length > 0) {
             editor.setDecorations(decoration.decorationType, decoration.options);
