@@ -7,6 +7,12 @@ import { generateNumbersInRange } from '../utils/schemautils';
 import { MythicAttribute } from './ScribeMechanic';
 import { retriggerCompletionsCommand } from '../utils/completionhelper';
 
+interface MetaKeyword {
+    description: string;
+    originType: string;
+    returnType: string;
+}
+
 class PlaceholderSegment {
     public identifier: string;
     constructor(identifier: string) {
@@ -22,7 +28,7 @@ class PlaceholderSegment {
 
 class ScriptedPlaceholderSegment extends PlaceholderSegment {
     constructor(identifier: string, get: () => string[], isOwnValue?: (value: string) => boolean) {
-        super('{' + identifier + '}');
+        super('{' + identifier.toLowerCase() + '}');
         this.get = get;
         if (isOwnValue) {
             this.isOwnValue = isOwnValue;
@@ -38,7 +44,7 @@ class ScriptedPlaceholderSegment extends PlaceholderSegment {
 const ScriptedPlaceholderSegmentHandler = {
     segments: new Map<string, ScriptedPlaceholderSegment>(),
     addSegment(segment: ScriptedPlaceholderSegment) {
-        this.segments.set(segment.identifier, segment);
+        this.segments.set(segment.identifier.toLowerCase(), segment);
     },
     getSegment(identifier: string): ScriptedPlaceholderSegment | undefined {
         return this.segments.get(identifier.toLowerCase());
@@ -77,7 +83,7 @@ class Placeholder {
 export class PlaceholderNode {
     public value: PlaceholderSegment;
     public attributes: MythicAttribute[] = [];
-    public children: PlaceholderNode[] = [];
+    public children: Record<string, PlaceholderNode> = {};
     constructor(value: PlaceholderSegment) {
         this.value = value;
     }
@@ -91,19 +97,34 @@ export class PlaceholderNode {
         const headNode = nodes.shift();
         if (headNode) {
             const headNodeHash = headNode.toString();
-            const existingNode = this.children.find((child) => child.toString() === headNodeHash);
+            const existingNode = this.children[headNodeHash];
             if (existingNode) {
                 existingNode.addNodes(nodes);
             } else {
-                this.children.push(headNode);
+                this.children[headNodeHash] = headNode;
                 headNode.addNodes(nodes);
             }
         }
     }
 
+    mergeNode(node: PlaceholderNode) {
+        Object.values(node.children).forEach((child) => {
+            const existingChild = this.children[child.toString()];
+            if (existingChild) {
+                existingChild.mergeNode(child);
+            } else {
+                this.children[child.toString()] = child;
+            }
+        });
+    }
+
+    getChild(key: string): PlaceholderNode | undefined {
+        return this.children[key];
+    }
+
     printTree(indent = 0): string {
         let output = ' '.repeat(indent) + this.toString() + ' -> ' + this.value.get() + '\n';
-        this.children.forEach((child) => {
+        Object.values(this.children).forEach((child) => {
             output += child.printTree(indent + 2);
         });
         return output;
@@ -112,13 +133,13 @@ export class PlaceholderNode {
     generateCompletions(): vscode.CompletionItem[] {
         const completions: vscode.CompletionItem[] = [];
 
-        this.children.forEach((child) => {
+        Object.values(this.children).forEach((child) => {
             child.value.get().forEach((value) => {
                 const completion = new vscode.CompletionItem(
                     value,
                     vscode.CompletionItemKind.Field
                 );
-                if (child.children.length > 0) {
+                if (Object.keys(child.children).length > 0) {
                     if (child.isEnd) {
                         completions.push(
                             new vscode.CompletionItem(value + '>', vscode.CompletionItemKind.Field)
@@ -176,11 +197,11 @@ export function findMatchingChildNodeByValue(
     node: PlaceholderNode,
     value: string
 ): PlaceholderNode | undefined {
-    const foundNode = node.children.find((child) => child.toString() === value);
+    const foundNode = node.children[value];
     if (foundNode) {
         return foundNode;
     }
-    return node.children.find((child) => {
+    return Object.values(node.children).find((child) => {
         if (child.value instanceof ScriptedPlaceholderSegment) {
             return child.value.isOwnValue(value);
         }
@@ -232,6 +253,12 @@ globalCallbacks.activation.registerCallback('pre-activation', () => {
     ScribeEnumHandler.enumCallback.registerCallback('placeholder', (target: AbstractScribeEnum) => {
         initializePlaceholders(target.getDataset());
     });
+    ScribeEnumHandler.enumCallback.registerCallback(
+        'variableplaceholdermetakeyword',
+        (target: AbstractScribeEnum) => {
+            initializeMetaKeywords(target.getDataset() as Map<string, MetaKeyword>);
+        }
+    );
 });
 
 export async function initializePlaceholders(placeholderDataset: Map<string, EnumDatasetValue>) {
@@ -255,6 +282,11 @@ export async function initializePlaceholders(placeholderDataset: Map<string, Enu
         (value) => !isNaN(parseFloat(value))
     );
     new ScriptedPlaceholderSegment(
+        'Double',
+        () => generateNumbersInRange(0, 10, 0.5, true).map((num) => num.toString()),
+        (value) => !isNaN(parseFloat(value))
+    );
+    new ScriptedPlaceholderSegment(
         'IntegerRange',
         () => ['1to2', '-1to2', '-2to-1'],
         (value) => /^-?\d+to-?\d+$/.test(value)
@@ -264,6 +296,34 @@ export async function initializePlaceholders(placeholderDataset: Map<string, Enu
         () => ['1.0to2.0', '-1.0to2.0', '-2.0to-1.0'],
         (value) => /^-?\d+(\.\d+)?to-?\d+(\.\d+)?$/.test(value)
     );
+    new ScriptedPlaceholderSegment(
+        'Map',
+        () => ['key1=value1', 'key2=value2', 'key1=value1;key2=value2'],
+        (value) => /^((.*=.*);)*(.*=.*)$/m.test(value)
+    );
+    new ScriptedPlaceholderSegment(
+        'List',
+        () => ['value1', 'value1,value2', 'value1,value2,value3'],
+        (value) => /^(.*,)*(.*)$/.test(value)
+    );
+    new ScriptedPlaceholderSegment(
+        'Set',
+        () => ['value1', 'value1,value2', 'value1,value2,value3'],
+        (value) => /^(.*,)*(.*)$/.test(value)
+    );
+    new ScriptedPlaceholderSegment(
+        'Vector',
+        () => ['1,2,3', '1.0,2.0,3.0'],
+        (value) => /^\d+(\.\d+),\d+(\.\d+),\d+(\.\d+)$/.test(value)
+    );
+
+    ['VariableName', 'Text', 'Value', 'Key', 'Namespace'].forEach((name) => {
+        new ScriptedPlaceholderSegment(
+            name,
+            () => [],
+            () => true
+        );
+    });
 
     // Generate placeholder nodes for all placeholder enums
     for (const key of placeholderDataset.keys()) {
@@ -274,4 +334,56 @@ export async function initializePlaceholders(placeholderDataset: Map<string, Enu
     ScribePlaceholderRoot.addNodes(
         parsePlaceholder('placeholder.{CustomPlaceholder}').getPlaceholderNodes()
     );
+}
+
+interface MetaKeywordData {
+    input: string;
+    nodes: PlaceholderNode[];
+    output: string;
+}
+
+export const ScribePlaceholderMetaKeywordsRoot: MetaKeywordData[] = [];
+
+export async function initializeMetaKeywords(mkDataset: Map<string, MetaKeyword>) {
+    for (const [key, value] of mkDataset.entries()) {
+        ScribePlaceholderMetaKeywordsRoot.push({
+            input: value.originType,
+            nodes: parsePlaceholder(key).getPlaceholderNodes(),
+            output: value.returnType,
+        });
+    }
+
+    const universalNodes = ScribePlaceholderMetaKeywordsRoot.filter((mk) => mk.input === 'ALL');
+    universalNodes.forEach((mk) => {
+        ScribePlaceholderMetaKeywordsRoot.forEach((otherMk) => {
+            otherMk.nodes[otherMk.nodes.length - 1].addNodes(Array.from(mk.nodes));
+        });
+    });
+
+    const polymorphicNodes = ScribePlaceholderMetaKeywordsRoot.filter((mk) => mk.output === 'ALL');
+    polymorphicNodes.forEach((mk) => {
+        ScribePlaceholderMetaKeywordsRoot.forEach((otherMk) => {
+            mk.nodes[mk.nodes.length - 1].addNodes(Array.from(otherMk.nodes));
+        });
+    });
+
+    ScribePlaceholderMetaKeywordsRoot.forEach((mk) => {
+        ScribePlaceholderMetaKeywordsRoot.forEach((otherMk) => {
+            if (mk.input === otherMk.output) {
+                otherMk.nodes[otherMk.nodes.length - 1].addNodes(Array.from(mk.nodes));
+            }
+        });
+    });
+
+    ['caster', 'target', 'skill', 'world', 'global'].forEach((name) => {
+        const variablePlaceholderLastNode = ScribePlaceholderRoot.getChild(name)
+            ?.getChild('var')
+            ?.getChild('{variablename}');
+
+        if (variablePlaceholderLastNode) {
+            ScribePlaceholderMetaKeywordsRoot.forEach((mk) => {
+                variablePlaceholderLastNode.addNodes(mk.nodes);
+            });
+        }
+    });
 }

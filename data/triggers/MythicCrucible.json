@@ -189,6 +189,22 @@
     },
     {
         "plugin": "MythicCrucible",
+        "class": "STOP_USING_ITEM",
+        "implements": [
+            "Item"
+        ],
+        "name": [
+            "onStopuse",
+            "onCanceluse",
+            "onStopusing",
+            "onCancelusing"
+        ],
+        "description": "Executes the skill when the player stops using the item.\n> The associated [@trigger](https://git.lumine.io/mythiccraft/mythiccrucible/-/wikis/../../../MythicMobs/-/wikis/Skills/Targeters/Trigger) is the player itself",
+        "link": "https://git.lumine.io/mythiccraft/mythiccrucible/-/wikis/Skills/Triggers/onCancelUse",
+        "attributes": []
+    },
+    {
+        "plugin": "MythicCrucible",
         "class": "UNHELD",
         "implements": [
             "Item"

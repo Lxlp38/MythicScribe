@@ -150,7 +150,8 @@
         "class": "ConsumeHeldDurabilityMechanic",
         "extends": "SkillMechanic",
         "implements": [
-            "INoTargetSkill"
+            "INoTargetSkill",
+            "IDurabilityMechanic"
         ],
         "name": [
             "consumehelddurability"
@@ -217,7 +218,8 @@
         "class": "ConsumeItemDurabilityMechanic",
         "extends": "SkillMechanic",
         "implements": [
-            "ITargetedEntitySkill"
+            "ITargetedEntitySkill",
+            "IDurabilityMechanic"
         ],
         "name": [
             "consumeitemdurability",
@@ -332,7 +334,8 @@
         "class": "ConsumeUsedDurabilityMechanic",
         "extends": "SkillMechanic",
         "implements": [
-            "INoTargetSkill"
+            "INoTargetSkill",
+            "IDurabilityMechanic"
         ],
         "name": [
             "consumeuseddurability"

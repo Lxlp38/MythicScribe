@@ -4,6 +4,7 @@
 
 ### Added
 - `decorationOptions.specificSoundPlayback` configuration to better handle what kind of sound playback decorations should pop up. This configuration defaults to false, hiding all sound playback decoration *except* for the ones on top of Metaskills to play all sounds inside of it. If you want to hide *those* too, the `decorationOptions.soundPlayback` configuration can be set to false to hide those specifically
+- Completion support for variable placeholders' meta keywords
 
 ### Changed
 - When the `editor.acceptSuggestionOnEnter` config is set to anything but `false`, file-specific suggestions (the suggestions triggered when pressing enter) will not pop up automatically. They can, of course, still be programmatically called by using `ctrl+space`.  

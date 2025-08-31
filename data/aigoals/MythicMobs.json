@@ -1149,6 +1149,57 @@
     },
     {
         "plugin": "MythicMobs",
+        "class": "MoveWithinGoal",
+        "extends": "WrappedPathfindingGoal",
+        "implements": [
+            "PathfinderHolder"
+        ],
+        "name": [
+            "moveWithinDistanceOfTarget",
+            "moveWithin"
+        ],
+        "description": "Moves towards the target to be within a certain range",
+        "link": "https://git.lumine.io/mythiccraft/MythicMobs/-/wikis/Mobs/ai/goals/MoveWithinDistanceOfTarget",
+        "attributes": [
+            {
+                "name": [
+                    "speed",
+                    "s"
+                ],
+                "type": "Double",
+                "description": "The speed modifier",
+                "link": "https://git.lumine.io/mythiccraft/MythicMobs/-/wikis/Mobs/ai/goals/MoveWithinDistanceOfTarget",
+                "default_value": "1"
+            },
+            {
+                "name": [
+                    "minrange",
+                    "minrange",
+                    "range",
+                    "r",
+                    "distance",
+                    "d"
+                ],
+                "type": "Double",
+                "description": "The minimum range to from the target entity",
+                "link": "https://git.lumine.io/mythiccraft/MythicMobs/-/wikis/Mobs/ai/goals/MoveWithinDistanceOfTarget",
+                "default_value": "10.0"
+            },
+            {
+                "name": [
+                    "maxrange",
+                    "maxrange",
+                    "maxr"
+                ],
+                "type": "Double",
+                "description": "The maximum range to from the target entity",
+                "link": "https://git.lumine.io/mythiccraft/MythicMobs/-/wikis/Mobs/ai/goals/MoveWithinDistanceOfTarget",
+                "default_value": "32.0"
+            }
+        ]
+    },
+    {
+        "plugin": "MythicMobs",
         "class": "OpenDoorGoal",
         "extends": "WrappedPathfindingGoal",
         "implements": [

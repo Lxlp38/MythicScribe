@@ -1,4 +1,10 @@
 {
+    "^dot": {
+        "description": "`.`"
+    },
+    "^dot2": {
+        "description": "`<^dot>`"
+    },
     "caster.damage": {
         "description": "Returns the caster's Attack_Damage attribute value"
     },
@@ -95,72 +101,6 @@
     "caster.attack_cooldown": {
         "description": "Returns the attack cooldown of the player's equipped item. The value will be a float between 0 (maximum cooldown for the item) and 1 (no cooldown)"
     },
-    "caster.var.{VariableName}": {
-        "description": "Returns the value of the variable {VariableName} on the variable registry of the caster of the mechanic"
-    },
-    "target.var.{VariableName}": {
-        "description": "Returns the value of the variable {VariableName} on the variable registry of the target of the mechanic"
-    },
-    "world.var.{VariableName}": {
-        "description": "Returns the value of the variable {VariableName} on the variable registry of the world the mechanic is used in"
-    },
-    "global.var.{VariableName}": {
-        "description": "Returns the value of the variable {VariableName} on the variable registry of the whole server"
-    },
-    "skill.var.{VariableName}": {
-        "description": "Returns the value of the variable {VariableName} on the current [skill tree](https://git.lumine.io/mythiccraft/MythicMobs/-/wikis/Skills/SkillTrees)"
-    },
-    "skill.var.damage-amount": {
-        "description": "Returns the amount of damage taken or done"
-    },
-    "skill.var.damage-type": {
-        "description": "Returns the type of damage taken or done, if any"
-    },
-    "skill.var.damage-cause": {
-        "description": "Returns the cause of damage taken/done"
-    },
-    "skill.var.aura-name": {
-        "description": "Returns the name of the aura"
-    },
-    "skill.var.aura-type": {
-        "description": "Returns the type of the aura"
-    },
-    "skill.var.aura-charges": {
-        "description": "Returns the amount of charges the aura has left"
-    },
-    "skill.var.aura-duration": {
-        "description": "Returns the remaining duration of the aura"
-    },
-    "skill.var.aura-duration-millis": {
-        "description": "Returns the remaining duration of the aura, in milliseconds"
-    },
-    "skill.var.aura-stacks": {
-        "description": "Returns the amount of stacks the aura has left"
-    },
-    "skill.var.input": {
-        "description": "Returns the chat input"
-    },
-    "skill.targets": {
-        "description": "Returns the amount of inherited targets"
-    },
-    "skill.var.interval": {
-        "description": "Returns the current iteration"
-    },
-    "skill.var.itr": {
-        "description": "Returns the current iteration"
-    },
-    "skill.var.volume": {
-        "description": "Returns a float value between 1 and 15 representing the intensity of the sound. Directly proportional to the distance (the further away the source, the higher this value)"
-    },
-    "skill.var.sound-type": {
-        "description": "Returns the type of the sound"
-    },
-    "skill.var.hit-block-type": {
-        "description": "Returns the block that was hit, or AIR if none"
-    },
-    "skill.var.bow-tension": {
-        "description": "Returns the force with which the projectile has been shot"
-    },
     "target.uuid": {
         "description": "Returns the UUID of the target"
     },
@@ -244,6 +184,12 @@
     },
     "target.distancesquared": {
         "description": "Return the squared distance between the caster and the mechanic's target. If the target cannot be found in the caster's world, returns the maximum double value"
+    },
+    "target.armor": {
+        "description": "Returns the target's armor value"
+    },
+    "target.item.itemstack.{EquipSlot}": {
+        "description": "Returns the ItemStack of the item in the specified slot on the target player. The slot can either be a named one (HAND, OFFHAND etc.) or a number"
     },
     "trigger.uuid": {
         "description": "Returns the UUID of the entity triggering the skill"
@@ -332,6 +278,12 @@
     "utils.epoch": {
         "description": "Returns the current epoch"
     },
+    "utils.epoch.seconds": {
+        "description": "Returns the current epoch"
+    },
+    "utils.epoch.timestamp": {
+        "description": "Returns the amount of milliseconds elapsed since the epoch"
+    },
     "utils.epoch.millis": {
         "description": "Returns the amount of milliseconds of the current epoch"
     },
@@ -350,6 +302,9 @@
     "mythicitem.{MythicItem}.display": {
         "description": "Returns the display name of the specified mythic item"
     },
+    "mythicitem.{MythicItem}.itemstack": {
+        "description": "Returns the itemstack of the specified mythic item"
+    },
     "caster.score.{Objective}": {
         "description": "Returns the score of the caster from \"{Objective}\""
     },
@@ -367,6 +322,72 @@
     },
     "score.objective.dummyname": {
         "description": "Returns the score of \"dummyname\" (fake player) from \"objective\""
+    },
+    "caster.var.{VariableName}": {
+        "description": "Returns the value of the variable {VariableName} on the variable registry of the caster of the mechanic"
+    },
+    "target.var.{VariableName}": {
+        "description": "Returns the value of the variable {VariableName} on the variable registry of the target of the mechanic"
+    },
+    "world.var.{VariableName}": {
+        "description": "Returns the value of the variable {VariableName} on the variable registry of the world the mechanic is used in"
+    },
+    "global.var.{VariableName}": {
+        "description": "Returns the value of the variable {VariableName} on the variable registry of the whole server"
+    },
+    "skill.var.{VariableName}": {
+        "description": "Returns the value of the variable {VariableName} on the current [skill tree](https://git.lumine.io/mythiccraft/MythicMobs/-/wikis/Skills/SkillTrees)"
+    },
+    "skill.var.damage-amount": {
+        "description": "Returns the amount of damage taken or done"
+    },
+    "skill.var.damage-type": {
+        "description": "Returns the type of damage taken or done, if any"
+    },
+    "skill.var.damage-cause": {
+        "description": "Returns the cause of damage taken/done"
+    },
+    "skill.var.aura-name": {
+        "description": "Returns the name of the aura"
+    },
+    "skill.var.aura-type": {
+        "description": "Returns the type of the aura"
+    },
+    "skill.var.aura-charges": {
+        "description": "Returns the amount of charges the aura has left"
+    },
+    "skill.var.aura-duration": {
+        "description": "Returns the remaining duration of the aura"
+    },
+    "skill.var.aura-duration-millis": {
+        "description": "Returns the remaining duration of the aura, in milliseconds"
+    },
+    "skill.var.aura-stacks": {
+        "description": "Returns the amount of stacks the aura has left"
+    },
+    "skill.var.input": {
+        "description": "Returns the chat input"
+    },
+    "skill.targets": {
+        "description": "Returns the amount of inherited targets"
+    },
+    "skill.var.interval": {
+        "description": "Returns the current iteration"
+    },
+    "skill.var.itr": {
+        "description": "Returns the current iteration"
+    },
+    "skill.var.volume": {
+        "description": "Returns a float value between 1 and 15 representing the intensity of the sound. Directly proportional to the distance (the further away the source, the higher this value)"
+    },
+    "skill.var.sound-type": {
+        "description": "Returns the type of the sound"
+    },
+    "skill.var.hit-block-type": {
+        "description": "Returns the block that was hit, or AIR if none"
+    },
+    "skill.var.bow-tension": {
+        "description": "Returns the force with which the projectile has been shot"
     },
     "caster.item.nbt.KEY": {
         "description": "If no slot is specified, this checks the caster's item that called the skill."

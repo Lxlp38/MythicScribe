@@ -1632,6 +1632,16 @@
             },
             {
                 "name": [
+                    "vanillaonly",
+                    "vanilla"
+                ],
+                "type": "Boolean",
+                "description": "Whether the matched item can only be a vanilla one",
+                "link": "https://git.lumine.io/mythiccraft/MythicMobs/-/wikis/Items/Item-Matcher",
+                "default_value": "false"
+            },
+            {
+                "name": [
                     "types",
                     "type",
                     "t",
@@ -1979,6 +1989,16 @@
                 ],
                 "type": "Boolean",
                 "description": "Whether the matcher should more strictly match the target item",
+                "link": "https://git.lumine.io/mythiccraft/MythicMobs/-/wikis/Items/Item-Matcher",
+                "default_value": "false"
+            },
+            {
+                "name": [
+                    "vanillaonly",
+                    "vanilla"
+                ],
+                "type": "Boolean",
+                "description": "Whether the matched item can only be a vanilla one",
                 "link": "https://git.lumine.io/mythiccraft/MythicMobs/-/wikis/Items/Item-Matcher",
                 "default_value": "false"
             },
@@ -2344,6 +2364,34 @@
     },
     {
         "plugin": "MythicMobs",
+        "class": "IsSkillCondition",
+        "extends": "SkillCondition",
+        "implements": [
+            "ISkillMetaCondition"
+        ],
+        "name": [
+            "isskill",
+            "skillexists"
+        ],
+        "description": "Checks whether the specified metaskill exists",
+        "link": "https://git.lumine.io/mythiccraft/MythicMobs/-/wikis/Skills/Conditions/IsSkill",
+        "attributes": [
+            {
+                "name": [
+                    "name",
+                    "n",
+                    "skill",
+                    "s"
+                ],
+                "type": "PlaceholderString",
+                "description": "The metaskill to check the existance of",
+                "link": "https://git.lumine.io/mythiccraft/MythicMobs/-/wikis/Skills/Conditions/IsSkill",
+                "default_value": ""
+            }
+        ]
+    },
+    {
+        "plugin": "MythicMobs",
         "class": "IsTamedCondition",
         "extends": "SkillCondition",
         "implements": [
@@ -2475,6 +2523,16 @@
                 ],
                 "type": "Boolean",
                 "description": "Whether the matcher should more strictly match the target item",
+                "link": "https://git.lumine.io/mythiccraft/MythicMobs/-/wikis/Items/Item-Matcher",
+                "default_value": "false"
+            },
+            {
+                "name": [
+                    "vanillaonly",
+                    "vanilla"
+                ],
+                "type": "Boolean",
+                "description": "Whether the matched item can only be a vanilla one",
                 "link": "https://git.lumine.io/mythiccraft/MythicMobs/-/wikis/Items/Item-Matcher",
                 "default_value": "false"
             },
@@ -3134,6 +3192,16 @@
         "attributes": [
             {
                 "name": [
+                    "exactmatch",
+                    "em"
+                ],
+                "type": "Boolean",
+                "description": "Whether the types specified should exactly match the name of a MythicMob. If this attribute is set to `false`, this condition will also work if the evaluated entity's MythicMob name only *contains* any of the specified types",
+                "link": "https://git.lumine.io/mythiccraft/MythicMobs/-/wikis/Skills/Conditions/mythicmobtype",
+                "default_value": "true"
+            },
+            {
+                "name": [
                     "types",
                     "type",
                     "t"
@@ -3535,7 +3603,8 @@
             "IEntityComparisonCondition"
         ],
         "name": [
-            "owner"
+            "owner",
+            "isOwner"
         ],
         "description": "Checks if the target entity is the owner of the caster. \n\n- If the caster is a tamable mob, if will check if the target entity is the mob's \"vanilla\" owner\n- If the caster is not a tamable mob, then to match the target entity must have been set as the owner via the [SetOwner](https://git.lumine.io/mythiccraft/MythicMobs/-/wikis/skills/mechanics/setowner) mechanic",
         "link": "https://git.lumine.io/mythiccraft/MythicMobs/-/wikis/Skills/Conditions/owner",
@@ -3800,6 +3869,20 @@
         ],
         "description": "Checks if MythicMobs Premium is running on the server",
         "link": "https://git.lumine.io/mythiccraft/MythicMobs/-/wikis/Skills/Conditions/premium",
+        "attributes": []
+    },
+    {
+        "plugin": "MythicMobs",
+        "class": "ProjectileHasEndedCondition",
+        "extends": "SkillCondition",
+        "implements": [
+            "ISkillMetaCondition"
+        ],
+        "name": [
+            "projectileHasEnded"
+        ],
+        "description": "Checks if the calling projectile has ended",
+        "link": "https://git.lumine.io/mythiccraft/MythicMobs/-/wikis/Skills/Conditions/ProjectileHasEnded",
         "attributes": []
     },
     {
@@ -4609,6 +4692,75 @@
     },
     {
         "plugin": "MythicMobs",
+        "class": "VariableContainsCondition",
+        "extends": "SkillCondition",
+        "implements": [
+            "IEntityCondition",
+            "ILocationCondition",
+            "ISkillMetaCondition",
+            "ISkillMetaComparisonCondition"
+        ],
+        "name": [
+            "variableContains",
+            "variableContain",
+            "varContains",
+            "varContain",
+            "varCont"
+        ],
+        "description": "s\nChecks if the given variable contains a certain value.\n- For String variables, is it checked if the variable contains a substring. Based on the compareType used, it can also be checked if the variable \"starts with\" or \"ends with\" the given value.\n- For List or Set variables\n  - If the value is a simple string, it is checked if the List or Set contains the value\n  - If the entry is another List or Set, it is checked if the variable contains all or any of the elements of the value, based on the compareType.",
+        "link": "https://git.lumine.io/mythiccraft/MythicMobs/-/wikis/Skills/Conditions/VariableContains",
+        "attributes": [
+            {
+                "name": [
+                    "value",
+                    "val",
+                    "v"
+                ],
+                "type": "String",
+                "description": "The value of the comparison",
+                "link": "https://git.lumine.io/mythiccraft/MythicMobs/-/wikis/Skills/Conditions/VariableContains",
+                "default_value": ""
+            },
+            {
+                "name": [
+                    "compareType",
+                    "compare",
+                    "comp"
+                ],
+                "type": "String",
+                "description": "The comparison type to use. Can be `ALL`, `ANY`, `STARTS_WITH` or `ENDS_WITH`.",
+                "link": "https://git.lumine.io/mythiccraft/MythicMobs/-/wikis/Skills/Conditions/VariableContains",
+                "default_value": "ALL"
+            },
+            {
+                "name": [
+                    "name",
+                    "n",
+                    "variable",
+                    "var",
+                    "key",
+                    "k"
+                ],
+                "type": null,
+                "description": "The name of the variable. Can optionally be prefixed with scope",
+                "link": "https://git.lumine.io/mythiccraft/MythicMobs/-/wikis/Skills/Conditions/VariableContains",
+                "default_value": ""
+            },
+            {
+                "name": [
+                    "scope",
+                    "s"
+                ],
+                "type": null,
+                "description": "The [scope](https://git.lumine.io/mythiccraft/MythicMobs/-/wikis/Skills/Variables#variable-scopes) of the variable, e.g. where the variable is located",
+                "link": "https://git.lumine.io/mythiccraft/MythicMobs/-/wikis/Skills/Conditions/VariableContains",
+                "default_value": "",
+                "enum": "VariableScope"
+            }
+        ]
+    },
+    {
+        "plugin": "MythicMobs",
         "class": "VariableEqualsCondition",
         "extends": "SkillCondition",
         "implements": [
@@ -4632,7 +4784,7 @@
                     "val",
                     "v"
                 ],
-                "type": "String",
+                "type": "PolymorphicPlaceholder",
                 "description": "The value that the variable must equal to return true. Must be applicable for type or the mechanic will fail. Should be surrounded in double-quotes if using spaces. Value can also include placeholders, even from PlaceholderAPI.",
                 "link": "https://git.lumine.io/mythiccraft/MythicMobs/-/wikis/Skills/Conditions/variableequals",
                 "default_value": ""
@@ -4846,6 +4998,16 @@
             },
             {
                 "name": [
+                    "vanillaonly",
+                    "vanilla"
+                ],
+                "type": "Boolean",
+                "description": "Whether the matched item can only be a vanilla one",
+                "link": "https://git.lumine.io/mythiccraft/MythicMobs/-/wikis/Items/Item-Matcher",
+                "default_value": "false"
+            },
+            {
+                "name": [
                     "types",
                     "type",
                     "t",
@@ -4914,6 +5076,33 @@
     },
     {
         "plugin": "MythicMobs",
+        "class": "XDiffCondition",
+        "extends": "SkillCondition",
+        "implements": [
+            "IEntityComparisonCondition",
+            "ILocationComparisonCondition"
+        ],
+        "name": [
+            "xdiff"
+        ],
+        "description": "Checks the difference in x value (height) between the target entity and the caster.",
+        "link": "https://git.lumine.io/mythiccraft/MythicMobs/-/wikis/Skills/Conditions/Xdiff",
+        "attributes": [
+            {
+                "name": [
+                    "difference",
+                    "diff",
+                    "d"
+                ],
+                "type": "String",
+                "description": "The x difference to check",
+                "link": "https://git.lumine.io/mythiccraft/MythicMobs/-/wikis/Skills/Conditions/Xdiff",
+                "default_value": ""
+            }
+        ]
+    },
+    {
+        "plugin": "MythicMobs",
         "class": "YDiffCondition",
         "extends": "SkillCondition",
         "implements": [
@@ -4971,6 +5160,33 @@
                 "description": "Whether to clamp yaw to a value in a 0-360 range",
                 "link": "https://git.lumine.io/mythiccraft/MythicMobs/-/wikis/Skills/Conditions/yaw",
                 "default_value": "true"
+            }
+        ]
+    },
+    {
+        "plugin": "MythicMobs",
+        "class": "ZDiffCondition",
+        "extends": "SkillCondition",
+        "implements": [
+            "IEntityComparisonCondition",
+            "ILocationComparisonCondition"
+        ],
+        "name": [
+            "zdiff"
+        ],
+        "description": "Checks the difference in z value (height) between the target entity and the caster.",
+        "link": "https://git.lumine.io/mythiccraft/MythicMobs/-/wikis/Skills/Conditions/Zdiff",
+        "attributes": [
+            {
+                "name": [
+                    "difference",
+                    "diff",
+                    "d"
+                ],
+                "type": "String",
+                "description": "The z difference to check",
+                "link": "https://git.lumine.io/mythiccraft/MythicMobs/-/wikis/Skills/Conditions/Zdiff",
+                "default_value": ""
             }
         ]
     }

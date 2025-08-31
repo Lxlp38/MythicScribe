@@ -1,0 +1,577 @@
+{
+    "cache": {
+        "originType": "ALL",
+        "returnType": "ALL",
+        "description": "Given the input value and the keywords used after it, this keyword will cache the result the first time the placeholder is parsed, and directly return the cached value each subsequent parsing"
+    },
+    "formatted": {
+        "originType": "ALL",
+        "returnType": "STRING",
+        "description": "Returns a more human-readable version of the input value"
+    },
+    "tointeger": {
+        "originType": "ALL",
+        "returnType": "INTEGER",
+        "description": "Converts the value to an Integer without doing any specific operation, allowing chaining for Integer meta keywords"
+    },
+    "tofloat": {
+        "originType": "ALL",
+        "returnType": "FLOAT",
+        "description": "Converts the value to a Float without doing any specific operation, allowing chaining for Float meta keywords"
+    },
+    "todouble": {
+        "originType": "ALL",
+        "returnType": "DOUBLE",
+        "description": "Converts the value to a Double without doing any specific operation, allowing chaining for Double meta keywords"
+    },
+    "toboolean": {
+        "originType": "ALL",
+        "returnType": "BOOLEAN",
+        "description": "Converts the value to a Boolean without doing any specific operation, allowing chaining for Boolean meta keywords"
+    },
+    "tostring": {
+        "originType": "ALL",
+        "returnType": "STRING",
+        "description": "Converts the value to a String without doing any specific operation, allowing chaining for String meta keywords"
+    },
+    "tolocation": {
+        "originType": "ALL",
+        "returnType": "LOCATION",
+        "description": "Converts the value to a Location without doing any specific operation, allowing chaining for Location meta keywords"
+    },
+    "tovector": {
+        "originType": "ALL",
+        "returnType": "VECTOR",
+        "description": "Converts the value to a Vector without doing any specific operation, allowing chaining for Vector meta keywords"
+    },
+    "tolist": {
+        "originType": "ALL",
+        "returnType": "LIST",
+        "description": "Converts the value to a List without doing any specific operation, allowing chaining for List meta keywords"
+    },
+    "toset": {
+        "originType": "ALL",
+        "returnType": "SET",
+        "description": "Converts the value to a Set without doing any specific operation, allowing chaining for Set meta keywords"
+    },
+    "tomap": {
+        "originType": "ALL",
+        "returnType": "MAP",
+        "description": "Converts the value to a Map without doing any specific operation, allowing chaining for Map meta keywords"
+    },
+    "totime": {
+        "originType": "ALL",
+        "returnType": "TIME",
+        "description": "Converts the value to a Time without doing any specific operation, allowing chaining for Time meta keywords"
+    },
+    "add.{Integer}": {
+        "originType": "INTEGER",
+        "returnType": "INTEGER",
+        "description": "The addition between the value and the specified Integer"
+    },
+    "sub.{Integer}": {
+        "originType": "INTEGER",
+        "returnType": "INTEGER",
+        "description": "The subtraction between the value and the specified Integer"
+    },
+    "mul.{Integer}": {
+        "originType": "INTEGER",
+        "returnType": "INTEGER",
+        "description": "The multiplication between the value and the specified Integer"
+    },
+    "div.{Integer}": {
+        "originType": "INTEGER",
+        "returnType": "INTEGER",
+        "description": "The division between the value and the specified Integer"
+    },
+    "abs": {
+        "originType": "DOUBLE",
+        "returnType": "DOUBLE",
+        "description": "The absolute value of the value"
+    },
+    "add.{Float}": {
+        "originType": "FLOAT",
+        "returnType": "FLOAT",
+        "description": "The addition between the value and the specified Float"
+    },
+    "sub.{Float}": {
+        "originType": "FLOAT",
+        "returnType": "FLOAT",
+        "description": "The subtraction between the value and the specified Float"
+    },
+    "mul.{Float}": {
+        "originType": "FLOAT",
+        "returnType": "FLOAT",
+        "description": "The multiplication between the value and the specified Float"
+    },
+    "div.{Float}": {
+        "originType": "FLOAT",
+        "returnType": "FLOAT",
+        "description": "The division between the value and the specified Float"
+    },
+    "add.{Double}": {
+        "originType": "DOUBLE",
+        "returnType": "DOUBLE",
+        "description": "The addition between the value and the specified Double"
+    },
+    "sub.{Double}": {
+        "originType": "DOUBLE",
+        "returnType": "DOUBLE",
+        "description": "The subtraction between the value and the specified Double"
+    },
+    "mul.{Double}": {
+        "originType": "DOUBLE",
+        "returnType": "DOUBLE",
+        "description": "The multiplication between the value and the specified Double"
+    },
+    "div.{Double}": {
+        "originType": "DOUBLE",
+        "returnType": "DOUBLE",
+        "description": "The division between the value and the specified Double"
+    },
+    "inverse": {
+        "originType": "BOOLEAN",
+        "returnType": "BOOLEAN",
+        "description": "The inverse of the value"
+    },
+    "number": {
+        "originType": "BOOLEAN",
+        "returnType": "INTEGER",
+        "description": "The value as either a 0 (false) or 1 (true)"
+    },
+    "yesno": {
+        "originType": "BOOLEAN",
+        "returnType": "STRING",
+        "description": "The value as either a no (false) or yes (true)"
+    },
+    "union.{Boolean}": {
+        "originType": "BOOLEAN",
+        "returnType": "BOOLEAN",
+        "description": "Logical OR with specified Boolean"
+    },
+    "intersection.{Boolean}": {
+        "originType": "BOOLEAN",
+        "returnType": "BOOLEAN",
+        "description": "Logical AND with specified Boolean"
+    },
+    "difference.{Boolean}": {
+        "originType": "BOOLEAN",
+        "returnType": "BOOLEAN",
+        "description": "True if value is true and argument is false"
+    },
+    "size": {
+        "originType": "MAP",
+        "returnType": "INTEGER",
+        "description": "Number of key-value pairs"
+    },
+    "uppercase": {
+        "originType": "STRING",
+        "returnType": "STRING",
+        "description": "The string in uppercase"
+    },
+    "lowercase": {
+        "originType": "STRING",
+        "returnType": "STRING",
+        "description": "The string in lowercase"
+    },
+    "capitalize": {
+        "originType": "STRING",
+        "returnType": "STRING",
+        "description": "The string with the first character in uppercase"
+    },
+    "trim": {
+        "originType": "STRING",
+        "returnType": "STRING",
+        "description": "The string with leading and trailing spaces removed"
+    },
+    "replace.{old}.{new}": {
+        "originType": "STRING",
+        "returnType": "STRING",
+        "description": "The string with occurrences of `old` replaced by `new`"
+    },
+    "remove.{text}": {
+        "originType": "STRING",
+        "returnType": "STRING",
+        "description": "The string with occurrences of `text` removed"
+    },
+    "contains.{text}": {
+        "originType": "STRING",
+        "returnType": "BOOLEAN",
+        "description": "Whether the string contains `text`"
+    },
+    "substring.{start}.{end}": {
+        "originType": "STRING",
+        "returnType": "STRING",
+        "description": "A substring from index `start` to `end`"
+    },
+    "split.{regex}.{joiner}": {
+        "originType": "STRING",
+        "returnType": "STRING",
+        "description": "Splits the string by `regex`, then joins it with `joiner`"
+    },
+    "indexof.{text}": {
+        "originType": "STRING",
+        "returnType": "INTEGER",
+        "description": "The index of the first occurrence of `text`"
+    },
+    "lastindexof.{text}": {
+        "originType": "STRING",
+        "returnType": "INTEGER",
+        "description": "The index of the last occurrence of `text`"
+    },
+    "startswith.{text}": {
+        "originType": "STRING",
+        "returnType": "BOOLEAN",
+        "description": "Whether the string starts with `text`"
+    },
+    "endswith.{text}": {
+        "originType": "STRING",
+        "returnType": "BOOLEAN",
+        "description": "Whether the string ends with `text`"
+    },
+    "append.{text}": {
+        "originType": "STRING",
+        "returnType": "STRING",
+        "description": "Appends `text` to the end of the string"
+    },
+    "prepend.{text}": {
+        "originType": "STRING",
+        "returnType": "STRING",
+        "description": "Prepends `text` to the beginning of the string"
+    },
+    "insert.{index}.{text}": {
+        "originType": "STRING",
+        "returnType": "STRING",
+        "description": "Inserts `text` at the specified `index`"
+    },
+    "regex.{pattern}": {
+        "originType": "STRING",
+        "returnType": "BOOLEAN",
+        "description": "Whether the string matches the regex `pattern`"
+    },
+    "{index}": {
+        "originType": "LIST",
+        "returnType": "STRING",
+        "description": "Element at specified `index`"
+    },
+    "join.{delimiter}": {
+        "originType": "LIST",
+        "returnType": "STRING",
+        "description": "Joins elements using `delimiter`"
+    },
+    "contains.{element}": {
+        "originType": "LIST",
+        "returnType": "BOOLEAN",
+        "description": "Whether the list contains `element`"
+    },
+    "x": {
+        "originType": "VECTOR",
+        "returnType": "DOUBLE",
+        "description": "The X component"
+    },
+    "y": {
+        "originType": "VECTOR",
+        "returnType": "DOUBLE",
+        "description": "The Y component"
+    },
+    "z": {
+        "originType": "VECTOR",
+        "returnType": "DOUBLE",
+        "description": "The Z component"
+    },
+    "world": {
+        "originType": "LOCATION",
+        "returnType": "STRING",
+        "description": "The world name"
+    },
+    "yaw": {
+        "originType": "LOCATION",
+        "returnType": "DOUBLE",
+        "description": "The yaw"
+    },
+    "pitch": {
+        "originType": "LOCATION",
+        "returnType": "DOUBLE",
+        "description": "The pitch"
+    },
+    "coords": {
+        "originType": "LOCATION",
+        "returnType": "LIST",
+        "description": "A list with the X, Y, and Z coordinates"
+    },
+    "normalized": {
+        "originType": "VECTOR",
+        "returnType": "VECTOR",
+        "description": "The normalized vector"
+    },
+    "length": {
+        "originType": "VECTOR",
+        "returnType": "DOUBLE",
+        "description": "The length (magnitude) of the vector"
+    },
+    "mul.{vector}": {
+        "originType": "VECTOR",
+        "returnType": "VECTOR",
+        "description": "Multiplies the vector by another vector"
+    },
+    "div.{vector}": {
+        "originType": "VECTOR",
+        "returnType": "VECTOR",
+        "description": "Divides the vector by another vector"
+    },
+    "add.{vector}": {
+        "originType": "VECTOR",
+        "returnType": "VECTOR",
+        "description": "Adds another vector"
+    },
+    "sub.{vector}": {
+        "originType": "VECTOR",
+        "returnType": "VECTOR",
+        "description": "Subtracts another vector"
+    },
+    "rotate.{axis}.{angle}": {
+        "originType": "VECTOR",
+        "returnType": "VECTOR",
+        "description": "Rotates the vector around `axis` by `angle` radians"
+    },
+    "first": {
+        "originType": "LIST",
+        "returnType": "STRING",
+        "description": "First element in the list"
+    },
+    "last": {
+        "originType": "LIST",
+        "returnType": "STRING",
+        "description": "Last element in the list"
+    },
+    "reverse": {
+        "originType": "LIST",
+        "returnType": "LIST",
+        "description": "The list reversed"
+    },
+    "sort": {
+        "originType": "LIST",
+        "returnType": "LIST",
+        "description": "The list sorted alphabetically"
+    },
+    "sortnum": {
+        "originType": "LIST",
+        "returnType": "LIST",
+        "description": "This list sorted numerically. Each element of the list needs to be a number"
+    },
+    "get.{index}": {
+        "originType": "LIST",
+        "returnType": "STRING",
+        "description": "Element at specified `index`"
+    },
+    "maxnumber": {
+        "originType": "LIST",
+        "returnType": "DOUBLE",
+        "description": "Maximum numerical value in list"
+    },
+    "minnumber": {
+        "originType": "LIST",
+        "returnType": "DOUBLE",
+        "description": "Minimum numerical value in list"
+    },
+    "indexof.{value}": {
+        "originType": "LIST",
+        "returnType": "INTEGER",
+        "description": "Index of first occurrence of `value`"
+    },
+    "lastindexof.{value}": {
+        "originType": "LIST",
+        "returnType": "INTEGER",
+        "description": "Index of last occurrence of `value`"
+    },
+    "slice.{from}.{to}": {
+        "originType": "LIST",
+        "returnType": "LIST",
+        "description": "Slice of list from `from` to `to`"
+    },
+    "slicefrom.{index}": {
+        "originType": "LIST",
+        "returnType": "LIST",
+        "description": "Slice of list from `index` to end"
+    },
+    "sliceto.{index}": {
+        "originType": "LIST",
+        "returnType": "LIST",
+        "description": "Slice of list from start to `index`"
+    },
+    "append.{value}": {
+        "originType": "LIST",
+        "returnType": "LIST",
+        "description": "Adds `value` to the end of the list"
+    },
+    "prepend.{value}": {
+        "originType": "LIST",
+        "returnType": "LIST",
+        "description": "Adds `value` to the start of the list"
+    },
+    "insert.{index}.{value}": {
+        "originType": "LIST",
+        "returnType": "LIST",
+        "description": "Inserts `value` at the given `index`"
+    },
+    "remove.{index}": {
+        "originType": "LIST",
+        "returnType": "LIST",
+        "description": "Removes value at given `index`"
+    },
+    "keys": {
+        "originType": "MAP",
+        "returnType": "LIST",
+        "description": "List of all keys"
+    },
+    "values": {
+        "originType": "MAP",
+        "returnType": "LIST",
+        "description": "List of all values"
+    },
+    "get.{key}": {
+        "originType": "MAP",
+        "returnType": "STRING",
+        "description": "Value associated with the specified `key`"
+    },
+    "{key}": {
+        "originType": "MAP",
+        "returnType": "STRING",
+        "description": "Value associated with the specified `key`"
+    },
+    "delta.{timestamp}": {
+        "originType": "TIME",
+        "returnType": "INTEGER",
+        "description": "Difference between the value's time and the and given `timestamp`"
+    },
+    "formatted.{pattern}": {
+        "originType": "TIME",
+        "returnType": "STRING",
+        "description": "Formatted date/time using the specified pattern. The pattern can be anything the Java function [ZoneOffset.of](https://docs.oracle.com/javase/8/docs/api/java/time/ZoneOffset.html#of-java.lang.String-) accepts"
+    },
+    "duration": {
+        "originType": "TIME",
+        "returnType": "STRING",
+        "description": "Interprets the Time as a raw \"amount of milliseconds\" and displays the total amount of Seconds, Minutes, Hours, Days, Months and Years. Can be useful for countdowns and the likes, especially if paired with the `.delta` meta keywords"
+    },
+    "withType.{material}": {
+        "originType": "ITEM",
+        "returnType": "ITEM",
+        "description": "Returns the same item but with its type set to the specified `material` (case-insensitive, must match a valid `Material` enum)"
+    },
+    "withDurability.{value}": {
+        "originType": "ITEM",
+        "returnType": "ITEM",
+        "description": "Returns the same item but with its durability set to the specified integer `value`"
+    },
+    "withMaxDurability.{value}": {
+        "originType": "ITEM",
+        "returnType": "ITEM",
+        "description": "Returns the same item but with its maximum durability set to the specified integer `value`"
+    },
+    "withLore.{list}": {
+        "originType": "ITEM",
+        "returnType": "ITEM",
+        "description": "Returns the same item but with its lore set to the specified list of strings."
+    },
+    "withName.{name}": {
+        "originType": "ITEM",
+        "returnType": "ITEM",
+        "description": "Returns the same item but with its display name set to `name`"
+    },
+    "withMythicType.{type}": {
+        "originType": "ITEM",
+        "returnType": "ITEM",
+        "description": "Returns the same item but with its persistent \"Mythic Type\" set to `type`, allowing you to make Mythic believe the modified item is the `type` mythic item"
+    },
+    "withEnchants.{map}": {
+        "originType": "ITEM",
+        "returnType": "ITEM",
+        "description": "Returns the same item but with enchantments replaced by those provided in the map. Removes all previous enchantments before applying the new ones"
+    },
+    "withCustomData.{namespace}.{key}.{value}": {
+        "originType": "ITEM",
+        "returnType": "ITEM",
+        "description": "Returns the same item but with custom persistent data (`value` stored under `namespace:key`)"
+    },
+    "withAmount.{value}": {
+        "originType": "ITEM",
+        "returnType": "ITEM",
+        "description": "Returns the same item but with its stack amount set to `value`"
+    },
+    "withUUID.{uuid}": {
+        "originType": "ITEM",
+        "returnType": "ITEM",
+        "description": "Returns the same item but with its UUID nbt set to the specified value"
+    },
+    "withTimestamp.{timestamp}": {
+        "originType": "ITEM",
+        "returnType": "ITEM",
+        "description": "Returns the same item but with its timestamp nbt set to the specified integer value"
+    },
+    "withCustomModelData.{value}": {
+        "originType": "ITEM",
+        "returnType": "ITEM",
+        "description": "Returns the same item but with its Custom Model Data set to `value`"
+    },
+    "withModel.{namespace}.{path}": {
+        "originType": "ITEM",
+        "returnType": "ITEM",
+        "description": "Returns the same item but with its item model set to `{namespace}:{path}`"
+    },
+    "type": {
+        "originType": "ITEM",
+        "returnType": "STRING",
+        "description": "The item's type as a string (Material name)"
+    },
+    "durability": {
+        "originType": "ITEM",
+        "returnType": "INTEGER",
+        "description": "The current durability value of the item"
+    },
+    "maxDurability": {
+        "originType": "ITEM",
+        "returnType": "INTEGER",
+        "description": "The maximum durability value of the item"
+    },
+    "lore": {
+        "originType": "ITEM",
+        "returnType": "LIST",
+        "description": "The item's lore as a list of strings"
+    },
+    "name": {
+        "originType": "ITEM",
+        "returnType": "STRING",
+        "description": "The display name of the item"
+    },
+    "mythicType": {
+        "originType": "ITEM",
+        "returnType": "STRING",
+        "description": "The persistent \"Mythic Type\" value of the item, if set"
+    },
+    "enchants": {
+        "originType": "ITEM",
+        "returnType": "MAP",
+        "description": "A map of all enchantments on the item"
+    },
+    "getCustomData.{namespace}.{key}": {
+        "originType": "ITEM",
+        "returnType": "STRING",
+        "description": "The string value stored in the item's custom persistent data under `{namespace}:{key}`"
+    },
+    "customModelData": {
+        "originType": "ITEM",
+        "returnType": "INTEGER",
+        "description": "The item's Custom Model Data value"
+    },
+    "model": {
+        "originType": "ITEM",
+        "returnType": "STRING",
+        "description": "The item's model identifier in `namespace:path` format"
+    },
+    "amount": {
+        "originType": "ITEM",
+        "returnType": "INTEGER",
+        "description": "The stack amount of the item"
+    }
+}

@@ -2936,7 +2936,7 @@
         "name": [
             "disguise"
         ],
-        "description": "Runs a disguise string on the casting mob. This skill requires Libs'\nDisguises and ProtocolLib be installed to enable Disguise functionality.\n\nSee [Add-On: Disguises](https://git.lumine.io/mythiccraft/MythicMobs/-/wikis/Mobs/Disguises) for a list of available\ndisguises.",
+        "description": "Runs a disguise string on the casting mob. This skill requires Libs'\nDisguises to be installed to enable Disguise functionality.\n\nSee [Add-On: Disguises](https://git.lumine.io/mythiccraft/MythicMobs/-/wikis/Mobs/Disguises) for a list of available\ndisguises.",
         "link": "https://git.lumine.io/mythiccraft/MythicMobs/-/wikis/Skills/Mechanics/disguise",
         "attributes": [
             {
@@ -2973,7 +2973,7 @@
             "disguisemodify",
             "modifydisguise"
         ],
-        "description": "Modifies an *already* applied disguise on the target entity.  \nLike the [Disguise](https://git.lumine.io/mythiccraft/MythicMobs/-/wikis/skills/mechanics/disguise) mechanic, [LibsDisguises](https://www.spigotmc.org/resources/libs-disguises-free.81/) and [ProtocolLib](https://www.spigotmc.org/resources/protocollib.1997/) must be installed. [Here](https://git.lumine.io/mythiccraft/MythicMobs/-/wikis/Mobs/Disguises) you can find our documentation on the matter.  \nThe syntax for the disguise in this mechanic is completely equivalent to the one used in the `/modifydisguise` command.",
+        "description": "Modifies an *already* applied disguise on the target entity.  \nLike the [Disguise](https://git.lumine.io/mythiccraft/MythicMobs/-/wikis/skills/mechanics/disguise) mechanic, [LibsDisguises](https://www.spigotmc.org/resources/libs-disguises-free.81/) must be installed. [Here](https://git.lumine.io/mythiccraft/MythicMobs/-/wikis/Mobs/Disguises) you can find our documentation on the matter.  \nThe syntax for the disguise in this mechanic is completely equivalent to the one used in the `/modifydisguise` command.",
         "link": "https://git.lumine.io/mythiccraft/MythicMobs/-/wikis/Skills/Mechanics/DisguiseModify",
         "attributes": [
             {
@@ -3807,6 +3807,61 @@
     },
     {
         "plugin": "MythicMobs",
+        "class": "ForEachMechanic",
+        "extends": "MetaSkillMechanic",
+        "implements": [
+            "IMetaSkill",
+            "SkillHolder"
+        ],
+        "name": [
+            "forEach"
+        ],
+        "description": "Executes the specified metaskill *once and separately* for each target of the mechanic. Each metaskill that will be called will have a single entity/location (from among the original targets) as its inherited target.",
+        "link": "https://git.lumine.io/mythiccraft/MythicMobs/-/wikis/Skills/Mechanics/ForEach",
+        "attributes": [
+            {
+                "name": [
+                    "targettype",
+                    "targett",
+                    "tt"
+                ],
+                "type": "PlaceholderString",
+                "description": "Which type of targets this mechanic should iterate on. Can be `ALL`, `ENTITY` or `LOCATION`",
+                "link": "https://git.lumine.io/mythiccraft/MythicMobs/-/wikis/Skills/Mechanics/ForEach",
+                "default_value": "ALL",
+                "enum": "ALL,ENTITY,LOCATION"
+            }
+        ]
+    },
+    {
+        "plugin": "MythicMobs",
+        "class": "ForEachValueMechanic",
+        "extends": "MetaSkillMechanic",
+        "implements": [
+            "IMetaSkill",
+            "SkillHolder"
+        ],
+        "name": [
+            "forEachValue"
+        ],
+        "description": "Executes the specified metaskill *once and separately* for each value of the specified list/map formatted value. Each metaskill that will be called will have special skill parameters set depending on the iterated value:\n- For list-formatted inputs\n  - `<skill.value>` for the iterated value\n  - `<skill.index>` for the index of the value\n- For map-formatted inputs\n  - `<skill.key>` for the iterated key\n  - `<skill.value>` for the iterated value\n  - `<skill.index>` for the index of the key-value pair",
+        "link": "https://git.lumine.io/mythiccraft/MythicMobs/-/wikis/Skills/Mechanics/ForEachValue",
+        "attributes": [
+            {
+                "name": [
+                    "values",
+                    "val",
+                    "v"
+                ],
+                "type": "PlaceholderString",
+                "description": "The list or map formatted string to iterate on",
+                "link": "https://git.lumine.io/mythiccraft/MythicMobs/-/wikis/Skills/Mechanics/ForEachValue",
+                "default_value": ""
+            }
+        ]
+    },
+    {
+        "plugin": "MythicMobs",
         "class": "ForcePullMechanic",
         "extends": "SkillMechanic",
         "implements": [
@@ -4138,9 +4193,10 @@
     {
         "plugin": "MythicMobs",
         "class": "GiveItemMechanic",
-        "extends": "SkillMechanic",
+        "extends": "MetaVariableMechanic",
         "implements": [
-            "ITargetedEntitySkill"
+            "ITargetedEntitySkill",
+            "ITargetedLocationSkill"
         ],
         "name": [
             "giveitem",
@@ -4469,7 +4525,9 @@
             {
                 "name": [
                     "multiplier",
-                    "m"
+                    "m",
+                    "a",
+                    "amount"
                 ],
                 "type": "PlaceholderDouble",
                 "description": "The percentage to heal, refers to the targets max-health.<br>0.1 = 10%, 1 = 100% and so on",
@@ -5115,6 +5173,7 @@
                 "name": [
                     "skill",
                     "s",
+                    "spell",
                     "meta",
                     "m",
                     "mechanics",
@@ -5165,7 +5224,7 @@
     {
         "plugin": "MythicMobs",
         "class": "MetaVariableSkillMechanic",
-        "extends": "SkillMechanic",
+        "extends": "MetaVariableMechanic",
         "implements": [
             "IMetaSkill"
         ],
@@ -6207,7 +6266,7 @@
                     "hitradius",
                     "hr"
                 ],
-                "type": "Float",
+                "type": "PlaceholderFloat",
                 "description": "The radius around the orbital in which targets can be hit",
                 "link": "https://git.lumine.io/mythiccraft/MythicMobs/-/wikis/Skills/Mechanics/orbital",
                 "default_value": "1"
@@ -6218,7 +6277,7 @@
                     "vhr",
                     "vr"
                 ],
-                "type": "Float",
+                "type": "PlaceholderFloat",
                 "description": "The y component of the hitradius",
                 "link": "https://git.lumine.io/mythiccraft/MythicMobs/-/wikis/Skills/Mechanics/orbital",
                 "default_value": "`hitradius`"
@@ -6415,11 +6474,10 @@
             },
             {
                 "name": [
-                    "hugsurface",
-                    "hs"
+                    "hugsurface"
                 ],
                 "type": "Boolean",
-                "description": "Whether can hit caster",
+                "description": "Whether or not the orbital should move along the ground",
                 "link": "https://git.lumine.io/mythiccraft/MythicMobs/-/wikis/Skills/Mechanics/orbital",
                 "default_value": "false"
             },
@@ -7317,7 +7375,7 @@
                     "radius",
                     "r"
                 ],
-                "type": "Float",
+                "type": "PlaceholderFloat",
                 "description": "The radius at which the particle orbits",
                 "link": "https://git.lumine.io/mythiccraft/MythicMobs/-/wikis/Skills/Mechanics/ParticleOrbital",
                 "default_value": "4"
@@ -8936,7 +8994,7 @@
                     "v"
                 ],
                 "type": "PlaceholderFloat",
-                "description": "The velocity of the projectile",
+                "description": "The velocity of the projectile, expressed in blocks traveled per second",
                 "link": "https://git.lumine.io/mythiccraft/MythicMobs/-/wikis/Skills/Mechanics/projectile",
                 "default_value": "5"
             },
@@ -10033,6 +10091,25 @@
             },
             {
                 "name": [
+                    "forcedBulletRotation",
+                    "forcedRotation"
+                ],
+                "type": "PlaceholderString",
+                "description": "Forces the rotation of the bullet with the specified pitch, yaw and roll, in the x,y,z format. Leave empty to allow the bullet to dynamically rotate based on the travel direction",
+                "link": "https://git.lumine.io/mythiccraft/MythicMobs/-/wikis/Skills/Mechanics/projectile",
+                "default_value": ""
+            },
+            {
+                "name": [
+                    "bulletRotatesBasedOnDirection"
+                ],
+                "type": "PlaceholderBoolean",
+                "description": "Whether the text bullet should rotate based on the direction of movement. Might *not* be what you expect",
+                "link": "https://git.lumine.io/mythiccraft/MythicMobs/-/wikis/Skills/Mechanics/projectile",
+                "default_value": "false"
+            },
+            {
+                "name": [
                     "bulletbrightness",
                     "bulletbrightnessblock"
                 ],
@@ -10529,6 +10606,17 @@
             },
             {
                 "name": [
+                    "ignoreentities",
+                    "ignoreentity",
+                    "ie"
+                ],
+                "type": "Boolean",
+                "description": "Whether entities should be ignored, so that the raytrace will never be stopped by them",
+                "link": "https://git.lumine.io/mythiccraft/MythicMobs/-/wikis/Skills/Mechanics/raytrace",
+                "default_value": "false"
+            },
+            {
+                "name": [
                     "fluidcollisionmode",
                     "fcm"
                 ],
@@ -10677,6 +10765,17 @@
                 "description": "ignores collision of passable blocks",
                 "link": "https://git.lumine.io/mythiccraft/MythicMobs/-/wikis/Skills/Mechanics/raytraceto",
                 "default_value": "true"
+            },
+            {
+                "name": [
+                    "ignoreentities",
+                    "ignoreentity",
+                    "ie"
+                ],
+                "type": "Boolean",
+                "description": "ignores all entities",
+                "link": "https://git.lumine.io/mythiccraft/MythicMobs/-/wikis/Skills/Mechanics/raytraceto",
+                "default_value": "false"
             },
             {
                 "name": [
@@ -11072,7 +11171,9 @@
                     "targetselector",
                     "target",
                     "string",
-                    "s"
+                    "s",
+                    "goal",
+                    "g"
                 ],
                 "type": "String",
                 "description": "The target selector you want to append",
@@ -12576,7 +12677,7 @@
                 "type": "PlaceholderFloat",
                 "description": "The maximum value the shield on the entity should be",
                 "link": "https://git.lumine.io/mythiccraft/MythicMobs/-/wikis/Skills/Mechanics/shield",
-                "default_value": "`Amount's value`"
+                "default_value": "1"
             }
         ]
     },
@@ -12902,7 +13003,7 @@
                     "startyoffset",
                     "syo"
                 ],
-                "type": "Float",
+                "type": "PlaceholderFloat",
                 "description": "The starting y offset of the projectile",
                 "link": "https://git.lumine.io/mythiccraft/MythicMobs/-/wikis/Skills/Mechanics/shoot",
                 "default_value": "0"
@@ -13352,7 +13453,7 @@
             "signal",
             "sendSignal"
         ],
-        "description": "Sends a signal to the specified targeter. Won't do anything when\ntargeted at players. The signal can be composed of any string. The\nmob(s) that receives the signal can only act upon it if it has a\ndedicated \"~onSignal\" trigger in its skill arsenal (see examples).\n\nThe signal can either be matched by comparing directly behind the\ntrigger (~onSignal:*ping*) or by the new\n[lastsignal-condition](http://www.mythicmobs.net/manual/doku.php/conditions/start).",
+        "description": "Sends a signal to the specified targeter. Won't do anything when\ntargeted at players. The signal can be composed of any string. The\nmob(s) that receives the signal can only act upon it if it has a\ndedicated \"~onSignal\" trigger in its skill arsenal (see examples).\n\nThe signal can either be matched by comparing directly behind the\ntrigger (~onSignal:*ping*) or by the new\n[lastsignal-condition](https://git.lumine.io/mythiccraft/MythicMobs/-/wikis/skills/conditions/lastsignal).",
         "link": "https://git.lumine.io/mythiccraft/MythicMobs/-/wikis/Skills/Mechanics/signal",
         "attributes": [
             {
@@ -13380,7 +13481,7 @@
             "setskillcd",
             "skillcd"
         ],
-        "description": "Sets the given metakill's cooldown to the given value (in seconds)\n\n> If used to set the cooldown of the metaskill the mechanic is in a delay of at least `0` between the execution of the metaskill and the mechanic must be used\n\n> The target Metaskill needs to have a Cooldown option to begin with. If you do not wish for it to have a Cooldown but you still want to use this mechanic to set it dynamically, use `Cooldown: 0`",
+        "description": "Sets the given metaskill's cooldown to the given value (in seconds)\n\n> If used to set the cooldown of the metaskill the mechanic is in a delay of at least `0` between the execution of the metaskill and the mechanic must be used\n\n> The target Metaskill needs to have a Cooldown option to begin with. If you do not wish for it to have a Cooldown but you still want to use this mechanic to set it dynamically, use `Cooldown: 0`",
         "link": "https://git.lumine.io/mythiccraft/MythicMobs/-/wikis/Skills/Mechanics/setskillcooldown",
         "attributes": [
             {
@@ -13514,7 +13615,7 @@
                     "fo"
                 ],
                 "type": "Boolean",
-                "description": "Whether to cast the mechanic from origin",
+                "description": "Whether to cast the mechanic from origin. This only works with a select few mechanics, and is usually listed as one of their attributes, too",
                 "link": "https://git.lumine.io/mythiccraft/MythicMobs/-/wikis/Skills/Mechanics#universal-attributes",
                 "default_value": "false"
             },
@@ -14335,6 +14436,16 @@
             },
             {
                 "name": [
+                    "vanillaonly",
+                    "vanilla"
+                ],
+                "type": "Boolean",
+                "description": "Whether the matched item can only be a vanilla one",
+                "link": "https://git.lumine.io/mythiccraft/MythicMobs/-/wikis/Items/Item-Matcher",
+                "default_value": "false"
+            },
+            {
+                "name": [
                     "types",
                     "type",
                     "t",
@@ -14717,7 +14828,7 @@
                     "radius",
                     "r"
                 ],
-                "type": "Integer",
+                "type": "PlaceholderInteger",
                 "description": "The radius around the target within which the mobs will be summoned",
                 "link": "https://git.lumine.io/mythiccraft/MythicMobs/-/wikis/Skills/Mechanics/summon",
                 "default_value": "0"
@@ -14729,7 +14840,7 @@
                     "yradius",
                     "yr"
                 ],
-                "type": "Integer",
+                "type": "PlaceholderInteger",
                 "description": "Overrides the Y component of radius.",
                 "link": "https://git.lumine.io/mythiccraft/MythicMobs/-/wikis/Skills/Mechanics/summon",
                 "default_value": "radius"
@@ -15002,7 +15113,7 @@
             "addtag",
             "addscoreboardtag"
         ],
-        "description": "Adds a scoreboard tag to the target.\n\nThis is used in conjunction with the **hastag condition** (see\n[Conditions](https://git.lumine.io/mythiccraft/MythicMobs/-/wikis/skills/conditions/hastag)). You can also use the vanilla command\n`/scoreboard players tag <player name> add [Tag Name]` to do\nthe same thing.",
+        "description": "Adds a scoreboard tag to the target.\n\nThis is used in conjunction with the **hastag condition** (see\n[Conditions](https://git.lumine.io/mythiccraft/MythicMobs/-/wikis/skills/conditions/hastag)). You can also use the vanilla command\n`/tag <targets> add <name>` to do the same thing.",
         "link": "https://git.lumine.io/mythiccraft/MythicMobs/-/wikis/Skills/Mechanics/addtag",
         "attributes": [
             {
@@ -15073,7 +15184,7 @@
     {
         "plugin": "MythicMobs",
         "class": "TakeItemMechanic",
-        "extends": "SkillMechanic",
+        "extends": "MetaVariableMechanic",
         "implements": [
             "ITargetedEntitySkill",
             "ITargetedLocationSkill"
@@ -15105,6 +15216,16 @@
                 ],
                 "type": "Boolean",
                 "description": "Whether the matcher should more strictly match the target item",
+                "link": "https://git.lumine.io/mythiccraft/MythicMobs/-/wikis/Items/Item-Matcher",
+                "default_value": "false"
+            },
+            {
+                "name": [
+                    "vanillaonly",
+                    "vanilla"
+                ],
+                "type": "Boolean",
+                "description": "Whether the matched item can only be a vanilla one",
                 "link": "https://git.lumine.io/mythiccraft/MythicMobs/-/wikis/Items/Item-Matcher",
                 "default_value": "false"
             },
@@ -15924,7 +16045,7 @@
             "addVar",
             "incrementVariable"
         ],
-        "description": "Adds an amount to a [variable](https://git.lumine.io/mythiccraft/MythicMobs/-/wikis/skills/variables) on the specified\nscope. Only works with numeric variable types.",
+        "description": "Adds an amount to a [variable](https://git.lumine.io/mythiccraft/MythicMobs/-/wikis/skills/variables) on the specified\nscope.\n\n> This mechanic has different behavior based on the variable type. [More Info Here](https://git.lumine.io/mythiccraft/MythicMobs/-/wikis/Skills/Variables#variable-types-behavior)",
         "link": "https://git.lumine.io/mythiccraft/MythicMobs/-/wikis/Skills/Mechanics/variableadd",
         "attributes": [
             {
@@ -15935,8 +16056,8 @@
                     "amount",
                     "a"
                 ],
-                "type": "PlaceholderFloat",
-                "description": "The amount to add",
+                "type": "PolymorphicPlaceholder",
+                "description": "The value to add",
                 "link": "https://git.lumine.io/mythiccraft/MythicMobs/-/wikis/Skills/Mechanics/variableadd",
                 "default_value": "0"
             }
@@ -16015,7 +16136,7 @@
             "setVariable",
             "setVar"
         ],
-        "description": "Sets a [variable](https://git.lumine.io/mythiccraft/MythicMobs/-/wikis/skills/variables). Variables can be permanent or\ntemporary, and can be used in conjunction with conditions or\nplaceholders to store data.",
+        "description": "Sets a [variable](https://git.lumine.io/mythiccraft/MythicMobs/-/wikis/skills/variables). Variables can be permanent or\ntemporary, and can be used in conjunction with conditions or\nplaceholders to store data.\n\n> Learn more about setting special variable types [here](https://git.lumine.io/mythiccraft/MythicMobs/-/wikis/Skills/Variables#special-variable-types)",
         "link": "https://git.lumine.io/mythiccraft/MythicMobs/-/wikis/Skills/Mechanics/setvariable",
         "attributes": [
             {
@@ -16026,8 +16147,8 @@
                     "amount",
                     "a"
                 ],
-                "type": "PlaceholderString",
-                "description": "The value to set the variable to. Must be applicable for `type` or the mechanic will fail. Should be surrounded in double-quotes if using spaces. Value can also include placeholders, even from PlaceholderAPI",
+                "type": "PolymorphicPlaceholder",
+                "description": "The value to set the variable to. Must be applicable for `type` or the mechanic will fail. Should be surrounded in double-quotes if using spaces or semicolons. Value can also include placeholders, even from PlaceholderAPI",
                 "link": "https://git.lumine.io/mythiccraft/MythicMobs/-/wikis/Skills/Mechanics/setvariable",
                 "default_value": "",
                 "inheritable": false
@@ -16106,7 +16227,7 @@
             "subVar",
             "reduceVariable"
         ],
-        "description": "Subtracts an amount to a [variable](https://git.lumine.io/mythiccraft/MythicMobs/-/wikis/skills/variables) on the specified\nscope. Only works with numeric variable types.",
+        "description": "Subtracts an amount to a [variable](https://git.lumine.io/mythiccraft/MythicMobs/-/wikis/skills/variables) on the specified\nscope.\n\n> This mechanic has different behavior based on the variable type. [More Info Here](https://git.lumine.io/mythiccraft/MythicMobs/-/wikis/Skills/Variables#variable-types-behavior)",
         "link": "https://git.lumine.io/mythiccraft/MythicMobs/-/wikis/Skills/Mechanics/variablesubtract",
         "attributes": [
             {
@@ -16117,8 +16238,8 @@
                     "amount",
                     "a"
                 ],
-                "type": "PlaceholderFloat",
-                "description": "The amount to subtract",
+                "type": "PolymorphicPlaceholder",
+                "description": "The value to subtract",
                 "link": "https://git.lumine.io/mythiccraft/MythicMobs/-/wikis/Skills/Mechanics/variablesubtract",
                 "default_value": "0"
             }

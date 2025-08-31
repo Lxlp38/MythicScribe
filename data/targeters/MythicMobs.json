@@ -509,42 +509,15 @@
                 "description": "Whether to generate the cone also depending on the caster's pitch",
                 "link": "https://git.lumine.io/mythiccraft/MythicMobs/-/wikis/Skills/Targeters/LivingInCone",
                 "default_value": "false"
-            }
-        ]
-    },
-    {
-        "plugin": "MythicMobs",
-        "class": "EntitiesInRadiusTargeter",
-        "extends": "IEntitySelector",
-        "name": [
-            "entitiesInRadius",
-            "livingEntitiesInRadius",
-            "livingInRadius",
-            "allInRadius",
-            "EIR"
-        ],
-        "description": "Targets all entities in the given radius around the caster",
-        "link": "https://git.lumine.io/mythiccraft/MythicMobs/-/wikis/Skills/Targeters/EntitiesInRadius",
-        "attributes": [
-            {
-                "name": [
-                    "radius",
-                    "r"
-                ],
-                "type": "String",
-                "description": "The radius of the targeter",
-                "link": "https://git.lumine.io/mythiccraft/MythicMobs/-/wikis/Skills/Targeters/EntitiesInRadius",
-                "default_value": "5"
             },
             {
                 "name": [
                     "livingonly",
-                    "living",
-                    "l"
+                    "lo"
                 ],
                 "type": "Boolean",
-                "description": "Whether the targeter should target only living entities",
-                "link": "https://git.lumine.io/mythiccraft/MythicMobs/-/wikis/Skills/Targeters/EntitiesInRadius",
+                "description": "Whether to target only living entities",
+                "link": "https://git.lumine.io/mythiccraft/MythicMobs/-/wikis/Skills/Targeters/LivingInCone",
                 "default_value": "true"
             }
         ]
@@ -597,7 +570,7 @@
     {
         "plugin": "MythicMobs",
         "class": "EntitiesNearOriginTargeter",
-        "extends": "EntitiesInRadiusTargeter",
+        "extends": "EntitiesNearbyTargeter",
         "name": [
             "entitiesNearOrigin",
             "NearOrigin",
@@ -606,6 +579,44 @@
         "description": "Targets all entities in the given radius around the origin of the metaskill.  \nThis targeter is an extension of the **[EntitiesInRadius Targeter](https://git.lumine.io/mythiccraft/MythicMobs/-/wikis/Skills/Targeters/EntitiesInRadius)** and can, as such, **use any of its attributes**",
         "link": "https://git.lumine.io/mythiccraft/MythicMobs/-/wikis/Skills/Targeters/EntitiesNearOrigin",
         "attributes": []
+    },
+    {
+        "plugin": "MythicMobs",
+        "class": "EntitiesNearbyTargeter",
+        "extends": "IEntitySelector",
+        "name": [
+            "EntitiesNearby",
+            "NearbyEntities",
+            "entitiesInRadius",
+            "livingEntitiesInRadius",
+            "livingInRadius",
+            "allInRadius",
+            "EIR"
+        ],
+        "description": "Targets all entities in the given radius around the caster",
+        "link": "https://git.lumine.io/mythiccraft/MythicMobs/-/wikis/Skills/Targeters/EntitiesInRadius",
+        "attributes": [
+            {
+                "name": [
+                    "shape"
+                ],
+                "type": "String",
+                "description": "The \"shape\" in which to fetch entities. Can be any [shape](https://git.lumine.io/mythiccraft/MythicMobs/-/wikis/Enum/Shape)",
+                "link": "https://git.lumine.io/mythiccraft/MythicMobs/-/wikis/Skills/Targeters/EntitiesInRadius",
+                "default_value": "SPHERE"
+            },
+            {
+                "name": [
+                    "livingonly",
+                    "living",
+                    "l"
+                ],
+                "type": "Boolean",
+                "description": "Whether the targeter should target only living entities",
+                "link": "https://git.lumine.io/mythiccraft/MythicMobs/-/wikis/Skills/Targeters/EntitiesInRadius",
+                "default_value": "true"
+            }
+        ]
     },
     {
         "plugin": "MythicMobs",
@@ -1036,7 +1047,7 @@
                 "type": "PlaceholderDouble",
                 "description": "Centers forward and backward offset, based on the caster's viewing angle",
                 "link": "https://git.lumine.io/mythiccraft/MythicMobs/-/wikis/Skills/Targeters#common-location-targeters-attributes",
-                "default_value": ""
+                "default_value": "0"
             },
             {
                 "name": [
@@ -1047,7 +1058,18 @@
                 "type": "PlaceholderDouble",
                 "description": "Centers left and right offset, based on the caster's viewing angle",
                 "link": "https://git.lumine.io/mythiccraft/MythicMobs/-/wikis/Skills/Targeters#common-location-targeters-attributes",
-                "default_value": ""
+                "default_value": "0"
+            },
+            {
+                "name": [
+                    "upoffset",
+                    "uoffset",
+                    "uo"
+                ],
+                "type": "PlaceholderDouble",
+                "description": "Centers up and down offset, based on the caster's viewing angle",
+                "link": "https://git.lumine.io/mythiccraft/MythicMobs/-/wikis/Skills/Targeters#common-location-targeters-attributes",
+                "default_value": "0"
             },
             {
                 "name": [

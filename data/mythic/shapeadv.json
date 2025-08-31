@@ -1,0 +1,81 @@
+{
+    "SPHERE": {
+        "attributes": [
+            {
+                "name": [
+                    "radius",
+                    "r"
+                ],
+                "description": "The radius of the sphere shape",
+                "default": "5.0",
+                "type": "PlaceholderDouble",
+                "link": "https://git.lumine.io/mythiccraft/MythicMobs/-/wikis/Skills/Mechanics/Particle/Particle-Types"
+            },
+            {
+                "name": [
+                    "livingonly",
+                    "living",
+                    "l"
+                ],
+                "description": "Whether to target only living entities",
+                "default": "true",
+                "type": "Boolean"
+            }
+        ]
+    },
+    "CUBE": {
+        "attributes": [
+            {
+                "name": [
+                    "radius",
+                    "r"
+                ],
+                "description": "Half the length of one of the cube's edges",
+                "default": "5.0",
+                "type": "PlaceholderDouble"
+            },
+            {
+                "name": [
+                    "livingonly",
+                    "living",
+                    "l"
+                ],
+                "description": "Whether to target only living entities",
+                "default": "true",
+                "type": "Boolean"
+            }
+        ]
+    },
+    "CYLINDER": {
+        "attributes": [
+            {
+                "name": [
+                    "radius",
+                    "r"
+                ],
+                "description": "The radius of the cylinder",
+                "default": "5.0",
+                "type": "PlaceholderDouble"
+            },
+            {
+                "name": [
+                    "height",
+                    "h"
+                ],
+                "description": "The height of the cylinder",
+                "default": "5.0",
+                "type": "PlaceholderDouble"
+            },
+            {
+                "name": [
+                    "yOffset",
+                    "offsety",
+                    "yo"
+                ],
+                "description": "The y offset",
+                "default": "0",
+                "type": "PlaceholderDouble"
+            }
+        ]
+    }
+}

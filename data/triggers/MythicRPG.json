@@ -6,7 +6,8 @@
             "Archetype"
         ],
         "name": [
-            "onClassgain"
+            "onClassgain",
+            "onGainclass"
         ],
         "description": "Triggers when the archetype is gained",
         "link": "https://git.lumine.io/mythiccraft/mythicrpg/-/wikis/Skills/Triggers/onClassGain",
@@ -19,7 +20,8 @@
             "Archetype"
         ],
         "name": [
-            "onClassloss"
+            "onClassloss",
+            "onLoseclass"
         ],
         "description": "Triggers when the archetype is lost/removed",
         "link": "https://git.lumine.io/mythiccraft/mythicrpg/-/wikis/Skills/Triggers/onClassLoss",
@@ -36,6 +38,48 @@
         ],
         "description": "Triggers when the [archetype](https://git.lumine.io/mythiccraft/mythicrpg/-/wikis/Archetypes) [levels up](https://git.lumine.io/mythiccraft/mythicrpg/-/wikis/Archetypes/Leveling)",
         "link": "https://git.lumine.io/mythiccraft/mythicrpg/-/wikis/Skills/Triggers/onLevelUp",
+        "attributes": []
+    },
+    {
+        "plugin": "MythicRPG",
+        "class": "QUICKCAST_CLOSE",
+        "implements": [
+            "Archetype"
+        ],
+        "name": [
+            "onQuickcastclose",
+            "onQuickcastend"
+        ],
+        "description": "Triggers when the player with the archetype ends the quick cast",
+        "link": "https://git.lumine.io/mythiccraft/mythicrpg/-/wikis/Skills/Triggers/onQuickCastClose",
+        "attributes": []
+    },
+    {
+        "plugin": "MythicRPG",
+        "class": "QUICKCAST_OPEN",
+        "implements": [
+            "Archetype"
+        ],
+        "name": [
+            "onQuickcastopen",
+            "onQuickcastactivate"
+        ],
+        "description": "Triggers when the player with the archetype starts the quick cast",
+        "link": "https://git.lumine.io/mythiccraft/mythicrpg/-/wikis/Skills/Triggers/onQuickcastOpen",
+        "attributes": []
+    },
+    {
+        "plugin": "MythicRPG",
+        "class": "SPELL_LEARN",
+        "implements": [
+            "Archetype"
+        ],
+        "name": [
+            "onLearnspell",
+            "onSpelllearn"
+        ],
+        "description": "Triggers when the player with the archetype learns a new spell",
+        "link": "https://git.lumine.io/mythiccraft/mythicrpg/-/wikis/Skills/Triggers/onLearnSpell",
         "attributes": []
     }
 ]
