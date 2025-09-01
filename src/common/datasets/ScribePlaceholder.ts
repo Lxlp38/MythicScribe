@@ -382,7 +382,7 @@ export async function initializeMetaKeywords(mkDataset: Map<string, MetaKeyword>
 
         if (variablePlaceholderLastNode) {
             ScribePlaceholderMetaKeywordsRoot.forEach((mk) => {
-                variablePlaceholderLastNode.addNodes(mk.nodes);
+                variablePlaceholderLastNode.addNodes(Array.from(mk.nodes));
             });
         }
     });
