@@ -678,6 +678,21 @@ export const ItemSchema: Schema = {
             Scale: {
                 type: SchemaElementTypes.VECTOR,
             },
+            Tracked: {
+                type: SchemaElementTypes.BOOLEAN,
+                link: 'https://git.lumine.io/mythiccraft/mythiccrucible/-/wikis/Furniture#tracked',
+                description: 'Whether the furniture should be actively tracked by the plugin',
+            },
+            KeepVariablesOnDrop: {
+                type: SchemaElementTypes.BOOLEAN,
+                link: 'https://git.lumine.io/mythiccraft/mythiccrucible/-/wikis/Furniture#keepvariablesondrop',
+                description: 'Whether the furniture should keep its variables when dropped',
+            },
+            Variables: {
+                type: SchemaElementTypes.KEY_LIST,
+                link: 'https://git.lumine.io/mythiccraft/mythiccrucible/-/wikis/Furniture#variables',
+                description: 'The variables of the furniture.',
+            },
             ...FurnitureStatesCompatibleOptions,
         },
     },

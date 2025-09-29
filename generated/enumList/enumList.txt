@@ -18,11 +18,13 @@ randomspawnaction
 randomspawnpositiontype
 scoreaction
 shape
+shapeadv
 statexecutionpoint
 statsmodifier
 stattype
 variablescope
 variabletype
+variableplaceholdermetakeyword
 addtrade_action
 displaytransformation_action
 modifyprojectile_action

@@ -375,7 +375,7 @@ export async function initializeMetaKeywords(mkDataset: Map<string, MetaKeyword>
         });
     });
 
-    ['caster', 'target', 'skill', 'world', 'global'].forEach((name) => {
+    ['caster', 'target', 'skill', 'world', 'global', 'furniture'].forEach((name) => {
         const variablePlaceholderLastNode = ScribePlaceholderRoot.getChild(name)
             ?.getChild('var')
             ?.getChild('{variablename}');

@@ -100,6 +100,11 @@
     "type": "Static"
   },
   {
+    "id": "shapeadv",
+    "path": "mythic/shapeadv.json",
+    "type": "Static"
+  },
+  {
     "id": "statexecutionpoint",
     "path": "mythic/statexecutionpoint.json",
     "type": "Static"
@@ -122,6 +127,11 @@
   {
     "id": "variabletype",
     "path": "mythic/variabletype.json",
+    "type": "Static"
+  },
+  {
+    "id": "variableplaceholdermetakeyword",
+    "path": "mythic/variableplaceholdermetakeyword.json",
     "type": "Static"
   },
   {

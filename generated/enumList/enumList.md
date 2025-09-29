@@ -78,6 +78,10 @@
 ### Path: `mythic/shape.json`
 ### Type: `Static`
 
+# `shapeadv`
+### Path: `mythic/shapeadv.json`
+### Type: `Static`
+
 # `statexecutionpoint`
 ### Path: `mythic/statexecutionpoint.json`
 ### Type: `Static`
@@ -96,6 +100,10 @@
 
 # `variabletype`
 ### Path: `mythic/variabletype.json`
+### Type: `Static`
+
+# `variableplaceholdermetakeyword`
+### Path: `mythic/variableplaceholdermetakeyword.json`
 ### Type: `Static`
 
 # `addtrade_action`
