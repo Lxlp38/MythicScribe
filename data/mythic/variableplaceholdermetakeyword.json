@@ -204,6 +204,11 @@
         "returnType": "STRING",
         "description": "A substring from index `start` to `end`"
     },
+    "shift.{Integer}": {
+        "originType": "STRING",
+        "returnType": "STRING",
+        "description": "Removes the first `Integer` characters"
+    },
     "split.{regex}.{joiner}": {
         "originType": "STRING",
         "returnType": "STRING",
@@ -358,6 +363,11 @@
         "originType": "LIST",
         "returnType": "LIST",
         "description": "This list sorted numerically. Each element of the list needs to be a number"
+    },
+    "shuffle": {
+        "originType": "LIST",
+        "returnType": "LIST",
+        "description": "Shuffles the list, randomizing its elements"
     },
     "get.{index}": {
         "originType": "LIST",

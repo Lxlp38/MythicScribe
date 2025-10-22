@@ -4245,7 +4245,8 @@
                 "type": "String",
                 "description": "The metaskill to check",
                 "link": "https://git.lumine.io/mythiccraft/MythicMobs/-/wikis/Skills/Conditions/skilloncooldown",
-                "default_value": ""
+                "default_value": "",
+                "enum": "MetaSkill"
             }
         ]
     },
@@ -5085,7 +5086,7 @@
         "name": [
             "xdiff"
         ],
-        "description": "Checks the difference in x value (height) between the target entity and the caster.",
+        "description": "Checks the difference in x value between the target entity and the caster.",
         "link": "https://git.lumine.io/mythiccraft/MythicMobs/-/wikis/Skills/Conditions/Xdiff",
         "attributes": [
             {
@@ -5174,7 +5175,7 @@
         "name": [
             "zdiff"
         ],
-        "description": "Checks the difference in z value (height) between the target entity and the caster.",
+        "description": "Checks the difference in z value between the target entity and the caster.",
         "link": "https://git.lumine.io/mythiccraft/MythicMobs/-/wikis/Skills/Conditions/Zdiff",
         "attributes": [
             {

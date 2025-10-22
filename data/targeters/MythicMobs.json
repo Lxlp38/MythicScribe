@@ -603,7 +603,8 @@
                 "type": "String",
                 "description": "The \"shape\" in which to fetch entities. Can be any [shape](https://git.lumine.io/mythiccraft/MythicMobs/-/wikis/Enum/Shape)",
                 "link": "https://git.lumine.io/mythiccraft/MythicMobs/-/wikis/Skills/Targeters/EntitiesInRadius",
-                "default_value": "SPHERE"
+                "default_value": "SPHERE",
+                "enum": "ShapeAdv"
             },
             {
                 "name": [
@@ -951,6 +952,15 @@
                 "description": "Whether to target villagers",
                 "link": "https://git.lumine.io/mythiccraft/MythicMobs/-/wikis/Skills/Targeters#common-entity-targeters-attributes",
                 "default_value": ""
+            },
+            {
+                "name": [
+                    "targetall"
+                ],
+                "type": "Boolean",
+                "description": "Whether to target everything. If this is true, all filters are ignored",
+                "link": "https://git.lumine.io/mythiccraft/MythicMobs/-/wikis/Skills/Targeters#common-entity-targeters-attributes",
+                "default_value": "false"
             },
             {
                 "name": [
@@ -3217,7 +3227,7 @@
             "UniqueIdentifier",
             "uuid"
         ],
-        "description": "Targets a specific entity by their UUID. Can be a placeholder.",
+        "description": "Targets a specific entity by their UUID. Can be a placeholder.  \nThis targeter will target anything, regardless of targeter filters",
         "link": "https://git.lumine.io/mythiccraft/MythicMobs/-/wikis/Skills/Targeters/UniqueIdentifier",
         "attributes": [
             {

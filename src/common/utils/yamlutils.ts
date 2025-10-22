@@ -384,6 +384,61 @@ export function isKey(
 }
 
 /**
+ * Extracts and returns the portion of the input text that comes after a matched YAML key.
+ *
+ * The function searches the provided text with `yamlKeyRegex`. If a match is found it calls
+ * `getYamlRegexInfo(match)` to obtain the matched key and its indentation, then returns the
+ * substring that starts immediately after the key and its following delimiter (one character),
+ * trimming any leading/trailing whitespace from the result.
+ *
+ * If no key match is found, the original `text` is returned unchanged.
+ *
+ * @param text - The input string to search for a YAML key (typically a YAML line).
+ * @returns The trimmed text that appears after the matched key and its delimiter, or the original
+ *          input if no key match is found.
+ *
+ * @example
+ * // Given text "  name: John Doe" -> returns "John Doe"
+ *
+ * @remarks
+ * - The implementation assumes the key is followed by a single delimiter character (e.g. ':'),
+ *   which is accounted for by the `+ 1` offset when computing the substring start.
+ * - Relies on external `yamlKeyRegex` and `getYamlRegexInfo(match)` to provide a correct match,
+ *   indent and key values.
+ */
+export function getTextAfterKey(text: string): string {
+    const match = text.match(yamlKeyRegex);
+    if (match) {
+        const info = getYamlRegexInfo(match);
+        return text.substring(info.indent.length + info.key.length + 1).trim();
+    }
+    return text;
+}
+
+/**
+ * Extracts the text following a leading list dash in a line.
+ *
+ * Matches lines of the form: optional leading whitespace, a single `-`, an optional single space, then the rest of the line.
+ * If a match is found, returns the captured content after the dash; otherwise returns the original input unchanged.
+ *
+ * Examples:
+ * - getTextAfterListDash("- item")   -> "item"
+ * - getTextAfterListDash("  -item")  -> "item"
+ * - getTextAfterListDash("  -  item")-> " item"  // note: only one space immediately after '-' is optionally removed
+ * - getTextAfterListDash("no dash")  -> "no dash"
+ *
+ * @param text - The input string to inspect.
+ * @returns The substring after a leading list dash, or the original string if no leading dash is present.
+ */
+export function getTextAfterListDash(text: string): string {
+    const match = text.match(/^\s*-\s?(.*)$/);
+    if (match) {
+        return match[1];
+    }
+    return text;
+}
+
+/**
  * Checks if the specified line in a document is a list item in YAML format.
  *
  * @param document - The text document to check.

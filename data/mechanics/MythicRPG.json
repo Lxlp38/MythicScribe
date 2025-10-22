@@ -45,7 +45,8 @@
                 "type": "String",
                 "description": "The affected archetype",
                 "link": "https://git.lumine.io/mythiccraft/mythicrpg/-/wikis/Skills/Mechanics/GiveMythicExperience",
-                "default_value": ""
+                "default_value": "",
+                "enum": "Archetype"
             },
             {
                 "name": [
@@ -72,7 +73,7 @@
             "modifyreagent",
             "mana"
         ],
-        "description": "Modifies the target player's given reagent",
+        "description": "Adds the specified amount to the target player's given reagent. The amount can be either positive or negative. If the new amount would be more/less than the player's maximum/minimum amount, the reagent's amount is clamped to be the maximum/minimum possible",
         "link": "https://git.lumine.io/mythiccraft/mythicrpg/-/wikis/Skills/Mechanics/ModifyResource",
         "attributes": [
             {
@@ -81,7 +82,7 @@
                     "a"
                 ],
                 "type": "String",
-                "description": "The amount of the modification",
+                "description": "The amount",
                 "link": "https://git.lumine.io/mythiccraft/mythicrpg/-/wikis/Skills/Mechanics/ModifyResource",
                 "default_value": "1"
             },
@@ -200,8 +201,7 @@
                 "type": "PlaceholderString",
                 "description": "The button to set on the slot",
                 "link": "https://git.lumine.io/mythiccraft/mythicrpg/-/wikis/Skills/Mechanics/SetCustomMenuButton",
-                "default_value": "default ",
-                "enum": "Menu"
+                "default_value": "default"
             }
         ]
     },

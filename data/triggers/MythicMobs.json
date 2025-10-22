@@ -492,7 +492,7 @@
         "name": [
             "onJump"
         ],
-        "description": "Executes the skill when the player holding or equipping the item jumps\n\n> **This is a [Paper-Only](https://papermc.io/downloads/all) mechanic!**\n\n\n<!-- LINKS -->\n\n\n<!--TAGS-->\n<!--tag:Paper-Only-->",
+        "description": "Executes the skill when the player holding or equipping the item jumps\n\n> **This is a [Paper-Only](https://papermc.io/downloads/all) mechanic!**",
         "link": "https://git.lumine.io/mythiccraft/mythiccrucible/-/wikis/Skills/Triggers/onJump",
         "attributes": []
     },

@@ -152,8 +152,17 @@ export const MobSchema: Schema = {
     },
     DamageModifiers: {
         type: SchemaElementTypes.LIST,
-        dataset: 'DAMAGECAUSE',
-        values: generateNumbersInRange(-1.0, 2.0, 0.1, true),
+        entries: [
+            {
+                type: SchemaElementTypes.ENUM,
+                dataset: 'DAMAGECAUSE',
+            },
+            {
+                type: SchemaElementTypes.FLOAT,
+                description: 'The multiplier of the inbound damage of the same type.',
+                values: generateNumbersInRange(-1.0, 2.0, 0.1, true),
+            },
+        ],
         link: 'https://git.lumine.io/mythiccraft/MythicMobs/-/wikis/Mobs/Mobs#damagemodifiers',
         description: 'The damage modifiers of the mob.',
     },

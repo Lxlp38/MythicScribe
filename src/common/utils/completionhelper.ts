@@ -5,6 +5,8 @@ import {
     getIndentation,
     getKeyNameFromYamlKey,
     getParentKeys,
+    getTextAfterKey,
+    getTextAfterListDash,
     isAfterComment,
     isEmptyLine,
     isKey,
@@ -19,6 +21,7 @@ import {
     SchemaElementSpecialKeys,
     WildKeySchemaElement,
     getKeySchema,
+    EntrySchemaElement,
 } from '../objectInfos';
 import { MythicMechanic } from '../datasets/ScribeMechanic';
 import { EnumDatasetValue, ScribeEnumHandler } from '../datasets/ScribeEnum';
@@ -29,6 +32,132 @@ export const retriggerCompletionsCommand: vscode.Command = {
     command: 'editor.action.triggerSuggest',
     title: 'Re-trigger completions...',
 };
+type CompletionSchemaContext = {
+    document?: vscode.TextDocument;
+    position?: vscode.Position;
+    context?: vscode.CompletionContext;
+    suffix?: string;
+    command?: vscode.Command;
+    textExtractor?: (text: string) => string;
+};
+
+function handleEntryListSchemaElement(
+    object: EntrySchemaElement,
+    context: CompletionSchemaContext
+): vscode.CompletionItem[] | undefined {
+    if (
+        object.entries === undefined ||
+        context.document === undefined ||
+        context.position === undefined ||
+        context.textExtractor === undefined
+    ) {
+        return undefined;
+    }
+    const substringOnLineBeforePosition = context.document
+        .lineAt(context.position.line)
+        .text.substring(0, context.position.character);
+    const entryIndex = Math.max(
+        context
+            .textExtractor(substringOnLineBeforePosition)
+            .trimStart()
+            .split(' ')
+            .filter((v) => v !== '').length,
+        0
+    );
+    // console.log('Substring: ' + substringOnLineBeforePosition);
+    // console.log('Entry Index: ' + entryIndex);
+    const neededEntry = object.entries[entryIndex];
+    const hasNext = object.entries.length > entryIndex + 1;
+    if (neededEntry) {
+        return getCompletionsForSchemaElement(neededEntry, {
+            ...context,
+            suffix: hasNext ? ' ' : '',
+            command: hasNext ? retriggerCompletionsCommand : undefined,
+        });
+    }
+    return undefined;
+}
+
+function getCompletionsForSchemaElement(
+    object: SchemaElement,
+    context: CompletionSchemaContext = {}
+): vscode.CompletionItem[] | undefined {
+    // console.log('Getting completions for schema element of type: ' + object.type);
+    // console.log(object);
+    // console.log(context);
+    if (object.type === SchemaElementTypes.ENUM) {
+        const dataset = ScribeEnumHandler.getEnum(object.dataset);
+        const completionItems: vscode.CompletionItem[] = [];
+        if (!dataset) {
+            return undefined;
+        }
+        dataset.getDataset().forEach((item, value) => {
+            const completionItem = getEnumCompletion(item, value);
+            completionItem.insertText = new vscode.SnippetString(value + (context.suffix ?? ''));
+            if (context.command) {
+                completionItem.command = context.command;
+            }
+            completionItems.push(completionItem);
+        });
+        return completionItems;
+    }
+
+    if (object.type === SchemaElementTypes.LIST) {
+        const { document, position, context: ctx } = context;
+        if (!document || !position || !ctx) {
+            return undefined;
+        }
+        if (object.dataset) {
+            const space = getListCompletionNeededSpaces(document, position, ctx);
+            if (space === undefined) {
+                return undefined;
+            }
+            const dataset = ScribeEnumHandler.getEnum(object.dataset);
+            if (!dataset) {
+                return undefined;
+            }
+            const completionItems: vscode.CompletionItem[] = [];
+            dataset.getDataset().forEach((item, value) => {
+                const completionItem = getEnumCompletion(item, value);
+                completionItem.insertText = new vscode.SnippetString(space + value);
+                if (object.values) {
+                    completionItem.insertText.appendText(' ').appendChoice(object.values);
+                }
+                completionItems.push(completionItem);
+            });
+            return completionItems;
+        } else if (object.entries && object.entries.length > 0) {
+            return handleEntryListSchemaElement(object, context);
+        }
+        return undefined;
+    }
+
+    if (object.type === SchemaElementTypes.ENTRY_LIST) {
+        return handleEntryListSchemaElement(object, context);
+    }
+
+    if (
+        (object.type === SchemaElementTypes.INTEGER || object.type === SchemaElementTypes.FLOAT) &&
+        object.values
+    ) {
+        const completionItems: vscode.CompletionItem[] = [];
+        object.values.forEach((value) => {
+            const completionItem = new vscode.CompletionItem(
+                value,
+                vscode.CompletionItemKind.EnumMember
+            );
+            completionItem.sortText = value.toString().padStart(4, '0');
+            completionItem.insertText = new vscode.SnippetString(value + (context.suffix ?? ''));
+            if (context.command) {
+                completionItem.command = context.command;
+            }
+            completionItems.push(completionItem);
+        });
+        return completionItems;
+    }
+
+    return undefined;
+}
 
 // Generates completions for normal mythic schemas
 export async function generateFileCompletion(
@@ -355,7 +484,7 @@ export async function getCompletionForInvocation(
 ): Promise<vscode.CompletionItem[] | undefined> {
     const keys = getKeyNameFromYamlKey(getParentKeys(document, position, true).reverse());
     if (isKey(document, position.line)) {
-        return getKeyObjectCompletion(keys.slice(1), type);
+        return getKeyObjectCompletion(keys.slice(1), type, document, position, context);
     } else if (isList(document, position.line)) {
         return getListObjectCompletion(keys.slice(1), type, document, position, context);
     }
@@ -364,42 +493,21 @@ export async function getCompletionForInvocation(
 
 async function getKeyObjectCompletion(
     keys: string[],
-    type: Schema
+    type: Schema,
+    document: vscode.TextDocument,
+    position: vscode.Position,
+    context: vscode.CompletionContext
 ): Promise<vscode.CompletionItem[] | undefined> {
     const object = getSchemaElement(keys, type);
     if (!object || !isPluginEnabled(object.plugin)) {
         return undefined;
     }
-
-    if (object.type === SchemaElementTypes.ENUM && object.dataset) {
-        const dataset = ScribeEnumHandler.getEnum(object.dataset);
-        const completionItems: vscode.CompletionItem[] = [];
-        if (!dataset) {
-            return undefined;
-        }
-        dataset.getDataset().forEach((item, value) => {
-            const completionItem = getEnumCompletion(item, value);
-            completionItem.insertText = new vscode.SnippetString(value);
-            completionItems.push(completionItem);
-        });
-        return completionItems;
-    } else if (
-        (object.type === SchemaElementTypes.INTEGER || object.type === SchemaElementTypes.FLOAT) &&
-        object.values
-    ) {
-        const completionItems: vscode.CompletionItem[] = [];
-        object.values.forEach((value) => {
-            const completionItem = new vscode.CompletionItem(
-                value,
-                vscode.CompletionItemKind.EnumMember
-            );
-            completionItem.sortText = value.toString().padStart(4, '0');
-            completionItem.insertText = new vscode.SnippetString(value);
-            completionItems.push(completionItem);
-        });
-        return completionItems;
-    }
-    return undefined;
+    return getCompletionsForSchemaElement(object, {
+        document,
+        position,
+        context,
+        textExtractor: getTextAfterKey,
+    });
 }
 
 function getListObjectCompletion(
@@ -413,28 +521,12 @@ function getListObjectCompletion(
     if (!object || !isPluginEnabled(object.plugin)) {
         return undefined;
     }
-
-    if (object.type === SchemaElementTypes.LIST && object.dataset) {
-        const space = getListCompletionNeededSpaces(document, position, context);
-        if (space === undefined) {
-            return undefined;
-        }
-        const dataset = ScribeEnumHandler.getEnum(object.dataset);
-        if (!dataset) {
-            return undefined;
-        }
-        const completionItems: vscode.CompletionItem[] = [];
-        dataset.getDataset().forEach((item, value) => {
-            const completionItem = getEnumCompletion(item, value);
-            completionItem.insertText = new vscode.SnippetString(space + value);
-            if (object.values) {
-                completionItem.insertText.appendText(' ').appendChoice(object.values);
-            }
-            completionItems.push(completionItem);
-        });
-        return completionItems;
-    }
-    return undefined;
+    return getCompletionsForSchemaElement(object, {
+        document,
+        position,
+        context,
+        textExtractor: getTextAfterListDash,
+    });
 }
 
 /**

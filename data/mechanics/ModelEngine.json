@@ -1664,7 +1664,7 @@
                     "ov",
                     "override"
                 ],
-                "type": "Boolean",
+                "type": "PlaceholderString",
                 "description": "New override mode of the animation",
                 "link": "https://git.lumine.io/mythiccraft/model-engine-4/-/wikis/Skills/Mechanics/ModifyState",
                 "default_value": "Last Value"
@@ -2170,18 +2170,6 @@
             },
             {
                 "name": [
-                    "r",
-                    "rl",
-                    "roll",
-                    "rolllock"
-                ],
-                "type": "PlaceholderBoolean",
-                "description": "Should the segment bone mimic the roll of the parent bone. When `true`, if the parent bond twists, the child bone would twists together. <br/>`false` by default.<br/>If not set, use the last value",
-                "link": "https://git.lumine.io/mythiccraft/model-engine-4/-/wikis/Skills/Mechanics/Segment",
-                "default_value": ""
-            },
-            {
-                "name": [
                     "a",
                     "al",
                     "angle",
@@ -2540,7 +2528,7 @@
                     "ov",
                     "override"
                 ],
-                "type": "PlaceholderBoolean",
+                "type": "PlaceholderString",
                 "description": "Forced override mode of the animation.<br>If not set, the mechanic use default override mode",
                 "link": "https://git.lumine.io/mythiccraft/model-engine-4/-/wikis/Skills/Mechanics/State",
                 "default_value": ""

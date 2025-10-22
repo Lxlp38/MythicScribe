@@ -6,6 +6,7 @@ import {
 import {
     DefaultPlugins,
     Schema,
+    SchemaElement,
     SchemaElementSpecialKeys,
     SchemaElementTypes,
 } from '../objectInfos';
@@ -49,6 +50,62 @@ const FurnitureStatesCompatibleOptions: Schema = {
     },
     ...Generation,
 };
+
+const ItemAttributesEntries: Array<SchemaElement> = [
+    {
+        type: SchemaElementTypes.FLOAT,
+        description: 'The amount to modify the attribute by',
+        display: 'Amount',
+        values: generateNumbersInRange(-10, 10, 0.5, true),
+    },
+    {
+        type: SchemaElementTypes.ENUM,
+        dataset: 'PAPERATTRIBUTEOPERATION',
+    },
+];
+
+const ItemAttributeList: Array<string> = [
+    'ATTACK_DAMAGE',
+    'ATTACK_SPEED',
+    'MAX_HEALTH',
+    'MOVEMENT_SPEED',
+    'FLYING_SPEED',
+    'ATTACK_KNOCKBACK',
+    'KNOCKBACK_RESISTANCE',
+    'ARMOR',
+    'ARMOR_TOUGHNESS',
+    'LUCK',
+    'SCALE',
+    'FOLLOW_RANGE',
+    'FALL_DAMAGE_MULTIPLIER',
+    'SAFE_FALL_DISTANCE',
+    'GRAVITY',
+    'BLOCK_BREAK_SPEED',
+    'ENTITY_INTERACTION_RANGE',
+    'BLOCK_INTERACTION_RANGE',
+    'JUMP_HEIGHT',
+    'STEP_HEIGHT',
+    'MAX_ABSORPTION',
+    'BURNING_TIME',
+    'EXPLOSION_KNOCKBACK_RESISTANCE',
+    'MOVEMENT_EFFICIENCY',
+    'OXYGEN',
+    'SNEAKING_SPEED',
+    'WATER_MOVEMENT_EFFICIENCY',
+    'SUBMERGED_MINING_SPEED',
+    'TEMPT_RANGE',
+    'SWEEPING_DAMAGE_RATIO',
+    'SPAWN_REINFORCEMENTS',
+];
+
+const ItemAttributes: Schema = {};
+for (const attribute of ItemAttributeList) {
+    const defaultSchemaElement: SchemaElement = {
+        type: SchemaElementTypes.ENTRY_LIST,
+        entries: ItemAttributesEntries,
+    };
+    ItemAttributes[attribute] = defaultSchemaElement;
+}
 
 const ItemOptions: Schema = {
     Options: {
@@ -185,31 +242,37 @@ export const ItemSchema: Schema = {
     },
     Attributes: {
         type: SchemaElementTypes.KEY,
-        link: 'https://git.lumine.io/mythiccraft/MythicMobs/-/wikis/Items/Items#attributes',
+        link: 'https://git.lumine.io/mythiccraft/MythicMobs/-/wikis/Items/Attributes',
         description:
             'Allows the addition of item attributes, such as health, to certain armor slots',
-
         keys: {
             All: {
-                type: SchemaElementTypes.KEY_LIST,
+                type: SchemaElementTypes.KEY,
+                keys: ItemAttributes,
             },
             MainHand: {
-                type: SchemaElementTypes.KEY_LIST,
+                type: SchemaElementTypes.KEY,
+                keys: ItemAttributes,
             },
             OffHand: {
-                type: SchemaElementTypes.KEY_LIST,
+                type: SchemaElementTypes.KEY,
+                keys: ItemAttributes,
             },
             Head: {
-                type: SchemaElementTypes.KEY_LIST,
+                type: SchemaElementTypes.KEY,
+                keys: ItemAttributes,
             },
             Chest: {
-                type: SchemaElementTypes.KEY_LIST,
+                type: SchemaElementTypes.KEY,
+                keys: ItemAttributes,
             },
             Legs: {
-                type: SchemaElementTypes.KEY_LIST,
+                type: SchemaElementTypes.KEY,
+                keys: ItemAttributes,
             },
             Feet: {
-                type: SchemaElementTypes.KEY_LIST,
+                type: SchemaElementTypes.KEY,
+                keys: ItemAttributes,
             },
         },
     },
@@ -358,9 +421,11 @@ export const ItemSchema: Schema = {
         keys: {
             ConsumeSeconds: {
                 type: SchemaElementTypes.INTEGER,
+                description: 'The time in seconds it takes to consume the item',
             },
             HasParticles: {
                 type: SchemaElementTypes.BOOLEAN,
+                description: 'Whether to show particles when the item is consumed',
             },
             Animation: {
                 type: SchemaElementTypes.ENUM,

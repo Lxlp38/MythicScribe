@@ -9,7 +9,7 @@
         "name": [
             "onBlockrotate"
         ],
-        "description": "Executes the skill when the furniture is rotated\n\n\n<!--TYPES-->\n<!--type:Furniture-->",
+        "description": "Executes the skill when the furniture is rotated",
         "link": "https://git.lumine.io/mythiccraft/mythiccrucible/-/wikis/Skills/Triggers/onBlockRotate",
         "attributes": []
     },

@@ -1,6 +1,15 @@
 {
     "INTEGER": {},
     "FLOAT": {},
+    "DOUBLE": {},
     "STRING": {},
-    "DOUBLE": {}
+    "BOOLEAN": {},
+    "SET": {},
+    "LIST": {},
+    "MAP": {},
+    "LOCATION": {},
+    "VECTOR": {},
+    "TIME": {},
+    "METASKILL": {},
+    "ITEM": {}
 }

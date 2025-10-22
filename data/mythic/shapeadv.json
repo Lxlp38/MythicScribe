@@ -9,7 +9,7 @@
                 "description": "The radius of the sphere shape",
                 "default": "5.0",
                 "type": "PlaceholderDouble",
-                "link": "https://git.lumine.io/mythiccraft/MythicMobs/-/wikis/Skills/Mechanics/Particle/Particle-Types"
+                "link": "https://git.lumine.io/mythiccraft/MythicMobs/-/wikis/Enum/Shape#sphere"
             },
             {
                 "name": [
@@ -19,7 +19,8 @@
                 ],
                 "description": "Whether to target only living entities",
                 "default": "true",
-                "type": "Boolean"
+                "type": "Boolean",
+                "link": "https://git.lumine.io/mythiccraft/MythicMobs/-/wikis/Enum/Shape#sphere"
             }
         ]
     },
@@ -32,7 +33,8 @@
                 ],
                 "description": "Half the length of one of the cube's edges",
                 "default": "5.0",
-                "type": "PlaceholderDouble"
+                "type": "PlaceholderDouble",
+                "link": "https://git.lumine.io/mythiccraft/MythicMobs/-/wikis/Enum/Shape#cube"
             },
             {
                 "name": [
@@ -42,7 +44,8 @@
                 ],
                 "description": "Whether to target only living entities",
                 "default": "true",
-                "type": "Boolean"
+                "type": "Boolean",
+                "link": "https://git.lumine.io/mythiccraft/MythicMobs/-/wikis/Enum/Shape#cube"
             }
         ]
     },
@@ -55,7 +58,8 @@
                 ],
                 "description": "The radius of the cylinder",
                 "default": "5.0",
-                "type": "PlaceholderDouble"
+                "type": "PlaceholderDouble",
+                "link": "https://git.lumine.io/mythiccraft/MythicMobs/-/wikis/Enum/Shape#cylinder"
             },
             {
                 "name": [
@@ -64,7 +68,8 @@
                 ],
                 "description": "The height of the cylinder",
                 "default": "5.0",
-                "type": "PlaceholderDouble"
+                "type": "PlaceholderDouble",
+                "link": "https://git.lumine.io/mythiccraft/MythicMobs/-/wikis/Enum/Shape#cylinder"
             },
             {
                 "name": [
@@ -74,7 +79,8 @@
                 ],
                 "description": "The y offset",
                 "default": "0",
-                "type": "PlaceholderDouble"
+                "type": "PlaceholderDouble",
+                "link": "https://git.lumine.io/mythiccraft/MythicMobs/-/wikis/Enum/Shape#cylinder"
             }
         ]
     }

@@ -2241,6 +2241,21 @@
     },
     {
         "plugin": "MythicMobs",
+        "class": "ClearTargetMechanic",
+        "extends": "SkillMechanic",
+        "implements": [
+            "ITargetedEntitySkill"
+        ],
+        "name": [
+            "clearTarget",
+            "resetTarget"
+        ],
+        "description": "Forces the target of the mechanic to reset its current target",
+        "link": "https://git.lumine.io/mythiccraft/MythicMobs/-/wikis/Skills/Mechanics/ClearTarget",
+        "attributes": []
+    },
+    {
+        "plugin": "MythicMobs",
         "class": "CloseInventoryMechanic",
         "extends": "SkillMechanic",
         "implements": [
@@ -2755,7 +2770,7 @@
                     "m"
                 ],
                 "type": "String",
-                "description": "The [modifier](https://git.lumine.io/mythiccraft/MythicMobs/-/wikis/Items/Attributes#operations) to use",
+                "description": "The [modifier](https://git.lumine.io/mythiccraft/MythicMobs/-/wikis/Stats#modifiers) to use",
                 "link": "https://git.lumine.io/mythiccraft/MythicMobs/-/wikis/Skills/Mechanics/ModifyDamage",
                 "default_value": "ADD",
                 "enum": "SpigotAttributeOperation"
@@ -3391,7 +3406,7 @@
     {
         "plugin": "MythicMobs",
         "class": "EquipMechanic",
-        "extends": "SkillMechanic",
+        "extends": "MetaVariableMechanic",
         "implements": [
             "INoTargetSkill"
         ],
@@ -4923,7 +4938,8 @@
         "extends": "SkillMechanic",
         "implements": [
             "ITargetedEntitySkill",
-            "INoTargetSkill"
+            "INoTargetSkill",
+            "ITargetedLocationSkill"
         ],
         "name": [
             "log",
@@ -6315,6 +6331,17 @@
             },
             {
                 "name": [
+                    "immunedelay",
+                    "immune",
+                    "iD"
+                ],
+                "type": "Integer",
+                "description": "Sets the immunity delay (when the target can be hit by the projectile again)",
+                "link": "https://git.lumine.io/mythiccraft/MythicMobs/-/wikis/Skills/Mechanics/orbital",
+                "default_value": "2000"
+            },
+            {
+                "name": [
                     "rotationx",
                     "rotx",
                     "rx"
@@ -6471,6 +6498,60 @@
                 "description": "Whether the metaskills should be casted by the orbital itself rather than from the caster, as Projectiles do",
                 "link": "https://git.lumine.io/mythiccraft/MythicMobs/-/wikis/Skills/Mechanics/orbital",
                 "default_value": "false"
+            },
+            {
+                "name": [
+                    "drawhitbox"
+                ],
+                "type": "Boolean",
+                "description": "Draw the hitbox of the orbital, useful for debugging",
+                "link": "https://git.lumine.io/mythiccraft/MythicMobs/-/wikis/Skills/Mechanics/orbital",
+                "default_value": "false"
+            },
+            {
+                "name": [
+                    "hitconditions",
+                    "conditions",
+                    "cond",
+                    "c"
+                ],
+                "type": "String",
+                "description": "A list of conditions that a target must meet in order for the orbital to be able to hit it. **Premium Only** Mechanic",
+                "link": "https://git.lumine.io/mythiccraft/MythicMobs/-/wikis/Skills/Mechanics/orbital",
+                "default_value": "",
+                "enum": "Conditions"
+            },
+            {
+                "name": [
+                    "stopconditions",
+                    "stpcond"
+                ],
+                "type": "String",
+                "description": "A list of conditions that a target must meet in order for the orbital to end when hitting them",
+                "link": "https://git.lumine.io/mythiccraft/MythicMobs/-/wikis/Skills/Mechanics/orbital",
+                "default_value": "",
+                "enum": "Conditions"
+            },
+            {
+                "name": [
+                    "hitTargeter",
+                    "htr"
+                ],
+                "type": "String",
+                "description": "An entity targeter. Once the orbital hits, targeted entities will be targeted by the onHit Metaskill and given immune delay just like the orbital's main target",
+                "link": "https://git.lumine.io/mythiccraft/MythicMobs/-/wikis/Skills/Mechanics/orbital",
+                "default_value": "",
+                "enum": "Targeter"
+            },
+            {
+                "name": [
+                    "shareSubHitboxCooldown",
+                    "shcd"
+                ],
+                "type": "Boolean",
+                "description": "Whether all meg sub hitboxes should share the same immune delay with its base entity",
+                "link": "https://git.lumine.io/mythiccraft/MythicMobs/-/wikis/Skills/Mechanics/orbital",
+                "default_value": "true"
             },
             {
                 "name": [
@@ -6881,7 +6962,7 @@
                     "sfo"
                 ],
                 "type": "Float",
-                "description": "The forward-offset from the targeted entity,doesn'n work when set directional to true",
+                "description": "The forward-offset from the targeted entity, does not work when `directional` is set to true",
                 "link": "https://git.lumine.io/mythiccraft/MythicMobs/-/wikis/Skills/Mechanics/Particle",
                 "default_value": "0"
             },
@@ -6892,7 +6973,7 @@
                     "sso"
                 ],
                 "type": "PlaceholderFloat",
-                "description": "The side-offset from the targeted entity, doesn'n work when set directional to true",
+                "description": "The side-offset from the targeted entity, does not work when `directional` is set to true",
                 "link": "https://git.lumine.io/mythiccraft/MythicMobs/-/wikis/Skills/Mechanics/Particle",
                 "default_value": "0"
             },
@@ -9338,7 +9419,8 @@
                 "type": "String",
                 "description": "The material of the bullet",
                 "link": "https://git.lumine.io/mythiccraft/MythicMobs/-/wikis/Skills/Mechanics/projectile",
-                "default_value": "STONE"
+                "default_value": "STONE",
+                "enum": "Block"
             },
             {
                 "name": [
@@ -9476,7 +9558,8 @@
                 "type": "Audience",
                 "description": "The [Audience](https://git.lumine.io/mythiccraft/MythicMobs/-/wikis/Skills/Audience) of the bullet",
                 "link": "https://git.lumine.io/mythiccraft/MythicMobs/-/wikis/Skills/Mechanics/projectile",
-                "default_value": "world"
+                "default_value": "world",
+                "enum": "Audience"
             },
             {
                 "name": [
@@ -9487,7 +9570,8 @@
                 "type": "PlaceholderString",
                 "description": "The material of the bullet",
                 "link": "https://git.lumine.io/mythiccraft/MythicMobs/-/wikis/Skills/Mechanics/projectile",
-                "default_value": "STONE"
+                "default_value": "STONE",
+                "enum": "Block"
             },
             {
                 "name": [
@@ -9506,7 +9590,8 @@
                 "type": "Audience",
                 "description": "The [Audience](https://git.lumine.io/mythiccraft/MythicMobs/-/wikis/Skills/Audience) of the bullet",
                 "link": "https://git.lumine.io/mythiccraft/MythicMobs/-/wikis/Skills/Mechanics/projectile",
-                "default_value": "world"
+                "default_value": "world",
+                "enum": "Audience"
             },
             {
                 "name": [
@@ -9518,7 +9603,8 @@
                 "type": "String",
                 "description": "The material of the bullet",
                 "link": "https://git.lumine.io/mythiccraft/MythicMobs/-/wikis/Skills/Mechanics/projectile",
-                "default_value": "STONE"
+                "default_value": "STONE",
+                "enum": "Block"
             },
             {
                 "name": [
@@ -9785,7 +9871,8 @@
                 "type": "Audience",
                 "description": "The [Audience](https://git.lumine.io/mythiccraft/MythicMobs/-/wikis/Skills/Audience) of the bullet",
                 "link": "https://git.lumine.io/mythiccraft/MythicMobs/-/wikis/Skills/Mechanics/projectile",
-                "default_value": "world"
+                "default_value": "world",
+                "enum": "Audience"
             },
             {
                 "name": [
@@ -9796,7 +9883,8 @@
                 "type": "String",
                 "description": "The material of the bullet",
                 "link": "https://git.lumine.io/mythiccraft/MythicMobs/-/wikis/Skills/Mechanics/projectile",
-                "default_value": "STONE"
+                "default_value": "STONE",
+                "enum": "Block"
             },
             {
                 "name": [
@@ -9858,7 +9946,8 @@
                 "type": "String",
                 "description": "The material of the bullet",
                 "link": "https://git.lumine.io/mythiccraft/MythicMobs/-/wikis/Skills/Mechanics/projectile",
-                "default_value": "STONE"
+                "default_value": "STONE",
+                "enum": "Block"
             },
             {
                 "name": [
@@ -10006,7 +10095,8 @@
                 "type": "Audience",
                 "description": "The [Audience](https://git.lumine.io/mythiccraft/MythicMobs/-/wikis/Skills/Audience) of the bullet",
                 "link": "https://git.lumine.io/mythiccraft/MythicMobs/-/wikis/Skills/Mechanics/projectile",
-                "default_value": "world"
+                "default_value": "world",
+                "enum": "Audience"
             },
             {
                 "name": [
@@ -10017,7 +10107,8 @@
                 "type": "String",
                 "description": "The material of the bullet",
                 "link": "https://git.lumine.io/mythiccraft/MythicMobs/-/wikis/Skills/Mechanics/projectile",
-                "default_value": "STONE"
+                "default_value": "STONE",
+                "enum": "Block"
             },
             {
                 "name": [
@@ -10026,7 +10117,8 @@
                 "type": "Audience",
                 "description": "The [Audience](https://git.lumine.io/mythiccraft/MythicMobs/-/wikis/Skills/Audience) of the bullet",
                 "link": "https://git.lumine.io/mythiccraft/MythicMobs/-/wikis/Skills/Mechanics/projectile",
-                "default_value": "world"
+                "default_value": "world",
+                "enum": "Audience"
             },
             {
                 "name": [
@@ -13010,6 +13102,39 @@
             },
             {
                 "name": [
+                    "forwardoffset",
+                    "startfoffset",
+                    "sfo"
+                ],
+                "type": "PlaceholderFloat",
+                "description": "The forward offset of the shot projectile",
+                "link": "https://git.lumine.io/mythiccraft/MythicMobs/-/wikis/Skills/Mechanics/shoot",
+                "default_value": "1"
+            },
+            {
+                "name": [
+                    "sideoffset",
+                    "soffset",
+                    "so"
+                ],
+                "type": "Float",
+                "description": "The side offset of the shot projectile",
+                "link": "https://git.lumine.io/mythiccraft/MythicMobs/-/wikis/Skills/Mechanics/shoot",
+                "default_value": "0"
+            },
+            {
+                "name": [
+                    "startsideoffset",
+                    "ssoffset",
+                    "sso"
+                ],
+                "type": "PlaceholderFloat",
+                "description": "The side offset of the shot projectile. Yes, it is the same as the above, but *this* attribute has placeholder support.",
+                "link": "https://git.lumine.io/mythiccraft/MythicMobs/-/wikis/Skills/Mechanics/shoot",
+                "default_value": "`sideOffset's value`"
+            },
+            {
+                "name": [
                     "adjustvelocity",
                     "av"
                 ],
@@ -13333,6 +13458,16 @@
                 "description": "The forward offset of the bullet",
                 "link": "https://git.lumine.io/mythiccraft/MythicMobs/-/wikis/Skills/Mechanics/shootshulkerbullet",
                 "default_value": "0"
+            },
+            {
+                "name": [
+                    "fromorigin",
+                    "fo"
+                ],
+                "type": "Boolean",
+                "description": "Whether to shoot the shulker bullet from the origin",
+                "link": "https://git.lumine.io/mythiccraft/MythicMobs/-/wikis/Skills/Mechanics/shootshulkerbullet",
+                "default_value": "false"
             },
             {
                 "name": [
@@ -14334,7 +14469,7 @@
             "statbuff",
             "statdebuff"
         ],
-        "description": "Applies an [aura](https://git.lumine.io/mythiccraft/MythicMobs/-/wikis/skills/mechanics/aura) to the target that applies a specific [stat](Stats) to them.",
+        "description": "Applies an [aura](https://git.lumine.io/mythiccraft/MythicMobs/-/wikis/skills/mechanics/aura) to the target that applies a specific [stat](Stats) to them.  \nThe buff received is multiplied by the amount of stacks the aura has",
         "link": "https://git.lumine.io/mythiccraft/MythicMobs/-/wikis/Skills/Mechanics/StatAura",
         "attributes": [
             {
@@ -14780,7 +14915,7 @@
             "spawnMobs",
             "pirateSummon"
         ],
-        "description": "Summons mobs of the given type around the target.\n\n<!--\nTo utilize the summon mechanic in Mythic Mobs, you will need the following:\n\n1. Minecraft: make sure you have a working installation of Minecraft Java Edition on your computer\n\n  - ChatGPT, 16/05/2023, oil on canvas\n-->",
+        "description": "Summons mobs of the given type around the target.",
         "link": "https://git.lumine.io/mythiccraft/MythicMobs/-/wikis/Skills/Mechanics/summon",
         "attributes": [
             {

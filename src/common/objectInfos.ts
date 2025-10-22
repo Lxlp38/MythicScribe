@@ -12,6 +12,8 @@ export enum SchemaElementTypes {
     KEY = 'key',
     KEY_LIST = 'key_list',
 
+    ENTRY_LIST = 'entry_list',
+
     ENUM = 'enum',
 }
 
@@ -26,24 +28,38 @@ type BaseSchemaElement = {
     display?: string;
     plugin?: string;
 };
-type EnumSchemaElement = BaseSchemaElement & {
+
+export type EntrySchemaElement = {
+    entries?: Array<SchemaElement>;
+};
+
+export type EnumSchemaElement = BaseSchemaElement & {
     type: SchemaElementTypes.ENUM;
     dataset: string;
 };
-type ListSchemaElement = BaseSchemaElement & {
-    type: SchemaElementTypes.LIST;
-    dataset?: string;
-    keys?: Schema | (() => Schema);
-};
+type ListSchemaElement = BaseSchemaElement &
+    EntrySchemaElement & {
+        type: SchemaElementTypes.LIST;
+        dataset?: string;
+        keys?: Schema | (() => Schema);
+    };
 export type KeySchemaElement = BaseSchemaElement & {
     type: SchemaElementTypes.KEY;
     keys: Schema | (() => Schema);
     maxDepth?: boolean;
 };
+export type EntryListSchemaElement = BaseSchemaElement &
+    EntrySchemaElement & {
+        type: SchemaElementTypes.ENTRY_LIST;
+        entries: Array<SchemaElement>;
+    };
 type OtherSchemaElement = BaseSchemaElement & {
     type: Exclude<
         SchemaElementTypes,
-        SchemaElementTypes.ENUM | SchemaElementTypes.LIST | SchemaElementTypes.KEY
+        | SchemaElementTypes.ENUM
+        | SchemaElementTypes.LIST
+        | SchemaElementTypes.KEY
+        | SchemaElementTypes.ENTRY_LIST
     >;
 };
 
@@ -51,6 +67,7 @@ export type SchemaElement =
     | EnumSchemaElement
     | ListSchemaElement
     | KeySchemaElement
+    | EntryListSchemaElement
     | OtherSchemaElement;
 
 type DefaultSchemaElementMap = Record<string, SchemaElement>;
