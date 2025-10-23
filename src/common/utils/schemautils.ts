@@ -45,6 +45,73 @@ export function generateNumbersInRange(
 }
 
 /**
+ * Generate all 3D vectors within a cubic range as strings.
+ *
+ * Produces an array of strings representing every coordinate triple (x,y,z)
+ * where each coordinate iterates from `min` to `max` (inclusive) in steps of
+ * `step`. Each vector is returned in the form "x,y,z".
+ *
+ * If `float` is false (default) coordinates are emitted using the default
+ * numeric representation. If `float` is true, each coordinate is formatted
+ * with two decimal places (via toFixed(2)).
+ *
+ * Notes:
+ * - The iteration order is nested: x outermost, then y, then z (x changes slowest).
+ * - `step` must be a positive, non-zero number. If a non-positive value is given,
+ *   it defaults to 1.
+ * - Because of floating-point precision, using fractional steps may produce
+ *   rounding artefacts; prefer integer steps or account for precision when needed.
+ * - The number of produced vectors is roughly ((max - min) / step + 1)^3 (subject
+ *   to rounding/truncation for non-integer steps).
+ *
+ * @param min - Inclusive lower bound for each coordinate.
+ * @param max - Inclusive upper bound for each coordinate.
+ * @param step - Increment for each coordinate between iterations (must be > 0).
+ * @param float - If true, format coordinates with two decimal places. Default: false.
+ * @returns An array of strings, each representing a vector in the form "x,y,z".
+ *
+ * @example
+ * // Integers from -1 to 1 with step 1:
+ * // ["-1,-1,-1", "-1,-1,0", ..., "1,1,1"]
+ * generateVectorsInRange(-1, 1, 1);
+ *
+ * @example
+ * // Floats from 0.0 to 0.5 with step 0.25 (formatted to 2 decimals):
+ * // ["0.00,0.00,0.00", "0.00,0.00,0.25", ..., "0.50,0.50,0.50"]
+ * generateVectorsInRange(0, 0.5, 0.25, true);
+ */
+export function generateVectorsInRange(
+    min: number,
+    max: number,
+    step: number,
+    float: boolean = false
+): string[] {
+    if (step <= 0) {
+        step = 1;
+    }
+    const result = [];
+    if (!float) {
+        for (let x = min; x <= max; x += step) {
+            for (let y = min; y <= max; y += step) {
+                for (let z = min; z <= max; z += step) {
+                    result.push(`${x},${y},${z}`);
+                }
+            }
+        }
+        return result;
+    }
+
+    for (let x = min; x <= max; x += step) {
+        for (let y = min; y <= max; y += step) {
+            for (let z = min; z <= max; z += step) {
+                result.push(`${x.toFixed(2)},${y.toFixed(2)},${z.toFixed(2)}`);
+            }
+        }
+    }
+    return result;
+}
+
+/**
  * Adds aliases to the given Schema based on the provided alias map.
  *
  * @param obj - The Schema to which aliases will be added.

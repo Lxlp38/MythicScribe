@@ -7,7 +7,11 @@ import {
 import { getRootKey } from '@common/utils/yamlutils';
 import { MobMythicNode, MythicNodeHandler } from '@common/mythicnodes/MythicNode';
 
-import { generateNumbersInRange, inheritSchemaOptions } from '../utils/schemautils';
+import {
+    generateNumbersInRange,
+    generateVectorsInRange,
+    inheritSchemaOptions,
+} from '../utils/schemautils';
 import {
     Schema,
     SchemaElementSpecialKeys,
@@ -16,6 +20,7 @@ import {
     DefaultPlugins,
     getKeySchema,
 } from '../objectInfos';
+import { DropsSchema } from './commonSchema';
 
 export const MobSchema: Schema = {
     Type: {
@@ -145,8 +150,7 @@ export const MobSchema: Schema = {
         description: 'The AI target selectors of the mob.',
     },
     Drops: {
-        type: SchemaElementTypes.LIST,
-        dataset: 'ITEM',
+        ...DropsSchema,
         link: 'https://git.lumine.io/mythiccraft/MythicMobs/-/wikis/Mobs/Mobs#drops',
         description: 'The drops of the mob.',
     },
@@ -168,7 +172,16 @@ export const MobSchema: Schema = {
     },
     Equipment: {
         type: SchemaElementTypes.LIST,
-        dataset: 'ITEM',
+        entries: [
+            {
+                type: SchemaElementTypes.ENUM,
+                dataset: 'ITEM',
+            },
+            {
+                type: SchemaElementTypes.ENUM,
+                dataset: 'EQUIPSLOT',
+            },
+        ],
         link: 'https://git.lumine.io/mythiccraft/MythicMobs/-/wikis/Mobs/Mobs#equipment',
         description: 'The equipment of the mob.',
     },
@@ -205,8 +218,17 @@ export const MobSchema: Schema = {
         },
     },
     Disguise: {
-        type: SchemaElementTypes.ENUM,
-        dataset: 'ENTITYTYPE',
+        type: SchemaElementTypes.ENTRY_LIST,
+        entries: [
+            {
+                type: SchemaElementTypes.ENUM,
+                dataset: 'ENTITYTYPE',
+            },
+            {
+                type: SchemaElementTypes.STRING,
+                description: 'The disguise options',
+            },
+        ],
         link: 'https://git.lumine.io/mythiccraft/MythicMobs/-/wikis/Mobs/Mobs#disguise',
         description: 'The disguise of the mob.',
     },
@@ -260,11 +282,35 @@ export const MobSchema: Schema = {
             },
             Pattern: {
                 type: SchemaElementTypes.LIST,
+                entries: [
+                    {
+                        type: SchemaElementTypes.VECTOR,
+                        values: generateVectorsInRange(-1, 1, 1),
+                        description: 'The offset vector for the totem block',
+                    },
+                    {
+                        type: SchemaElementTypes.ENUM,
+                        dataset: 'BLOCK',
+                        description: 'The block type for the totem block',
+                    },
+                ],
                 description:
                     'A list of offset vectors and materials that define what the totem should look like',
             },
             Replacement: {
                 type: SchemaElementTypes.LIST,
+                entries: [
+                    {
+                        type: SchemaElementTypes.VECTOR,
+                        values: generateVectorsInRange(-1, 1, 1),
+                        description: 'The offset vector for the totem block',
+                    },
+                    {
+                        type: SchemaElementTypes.ENUM,
+                        dataset: 'BLOCK',
+                        description: 'The block type for the totem block',
+                    },
+                ],
                 description: 'Optional list of replacements blocks for the pattern',
             },
         },
@@ -287,11 +333,31 @@ export const MobSchema: Schema = {
                 description: 'The internal name of the trade.',
                 keys: {
                     Item1: {
-                        type: SchemaElementTypes.STRING,
+                        type: SchemaElementTypes.ENTRY_LIST,
+                        entries: [
+                            {
+                                type: SchemaElementTypes.INTEGER,
+                                values: generateNumbersInRange(1, 64, 1, false),
+                            },
+                            {
+                                type: SchemaElementTypes.ENUM,
+                                dataset: 'ITEM',
+                            },
+                        ],
                         description: 'The first item in the trade.',
                     },
                     Item2: {
-                        type: SchemaElementTypes.STRING,
+                        type: SchemaElementTypes.ENTRY_LIST,
+                        entries: [
+                            {
+                                type: SchemaElementTypes.INTEGER,
+                                values: generateNumbersInRange(1, 64, 1, false),
+                            },
+                            {
+                                type: SchemaElementTypes.ENUM,
+                                dataset: 'ITEM',
+                            },
+                        ],
                         description: 'The second item in the trade.',
                     },
                     MaxUses: {
@@ -300,7 +366,17 @@ export const MobSchema: Schema = {
                         description: 'The maximum number of uses for the trade.',
                     },
                     Result: {
-                        type: SchemaElementTypes.STRING,
+                        type: SchemaElementTypes.ENTRY_LIST,
+                        entries: [
+                            {
+                                type: SchemaElementTypes.INTEGER,
+                                values: generateNumbersInRange(1, 64, 1, false),
+                            },
+                            {
+                                type: SchemaElementTypes.ENUM,
+                                dataset: 'ITEM',
+                            },
+                        ],
                         description: 'The resulting item of the trade.',
                     },
                 },

@@ -1,5 +1,6 @@
 import { generateNumbersInRange, inheritSchemaOptions } from '../utils/schemautils';
 import { DefaultPlugins, Schema, SchemaElementTypes } from '../objectInfos';
+import { DropsSchema } from './commonSchema';
 
 export const DroptableSchema: Schema = {
     TotalItems: {
@@ -50,8 +51,7 @@ export const DroptableSchema: Schema = {
             'A list of conditions that must be met by the entity that triggered the droptable for the table to drop items. If any condition fails, the table will not drop items.',
     },
     Drops: {
-        type: SchemaElementTypes.LIST,
-        dataset: 'ITEM',
+        ...DropsSchema,
         link: 'https://git.lumine.io/mythiccraft/MythicMobs/-/wikis/drops/DropTables#droptable-options',
         description: 'A list of items that can drop from the table.',
     },

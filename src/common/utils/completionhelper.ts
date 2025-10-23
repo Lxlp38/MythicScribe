@@ -59,6 +59,7 @@ function handleEntryListSchemaElement(
     const entryIndex = Math.max(
         context
             .textExtractor(substringOnLineBeforePosition)
+            .replace(/{.*?}/g, '')
             .trimStart()
             .split(' ')
             .filter((v) => v !== '').length,
@@ -136,10 +137,24 @@ function getCompletionsForSchemaElement(
         return handleEntryListSchemaElement(object, context);
     }
 
-    if (
-        (object.type === SchemaElementTypes.INTEGER || object.type === SchemaElementTypes.FLOAT) &&
-        object.values
-    ) {
+    if (object.type === SchemaElementTypes.BOOLEAN) {
+        const completionItems: vscode.CompletionItem[] = [];
+        ['true', 'false'].forEach((value) => {
+            const completionItem = new vscode.CompletionItem(
+                value,
+                vscode.CompletionItemKind.EnumMember
+            );
+            completionItem.insertText = new vscode.SnippetString(value + (context.suffix ?? ''));
+            if (context.command) {
+                completionItem.command = context.command;
+            }
+            completionItems.push(completionItem);
+        });
+        return completionItems;
+    }
+
+    // Fallback: provide values if they exist
+    if (object.values) {
         const completionItems: vscode.CompletionItem[] = [];
         object.values.forEach((value) => {
             const completionItem = new vscode.CompletionItem(

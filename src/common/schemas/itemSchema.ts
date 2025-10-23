@@ -1,6 +1,7 @@
 import {
     addSchemaAliases,
     generateNumbersInRange,
+    generateVectorsInRange,
     inheritSchemaOptions,
 } from '../utils/schemautils';
 import {
@@ -10,6 +11,7 @@ import {
     SchemaElementSpecialKeys,
     SchemaElementTypes,
 } from '../objectInfos';
+import { DropsSchema } from './commonSchema';
 
 export const Generation: Schema = {
     Generation: {
@@ -38,6 +40,12 @@ const FurnitureStatesCompatibleOptions: Schema = {
     },
     Lights: {
         type: SchemaElementTypes.LIST,
+        entries: [
+            {
+                type: SchemaElementTypes.VECTOR,
+                values: generateVectorsInRange(-1, 1, 1),
+            },
+        ],
         plugin: DefaultPlugins.MythicCrucible,
     },
     Barriers: {
@@ -45,7 +53,13 @@ const FurnitureStatesCompatibleOptions: Schema = {
         plugin: DefaultPlugins.MythicCrucible,
     },
     Model: {
-        type: SchemaElementTypes.INTEGER,
+        type: SchemaElementTypes.LIST,
+        entries: [
+            {
+                type: SchemaElementTypes.VECTOR,
+                values: generateVectorsInRange(-1, 1, 1),
+            },
+        ],
         plugin: DefaultPlugins.MythicCrucible,
     },
     ...Generation,
@@ -702,9 +716,15 @@ export const ItemSchema: Schema = {
             },
             Seats: {
                 type: SchemaElementTypes.LIST,
+                entries: [
+                    {
+                        type: SchemaElementTypes.VECTOR,
+                        values: generateVectorsInRange(-1, 1, 1),
+                    },
+                ],
             },
             Drops: {
-                type: SchemaElementTypes.LIST,
+                ...DropsSchema,
             },
             DefaultState: {
                 type: SchemaElementTypes.STRING,
@@ -742,6 +762,7 @@ export const ItemSchema: Schema = {
             },
             Scale: {
                 type: SchemaElementTypes.VECTOR,
+                values: generateVectorsInRange(0.1, 2, 0.1),
             },
             Tracked: {
                 type: SchemaElementTypes.BOOLEAN,
