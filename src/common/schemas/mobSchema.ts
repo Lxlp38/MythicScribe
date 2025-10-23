@@ -303,12 +303,12 @@ export const MobSchema: Schema = {
                     {
                         type: SchemaElementTypes.VECTOR,
                         values: generateVectorsInRange(-1, 1, 1),
-                        description: 'The offset vector for the totem block',
+                        description: 'The offset vector for the replacement block',
                     },
                     {
                         type: SchemaElementTypes.ENUM,
                         dataset: 'BLOCK',
-                        description: 'The block type for the totem block',
+                        description: 'The block type for the replacement block',
                     },
                 ],
                 description: 'Optional list of replacements blocks for the pattern',
