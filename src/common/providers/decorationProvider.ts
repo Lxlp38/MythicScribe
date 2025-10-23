@@ -183,16 +183,35 @@ export abstract class DecorationProvider<T, D extends string = string> extends v
         }
     }
 
-    public removeDecorationsOnLine(editor: vscode.TextEditor | undefined, line: number, type: T) {
+    public removeDecorationsOnLine(
+        editor: vscode.TextEditor | undefined,
+        line: number,
+        type: Parameters<this['removeDecorationsConditionally']>[0]
+    ) {
+        return this.removeDecorationsConditionally(
+            type,
+            editor,
+            (option) => option.range.start.line === line
+        );
+    }
+
+    // Preserve decorations that do not match the condition
+    public removeDecorationsConditionally(
+        type: T | Array<T>,
+        editor: vscode.TextEditor | undefined,
+        condition: (option: vscode.DecorationOptions) => boolean
+    ) {
         if (!editor) {
+            return;
+        }
+        if (Array.isArray(type)) {
+            type.forEach((t) => this.removeDecorationsConditionally(t, editor, condition));
             return;
         }
         const [decorationType, key] = this.getDecoration(type);
         const decorations = this.decorationCache.get(editor.document.uri.toString());
         if (decorations && decorations.has(key)) {
-            const options = decorations
-                .get(key)!
-                .options.filter((option) => option.range.start.line !== line);
+            const options = decorations.get(key)!.options.filter((option) => !condition(option));
             if (options.length > 0) {
                 decorations.get(key)!.options = options;
                 editor.setDecorations(decorationType, options);

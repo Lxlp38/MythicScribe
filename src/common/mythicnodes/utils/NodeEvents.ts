@@ -50,11 +50,23 @@ export function loadNodeEvents() {
                 event.document.uri === vscode.window.activeTextEditor?.document.uri &&
                 event.document.uri !== undefined
             ) {
-                nodeDecorations.removeDecorationsOnLine(
-                    vscode.window.activeTextEditor,
-                    event.contentChanges[0].range.start.line,
-                    'delayTracking'
-                );
+                const startLine = event.contentChanges[0].range.start.line;
+
+                if (event.contentChanges[0].text.includes('\n')) {
+                    for (let i = startLine; i < event.document.lineCount; i++) {
+                        nodeDecorations.removeDecorationsConditionally(
+                            ['delayTracking', 'soundPlayback', 'specificSoundPlayback'],
+                            vscode.window.activeTextEditor,
+                            (option) => option.range.start.line <= i
+                        );
+                    }
+                } else {
+                    nodeDecorations.removeDecorationsOnLine(
+                        vscode.window.activeTextEditor,
+                        startLine,
+                        'delayTracking'
+                    );
+                }
             }
             if (!ConfigProvider.registry.fileParsingPolicy.get('parseOnModification')) {
                 return;
