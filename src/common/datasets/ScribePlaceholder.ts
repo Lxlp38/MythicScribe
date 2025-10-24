@@ -299,17 +299,17 @@ export async function initializePlaceholders(placeholderDataset: Map<string, Enu
     new ScriptedPlaceholderSegment(
         'Map',
         () => ['key1=value1', 'key2=value2', 'key1=value1;key2=value2'],
-        (value) => /^((.*=.*);)*(.*=.*)$/m.test(value)
+        (value) => /^([^;=]+=.*)(;[^;=]+=.*)*$/m.test(value)
     );
     new ScriptedPlaceholderSegment(
         'List',
         () => ['value1', 'value1,value2', 'value1,value2,value3'],
-        (value) => /^(.*,)*(.*)$/.test(value)
+        (value) => /^[^,]+(,[^,]+)*$/.test(value)
     );
     new ScriptedPlaceholderSegment(
         'Set',
         () => ['value1', 'value1,value2', 'value1,value2,value3'],
-        (value) => /^(.*,)*(.*)$/.test(value)
+        (value) => /^[^,]+(,[^,]+)*$/.test(value)
     );
     new ScriptedPlaceholderSegment(
         'Vector',
