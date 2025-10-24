@@ -36,7 +36,7 @@ export function executeGetObjectLinkedToAttribute(searchText: string) {
                 // Get the text before the '{' which should be the object
                 const textBeforeBrace = searchText.substring(0, i).trim();
                 // Use a regex to find the object name before the '{'
-                const objectMatch = textBeforeBrace.match(/(?<=[ =])([@~]|(\?~?!?))?[\w:]+$/); // Match the last word before the brace
+                const objectMatch = textBeforeBrace.match(/(?<=[ =])([@~]|(\?~?!?))?[\w:\-_]+$/); // Match the last word before the brace
                 if (objectMatch && objectMatch[0]) {
                     return objectMatch[0]; // Return the object name
                 }

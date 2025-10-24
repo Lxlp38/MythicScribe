@@ -6,7 +6,7 @@ import { CursorLocationAction } from '../cursorLocationAction';
 export function definitionProvider() {
     return vscode.languages.registerDefinitionProvider('mythicscript', {
         provideDefinition(document, position): vscode.ProviderResult<vscode.LocationLink[]> {
-            return CursorLocationAction.forNode(document, position, definitionCallback);
+            return CursorLocationAction.forNode(document, position, { node: definitionCallback });
         },
     });
 }

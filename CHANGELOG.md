@@ -3,8 +3,31 @@
 ## [Unreleased]
 
 ### Added
+- It is now possible to create specially-made comments on top of Metaskills in order for them to be treated like fully fledged mechanics, with attributes completions and the likes
+  - The comment will need to have inside a `@mechanic` string
+  - Only the text that is *after* the `@mechanic` string will be parsed to make the mechanic 
 - `decorationOptions.specificSoundPlayback` configuration to better handle what kind of sound playback decorations should pop up. This configuration defaults to false, hiding all sound playback decoration *except* for the ones on top of Metaskills to play all sounds inside of it. If you want to hide *those* too, the `decorationOptions.soundPlayback` configuration can be set to false to hide those specifically
 - Completion support for variable placeholders' meta keywords
+
+```yaml
+# This piece will not be parsed because it's before the mechanic tag
+#
+# @mechanic
+# Describe the metaskill here.  
+# ### Parameters
+# @param {ParameterType} test1 - Description of what test1 does  
+# @param {Material} test2 - Description of what test2 does  
+# @param {value1,value2,value3} test3 - Description of what test3 does
+# 
+# ### Additional Information
+# @author Lxlp  
+# @plugin IDoubtYouWillNeedToSpecifyThis  
+# @link http://example.com  
+ExampleMetaskill:
+  Skills:
+  - message{m=<skill.test1>} @self
+```
+> Example of a documented metaskill
 
 ### Changed
 - When the `editor.acceptSuggestionOnEnter` config is set to anything but `false`, file-specific suggestions (the suggestions triggered when pressing enter) will not pop up automatically. They can, of course, still be programmatically called by using `ctrl+space`.  

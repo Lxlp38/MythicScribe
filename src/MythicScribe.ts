@@ -3,6 +3,7 @@ import * as vscode from 'vscode';
 import { openAuraFXWebview } from '@common/webviews/views/aurafx';
 import { openMinecraftSoundsWebview } from '@common/webviews/views/minecraftsounds';
 import { scribeCodeLensProvider } from '@common/providers/codeLensProvider';
+import { createDocumentationFromSkillParameters } from '@common/mythicnodes/comment-parser/comment-parser';
 
 import * as SubscriptionHelper from './common/subscriptions/SubscriptionHelper';
 import { getFormatter } from './common/formatter/formatter';
@@ -82,6 +83,10 @@ export async function activate(context: vscode.ExtensionContext) {
         vscode.commands.registerCommand(
             'MythicScribe.external.minecraftsounds.playback',
             openMinecraftSoundsWebview
+        ),
+        vscode.commands.registerCommand(
+            'MythicScribe.createMetaskillDocumentation',
+            createDocumentationFromSkillParameters
         ),
 
         // Formatter

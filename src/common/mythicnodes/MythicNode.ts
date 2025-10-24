@@ -6,7 +6,7 @@ import {
 } from '@common/datasets/ScribePlaceholder';
 import { ConditionActions } from '@common/schemas/conditionActions';
 import { EnumDatasetValue, ScribeEnumHandler } from '@common/datasets/ScribeEnum';
-import { ScribeMechanicHandler } from '@common/datasets/ScribeMechanic';
+import { MythicMechanic, ScribeMechanicHandler } from '@common/datasets/ScribeMechanic';
 import { scribeCodeLensProvider as nodeLens } from '@common/providers/codeLensProvider';
 
 import {
@@ -24,6 +24,7 @@ import { registryKey } from '../objectInfos';
 import { nodeDecorations, updateActiveEditorDecorations } from './utils/NodeDecorations';
 import { loadNodeEvents } from './utils/NodeEvents';
 import { DocumentDataMap } from './utils/NodeDataStructures';
+import { getMechanicFromComment } from './comment-parser/comment-parser';
 
 export type NodeEntry = Map<string, MythicNode>;
 type NodeReferenceValue = Map<string, vscode.Range[]>;
@@ -82,15 +83,7 @@ export class MythicNode {
         public name: NodeElement,
         public body: NodeBaseElement
     ) {
-        if (this.description.text) {
-            for (const type of registryKey) {
-                this.matchDecorators(this.description.text, type).forEach((decorator) => {
-                    this.addEdge(type, decorator.name, decorator.range);
-                });
-            }
-        }
-
-        this.description.text = this.description.text?.replace(/^#/gm, '');
+        this.processDescription();
 
         if (!this.body.text) {
             return;
@@ -111,6 +104,18 @@ export class MythicNode {
         this.findNodeEdges(this.body.text);
 
         body.text = undefined;
+    }
+
+    protected processDescription(): void {
+        if (this.description.text) {
+            for (const type of registryKey) {
+                this.matchDecorators(this.description.text, type).forEach((decorator) => {
+                    this.addEdge(type, decorator.name, decorator.range);
+                });
+            }
+        }
+
+        this.description.text = this.description.text?.replace(/^#/gm, '');
     }
 
     get hash(): string {
@@ -509,9 +514,12 @@ export class MythicNode {
     }
 }
 
+const SkillParameterRegex = /<skill\.(?<parameter>[\w_\-]+)>/gms;
+
 // Represents a MythicNode specifically for metaskills, extending the base functionality
 // to include condition actions as additional edges.
 export class MetaskillMythicNode extends MythicNode {
+    public mechanic: MythicMechanic | undefined;
     protected findNodeEdges(body: string): void {
         super.findNodeEdges(body);
         this.matchConditionActions(body).forEach((action) => {
@@ -525,6 +533,50 @@ export class MetaskillMythicNode extends MythicNode {
 
         if (ConfigProvider.registry.decorationOptions.get('delayTracking')) {
             this.matchDelays(body);
+        }
+
+        if (!this.metadata.has('lambdaMechanic')) {
+            const skillParameters = body.matchAll(SkillParameterRegex);
+            if (skillParameters) {
+                const params: Set<string> = new Set();
+                for (const match of skillParameters) {
+                    const placeholder = match.groups?.parameter;
+                    if (placeholder) {
+                        params.add(placeholder);
+                    }
+                }
+                if (params.size > 0) {
+                    nodeDecorations.addNodeDecoration(
+                        this,
+                        this.name.range,
+                        'createMetaskillDocumentation',
+                        undefined,
+                        {
+                            range: this.name.range,
+                            isResolved: true,
+                            command: {
+                                title: `🛈 Create Metaskill Documentation`,
+                                command: 'MythicScribe.createMetaskillDocumentation',
+                                arguments: [params, this.description.range.start],
+                            },
+                        }
+                    );
+                }
+            }
+        }
+    }
+
+    protected processDescription(): void {
+        super.processDescription();
+        if (this.description.text?.includes('@mechanic')) {
+            const parseableComment = this.description.text.split('@mechanic', 2);
+            const mechanic = getMechanicFromComment(parseableComment[1], this);
+            if (mechanic) {
+                this.metadata.set(
+                    'lambdaMechanic',
+                    new MythicMechanic(mechanic, ScribeMechanicHandler.registry.mechanic)
+                );
+            }
         }
     }
 

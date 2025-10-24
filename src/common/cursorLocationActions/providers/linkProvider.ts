@@ -7,14 +7,11 @@ import { MythicAttribute, MythicMechanic } from '../../datasets/ScribeMechanic';
 export function linksProvider(schema: Schema) {
     return vscode.languages.registerDefinitionProvider('mythicscript', {
         provideDefinition(document, position): vscode.ProviderResult<vscode.Location[]> {
-            return CursorLocationAction.forSchema(
-                document,
-                position,
-                schema,
-                getDefinitionForFileElement,
-                getDefinitionForAttribute,
-                getDefinitionForMechanic
-            );
+            return CursorLocationAction.forSchema(document, position, schema, {
+                fileElementFunction: getDefinitionForFileElement,
+                attributeFunction: getDefinitionForAttribute,
+                mechanicFunction: getDefinitionForMechanic,
+            });
         },
     });
 }

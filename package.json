@@ -172,6 +172,10 @@
       {
         "command": "MythicScribe.external.minecraftsounds.playback",
         "title": "Play Sound on MinecraftSounds"
+      },
+      {
+        "command": "MythicScribe.createMetaskillDocumentation",
+        "title": "Create the documentation for a Metaskill"
       }
     ],
     "languages": [
@@ -570,12 +574,19 @@
               "type": "boolean",
               "default": false,
               "description": "Show prompts to play sounds on minecraftsounds.com for the specific sound mechanic"
+            },
+            "createMetaskillDocumentation": {
+              "title": "Create Metaskill Documentation",
+              "type": "boolean",
+              "default": true,
+              "description": "Show a prompt to create the documentation for metaskills based on their skill parameters"
             }
           },
           "default": {
             "delayTracking": true,
             "soundPlayback": true,
-            "specificSoundPlayback": false
+            "specificSoundPlayback": false,
+            "createMetaskillDocumentation": true
           }
         }
       }
@@ -626,6 +637,7 @@
     "typescript": "^5.6.2"
   },
   "dependencies": {
+    "comment-parser": "^1.4.1",
     "cytoscape": "^3.31.1",
     "cytoscape-context-menus": "^4.2.1",
     "cytoscape-fcose": "^2.2.0",

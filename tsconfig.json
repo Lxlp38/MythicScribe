@@ -1,6 +1,8 @@
 {
 	"compilerOptions": {
-		"module": "Node16",
+		"esModuleInterop": true,
+		"allowSyntheticDefaultImports": true,
+		"module": "CommonJS",
 		"target": "ES2022",
 		"rootDir": "src",
 		"outDir": "out",

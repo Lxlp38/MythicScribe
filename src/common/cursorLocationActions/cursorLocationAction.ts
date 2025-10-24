@@ -1,6 +1,6 @@
 import * as vscode from 'vscode';
 
-import { MythicMechanic, MythicAttribute } from '../datasets/ScribeMechanic';
+import { MythicMechanic, MythicAttribute, ScribeMechanicHandler } from '../datasets/ScribeMechanic';
 import { Schema, keyAliases, registryKey, specialAttributeEnumToRegistryKey } from '../objectInfos';
 import { getCursorSkills, getCursorObject } from '../utils/cursorutils';
 import * as yamlutils from '../utils/yamlutils';
@@ -15,18 +15,23 @@ import {
 import { ConditionActions } from '../schemas/conditionActions';
 import { KeyDependantMechanicLikeHover } from './providers/hoverprovider';
 
+type SchemaCallbacks<T> = {
+    fileElementFunction: (keys: string[], type: Schema, link: string | undefined) => T | undefined;
+    attributeFunction: (attribute: MythicAttribute) => Promise<T | undefined>;
+    mechanicFunction: (mechanic: MythicMechanic) => Promise<T | undefined>;
+};
+
+type NodeCallbacks<T> = {
+    node: (node: MythicNode, range: vscode.Range) => vscode.ProviderResult<T>;
+    mechanic?: (mechanic: MythicMechanic) => Promise<T | undefined>;
+};
+
 export namespace CursorLocationAction {
     export function forSchema<T>(
         document: vscode.TextDocument,
         position: vscode.Position,
         schema: Schema,
-        fileElementFunction: (
-            keys: string[],
-            type: Schema,
-            link: string | undefined
-        ) => T | undefined,
-        attributeFunction: (attribute: MythicAttribute) => Promise<T | undefined>,
-        mechanicFunction: (mechanic: MythicMechanic) => Promise<T | undefined>,
+        callbacks: SchemaCallbacks<T>,
         ...keydependencies: KeyDependantMechanicLikeHover[]
     ) {
         const keys = yamlutils.getParentKeys(document, position);
@@ -40,7 +45,7 @@ export namespace CursorLocationAction {
                 indent: yamlutils.getIndentation(document.lineAt(position.line).text),
             });
 
-            return fileElementFunction(
+            return callbacks.fileElementFunction(
                 yamlutils.getKeyNameFromYamlKey(keys.slice(1)),
                 schema,
                 undefined
@@ -57,9 +62,9 @@ export namespace CursorLocationAction {
                 return null;
             }
             if (result instanceof MythicAttribute) {
-                return attributeFunction(result as MythicAttribute);
+                return callbacks.attributeFunction(result as MythicAttribute);
             }
-            return mechanicFunction(result);
+            return callbacks.mechanicFunction(result);
         }
         for (const keydependency of keydependencies) {
             if (keydependency.keys.includes(keys[0].key)) {
@@ -78,10 +83,10 @@ export namespace CursorLocationAction {
                     return undefined;
                 }
                 if (obj instanceof MythicAttribute) {
-                    return attributeFunction(obj as MythicAttribute);
+                    return callbacks.attributeFunction(obj as MythicAttribute);
                 }
 
-                return mechanicFunction(obj);
+                return callbacks.mechanicFunction(obj);
             }
         }
         return null;
@@ -90,7 +95,7 @@ export namespace CursorLocationAction {
     export function forNode<T>(
         document: vscode.TextDocument,
         position: vscode.Position,
-        callback: (node: MythicNode, range: vscode.Range) => vscode.ProviderResult<T>
+        callbacks: NodeCallbacks<T>
     ) {
         const wordRange = document.getWordRangeAtPosition(position, /[\w\-:]+/g);
         if (!wordRange) {
@@ -99,11 +104,17 @@ export namespace CursorLocationAction {
         const word = document.getText(wordRange);
 
         const handlers = [
-            () => handleSkill(word, wordRange, callback),
-            () => handleConditionAction(document, position, word, wordRange, callback),
-            () => handleTemplates(document.lineAt(position.line).text, word, wordRange, callback),
-            () => handleLinkedAttribute(document, position, word, wordRange, callback),
-            () => handlePlaceholder(document, position, word, wordRange, callback),
+            () => handleSkill(word, wordRange, callbacks),
+            () => handleConditionAction(document, position, word, wordRange, callbacks.node),
+            () =>
+                handleTemplates(
+                    document.lineAt(position.line).text,
+                    word,
+                    wordRange,
+                    callbacks.node
+                ),
+            () => handleLinkedAttribute(document, position, word, wordRange, callbacks.node),
+            () => handlePlaceholder(document, position, word, wordRange, callbacks.node),
         ];
 
         for (const handler of handlers) {
@@ -116,16 +127,20 @@ export namespace CursorLocationAction {
         return undefined;
     }
 }
-function handleSkill<T>(
-    word: string,
-    wordRange: vscode.Range,
-    callback: (node: MythicNode, range: vscode.Range) => vscode.ProviderResult<T>
-) {
+function handleSkill<T>(word: string, wordRange: vscode.Range, callbacks: NodeCallbacks<T>) {
     if (word.startsWith('skill:')) {
+        const maybeActualMechanic = ScribeMechanicHandler.registry.mechanic.getMechanicByName(word);
+        if (maybeActualMechanic && callbacks.mechanic) {
+            return callbacks.mechanic(maybeActualMechanic);
+        }
+
         const skillName = word.slice(6);
         const skill = MythicNodeHandler.registry.metaskill.getNode(skillName);
         if (skill) {
-            return callback(skill, wordRange.with({ start: wordRange.start.translate(0, 6) }));
+            return callbacks.node(
+                skill,
+                wordRange.with({ start: wordRange.start.translate(0, 6) })
+            );
         }
     }
     return undefined;

@@ -25,18 +25,143 @@ export enum ObjectType {
 
 export type MechanicDataset = Mechanic[];
 
+class MechanicContainer {
+    values: MythicMechanic[] = [];
+    nameMap: Map<string, MythicMechanic> = new Map();
+    classMap: Map<string, MythicMechanic> = new Map();
+    completionsCache: vscode.CompletionItem[] = [];
+
+    clear() {
+        this.values = [];
+        this.nameMap.clear();
+        this.classMap.clear();
+        this.completionsCache = [];
+    }
+
+    add(mechanic: MythicMechanic, defaultExtend?: string) {
+        this.values.push(mechanic);
+        mechanic.name.forEach((name) => {
+            this.nameMap.set(name.toLowerCase(), mechanic);
+        });
+        this.classMap.set(mechanic.class.toLowerCase(), mechanic);
+        addMechanicCompletions([mechanic], this.completionsCache, defaultExtend);
+    }
+
+    getByName(name: string): MythicMechanic | undefined {
+        return this.nameMap.get(name.toLowerCase());
+    }
+
+    getByClass(name: string): MythicMechanic | undefined {
+        return this.classMap.get(name.toLowerCase());
+    }
+
+    // get mechanics(): MythicMechanic[] {
+    //     return this.values;
+    // }
+
+    // get mechanicsNameMap(): Map<string, MythicMechanic> {
+    //     return this.nameMap;
+    // }
+}
+
+class MechanicMultiContainer {
+    private containers: Map<string, MechanicContainer> = new Map();
+    private nameResolutionMap: Map<string, MechanicContainer> = new Map();
+    private classResolutionMap: Map<string, MechanicContainer> = new Map();
+
+    getContainer(id: string): MechanicContainer {
+        if (!this.containers.has(id)) {
+            this.containers.set(id, new MechanicContainer());
+        }
+        return this.containers.get(id)!;
+    }
+
+    getContainers(): MechanicContainer[] {
+        return Array.from(this.containers.values());
+    }
+
+    clear() {
+        this.containers.clear();
+        this.nameResolutionMap.clear();
+        this.classResolutionMap.clear();
+    }
+
+    clearContainer(id: string) {
+        if (this.containers.has(id)) {
+            this.containers.get(id)!.clear();
+        }
+    }
+
+    addToContainer(id: string, mechanic: MythicMechanic) {
+        const container = this.getContainer(id);
+        container.add(mechanic);
+    }
+
+    getByNameFromAllContainers(name: string): MythicMechanic | undefined {
+        const lowerName = name.toLowerCase();
+        if (this.nameResolutionMap.has(lowerName)) {
+            const maybeValue = this.nameResolutionMap.get(lowerName)!.getByName(lowerName);
+            if (maybeValue) {
+                return maybeValue;
+            }
+            this.nameResolutionMap.delete(lowerName);
+        }
+        for (const container of this.containers.values()) {
+            const ret = container.getByName(lowerName);
+            if (ret) {
+                this.nameResolutionMap.set(lowerName, container);
+                return ret;
+            }
+        }
+        return undefined;
+    }
+
+    getByClassFromAllContainers(name: string): MythicMechanic | undefined {
+        const lowerName = name.toLowerCase();
+        if (this.classResolutionMap.has(lowerName)) {
+            const maybeValue = this.classResolutionMap.get(lowerName)!.getByClass(lowerName);
+            if (maybeValue) {
+                return maybeValue;
+            }
+            this.classResolutionMap.delete(lowerName);
+        }
+        for (const container of this.containers.values()) {
+            const ret = container.getByClass(lowerName);
+            if (ret) {
+                this.classResolutionMap.set(lowerName, container);
+                return ret;
+            }
+        }
+        return undefined;
+    }
+
+    getCompletionsFromAllContainers(): vscode.CompletionItem[] {
+        const completions: vscode.CompletionItem[] = [];
+        for (const container of this.containers.values()) {
+            completions.push(...container.completionsCache);
+        }
+        return completions;
+    }
+}
+
 export abstract class AbstractScribeMechanicRegistry {
     readonly regex: RegExp = /null/;
     readonly type: ObjectType = ObjectType.MECHANIC;
     readonly folder: string = 'null';
     readonly files: string[] = [];
     readonly defaultExtend: string | undefined = undefined;
-    private mechanics: MythicMechanic[] = [];
-    private mechanicsNameMap: Map<string, MythicMechanic> = new Map();
-    private mechanicsClassMap: Map<string, MythicMechanic> = new Map();
-    private mechanicCompletionsCache: vscode.CompletionItem[] = [];
+
+    private mechanics: MechanicContainer = new MechanicContainer();
+    private lambdaMechanics: MechanicMultiContainer = new MechanicMultiContainer();
+
     get mechanicCompletions() {
-        return this.mechanicCompletionsCache;
+        const completions = [...this.mechanics.completionsCache];
+        completions.push(...this.lambdaMechanics.getCompletionsFromAllContainers());
+        // console.log(
+        //     'Lambda Completions are',
+        //     this.lambdaMechanics.getCompletionsFromAllContainers()
+        // );
+        return completions;
     }
 
     get localPath(): string {
@@ -49,14 +174,14 @@ export abstract class AbstractScribeMechanicRegistry {
                 return;
             }
             const mythicMechanic = new MythicMechanic(m, this);
-            this.mechanics.push(mythicMechanic);
+            this.mechanics.values.push(mythicMechanic);
             m.name.forEach((name) => {
-                this.mechanicsNameMap.set(name.toLowerCase(), mythicMechanic);
+                this.mechanics.nameMap.set(name.toLowerCase(), mythicMechanic);
             });
-            this.mechanicsClassMap.set(m.class.toLowerCase(), mythicMechanic);
+            this.mechanics.classMap.set(m.class.toLowerCase(), mythicMechanic);
             addMechanicCompletions(
                 [mythicMechanic],
-                this.mechanicCompletionsCache,
+                this.mechanics.completionsCache,
                 this.defaultExtend
             );
         });
@@ -72,22 +197,57 @@ export abstract class AbstractScribeMechanicRegistry {
     }
 
     getMechanics(): MythicMechanic[] {
-        return this.mechanics;
+        const allMechanics = [...this.mechanics.values];
+        for (const container of this.lambdaMechanics.getContainers()) {
+            allMechanics.push(...container.values);
+        }
+        return allMechanics;
     }
 
     getMechanicByName(name: string): MythicMechanic | undefined {
-        return this.mechanicsNameMap.get(name.toLowerCase());
+        const lowerName = name.toLowerCase();
+        if (this.mechanics.nameMap.has(lowerName)) {
+            return this.mechanics.nameMap.get(lowerName);
+        }
+        const maybeMechanic = this.lambdaMechanics.getByNameFromAllContainers(lowerName);
+        if (maybeMechanic) {
+            return maybeMechanic;
+        }
+        return undefined;
     }
 
     getMechanicByClass(name: string): MythicMechanic | undefined {
-        return this.mechanicsClassMap.get(name.toLowerCase());
+        const lowerName = name.toLowerCase();
+        if (this.mechanics.classMap.has(lowerName)) {
+            return this.mechanics.classMap.get(lowerName);
+        }
+        const maybeMechanic = this.lambdaMechanics.getByClassFromAllContainers(lowerName);
+        if (maybeMechanic) {
+            return maybeMechanic;
+        }
+        return undefined;
     }
 
     emptyDatasets() {
-        this.mechanics = [];
-        this.mechanicsNameMap.clear();
-        this.mechanicsClassMap.clear();
-        this.mechanicCompletionsCache = [];
+        this.mechanics.clear();
+        for (const container of this.lambdaMechanics.getContainers()) {
+            container.clear();
+        }
+    }
+
+    addLambdaMechanic(id: string, mechanic: MythicMechanic) {
+        this.lambdaMechanics.addToContainer(id, mechanic);
+        return;
+    }
+
+    clearLambdaContainer(id: string) {
+        this.lambdaMechanics.clearContainer(id);
+    }
+
+    clearAllLambdaContainers() {
+        for (const container of this.lambdaMechanics.getContainers()) {
+            container.clear();
+        }
     }
 
     async loadDataset() {
@@ -179,6 +339,7 @@ export interface Mechanic {
     description: string;
     link: string;
     attributes: Attribute[];
+    author?: string;
 }
 
 export class MythicMechanic {
@@ -191,6 +352,7 @@ export class MythicMechanic {
     readonly name: string[];
     readonly description: string;
     readonly link: string;
+    readonly author?: string;
 
     protected myAttributes: MythicAttribute[] = [];
     protected attributes: MythicAttribute[] = [];
@@ -209,6 +371,7 @@ export class MythicMechanic {
         this.name = mechanic.name;
         this.description = mechanic.description;
         this.link = mechanic.link;
+        this.author = mechanic.author;
         mechanic.attributes.map((a) => this.addAttribute(a));
         this.myAttributes = this.attributes;
     }

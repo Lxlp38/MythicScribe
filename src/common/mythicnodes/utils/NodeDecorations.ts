@@ -39,6 +39,10 @@ export class NodeDecorations extends DecorationProvider<NodeDecorationType, Node
             gutterIconPath: undefined,
             gutterIconSize: 'contain',
         },
+        createMetaskillDocumentation: {
+            gutterIconPath: undefined,
+            gutterIconSize: 'contain',
+        },
     };
 
     public addNodeDecoration(

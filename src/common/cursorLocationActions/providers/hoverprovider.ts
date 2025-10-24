@@ -25,15 +25,20 @@ export function hoverProvider(schema: Schema, ...keydependencies: KeyDependantMe
                 document,
                 position,
                 schema,
-                findHoverForFileElement,
-                getHoverForAttribute,
-                getHover,
+                {
+                    fileElementFunction: findHoverForFileElement,
+                    attributeFunction: getHoverForAttribute,
+                    mechanicFunction: getHover,
+                },
                 ...keydependencies
             );
             if (locationAction) {
                 return locationAction;
             }
-            const nodeAction = CursorLocationAction.forNode(document, position, getHoverForNode);
+            const nodeAction = CursorLocationAction.forNode(document, position, {
+                node: getHoverForNode,
+                mechanic: getHover,
+            });
             if (nodeAction) {
                 return nodeAction;
             }
@@ -90,7 +95,12 @@ ${mechanic.description}
         });
     }
 
-    hoverContent.appendMarkdown(`\n\n##### Plugin: ${mechanic.plugin}\n\n---`);
+    hoverContent.appendMarkdown(`\n\n##### Plugin: ${mechanic.plugin}\n\n`);
+
+    if (mechanic.author) {
+        hoverContent.appendMarkdown(`\n\n##### Author: ${mechanic.author}\n\n`);
+    }
+    hoverContent.appendMarkdown(`---`);
 
     hoverContent.appendMarkdown(
         `\n\n[Get More Information By Visiting Its Wiki Page](${mechanic.link})`
@@ -98,6 +108,7 @@ ${mechanic.description}
 
     // Enable support for links
     hoverContent.isTrusted = true;
+    hoverContent.supportHtml = true;
 
     // Return the hover with the formatted content
     return new vscode.Hover(hoverContent);

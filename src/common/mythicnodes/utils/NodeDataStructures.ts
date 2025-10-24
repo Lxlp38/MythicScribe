@@ -1,15 +1,24 @@
 import * as vscode from 'vscode';
+import { ScribeMechanicHandler } from '@common/datasets/ScribeMechanic';
+import type { MythicMechanic } from '@common/datasets/ScribeMechanic';
 
 import { type MythicNode } from '../MythicNode';
 
 class DocumentData {
     constructor(
+        public uri: string,
         public nodes: MythicNode[] = [],
         public diagnostics: vscode.Diagnostic[] = []
     ) {}
 
     addNode(node: MythicNode): void {
         this.nodes.push(node);
+        if (node.metadata.has('lambdaMechanic')) {
+            ScribeMechanicHandler.registry.mechanic.addLambdaMechanic(
+                this.uri,
+                node.metadata.get('lambdaMechanic') as MythicMechanic
+            );
+        }
     }
     addDiagnostic(diagnostic: vscode.Diagnostic): void {
         this.diagnostics.push(diagnostic);
@@ -17,6 +26,7 @@ class DocumentData {
 
     clearNodes(): void {
         this.nodes = [];
+        ScribeMechanicHandler.registry.mechanic.clearLambdaContainer(this.uri);
     }
     clearDiagnostics(): void {
         this.diagnostics = [];
@@ -25,7 +35,7 @@ class DocumentData {
 export class DocumentDataMap extends Map<string, DocumentData> {
     get(uri: string): DocumentData {
         if (!this.has(uri)) {
-            const newData = new DocumentData();
+            const newData = new DocumentData(uri);
             this.set(uri, newData);
             return newData;
         }
