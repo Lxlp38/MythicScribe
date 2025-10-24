@@ -1,0 +1,107 @@
+{
+    "ARMOR": {
+        "description": "Armor bonus of an Entity."
+    },
+    "ARMOR_TOUGHNESS": {
+        "description": "Armor durability bonus of an Entity."
+    },
+    "ATTACK_DAMAGE": {
+        "description": "Attack damage of an Entity."
+    },
+    "ATTACK_KNOCKBACK": {
+        "description": "Attack knockback of an Entity."
+    },
+    "ATTACK_SPEED": {
+        "description": "Attack speed of an Entity."
+    },
+    "BLOCK_BREAK_SPEED": {
+        "description": "Block break speed of a Player."
+    },
+    "BLOCK_INTERACTION_RANGE": {
+        "description": "The block reach distance of a Player."
+    },
+    "BURNING_TIME": {
+        "description": "How long an entity remains burning after ignition."
+    },
+    "CAMERA_DISTANCE": {
+        "description": "The camera distance of a player to their own entity."
+    },
+    "ENTITY_INTERACTION_RANGE": {
+        "description": "The entity reach distance of a Player."
+    },
+    "EXPLOSION_KNOCKBACK_RESISTANCE": {
+        "description": "Resistance to knockback from explosions."
+    },
+    "FALL_DAMAGE_MULTIPLIER": {
+        "description": "The fall damage multiplier of an Entity."
+    },
+    "FLYING_SPEED": {
+        "description": "Flying speed of an Entity."
+    },
+    "FOLLOW_RANGE": {
+        "description": "Range at which an Entity will follow others."
+    },
+    "GRAVITY": {
+        "description": "The gravity applied to an Entity."
+    },
+    "JUMP_STRENGTH": {
+        "description": "Strength with which an Entity will jump."
+    },
+    "KNOCKBACK_RESISTANCE": {
+        "description": "Resistance of an Entity to knockback."
+    },
+    "LUCK": {
+        "description": "Luck bonus of an Entity."
+    },
+    "MAX_ABSORPTION": {
+        "description": "Maximum absorption of an Entity."
+    },
+    "MAX_HEALTH": {
+        "description": "Maximum health of an Entity."
+    },
+    "MINING_EFFICIENCY": {
+        "description": "Mining speed for correct tools."
+    },
+    "MOVEMENT_EFFICIENCY": {
+        "description": "Movement speed through difficult terrain."
+    },
+    "MOVEMENT_SPEED": {
+        "description": "Movement speed of an Entity."
+    },
+    "OXYGEN_BONUS": {
+        "description": "Oxygen use underwater."
+    },
+    "SAFE_FALL_DISTANCE": {
+        "description": "The distance which an Entity can fall without damage."
+    },
+    "SCALE": {
+        "description": "The relative scale of an Entity."
+    },
+    "SNEAKING_SPEED": {
+        "description": "Sneaking speed."
+    },
+    "SPAWN_REINFORCEMENTS": {
+        "description": "Chance of a zombie to spawn reinforcements."
+    },
+    "STEP_HEIGHT": {
+        "description": "The height which an Entity can walk over."
+    },
+    "SUBMERGED_MINING_SPEED": {
+        "description": "Underwater mining speed."
+    },
+    "SWEEPING_DAMAGE_RATIO": {
+        "description": "Sweeping damage."
+    },
+    "TEMPT_RANGE": {
+        "description": "Range at which mobs will be tempted by items."
+    },
+    "WATER_MOVEMENT_EFFICIENCY": {
+        "description": "Movement speed through water."
+    },
+    "WAYPOINT_RECEIVE_RANGE": {
+        "description": "Attribute controlling the range an entity receives other waypoints from."
+    },
+    "WAYPOINT_TRANSMIT_RANGE": {
+        "description": "Attribute controlling the range an entity transmits itself as a waypoint."
+    }
+}

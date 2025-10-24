@@ -1,0 +1,35 @@
+{
+    "AMBIENT": {
+        "description": ""
+    },
+    "BLOCKS": {
+        "description": ""
+    },
+    "HOSTILE": {
+        "description": ""
+    },
+    "MASTER": {
+        "description": ""
+    },
+    "MUSIC": {
+        "description": ""
+    },
+    "NEUTRAL": {
+        "description": ""
+    },
+    "PLAYERS": {
+        "description": ""
+    },
+    "RECORDS": {
+        "description": ""
+    },
+    "UI": {
+        "description": ""
+    },
+    "VOICE": {
+        "description": ""
+    },
+    "WEATHER": {
+        "description": ""
+    }
+}

@@ -1,0 +1,14 @@
+{
+    "CENTER": {
+        "description": "Can pivot around center point."
+    },
+    "FIXED": {
+        "description": "No rotation (default)."
+    },
+    "HORIZONTAL": {
+        "description": "Can pivot around horizontal axis."
+    },
+    "VERTICAL": {
+        "description": "Can pivot around vertical axis."
+    }
+}

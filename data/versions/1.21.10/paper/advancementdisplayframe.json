@@ -1,0 +1,11 @@
+{
+    "CHALLENGE": {
+        "description": "\"Challenge complete\" advancement."
+    },
+    "GOAL": {
+        "description": "\"Goal reached\" advancement."
+    },
+    "TASK": {
+        "description": "\"Advancement made\" advancement."
+    }
+}

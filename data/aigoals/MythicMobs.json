@@ -822,6 +822,20 @@
     },
     {
         "plugin": "MythicMobs",
+        "class": "HorrifiedGoal",
+        "extends": "WrappedPathfindingGoal",
+        "implements": [
+            "PathfinderHolder"
+        ],
+        "name": [
+            "horrified"
+        ],
+        "description": "Run around frantically",
+        "link": "https://git.lumine.io/mythiccraft/MythicMobs/-/wikis/Mobs/ai/goals/Horrified",
+        "attributes": []
+    },
+    {
+        "plugin": "MythicMobs",
         "class": "LeapTowardsTargetGoal",
         "extends": "WrappedPathfindingGoal",
         "implements": [

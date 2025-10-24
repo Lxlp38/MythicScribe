@@ -1,0 +1,464 @@
+{
+    "ACACIA_BOAT": {
+        "description": ""
+    },
+    "ACACIA_CHEST_BOAT": {
+        "description": ""
+    },
+    "ALLAY": {
+        "description": ""
+    },
+    "AREA_EFFECT_CLOUD": {
+        "description": ""
+    },
+    "ARMADILLO": {
+        "description": ""
+    },
+    "ARMOR_STAND": {
+        "description": ""
+    },
+    "ARROW": {
+        "description": ""
+    },
+    "AXOLOTL": {
+        "description": ""
+    },
+    "BAMBOO_CHEST_RAFT": {
+        "description": ""
+    },
+    "BAMBOO_RAFT": {
+        "description": ""
+    },
+    "BAT": {
+        "description": ""
+    },
+    "BEE": {
+        "description": ""
+    },
+    "BIRCH_BOAT": {
+        "description": ""
+    },
+    "BIRCH_CHEST_BOAT": {
+        "description": ""
+    },
+    "BLAZE": {
+        "description": ""
+    },
+    "BLOCK_DISPLAY": {
+        "description": ""
+    },
+    "BOGGED": {
+        "description": ""
+    },
+    "BREEZE": {
+        "description": ""
+    },
+    "BREEZE_WIND_CHARGE": {
+        "description": ""
+    },
+    "CAMEL": {
+        "description": ""
+    },
+    "CAT": {
+        "description": ""
+    },
+    "CAVE_SPIDER": {
+        "description": ""
+    },
+    "CHERRY_BOAT": {
+        "description": ""
+    },
+    "CHERRY_CHEST_BOAT": {
+        "description": ""
+    },
+    "CHEST_MINECART": {
+        "description": ""
+    },
+    "CHICKEN": {
+        "description": ""
+    },
+    "COD": {
+        "description": ""
+    },
+    "COMMAND_BLOCK_MINECART": {
+        "description": ""
+    },
+    "COPPER_GOLEM": {
+        "description": ""
+    },
+    "COW": {
+        "description": ""
+    },
+    "CREAKING": {
+        "description": ""
+    },
+    "CREEPER": {
+        "description": ""
+    },
+    "DARK_OAK_BOAT": {
+        "description": ""
+    },
+    "DARK_OAK_CHEST_BOAT": {
+        "description": ""
+    },
+    "DOLPHIN": {
+        "description": ""
+    },
+    "DONKEY": {
+        "description": ""
+    },
+    "DRAGON_FIREBALL": {
+        "description": ""
+    },
+    "DROWNED": {
+        "description": ""
+    },
+    "EGG": {
+        "description": ""
+    },
+    "ELDER_GUARDIAN": {
+        "description": ""
+    },
+    "ENDERMAN": {
+        "description": ""
+    },
+    "ENDERMITE": {
+        "description": ""
+    },
+    "ENDER_DRAGON": {
+        "description": ""
+    },
+    "ENDER_PEARL": {
+        "description": ""
+    },
+    "END_CRYSTAL": {
+        "description": ""
+    },
+    "EVOKER": {
+        "description": ""
+    },
+    "EVOKER_FANGS": {
+        "description": ""
+    },
+    "EXPERIENCE_BOTTLE": {
+        "description": ""
+    },
+    "EXPERIENCE_ORB": {
+        "description": ""
+    },
+    "EYE_OF_ENDER": {
+        "description": ""
+    },
+    "FALLING_BLOCK": {
+        "description": ""
+    },
+    "FIREBALL": {
+        "description": ""
+    },
+    "FIREWORK_ROCKET": {
+        "description": ""
+    },
+    "FISHING_BOBBER": {
+        "description": ""
+    },
+    "FOX": {
+        "description": ""
+    },
+    "FROG": {
+        "description": ""
+    },
+    "FURNACE_MINECART": {
+        "description": ""
+    },
+    "GHAST": {
+        "description": ""
+    },
+    "GIANT": {
+        "description": ""
+    },
+    "GLOW_ITEM_FRAME": {
+        "description": ""
+    },
+    "GLOW_SQUID": {
+        "description": ""
+    },
+    "GOAT": {
+        "description": ""
+    },
+    "GUARDIAN": {
+        "description": ""
+    },
+    "HAPPY_GHAST": {
+        "description": ""
+    },
+    "HOGLIN": {
+        "description": ""
+    },
+    "HOPPER_MINECART": {
+        "description": ""
+    },
+    "HORSE": {
+        "description": ""
+    },
+    "HUSK": {
+        "description": ""
+    },
+    "ILLUSIONER": {
+        "description": ""
+    },
+    "INTERACTION": {
+        "description": ""
+    },
+    "IRON_GOLEM": {
+        "description": ""
+    },
+    "ITEM": {
+        "description": ""
+    },
+    "ITEM_DISPLAY": {
+        "description": ""
+    },
+    "ITEM_FRAME": {
+        "description": ""
+    },
+    "JUNGLE_BOAT": {
+        "description": ""
+    },
+    "JUNGLE_CHEST_BOAT": {
+        "description": ""
+    },
+    "LEASH_KNOT": {
+        "description": ""
+    },
+    "LIGHTNING_BOLT": {
+        "description": ""
+    },
+    "LINGERING_POTION": {
+        "description": ""
+    },
+    "LLAMA": {
+        "description": ""
+    },
+    "LLAMA_SPIT": {
+        "description": ""
+    },
+    "MAGMA_CUBE": {
+        "description": ""
+    },
+    "MANGROVE_BOAT": {
+        "description": ""
+    },
+    "MANGROVE_CHEST_BOAT": {
+        "description": ""
+    },
+    "MANNEQUIN": {
+        "description": ""
+    },
+    "MARKER": {
+        "description": ""
+    },
+    "MINECART": {
+        "description": ""
+    },
+    "MOOSHROOM": {
+        "description": ""
+    },
+    "MULE": {
+        "description": ""
+    },
+    "OAK_BOAT": {
+        "description": ""
+    },
+    "OAK_CHEST_BOAT": {
+        "description": ""
+    },
+    "OCELOT": {
+        "description": ""
+    },
+    "OMINOUS_ITEM_SPAWNER": {
+        "description": ""
+    },
+    "PAINTING": {
+        "description": ""
+    },
+    "PALE_OAK_BOAT": {
+        "description": ""
+    },
+    "PALE_OAK_CHEST_BOAT": {
+        "description": ""
+    },
+    "PANDA": {
+        "description": ""
+    },
+    "PARROT": {
+        "description": ""
+    },
+    "PHANTOM": {
+        "description": ""
+    },
+    "PIG": {
+        "description": ""
+    },
+    "PIGLIN": {
+        "description": ""
+    },
+    "PIGLIN_BRUTE": {
+        "description": ""
+    },
+    "PILLAGER": {
+        "description": ""
+    },
+    "PLAYER": {
+        "description": ""
+    },
+    "POLAR_BEAR": {
+        "description": ""
+    },
+    "PUFFERFISH": {
+        "description": ""
+    },
+    "RABBIT": {
+        "description": ""
+    },
+    "RAVAGER": {
+        "description": ""
+    },
+    "SALMON": {
+        "description": ""
+    },
+    "SHEEP": {
+        "description": ""
+    },
+    "SHULKER": {
+        "description": ""
+    },
+    "SHULKER_BULLET": {
+        "description": ""
+    },
+    "SILVERFISH": {
+        "description": ""
+    },
+    "SKELETON": {
+        "description": ""
+    },
+    "SKELETON_HORSE": {
+        "description": ""
+    },
+    "SLIME": {
+        "description": ""
+    },
+    "SMALL_FIREBALL": {
+        "description": ""
+    },
+    "SNIFFER": {
+        "description": ""
+    },
+    "SNOWBALL": {
+        "description": ""
+    },
+    "SNOW_GOLEM": {
+        "description": ""
+    },
+    "SPAWNER_MINECART": {
+        "description": ""
+    },
+    "SPECTRAL_ARROW": {
+        "description": ""
+    },
+    "SPIDER": {
+        "description": ""
+    },
+    "SPLASH_POTION": {
+        "description": ""
+    },
+    "SPRUCE_BOAT": {
+        "description": ""
+    },
+    "SPRUCE_CHEST_BOAT": {
+        "description": ""
+    },
+    "SQUID": {
+        "description": ""
+    },
+    "STRAY": {
+        "description": ""
+    },
+    "STRIDER": {
+        "description": ""
+    },
+    "TADPOLE": {
+        "description": ""
+    },
+    "TEXT_DISPLAY": {
+        "description": ""
+    },
+    "TNT": {
+        "description": ""
+    },
+    "TNT_MINECART": {
+        "description": ""
+    },
+    "TRADER_LLAMA": {
+        "description": ""
+    },
+    "TRIDENT": {
+        "description": ""
+    },
+    "TROPICAL_FISH": {
+        "description": ""
+    },
+    "TURTLE": {
+        "description": ""
+    },
+    "UNKNOWN": {
+        "description": "An unknown entity without an Entity Class"
+    },
+    "VEX": {
+        "description": ""
+    },
+    "VILLAGER": {
+        "description": ""
+    },
+    "VINDICATOR": {
+        "description": ""
+    },
+    "WANDERING_TRADER": {
+        "description": ""
+    },
+    "WARDEN": {
+        "description": ""
+    },
+    "WIND_CHARGE": {
+        "description": ""
+    },
+    "WITCH": {
+        "description": ""
+    },
+    "WITHER": {
+        "description": ""
+    },
+    "WITHER_SKELETON": {
+        "description": ""
+    },
+    "WITHER_SKULL": {
+        "description": ""
+    },
+    "WOLF": {
+        "description": ""
+    },
+    "ZOGLIN": {
+        "description": ""
+    },
+    "ZOMBIE": {
+        "description": ""
+    },
+    "ZOMBIE_HORSE": {
+        "description": ""
+    },
+    "ZOMBIE_VILLAGER": {
+        "description": ""
+    },
+    "ZOMBIFIED_PIGLIN": {
+        "description": ""
+    }
+}

@@ -1,0 +1,128 @@
+{
+    "AQUA_AFFINITY": {
+        "description": "Increases the speed at which a player may mine underwater"
+    },
+    "BANE_OF_ARTHROPODS": {
+        "description": "Increases damage against arthropod targets"
+    },
+    "BINDING_CURSE": {
+        "description": "Item cannot be removed"
+    },
+    "BLAST_PROTECTION": {
+        "description": "Provides protection against explosive damage"
+    },
+    "BREACH": {
+        "description": "Reduces armor effectiveness against maces"
+    },
+    "CHANNELING": {
+        "description": "Strikes lightning when a mob is hit with a trident if conditions are\n stormy"
+    },
+    "DENSITY": {
+        "description": "Increases fall damage of maces"
+    },
+    "DEPTH_STRIDER": {
+        "description": "Increases walking speed while in water"
+    },
+    "EFFICIENCY": {
+        "description": "Increases the rate at which you mine/dig"
+    },
+    "FEATHER_FALLING": {
+        "description": "Provides protection against fall damage"
+    },
+    "FIRE_ASPECT": {
+        "description": "When attacking a target, has a chance to set them on fire"
+    },
+    "FIRE_PROTECTION": {
+        "description": "Provides protection against fire damage"
+    },
+    "FLAME": {
+        "description": "Sets entities on fire when hit by arrows shot from a bow"
+    },
+    "FORTUNE": {
+        "description": "Provides a chance of gaining extra loot when destroying blocks"
+    },
+    "FROST_WALKER": {
+        "description": "Freezes any still water adjacent to ice / frost which player is walking on"
+    },
+    "IMPALING": {
+        "description": "Deals more damage to mobs that live in the ocean"
+    },
+    "INFINITY": {
+        "description": "Provides infinite arrows when shooting a bow"
+    },
+    "KNOCKBACK": {
+        "description": "All damage to other targets will knock them back when hit"
+    },
+    "LOOTING": {
+        "description": "Provides a chance of gaining extra loot when killing monsters"
+    },
+    "LOYALTY": {
+        "description": "Causes a thrown trident to return to the player who threw it"
+    },
+    "LUCK_OF_THE_SEA": {
+        "description": "Decreases odds of catching worthless junk"
+    },
+    "LURE": {
+        "description": "Increases rate of fish biting your hook"
+    },
+    "MENDING": {
+        "description": "Allows mending the item using experience orbs"
+    },
+    "MULTISHOT": {
+        "description": "Shoot multiple arrows from crossbows"
+    },
+    "PIERCING": {
+        "description": "Crossbow projectiles pierce entities"
+    },
+    "POWER": {
+        "description": "Provides extra damage when shooting arrows from bows"
+    },
+    "PROJECTILE_PROTECTION": {
+        "description": "Provides protection against projectile damage"
+    },
+    "PROTECTION": {
+        "description": "Provides protection against environmental damage"
+    },
+    "PUNCH": {
+        "description": "Provides a knockback when an entity is hit by an arrow from a bow"
+    },
+    "QUICK_CHARGE": {
+        "description": "Charges crossbows quickly"
+    },
+    "RESPIRATION": {
+        "description": "Decreases the rate of air loss whilst underwater"
+    },
+    "RIPTIDE": {
+        "description": "When it is rainy, launches the player in the direction their trident is thrown"
+    },
+    "SHARPNESS": {
+        "description": "Increases damage against all targets"
+    },
+    "SILK_TOUCH": {
+        "description": "Allows blocks to drop themselves instead of fragments (for example,\n stone instead of cobblestone)"
+    },
+    "SMITE": {
+        "description": "Increases damage against undead targets"
+    },
+    "SOUL_SPEED": {
+        "description": "Walk quicker on soul blocks"
+    },
+    "SWEEPING_EDGE": {
+        "description": "Increases damage against targets when using a sweep attack"
+    },
+    "SWIFT_SNEAK": {
+        "description": "Walk quicker while sneaking"
+    },
+    "THORNS": {
+        "description": "Damages the attacker"
+    },
+    "UNBREAKING": {
+        "description": "Decreases the rate at which a tool looses durability"
+    },
+    "VANISHING_CURSE": {
+        "description": "Item disappears instead of dropping"
+    },
+    "WIND_BURST": {
+        "description": "Emits wind burst upon hitting enemy"
+    }
+}

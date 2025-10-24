@@ -2872,6 +2872,23 @@
     },
     {
         "plugin": "MythicMobs",
+        "class": "MetaSkillCondition",
+        "extends": "mechanic:metaskillmechanic",
+        "implements": [
+            "ISkillMetaComparisonCondition",
+            "ISkillMetaLocationComparisonCondition",
+            "SkillHolder"
+        ],
+        "name": [
+            "skillCondition",
+            "metaSkillCondition"
+        ],
+        "description": "Casts a Metaskill that will determine if the condition should check or not. This allows you to apply more complex logic against a given target. The called Metaskill needs to use the [DetermineCondition](https://git.lumine.io/mythiccraft/MythicMobs/-/wikis/Skills/Mechanics/DetermineCondition) mechanic in order to set/modify whether this condition should check or not.",
+        "link": "https://git.lumine.io/mythiccraft/MythicMobs/-/wikis/Skills/Conditions/MetaskillCondition",
+        "attributes": []
+    },
+    {
+        "plugin": "MythicMobs",
         "class": "MobsInChunkCondition",
         "extends": "SkillCondition",
         "implements": [

@@ -1,0 +1,29 @@
+{
+    "HIDE_ADDITIONAL_TOOLTIP": {
+        "description": "Deprecated.\ndoes not exist anymore and will not properly work with individually hidden data components; see TooltipDisplay and ItemStack.setData(DataComponentType.Valued, Object)"
+    },
+    "HIDE_ARMOR_TRIM": {
+        "description": "Setting to show/hide armor trim from armor."
+    },
+    "HIDE_ATTRIBUTES": {
+        "description": "Setting to show/hide Attributes like Damage"
+    },
+    "HIDE_DESTROYS": {
+        "description": "Setting to show/hide what the ItemStack can break/destroy"
+    },
+    "HIDE_DYE": {
+        "description": "Setting to show/hide dyes from colored leather armor."
+    },
+    "HIDE_ENCHANTS": {
+        "description": "Setting to show/hide enchants"
+    },
+    "HIDE_PLACED_ON": {
+        "description": "Setting to show/hide where this ItemStack can be build/placed on"
+    },
+    "HIDE_STORED_ENCHANTS": {
+        "description": "Setting to show/hide stored enchants on an item, such as enchantments\n on an enchanted book."
+    },
+    "HIDE_UNBREAKABLE": {
+        "description": "Setting to show/hide the unbreakable State"
+    }
+}

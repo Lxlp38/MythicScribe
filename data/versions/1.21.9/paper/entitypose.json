@@ -1,0 +1,56 @@
+{
+    "CROAKING": {
+        "description": "Entity is croaking."
+    },
+    "DIGGING": {
+        "description": "Entity is digging."
+    },
+    "DYING": {
+        "description": "Entity is dead."
+    },
+    "EMERGING": {
+        "description": "Entity is emerging."
+    },
+    "FALL_FLYING": {
+        "description": "Entity is gliding."
+    },
+    "INHALING": {
+        "description": "Entity is inhaling."
+    },
+    "LONG_JUMPING": {
+        "description": "Entity is long jumping."
+    },
+    "ROARING": {
+        "description": "Entity is roaring."
+    },
+    "SHOOTING": {
+        "description": "Entity is shooting."
+    },
+    "SITTING": {
+        "description": "Entity is sitting."
+    },
+    "SLEEPING": {
+        "description": "Entity is sleeping."
+    },
+    "SLIDING": {
+        "description": "Entity is sliding."
+    },
+    "SNEAKING": {
+        "description": "Entity is sneaking."
+    },
+    "SNIFFING": {
+        "description": "Entity is sniffing."
+    },
+    "SPIN_ATTACK": {
+        "description": "Entity is riptiding with a trident."
+    },
+    "STANDING": {
+        "description": "Entity is standing normally."
+    },
+    "SWIMMING": {
+        "description": "Entity is swimming."
+    },
+    "USING_TONGUE": {
+        "description": "Entity is using its tongue."
+    }
+}

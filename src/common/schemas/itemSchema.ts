@@ -62,6 +62,11 @@ const FurnitureStatesCompatibleOptions: Schema = {
         ],
         plugin: DefaultPlugins.MythicCrucible,
     },
+    CustomModelData: {
+        type: SchemaElementTypes.INTEGER,
+        plugin: DefaultPlugins.MythicCrucible,
+        description: 'Sets the CustomModelData of the furniture (or furniture state)',
+    },
     ...Generation,
 };
 
@@ -778,6 +783,11 @@ export const ItemSchema: Schema = {
                 type: SchemaElementTypes.KEY_LIST,
                 link: 'https://git.lumine.io/mythiccraft/mythiccrucible/-/wikis/Furniture#variables',
                 description: 'The variables of the furniture.',
+            },
+            KillMessages: {
+                type: SchemaElementTypes.LIST,
+                link: 'https://git.lumine.io/mythiccraft/mythiccrucible/-/wikis/Furniture#killmessages',
+                description: 'Messages to display when the furniture kills a player.',
             },
             ...FurnitureStatesCompatibleOptions,
         },

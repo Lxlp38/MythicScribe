@@ -131,6 +131,36 @@
     },
     {
         "plugin": "MythicRPG",
+        "class": "QuickcastingActivateMechanic",
+        "extends": "SkillMechanic",
+        "implements": [
+            "INoTargetSkill"
+        ],
+        "name": [
+            "quickcastingActivate",
+            "activateQuickcasting"
+        ],
+        "description": "Activates quickcasting for the casting player, if possible",
+        "link": "https://git.lumine.io/mythiccraft/mythicrpg/-/wikis/Skills/Mechanics/QuickcastingActivate",
+        "attributes": []
+    },
+    {
+        "plugin": "MythicRPG",
+        "class": "QuickcastingDeactivateMechanic",
+        "extends": "SkillMechanic",
+        "implements": [
+            "INoTargetSkill"
+        ],
+        "name": [
+            "quickcastingDeactivate",
+            "deactivateQuickcasting"
+        ],
+        "description": "Deactivates quickcasting for the casting player, if possible",
+        "link": "https://git.lumine.io/mythiccraft/mythicrpg/-/wikis/Skills/Mechanics/QuickcastingDeactivate",
+        "attributes": []
+    },
+    {
+        "plugin": "MythicRPG",
         "class": "SetArchetypeMechanic",
         "extends": "SkillMechanic",
         "implements": [
@@ -202,6 +232,43 @@
                 "description": "The button to set on the slot",
                 "link": "https://git.lumine.io/mythiccraft/mythicrpg/-/wikis/Skills/Mechanics/SetCustomMenuButton",
                 "default_value": "default"
+            }
+        ]
+    },
+    {
+        "plugin": "MythicRPG",
+        "class": "SetQuickcastingBindingMechanic",
+        "extends": "SkillMechanic",
+        "implements": [
+            "INoTargetSkill"
+        ],
+        "name": [
+            "setQuickcastBinding",
+            "setSpellBinding"
+        ],
+        "description": "Force-sets the casting player's quickcast binding if possible",
+        "link": "https://git.lumine.io/mythiccraft/mythicrpg/-/wikis/Skills/Mechanics/SetQuickcastBinding",
+        "attributes": [
+            {
+                "name": [
+                    "binding",
+                    "b"
+                ],
+                "type": "PlaceholderInteger",
+                "description": "The slot binding",
+                "link": "https://git.lumine.io/mythiccraft/mythicrpg/-/wikis/Skills/Mechanics/SetQuickcastBinding",
+                "default_value": "0"
+            },
+            {
+                "name": [
+                    "spell",
+                    "s"
+                ],
+                "type": "PlaceholderString",
+                "description": "The spell to link",
+                "link": "https://git.lumine.io/mythiccraft/mythicrpg/-/wikis/Skills/Mechanics/SetQuickcastBinding",
+                "default_value": "FIREBALL",
+                "enum": "Spell"
             }
         ]
     },

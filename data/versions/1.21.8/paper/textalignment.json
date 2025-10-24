@@ -1,0 +1,11 @@
+{
+    "CENTER": {
+        "description": "Center aligned text (default)."
+    },
+    "LEFT": {
+        "description": "Left aligned text."
+    },
+    "RIGHT": {
+        "description": "Right aligned text."
+    }
+}

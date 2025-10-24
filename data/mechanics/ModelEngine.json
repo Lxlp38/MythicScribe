@@ -55,7 +55,7 @@
                     "relative"
                 ],
                 "type": "Boolean",
-                "description": "Whether the provided values should be treated as relative to the curren bone's position",
+                "description": "Whether the provided values should be treated as relative to the current bone's position",
                 "link": "https://git.lumine.io/mythiccraft/model-engine-4/-/wikis/Skills/Mechanics/AnimateModel",
                 "default_value": "false"
             },

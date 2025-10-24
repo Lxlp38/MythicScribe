@@ -2904,6 +2904,44 @@
     },
     {
         "plugin": "MythicMobs",
+        "class": "DetermineConditionMechanic",
+        "extends": "SkillMechanic",
+        "implements": [
+            "INoTargetSkill",
+            "ITargetedEntitySkill",
+            "ITargetedLocationSkill"
+        ],
+        "name": [
+            "determineCondition",
+            "detCond"
+        ],
+        "description": "Determines the outcome of a Metaskill that is used as a Condition via the [MetaskillCondition](https://git.lumine.io/mythiccraft/MythicMobs/-/wikis/Skills/Conditions/MetaskillCondition) condition",
+        "link": "https://git.lumine.io/mythiccraft/MythicMobs/-/wikis/Skills/Mechanics/DetermineCondition",
+        "attributes": [
+            {
+                "name": [
+                    "determination",
+                    "det"
+                ],
+                "type": "PlaceholderBoolean",
+                "description": "Modifies whether the associated condition should return or not. Can be `true` or `false`",
+                "link": "https://git.lumine.io/mythiccraft/MythicMobs/-/wikis/Skills/Mechanics/DetermineCondition",
+                "default_value": "true"
+            },
+            {
+                "name": [
+                    "mode"
+                ],
+                "type": "Enum",
+                "description": "How the determination value is modified. Can be `SET`, `OR`, `AND`, `NOT`. Works like you would expect a [boolean operation](https://en.wikipedia.org/wiki/Boolean_algebra#Boolean_operations) to, apart from SET that simply overrides any already defined determination value",
+                "link": "https://git.lumine.io/mythiccraft/MythicMobs/-/wikis/Skills/Mechanics/DetermineCondition",
+                "default_value": "SET",
+                "enum": "SET,AND,NOT,OR"
+            }
+        ]
+    },
+    {
+        "plugin": "MythicMobs",
         "class": "DisengageMechanic",
         "extends": "SkillMechanic",
         "implements": [
@@ -16229,6 +16267,70 @@
     },
     {
         "plugin": "MythicMobs",
+        "class": "VariableMoveMechanic",
+        "extends": "SkillMechanic",
+        "implements": [
+            "ITargetedEntitySkill",
+            "ITargetedLocationSkill"
+        ],
+        "name": [
+            "variableMove",
+            "moveVariable",
+            "moveVar",
+            "varMove"
+        ],
+        "description": "Moves an already created variable across names and/or registries. By default, no new variable is created, so this can be used to make two different registries reference the exact same variable, allowing the modifications on one to reflect on the other",
+        "link": "https://git.lumine.io/mythiccraft/MythicMobs/-/wikis/Skills/Mechanics/VariableMove",
+        "attributes": [
+            {
+                "name": [
+                    "from"
+                ],
+                "type": "VariableScopedName",
+                "description": "The variable to move, in the `scope.name` format",
+                "link": "https://git.lumine.io/mythiccraft/MythicMobs/-/wikis/Skills/Mechanics/VariableMove",
+                "default_value": ""
+            },
+            {
+                "name": [
+                    "to"
+                ],
+                "type": "VariableScopedName",
+                "description": "Where the variable should end up, in the `scope.name` format",
+                "link": "https://git.lumine.io/mythiccraft/MythicMobs/-/wikis/Skills/Mechanics/VariableMove",
+                "default_value": ""
+            },
+            {
+                "name": [
+                    "createNew"
+                ],
+                "type": "Boolean",
+                "description": "Whether a new variable should be created at the target variable registry",
+                "link": "https://git.lumine.io/mythiccraft/MythicMobs/-/wikis/Skills/Mechanics/VariableMove",
+                "default_value": "false"
+            },
+            {
+                "name": [
+                    "removeOld"
+                ],
+                "type": "Boolean",
+                "description": "Whether the moved variable should be removed from the old variable registry",
+                "link": "https://git.lumine.io/mythiccraft/MythicMobs/-/wikis/Skills/Mechanics/VariableMove",
+                "default_value": "false"
+            },
+            {
+                "name": [
+                    "inheritExpirationTime"
+                ],
+                "type": "Boolean",
+                "description": "If `createNew` is true, whether the new variable should inherit the expiration time from the old one",
+                "link": "https://git.lumine.io/mythiccraft/MythicMobs/-/wikis/Skills/Mechanics/VariableMove",
+                "default_value": "true"
+            }
+        ]
+    },
+    {
+        "plugin": "MythicMobs",
         "class": "VariableSetLocationMechanic",
         "extends": "VariableSetMechanic",
         "implements": [
@@ -16320,7 +16422,7 @@
                     "s"
                 ],
                 "type": "String",
-                "description": "The [scope](https://git.lumine.io/mythiccraft/MythicMobs/-/wikis/skills/variables#variable_scopes) of the variable, e.g. where the variable will be located",
+                "description": "The [scope](https://git.lumine.io/mythiccraft/MythicMobs/-/wikis/skills/variables#variable-scopes) of the variable, e.g. where the variable will be located",
                 "link": "https://git.lumine.io/mythiccraft/MythicMobs/-/wikis/Skills/Mechanics/setvariable",
                 "default_value": "SKILL",
                 "enum": "VariableScope"

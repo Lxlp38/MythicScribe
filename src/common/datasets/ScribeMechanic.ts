@@ -245,7 +245,20 @@ export class MythicMechanic {
             this.finalizeAttributes();
             return;
         }
-        const parentMechanic = this.registry.getMechanicByClass(this.extends);
+
+        let parentMechanic: MythicMechanic | undefined;
+        if (this.extends.includes(':')) {
+            const extendKeys = this.extends.split(':');
+            const parentRegistryKey = extendKeys[0];
+            const parentRegistry =
+                ScribeMechanicHandler.registry[
+                    parentRegistryKey.toLowerCase() as keyof typeof ScribeMechanicHandler.registry
+                ];
+            parentMechanic = parentRegistry.getMechanicByClass(extendKeys[1]);
+        } else {
+            parentMechanic = this.registry.getMechanicByClass(this.extends);
+        }
+
         if (!parentMechanic) {
             this.finalizeAttributes();
             return;
