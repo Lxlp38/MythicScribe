@@ -66,6 +66,25 @@ export class Logger {
         vscode.window.showInformationMessage(message);
     }
 
+    async options(message: string, options: InfoMessageOptions) {
+        this.debug(message);
+        const optionKeys = Object.keys(options);
+        return vscode.window.showInformationMessage(message, ...optionKeys).then((selected) => {
+            if (selected) {
+                const sel = options[selected];
+                switch (sel.type) {
+                    case 'external':
+                        this.debug(`Opened ${sel.target}`);
+                        return vscode.env.openExternal(vscode.Uri.parse(sel.target));
+                    case 'command':
+                        this.debug(`Executed command: ${sel.target}`);
+                        return vscode.commands.executeCommand(sel.target, sel.action);
+                }
+            }
+            return undefined;
+        });
+    }
+
     warn(message: string, options: logOptions = {}): void {
         this.log(message, vscode.LogLevel.Warning);
         if (options.silent) {
@@ -145,24 +164,10 @@ type InfoMessageOptions = {
  *
  * The function shows an information message with the provided options. When an option is selected,
  * it opens the corresponding URL in the default web browser.
+ * @deprecated Use Logger.options method instead.
  */
 export async function showInfoMessageWithOptions(message: string, options: InfoMessageOptions) {
-    getLogger().debug(message);
-    const optionKeys = Object.keys(options);
-    return vscode.window.showInformationMessage(message, ...optionKeys).then((selected) => {
-        if (selected) {
-            const sel = options[selected];
-            switch (sel.type) {
-                case 'external':
-                    getLogger().debug(`Opened ${sel.target}`);
-                    return vscode.env.openExternal(vscode.Uri.parse(sel.target));
-                case 'command':
-                    getLogger().debug(`Executed command: ${sel.target}`);
-                    return vscode.commands.executeCommand(sel.target, sel.action);
-            }
-        }
-        return undefined;
-    });
+    return getLogger().options(message, options);
 }
 
 const LogLevelAssociation: Record<LogLevel, vscode.LogLevel> = {

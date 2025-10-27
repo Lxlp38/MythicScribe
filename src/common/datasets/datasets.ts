@@ -121,6 +121,15 @@ async function fetchNextHash(latestCommitHash: string) {
     if (nextCommitHash && nextCommitHash !== latestCommitHash) {
         getLogger().debug('Next commit hash:', nextCommitHash);
         ctx!.globalState.update('latestCommitHash', nextCommitHash);
+        getLogger().options(
+            'New dataset update has been found. It will be applied the next time the datasets are loaded',
+            {
+                'Reload Datasets Now': {
+                    type: 'command',
+                    target: 'mythicscribe.loadDatasets',
+                },
+            }
+        );
     }
 }
 

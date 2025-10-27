@@ -2,6 +2,7 @@ import * as vscode from 'vscode';
 import { checkFileType } from '@common/subscriptions/SubscriptionHelper';
 import { ConfigProvider } from '@common/providers/configProvider';
 import { openDocumentTactfully } from '@common/utils/uriutils';
+import { scribeCodeLensProvider } from '@common/providers/codeLensProvider';
 
 import { MythicNodeHandler } from '../MythicNode';
 import { nodeDecorations, updateActiveEditorDecorations } from './NodeDecorations';
@@ -50,24 +51,47 @@ export function loadNodeEvents() {
                 event.document.uri === vscode.window.activeTextEditor?.document.uri &&
                 event.document.uri !== undefined
             ) {
-                const startLine = event.contentChanges[0].range.start.line;
+                const documentWideChanges = {
+                    firstLine: undefined as number | undefined,
+                    shouldDoDocumentWideChange: false,
+                };
 
-                if (event.contentChanges[0].text.includes('\n')) {
-                    for (let i = startLine; i < event.document.lineCount; i++) {
-                        nodeDecorations.removeDecorationsConditionally(
-                            ['delayTracking', 'soundPlayback', 'specificSoundPlayback'],
+                for (const change of event.contentChanges) {
+                    const startLine = change.range.start.line;
+
+                    if (change.text.includes('\n')) {
+                        documentWideChanges.shouldDoDocumentWideChange = true;
+                        if (
+                            documentWideChanges.firstLine === undefined ||
+                            startLine < documentWideChanges.firstLine
+                        ) {
+                            documentWideChanges.firstLine = startLine;
+                        }
+                    } else {
+                        nodeDecorations.removeDecorationsOnLine(
                             vscode.window.activeTextEditor,
-                            (option) => option.range.start.line <= i
+                            startLine,
+                            'delayTracking'
                         );
                     }
-                } else {
-                    nodeDecorations.removeDecorationsOnLine(
+                }
+
+                if (documentWideChanges.shouldDoDocumentWideChange) {
+                    nodeDecorations.removeDecorationsConditionally(
+                        ['delayTracking', 'soundPlayback', 'specificSoundPlayback'],
                         vscode.window.activeTextEditor,
-                        startLine,
-                        'delayTracking'
+                        (option) => option.range.start.line >= documentWideChanges.firstLine!
                     );
+
+                    const range = new vscode.Range(
+                        new vscode.Position(documentWideChanges.firstLine!, 0),
+                        event.document.lineAt(event.document.lineCount - 1).range.end
+                    );
+
+                    scribeCodeLensProvider.removeCodeLensAtRange(event.document.uri, range, true);
                 }
             }
+
             if (!ConfigProvider.registry.fileParsingPolicy.get('parseOnModification')) {
                 return;
             }
