@@ -122,6 +122,10 @@ export abstract class AbstractScribeEnum {
             this.getDataset().size.toString(),
             'entries'
         );
+        // getLogger().trace(
+        //     `Enum ${this.identifier} Dataset:`,
+        //     JSON.stringify(Object.fromEntries(this.getDataset()))
+        // );
         this.loaded = true;
         enumLoadedEventEmitter.fire(this);
         // getEnumLoadedFunctionCallbacks().get(this.identifier)?.(this);

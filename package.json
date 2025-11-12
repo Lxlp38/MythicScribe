@@ -245,7 +245,7 @@
             "GitHub"
           ],
           "default": "Local",
-          "description": "Select what dataset to use: `GitHub` fetches the latest datasets from the repository, while `Local` uses the native one that came bundled with the extension. The affected datasets are only those for mechanics, targeters, triggers and conditions"
+          "description": "Select what dataset to use: `GitHub` fetches the latest datasets from the repository, while `Local` uses the native one that came bundled with the extension"
         },
         "MythicScribe.enableShortcuts": {
           "title": "Enable Shortcuts",
