@@ -288,7 +288,10 @@ function formatMythicScript(par: FormatterParameters): string {
         }
 
         // Fix indentation for YAML-like arrays under specific keys
-        else if (formattedText.match(/^\s*-\s/) || insideInline !== 0) {
+        else if (
+            (formattedText.match(/^\s*-\s/) && !formattedText.match(/^\s*-\s\w+\s*:/)) ||
+            insideInline !== 0
+        ) {
             if (lineIndentation !== lastKeyIndent) {
                 formattedText =
                     generateIndent(lastKeyIndent * INDENTATION_LEVEL) + formattedText.trim();

@@ -41,6 +41,13 @@ ExampleMetaskill:
 
 ### Fixed
 - delay decorations moving around when a newline was added at the end of the delay itself
+- Issue when formatting certain list syntaxes such as
+```yaml
+  AugmentationSlots:
+    - Type: WEAPON_GEM
+      Amount: 0to1
+      MaxAmount: 3
+```
 
 ## [1.7.8]
 
