@@ -164,6 +164,10 @@ export abstract class AbstractScribeMechanicRegistry {
         return completions;
     }
 
+    get mechanicClasses(): string[] {
+        return Array.from(this.mechanics.classMap.keys());
+    }
+
     get localPath(): string {
         return vscode.Uri.joinPath(ctx!.extensionUri, 'data', this.folder).toString();
     }

@@ -6,6 +6,7 @@ import { MenuSchema } from '@common/schemas/menuSchema';
 import { AchievementSchema } from '@common/schemas/achievementSchema';
 import { PlaceholderSchema } from '@common/schemas/placeholderSchema';
 import { EquipmentSetSchema } from '@common/schemas/equipmentsetSchema';
+import { commentTagsCompletionProvider } from '@common/completions/component/commentTagsCompletionProvider';
 
 import { keyAliases, registryKey, TriggerType } from '../objectInfos';
 import { triggerfileCompletionProvider } from '../completions/file/triggerfileCompletionProvider';
@@ -181,6 +182,7 @@ class SkillScribeSubscription extends AbstractScribeSubscription {
             [
                 () => genericFileCompletionProvider(MetaskillSchema),
                 () => conditionCompletionProvider(),
+                () => commentTagsCompletionProvider(),
                 () =>
                     hoverProvider(MetaskillSchema, {
                         keys: keyAliases.Conditions,

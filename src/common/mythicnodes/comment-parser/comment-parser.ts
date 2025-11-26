@@ -7,8 +7,8 @@ import type { MythicNode } from '../MythicNode';
 
 const options: Parameters<typeof commentParser.parse>[1] = {};
 
-export const CommentTags = ['plugin', 'param', 'link', 'id', 'extend', 'author'] as const;
-type CommentTags = (typeof CommentTags)[number];
+const CommentTags = ['plugin', 'param', 'link', 'id', 'extend', 'author', 'mechanic'] as const;
+export type CommentTags = (typeof CommentTags)[number];
 
 export function getMechanicFromComment(comment: string, node: MythicNode): Mechanic | undefined {
     const parsed = parseComments(comment);
@@ -22,6 +22,7 @@ export function getMechanicFromComment(comment: string, node: MythicNode): Mecha
         id: [],
         extend: [],
         author: [],
+        mechanic: [],
     };
 
     for (const tag of parsed.tags) {
@@ -75,8 +76,8 @@ export function createDocumentationFromSkillParameters(
     parameters: string[],
     position: vscode.Position
 ) {
-    let doc = '@mechanic';
-    doc += 'Describe the metaskill here.  \n';
+    let doc = '@mechanic  ';
+    doc += '\nDescribe the metaskill here.  \n';
     doc += '\n';
     for (const param of parameters) {
         doc += `@param {ParameterType} ${param} - Description of what ${param} does  \n`;

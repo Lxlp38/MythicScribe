@@ -1,7 +1,7 @@
 {
   "name": "mythicscribe",
   "displayName": "MythicScribe",
-  "version": "1.7.8-dev",
+  "version": "1.7.9-dev",
   "icon": "assets/icon128x128.png",
   "description": "Official extension for the MythicCraft suite, providing configuration support for its plugins",
   "license": "SEE LICENSE IN LICENSE.txt",

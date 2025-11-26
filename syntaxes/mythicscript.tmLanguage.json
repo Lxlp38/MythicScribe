@@ -252,6 +252,10 @@
                                         }
                                     }
                                     
+                                },
+                                {
+                                    "match": "\\s@((mechanic)|(plugin)|(author)|(id)|(link)|(param)|(extend))\\s",
+                                    "name": "keyword.control.mythicscript"
                                 }
                             ]
                         }

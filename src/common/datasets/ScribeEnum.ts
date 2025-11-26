@@ -238,6 +238,10 @@ export const ScribeEnumHandler = {
         return ScribeEnumHandler.enums.get(identifier.toLowerCase());
     },
 
+    getEnumList(): string[] {
+        return Array.from(ScribeEnumHandler.enums.keys());
+    },
+
     addEnum(
         oclass: new (identifier: string, path: string) => AbstractScribeEnum,
         identifier: string,

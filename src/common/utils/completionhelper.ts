@@ -289,7 +289,7 @@ export function checkShouldPrefixComplete(
     }
     return checkShouldPrefixCompleteExec(document, position, context, symbol, depth);
 }
-function checkShouldPrefixCompleteExec(
+export function checkShouldPrefixCompleteExec(
     document: vscode.TextDocument,
     position: vscode.Position,
     context: vscode.CompletionContext,
