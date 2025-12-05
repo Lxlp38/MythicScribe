@@ -2364,6 +2364,21 @@
     },
     {
         "plugin": "MythicMobs",
+        "class": "IsSiblingCondition",
+        "extends": "SkillCondition",
+        "implements": [
+            "ISkillMetaComparisonCondition"
+        ],
+        "name": [
+            "issibling",
+            "sibling"
+        ],
+        "description": "Whether the target is a sibling of the caster",
+        "link": "https://git.lumine.io/mythiccraft/MythicMobs/-/wikis/Skills/Conditions/IsSibling",
+        "attributes": []
+    },
+    {
+        "plugin": "MythicMobs",
         "class": "IsSkillCondition",
         "extends": "SkillCondition",
         "implements": [
@@ -2873,7 +2888,7 @@
     {
         "plugin": "MythicMobs",
         "class": "MetaSkillCondition",
-        "extends": "mechanic:metaskillmechanic",
+        "extends": "SkillCondition",
         "implements": [
             "ISkillMetaComparisonCondition",
             "ISkillMetaLocationComparisonCondition",
@@ -4525,7 +4540,7 @@
         "class": "TargetNotWithinCondition",
         "extends": "SkillCondition",
         "implements": [
-            "IEntityCondition"
+            "ISkillMetaComparisonCondition"
         ],
         "name": [
             "targetnotwithin"
@@ -4538,7 +4553,7 @@
                     "distance",
                     "d"
                 ],
-                "type": "String",
+                "type": "PlaceholderDouble",
                 "description": "Distance to check",
                 "link": "https://git.lumine.io/mythiccraft/MythicMobs/-/wikis/Skills/Conditions/targetnotwithin",
                 "default_value": "0"
@@ -4550,7 +4565,7 @@
         "class": "TargetWithinCondition",
         "extends": "SkillCondition",
         "implements": [
-            "IEntityCondition"
+            "ISkillMetaComparisonCondition"
         ],
         "name": [
             "targetWithin"
@@ -4563,7 +4578,7 @@
                     "distance",
                     "d"
                 ],
-                "type": "String",
+                "type": "PlaceholderDouble",
                 "description": "Distance to check",
                 "link": "https://git.lumine.io/mythiccraft/MythicMobs/-/wikis/Skills/Conditions/targetwithin",
                 "default_value": "0"

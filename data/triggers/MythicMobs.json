@@ -249,6 +249,20 @@
     },
     {
         "plugin": "MythicMobs",
+        "class": "DISMOUNTED",
+        "implements": [
+            "Mob"
+        ],
+        "name": [
+            "onUnmounted",
+            "onDismounted"
+        ],
+        "description": "Executes the skill when the mob is dismounted from (an dismounts the mob).",
+        "link": "https://git.lumine.io/mythiccraft/MythicMobs/-/wikis/Skills/Triggers/onDismounted",
+        "attributes": []
+    },
+    {
+        "plugin": "MythicMobs",
         "class": "DROPCOMBAT",
         "implements": [
             "Mob"

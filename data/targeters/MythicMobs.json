@@ -685,7 +685,7 @@
                     "rotate",
                     "rot"
                 ],
-                "type": "PlaceholderFloat",
+                "type": "PlaceholderDouble",
                 "description": "The rotation, around the caster, of the target location",
                 "link": "https://git.lumine.io/mythiccraft/MythicMobs/-/wikis/Skills/Targeters/Forward",
                 "default_value": "0"
@@ -1047,6 +1047,26 @@
                 "description": "Boolean value. If set to true, the center of the block at the target location will be targeted, instead of the target location itself",
                 "link": "https://git.lumine.io/mythiccraft/MythicMobs/-/wikis/Skills/Targeters#common-location-targeters-attributes",
                 "default_value": ""
+            },
+            {
+                "name": [
+                    "blockSurface",
+                    "surface"
+                ],
+                "type": "Boolean",
+                "description": "Whether the plugin should attempt to adjust the location to be on a surface",
+                "link": "https://git.lumine.io/mythiccraft/MythicMobs/-/wikis/Skills/Targeters#common-location-targeters-attributes",
+                "default_value": "false"
+            },
+            {
+                "name": [
+                    "blockSurfaceTolerance",
+                    "surfaceTolerance"
+                ],
+                "type": "Integer",
+                "description": "The tolerance used when searching for a surface, when `blockSurface` is set to `true`",
+                "link": "https://git.lumine.io/mythiccraft/MythicMobs/-/wikis/Skills/Targeters#common-location-targeters-attributes",
+                "default_value": "5"
             },
             {
                 "name": [
@@ -3021,7 +3041,7 @@
                     "distance",
                     "d"
                 ],
-                "type": "Integer",
+                "type": "PlaceholderDouble",
                 "description": "The maximum distance to check for the location, if the caster is a player",
                 "link": "https://git.lumine.io/mythiccraft/MythicMobs/-/wikis/Skills/Targeters/TargetLocation",
                 "default_value": "64"

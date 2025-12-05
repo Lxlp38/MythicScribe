@@ -74,11 +74,57 @@
         ]
     },
     "effect": {
+        "attributes": [
+            {
+                "name": [
+                    "color",
+                    "c"
+                ],
+                "description": "The color of the particle",
+                "default": "#FF0000",
+                "type": "String",
+                "link": "https://git.lumine.io/mythiccraft/MythicMobs/-/wikis/Skills/Mechanics/Particle/Particle-Types",
+                "enum": "Color"
+            },
+            {
+                "name": [
+                    "power",
+                    "p"
+                ],
+                "description": "The power of the spell particle",
+                "default": "1",
+                "type": "Integer",
+                "link": "https://git.lumine.io/mythiccraft/MythicMobs/-/wikis/Skills/Mechanics/Particle/Particle-Types"
+            }
+        ],
         "name": [
             "spell"
         ]
     },
     "instant_effect": {
+        "attributes": [
+            {
+                "name": [
+                    "color",
+                    "c"
+                ],
+                "description": "The color of the particle",
+                "default": "#FF0000",
+                "type": "String",
+                "link": "https://git.lumine.io/mythiccraft/MythicMobs/-/wikis/Skills/Mechanics/Particle/Particle-Types",
+                "enum": "Color"
+            },
+            {
+                "name": [
+                    "power",
+                    "p"
+                ],
+                "description": "The power of the spell particle",
+                "default": "1",
+                "type": "Integer",
+                "link": "https://git.lumine.io/mythiccraft/MythicMobs/-/wikis/Skills/Mechanics/Particle/Particle-Types"
+            }
+        ],
         "name": [
             "spell_instant",
             "instant_spell"
@@ -597,5 +643,7 @@
         ]
     },
     "trail": {},
-    "pale_oak_leaves": {}
+    "pale_oak_leaves": {},
+    "tinted_leaves": {},
+    "copper_fire_flame": {}
 }

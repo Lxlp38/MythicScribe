@@ -389,6 +389,9 @@
     "skill.var.bow-tension": {
         "description": "Returns the force with which the projectile has been shot"
     },
+    "skill.var.click-type": {
+        "description": "The type of the click used to interact with a [menu button](/Custom-Menus#button-skills). Returns `1` if rightclick was used, `0` otherwise"
+    },
     "caster.item.nbt.KEY": {
         "description": "If no slot is specified, this checks the caster's item that called the skill."
     },
@@ -451,8 +454,5 @@
     },
     "caster.archetype.exp.goal.[group]": {
         "description": "Returns the caster's [archetype](/Archetypes) experience goal from the specified `group`"
-    },
-    "skill.var.click-type": {
-        "description": "The type of the click used to interact with a [menu button](/Custom-Menus#button-skills). Returns `1` if rightclick was used, `0` otherwise"
     }
 }

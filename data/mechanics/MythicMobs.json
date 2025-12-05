@@ -2290,7 +2290,7 @@
                     "cmd",
                     "c"
                 ],
-                "type": "String",
+                "type": "PlaceholderString",
                 "description": "The command to execute",
                 "link": "https://git.lumine.io/mythiccraft/MythicMobs/-/wikis/Skills/Mechanics/command",
                 "default_value": ""
@@ -2724,6 +2724,25 @@
                 "description": "Works the same as tags and what is put here will also qualify as a tag, but it will not be UPPERCASED like tags",
                 "link": "https://git.lumine.io/mythiccraft/MythicMobs/-/wikis/Skills/Mechanics/damage",
                 "default_value": ""
+            },
+            {
+                "name": [
+                    "bonusdamage"
+                ],
+                "type": "StringList",
+                "description": "The bonus damage to deal, in the format `FIRE 5,LIGHTNING 5`",
+                "link": "https://git.lumine.io/mythiccraft/MythicMobs/-/wikis/Skills/Mechanics/damage",
+                "default_value": ""
+            },
+            {
+                "name": [
+                    "bonusdamagemodifiers",
+                    "bonusdamagemods"
+                ],
+                "type": "StringList",
+                "description": "Multiplies the associated bonus damages by the specified values. for instance, to double the previous ones, you could use `FIRE 2,LIGHTNING 2`",
+                "link": "https://git.lumine.io/mythiccraft/MythicMobs/-/wikis/Skills/Mechanics/damage",
+                "default_value": ""
             }
         ]
     },
@@ -2827,7 +2846,7 @@
             "meleeHit",
             "hit"
         ],
-        "description": "Simulates a physical hit from the mob. Takes melee stats and attribute modifiers into account.  \nInherits every attribute of the [Damage](https://git.lumine.io/mythiccraft/MythicMobs/-/wikis/skills/mechanics/damage) mechanic.",
+        "description": "Simulates a physical hit from the caster. Takes items (including enchantments), melee stats, attribute modifiers, and potion effects into account.  \nInherits every attribute of the [Damage](https://git.lumine.io/mythiccraft/MythicMobs/-/wikis/skills/mechanics/damage) mechanic.",
         "link": "https://git.lumine.io/mythiccraft/MythicMobs/-/wikis/Skills/Mechanics/hit",
         "attributes": [
             {
@@ -3555,6 +3574,65 @@
     },
     {
         "plugin": "MythicMobs",
+        "class": "FearMechanic",
+        "extends": "AuraMechanic",
+        "implements": [
+            "ITargetedEntitySkill"
+        ],
+        "name": [
+            "fear"
+        ],
+        "description": "Applies an aura that makes the target run around in fear",
+        "link": "https://git.lumine.io/mythiccraft/MythicMobs/-/wikis/Skills/Mechanics/Fear",
+        "attributes": [
+            {
+                "name": [
+                    "speed",
+                    "s"
+                ],
+                "type": "PlaceholderFloat",
+                "description": "The fleeing speed of the entity",
+                "link": "https://git.lumine.io/mythiccraft/MythicMobs/-/wikis/Skills/Mechanics/Fear",
+                "default_value": "0.35"
+            },
+            {
+                "name": [
+                    "directionChangeInterval",
+                    "dirchange",
+                    "dci"
+                ],
+                "type": "PlaceholderInteger",
+                "description": "How often, in ticks, the entity changes direction",
+                "link": "https://git.lumine.io/mythiccraft/MythicMobs/-/wikis/Skills/Mechanics/Fear",
+                "default_value": "20"
+            },
+            {
+                "name": [
+                    "feardistance",
+                    "fearrange",
+                    "fdist",
+                    "fd"
+                ],
+                "type": "PlaceholderFloat",
+                "description": "When the affected entity's distance from the caster is less than this value, it will try to run *away* form it instead of completely randomly",
+                "link": "https://git.lumine.io/mythiccraft/MythicMobs/-/wikis/Skills/Mechanics/Fear",
+                "default_value": "10.0"
+            },
+            {
+                "name": [
+                    "rotationticks",
+                    "rotateticks",
+                    "rt"
+                ],
+                "type": "PlaceholderInteger",
+                "description": "A duration, in ticks, over which the entity's head will be rotated towards the new runnign direction",
+                "link": "https://git.lumine.io/mythiccraft/MythicMobs/-/wikis/Skills/Mechanics/Fear",
+                "default_value": "5"
+            }
+        ]
+    },
+    {
+        "plugin": "MythicMobs",
         "class": "FeedSkill",
         "extends": "SkillMechanic",
         "implements": [
@@ -3766,7 +3844,7 @@
     },
     {
         "plugin": "MythicMobs",
-        "class": "FollowPathMechanic",
+        "class": "FollowEntityMechanic",
         "extends": "AuraMechanic",
         "implements": [
             "ITargetedEntitySkill"
@@ -3883,6 +3961,36 @@
                 "link": "https://git.lumine.io/mythiccraft/MythicMobs/-/wikis/Skills/Mechanics/ForEach",
                 "default_value": "ALL",
                 "enum": "ALL,ENTITY,LOCATION"
+            }
+        ]
+    },
+    {
+        "plugin": "MythicMobs",
+        "class": "ForEachPinMechanic",
+        "extends": "MetaSkillMechanic",
+        "implements": [
+            "IMetaSkill",
+            "SkillHolder"
+        ],
+        "name": [
+            "forEachPin"
+        ],
+        "description": "Runs a given metaskill for each pin in a multi-pin",
+        "link": "https://git.lumine.io/mythiccraft/MythicMobs/-/wikis/Skills/Mechanics/ForEachPin",
+        "attributes": [
+            {
+                "name": [
+                    "name",
+                    "n",
+                    "pin",
+                    "p",
+                    "key",
+                    "k"
+                ],
+                "type": "PlaceholderString",
+                "description": "The name of the pin",
+                "link": "https://git.lumine.io/mythiccraft/MythicMobs/-/wikis/Skills/Mechanics/ForEachPin",
+                "default_value": ""
             }
         ]
     },
@@ -5054,6 +5162,18 @@
                 "description": "Whether to use Paper's method to force the mob to look at the target",
                 "link": "https://git.lumine.io/mythiccraft/MythicMobs/-/wikis/Skills/Mechanics/look",
                 "default_value": "false"
+            },
+            {
+                "name": [
+                    "speed",
+                    "s",
+                    "duration",
+                    "ticks"
+                ],
+                "type": "Integer",
+                "description": "The amount of ticks the entity will take to fully face towards the new direction",
+                "link": "https://git.lumine.io/mythiccraft/MythicMobs/-/wikis/Skills/Mechanics/look",
+                "default_value": "10"
             }
         ]
     },
@@ -6260,6 +6380,34 @@
                 "description": "Whether to pass the force of the bow as the skill's power",
                 "link": "https://git.lumine.io/mythiccraft/MythicMobs/-/wikis/Skills/Mechanics/onshoot",
                 "default_value": "true"
+            }
+        ]
+    },
+    {
+        "plugin": "MythicMobs",
+        "class": "OpenCustomMenuMechanic",
+        "extends": "SkillMechanic",
+        "implements": [
+            "ITargetedEntitySkill",
+            "INoTargetSkill"
+        ],
+        "name": [
+            "openCustomMenu",
+            "openMenu"
+        ],
+        "description": "Opens a [custom menu](https://git.lumine.io/mythiccraft/MythicMobs/-/wikis/Custom-Menus)\n\n> **This feature requires either [MythicMobs Premium](https://git.lumine.io/mythiccraft/MythicMobs/-/wikis/Premium-Features) or [MythicRPG](https://mythiccraft.io/index.php?resources/mythicrpg-spells-classes-professions-more.129/) to be used!**",
+        "link": "https://git.lumine.io/mythiccraft/MythicMobs/-/wikis/Skills/Mechanics/OpenCustomMenu",
+        "attributes": [
+            {
+                "name": [
+                    "menu",
+                    "m"
+                ],
+                "type": "PlaceholderString",
+                "description": "The menu to open",
+                "link": "https://git.lumine.io/mythiccraft/MythicMobs/-/wikis/Skills/Mechanics/OpenCustomMenu",
+                "default_value": "default ",
+                "enum": "Menu"
             }
         ]
     },
@@ -8756,7 +8904,7 @@
                     "gravity",
                     "g"
                 ],
-                "type": "Float",
+                "type": "PlaceholderFloat",
                 "description": "Determines the gravity of the projectile; use fractions (0.1-0.2) for low gravity",
                 "link": "https://git.lumine.io/mythiccraft/MythicMobs/-/wikis/Skills/Mechanics/projectile",
                 "default_value": "0",
@@ -11800,7 +11948,7 @@
                     "mode",
                     "m"
                 ],
-                "type": "String",
+                "type": "PlaceholderString",
                 "description": "The gamemode to change the target to.",
                 "link": "https://git.lumine.io/mythiccraft/MythicMobs/-/wikis/Skills/Mechanics/setgamemode",
                 "default_value": "SURVIVAL",
@@ -14707,6 +14855,19 @@
         "attributes": [
             {
                 "name": [
+                    "auragroup",
+                    "auratype",
+                    "group",
+                    "type",
+                    "g"
+                ],
+                "type": "PlaceholderString",
+                "description": "Remove gravity from target when stunned (1.9+)",
+                "link": "https://git.lumine.io/mythiccraft/MythicMobs/-/wikis/Skills/Mechanics/stun",
+                "default_value": "false"
+            },
+            {
+                "name": [
                     "stopai",
                     "ai"
                 ],
@@ -15910,7 +16071,8 @@
                     "amount",
                     "ticks",
                     "t",
-                    "amt"
+                    "amt",
+                    "time"
                 ],
                 "type": "PlaceholderInteger",
                 "description": "The amount of ticks by which the time will be changed",

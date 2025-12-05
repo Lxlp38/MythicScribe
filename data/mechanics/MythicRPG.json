@@ -103,34 +103,6 @@
     },
     {
         "plugin": "MythicRPG",
-        "class": "OpenCustomMenuMechanic",
-        "extends": "SkillMechanic",
-        "implements": [
-            "ITargetedEntitySkill",
-            "INoTargetSkill"
-        ],
-        "name": [
-            "openCustomMenu",
-            "openMenu"
-        ],
-        "description": "Opens a [custom menu](https://git.lumine.io/mythiccraft/mythicrpg/-/wikis/Custom-Menus)",
-        "link": "https://git.lumine.io/mythiccraft/mythicrpg/-/wikis/Skills/Mechanics/OpenCustomMenu",
-        "attributes": [
-            {
-                "name": [
-                    "menu",
-                    "m"
-                ],
-                "type": "PlaceholderString",
-                "description": "The menu to open",
-                "link": "https://git.lumine.io/mythiccraft/mythicrpg/-/wikis/Skills/Mechanics/OpenCustomMenu",
-                "default_value": "default ",
-                "enum": "Menu"
-            }
-        ]
-    },
-    {
-        "plugin": "MythicRPG",
         "class": "QuickcastingActivateMechanic",
         "extends": "SkillMechanic",
         "implements": [
@@ -210,7 +182,7 @@
         "name": [
             "SetCustomMenuButton"
         ],
-        "description": "Sets a specific slot of the opened [custom menu](https://git.lumine.io/mythiccraft/mythicrpg/-/wikis/Custom-Menus) to the specified button.  \nWill work as long as the player has an opened [custom menu](https://git.lumine.io/mythiccraft/mythicrpg/-/wikis/Custom-Menus), even if it's not casted from within the menu itself.",
+        "description": "Sets a specific slot of the opened [custom menu](https://git.lumine.io/mythiccraft/mythicrpg/-/wikis/../../../MythicMobs/-/wikis/Custom-Menus) to the specified button.  \nWill work as long as the player has an opened [custom menu](https://git.lumine.io/mythiccraft/mythicrpg/-/wikis/../../../MythicMobs/-/wikis/Custom-Menus), even if it's not casted from within the menu itself.",
         "link": "https://git.lumine.io/mythiccraft/mythicrpg/-/wikis/Skills/Mechanics/SetCustomMenuButton",
         "attributes": [
             {
