@@ -1,3 +1,5 @@
+import { EnumDatasetValue } from './datasets/types/Enum';
+
 export enum SchemaElementTypes {
     BOOLEAN = 'boolean',
     STRING = 'string',
@@ -19,6 +21,7 @@ export enum SchemaElementTypes {
 
 export enum SchemaElementSpecialKeys {
     WILDKEY = '*KEY',
+    ARRAYKEY = '*ENUM',
 }
 
 type BaseSchemaElement = {
@@ -27,6 +30,7 @@ type BaseSchemaElement = {
     values?: string[];
     display?: string;
     plugin?: string;
+    possibleKeyValues?: () => Map<string, EnumDatasetValue>;
 };
 
 export type EntrySchemaElement = {
@@ -74,12 +78,18 @@ type DefaultSchemaElementMap = Record<string, SchemaElement>;
 type SpecialSchemaElementBaseMap = { display: string };
 
 export type WildKeySchemaElement = SpecialSchemaElementBaseMap & KeySchemaElement;
+export type ArrayKeySchemaElement = SpecialSchemaElementBaseMap & {
+    possibleKeyValues: () => Map<string, EnumDatasetValue>;
+} & SchemaElement;
 
 type SpecialKeys = {
-    [SchemaElementSpecialKeys.WILDKEY]?: WildKeySchemaElement;
+    // When this key is present, it indicates that any key is allowed here.
+    [SchemaElementSpecialKeys.WILDKEY]: WildKeySchemaElement;
+    // When this key is present, it indicates that the possible keys are those found in the specified enum dataset.
+    [SchemaElementSpecialKeys.ARRAYKEY]: ArrayKeySchemaElement;
 };
 
-export type Schema = DefaultSchemaElementMap & SpecialKeys;
+export type Schema = DefaultSchemaElementMap & Partial<SpecialKeys>;
 
 export const keyAliases = {
     Skills: [

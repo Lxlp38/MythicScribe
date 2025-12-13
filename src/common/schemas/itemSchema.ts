@@ -1,3 +1,6 @@
+import { getScribeEnumHandler } from '@common/datasets/ScribeEnum';
+import { EnumDatasetValue } from '@common/datasets/types/Enum';
+
 import {
     addSchemaAliases,
     generateNumbersInRange,
@@ -83,48 +86,20 @@ const ItemAttributesEntries: Array<SchemaElement> = [
     },
 ];
 
-const ItemAttributeList: Array<string> = [
-    'ATTACK_DAMAGE',
-    'ATTACK_SPEED',
-    'MAX_HEALTH',
-    'MOVEMENT_SPEED',
-    'FLYING_SPEED',
-    'ATTACK_KNOCKBACK',
-    'KNOCKBACK_RESISTANCE',
-    'ARMOR',
-    'ARMOR_TOUGHNESS',
-    'LUCK',
-    'SCALE',
-    'FOLLOW_RANGE',
-    'FALL_DAMAGE_MULTIPLIER',
-    'SAFE_FALL_DISTANCE',
-    'GRAVITY',
-    'BLOCK_BREAK_SPEED',
-    'ENTITY_INTERACTION_RANGE',
-    'BLOCK_INTERACTION_RANGE',
-    'JUMP_HEIGHT',
-    'STEP_HEIGHT',
-    'MAX_ABSORPTION',
-    'BURNING_TIME',
-    'EXPLOSION_KNOCKBACK_RESISTANCE',
-    'MOVEMENT_EFFICIENCY',
-    'OXYGEN',
-    'SNEAKING_SPEED',
-    'WATER_MOVEMENT_EFFICIENCY',
-    'SUBMERGED_MINING_SPEED',
-    'TEMPT_RANGE',
-    'SWEEPING_DAMAGE_RATIO',
-    'SPAWN_REINFORCEMENTS',
-];
-
-const ItemAttributes: Schema = {};
-for (const attribute of ItemAttributeList) {
-    const defaultSchemaElement: SchemaElement = {
+const ItemAttributes: Schema = {
+    [SchemaElementSpecialKeys.ARRAYKEY]: {
         type: SchemaElementTypes.ENTRY_LIST,
+        possibleKeyValues: () => {
+            const dataset = getScribeEnumHandler().getEnum('mythicbukkitattributes')?.getDataset();
+            if (dataset) {
+                return dataset;
+            }
+            return new Map<string, EnumDatasetValue>();
+        },
+        display: 'New Item Attributes',
         entries: ItemAttributesEntries,
-    };
-    ItemAttributes[attribute] = defaultSchemaElement;
-}
+    },
+};
 
 const ItemOptions: Schema = {
     Options: {

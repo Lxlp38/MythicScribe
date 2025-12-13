@@ -25,6 +25,7 @@ import {
     WildKeySchemaElement,
     getKeySchema,
     EntrySchemaElement,
+    ArrayKeySchemaElement,
 } from '../objectInfos';
 import { filterSchemaWithEnabledPlugins, getSchemaElement } from './schemautils';
 import { isPluginEnabled } from '../providers/configProvider';
@@ -352,7 +353,7 @@ function fileCompletionFindNodesOnLevel(
         return [schema, level];
     }
 
-    const key = keys[0];
+    let key = keys[0];
 
     if (!(key in schema)) {
         if (SchemaElementSpecialKeys.WILDKEY in schema) {
@@ -363,6 +364,14 @@ function fileCompletionFindNodesOnLevel(
                 level + 1
             );
             return result;
+        }
+        if (SchemaElementSpecialKeys.ARRAYKEY in schema) {
+            const possibleKeys = (
+                schema[SchemaElementSpecialKeys.ARRAYKEY] as ArrayKeySchemaElement
+            ).possibleKeyValues();
+            if (possibleKeys.has(key)) {
+                key = SchemaElementSpecialKeys.ARRAYKEY;
+            }
         }
         return null;
     }
@@ -394,6 +403,7 @@ function fileCompletionForSchema(schema: Schema, indentation: string): vscode.Co
     const completionItems: vscode.CompletionItem[] = [];
 
     Object.entries(schema).forEach(([key, element]) => {
+        const iterableKeys = [key];
         if (key === SchemaElementSpecialKeys.WILDKEY) {
             const completionItem = new vscode.CompletionItem(
                 (element as WildKeySchemaElement).display,
@@ -403,31 +413,37 @@ function fileCompletionForSchema(schema: Schema, indentation: string): vscode.Co
             completionItems.push(completionItem);
             return;
         }
-
-        const completionItem = new vscode.CompletionItem(key, vscode.CompletionItemKind.File);
-        if (element.type === SchemaElementTypes.LIST) {
-            completionItem.insertText = new vscode.SnippetString(
-                indentation + key + ':\n' + indentation + '- $0'
-            );
-        } else if (element.type === SchemaElementTypes.BOOLEAN) {
-            completionItem.insertText = new vscode.SnippetString(
-                indentation + key + ': ${1|true,false|}$0'
-            );
-        } else if (element.type === SchemaElementTypes.KEY) {
-            completionItem.insertText = new vscode.SnippetString(
-                indentation + key + ':\n' + indentation + '  $0'
-            );
-        } else if (element.type === SchemaElementTypes.KEY_LIST) {
-            completionItem.insertText = new vscode.SnippetString(
-                indentation + key + ':\n' + indentation + '  $1: $2$0'
-            );
-        } else {
-            completionItem.insertText = new vscode.SnippetString(indentation + key + ': $0');
+        if (key === SchemaElementSpecialKeys.ARRAYKEY) {
+            iterableKeys.length = 0;
+            iterableKeys.push(...(element as ArrayKeySchemaElement).possibleKeyValues().keys());
         }
 
-        completionItem.detail = element.description;
-        completionItem.command = retriggerCompletionsCommand;
-        completionItems.push(completionItem);
+        for (const key of iterableKeys) {
+            const completionItem = new vscode.CompletionItem(key, vscode.CompletionItemKind.File);
+            if (element.type === SchemaElementTypes.LIST) {
+                completionItem.insertText = new vscode.SnippetString(
+                    indentation + key + ':\n' + indentation + '- $0'
+                );
+            } else if (element.type === SchemaElementTypes.BOOLEAN) {
+                completionItem.insertText = new vscode.SnippetString(
+                    indentation + key + ': ${1|true,false|}$0'
+                );
+            } else if (element.type === SchemaElementTypes.KEY) {
+                completionItem.insertText = new vscode.SnippetString(
+                    indentation + key + ':\n' + indentation + '  $0'
+                );
+            } else if (element.type === SchemaElementTypes.KEY_LIST) {
+                completionItem.insertText = new vscode.SnippetString(
+                    indentation + key + ':\n' + indentation + '  $1: $2$0'
+                );
+            } else {
+                completionItem.insertText = new vscode.SnippetString(indentation + key + ': $0');
+            }
+
+            completionItem.detail = element.description;
+            completionItem.command = retriggerCompletionsCommand;
+            completionItems.push(completionItem);
+        }
     });
 
     return completionItems;

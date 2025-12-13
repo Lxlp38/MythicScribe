@@ -4,6 +4,7 @@ import {
     SchemaElementSpecialKeys,
     SchemaElementTypes,
     getKeySchema,
+    ArrayKeySchemaElement,
 } from '../objectInfos';
 import { isPluginEnabled } from '../providers/configProvider';
 
@@ -226,7 +227,15 @@ export function filterSchemaWithEnabledPlugins(schema: Schema): Schema {
 export function getSchemaElement(keys: string[], type: Schema): SchemaElement | undefined {
     const key = keys[0];
     keys = keys.slice(1);
-    const object = type[key];
+    let object = type[key];
+    if (!object && SchemaElementSpecialKeys.ARRAYKEY in type) {
+        const maybeObject = type[SchemaElementSpecialKeys.ARRAYKEY]!;
+        const possibleKeys = (maybeObject as ArrayKeySchemaElement).possibleKeyValues();
+        if (possibleKeys.has(key)) {
+            object = type[SchemaElementSpecialKeys.ARRAYKEY]!;
+            object.description = possibleKeys.get(key)?.description;
+        }
+    }
     if (!object) {
         return handleSpecialSchemaElements(keys, type);
     }
@@ -240,6 +249,12 @@ export function getSchemaElement(keys: string[], type: Schema): SchemaElement | 
     return undefined;
 }
 
+/**
+ * Handles special schema elements by checking for wildcard keys in the schema type.
+ * @param keys - An array of string keys to process
+ * @param type - The schema object to evaluate for special elements
+ * @returns The resolved schema element if a wildkey is found, otherwise undefined
+ */
 function handleSpecialSchemaElements(keys: string[], type: Schema): SchemaElement | undefined {
     if (SchemaElementSpecialKeys.WILDKEY in type) {
         const wildkey = handleWildKeySchemaElement(keys, type);

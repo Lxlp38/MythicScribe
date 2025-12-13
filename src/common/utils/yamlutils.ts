@@ -171,9 +171,11 @@ function buildYamlKeyTree(
         if (schemaMapping) {
             schemaElement = schemaMapping[keyName];
 
-            if (!schemaElement && SchemaElementSpecialKeys.WILDKEY in schemaMapping) {
-                // If the schema has a wildcard key, use that as a fallback.
-                schemaElement = schemaMapping[SchemaElementSpecialKeys.WILDKEY];
+            if (!schemaElement) {
+                if (SchemaElementSpecialKeys.WILDKEY in schemaMapping) {
+                    // If the schema has a wildcard key, use that as a fallback.
+                    schemaElement = schemaMapping[SchemaElementSpecialKeys.WILDKEY];
+                }
             }
 
             // If the file object defines nested keys, use that mapping for its children.
