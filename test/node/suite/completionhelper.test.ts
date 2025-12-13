@@ -6,13 +6,12 @@ import {
     checkShouldKeyComplete,
     checkShouldPrefixComplete,
     getListCompletionNeededSpaces,
-    retriggerCompletionsCommand,
-    addMechanicCompletions,
     fileCompletions,
 } from '../../../src/common/utils/completionhelper';
 import { getStubDocument } from '..';
-import { MythicAttribute, MythicMechanic } from '../../../src/common/datasets/ScribeMechanic';
+import { addMechanicCompletions, MythicAttribute, MythicMechanic } from '../../../src/common/datasets/ScribeMechanic';
 import { Schema, SchemaElementTypes } from '../../../src/common/objectInfos';
+import { retriggerCompletionsCommand } from '../../../src/common/constants';
 
 suite('CompletionHelper', () => {
     suite('getListCompletionNeededSpaces', () => {

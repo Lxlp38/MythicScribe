@@ -5,7 +5,8 @@ import { retriggerCompletionsCommand } from '@common/constants';
 
 import { generateNumbersInRange } from '../utils/schemautils';
 import { MythicAttribute } from './ScribeMechanic';
-import { EnumDatasetValue, getScribeEnumHandler } from './ScribeEnum';
+import { getScribeEnumHandler } from './ScribeEnum';
+import { EnumDatasetValue } from './types/Enum';
 
 interface MetaKeyword {
     description: string;

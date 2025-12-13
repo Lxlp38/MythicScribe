@@ -5,7 +5,8 @@ import {
     parseWrittenPlaceholder,
 } from '@common/datasets/ScribePlaceholder';
 import { ConditionActions } from '@common/schemas/conditionActions';
-import { EnumDatasetValue, getScribeEnumHandler } from '@common/datasets/ScribeEnum';
+import { getScribeEnumHandler } from '@common/datasets/ScribeEnum';
+import { EnumDatasetValue } from '@common/datasets/types/Enum';
 import { MythicMechanic, ScribeMechanicHandler } from '@common/datasets/ScribeMechanic';
 import { scribeCodeLensProvider as nodeLens } from '@common/providers/codeLensProvider';
 import { checkFileType } from '@common/FileTypeInfoMap';
@@ -516,7 +517,6 @@ const SkillParameterRegex = /<skill\.(?<parameter>[\w_\-]+)>/gms;
 // Represents a MythicNode specifically for metaskills, extending the base functionality
 // to include condition actions as additional edges.
 export class MetaskillMythicNode extends MythicNode {
-    public mechanic: MythicMechanic | undefined;
     protected findNodeEdges(body: string): void {
         super.findNodeEdges(body);
         this.matchConditionActions(body).forEach((action) => {

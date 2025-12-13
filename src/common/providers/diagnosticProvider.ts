@@ -1,12 +1,19 @@
-import type { MythicNode } from '@common/mythicnodes/MythicNode';
 import { ConfigProvider } from '@common/providers/configProvider';
 import * as vscode from 'vscode';
 
+type DiagnosticNode = {
+    registry: {
+        documentDataMap: Map<string, { addDiagnostic(diagnostic: vscode.Diagnostic): void }>;
+    };
+    document: { uri: vscode.Uri };
+    normalizeRelativeRange(range: vscode.Range): vscode.Range;
+};
+
 export const NodeDiagnosticCollection = vscode.languages.createDiagnosticCollection('MythicScribe');
 
-export function createNodeDiagnostic(clazz: typeof NodeDiagnostic) {
+export function createNodeDiagnostic<NODE extends DiagnosticNode>(clazz: typeof NodeDiagnostic) {
     return function (
-        node: MythicNode,
+        node: NODE,
         range: vscode.Range,
         message: string,
         severity: vscode.DiagnosticSeverity
@@ -18,22 +25,22 @@ export function createNodeDiagnostic(clazz: typeof NodeDiagnostic) {
     };
 }
 
-export class NodeDiagnostic extends vscode.Diagnostic {
+export class NodeDiagnostic<NODE extends DiagnosticNode> extends vscode.Diagnostic {
     constructor(
-        node: MythicNode,
+        node: NODE,
         range: vscode.Range,
         message: string,
         severity: vscode.DiagnosticSeverity
     ) {
         super(range, message, severity);
         this.source = 'MythicScribe';
-        node.registry.documentDataMap.get(node.document.uri.toString()).addDiagnostic(this);
+        node.registry.documentDataMap.get(node.document.uri.toString())?.addDiagnostic(this);
     }
 }
 
-export class NodeRawDiagnostic extends NodeDiagnostic {
+export class NodeRawDiagnostic<NODE extends DiagnosticNode> extends NodeDiagnostic<NODE> {
     constructor(
-        node: MythicNode,
+        node: NODE,
         range: vscode.Range,
         message: string,
         severity: vscode.DiagnosticSeverity

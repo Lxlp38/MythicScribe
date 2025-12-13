@@ -5,21 +5,12 @@ import { retriggerCompletionsCommand } from '@common/constants';
 import { isPluginEnabled } from '../providers/configProvider';
 import { ScribeCloneableFile } from './ScribeCloneableFile';
 import { atlasRegistry, attributeSpecialValues, scriptedEnums } from './enumSources';
-import { MythicNodeHandler } from '../mythicnodes/MythicNode';
-import { isBoolean, registryKey, specialAttributeEnumToRegistryKey } from '../objectInfos';
+import { isBoolean } from '../objectInfos';
 import { timeCounter } from '../utils/timeUtils';
 import { getLogger } from '../providers/loggerProvider';
-
-export enum ObjectType {
-    MECHANIC = 'Mechanic',
-    ATTRIBUTE = 'Attribute',
-    TARGETER = 'Targeter',
-    CONDITION = 'Condition',
-    INLINECONDITION = 'Inline Condition',
-    TRIGGER = 'Trigger',
-    AITARGET = 'AITarget',
-    AIGOAL = 'AIGoal',
-}
+import { Mechanic } from './types/Mechanic';
+import { Attribute } from './types/Attribute';
+import { ObjectType } from './types/ObjectType';
 
 export type MechanicDataset = Mechanic[];
 
@@ -52,14 +43,6 @@ class MechanicContainer {
     getByClass(name: string): MythicMechanic | undefined {
         return this.classMap.get(name.toLowerCase());
     }
-
-    // get mechanics(): MythicMechanic[] {
-    //     return this.values;
-    // }
-
-    // get mechanicsNameMap(): Map<string, MythicMechanic> {
-    //     return this.nameMap;
-    // }
 }
 
 class MechanicMultiContainer {
@@ -319,18 +302,6 @@ class ScribeAIGoalRegistry extends AbstractScribeMechanicRegistry {
     readonly defaultExtend: string = 'WrappedPathfindingGoal';
 }
 
-export interface Mechanic {
-    plugin: string;
-    class: string;
-    extends?: string;
-    implements?: string[];
-    name: string[];
-    description: string;
-    link: string;
-    attributes: Attribute[];
-    author?: string;
-}
-
 export class MythicMechanic {
     readonly registry: AbstractScribeMechanicRegistry;
 
@@ -440,17 +411,6 @@ export class MythicMechanic {
     }
 }
 
-export interface Attribute {
-    name: string[];
-    type: string;
-    enum?: string;
-    list?: boolean;
-    description: string;
-    link?: string;
-    default_value: string;
-    inheritable?: boolean;
-}
-
 export class MythicAttribute {
     static readonly regex = /(?<=[{;])\s*\w+(?=\s*=)/gm;
     readonly mechanic: MythicMechanic;
@@ -547,7 +507,6 @@ export const ScribeMechanicHandler = {
 
     finalize() {
         this.finalizeAllAttributes();
-        this.updateNodeRegistry();
     },
 
     finalizeAllAttributes() {
@@ -557,17 +516,6 @@ export const ScribeMechanicHandler = {
         getLogger().debug('Finalized all Mechanic Attributes');
     },
 
-    updateNodeRegistry() {
-        Object.values(ScribeMechanicHandler.registry).forEach((registry) =>
-            registry.getMechanics().forEach((mechanic) => {
-                mechanic
-                    .getAttributes()
-                    .forEach((attr) => updateNodeRegistryAttribute(attr, mechanic));
-            })
-        );
-        getLogger().debug('Updated Node Registry with Enum References');
-    },
-
     emptyDatasets() {
         Object.values(ScribeMechanicHandler.registry).forEach((registry) =>
             registry.emptyDatasets()
@@ -575,38 +523,6 @@ export const ScribeMechanicHandler = {
         getLogger().debug('Mechanic Datasets emptied');
     },
 };
-
-function updateNodeRegistryAttribute(attr: MythicAttribute, mechanic = attr.mechanic) {
-    let enumIdentifier = attr.enum?.identifier;
-    if (!enumIdentifier) {
-        return;
-    }
-    if (enumIdentifier in specialAttributeEnumToRegistryKey) {
-        enumIdentifier = specialAttributeEnumToRegistryKey[enumIdentifier] as registryKey;
-    }
-    if (!(registryKey as readonly string[]).includes(enumIdentifier)) {
-        return;
-    }
-
-    const key = enumIdentifier as registryKey;
-
-    for (const n of mechanic.name) {
-        const entry = n.toLowerCase();
-        if (!MythicNodeHandler.registry[key].referenceMap.has(entry)) {
-            MythicNodeHandler.registry[key].referenceMap.set(entry, new Set());
-        }
-        for (const name of attr.name) {
-            MythicNodeHandler.registry[key].referenceMap.get(entry)!.add(name.toLowerCase());
-        }
-    }
-
-    const correctedNames = attr.name.map((n) =>
-        n.toLowerCase().replaceAll('(', '\\(').replaceAll(')', '\\)').replaceAll('$', '\\$')
-    );
-    for (const n of correctedNames) {
-        MythicNodeHandler.registry[key].referenceAttributes.add(n);
-    }
-}
 
 export function addMechanicCompletions(
     mechanicList: MythicMechanic[],

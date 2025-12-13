@@ -9,6 +9,8 @@ import { setEdcsUri } from '@common/datasets/edcsUri';
 import { nodeDecorations } from '@common/mythicnodes/utils/NodeDecorations';
 import { loadNodeEvents } from '@common/mythicnodes/utils/NodeEvents';
 import { getScribeEnumHandler } from '@common/datasets/ScribeEnum';
+import { MobSchemaMobVariablesFunction } from '@common/schemas/mobSchema';
+import { getMobVariables } from '@common/schemas/actions/getMobVariables';
 
 import * as SubscriptionHelper from './common/subscriptions/SubscriptionHelper';
 import { getFormatter } from './common/formatter/formatter';
@@ -23,20 +25,7 @@ import { scribeColorProvider } from './common/color/colorprovider';
 import { showNodeGraph } from './common/mythicnodes/nodeView';
 import { putSelectionInsideInlineMetaskill } from './common/completions/component/inlinemetaskillCompletionProvider';
 
-export let ctx: vscode.ExtensionContext | undefined = undefined;
-
-export function executeFunctionAfterActivation(
-    callback: (context: vscode.ExtensionContext) => void
-): void {
-    if (ctx) {
-        callback(ctx);
-    } else {
-        globalCallbacks.activation.registerCallback('pre-activation', callback);
-    }
-}
-
 export async function activate(context: vscode.ExtensionContext) {
-    ctx = context;
     const logger = getLogger();
 
     logger.debug('Extension Activated');
@@ -46,10 +35,13 @@ export async function activate(context: vscode.ExtensionContext) {
 
     ConfigProvider.addContextSubscriptions(context);
 
-    getScribeEnumHandler().setContext(context);
+    const enumHandler = getScribeEnumHandler();
+    enumHandler.setContext(context);
 
     nodeDecorations.addContext(context);
     loadNodeEvents(context);
+
+    MobSchemaMobVariablesFunction.value = getMobVariables;
 
     // Run pre-activation callbacks
     globalCallbacks.activation.runCallbacks('pre-activation', context);
@@ -57,7 +49,7 @@ export async function activate(context: vscode.ExtensionContext) {
     setEdcsUri(context);
 
     // Check if the extension has been updated
-    if (checkExtensionVersion()) {
+    if (checkExtensionVersion(context)) {
         // Run migrations if so
         getLogger().debug('Running migrations');
         await Promise.all([
@@ -131,9 +123,9 @@ export async function activate(context: vscode.ExtensionContext) {
 
 export function deactivate() {}
 
-export function checkExtensionVersion(): boolean {
-    const version = ctx!.extension.packageJSON.version;
-    const savedVersion = ctx!.globalState.get<string>('extensionVersion');
+export function checkExtensionVersion(context: vscode.ExtensionContext): boolean {
+    const version = context.extension.packageJSON.version;
+    const savedVersion = context.globalState.get<string>('extensionVersion');
     getLogger().debug(`Current version: ${version}, Saved version: ${savedVersion}`);
     if (version && version !== savedVersion) {
         const checkExtensionVersionOptions: Parameters<typeof showInfoMessageWithOptions>[1] = {
@@ -146,7 +138,7 @@ export function checkExtensionVersion(): boolean {
             `Updated MythicScribe to version ${version}\nYou may need to restart VSCode for changes to take effect`,
             checkExtensionVersionOptions
         );
-        ctx!.globalState.update('extensionVersion', version);
+        context.globalState.update('extensionVersion', version);
         return true;
     }
     return false;

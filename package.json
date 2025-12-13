@@ -593,7 +593,7 @@
     }
   },
   "scripts": {
-    "deps": "npx madge --circular --ts-config tsconfig.json --extensions ts ./",
+    "deps": "npx madge --circular --ts-config tsconfig.json --warning --extensions ts ./src/",
     "compile": "npm run check-types && node esbuild.js",
     "check-types": "tsc --noEmit",
     "w": "npm-run-all -p watch:*",

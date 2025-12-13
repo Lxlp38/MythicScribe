@@ -1,28 +1,15 @@
 import * as vscode from 'vscode';
 import { PromiseCallbackProvider } from '@common/providers/callbackProvider';
-import { Schema } from '@common/objectInfos';
-import { MobSchema } from '@common/schemas/mobSchema';
-import { StatSchema } from '@common/schemas/statSchema';
-import { ItemSchema } from '@common/schemas/itemSchema';
-import { MetaskillSchema } from '@common/schemas/metaskillSchema';
-import { DroptableSchema } from '@common/schemas/droptableSchema';
-import { RandomSpawnSchema } from '@common/schemas/randomSpawnSchema';
-import { generateNumbersInRange } from '@common/utils/schemautils';
-import { ReagentSchema } from '@common/schemas/reagentSchema';
-import { MenuSchema } from '@common/schemas/menuSchema';
-import { AchievementSchema } from '@common/schemas/achievementSchema';
-import { PlaceholderSchema } from '@common/schemas/placeholderSchema';
-import { EquipmentSetSchema } from '@common/schemas/equipmentsetSchema';
 import { getMinecraftVersion } from '@common/providers/configProvider';
 import { fetchJsonFromURL, fetchJsonFromLocalFile } from '@common/utils/uriutils';
 
 import { ScribeCloneableFile } from './ScribeCloneableFile';
 import { getLogger } from '../providers/loggerProvider';
-import { AbstractScribeMechanicRegistry, Attribute, ScribeMechanicHandler } from './ScribeMechanic';
 import { insertColor } from '../color/colorprovider';
 import { localEnums, scriptedEnums, volatileEnums } from './enumSources';
-import { MythicNode, MythicNodeHandler, NodeEntry } from '../mythicnodes/MythicNode';
 import { timeCounter } from '../utils/timeUtils';
+import { Attribute } from './types/Attribute';
+import { EnumDatasetValue, Enum } from './types/Enum';
 
 const enumLoadedEventEmitter = new vscode.EventEmitter<AbstractScribeEnum>();
 export const onEnumLoaded = enumLoadedEventEmitter.event;
@@ -201,15 +188,6 @@ class ScriptedEnum extends AbstractScribeEnum {
     }
 }
 
-export interface Enum {
-    [key: string]: EnumDatasetValue;
-}
-export interface EnumDatasetValue {
-    description?: string;
-    name?: string[];
-    attributes?: Attribute[];
-}
-
 export class ScribeEnumHandlerImpl {
     version = getMinecraftVersion();
     enums = new Map<string, AbstractScribeEnum>();
@@ -330,145 +308,6 @@ export class ScribeEnumHandlerImpl {
         this.addLambdaEnum(scriptedEnums.Boolean, ['true', 'false']);
         this.addScriptedEnum(scriptedEnums.Color, insertColor);
         this.addScriptedEnum(scriptedEnums.RGBColor, () => insertColor(undefined, '255,255,255'));
-
-        // mechanic List-related datasets
-        this.addScriptedEnum(scriptedEnums.MechanicList, () =>
-            fromMechanicRegistryToEnum(ScribeMechanicHandler.registry.mechanic)
-        );
-        this.addScriptedEnum(scriptedEnums.TargeterList, () =>
-            fromMechanicRegistryToEnum(ScribeMechanicHandler.registry.targeter)
-        );
-        this.addScriptedEnum(scriptedEnums.TriggerList, () =>
-            fromMechanicRegistryToEnum(ScribeMechanicHandler.registry.trigger)
-        );
-        this.addScriptedEnum(scriptedEnums.ConditionList, () =>
-            fromMechanicRegistryToEnum(ScribeMechanicHandler.registry.condition)
-        );
-
-        // Special cases
-        this.addScriptedEnum(scriptedEnums.Item, () => {
-            const mythicitems = fromMythicNodeToEnum(MythicNodeHandler.registry.item.getNodes());
-            const paperitems = this.getEnum('material')!.getDataset();
-            return new Map([...mythicitems, ...paperitems]);
-        });
-        this.addScriptedEnum(scriptedEnums.Targeter, () =>
-            fromMechanicRegistryToEnum(
-                ScribeMechanicHandler.registry.targeter,
-                (name) => '@' + name
-            )
-        );
-        this.addScriptedEnum(scriptedEnums.Trigger, () =>
-            fromMechanicRegistryToEnum(ScribeMechanicHandler.registry.trigger, (name) => '~' + name)
-        );
-        this.addScriptedEnum(scriptedEnums.ReagentValue, () => {
-            const ret = fromMythicNodeToEnum(MythicNodeHandler.registry.stat.getNodes());
-            const ret2 = new Map<string, EnumDatasetValue>();
-            ret.forEach((value, key) => {
-                ret2.set('stat.' + key, value);
-            });
-            generateNumbersInRange(0, 5, 1, true).forEach((value) => {
-                ret2.set(value, { description: '' });
-            });
-            return ret2;
-        });
-        this.addScriptedEnum(scriptedEnums.Spell, () => {
-            const metaskills = MythicNodeHandler.registry.metaskill.getNodes();
-            const spells: NodeEntry = new Map();
-            metaskills.forEach((value, key) => {
-                if (value.metadata.get('spell') === true) {
-                    spells.set(key, value);
-                }
-            });
-            return fromMythicNodeToEnum(spells);
-        });
-        this.addScriptedEnum(scriptedEnums.Furniture, () => {
-            const items = MythicNodeHandler.registry.item.getNodes();
-            const furnitures: NodeEntry = new Map();
-            items.forEach((value, key) => {
-                if (value.getTemplatedMetadata<string>('type') === 'furniture') {
-                    furnitures.set(key, value);
-                }
-            });
-            return fromMythicNodeToEnum(furnitures);
-        });
-        this.addScriptedEnum(scriptedEnums.CustomBlock, () => {
-            const items = MythicNodeHandler.registry.item.getNodes();
-            const customBlocks: NodeEntry = new Map();
-            items.forEach((value, key) => {
-                if (value.getTemplatedMetadata<string>('type') === 'block') {
-                    customBlocks.set(key, value);
-                }
-            });
-            return fromMythicNodeToEnum(customBlocks);
-        });
-        this.addScriptedEnum(scriptedEnums.Block, () => {
-            const customBlocks = this.getEnum(scriptedEnums.CustomBlock)!.getDataset();
-            const paperitems = this.getEnum('material')!.getDataset();
-            return new Map([...customBlocks, ...paperitems]);
-        });
-
-        // Node-related datasets
-        this.addScriptedEnum(scriptedEnums.Mob, () =>
-            fromMythicNodeToEnum(MythicNodeHandler.registry.mob.getNodes())
-        );
-        this.addScriptedEnum(scriptedEnums.MythicItem, () =>
-            fromMythicNodeToEnum(MythicNodeHandler.registry.item.getNodes())
-        );
-        this.addScriptedEnum(scriptedEnums.Metaskill, () =>
-            fromMythicNodeToEnum(MythicNodeHandler.registry.metaskill.getNodes())
-        );
-        this.addScriptedEnum(scriptedEnums.Droptable, () =>
-            fromMythicNodeToEnum(MythicNodeHandler.registry.droptable.getNodes())
-        );
-        this.addScriptedEnum(scriptedEnums.Stat, () =>
-            fromMythicNodeToEnum(MythicNodeHandler.registry.stat.getNodes())
-        );
-        this.addScriptedEnum(scriptedEnums.Pin, () =>
-            fromMythicNodeToEnum(MythicNodeHandler.registry.pin.getNodes())
-        );
-        this.addScriptedEnum(scriptedEnums.CustomPlaceholder, () =>
-            fromMythicNodeToEnum(MythicNodeHandler.registry.placeholder.getNodes())
-        );
-        this.addScriptedEnum(scriptedEnums.RandomSpawn, () =>
-            fromMythicNodeToEnum(MythicNodeHandler.registry.randomspawn.getNodes())
-        );
-        this.addScriptedEnum(scriptedEnums.EquipmentSet, () =>
-            fromMythicNodeToEnum(MythicNodeHandler.registry.equipmentset.getNodes())
-        );
-        this.addScriptedEnum(scriptedEnums.Archetype, () =>
-            fromMythicNodeToEnum(MythicNodeHandler.registry.archetype.getNodes())
-        );
-        this.addScriptedEnum(scriptedEnums.Reagent, () =>
-            fromMythicNodeToEnum(MythicNodeHandler.registry.reagent.getNodes())
-        );
-        this.addScriptedEnum(scriptedEnums.Menu, () =>
-            fromMythicNodeToEnum(MythicNodeHandler.registry.menu.getNodes())
-        );
-
-        // Schemas
-        this.addScriptedEnum(scriptedEnums.MobSchema, () => fromSchemaToEnum(MobSchema));
-        this.addScriptedEnum(scriptedEnums.ItemSchema, () => fromSchemaToEnum(ItemSchema));
-        this.addScriptedEnum(scriptedEnums.MetaskillSchema, () =>
-            fromSchemaToEnum(MetaskillSchema)
-        );
-        this.addScriptedEnum(scriptedEnums.DroptableSchema, () =>
-            fromSchemaToEnum(DroptableSchema)
-        );
-        this.addScriptedEnum(scriptedEnums.StatSchema, () => fromSchemaToEnum(StatSchema));
-        this.addScriptedEnum(scriptedEnums.RandomSpawnSchema, () =>
-            fromSchemaToEnum(RandomSpawnSchema)
-        );
-        this.addScriptedEnum(scriptedEnums.PlaceholderSchema, () =>
-            fromSchemaToEnum(PlaceholderSchema)
-        );
-        this.addScriptedEnum(scriptedEnums.EquipmentSetSchema, () =>
-            fromSchemaToEnum(EquipmentSetSchema)
-        );
-        this.addScriptedEnum(scriptedEnums.ReagentSchema, () => fromSchemaToEnum(ReagentSchema));
-        this.addScriptedEnum(scriptedEnums.MenuSchema, () => fromSchemaToEnum(MenuSchema));
-        this.addScriptedEnum(scriptedEnums.AchievementSchema, () =>
-            fromSchemaToEnum(AchievementSchema)
-        );
     }
 }
 
@@ -478,33 +317,4 @@ export function getScribeEnumHandler(): ScribeEnumHandlerImpl {
         ScribeEnumHandler = new ScribeEnumHandlerImpl();
     }
     return ScribeEnumHandler;
-}
-
-function fromMechanicRegistryToEnum(
-    registry: AbstractScribeMechanicRegistry,
-    nameParser: (name: string) => string = (name) => name
-): Map<string, EnumDatasetValue> {
-    const mechanics: Map<string, EnumDatasetValue> = new Map();
-    registry.getMechanics().forEach((mechanic) => {
-        mechanic.name.forEach((name) => {
-            mechanics.set(nameParser(name), { description: mechanic.description });
-        });
-    });
-    return mechanics;
-}
-
-function fromMythicNodeToEnum(nodes: Map<string, MythicNode>): Map<string, EnumDatasetValue> {
-    const metaskills: Map<string, EnumDatasetValue> = new Map();
-    nodes.forEach((node) => {
-        metaskills.set(node.name.text, { description: node.description.text || '' });
-    });
-    return metaskills;
-}
-
-function fromSchemaToEnum(schema: Schema): Map<string, EnumDatasetValue> {
-    const schemaEnum: Map<string, EnumDatasetValue> = new Map();
-    Object.entries(schema).forEach(([key, value]) => {
-        schemaEnum.set(key, { description: value.description });
-    });
-    return schemaEnum;
 }

@@ -1,4 +1,4 @@
-import { Mechanic } from '@common/datasets/ScribeMechanic';
+import { Mechanic } from '@common/datasets/types/Mechanic';
 import * as vscode from 'vscode';
 
 import * as commentParser from 'comment-parser';

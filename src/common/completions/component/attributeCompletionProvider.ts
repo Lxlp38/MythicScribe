@@ -5,7 +5,7 @@ import {
     MythicMechanic,
     ScribeMechanicHandler,
 } from '@common/datasets/ScribeMechanic';
-import type { EnumDatasetValue } from '@common/datasets/ScribeEnum';
+import type { EnumDatasetValue } from '@common/datasets/types/Enum';
 import {
     checkShouldPrefixComplete,
     getCharBefore,

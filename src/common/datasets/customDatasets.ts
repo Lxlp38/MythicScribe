@@ -2,10 +2,10 @@ import path from 'path';
 
 import * as vscode from 'vscode';
 import { fetchJsonFromURL, fetchJsonFromLocalFile } from '@common/utils/uriutils';
+import { type Mechanic } from '@common/datasets/types/Mechanic';
 
 import {
     type AbstractScribeMechanicRegistry,
-    type Mechanic,
     type MechanicDataset,
     ScribeMechanicHandler,
 } from './ScribeMechanic';

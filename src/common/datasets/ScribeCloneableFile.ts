@@ -38,14 +38,14 @@ export class ScribeCloneableFile<T> {
 
     async get(): Promise<T[]> {
         if (ConfigProvider.registry.generic.get('datasetSource') === 'GitHub') {
-            const shouldUpdateGithubDatasets = stateControlBooleanProvider
+            const doUpdateGithubDataset = stateControlBooleanProvider
                 .register('doUpdateGithubDataset')
                 .then((value) => value)
                 .catch(() => false);
             getLogger().trace(
-                `Checking if we should update GitHub datasets for ${this.githubUri.toString()}: ${(await shouldUpdateGithubDatasets) ? 'Yes' : 'No'}`
+                `Checking if we should update GitHub datasets for ${this.githubUri.toString()}: ${(await doUpdateGithubDataset) ? 'Yes' : 'No'}`
             );
-            if (!(await shouldUpdateGithubDatasets)) {
+            if (!(await doUpdateGithubDataset)) {
                 const status = await ensureComponentsExist(this.edcsUri);
                 if (status === ComponentStatus.Exists) {
                     return fetchJsonFromLocalFile<T>(this.edcsUri);

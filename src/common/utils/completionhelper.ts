@@ -1,5 +1,6 @@
 import * as vscode from 'vscode';
-import { EnumDatasetValue, getScribeEnumHandler } from '@common/datasets/ScribeEnum';
+import { getScribeEnumHandler } from '@common/datasets/ScribeEnum';
+import { EnumDatasetValue } from '@common/datasets/types/Enum';
 import { retriggerCompletionsCommand } from '@common/constants';
 
 import {
