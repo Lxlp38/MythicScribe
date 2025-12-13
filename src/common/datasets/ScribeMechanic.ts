@@ -1,10 +1,9 @@
 import * as vscode from 'vscode';
 import { getScribeEnumHandler, AbstractScribeEnum } from '@common/datasets/ScribeEnum';
+import { retriggerCompletionsCommand } from '@common/constants';
 
 import { isPluginEnabled } from '../providers/configProvider';
-import { ctx } from '../../MythicScribe';
 import { ScribeCloneableFile } from './ScribeCloneableFile';
-import { addMechanicCompletions } from '../utils/completionhelper';
 import { atlasRegistry, attributeSpecialValues, scriptedEnums } from './enumSources';
 import { MythicNodeHandler } from '../mythicnodes/MythicNode';
 import { isBoolean, registryKey, specialAttributeEnumToRegistryKey } from '../objectInfos';
@@ -166,10 +165,6 @@ export abstract class AbstractScribeMechanicRegistry {
         return Array.from(this.mechanics.classMap.keys());
     }
 
-    get localPath(): string {
-        return vscode.Uri.joinPath(ctx!.extensionUri, 'data', this.folder).toString();
-    }
-
     async addMechanic(...mechanic: Mechanic[]) {
         mechanic.forEach((m) => {
             if (!isPluginEnabled(m.plugin)) {
@@ -252,14 +247,14 @@ export abstract class AbstractScribeMechanicRegistry {
         }
     }
 
-    async loadDataset() {
+    async loadDataset(context: vscode.ExtensionContext) {
         const time = timeCounter();
         getLogger().debug(`Loading ${this.type} Dataset`);
         const node = atlasRegistry.getNode(`${this.folder}`);
         const directoryFiles: vscode.Uri[] =
             node
                 ?.getFiles(false)
-                .map((file) => vscode.Uri.joinPath(ctx!.extensionUri, 'data', file)) || [];
+                .map((file) => vscode.Uri.joinPath(context.extensionUri, 'data', file)) || [];
         const files = directoryFiles.map((file) => new ScribeCloneableFile<Mechanic>(file));
         const promises = files.map((file) => file.get());
         const result = await Promise.allSettled(promises);
@@ -538,12 +533,12 @@ export const ScribeMechanicHandler = {
         aigoal: new ScribeAIGoalRegistry(),
     },
 
-    async loadMechanicDatasets() {
+    async loadMechanicDatasets(context: vscode.ExtensionContext) {
         const time = timeCounter();
         getLogger().debug('Loading Mechanic Datasets');
         ScribeMechanicHandler.emptyDatasets();
         const promises = Object.values(ScribeMechanicHandler.registry).map((registry) =>
-            registry.loadDataset()
+            registry.loadDataset(context)
         );
         await Promise.allSettled(promises);
         getLogger().debug('Loaded Mechanic Datasets in', time.stop());
@@ -611,4 +606,33 @@ function updateNodeRegistryAttribute(attr: MythicAttribute, mechanic = attr.mech
     for (const n of correctedNames) {
         MythicNodeHandler.registry[key].referenceAttributes.add(n);
     }
+}
+
+export function addMechanicCompletions(
+    mechanicList: MythicMechanic[],
+    completionItems: vscode.CompletionItem[],
+    defaultExtend?: string
+) {
+    mechanicList.forEach((mechanic: MythicMechanic) => {
+        mechanic.name.forEach((name: string) => {
+            const completionItem = new vscode.CompletionItem(
+                name,
+                vscode.CompletionItemKind.Function
+            );
+            completionItem.detail = `${mechanic.description}`;
+            completionItem.kind = vscode.CompletionItemKind.Function;
+            if (
+                mechanic.getMyAttributes().length === 0 &&
+                mechanic.extends &&
+                defaultExtend &&
+                mechanic.extends === defaultExtend
+            ) {
+                completionItem.insertText = new vscode.SnippetString(name);
+            } else {
+                completionItem.insertText = new vscode.SnippetString(name + '{$0}');
+                completionItem.command = retriggerCompletionsCommand;
+            }
+            completionItems.push(completionItem);
+        });
+    });
 }

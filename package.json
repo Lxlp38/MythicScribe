@@ -593,8 +593,7 @@
     }
   },
   "scripts": {
-    "deps": "npx madge --circular --extensions ts ./",
-    "deps:graph": "npx madge --circular --image deps-graph.svg --extensions ts ./",
+    "deps": "npx madge --circular --ts-config tsconfig.json --extensions ts ./",
     "compile": "npm run check-types && node esbuild.js",
     "check-types": "tsc --noEmit",
     "w": "npm-run-all -p watch:*",
@@ -631,6 +630,7 @@
     "eslint-plugin-prettier": "^5.2.1",
     "eslint-plugin-promise": "^7.2.1",
     "glob": "^11.0.1",
+    "madge": "^8.0.0",
     "mocha": "^11.1.0",
     "nodemon": "^3.1.9",
     "npm-run-all": "^4.1.5",

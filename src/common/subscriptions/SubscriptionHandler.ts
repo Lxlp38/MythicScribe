@@ -31,7 +31,6 @@ import { ItemSchema } from '../schemas/itemSchema';
 import { MobSchema } from '../schemas/mobSchema';
 import { MetaskillSchema } from '../schemas/metaskillSchema';
 import { ScribeMechanicHandler } from '../datasets/ScribeMechanic';
-import { ctx } from '../../MythicScribe';
 import { genericFileCompletionProvider } from '../completions/file/genericFileCompletionProvider';
 import { DroptableSchema } from '../schemas/droptableSchema';
 import { StatSchema } from '../schemas/statSchema';
@@ -60,9 +59,9 @@ export abstract class AbstractScribeSubscription {
      *
      * @param subscription - The subscription to be enabled and added to the lists.
      */
-    enable(subscription: vscode.Disposable) {
+    enable(subscription: vscode.Disposable, context: vscode.ExtensionContext) {
         this.subscriptions.push(subscription);
-        ctx!.subscriptions.push(subscription);
+        context.subscriptions.push(subscription);
     }
 
     /**
@@ -76,15 +75,15 @@ export abstract class AbstractScribeSubscription {
      * - If all `enableConditions` return true, it iterates over `subscriptionFunctions`
      *   and calls `enable` on the result of each function.
      */
-    enableAll() {
+    enableAll(context: vscode.ExtensionContext) {
         this.disposeAll();
         this.childSubscriptionHandlers.forEach((handler) => {
-            handler.enableAll();
+            handler.enableAll(context);
         });
 
         if (this.enableConditions.every((condition) => condition())) {
             this.subscriptionFunctions.forEach((func) => {
-                this.enable(func());
+                this.enable(func(), context);
             });
         }
     }

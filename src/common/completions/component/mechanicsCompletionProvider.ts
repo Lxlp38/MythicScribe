@@ -7,7 +7,7 @@ import {
     checkShouldKeyComplete,
     getListCompletionNeededSpaces,
 } from '@common/utils/completionhelper';
-import { isInsideInlineConditionList } from '@common/utils/yamlutils';
+import { isInsideInlineConditionList } from '@common/utils/cursorutils';
 
 export function mechanicCompletionProvider(
     registry: AbstractScribeMechanicRegistry,

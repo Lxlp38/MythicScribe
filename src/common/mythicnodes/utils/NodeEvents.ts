@@ -1,18 +1,17 @@
 import * as vscode from 'vscode';
-import { checkFileType } from '@common/subscriptions/SubscriptionHelper';
+import { checkFileType } from '@common/FileTypeInfoMap';
 import { ConfigProvider } from '@common/providers/configProvider';
 import { openDocumentTactfully } from '@common/utils/uriutils';
 import { scribeCodeLensProvider } from '@common/providers/codeLensProvider';
 
 import { MythicNodeHandler } from '../MythicNode';
 import { nodeDecorations, updateActiveEditorDecorations } from './NodeDecorations';
-import { executeFunctionAfterActivation } from '../../../MythicScribe';
 
 let eventsLoaded = false;
 
 const disposables: vscode.Disposable[] = [];
 
-export function loadNodeEvents() {
+export function loadNodeEvents(context: vscode.ExtensionContext) {
     if (eventsLoaded) {
         return;
     }
@@ -161,7 +160,5 @@ export function loadNodeEvents() {
         disposables
     );
 
-    executeFunctionAfterActivation((context) => {
-        context.subscriptions.push(...disposables);
-    });
+    context.subscriptions.push(...disposables);
 }

@@ -1,4 +1,5 @@
 import * as vscode from 'vscode';
+import { ActiveFileTypeInfo } from '@common/subscriptions/ActiveFileTypeInfo';
 
 import { MythicMechanic, MythicAttribute, ScribeMechanicHandler } from '../datasets/ScribeMechanic';
 import { Schema, keyAliases, registryKey, specialAttributeEnumToRegistryKey } from '../objectInfos';
@@ -6,14 +7,13 @@ import { getCursorSkills, getCursorObject } from '../utils/cursorutils';
 import * as yamlutils from '../utils/yamlutils';
 import { MythicNode, MythicNodeHandler } from '../mythicnodes/MythicNode';
 import { searchForLinkedAttribute } from '../completions/component/attributeCompletionProvider';
-import { ActiveFileTypeInfo } from '../subscriptions/SubscriptionHelper';
 import {
     fromPlaceholderNodeIdentifierToRegistryKey,
     getLastNodeFromPlaceholder,
     removeLastPlaceholderSegment,
 } from '../datasets/ScribePlaceholder';
 import { ConditionActions } from '../schemas/conditionActions';
-import { KeyDependantMechanicLikeHover } from './providers/hoverprovider';
+import { KeyDependentMechanicLikeHover } from './providers/types/KeyDependantMechanicLikeHover';
 
 type SchemaCallbacks<T> = {
     fileElementFunction: (keys: string[], type: Schema, link: string | undefined) => T | undefined;
@@ -32,7 +32,7 @@ export namespace CursorLocationAction {
         position: vscode.Position,
         schema: Schema,
         callbacks: SchemaCallbacks<T>,
-        ...keydependencies: KeyDependantMechanicLikeHover[]
+        ...keydependencies: KeyDependentMechanicLikeHover[]
     ) {
         const keys = yamlutils.getParentKeys(document, position);
 

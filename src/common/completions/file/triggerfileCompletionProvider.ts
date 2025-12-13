@@ -1,11 +1,9 @@
 import * as vscode from 'vscode';
+import { retriggerCompletionsCommand } from '@common/constants';
 
 import { keyAliases, TriggerType } from '../../objectInfos';
 import { MythicMechanic, ScribeMechanicHandler } from '../../datasets/ScribeMechanic';
-import {
-    checkShouldPrefixComplete,
-    retriggerCompletionsCommand,
-} from '../../utils/completionhelper';
+import { checkShouldPrefixComplete } from '../../utils/completionhelper';
 import * as yamlutils from '../../utils/yamlutils';
 
 export function triggerfileCompletionProvider(

@@ -10,9 +10,10 @@ import {
     checkShouldPrefixComplete,
     getCharBefore,
     getEnumCompletion,
-    retriggerCompletionsCommand,
 } from '@common/utils/completionhelper';
+import { retriggerCompletionsCommand } from '@common/constants';
 import * as yamlutils from '@common/utils/yamlutils';
+import * as cursorutils from '@common/utils/cursorutils';
 import { ConfigProvider } from '@common/providers/configProvider';
 import { getObjectLinkedToAttribute } from '@common/utils/cursorutils';
 
@@ -198,7 +199,7 @@ function searchForLinkedMythicMechanic(
     }
     if (
         !mechanic &&
-        yamlutils.isInsideInlineConditionList(
+        cursorutils.isInsideInlineConditionList(
             document,
             position,
             ScribeMechanicHandler.registry.mechanic,

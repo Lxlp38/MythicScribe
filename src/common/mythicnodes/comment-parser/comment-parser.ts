@@ -3,14 +3,15 @@ import * as vscode from 'vscode';
 
 import * as commentParser from 'comment-parser';
 
-import type { MythicNode } from '../MythicNode';
-
 const options: Parameters<typeof commentParser.parse>[1] = {};
 
 const CommentTags = ['plugin', 'param', 'link', 'id', 'extend', 'author', 'mechanic'] as const;
 export type CommentTags = (typeof CommentTags)[number];
 
-export function getMechanicFromComment(comment: string, node: MythicNode): Mechanic | undefined {
+export function getMechanicFromComment(
+    comment: string,
+    node: { name: string; documentUri: vscode.Uri }
+): Mechanic | undefined {
     const parsed = parseComments(comment);
     if (!parsed) {
         return undefined;
@@ -32,14 +33,14 @@ export function getMechanicFromComment(comment: string, node: MythicNode): Mecha
     }
 
     return {
-        class: tags.id[0]?.name || 'λ' + node.name.text,
-        name: ['skill:' + node.name.text],
+        class: tags.id[0]?.name || 'λ' + node.name,
+        name: ['skill:' + node.name],
         plugin:
             tags.plugin[0]?.name ||
             'Local Skill at [' +
-                node.document.uri.fsPath.replaceAll('\\', '/').split('/').pop() +
+                node.documentUri.fsPath.replaceAll('\\', '/').split('/').pop() +
                 '](' +
-                node.document.uri.toString() +
+                node.documentUri.toString() +
                 ')',
         author: tags.author.map((authorTag) => authorTag.name).join(', ') || undefined,
         description: parsed.description.replace(/^\-/, '').trim() || '',

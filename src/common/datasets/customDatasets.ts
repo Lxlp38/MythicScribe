@@ -4,13 +4,12 @@ import * as vscode from 'vscode';
 import { fetchJsonFromURL, fetchJsonFromLocalFile } from '@common/utils/uriutils';
 
 import {
-    AbstractScribeMechanicRegistry,
-    Mechanic,
-    MechanicDataset,
+    type AbstractScribeMechanicRegistry,
+    type Mechanic,
+    type MechanicDataset,
     ScribeMechanicHandler,
 } from './ScribeMechanic';
 import { getScribeEnumHandler, StaticScribeEnum, WebScribeEnum } from './ScribeEnum';
-import { loadDatasets } from './datasets';
 import { getLogger } from '../providers/loggerProvider';
 import { changeCustomDatasetsSource } from '../migration/migration';
 import { CustomDatasetElementType, CustomDatasetSource } from '../packageData';
@@ -27,7 +26,7 @@ const validConfigurationTargets = [
     { label: 'Workspace', target: vscode.ConfigurationTarget.Workspace },
 ];
 
-export async function addCustomDataset(ctx: vscode.ExtensionContext) {
+export async function addCustomDataset() {
     getLogger().debug('addCustomDataset');
     const scope = await vscode.window
         .showQuickPick(validConfigurationTargets, {
@@ -59,7 +58,7 @@ export async function addCustomDataset(ctx: vscode.ExtensionContext) {
     getLogger().debug('addCustomDataset source:', source);
 
     if (source === 'Link') {
-        return addCustomDatasetFromLink(elementType, scope, ctx);
+        return addCustomDatasetFromLink(elementType, scope);
     }
 
     const fileUri = await vscode.window.showOpenDialog({
@@ -110,13 +109,12 @@ export async function addCustomDataset(ctx: vscode.ExtensionContext) {
             elementType as CustomDatasetElementType,
             source as CustomDatasetSource,
             uri.toString(),
-            scope,
-            ctx
+            scope
         );
     }
 }
 
-export async function removeCustomDataset(ctx: vscode.ExtensionContext) {
+export async function removeCustomDataset() {
     getLogger().debug('removeCustomDataset');
     const scope = await vscode.window.showQuickPick(validConfigurationTargets, {
         placeHolder: 'Select the scope from which you want to remove the custom dataset',
@@ -161,12 +159,9 @@ export async function removeCustomDataset(ctx: vscode.ExtensionContext) {
 
         getLogger().info(`Mapping removed: ${dataset.elementType} -> ${dataset.pathOrUrl}`);
     });
-
-    // Reload the datasets
-    loadDatasets(ctx);
 }
 
-export async function createBundleDataset(ctx: vscode.ExtensionContext) {
+export async function createBundleDataset() {
     getLogger().debug('createBundleDataset');
     const scope = await vscode.window.showQuickPick(validConfigurationTargets, {
         placeHolder: 'Select the scope for which you want to create the bundle',
@@ -264,15 +259,10 @@ export async function createBundleDataset(ctx: vscode.ExtensionContext) {
         });
         await config.update('customDatasets', existingMappings, scope?.target);
         getLogger().info('Selected custom datasets replaced with the new bundle');
-        loadDatasets(ctx);
     }
 }
 
-async function addCustomDatasetFromLink(
-    elementtype: string,
-    scope: vscode.ConfigurationTarget,
-    ctx: vscode.ExtensionContext
-) {
+async function addCustomDatasetFromLink(elementtype: string, scope: vscode.ConfigurationTarget) {
     const pathOrUrl = await vscode.window.showInputBox({
         placeHolder: 'Enter a path or URL',
         prompt: 'Enter a path or URL',
@@ -292,8 +282,7 @@ async function addCustomDatasetFromLink(
             elementtype as CustomDatasetElementType,
             'Link',
             uri.toString(),
-            scope,
-            ctx
+            scope
         );
 
         getLogger().info(`Successfully added dataset from: ${uri.toString()}`);
@@ -307,17 +296,13 @@ async function finalizeCustomDatasetAddition(
     elementType: CustomDatasetElementType,
     source: CustomDatasetSource,
     pathOrUrl: string,
-    scope: vscode.ConfigurationTarget,
-    ctx: vscode.ExtensionContext
+    scope: vscode.ConfigurationTarget
 ) {
     const [config, existingMappings] = getCustomDatasetConfiguration();
     existingMappings.push({ elementType, source, pathOrUrl });
     await config.update('customDatasets', existingMappings, scope);
 
     getLogger().info(`Mapping added: ${elementType} -> ${pathOrUrl}`);
-
-    // Reload the datasets
-    loadDatasets(ctx);
 }
 
 function getCustomDatasetConfiguration(

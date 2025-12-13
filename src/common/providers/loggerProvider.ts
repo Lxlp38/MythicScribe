@@ -1,27 +1,45 @@
 import * as vscode from 'vscode';
 import { LogLevel } from '@common/packageData';
 
-import { ConfigProvider } from './configProvider';
+import { CallbackProvider } from './callbackProvider';
 
 type logOptions = {
     silent?: boolean;
 };
 
+const LogLevelAssociation: Record<LogLevel, vscode.LogLevel> = {
+    error: vscode.LogLevel.Error,
+    warn: vscode.LogLevel.Warning,
+    info: vscode.LogLevel.Info,
+    debug: vscode.LogLevel.Debug,
+    trace: vscode.LogLevel.Trace,
+} as const;
+
 export class Logger {
     private outputChannel: vscode.OutputChannel;
     private logLevel: vscode.LogLevel;
+    private configCallbackProvider?: CallbackProvider<'configChange'>;
+    private getScribeLogLevel: () => LogLevel | undefined = () => 'trace';
 
-    constructor(outputChannelName: string, defaultLogLevel: vscode.LogLevel = getLogLevel()) {
+    constructor(outputChannelName: string, defaultLogLevel: vscode.LogLevel = this.getLogLevel()) {
         this.outputChannel = vscode.window.createOutputChannel(outputChannelName, 'log');
         this.logLevel = defaultLogLevel;
-        ConfigProvider.registry.generic.registerCallback(
-            'configChange',
-            this.updateLogLevel.bind(this)
-        );
         this.debug(
             'Logger initialized with a default log level of',
             vscode.LogLevel[defaultLogLevel]
         );
+    }
+
+    addConfigCallbackProvider(callbackProvider: CallbackProvider<'configChange'>) {
+        this.configCallbackProvider = callbackProvider;
+        this.configCallbackProvider.registerCallback(
+            'configChange',
+            this.updateLogLevel.bind(this)
+        );
+    }
+
+    addScribeLogLevelProvider(getLogLevel: () => LogLevel | undefined) {
+        this.getScribeLogLevel = getLogLevel;
     }
 
     setLogLevel(logLevel: vscode.LogLevel): void {
@@ -29,7 +47,7 @@ export class Logger {
     }
 
     updateLogLevel(): void {
-        const logLevel = getLogLevel();
+        const logLevel = this.getLogLevel();
         this.debug('Log level update has been called');
         this.debug(
             `Updating log level from`,
@@ -122,6 +140,14 @@ export class Logger {
     show(): void {
         this.outputChannel.show();
     }
+
+    getLogLevel() {
+        const returnValue = this.getScribeLogLevel();
+        if (returnValue) {
+            return LogLevelAssociation[returnValue as LogLevel] || vscode.LogLevel.Trace;
+        }
+        return vscode.LogLevel.Trace;
+    }
 }
 
 const Loggers = {
@@ -168,20 +194,4 @@ type InfoMessageOptions = {
  */
 export async function showInfoMessageWithOptions(message: string, options: InfoMessageOptions) {
     return getLogger().options(message, options);
-}
-
-const LogLevelAssociation: Record<LogLevel, vscode.LogLevel> = {
-    error: vscode.LogLevel.Error,
-    warn: vscode.LogLevel.Warning,
-    info: vscode.LogLevel.Info,
-    debug: vscode.LogLevel.Debug,
-    trace: vscode.LogLevel.Trace,
-};
-
-function getLogLevel() {
-    const returnValue = ConfigProvider.registry.generic.get('logLevel');
-    if (returnValue) {
-        return LogLevelAssociation[returnValue as LogLevel] || vscode.LogLevel.Debug;
-    }
-    return vscode.LogLevel.Debug;
 }

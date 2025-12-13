@@ -8,6 +8,8 @@ import { ConditionActions } from '@common/schemas/conditionActions';
 import { EnumDatasetValue, getScribeEnumHandler } from '@common/datasets/ScribeEnum';
 import { MythicMechanic, ScribeMechanicHandler } from '@common/datasets/ScribeMechanic';
 import { scribeCodeLensProvider as nodeLens } from '@common/providers/codeLensProvider';
+import { checkFileType } from '@common/FileTypeInfoMap';
+import { executeGetObjectLinkedToAttribute } from '@common/utils/executeGetObjectLinkedToAttribute';
 
 import {
     createNodeDiagnostic,
@@ -15,15 +17,12 @@ import {
     NodeRawDiagnostic,
     NodeDiagnosticCollection,
 } from '../providers/diagnosticProvider';
-import { checkFileType } from '../subscriptions/SubscriptionHelper';
 import { getLogger } from '../providers/loggerProvider';
 import { ConfigProvider } from '../providers/configProvider';
 import { timeCounter } from '../utils/timeUtils';
-import { executeGetObjectLinkedToAttribute } from '../utils/cursorutils';
 import { registryKey } from '../objectInfos';
 import { nodeDecorations, updateActiveEditorDecorations } from './utils/NodeDecorations';
-import { loadNodeEvents } from './utils/NodeEvents';
-import { DocumentDataMap } from './utils/NodeDataStructures';
+import { DocumentDataMap, DocumentDataNode } from './utils/NodeDataStructures';
 import { getMechanicFromComment } from './comment-parser/comment-parser';
 
 export type NodeEntry = Map<string, MythicNode>;
@@ -68,9 +67,7 @@ const soundMechanicInfo = {
     },
 };
 
-loadNodeEvents();
-
-export class MythicNode {
+export class MythicNode implements DocumentDataNode {
     templates: NodeReferenceValue = new Map<string, vscode.Range[]>();
     outEdge: NodeReference = {};
     metadata = new Map<string, unknown>();
@@ -570,7 +567,10 @@ export class MetaskillMythicNode extends MythicNode {
         super.processDescription();
         if (this.description.text?.includes('@mechanic')) {
             const parseableComment = this.description.text.split('@mechanic', 2);
-            const mechanic = getMechanicFromComment(parseableComment[1], this);
+            const mechanic = getMechanicFromComment(parseableComment[1], {
+                name: this.name.text,
+                documentUri: this.document.uri,
+            });
             if (mechanic) {
                 this.metadata.set(
                     'lambdaMechanic',
@@ -947,7 +947,7 @@ export class MythicNodeRegistry {
     referenceAttributes: Set<string> = new Set();
     referenceMap: Map<string, Set<string>> = new Map();
     nodes: NodeEntry = new Map();
-    documentDataMap = new DocumentDataMap();
+    documentDataMap = new DocumentDataMap<MythicNode>();
     decoratorRegex: RegExp;
     backingDataset: string | undefined;
 

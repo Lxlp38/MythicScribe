@@ -3,25 +3,12 @@ import { ConfigProvider } from '@common/providers/configProvider';
 import * as vscode from 'vscode';
 import { scribeCodeLensProvider } from '@common/providers/codeLensProvider';
 
-import { MythicNode } from '../MythicNode';
-import { executeFunctionAfterActivation } from '../../../MythicScribe';
-
 export type NodeDecorationType = Parameters<
     typeof ConfigProvider.registry.decorationOptions.get
 >[0];
-export class NodeDecorations extends DecorationProvider<NodeDecorationType, NodeDecorationType> {
+class NodeDecorations extends DecorationProvider<NodeDecorationType, NodeDecorationType> {
     constructor() {
         super();
-        executeFunctionAfterActivation((context) => {
-            const soundImage = vscode.Uri.joinPath(
-                context.extensionUri,
-                'assets',
-                'utils',
-                'minecraftsounds.png'
-            );
-            this.registry.soundPlayback.gutterIconPath = soundImage;
-            this.registry.specificSoundPlayback.gutterIconPath = soundImage;
-        });
         return;
     }
     registry: Record<NodeDecorationType, vscode.DecorationRenderOptions> = {
@@ -45,8 +32,24 @@ export class NodeDecorations extends DecorationProvider<NodeDecorationType, Node
         },
     };
 
+    public addContext(context: vscode.ExtensionContext) {
+        const soundImage = vscode.Uri.joinPath(
+            context.extensionUri,
+            'assets',
+            'utils',
+            'minecraftsounds.png'
+        );
+        this.registry.soundPlayback.gutterIconPath = soundImage;
+        this.registry.specificSoundPlayback.gutterIconPath = soundImage;
+    }
+
     public addNodeDecoration(
-        node: MythicNode,
+        // Originally a MythicNode, but to avoid circular dependencies we use a structural type
+        node: {
+            document: {
+                uri: vscode.Uri;
+            };
+        },
         index: Parameters<typeof this.addDecoration>[1],
         input: Parameters<typeof this.addDecoration>[2],
         options?: Parameters<typeof this.addDecoration>[3],

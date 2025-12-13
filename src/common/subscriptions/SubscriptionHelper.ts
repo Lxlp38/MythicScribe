@@ -1,26 +1,10 @@
 import * as vscode from 'vscode';
-import { RandomSpawnSchema } from '@common/schemas/randomSpawnSchema';
 import { getLogger } from '@common/providers/loggerProvider';
-import { ReagentSchema } from '@common/schemas/reagentSchema';
-import { ArchetypeSchema } from '@common/schemas/archetypeSchema';
-import { MenuSchema } from '@common/schemas/menuSchema';
-import { StatSchema } from '@common/schemas/statSchema';
-import { MetaskillSchema } from '@common/schemas/metaskillSchema';
-import { MobSchema } from '@common/schemas/mobSchema';
-import { ItemSchema } from '@common/schemas/itemSchema';
-import { DroptableSchema } from '@common/schemas/droptableSchema';
-import { AchievementSchema } from '@common/schemas/achievementSchema';
-import { PlaceholderSchema } from '@common/schemas/placeholderSchema';
-import { EquipmentSetSchema } from '@common/schemas/equipmentsetSchema';
 
 import { AbstractScribeSubscription, ScribeSubscriptionHandler } from './SubscriptionHandler';
-import {
-    checkMythicMobsFile,
-    checkFileEnabled,
-    ConfigProvider,
-    fileRegexConfigCache,
-} from '../providers/configProvider';
-import { Schema, registryKey } from '../objectInfos';
+import { checkMythicMobsFile, checkFileEnabled, ConfigProvider } from '../providers/configProvider';
+import { FileTypeInfoMap } from '../FileTypeInfoMap';
+import { ActiveFileTypeInfo } from './ActiveFileTypeInfo';
 
 function resetFileChecks() {
     for (const key of Object.keys(ActiveFileTypeInfo) as (keyof typeof ActiveFileTypeInfo)[]) {
@@ -28,31 +12,16 @@ function resetFileChecks() {
     }
 }
 
-export const ActiveFileTypeInfo: Record<registryKey | 'enabled', boolean> = {
-    enabled: false,
-    metaskill: false,
-    mob: false,
-    item: false,
-    droptable: false,
-    stat: false,
-    pin: false,
-    placeholder: false,
-    randomspawn: false,
-    equipmentset: false,
-    archetype: false,
-    reagent: false,
-    menu: false,
-    achievement: false,
-};
-
-export const extensionEnabler = vscode.window.onDidChangeActiveTextEditor((editor) => {
-    getLogger().trace('MythicScribe active editor changed');
-    if (!editor) {
-        disableAllSubscriptions();
-        return;
-    }
-    updateSubscriptions(editor.document);
-});
+export function extensionEnabler(context: vscode.ExtensionContext): vscode.Disposable {
+    return vscode.window.onDidChangeActiveTextEditor((editor) => {
+        getLogger().trace('MythicScribe active editor changed');
+        if (!editor) {
+            disableAllSubscriptions();
+            return;
+        }
+        updateSubscriptions(editor.document, context);
+    });
+}
 
 /**
  * Checks if the given document is a MythicMobs script file and changes its language mode to 'mythicscript' if it is.
@@ -77,14 +46,20 @@ export async function checkIfMythicScriptFile(document: vscode.TextDocument) {
  * @param handler - The subscription handler that manages the subscriptions.
  * @returns The new state of the flag.
  */
-function fileSpecificEnabler(
-    flag: boolean,
-    newflagvalue: boolean,
-    handler: AbstractScribeSubscription
-): boolean {
+function fileSpecificEnabler({
+    flag,
+    newflagvalue,
+    handler,
+    context,
+}: {
+    flag: boolean;
+    newflagvalue: boolean;
+    handler: AbstractScribeSubscription;
+    context: vscode.ExtensionContext;
+}): boolean {
     if (flag !== newflagvalue) {
         if (newflagvalue) {
-            handler.enableAll();
+            handler.enableAll(context);
         } else {
             handler.disposeAll();
         }
@@ -110,7 +85,10 @@ function disableAllSubscriptions() {
  *
  * @param document - The text document to check and update subscriptions for.
  */
-export function updateSubscriptions(document: vscode.TextDocument) {
+export function updateSubscriptions(
+    document: vscode.TextDocument,
+    context: vscode.ExtensionContext
+) {
     if (ConfigProvider.registry.generic.get('enableMythicScriptSyntax')) {
         checkIfMythicScriptFile(document);
     }
@@ -120,7 +98,7 @@ export function updateSubscriptions(document: vscode.TextDocument) {
     if (ActiveFileTypeInfo.enabled !== isMythicFile) {
         ActiveFileTypeInfo.enabled = isMythicFile;
         if (ActiveFileTypeInfo.enabled) {
-            ScribeSubscriptionHandler.registry.global.enableAll();
+            ScribeSubscriptionHandler.registry.global.enableAll(context);
         } else {
             disableAllSubscriptions();
             return;
@@ -133,97 +111,11 @@ export function updateSubscriptions(document: vscode.TextDocument) {
     }
 
     for (const info of Object.values(FileTypeInfoMap)) {
-        ActiveFileTypeInfo[info.key] = fileSpecificEnabler(
-            ActiveFileTypeInfo[info.key],
-            checkFileEnabled(uri, info.configKey),
-            ScribeSubscriptionHandler.registry[info.key]
-        );
+        ActiveFileTypeInfo[info.key] = fileSpecificEnabler({
+            flag: ActiveFileTypeInfo[info.key],
+            newflagvalue: checkFileEnabled(uri, info.configKey),
+            handler: ScribeSubscriptionHandler.registry[info.key],
+            context,
+        });
     }
-}
-
-interface FileTypeInfo {
-    schema?: Schema;
-    key: registryKey;
-    configKey: keyof typeof fileRegexConfigCache;
-}
-const FileTypeInfoMap: {
-    [K in registryKey]: FileTypeInfo;
-} = {
-    metaskill: {
-        schema: MetaskillSchema,
-        key: 'metaskill',
-        configKey: 'Metaskill',
-    },
-    mob: {
-        schema: MobSchema,
-        key: 'mob',
-        configKey: 'Mob',
-    },
-    item: {
-        schema: ItemSchema,
-        key: 'item',
-        configKey: 'Item',
-    },
-    droptable: {
-        schema: DroptableSchema,
-        key: 'droptable',
-        configKey: 'Droptable',
-    },
-    stat: {
-        schema: StatSchema,
-        key: 'stat',
-        configKey: 'Stat',
-    },
-    pin: {
-        schema: undefined,
-        key: 'pin',
-        configKey: 'Pin',
-    },
-    placeholder: {
-        schema: PlaceholderSchema,
-        key: 'placeholder',
-        configKey: 'Placeholder',
-    },
-    randomspawn: {
-        schema: RandomSpawnSchema,
-        key: 'randomspawn',
-        configKey: 'RandomSpawn',
-    },
-    equipmentset: {
-        schema: EquipmentSetSchema,
-        key: 'equipmentset',
-        configKey: 'EquipmentSet',
-    },
-    archetype: {
-        schema: ArchetypeSchema,
-        key: 'archetype',
-        configKey: 'Archetype',
-    },
-    reagent: {
-        schema: ReagentSchema,
-        key: 'reagent',
-        configKey: 'Reagent',
-    },
-    menu: {
-        schema: MenuSchema,
-        key: 'menu',
-        configKey: 'Menu',
-    },
-    achievement: {
-        schema: AchievementSchema,
-        key: 'achievement',
-        configKey: 'Achievement',
-    },
-};
-
-export function checkFileType(uri: vscode.Uri): FileTypeInfo | undefined {
-    if (!checkMythicMobsFile(uri)) {
-        return undefined;
-    }
-    for (const info of Object.values(FileTypeInfoMap)) {
-        if (info.configKey && checkFileEnabled(uri, info.configKey)) {
-            return info;
-        }
-    }
-    return undefined;
 }

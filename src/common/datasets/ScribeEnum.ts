@@ -17,7 +17,6 @@ import { getMinecraftVersion } from '@common/providers/configProvider';
 import { fetchJsonFromURL, fetchJsonFromLocalFile } from '@common/utils/uriutils';
 
 import { ScribeCloneableFile } from './ScribeCloneableFile';
-import { ctx } from '../../MythicScribe';
 import { getLogger } from '../providers/loggerProvider';
 import { AbstractScribeMechanicRegistry, Attribute, ScribeMechanicHandler } from './ScribeMechanic';
 import { insertColor } from '../color/colorprovider';
@@ -36,7 +35,7 @@ export abstract class AbstractScribeEnum {
     protected addedAttributes: Attribute[] = [];
     private loaded: boolean = false;
 
-    constructor(identifier: string, path: string) {
+    constructor({ identifier, path }: { identifier: string; path: string }) {
         this.identifier = identifier;
         this.path = path;
     }
@@ -128,32 +127,50 @@ export abstract class AbstractScribeEnum {
 }
 
 export class StaticScribeEnum extends AbstractScribeEnum {
-    constructor(identifier: string, path: string) {
-        super(identifier, path);
+    constructor({ identifier, path }: { identifier: string; path: string }) {
+        super({ identifier, path });
         fetchJsonFromLocalFile<Enum>(vscode.Uri.parse(path)).then((data) => this.setDataset(data));
     }
 }
 class LocalScribeEnum extends AbstractScribeEnum {
-    constructor(identifier: string, path: string) {
-        const localPath = vscode.Uri.joinPath(ctx!.extensionUri, 'data', path);
-        super(identifier, localPath.fsPath);
+    constructor({
+        identifier,
+        path,
+        context,
+    }: {
+        identifier: string;
+        path: string;
+        context: vscode.ExtensionContext;
+    }) {
+        const localPath = vscode.Uri.joinPath(context.extensionUri, 'data', path);
+        super({ identifier, path: localPath.fsPath });
         new ScribeCloneableFile<Enum>(localPath).get().then((data) => this.setDataset(data));
     }
 }
 class VolatileScribeEnum extends LocalScribeEnum {
-    constructor(identifier: string, path: string, version: string) {
-        super(identifier, `versions/${version}/${path}`);
+    constructor({
+        identifier,
+        path,
+        version,
+        context,
+    }: {
+        identifier: string;
+        path: string;
+        version: string;
+        context: vscode.ExtensionContext;
+    }) {
+        super({ identifier, path: `versions/${version}/${path}`, context });
     }
 }
 export class WebScribeEnum extends AbstractScribeEnum {
-    constructor(identifier: string, path: string) {
-        super(identifier, path);
+    constructor({ identifier, path }: { identifier: string; path: string }) {
+        super({ identifier, path });
         fetchJsonFromURL<Enum>(path).then((data) => this.setDataset(data || []));
     }
 }
 class LambdaScribeEnum extends AbstractScribeEnum {
     constructor(key: string, values: string[]) {
-        super(key, '');
+        super({ identifier: key, path: '' });
         const val = values.reduce((acc: { [key: string]: EnumDatasetValue }, curr) => {
             acc[curr] = { description: '' };
             return acc;
@@ -165,8 +182,14 @@ class LambdaScribeEnum extends AbstractScribeEnum {
 
 class ScriptedEnum extends AbstractScribeEnum {
     private callback: () => Map<string, EnumDatasetValue> | void;
-    constructor(identifier: string, callback: () => Map<string, EnumDatasetValue> | void) {
-        super(identifier, '');
+    constructor({
+        identifier,
+        callback,
+    }: {
+        identifier: string;
+        callback: () => Map<string, EnumDatasetValue> | void;
+    }) {
+        super({ identifier, path: '' });
         this.callback = callback;
     }
     getDataset(): Map<string, EnumDatasetValue> {
@@ -191,6 +214,11 @@ export class ScribeEnumHandlerImpl {
     version = getMinecraftVersion();
     enums = new Map<string, AbstractScribeEnum>();
     enumCallback = new PromiseCallbackProvider<string, AbstractScribeEnum>();
+
+    private context?: vscode.ExtensionContext;
+    setContext(ctx: vscode.ExtensionContext) {
+        this.context = ctx;
+    }
 
     enumDefinitions = [
         {
@@ -233,11 +261,27 @@ export class ScribeEnumHandlerImpl {
     }
 
     addEnum(
-        oclass: new (identifier: string, path: string, version: string) => AbstractScribeEnum,
+        oclass: new (params: {
+            identifier: string;
+            path: string;
+            version: string;
+            context: vscode.ExtensionContext;
+        }) => AbstractScribeEnum,
         identifier: string,
         path: string
     ) {
-        const enumObject = new oclass(identifier.toLowerCase(), path, this.version);
+        if (!this.context) {
+            getLogger().error(
+                `Cannot add Enum ${identifier} because ScribeEnumHandler context is not set`
+            );
+            throw new Error('ScribeEnumHandler context is not set');
+        }
+        const enumObject = new oclass({
+            identifier: identifier.toLowerCase(),
+            path,
+            version: this.version,
+            context: this.context,
+        });
         if (this.enums.has(identifier.toLowerCase())) {
             getLogger().debug(`Enum ${identifier} already exists, adding new values to it instead`);
             this.expandEnum(identifier, enumObject);
@@ -271,7 +315,7 @@ export class ScribeEnumHandlerImpl {
             getLogger().debug(`Scripted Enum ${key} already exists`);
             return maybeEnum;
         }
-        const enumObject = new ScriptedEnum(key.toLowerCase(), func);
+        const enumObject = new ScriptedEnum({ identifier: key.toLowerCase(), callback: func });
         this.enums.set(key.toLowerCase(), enumObject);
         getLogger().debug(`Registered Scripted Enum ${key}`);
         return enumObject;

@@ -1,7 +1,13 @@
 import * as vscode from 'vscode';
+import { attributeSpecialValues } from '@common/datasets/enumSources';
 
-import { AbstractScribeMechanicRegistry, ScribeMechanicHandler } from '../datasets/ScribeMechanic';
-import { getUpstreamKey, isInsideInlineConditionList } from './yamlutils';
+import {
+    AbstractScribeMechanicRegistry,
+    MythicAttribute,
+    ScribeMechanicHandler,
+} from '../datasets/ScribeMechanic';
+import { getUpstreamKey } from './yamlutils';
+import { executeGetObjectLinkedToAttribute } from './executeGetObjectLinkedToAttribute';
 
 /**
  * Function to find the object linked to an unbalanced '{' in the format object{attribute1=value1;attribute2=value2}
@@ -19,34 +25,6 @@ export function getObjectLinkedToAttribute(
         new vscode.Range(new vscode.Position(maxSearchLine, 0), position)
     );
     return executeGetObjectLinkedToAttribute(textBeforeAttribute);
-}
-
-export function executeGetObjectLinkedToAttribute(searchText: string) {
-    let openBraceCount = 0;
-    // Traverse backwards through the text before the position
-    for (let i = searchText.length - 1; i >= 0; i--) {
-        const char = searchText[i];
-
-        if (char === '}' || char === ']') {
-            openBraceCount++;
-        } else if (char === '{' || char === '[') {
-            openBraceCount--;
-            // If the brace count becomes negative, we've found an unbalanced opening '{'
-            if (openBraceCount < 0) {
-                // Get the text before the '{' which should be the object
-                const textBeforeBrace = searchText.substring(0, i).trim();
-                // Use a regex to find the object name before the '{'
-                const objectMatch = textBeforeBrace.match(/(?<=[ =])([@~]|(\?~?!?))?[\w:\-_]+$/); // Match the last word before the brace
-                if (objectMatch && objectMatch[0]) {
-                    return objectMatch[0]; // Return the object name
-                }
-
-                return null; // No object found before '{'
-            }
-        }
-    }
-
-    return null; // No unbalanced opening brace found
 }
 
 const squareBracketObjectRegex = /(?<=[{;])\s*(\w+)\s*=\s*$/g;
@@ -255,4 +233,32 @@ export function getCursorObject(
         return mechanic.getAttributeByName(attribute);
     }
     return null;
+}
+export function isInsideInlineConditionList(
+    document: vscode.TextDocument,
+    position: vscode.Position,
+    ...registry: AbstractScribeMechanicRegistry[]
+) {
+    const maybeAttribute = getSquareBracketObject(document, position);
+    if (maybeAttribute && maybeAttribute[0] && maybeAttribute[1]) {
+        let attribute: undefined | MythicAttribute;
+        if (maybeAttribute[1].startsWith('@')) {
+            attribute = ScribeMechanicHandler.registry.targeter
+                .getMechanicByName(maybeAttribute[1].replace('@', ''))
+                ?.getAttributeByName(maybeAttribute[0]);
+        } else {
+            for (const r of registry) {
+                attribute = r
+                    .getMechanicByName(maybeAttribute[1])
+                    ?.getAttributeByName(maybeAttribute[0]);
+                if (attribute) {
+                    break;
+                }
+            }
+        }
+        if (attribute && attribute.specialValue === attributeSpecialValues.conditions) {
+            return true;
+        }
+    }
+    return false;
 }

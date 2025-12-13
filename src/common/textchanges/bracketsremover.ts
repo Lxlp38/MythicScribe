@@ -1,6 +1,5 @@
 import * as vscode from 'vscode';
-
-import { retriggerCompletionsCommand } from '../utils/completionhelper';
+import { retriggerCompletionsCommand } from '@common/constants';
 
 let lastexecutiontime = 0;
 

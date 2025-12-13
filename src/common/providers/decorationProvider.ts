@@ -1,4 +1,4 @@
-import { ActiveFileTypeInfo } from '@common/subscriptions/SubscriptionHelper';
+import { ActiveFileTypeInfo } from '@common/subscriptions/ActiveFileTypeInfo';
 import * as vscode from 'vscode';
 
 export type DecorationMap = {

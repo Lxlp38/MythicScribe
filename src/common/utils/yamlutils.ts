@@ -1,15 +1,8 @@
 import * as vscode from 'vscode';
+import { checkFileType } from '@common/FileTypeInfoMap';
 
-import { attributeSpecialValues } from '../datasets/enumSources';
-import {
-    AbstractScribeMechanicRegistry,
-    MythicAttribute,
-    ScribeMechanicHandler,
-} from '../datasets/ScribeMechanic';
-import { getSquareBracketObject } from './cursorutils';
 import { SchemaElement, Schema, SchemaElementSpecialKeys, getKeySchema } from '../objectInfos';
 import { ArrayListNode } from './genericDataStructures';
-import { checkFileType } from '../subscriptions/SubscriptionHelper';
 
 const yamlKeyRegex = /^(?<indent>\s*)(?<key>[^#:\s]+):/;
 function getYamlRegexInfo(match: RegExpMatchArray): { indent: string; key: string } {
@@ -604,35 +597,6 @@ export function previousSymbol(
 export function isAfterComment(document: vscode.TextDocument, position: vscode.Position): boolean {
     const textBeforePosition = document.lineAt(position.line).text.substring(0, position.character);
     return /\s#/.test(textBeforePosition);
-}
-
-export function isInsideInlineConditionList(
-    document: vscode.TextDocument,
-    position: vscode.Position,
-    ...registry: AbstractScribeMechanicRegistry[]
-) {
-    const maybeAttribute = getSquareBracketObject(document, position);
-    if (maybeAttribute && maybeAttribute[0] && maybeAttribute[1]) {
-        let attribute: undefined | MythicAttribute;
-        if (maybeAttribute[1].startsWith('@')) {
-            attribute = ScribeMechanicHandler.registry.targeter
-                .getMechanicByName(maybeAttribute[1].replace('@', ''))
-                ?.getAttributeByName(maybeAttribute[0]);
-        } else {
-            for (const r of registry) {
-                attribute = r
-                    .getMechanicByName(maybeAttribute[1])
-                    ?.getAttributeByName(maybeAttribute[0]);
-                if (attribute) {
-                    break;
-                }
-            }
-        }
-        if (attribute && attribute.specialValue === attributeSpecialValues.conditions) {
-            return true;
-        }
-    }
-    return false;
 }
 
 export function getLastNonCommentLine(text: string): number {

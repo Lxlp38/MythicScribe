@@ -1,10 +1,10 @@
 import * as vscode from 'vscode';
 import { registryKey } from '@common/objectInfos';
 import { globalCallbacks } from '@common/providers/callbackProvider';
+import { retriggerCompletionsCommand } from '@common/constants';
 
 import { generateNumbersInRange } from '../utils/schemautils';
 import { MythicAttribute } from './ScribeMechanic';
-import { retriggerCompletionsCommand } from '../utils/completionhelper';
 import { EnumDatasetValue, getScribeEnumHandler } from './ScribeEnum';
 
 interface MetaKeyword {

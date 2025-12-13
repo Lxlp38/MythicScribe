@@ -1,7 +1,8 @@
 import * as vscode from 'vscode';
 import * as yamlutils from '@common/utils/yamlutils';
 import { keyAliases } from '@common/objectInfos';
-import { getCharBefore, retriggerCompletionsCommand } from '@common/utils/completionhelper';
+import { getCharBefore } from '@common/utils/completionhelper';
+import { retriggerCompletionsCommand } from '@common/constants';
 import { MythicNodeHandler } from '@common/mythicnodes/MythicNode';
 
 export function inlineMetaskillCompletionProvider() {

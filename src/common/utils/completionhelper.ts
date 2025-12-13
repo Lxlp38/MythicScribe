@@ -1,5 +1,6 @@
 import * as vscode from 'vscode';
 import { EnumDatasetValue, getScribeEnumHandler } from '@common/datasets/ScribeEnum';
+import { retriggerCompletionsCommand } from '@common/constants';
 
 import {
     getDefaultIndentation,
@@ -24,14 +25,9 @@ import {
     getKeySchema,
     EntrySchemaElement,
 } from '../objectInfos';
-import { MythicMechanic } from '../datasets/ScribeMechanic';
 import { filterSchemaWithEnabledPlugins, getSchemaElement } from './schemautils';
 import { isPluginEnabled } from '../providers/configProvider';
 
-export const retriggerCompletionsCommand: vscode.Command = {
-    command: 'editor.action.triggerSuggest',
-    title: 'Re-trigger completions...',
-};
 type CompletionSchemaContext = {
     document?: vscode.TextDocument;
     position?: vscode.Position;
@@ -316,35 +312,6 @@ export function checkShouldPrefixCompleteExec(
         return true;
     }
     return false;
-}
-
-export function addMechanicCompletions(
-    mechanicList: MythicMechanic[],
-    completionItems: vscode.CompletionItem[],
-    defaultExtend?: string
-) {
-    mechanicList.forEach((mechanic: MythicMechanic) => {
-        mechanic.name.forEach((name: string) => {
-            const completionItem = new vscode.CompletionItem(
-                name,
-                vscode.CompletionItemKind.Function
-            );
-            completionItem.detail = `${mechanic.description}`;
-            completionItem.kind = vscode.CompletionItemKind.Function;
-            if (
-                mechanic.getMyAttributes().length === 0 &&
-                mechanic.extends &&
-                defaultExtend &&
-                mechanic.extends === defaultExtend
-            ) {
-                completionItem.insertText = new vscode.SnippetString(name);
-            } else {
-                completionItem.insertText = new vscode.SnippetString(name + '{$0}');
-                completionItem.command = retriggerCompletionsCommand;
-            }
-            completionItems.push(completionItem);
-        });
-    });
 }
 
 // Completes new lines

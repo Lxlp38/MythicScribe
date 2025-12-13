@@ -6,17 +6,19 @@ import { scribeCodeLensProvider } from '@common/providers/codeLensProvider';
 import { createDocumentationFromSkillParameters } from '@common/mythicnodes/comment-parser/comment-parser';
 import { ConfigProvider } from '@common/providers/configProvider';
 import { setEdcsUri } from '@common/datasets/edcsUri';
+import { nodeDecorations } from '@common/mythicnodes/utils/NodeDecorations';
+import { loadNodeEvents } from '@common/mythicnodes/utils/NodeEvents';
+import { getScribeEnumHandler } from '@common/datasets/ScribeEnum';
 
 import * as SubscriptionHelper from './common/subscriptions/SubscriptionHelper';
 import { getFormatter } from './common/formatter/formatter';
-import {
-    addCustomDataset,
-    createBundleDataset,
-    removeCustomDataset,
-} from './common/datasets/customDatasets';
 import { doVersionSpecificMigrations } from './common/migration/migration';
 import { getLogger, openLogs, showInfoMessageWithOptions } from './common/providers/loggerProvider';
-import { clearExtensionDatasetsClonedStorage, loadDatasets } from './common/datasets/datasets';
+import {
+    clearExtensionDatasetsClonedStorage,
+    CustomDatasetsHandling,
+    loadDatasets,
+} from './common/datasets/datasets';
 import { scribeColorProvider } from './common/color/colorprovider';
 import { showNodeGraph } from './common/mythicnodes/nodeView';
 import { putSelectionInsideInlineMetaskill } from './common/completions/component/inlinemetaskillCompletionProvider';
@@ -35,9 +37,19 @@ export function executeFunctionAfterActivation(
 
 export async function activate(context: vscode.ExtensionContext) {
     ctx = context;
-    getLogger().debug('Extension Activated');
+    const logger = getLogger();
+
+    logger.debug('Extension Activated');
+    logger.addScribeLogLevelProvider(() => ConfigProvider.registry.generic.get('logLevel'));
+    logger.addConfigCallbackProvider(ConfigProvider.registry.generic);
+    logger.updateLogLevel();
 
     ConfigProvider.addContextSubscriptions(context);
+
+    getScribeEnumHandler().setContext(context);
+
+    nodeDecorations.addContext(context);
+    loadNodeEvents(context);
 
     // Run pre-activation callbacks
     globalCallbacks.activation.runCallbacks('pre-activation', context);
@@ -59,17 +71,17 @@ export async function activate(context: vscode.ExtensionContext) {
 
     context.subscriptions.push(
         // Subscription Handler
-        SubscriptionHelper.extensionEnabler,
+        SubscriptionHelper.extensionEnabler(context),
 
         // Commands
         vscode.commands.registerCommand('MythicScribe.addCustomDataset', () =>
-            addCustomDataset(context)
+            CustomDatasetsHandling.handleAddCustomDataset(context)
         ),
         vscode.commands.registerCommand('MythicScribe.removeCustomDataset', () =>
-            removeCustomDataset(context)
+            CustomDatasetsHandling.handleRemoveCustomDataset(context)
         ),
         vscode.commands.registerCommand('MythicScribe.createBundleDataset', () =>
-            createBundleDataset(context)
+            CustomDatasetsHandling.handleCreateBundleDataset(context)
         ),
         vscode.commands.registerCommand('MythicScribe.openLogs', openLogs),
         vscode.commands.registerCommand('MythicScribe.loadDatasets', loadDatasets),
@@ -110,7 +122,7 @@ export async function activate(context: vscode.ExtensionContext) {
 
     const activeEditor = vscode.window.activeTextEditor;
     if (activeEditor) {
-        SubscriptionHelper.updateSubscriptions(activeEditor.document);
+        SubscriptionHelper.updateSubscriptions(activeEditor.document, context);
     }
 
     // Run post-activation callbacks

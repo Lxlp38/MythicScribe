@@ -2,20 +2,12 @@ import * as vscode from 'vscode';
 import { getSchemaElement } from '@common/utils/schemautils';
 
 import { Schema, SchemaElement } from '../../objectInfos';
-import {
-    MythicAttribute,
-    AbstractScribeMechanicRegistry,
-    MythicMechanic,
-} from '../../datasets/ScribeMechanic';
+import { MythicAttribute, MythicMechanic } from '../../datasets/ScribeMechanic';
 import { CursorLocationAction } from '../cursorLocationAction';
 import { MythicNode } from '../../mythicnodes/MythicNode';
+import { KeyDependentMechanicLikeHover } from './types/KeyDependantMechanicLikeHover';
 
-export type KeyDependantMechanicLikeHover = {
-    keys: string[];
-    registry: AbstractScribeMechanicRegistry;
-};
-
-export function hoverProvider(schema: Schema, ...keydependencies: KeyDependantMechanicLikeHover[]) {
+export function hoverProvider(schema: Schema, ...keydependencies: KeyDependentMechanicLikeHover[]) {
     return vscode.languages.registerHoverProvider(['mythicscript', 'yaml'], {
         provideHover(
             document: vscode.TextDocument,

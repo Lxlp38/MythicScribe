@@ -7,7 +7,12 @@ import { getLogger } from '../providers/loggerProvider';
 import { ScribeMechanicHandler } from './ScribeMechanic';
 import { ensureComponentsExist } from '../utils/uriutils';
 import { ConfigProvider, finallySetEnabledPlugins } from '../providers/configProvider';
-import { loadCustomDatasets } from './customDatasets';
+import {
+    addCustomDataset,
+    createBundleDataset,
+    loadCustomDatasets,
+    removeCustomDataset,
+} from './customDatasets';
 import { MythicNodeHandler } from '../mythicnodes/MythicNode';
 import { edcsUri } from './edcsUri';
 
@@ -41,7 +46,15 @@ export async function loadDatasets(context: vscode.ExtensionContext) {
         fetchNextHash(latestCommitHash || '', context);
     }
     getScribeEnumHandler().loadEnumDatasets();
-    await Promise.allSettled([ScribeMechanicHandler.loadMechanicDatasets(), loadCustomDatasets()]);
+    const results = await Promise.allSettled([
+        ScribeMechanicHandler.loadMechanicDatasets(context),
+        loadCustomDatasets(),
+    ]);
+    results.forEach((result) => {
+        if (result.status === 'rejected') {
+            getLogger().error('Error while loading datasets:', result.reason);
+        }
+    });
     ScribeMechanicHandler.finalize();
     finallySetEnabledPlugins();
     if (ConfigProvider.registry.fileParsingPolicy.get('parseOnStartup')) {
@@ -99,5 +112,22 @@ async function fetchLatestCommitHash(): Promise<string | null> {
     } catch (error) {
         getLogger().error(error);
         return null;
+    }
+}
+
+export namespace CustomDatasetsHandling {
+    export async function handleRemoveCustomDataset(ctx: vscode.ExtensionContext) {
+        await removeCustomDataset();
+        await loadDatasets(ctx);
+    }
+
+    export async function handleCreateBundleDataset(ctx: vscode.ExtensionContext) {
+        await createBundleDataset();
+        await loadDatasets(ctx);
+    }
+
+    export async function handleAddCustomDataset(ctx: vscode.ExtensionContext) {
+        await addCustomDataset();
+        await loadDatasets(ctx);
     }
 }
