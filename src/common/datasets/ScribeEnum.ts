@@ -14,8 +14,9 @@ import { AchievementSchema } from '@common/schemas/achievementSchema';
 import { PlaceholderSchema } from '@common/schemas/placeholderSchema';
 import { EquipmentSetSchema } from '@common/schemas/equipmentsetSchema';
 import { getMinecraftVersion } from '@common/providers/configProvider';
+import { fetchJsonFromURL, fetchJsonFromLocalFile } from '@common/utils/uriutils';
 
-import { ScribeCloneableFile, fetchJsonFromLocalFile, fetchJsonFromURL } from './datasets';
+import { ScribeCloneableFile } from './ScribeCloneableFile';
 import { ctx } from '../../MythicScribe';
 import { getLogger } from '../providers/loggerProvider';
 import { AbstractScribeMechanicRegistry, Attribute, ScribeMechanicHandler } from './ScribeMechanic';

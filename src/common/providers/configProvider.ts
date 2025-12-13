@@ -8,7 +8,6 @@ import {
     LogLevel,
 } from '../packageData';
 import { CallbackProvider } from './callbackProvider';
-import { executeFunctionAfterActivation } from '../../MythicScribe';
 
 class ConfigCache<
     T extends Record<string, string | boolean | number | undefined>,
@@ -16,25 +15,36 @@ class ConfigCache<
     private cache: T;
     private prefix: string;
     private plugin: string;
-    private configChangeEvent: vscode.Disposable;
+    private configChangeEvent: vscode.Disposable | undefined;
 
-    constructor(initialCache: T, prefix?: string, plugin: string = 'MythicScribe') {
+    constructor({
+        initialCache,
+        prefix,
+        plugin = 'MythicScribe',
+    }: {
+        initialCache: T;
+        prefix?: string;
+        plugin?: string;
+    }) {
         super();
         this.cache = initialCache;
         this.prefix = prefix ? `${prefix}.` : '';
         this.plugin = plugin;
-        const section = plugin + (prefix ? '.' + prefix : '');
+    }
 
+    addSubscription(context: vscode.ExtensionContext) {
+        if (this.configChangeEvent) {
+            this.configChangeEvent.dispose();
+        }
+
+        const section = this.plugin + (this.prefix ? '.' + this.prefix : '');
         this.configChangeEvent = vscode.workspace.onDidChangeConfiguration((e) => {
             if (e.affectsConfiguration(section)) {
                 getLogger().trace(`${section} configuration changed`);
                 this.reset();
             }
         });
-
-        executeFunctionAfterActivation((context) => {
-            context.subscriptions.push(this.configChangeEvent);
-        });
+        context.subscriptions.push(this.configChangeEvent);
     }
 
     get<K extends keyof T>(key: K): T[K] {
@@ -57,7 +67,9 @@ class ConfigCache<
     }
 
     dispose() {
-        this.configChangeEvent.dispose();
+        if (this.configChangeEvent) {
+            this.configChangeEvent.dispose();
+        }
         getLogger().debug(`Disposed config cache for ${this.prefix}`);
     }
 }
@@ -125,30 +137,55 @@ const editorConfigCache = {
     acceptSuggestionOnEnter: undefined as 'off' | 'smart' | 'on' | undefined,
 };
 
-export const ConfigProvider = {
+class ConfigProviderImpl {
     registry: {
-        generic: new ConfigCache(genericConfigCache),
-        fileRegex: new ConfigCache(fileRegexConfigCache, 'fileRegex'),
-        fileParsingPolicy: new ConfigCache(fileParsingPolicyConfigCache, 'fileParsingPolicy'),
-        colorProviderOptions: new ConfigCache(
-            colorProviderOptionsConfigCache,
-            'colorProviderOptions'
-        ),
-        diagnosticsPolicy: new ConfigCache(diagnosticsPolicyConfigCache, 'diagnosticsPolicy'),
-        nodeGraph: new ConfigCache(nodeGraphConfigCache, 'nodeGraph'),
-        decorationOptions: new ConfigCache(decorationOptions, 'decorationOptions'),
-        editor: new ConfigCache(editorConfigCache, undefined, 'editor'),
-    },
+        generic: ConfigCache<typeof genericConfigCache>;
+        fileRegex: ConfigCache<typeof fileRegexConfigCache>;
+        fileParsingPolicy: ConfigCache<typeof fileParsingPolicyConfigCache>;
+        colorProviderOptions: ConfigCache<typeof colorProviderOptionsConfigCache>;
+        diagnosticsPolicy: ConfigCache<typeof diagnosticsPolicyConfigCache>;
+        nodeGraph: ConfigCache<typeof nodeGraphConfigCache>;
+        decorationOptions: ConfigCache<typeof decorationOptions>;
+        editor: ConfigCache<typeof editorConfigCache>;
+    };
 
-    // reset() {
-    //     getLogger().debug('Resetting config cache');
-    //     for (const key in this.registry) {
-    //         if (Object.hasOwn(this.registry, key)) {
-    //             this.registry[key as keyof typeof this.registry].reset();
-    //         }
-    //     }
-    // },
-};
+    constructor() {
+        this.registry = {
+            generic: new ConfigCache({ initialCache: genericConfigCache }),
+            fileRegex: new ConfigCache({ initialCache: fileRegexConfigCache, prefix: 'fileRegex' }),
+            fileParsingPolicy: new ConfigCache({
+                initialCache: fileParsingPolicyConfigCache,
+                prefix: 'fileParsingPolicy',
+            }),
+            colorProviderOptions: new ConfigCache({
+                initialCache: colorProviderOptionsConfigCache,
+                prefix: 'colorProviderOptions',
+            }),
+            diagnosticsPolicy: new ConfigCache({
+                initialCache: diagnosticsPolicyConfigCache,
+                prefix: 'diagnosticsPolicy',
+            }),
+            nodeGraph: new ConfigCache({ initialCache: nodeGraphConfigCache, prefix: 'nodeGraph' }),
+            decorationOptions: new ConfigCache({
+                initialCache: decorationOptions,
+                prefix: 'decorationOptions',
+            }),
+            editor: new ConfigCache({
+                initialCache: editorConfigCache,
+                prefix: undefined,
+                plugin: 'editor',
+            }),
+        };
+    }
+
+    addContextSubscriptions(context: vscode.ExtensionContext) {
+        for (const key in this.registry) {
+            this.registry[key as keyof typeof this.registry].addSubscription(context);
+        }
+    }
+}
+
+export const ConfigProvider = new ConfigProviderImpl();
 
 // let configChangeFunctionCallbacks: (() => void)[] | undefined;
 // function getConfigChangeFunctionCallbacks() {

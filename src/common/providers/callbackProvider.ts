@@ -81,38 +81,105 @@ export class CallbackProvider<K extends string = 'default', A = void, R = void> 
     }
 }
 
+type Entry<V> = {
+    promise?: Promise<V>;
+    resolve?: (v: V) => void;
+    reject?: (e: unknown) => void;
+    settled?: true;
+    rejected?: true;
+    value?: V;
+    error?: unknown;
+};
+
+/**
+ * A generic promise callback provider that manages deferred promise resolution.
+ *
+ * This class allows you to register promises by key and resolve or reject them
+ * at a later time from external code. It's useful for decoupling promise creation
+ * from promise settlement.
+ *
+ * @template K - The type of keys used to identify registered promises. Defaults to 'default'.
+ * @template V - The type of value that the promises resolve to. Defaults to void.
+ *
+ * @example
+ * ```typescript
+ * const provider = new PromiseCallbackProvider<'request1' | 'request2', string>();
+ *
+ * // Register a promise
+ * const promise = provider.register('request1');
+ *
+ * // Resolve it later
+ * provider.run('request1', 'success!');
+ *
+ * // The promise resolves with 'success!'
+ * ```
+ */
 export class PromiseCallbackProvider<K extends string = 'default', V = void> {
-    private promises: Partial<Record<K, Promise<V>>> = {};
-    private resolvers: Partial<Record<K, (value: V) => void>> = {};
-    private resolvedValues = new Map<K, V>();
+    private registry = new Map<K, Entry<V>>();
 
     register(key: K): Promise<V> {
-        // Already resolved → return value immediately
-        if (this.resolvedValues.has(key)) {
-            return Promise.resolve(this.resolvedValues.get(key)!);
+        //console.log('PromiseCallbackProvider: Registering promise for key', key);
+        const entry = this.registry.get(key) ?? {};
+        this.registry.set(key, entry);
+
+        if (entry.settled) {
+            return entry.rejected ? Promise.reject(entry.error) : Promise.resolve(entry.value as V);
         }
 
-        // Create promise if it doesn't exist
-        if (!this.promises[key]) {
-            this.promises[key] = new Promise<V>((resolve) => {
-                this.resolvers[key] = resolve;
+        if (!entry.promise) {
+            entry.promise = new Promise<V>((resolve, reject) => {
+                entry.resolve = resolve;
+                entry.reject = reject;
             });
         }
 
-        return this.promises[key]!;
+        return entry.promise;
     }
 
     run(key: K, value: V): void {
-        // Idempotent: ignore repeated calls
-        if (this.resolvedValues.has(key)) {
+        // console.log(
+        //     'PromiseCallbackProvider: Resolving promise for key',
+        //     key,
+        //     'with value',
+        //     String(value)
+        // );
+        const entry = this.registry.get(key) ?? {};
+        if (entry.settled) {
             return;
         }
 
-        this.resolvedValues.set(key, value);
-        this.resolvers[key]?.(value);
+        entry.settled = true;
+        entry.value = value;
+        entry.resolve?.(value);
+        this.registry.set(key, entry);
+    }
 
-        delete this.resolvers[key];
-        delete this.promises[key];
+    reject(key: K, error: unknown): void {
+        // console.log(
+        //     'PromiseCallbackProvider: Rejecting promise for key',
+        //     key,
+        //     'with error',
+        //     String(error)
+        // );
+        const entry = this.registry.get(key) ?? {};
+        if (entry.settled) {
+            return;
+        }
+
+        entry.settled = true;
+        entry.rejected = true;
+        entry.error = error;
+        entry.reject?.(error);
+        this.registry.set(key, entry);
+    }
+
+    clear(key?: K): void {
+        // console.log('PromiseCallbackProvider: Clearing entries for key', key ?? 'all keys');
+        if (key) {
+            this.registry.delete(key);
+        } else {
+            this.registry.clear();
+        }
     }
 }
 

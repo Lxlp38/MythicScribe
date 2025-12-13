@@ -4,6 +4,8 @@ import { openAuraFXWebview } from '@common/webviews/views/aurafx';
 import { openMinecraftSoundsWebview } from '@common/webviews/views/minecraftsounds';
 import { scribeCodeLensProvider } from '@common/providers/codeLensProvider';
 import { createDocumentationFromSkillParameters } from '@common/mythicnodes/comment-parser/comment-parser';
+import { ConfigProvider } from '@common/providers/configProvider';
+import { setEdcsUri } from '@common/datasets/edcsUri';
 
 import * as SubscriptionHelper from './common/subscriptions/SubscriptionHelper';
 import { getFormatter } from './common/formatter/formatter';
@@ -14,11 +16,7 @@ import {
 } from './common/datasets/customDatasets';
 import { doVersionSpecificMigrations } from './common/migration/migration';
 import { getLogger, openLogs, showInfoMessageWithOptions } from './common/providers/loggerProvider';
-import {
-    clearExtensionDatasetsClonedStorage,
-    loadDatasets,
-    setEdcsUri,
-} from './common/datasets/datasets';
+import { clearExtensionDatasetsClonedStorage, loadDatasets } from './common/datasets/datasets';
 import { scribeColorProvider } from './common/color/colorprovider';
 import { showNodeGraph } from './common/mythicnodes/nodeView';
 import { putSelectionInsideInlineMetaskill } from './common/completions/component/inlinemetaskillCompletionProvider';
@@ -38,6 +36,8 @@ export function executeFunctionAfterActivation(
 export async function activate(context: vscode.ExtensionContext) {
     ctx = context;
     getLogger().debug('Extension Activated');
+
+    ConfigProvider.addContextSubscriptions(context);
 
     // Run pre-activation callbacks
     globalCallbacks.activation.runCallbacks('pre-activation', context);

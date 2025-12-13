@@ -1,6 +1,7 @@
 import path from 'path';
 
 import * as vscode from 'vscode';
+import { fetchJsonFromURL, fetchJsonFromLocalFile } from '@common/utils/uriutils';
 
 import {
     AbstractScribeMechanicRegistry,
@@ -9,7 +10,7 @@ import {
     ScribeMechanicHandler,
 } from './ScribeMechanic';
 import { getScribeEnumHandler, StaticScribeEnum, WebScribeEnum } from './ScribeEnum';
-import { fetchJsonFromLocalFile, fetchJsonFromURL, loadDatasets } from './datasets';
+import { loadDatasets } from './datasets';
 import { getLogger } from '../providers/loggerProvider';
 import { changeCustomDatasetsSource } from '../migration/migration';
 import { CustomDatasetElementType, CustomDatasetSource } from '../packageData';

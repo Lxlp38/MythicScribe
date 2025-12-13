@@ -3,7 +3,7 @@ import { getScribeEnumHandler, AbstractScribeEnum } from '@common/datasets/Scrib
 
 import { isPluginEnabled } from '../providers/configProvider';
 import { ctx } from '../../MythicScribe';
-import { ScribeCloneableFile } from './datasets';
+import { ScribeCloneableFile } from './ScribeCloneableFile';
 import { addMechanicCompletions } from '../utils/completionhelper';
 import { atlasRegistry, attributeSpecialValues, scriptedEnums } from './enumSources';
 import { MythicNodeHandler } from '../mythicnodes/MythicNode';

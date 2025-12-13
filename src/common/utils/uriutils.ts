@@ -1,9 +1,8 @@
 import * as path from 'path';
 
 import * as vscode from 'vscode';
-
-import { getLogger } from '../providers/loggerProvider';
-import { GITHUB_BASE_URL } from '../datasets/datasets';
+import { GITHUB_BASE_URL } from '@common/constants';
+import { getLogger } from '@common/providers/loggerProvider';
 
 export enum ComponentStatus {
     Exists,
@@ -162,6 +161,32 @@ export async function openDocumentTactfully(uri: vscode.Uri) {
     try {
         return await vscode.workspace.openTextDocument(uri);
     } catch {
+        return undefined;
+    }
+}
+
+export async function fetchJsonFromLocalFile<T>(filepath: vscode.Uri): Promise<T[]> {
+    getLogger().debug(`Fetching JSON data from local file: ${filepath}`);
+    try {
+        const fileData = await vscode.workspace.fs.readFile(filepath);
+        return JSON.parse(Buffer.from(fileData).toString('utf8'));
+    } catch (error) {
+        getLogger().error(error, `Couldn't fetch JSON data from local file ${filepath}`);
+        return [];
+    }
+}
+
+export async function fetchJsonFromURL<T>(url: string): Promise<T[] | undefined> {
+    getLogger().debug(`Fetching JSON data from URL: ${url}`);
+    try {
+        const response = await fetch(url);
+        if (response.ok) {
+            return (await response.json()) as T[];
+        } else {
+            throw new Error(`Failed to fetch JSON data from URL: ${url}`);
+        }
+    } catch (error) {
+        getLogger().error(error);
         return undefined;
     }
 }
