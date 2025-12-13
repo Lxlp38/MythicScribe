@@ -8,7 +8,7 @@ import {
     MechanicDataset,
     ScribeMechanicHandler,
 } from './ScribeMechanic';
-import { ScribeEnumHandler, StaticScribeEnum, WebScribeEnum } from './ScribeEnum';
+import { getScribeEnumHandler, StaticScribeEnum, WebScribeEnum } from './ScribeEnum';
 import { fetchJsonFromLocalFile, fetchJsonFromURL, loadDatasets } from './datasets';
 import { getLogger } from '../providers/loggerProvider';
 import { changeCustomDatasetsSource } from '../migration/migration';
@@ -26,7 +26,7 @@ const validConfigurationTargets = [
     { label: 'Workspace', target: vscode.ConfigurationTarget.Workspace },
 ];
 
-export async function addCustomDataset() {
+export async function addCustomDataset(ctx: vscode.ExtensionContext) {
     getLogger().debug('addCustomDataset');
     const scope = await vscode.window
         .showQuickPick(validConfigurationTargets, {
@@ -58,7 +58,7 @@ export async function addCustomDataset() {
     getLogger().debug('addCustomDataset source:', source);
 
     if (source === 'Link') {
-        return addCustomDatasetFromLink(elementType, scope);
+        return addCustomDatasetFromLink(elementType, scope, ctx);
     }
 
     const fileUri = await vscode.window.showOpenDialog({
@@ -109,12 +109,13 @@ export async function addCustomDataset() {
             elementType as CustomDatasetElementType,
             source as CustomDatasetSource,
             uri.toString(),
-            scope
+            scope,
+            ctx
         );
     }
 }
 
-export async function removeCustomDataset() {
+export async function removeCustomDataset(ctx: vscode.ExtensionContext) {
     getLogger().debug('removeCustomDataset');
     const scope = await vscode.window.showQuickPick(validConfigurationTargets, {
         placeHolder: 'Select the scope from which you want to remove the custom dataset',
@@ -161,10 +162,10 @@ export async function removeCustomDataset() {
     });
 
     // Reload the datasets
-    loadDatasets();
+    loadDatasets(ctx);
 }
 
-export async function createBundleDataset() {
+export async function createBundleDataset(ctx: vscode.ExtensionContext) {
     getLogger().debug('createBundleDataset');
     const scope = await vscode.window.showQuickPick(validConfigurationTargets, {
         placeHolder: 'Select the scope for which you want to create the bundle',
@@ -262,11 +263,15 @@ export async function createBundleDataset() {
         });
         await config.update('customDatasets', existingMappings, scope?.target);
         getLogger().info('Selected custom datasets replaced with the new bundle');
-        loadDatasets();
+        loadDatasets(ctx);
     }
 }
 
-async function addCustomDatasetFromLink(elementtype: string, scope: vscode.ConfigurationTarget) {
+async function addCustomDatasetFromLink(
+    elementtype: string,
+    scope: vscode.ConfigurationTarget,
+    ctx: vscode.ExtensionContext
+) {
     const pathOrUrl = await vscode.window.showInputBox({
         placeHolder: 'Enter a path or URL',
         prompt: 'Enter a path or URL',
@@ -286,7 +291,8 @@ async function addCustomDatasetFromLink(elementtype: string, scope: vscode.Confi
             elementtype as CustomDatasetElementType,
             'Link',
             uri.toString(),
-            scope
+            scope,
+            ctx
         );
 
         getLogger().info(`Successfully added dataset from: ${uri.toString()}`);
@@ -300,7 +306,8 @@ async function finalizeCustomDatasetAddition(
     elementType: CustomDatasetElementType,
     source: CustomDatasetSource,
     pathOrUrl: string,
-    scope: vscode.ConfigurationTarget
+    scope: vscode.ConfigurationTarget,
+    ctx: vscode.ExtensionContext
 ) {
     const [config, existingMappings] = getCustomDatasetConfiguration();
     existingMappings.push({ elementType, source, pathOrUrl });
@@ -309,7 +316,7 @@ async function finalizeCustomDatasetAddition(
     getLogger().info(`Mapping added: ${elementType} -> ${pathOrUrl}`);
 
     // Reload the datasets
-    loadDatasets();
+    loadDatasets(ctx);
 }
 
 function getCustomDatasetConfiguration(
@@ -367,7 +374,7 @@ async function processCustomDatasetEntry(entry: CustomDataset, stack?: string[])
         const ifFileSource = isFileSource(entry.source);
         const clazz = ifFileSource ? StaticScribeEnum : WebScribeEnum;
         const path = ifFileSource ? vscode.Uri.parse(entry.pathOrUrl).path : entry.pathOrUrl;
-        ScribeEnumHandler.addEnum(clazz, fileName, path);
+        getScribeEnumHandler().addEnum(clazz, fileName, path);
     } else if (isFileSource(entry.source)) {
         const localDataset = await fetchJsonFromLocalFile<Mechanic>(
             vscode.Uri.parse(entry.pathOrUrl)

@@ -1,5 +1,5 @@
 import * as vscode from 'vscode';
-import { CallbackProvider } from '@common/providers/callbackProvider';
+import { PromiseCallbackProvider } from '@common/providers/callbackProvider';
 import { Schema } from '@common/objectInfos';
 import { MobSchema } from '@common/schemas/mobSchema';
 import { StatSchema } from '@common/schemas/statSchema';
@@ -26,17 +26,6 @@ import { timeCounter } from '../utils/timeUtils';
 
 const enumLoadedEventEmitter = new vscode.EventEmitter<AbstractScribeEnum>();
 export const onEnumLoaded = enumLoadedEventEmitter.event;
-
-// let enumLoadedFunctionCallbacks: Map<string, (arg0: AbstractScribeEnum) => void> | undefined;
-// function getEnumLoadedFunctionCallbacks() {
-//     if (enumLoadedFunctionCallbacks === undefined) {
-//         enumLoadedFunctionCallbacks = new Map<string, (arg0: AbstractScribeEnum) => void>();
-//     }
-//     return enumLoadedFunctionCallbacks;
-// }
-// export function addEnumLoadedFunction(key: string, callback: (arg0: AbstractScribeEnum) => void) {
-//     getEnumLoadedFunctionCallbacks().set(key, callback);
-// }
 
 export abstract class AbstractScribeEnum {
     readonly identifier: string;
@@ -129,7 +118,7 @@ export abstract class AbstractScribeEnum {
         this.loaded = true;
         enumLoadedEventEmitter.fire(this);
         // getEnumLoadedFunctionCallbacks().get(this.identifier)?.(this);
-        ScribeEnumHandler.enumCallback.runCallbacks(this.identifier, this);
+        getScribeEnumHandler().enumCallback.run(this.identifier, this);
     }
 
     isLoaded(): boolean {
@@ -151,8 +140,8 @@ class LocalScribeEnum extends AbstractScribeEnum {
     }
 }
 class VolatileScribeEnum extends LocalScribeEnum {
-    constructor(identifier: string, path: string) {
-        super(identifier, 'versions/' + ScribeEnumHandler.version + '/' + path);
+    constructor(identifier: string, path: string, version: string) {
+        super(identifier, `versions/${version}/${path}`);
     }
 }
 export class WebScribeEnum extends AbstractScribeEnum {
@@ -197,12 +186,12 @@ export interface EnumDatasetValue {
     attributes?: Attribute[];
 }
 
-export const ScribeEnumHandler = {
-    version: getMinecraftVersion(),
-    enums: new Map<string, AbstractScribeEnum>(),
-    enumCallback: new CallbackProvider<string, AbstractScribeEnum>(),
+export class ScribeEnumHandlerImpl {
+    version = getMinecraftVersion();
+    enums = new Map<string, AbstractScribeEnum>();
+    enumCallback = new PromiseCallbackProvider<string, AbstractScribeEnum>();
 
-    enumDefinitions: [
+    enumDefinitions = [
         {
             clazz: VolatileScribeEnum,
             items: volatileEnums,
@@ -211,10 +200,10 @@ export const ScribeEnumHandler = {
             clazz: LocalScribeEnum,
             items: localEnums,
         },
-    ],
+    ] as const;
 
     loadEnumDatasets(): void {
-        ScribeEnumHandler.emptyDatasets();
+        this.emptyDatasets();
         const time = timeCounter();
         const targetVersion = getMinecraftVersion();
         this.version = targetVersion;
@@ -232,65 +221,65 @@ export const ScribeEnumHandler = {
         });
         this.initializeScriptedEnums();
         getLogger().debug('Loaded Enum Datasets in', time.stop());
-    },
+    }
 
     getEnum(identifier: string): AbstractScribeEnum | undefined {
-        return ScribeEnumHandler.enums.get(identifier.toLowerCase());
-    },
+        return this.enums.get(identifier.toLowerCase());
+    }
 
     getEnumList(): string[] {
-        return Array.from(ScribeEnumHandler.enums.keys());
-    },
+        return Array.from(this.enums.keys());
+    }
 
     addEnum(
-        oclass: new (identifier: string, path: string) => AbstractScribeEnum,
+        oclass: new (identifier: string, path: string, version: string) => AbstractScribeEnum,
         identifier: string,
         path: string
     ) {
-        const enumObject = new oclass(identifier.toLowerCase(), path);
-        if (ScribeEnumHandler.enums.has(identifier.toLowerCase())) {
+        const enumObject = new oclass(identifier.toLowerCase(), path, this.version);
+        if (this.enums.has(identifier.toLowerCase())) {
             getLogger().debug(`Enum ${identifier} already exists, adding new values to it instead`);
             this.expandEnum(identifier, enumObject);
             return;
         }
-        ScribeEnumHandler.enums.set(identifier.toLowerCase(), enumObject);
+        this.enums.set(identifier.toLowerCase(), enumObject);
         getLogger().debug(`Registered Enum ${identifier}`);
-    },
+    }
 
     async expandEnum(identifier: string, enumObject: AbstractScribeEnum) {
-        const existing = ScribeEnumHandler.enums.get(identifier.toLowerCase())!;
+        const existing = this.enums.get(identifier.toLowerCase())!;
         const newDataset = await enumObject.waitForDataset();
         existing.expandDataset(newDataset);
-    },
+    }
 
     addLambdaEnum(key: string, values: string[]) {
-        const maybeEnum = ScribeEnumHandler.enums.get(key.toLowerCase());
+        const maybeEnum = this.enums.get(key.toLowerCase());
         if (maybeEnum) {
             getLogger().debug(`Lambda Enum ${key} already exists`);
             return maybeEnum;
         }
         const enumObject = new LambdaScribeEnum(key.toLowerCase(), values);
-        ScribeEnumHandler.enums.set(key.toLowerCase(), enumObject);
+        this.enums.set(key.toLowerCase(), enumObject);
         getLogger().debug(`Registered Lambda Enum ${key}`);
         return enumObject;
-    },
+    }
 
     addScriptedEnum(key: string, func: () => void) {
-        const maybeEnum = ScribeEnumHandler.enums.get(key.toLowerCase());
+        const maybeEnum = this.enums.get(key.toLowerCase());
         if (maybeEnum) {
             getLogger().debug(`Scripted Enum ${key} already exists`);
             return maybeEnum;
         }
         const enumObject = new ScriptedEnum(key.toLowerCase(), func);
-        ScribeEnumHandler.enums.set(key.toLowerCase(), enumObject);
+        this.enums.set(key.toLowerCase(), enumObject);
         getLogger().debug(`Registered Scripted Enum ${key}`);
         return enumObject;
-    },
+    }
 
     emptyDatasets(): void {
-        ScribeEnumHandler.enums.clear();
+        this.enums.clear();
         getLogger().debug('Emptied Enum Datasets');
-    },
+    }
 
     initializeScriptedEnums(): void {
         this.addLambdaEnum(scriptedEnums.Boolean, ['true', 'false']);
@@ -314,7 +303,7 @@ export const ScribeEnumHandler = {
         // Special cases
         this.addScriptedEnum(scriptedEnums.Item, () => {
             const mythicitems = fromMythicNodeToEnum(MythicNodeHandler.registry.item.getNodes());
-            const paperitems = ScribeEnumHandler.getEnum('material')!.getDataset();
+            const paperitems = this.getEnum('material')!.getDataset();
             return new Map([...mythicitems, ...paperitems]);
         });
         this.addScriptedEnum(scriptedEnums.Targeter, () =>
@@ -368,8 +357,8 @@ export const ScribeEnumHandler = {
             return fromMythicNodeToEnum(customBlocks);
         });
         this.addScriptedEnum(scriptedEnums.Block, () => {
-            const customBlocks = ScribeEnumHandler.getEnum(scriptedEnums.CustomBlock)!.getDataset();
-            const paperitems = ScribeEnumHandler.getEnum('material')!.getDataset();
+            const customBlocks = this.getEnum(scriptedEnums.CustomBlock)!.getDataset();
+            const paperitems = this.getEnum('material')!.getDataset();
             return new Map([...customBlocks, ...paperitems]);
         });
 
@@ -435,8 +424,16 @@ export const ScribeEnumHandler = {
         this.addScriptedEnum(scriptedEnums.AchievementSchema, () =>
             fromSchemaToEnum(AchievementSchema)
         );
-    },
-};
+    }
+}
+
+export let ScribeEnumHandler: ScribeEnumHandlerImpl | undefined;
+export function getScribeEnumHandler(): ScribeEnumHandlerImpl {
+    if (!ScribeEnumHandler) {
+        ScribeEnumHandler = new ScribeEnumHandlerImpl();
+    }
+    return ScribeEnumHandler;
+}
 
 function fromMechanicRegistryToEnum(
     registry: AbstractScribeMechanicRegistry,

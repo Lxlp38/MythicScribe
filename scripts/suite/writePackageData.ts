@@ -4,7 +4,7 @@ import * as path from 'path';
 
 const map: {[key: string]: { values: readonly string[], default?: string}} = {
     'minecraftVersion': {values: ['latest', ...MinecraftVersions]},
-    'datasetSource': {values: DatasetSource },
+    'datasetSource': {values: DatasetSource, default: 'GitHub'},
     'attributeAliasUsedInCompletions': {values: attributeAliasUsedInCompletions},
     'customDatasets.elementType': {values: CustomDatasetElementType},
     'customDatasets.source': {values: CustomDatasetSource},
@@ -22,10 +22,12 @@ export function writePackageData(){
         if (key.includes('.')) {
             const [parent, child] = key.split('.');
             packageJson.contributes.configuration.properties[`MythicScribe.${parent}`].items.properties[child].enum = map[key as keyof typeof map].values;
+            console.log(`Wrote property MythicScribe.${parent}.${child}`);
             continue;
         }
         packageJson.contributes.configuration.properties[`MythicScribe.${key}`].enum = map[key as keyof typeof map].values;
         packageJson.contributes.configuration.properties[`MythicScribe.${key}`].default = map[key as keyof typeof map].default ?? map[key as keyof typeof map].values[0];
+        console.log(`Wrote property MythicScribe.${key}` + (map[key as keyof typeof map].default ? ` with default ${map[key as keyof typeof map].default}` : ''));
     }
 
     fs.writeFileSync(packageJsonPath, JSON.stringify(packageJson, null, 2));

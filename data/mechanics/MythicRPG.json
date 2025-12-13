@@ -174,41 +174,6 @@
     },
     {
         "plugin": "MythicRPG",
-        "class": "SetCustomMenuButtonMechanic",
-        "extends": "SkillMechanic",
-        "implements": [
-            "INoTargetSkill"
-        ],
-        "name": [
-            "SetCustomMenuButton"
-        ],
-        "description": "Sets a specific slot of the opened [custom menu](https://git.lumine.io/mythiccraft/mythicrpg/-/wikis/../../../MythicMobs/-/wikis/Custom-Menus) to the specified button.  \nWill work as long as the player has an opened [custom menu](https://git.lumine.io/mythiccraft/mythicrpg/-/wikis/../../../MythicMobs/-/wikis/Custom-Menus), even if it's not casted from within the menu itself.",
-        "link": "https://git.lumine.io/mythiccraft/mythicrpg/-/wikis/Skills/Mechanics/SetCustomMenuButton",
-        "attributes": [
-            {
-                "name": [
-                    "slot",
-                    "s"
-                ],
-                "type": "PlaceholderInteger",
-                "description": "The slot to modify",
-                "link": "https://git.lumine.io/mythiccraft/mythicrpg/-/wikis/Skills/Mechanics/SetCustomMenuButton",
-                "default_value": "0"
-            },
-            {
-                "name": [
-                    "icon",
-                    "i"
-                ],
-                "type": "PlaceholderString",
-                "description": "The button to set on the slot",
-                "link": "https://git.lumine.io/mythiccraft/mythicrpg/-/wikis/Skills/Mechanics/SetCustomMenuButton",
-                "default_value": "default"
-            }
-        ]
-    },
-    {
-        "plugin": "MythicRPG",
         "class": "SetQuickcastingBindingMechanic",
         "extends": "SkillMechanic",
         "implements": [

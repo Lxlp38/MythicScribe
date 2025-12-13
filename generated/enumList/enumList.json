@@ -5,11 +5,6 @@
     "type": "Static"
   },
   {
-    "id": "paperattributeoperation",
-    "path": "mythic/paperattributeoperation.json",
-    "type": "Static"
-  },
-  {
     "id": "audience",
     "path": "mythic/audience.json",
     "type": "Static"
@@ -17,6 +12,16 @@
   {
     "id": "culltype",
     "path": "mythic/culltype.json",
+    "type": "Static"
+  },
+  {
+    "id": "dropmethod",
+    "path": "mythic/dropmethod.json",
+    "type": "Static"
+  },
+  {
+    "id": "mythicbukkitattributes",
+    "path": "mythic/enums/mythicbukkitattributes.json",
     "type": "Static"
   },
   {
@@ -60,81 +65,6 @@
     "type": "Static"
   },
   {
-    "id": "mythicentity",
-    "path": "mythic/mythicentity.json",
-    "type": "Static"
-  },
-  {
-    "id": "moboption",
-    "path": "mythic/moboption.json",
-    "type": "Static"
-  },
-  {
-    "id": "particle",
-    "path": "mythic/particle.json",
-    "type": "Static"
-  },
-  {
-    "id": "placeholder",
-    "path": "mythic/placeholder.json",
-    "type": "Static"
-  },
-  {
-    "id": "randomspawnaction",
-    "path": "mythic/randomspawnaction.json",
-    "type": "Static"
-  },
-  {
-    "id": "randomspawnpositiontype",
-    "path": "mythic/randomspawnpositiontype.json",
-    "type": "Static"
-  },
-  {
-    "id": "scoreaction",
-    "path": "mythic/scoreaction.json",
-    "type": "Static"
-  },
-  {
-    "id": "shape",
-    "path": "mythic/shape.json",
-    "type": "Static"
-  },
-  {
-    "id": "shapeadv",
-    "path": "mythic/shapeadv.json",
-    "type": "Static"
-  },
-  {
-    "id": "statexecutionpoint",
-    "path": "mythic/statexecutionpoint.json",
-    "type": "Static"
-  },
-  {
-    "id": "statsmodifier",
-    "path": "mythic/statsmodifier.json",
-    "type": "Static"
-  },
-  {
-    "id": "stattype",
-    "path": "mythic/stattype.json",
-    "type": "Static"
-  },
-  {
-    "id": "variablescope",
-    "path": "mythic/variablescope.json",
-    "type": "Static"
-  },
-  {
-    "id": "variabletype",
-    "path": "mythic/variabletype.json",
-    "type": "Static"
-  },
-  {
-    "id": "variableplaceholdermetakeyword",
-    "path": "mythic/variableplaceholdermetakeyword.json",
-    "type": "Static"
-  },
-  {
     "id": "addtrade_action",
     "path": "mythic/mechanicScoped/addtrade_action.json",
     "type": "Static"
@@ -175,13 +105,13 @@
     "type": "Static"
   },
   {
-    "id": "shoot_type",
-    "path": "mythic/mechanicScoped/shoot_type.json",
+    "id": "shootfireball_type",
+    "path": "mythic/mechanicScoped/shootfireball_type.json",
     "type": "Static"
   },
   {
-    "id": "shootfireball_type",
-    "path": "mythic/mechanicScoped/shootfireball_type.json",
+    "id": "shoot_type",
+    "path": "mythic/mechanicScoped/shoot_type.json",
     "type": "Static"
   },
   {
@@ -200,6 +130,91 @@
     "type": "Static"
   },
   {
+    "id": "moboption",
+    "path": "mythic/moboption.json",
+    "type": "Static"
+  },
+  {
+    "id": "mythicentity",
+    "path": "mythic/mythicentity.json",
+    "type": "Static"
+  },
+  {
+    "id": "paperattributeoperation",
+    "path": "mythic/paperattributeoperation.json",
+    "type": "Static"
+  },
+  {
+    "id": "particle",
+    "path": "mythic/particle.json",
+    "type": "Static"
+  },
+  {
+    "id": "placeholder",
+    "path": "mythic/placeholder.json",
+    "type": "Static"
+  },
+  {
+    "id": "randomspawnaction",
+    "path": "mythic/randomspawnaction.json",
+    "type": "Static"
+  },
+  {
+    "id": "randomspawnpositiontype",
+    "path": "mythic/randomspawnpositiontype.json",
+    "type": "Static"
+  },
+  {
+    "id": "recipetype",
+    "path": "mythic/recipetype.json",
+    "type": "Static"
+  },
+  {
+    "id": "scoreaction",
+    "path": "mythic/scoreaction.json",
+    "type": "Static"
+  },
+  {
+    "id": "shape",
+    "path": "mythic/shape.json",
+    "type": "Static"
+  },
+  {
+    "id": "shapeadv",
+    "path": "mythic/shapeadv.json",
+    "type": "Static"
+  },
+  {
+    "id": "statexecutionpoint",
+    "path": "mythic/statexecutionpoint.json",
+    "type": "Static"
+  },
+  {
+    "id": "statsmodifier",
+    "path": "mythic/statsmodifier.json",
+    "type": "Static"
+  },
+  {
+    "id": "stattype",
+    "path": "mythic/stattype.json",
+    "type": "Static"
+  },
+  {
+    "id": "variableplaceholdermetakeyword",
+    "path": "mythic/variableplaceholdermetakeyword.json",
+    "type": "Static"
+  },
+  {
+    "id": "variablescope",
+    "path": "mythic/variablescope.json",
+    "type": "Static"
+  },
+  {
+    "id": "variabletype",
+    "path": "mythic/variabletype.json",
+    "type": "Static"
+  },
+  {
     "id": "sound",
     "path": "minecraft/sound.json",
     "type": "Volatile"
@@ -207,11 +222,6 @@
   {
     "id": "advancementdisplayframe",
     "path": "paper/advancementdisplayframe.json",
-    "type": "Volatile"
-  },
-  {
-    "id": "paperattribute",
-    "path": "paper/paperattribute.json",
     "type": "Volatile"
   },
   {
@@ -260,13 +270,13 @@
     "type": "Volatile"
   },
   {
-    "id": "entitytype",
-    "path": "paper/entitytype.json",
+    "id": "entitypose",
+    "path": "paper/entitypose.json",
     "type": "Volatile"
   },
   {
-    "id": "entitypose",
-    "path": "paper/entitypose.json",
+    "id": "entitytype",
+    "path": "paper/entitytype.json",
     "type": "Volatile"
   },
   {
@@ -302,6 +312,11 @@
   {
     "id": "material",
     "path": "paper/material.json",
+    "type": "Volatile"
+  },
+  {
+    "id": "paperattribute",
+    "path": "paper/paperattribute.json",
     "type": "Volatile"
   },
   {

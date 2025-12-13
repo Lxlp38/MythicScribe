@@ -1,9 +1,8 @@
 import * as vscode from 'vscode';
+import { getScribeEnumHandler } from '@common/datasets/ScribeEnum';
 
 import { getLogger } from '../providers/loggerProvider';
 import { ScribeMechanicHandler } from './ScribeMechanic';
-import { ScribeEnumHandler } from './ScribeEnum';
-import { ctx } from '../../MythicScribe';
 import {
     ComponentStatus,
     convertLocalPathToGitHubUrl as convertRelativePathToGitHubUrl,
@@ -23,8 +22,8 @@ const GITHUB_API_COMMITS_URL = 'https://api.github.com/repos/Lxlp38/MythicScribe
 let shouldUpdateGithubDatasets = false;
 
 let edcsUri: vscode.Uri;
-export function setEdcsUri() {
-    edcsUri = vscode.Uri.joinPath(ctx!.globalStorageUri, 'extensionDatasetsClonedStorage/');
+export function setEdcsUri(ctx: vscode.ExtensionContext) {
+    edcsUri = vscode.Uri.joinPath(ctx.globalStorageUri, 'extensionDatasetsClonedStorage/');
 }
 
 const datasetsLoadedEventEmitter = new vscode.EventEmitter<void>();
@@ -116,24 +115,7 @@ export class ScribeCloneableFile<T> {
     }
 }
 
-async function fetchNextHash(latestCommitHash: string) {
-    const nextCommitHash = await fetchLatestCommitHash();
-    if (nextCommitHash && nextCommitHash !== latestCommitHash) {
-        getLogger().debug('Next commit hash:', nextCommitHash);
-        ctx!.globalState.update('latestCommitHash', nextCommitHash);
-        getLogger().options(
-            'New dataset update has been found. It will be applied the next time the datasets are loaded',
-            {
-                'Reload Datasets Now': {
-                    type: 'command',
-                    target: 'mythicscribe.loadDatasets',
-                },
-            }
-        );
-    }
-}
-
-export async function loadDatasets() {
+export async function loadDatasets(ctx: vscode.ExtensionContext) {
     getLogger().debug(
         'Loading datasets from',
         ConfigProvider.registry.generic.get('datasetSource') || 'undefined'
@@ -155,9 +137,9 @@ export async function loadDatasets() {
         } else {
             getLogger().debug('Commit hash matches, no need to update datasets');
         }
-        fetchNextHash(latestCommitHash || '');
+        fetchNextHash(latestCommitHash || '', ctx);
     }
-    ScribeEnumHandler.loadEnumDatasets();
+    getScribeEnumHandler().loadEnumDatasets();
     await Promise.allSettled([ScribeMechanicHandler.loadMechanicDatasets(), loadCustomDatasets()]);
     ScribeMechanicHandler.finalize();
     finallySetEnabledPlugins();
@@ -165,6 +147,23 @@ export async function loadDatasets() {
         MythicNodeHandler.scanAllDocuments();
     }
     datasetsLoadedEventEmitter.fire();
+}
+
+async function fetchNextHash(latestCommitHash: string, ctx: vscode.ExtensionContext) {
+    const nextCommitHash = await fetchLatestCommitHash();
+    if (nextCommitHash && nextCommitHash !== latestCommitHash) {
+        getLogger().debug('Next commit hash:', nextCommitHash);
+        ctx.globalState.update('latestCommitHash', nextCommitHash);
+        getLogger().options(
+            'New dataset update has been found. It will be applied the next time the datasets are loaded',
+            {
+                'Reload Datasets Now': {
+                    type: 'command',
+                    target: 'mythicscribe.loadDatasets',
+                },
+            }
+        );
+    }
 }
 
 async function initializeExtensionDatasetsClonedStorage() {

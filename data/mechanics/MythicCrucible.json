@@ -932,7 +932,7 @@
             "modelset",
             "setmodel"
         ],
-        "description": "Sets the specified CustomModelData on the item the caster is holding",
+        "description": "Sets the specified Model/[CustomModelData](https://git.lumine.io/mythiccraft/mythiccrucible/-/wikis/skills/mechanics/SetItemCustomModelData) on the item the caster is holding.",
         "link": "https://git.lumine.io/mythiccraft/mythiccrucible/-/wikis/Skills/Mechanics/ModelSet",
         "attributes": [
             {
@@ -941,7 +941,7 @@
                     "m"
                 ],
                 "type": "PlaceholderString",
-                "description": "The new CustomModelData",
+                "description": "The new Model",
                 "link": "https://git.lumine.io/mythiccraft/mythiccrucible/-/wikis/Skills/Mechanics/ModelSet",
                 "default_value": "0"
             },

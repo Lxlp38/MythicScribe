@@ -5,7 +5,7 @@ import {
     parseWrittenPlaceholder,
 } from '@common/datasets/ScribePlaceholder';
 import { ConditionActions } from '@common/schemas/conditionActions';
-import { EnumDatasetValue, ScribeEnumHandler } from '@common/datasets/ScribeEnum';
+import { EnumDatasetValue, getScribeEnumHandler } from '@common/datasets/ScribeEnum';
 import { MythicMechanic, ScribeMechanicHandler } from '@common/datasets/ScribeMechanic';
 import { scribeCodeLensProvider as nodeLens } from '@common/providers/codeLensProvider';
 
@@ -223,7 +223,7 @@ export class MythicNode {
                 continue;
             }
             const firstsound = (
-                ScribeEnumHandler.getEnum('sound')?.getDataset().get(sound.toLowerCase()) as
+                getScribeEnumHandler().getEnum('sound')?.getDataset().get(sound.toLowerCase()) as
                     | (EnumDatasetValue & { sounds: string[] })
                     | undefined
             )?.sounds[0];
@@ -979,7 +979,7 @@ export class MythicNodeRegistry {
             this.nodes.has(name) ||
             (this.backingDataset === undefined
                 ? false
-                : !!ScribeEnumHandler.getEnum(this.backingDataset)?.has(name, true))
+                : !!getScribeEnumHandler().getEnum(this.backingDataset)?.has(name, true))
         );
     }
 

@@ -2,10 +2,10 @@ import * as vscode from 'vscode';
 import { registryKey } from '@common/objectInfos';
 import { globalCallbacks } from '@common/providers/callbackProvider';
 
-import { ScribeEnumHandler, AbstractScribeEnum, EnumDatasetValue } from './ScribeEnum';
 import { generateNumbersInRange } from '../utils/schemautils';
 import { MythicAttribute } from './ScribeMechanic';
 import { retriggerCompletionsCommand } from '../utils/completionhelper';
+import { EnumDatasetValue, getScribeEnumHandler } from './ScribeEnum';
 
 interface MetaKeyword {
     description: string;
@@ -249,23 +249,11 @@ export function fromPlaceholderNodeIdentifierToRegistryKey(
     return undefined;
 }
 
-globalCallbacks.activation.registerCallback('pre-activation', () => {
-    ScribeEnumHandler.enumCallback.registerCallback('placeholder', (target: AbstractScribeEnum) => {
-        initializePlaceholders(target.getDataset());
-    });
-    ScribeEnumHandler.enumCallback.registerCallback(
-        'variableplaceholdermetakeyword',
-        (target: AbstractScribeEnum) => {
-            initializeMetaKeywords(target.getDataset() as Map<string, MetaKeyword>);
-        }
-    );
-});
-
 export async function initializePlaceholders(placeholderDataset: Map<string, EnumDatasetValue>) {
     ScriptedPlaceholderSegmentHandler.clearSegments();
 
     // Generate scripted placeholder segments from enums
-    ScribeEnumHandler.enums.forEach((enumNode) => {
+    getScribeEnumHandler().enums.forEach((enumNode) => {
         new ScriptedPlaceholderSegment(enumNode.identifier, () =>
             Array.from(enumNode.getDataset().keys())
         );
@@ -386,4 +374,23 @@ export async function initializeMetaKeywords(mkDataset: Map<string, MetaKeyword>
             });
         }
     });
+}
+
+globalCallbacks.activation.registerCallback('post-activation', () => {
+    initScribePlaceholders();
+});
+
+export function initScribePlaceholders() {
+    getScribeEnumHandler()
+        .enumCallback.register('placeholder')
+        .then((target) => {
+            initializePlaceholders(target.getDataset());
+            return;
+        });
+    getScribeEnumHandler()
+        .enumCallback.register('variableplaceholdermetakeyword')
+        .then((target) => {
+            initializeMetaKeywords(target.getDataset() as Map<string, MetaKeyword>);
+            return;
+        });
 }

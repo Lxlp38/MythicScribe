@@ -1,12 +1,11 @@
 import * as vscode from 'vscode';
-import { getDirectoryFiles } from '@node/datasets/ScribeMechanic';
+import { getScribeEnumHandler, AbstractScribeEnum } from '@common/datasets/ScribeEnum';
 
 import { isPluginEnabled } from '../providers/configProvider';
-import { AbstractScribeEnum, ScribeEnumHandler } from './ScribeEnum';
 import { ctx } from '../../MythicScribe';
 import { ScribeCloneableFile } from './datasets';
 import { addMechanicCompletions } from '../utils/completionhelper';
-import { attributeSpecialValues, scriptedEnums } from './enumSources';
+import { atlasRegistry, attributeSpecialValues, scriptedEnums } from './enumSources';
 import { MythicNodeHandler } from '../mythicnodes/MythicNode';
 import { isBoolean, registryKey, specialAttributeEnumToRegistryKey } from '../objectInfos';
 import { timeCounter } from '../utils/timeUtils';
@@ -148,7 +147,6 @@ export abstract class AbstractScribeMechanicRegistry {
     readonly regex: RegExp = /null/;
     readonly type: ObjectType = ObjectType.MECHANIC;
     readonly folder: string = 'null';
-    readonly files: string[] = [];
     readonly defaultExtend: string | undefined = undefined;
 
     private mechanics: MechanicContainer = new MechanicContainer();
@@ -257,7 +255,11 @@ export abstract class AbstractScribeMechanicRegistry {
     async loadDataset() {
         const time = timeCounter();
         getLogger().debug(`Loading ${this.type} Dataset`);
-        const directoryFiles: vscode.Uri[] = await getDirectoryFiles(this);
+        const node = atlasRegistry.getNode(`${this.folder}`);
+        const directoryFiles: vscode.Uri[] =
+            node
+                ?.getFiles(false)
+                .map((file) => vscode.Uri.joinPath(ctx!.extensionUri, 'data', file)) || [];
         const files = directoryFiles.map((file) => new ScribeCloneableFile<Mechanic>(file));
         const promises = files.map((file) => file.get());
         const result = await Promise.allSettled(promises);
@@ -277,25 +279,16 @@ class ScribeMechanicRegistry extends AbstractScribeMechanicRegistry {
     readonly regex: RegExp = /(?<=\s- )[\w:]+/gm;
     readonly type: ObjectType = ObjectType.MECHANIC;
     readonly folder: string = 'mechanics';
-    readonly files = [
-        'MythicMobs',
-        'MythicCrucible',
-        'ModelEngine',
-        'MythicRPG',
-        'MythicAchievements',
-    ];
 }
 class ScribeTargeterRegistry extends AbstractScribeMechanicRegistry {
     readonly regex: RegExp = /(?<=[\s=]@)[\w:]+/gm;
     readonly type: ObjectType = ObjectType.TARGETER;
     readonly folder: string = 'targeters';
-    readonly files = ['MythicMobs', 'MythicCrucible', 'ModelEngine'];
 }
 class ScribeConditionRegistry extends AbstractScribeMechanicRegistry {
     readonly regex: RegExp = /(?<=[\s\|\&][-\(\|\&\)] )[\w:]+/gm;
     readonly type: ObjectType = ObjectType.CONDITION;
     readonly folder: string = 'conditions';
-    readonly files = ['MythicMobs', 'ModelEngine', 'MythicRPG', 'MythicAchievements'];
 }
 class ScribeInlineConditionRegistry extends ScribeConditionRegistry {
     readonly regex: RegExp = /(?<=\s(\?)|(\?!)|(\?~)|(\?~!))[\w:]+/gm;
@@ -317,20 +310,17 @@ class ScribeTriggerRegistry extends AbstractScribeMechanicRegistry {
     readonly regex: RegExp = /(?<=\s~)on[\w:]+/gm;
     readonly type: ObjectType = ObjectType.TRIGGER;
     readonly folder: string = 'triggers';
-    readonly files = ['MythicMobs', 'MythicCrucible', 'MythicRPG'];
 }
 class ScribeAITargetRegistry extends AbstractScribeMechanicRegistry {
     readonly regex: RegExp = /(?<=\s- )[\w:]+/gm;
     readonly type: ObjectType = ObjectType.AITARGET;
     readonly folder: string = 'aitargets';
-    readonly files = ['MythicMobs'];
     readonly defaultExtend: string = 'WrappedPathfindingGoal';
 }
 class ScribeAIGoalRegistry extends AbstractScribeMechanicRegistry {
     readonly regex: RegExp = /(?<=\s- )[\w:]+/gm;
     readonly type: ObjectType = ObjectType.AIGOAL;
     readonly folder: string = 'aigoals';
-    readonly files = ['MythicMobs'];
     readonly defaultExtend: string = 'WrappedPathfindingGoal';
 }
 
@@ -510,8 +500,8 @@ export class MythicAttribute {
         }
 
         this.enum = attribute.enum.includes(',')
-            ? ScribeEnumHandler.addLambdaEnum(attribute.enum, attribute.enum.split(','))
-            : ScribeEnumHandler.getEnum(attribute.enum);
+            ? getScribeEnumHandler().addLambdaEnum(attribute.enum, attribute.enum.split(','))
+            : getScribeEnumHandler().getEnum(attribute.enum);
         this.addEnumAttributesToMechanic(this.enum, mechanic);
     }
 

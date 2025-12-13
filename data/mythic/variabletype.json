@@ -2,6 +2,7 @@
     "INTEGER": {},
     "FLOAT": {},
     "DOUBLE": {},
+    "LONG": {},
     "STRING": {},
     "BOOLEAN": {},
     "SET": {},

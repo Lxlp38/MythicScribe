@@ -982,3 +982,22 @@ inheritSchemaOptions(
     'https://git.lumine.io/mythiccraft/mythiccrucible/-/wikis/ResourcePack-Generator',
     DefaultPlugins.MythicCrucible
 );
+
+// globalCallbacks.activation.registerCallback('post-activation', () => {
+//     initItemSchema();
+// });
+
+// export function initItemSchema(): void {
+//     getScribeEnumHandler()
+//         .enumCallback.register('mythicbukkitattributes')
+//         .then((enumDataset) => {
+//             const defaultSchemaElement: SchemaElement = {
+//                 type: SchemaElementTypes.ENTRY_LIST,
+//                 entries: ItemAttributesEntries,
+//             };
+//             for (const attribute of enumDataset.getDataset().keys()) {
+//                 ItemAttributes[attribute] = defaultSchemaElement;
+//             }
+//             return;
+//         });
+// }

@@ -1,4 +1,5 @@
 import * as vscode from 'vscode';
+import { EnumDatasetValue, getScribeEnumHandler } from '@common/datasets/ScribeEnum';
 
 import {
     getDefaultIndentation,
@@ -24,7 +25,6 @@ import {
     EntrySchemaElement,
 } from '../objectInfos';
 import { MythicMechanic } from '../datasets/ScribeMechanic';
-import { EnumDatasetValue, ScribeEnumHandler } from '../datasets/ScribeEnum';
 import { filterSchemaWithEnabledPlugins, getSchemaElement } from './schemautils';
 import { isPluginEnabled } from '../providers/configProvider';
 
@@ -87,7 +87,7 @@ function getCompletionsForSchemaElement(
     // console.log(object);
     // console.log(context);
     if (object.type === SchemaElementTypes.ENUM) {
-        const dataset = ScribeEnumHandler.getEnum(object.dataset);
+        const dataset = getScribeEnumHandler().getEnum(object.dataset);
         const completionItems: vscode.CompletionItem[] = [];
         if (!dataset) {
             return undefined;
@@ -113,7 +113,7 @@ function getCompletionsForSchemaElement(
             if (space === undefined) {
                 return undefined;
             }
-            const dataset = ScribeEnumHandler.getEnum(object.dataset);
+            const dataset = getScribeEnumHandler().getEnum(object.dataset);
             if (!dataset) {
                 return undefined;
             }

@@ -1,76 +1,88 @@
-type EnumEntry = string | [string, string];
+import atlasJson from './atlas.json';
 
-export const volatileEnums: EnumEntry[] = [
-    'minecraft/sound.json',
-    'paper/advancementdisplayframe.json',
-    'paper/paperattribute.json',
-    'paper/barcolor.json',
-    'paper/barstyle.json',
-    'paper/billboard.json',
-    'paper/blockface.json',
-    'paper/damagecause.json',
-    'paper/dragonbattlerespawnphase.json',
-    'paper/dye.json',
-    'paper/enchantment.json',
-    'paper/enderdragonphase.json',
-    'paper/entitytype.json',
-    'paper/entitypose.json',
-    'paper/fireworkeffecttype.json',
-    'paper/fluidcollisionmode.json',
-    'paper/gamemode.json',
-    'paper/itemdisplaytransform.json',
-    'paper/itemflag.json',
-    'paper/itemuseanimation.json',
-    'paper/material.json',
-    'paper/potioneffecttype.json',
-    'paper/soundcategory.json',
-    'paper/spawnreason.json',
-    'paper/textalignment.json',
-    'paper/worldenvironment.json',
-];
+export type AtlasNode = { name: string } & (
+    | { type: 'file' }
+    | { type: 'directory'; children: AtlasNode[] }
+);
 
-export const localEnums: EnumEntry[] = [
-    'mythic/achievementcriteria.json',
-    'mythic/paperattributeoperation.json',
-    'mythic/audience.json',
-    'mythic/culltype.json',
-    'mythic/equipslot.json',
-    'mythic/fluid.json',
-    'mythic/furnitureorientation.json',
-    'mythic/furnitureplacement.json',
-    'mythic/furnituretype.json',
-    'mythic/glowcolor.json',
-    'mythic/itemrarity.json',
-    'mythic/itemtype.json',
-    'mythic/mythicentity.json',
-    'mythic/moboption.json',
-    'mythic/particle.json',
-    'mythic/placeholder.json',
-    'mythic/randomspawnaction.json',
-    'mythic/randomspawnpositiontype.json',
-    'mythic/scoreaction.json',
-    'mythic/shape.json',
-    'mythic/shapeadv.json',
-    'mythic/statexecutionpoint.json',
-    'mythic/statsmodifier.json',
-    'mythic/stattype.json',
-    'mythic/variablescope.json',
-    'mythic/variabletype.json',
-    'mythic/variableplaceholdermetakeyword.json',
-    'mythic/mechanicScoped/addtrade_action.json',
-    'mythic/mechanicScoped/displaytransformation_action.json',
-    'mythic/mechanicScoped/modifyprojectile_action.json',
-    'mythic/mechanicScoped/modifyprojectile_trait.json',
-    'mythic/mechanicScoped/projectile_bullettype.json',
-    'mythic/mechanicScoped/projectile_highaccuracymode.json',
-    'mythic/mechanicScoped/projectile_type.json',
-    'mythic/mechanicScoped/setmaxhealth_mode.json',
-    'mythic/mechanicScoped/shoot_type.json',
-    'mythic/mechanicScoped/shootfireball_type.json',
-    'mythic/mechanicScoped/threat_mode.json',
-    'mythic/mechanicScoped/time_mode.json',
-    'mythic/mechanicScoped/velocity_mode.json',
-];
+class AtlasregistryNode {
+    public type: 'file' | 'directory';
+    public name: string;
+    public children?: AtlasregistryNode[];
+    constructor(public node: AtlasNode) {
+        this.type = node.type;
+        this.name = node.name;
+        if (node.type === 'directory' && node.children) {
+            this.children = node.children.map((child) => new AtlasregistryNode(child));
+        }
+    }
+
+    public getNode(path: string): AtlasregistryNode | null {
+        const parts = path.split('/').filter((part) => part.length > 0);
+        let currentNode: AtlasregistryNode = this;
+
+        for (const part of parts) {
+            if (currentNode.type !== 'directory' || !currentNode.children) {
+                return null;
+            }
+
+            const nextNode = currentNode.children.find((child) => child.name === part);
+            if (!nextNode) {
+                return null;
+            }
+
+            currentNode = nextNode;
+        }
+
+        return currentNode;
+    }
+
+    public getFirstChild(): AtlasregistryNode | null {
+        if (this.type === 'directory' && this.children && this.children.length > 0) {
+            return this.children[0];
+        }
+        return null;
+    }
+    public getLastChild(): AtlasregistryNode | null {
+        if (this.type === 'directory' && this.children && this.children.length > 0) {
+            return this.children[this.children.length - 1];
+        }
+        return null;
+    }
+
+    public getFiles(removeSelfName: boolean = true): string[] {
+        if (this.type === 'file') {
+            return [removeSelfName ? '' : this.name];
+        } else if (this.type === 'directory' && this.children) {
+            let paths: string[] = [];
+            for (const child of this.children) {
+                const childFiles = child.getFiles(false);
+                paths = paths.concat(
+                    childFiles.map((p) => (removeSelfName ? '' : this.name + '/') + p)
+                );
+            }
+            return paths;
+        }
+        return [];
+    }
+
+    public printTree(indent: string = ' '): void {
+        // eslint-disable-next-line no-console
+        console.log(`${indent}- ${this.name} (${this.type})`);
+        if (this.type === 'directory' && this.children) {
+            for (const child of this.children) {
+                child.printTree(indent + '  ');
+            }
+        }
+    }
+}
+
+export const atlasRegistry = new AtlasregistryNode(atlasJson as AtlasNode);
+
+export const volatileEnums: string[] =
+    atlasRegistry.getNode('versions/')?.getLastChild()?.getFiles() || [];
+
+export const localEnums: string[] = atlasRegistry.getNode('mythic/')?.getFiles(false) || [];
 
 export enum scriptedEnums {
     Color = 'color',

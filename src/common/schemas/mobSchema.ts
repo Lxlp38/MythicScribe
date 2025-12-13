@@ -1,9 +1,5 @@
 import * as vscode from 'vscode';
-import {
-    AbstractScribeEnum,
-    EnumDatasetValue,
-    ScribeEnumHandler,
-} from '@common/datasets/ScribeEnum';
+import { getScribeEnumHandler, type EnumDatasetValue } from '@common/datasets/ScribeEnum';
 import { getRootKey } from '@common/utils/yamlutils';
 import { MobMythicNode, MythicNodeHandler } from '@common/mythicnodes/MythicNode';
 
@@ -643,9 +639,12 @@ export const MobSchema: Schema = {
     },
 };
 
-ScribeEnumHandler.enumCallback.registerCallback('moboption', (target: AbstractScribeEnum) => {
-    addMobOptions(target.getDataset());
-});
+getScribeEnumHandler()
+    .enumCallback.register('moboption')
+    .then((target) => {
+        addMobOptions(target.getDataset());
+        return;
+    });
 
 function addMobOptions(options: Map<string, EnumDatasetValue>) {
     const mobOptions = getKeySchema((MobSchema.Options as KeySchemaElement).keys);

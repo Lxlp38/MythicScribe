@@ -4,7 +4,6 @@ import { ConfigProvider } from '@common/providers/configProvider';
 
 import { MockMythicNode, MythicNode, MythicNodeHandler } from './MythicNode';
 import { extendedRegistryKey, registryKey } from '../objectInfos';
-import { ctx } from '../../MythicScribe';
 
 let openWebView: vscode.WebviewPanel | undefined = undefined;
 const webViewDisposables: vscode.Disposable[] = [];
@@ -19,7 +18,7 @@ function disposeWebView() {
         webViewDisposables.length = 0;
     }
 }
-function createWebView() {
+function createWebView(context: vscode.ExtensionContext) {
     disposeWebView();
     openWebView = vscode.window.createWebviewPanel(
         'mythicNodeGraph', // Identifies the type of the webview. Used internally
@@ -29,8 +28,8 @@ function createWebView() {
             enableScripts: true,
             retainContextWhenHidden: true,
             localResourceRoots: [
-                vscode.Uri.joinPath(ctx!.extensionUri, 'assets', 'nodegraph'),
-                vscode.Uri.joinPath(ctx!.extensionUri, 'dist', 'webviews'),
+                vscode.Uri.joinPath(context.extensionUri, 'assets', 'nodegraph'),
+                vscode.Uri.joinPath(context.extensionUri, 'dist', 'webviews'),
             ],
         }
     );
@@ -410,7 +409,7 @@ function cycleNodes(
     });
 }
 
-export async function showNodeGraph(): Promise<void> {
+export async function showNodeGraph(context: vscode.ExtensionContext): Promise<void> {
     const selectedElements = await vscode.window
         .showQuickPick(
             GraphOptions.selectedElements.options.map((option) => option.label),
@@ -450,9 +449,9 @@ export async function showNodeGraph(): Promise<void> {
                 .filter((value) => value !== undefined);
         });
 
-    createWebView();
+    createWebView(context);
 
-    openWebView!.webview.html = getWebviewContent();
+    openWebView!.webview.html = getWebviewContent(context);
 
     const data = buildCytoscapeElements(selectedElements, selectedFilters);
     openWebView!.webview.postMessage({ type: 'graphData', data: data });
@@ -579,18 +578,27 @@ function processMessage(
     );
 }
 
-function processWebViewImageUri(webviewPanel: vscode.WebviewPanel, target: string) {
-    const imagePathOnDisk = vscode.Uri.joinPath(ctx!.extensionUri, 'assets', 'nodegraph', target);
+function processWebViewImageUri(
+    webviewPanel: vscode.WebviewPanel,
+    target: string,
+    context: vscode.ExtensionContext
+) {
+    const imagePathOnDisk = vscode.Uri.joinPath(
+        context.extensionUri,
+        'assets',
+        'nodegraph',
+        target
+    );
     return webviewPanel.webview.asWebviewUri(imagePathOnDisk);
 }
 
-function getWebviewContent(): string {
+function getWebviewContent(context: vscode.ExtensionContext): string {
     if (!openWebView) {
         getLogger().error('Webview is not declared! Something has gone very wrong!');
         return '';
     }
     const scriptPathOnDisk = vscode.Uri.joinPath(
-        ctx!.extensionUri,
+        context.extensionUri,
         'dist',
         'webviews',
         'nodegraph.js'
@@ -599,7 +607,7 @@ function getWebviewContent(): string {
 
     const imageUriMap: Record<extendedRegistryKey, vscode.Uri> = extendedRegistryKey.reduce(
         (acc, key) => {
-            acc[key] = processWebViewImageUri(openWebView!, `${key}.png`);
+            acc[key] = processWebViewImageUri(openWebView!, `${key}.png`, context);
             return acc;
         },
         {} as Record<extendedRegistryKey, vscode.Uri>

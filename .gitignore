@@ -7,3 +7,4 @@ node_modules
 .eslintcache
 .idea
 qodana.yaml
+deps-graph.svg

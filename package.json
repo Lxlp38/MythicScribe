@@ -244,7 +244,7 @@
             "Local",
             "GitHub"
           ],
-          "default": "Local",
+          "default": "GitHub",
           "description": "Select what dataset to use: `GitHub` fetches the latest datasets from the repository, while `Local` uses the native one that came bundled with the extension"
         },
         "MythicScribe.enableShortcuts": {
@@ -593,6 +593,8 @@
     }
   },
   "scripts": {
+    "deps": "npx madge --circular --extensions ts ./",
+    "deps:graph": "npx madge --circular --image deps-graph.svg --extensions ts ./",
     "compile": "npm run check-types && node esbuild.js",
     "check-types": "tsc --noEmit",
     "w": "npm-run-all -p watch:*",
@@ -602,7 +604,7 @@
     "watch:lint": "nodemon --quiet --watch src --ext ts --exec eslint src/ --fix --cache",
     "lint": "eslint src/ --fix --cache && echo 'Linting done.'",
     "vscode:prepublish": "npm run package",
-    "package": "npm run check-types && node esbuild.js --production",
+    "package": "npm run scripts && npm run check-types && node esbuild.js --production",
     "build": "npm run compile",
     "buildtag": "npm run scripts && npx @vscode/vsce package",
     "pretest": "npm run compile",

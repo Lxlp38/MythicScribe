@@ -1490,6 +1490,17 @@
                 "description": "Should the model be saved on entity unload",
                 "link": "https://git.lumine.io/mythiccraft/model-engine-4/-/wikis/Skills/Mechanics/Model",
                 "default_value": "false"
+            },
+            {
+                "name": [
+                    "rt",
+                    "root",
+                    "rootbone"
+                ],
+                "type": "PlaceholderString",
+                "description": "The [root bone](https://git.lumine.io/mythiccraft/model-engine-4/-/wikis/Skills/Mechanics/RootMotion) of the model",
+                "link": "https://git.lumine.io/mythiccraft/model-engine-4/-/wikis/Skills/Mechanics/Model",
+                "default_value": ""
             }
         ]
     },
@@ -2068,6 +2079,51 @@
                 "type": "PlaceholderString",
                 "description": "The model id to show",
                 "link": "https://git.lumine.io/mythiccraft/model-engine-4/-/wikis/Skills/Mechanics/RenderInit",
+                "default_value": ""
+            }
+        ]
+    },
+    {
+        "plugin": "ModelEngine",
+        "class": "RootMotionMechanic",
+        "extends": "SkillMechanic",
+        "implements": [
+            "ITargetedEntitySkill"
+        ],
+        "name": [
+            "rootmotion"
+        ],
+        "description": "Sets the root motion options for the model.  \nWhen enabled, root motion makes the base entity move *with* the model's animations, following the animations of the bone designed as the \"root\".  \nA bone can be designed as the root in the [model mechanic](https://git.lumine.io/mythiccraft/model-engine-4/-/wikis/Skills/Mechanics/Model), via the `rootbone` attribute",
+        "link": "https://git.lumine.io/mythiccraft/model-engine-4/-/wikis/Skills/Mechanics/RootMotion",
+        "attributes": [
+            {
+                "name": [
+                    "w",
+                    "weight"
+                ],
+                "type": "PlaceholderDouble",
+                "description": "The weight for the root motion",
+                "link": "https://git.lumine.io/mythiccraft/model-engine-4/-/wikis/Skills/Mechanics/RootMotion",
+                "default_value": "-1"
+            },
+            {
+                "name": [
+                    "bw",
+                    "baseweight"
+                ],
+                "type": "PlaceholderDouble",
+                "description": "The base weight for the root motion",
+                "link": "https://git.lumine.io/mythiccraft/model-engine-4/-/wikis/Skills/Mechanics/RootMotion",
+                "default_value": "-1"
+            },
+            {
+                "name": [
+                    "ov",
+                    "override"
+                ],
+                "type": "PlaceholderBoolean",
+                "description": "Whether the root motion can override the base entity's position, moving the entity along with the animations. This can be turned \"on and off\" by repeatedly using this mechanic to enable or remove the override",
+                "link": "https://git.lumine.io/mythiccraft/model-engine-4/-/wikis/Skills/Mechanics/RootMotion",
                 "default_value": ""
             }
         ]

@@ -81,6 +81,41 @@ export class CallbackProvider<K extends string = 'default', A = void, R = void> 
     }
 }
 
+export class PromiseCallbackProvider<K extends string = 'default', V = void> {
+    private promises: Partial<Record<K, Promise<V>>> = {};
+    private resolvers: Partial<Record<K, (value: V) => void>> = {};
+    private resolvedValues = new Map<K, V>();
+
+    register(key: K): Promise<V> {
+        // Already resolved → return value immediately
+        if (this.resolvedValues.has(key)) {
+            return Promise.resolve(this.resolvedValues.get(key)!);
+        }
+
+        // Create promise if it doesn't exist
+        if (!this.promises[key]) {
+            this.promises[key] = new Promise<V>((resolve) => {
+                this.resolvers[key] = resolve;
+            });
+        }
+
+        return this.promises[key]!;
+    }
+
+    run(key: K, value: V): void {
+        // Idempotent: ignore repeated calls
+        if (this.resolvedValues.has(key)) {
+            return;
+        }
+
+        this.resolvedValues.set(key, value);
+        this.resolvers[key]?.(value);
+
+        delete this.resolvers[key];
+        delete this.promises[key];
+    }
+}
+
 type activationCallbackType = 'pre-activation' | 'post-activation';
 export const globalCallbacks = {
     activation: new CallbackProvider<activationCallbackType, vscode.ExtensionContext>(),

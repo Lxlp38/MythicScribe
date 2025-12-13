@@ -42,7 +42,7 @@ export async function activate(context: vscode.ExtensionContext) {
     // Run pre-activation callbacks
     globalCallbacks.activation.runCallbacks('pre-activation', context);
 
-    setEdcsUri();
+    setEdcsUri(context);
 
     // Check if the extension has been updated
     if (checkExtensionVersion()) {
@@ -55,19 +55,25 @@ export async function activate(context: vscode.ExtensionContext) {
     }
     await doVersionSpecificMigrations(vscode.ConfigurationTarget.Workspace);
 
-    loadDatasets();
+    loadDatasets(context);
 
     context.subscriptions.push(
         // Subscription Handler
         SubscriptionHelper.extensionEnabler,
 
         // Commands
-        vscode.commands.registerCommand('MythicScribe.addCustomDataset', addCustomDataset),
-        vscode.commands.registerCommand('MythicScribe.removeCustomDataset', removeCustomDataset),
-        vscode.commands.registerCommand('MythicScribe.createBundleDataset', createBundleDataset),
+        vscode.commands.registerCommand('MythicScribe.addCustomDataset', () =>
+            addCustomDataset(context)
+        ),
+        vscode.commands.registerCommand('MythicScribe.removeCustomDataset', () =>
+            removeCustomDataset(context)
+        ),
+        vscode.commands.registerCommand('MythicScribe.createBundleDataset', () =>
+            createBundleDataset(context)
+        ),
         vscode.commands.registerCommand('MythicScribe.openLogs', openLogs),
         vscode.commands.registerCommand('MythicScribe.loadDatasets', loadDatasets),
-        vscode.commands.registerCommand('MythicScribe.showNodeGraph', showNodeGraph),
+        vscode.commands.registerCommand('MythicScribe.showNodeGraph', () => showNodeGraph(context)),
         vscode.commands.registerCommand(
             'MythicScribe.putSelectionInsideInlineMetaskill',
             putSelectionInsideInlineMetaskill

@@ -1,5 +1,5 @@
 import * as vscode from 'vscode';
-import { ScribeEnumHandler } from '@common/datasets/ScribeEnum';
+import { getScribeEnumHandler } from '@common/datasets/ScribeEnum';
 import { ScribeMechanicHandler } from '@common/datasets/ScribeMechanic';
 
 import type { CommentTags } from './comment-parser';
@@ -28,7 +28,7 @@ export const CommentTagsSchema: Record<
         snippetString: () =>
             new vscode.SnippetString(
                 'param \{${1|Comma-Separated list of values,' +
-                    ScribeEnumHandler.getEnumList().join(',') +
+                    getScribeEnumHandler().getEnumList().join(',') +
                     '|}\} ${2:paramName} - ${3:description}'
             ),
     },

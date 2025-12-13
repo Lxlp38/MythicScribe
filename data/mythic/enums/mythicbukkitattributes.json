@@ -1,0 +1,98 @@
+{
+    "ATTACK_DAMAGE": {
+        "description": "Sets the damage dealt by melee attacks.\n1 damage equals to 0.5 hearts of damage dealt (without armor).\n```yml\ncustom_item:\nId: stick\nAttributes:\nAll:\nATTACK_DAMAGE: 0.2 ADD_SCALAR\n```"
+    },
+    "ATTACK_SPEED": {
+        "description": "Determines recharging rate of attack strength. Its value is the number of full-strength attacks per second.\n```yml\ncustom_item:\nId: stick\nAttributes:\nMainHand:\nATTACK_SPEED: 0.1 MULTIPLY\n```"
+    },
+    "MAX_HEALTH": {
+        "description": "The maximum health modifier the user can have when either holding or wearing the item.\n1 health equals to 0.5 hearts.\n```yml\ncustom_item:\nId: diamond_chestplate\nAttributes:\nMainHand:\nMAX_HEALTH: 2 ADD\n```"
+    },
+    "MOVEMENT_SPEED": {
+        "description": "Movement speed is the speed at which entities can move, but this is not the actual speed value in blocks/second. The entity's actual speed in blocks/second is a bit over 20 times this value.\n```yml\ncustom_item:\nId: wooden_sword\nAttributes:\nAll:\nMOVEMENT_SPEED: -0.2 MULTIPLY_BASE\n```"
+    },
+    "FLYING_SPEED": {
+        "description": "This attribute is a flight speed modifier in some unknown metric\n```yaml\ncustom_item:\nId: wooden_sword\nAttributes:\nAll:\nFLYING_SPEED: 1 ADD\n```"
+    },
+    "ATTACK_KNOCKBACK": {
+        "description": "Determines the knockback applied to attacks\n```yaml\ncustom_item:\nId: stick\nAttributes:\nMainHand:\nATTACK_KNOCKBACK: 1 ADD\n```"
+    },
+    "KNOCKBACK_RESISTANCE": {
+        "description": "Determines the scale of horizontal knockback resisted from attacks and projectiles. Vertical knockback is not affected. It does not affect explosions.\nThe resistance functions as a percentage from 0.0 (0% resistance) to 1.0 (100% resistance) (e.g. 0.4 is 40% resistance, meaning the attributed entity takes 60% of usual knockback)\n```yml\ncustom_item:\nId: diamond_chestplate\nAttributes:\nChest:\nKNOCKBACK_RESISTANCE: 2 MULTIPLY_BASE\n```"
+    },
+    "ARMOR": {
+        "description": "This attribute defines the [armor defense points](https://minecraft.wiki/w/Armor#Armor_points).\n1 armor is equal to 0.5 armor plates.\nArmor points above 20 will not be shown, and the actual cap is at 30.\n```yml\ncustom_item:\nId: diamond_chestplate\nAttributes:\nChest:\nARMOR: 2\n```"
+    },
+    "ARMOR_TOUGHNESS": {
+        "description": "Alters the damage reduction percentage of the armor attribute. [MC wiki](https://minecraft.wiki/Armor#Armor_toughness).\n```yml\ncustom_item:\nId: diamond_chestplate\nAttributes:\nChest:\nARMOR_TOUGHNESS: 0.5\n```"
+    },
+    "LUCK": {
+        "description": "Sets the amount of luck modifier of the item.\nThis modifier affects the [result of loot tables](https://minecraft.wiki/w/Attribute#Luck) and also the [mob drops](/drops/Drops).\n```yml\ncustom_item:\nId: stick\nAttributes:\nOffHand:\nLUCK: -10 ADD\n```"
+    },
+    "SCALE": {
+        "description": "The multiplier of the size of an entity\n```yml\ncustom_item:\nId: wooden_sword\nAttributes:\nAll:\nSCALE: 2 ADD\n```"
+    },
+    "FOLLOW_RANGE": {
+        "description": "This attribute determines the range in blocks within which a mob with this attribute targets players or other mobs to track. Exiting this range causes the mob to cease following the player/mob\n```yaml\ncustom_item:\nId: wooden_sword\nAttributes:\nAll:\nFOLLOW_RANGE: 1 ADD\n```"
+    },
+    "FALL_DAMAGE_MULTIPLIER": {
+        "description": "The amount of fall damage an entity takes as a multiplier\n```yml\ncustom_item:\nId: wooden_sword\nAttributes:\nAll:\nFALL_DAMAGE_MULTIPLIER: 2 ADD\n```"
+    },
+    "SAFE_FALL_DISTANCE": {
+        "description": "The number of blocks an entity can fall before fall damage starts to be accumulated. Also the minimum amount of blocks the entity has to fall to make falling particles and sounds\n```yml\ncustom_item:\nId: wooden_sword\nAttributes:\nAll:\nSAFE_FALL_DISTANCE: 2 ADD\n```"
+    },
+    "GRAVITY": {
+        "description": "The gravity affecting an entity in blocks per tick squared\n```yml\ncustom_item:\nId: wooden_sword\nAttributes:\nAll:\nGRAVITY: 2 ADD\n```"
+    },
+    "BLOCK_BREAK_SPEED": {
+        "description": "The speed the player can break blocks as a multiplier\n```yml\ncustom_item:\nId: wooden_sword\nAttributes:\nAll:\nBLOCK_BREAK_SPEED: 2 ADD\n```"
+    },
+    "ENTITY_INTERACTION_RANGE": {
+        "description": "The entity interaction range for players in blocks\n```yml\ncustom_item:\nId: wooden_sword\nAttributes:\nAll:\nENTITY_INTERACTION_RANGE: 2 ADD\n```"
+    },
+    "BLOCK_INTERACTION_RANGE": {
+        "description": "The block interaction range for players in blocks\n```yml\ncustom_item:\nId: wooden_sword\nAttributes:\nAll:\nBLOCK_INTERACTION_RANGE: 2 ADD\n```"
+    },
+    "JUMP_HEIGHT": {
+        "description": "This attribute determines the initial vertical velocity of an entity when they jump, in blocks per tick\n```yml\ncustom_item:\nId: wooden_sword\nAttributes:\nAll:\nJUMP_HEIGHT: 2 ADD\n```"
+    },
+    "STEP_HEIGHT": {
+        "description": "The maximum number of blocks that an entity can step up without jumping. Sneaking only prevents drops from heights that are higher than this attribute. This only happens if the height that the player is above a block is equal or less than the attribute\n```yml\ncustom_item:\nId: wooden_sword\nAttributes:\nAll:\nSTEP_HEIGHT: 2 ADD\n```"
+    },
+    "MAX_ABSORPTION": {
+        "description": "The maximum absorption of this entity.\nDetermines the highest health they may gain by the Absorption effect\n```yml\ncustom_item:\nId: wooden_sword\nAttributes:\nAll:\nMAX_ABSORPTION: 1 ADD\n```"
+    },
+    "BURNING_TIME": {
+        "description": "This attribute is a multiplier for how long an entity should remain on fire after being ignited.\nA value of 0 eliminates the burn time.\nIt has no impact on the burning time increase when staying in fire\n```yml\ncustom_item:\nId: wooden_sword\nAttributes:\nAll:\nBURNING_TIME: 1 ADD\n```"
+    },
+    "EXPLOSION_KNOCKBACK_RESISTANCE": {
+        "description": "This attribute defines what percentage of knockback from explosions an entity resists.\nA value of 1 eliminates the knockback\n```yml\ncustom_item:\nId: wooden_sword\nAttributes:\nAll:\nEXPLOSION_KNOCKBACK_RESISTANCE: 1 ADD\n```"
+    },
+    "MOVEMENT_EFFICIENCY": {
+        "description": "This attribute is a factor to improve walking on terrain that slows down movement.\nA value of 1 removes the slowdown\n```yml\ncustom_item:\nId: wooden_sword\nAttributes:\nAll:\nMOVEMENT_EFFICIENCY: 1 ADD\n```"
+    },
+    "OXYGEN": {
+        "description": "This attribute determines the chance that an entity's Air data tag decreases in any given game tick, while the entity is underwater. The chance is given by $`\\frac{1}{(OXYGEN + 1)}`$\n```yml\ncustom_item:\nId: wooden_sword\nAttributes:\nAll:\nOXYGEN: 1 ADD\n```"
+    },
+    "SNEAKING_SPEED": {
+        "description": "This attribute determines the movement speed factor when sneaking or crawling.\nA factor of 1 means sneaking or crawling is as fast as walking, a factor of 0 means unable to move while sneaking or crawling.\n```yml\ncustom_item:\nId: wooden_sword\nAttributes:\nAll:\nSNEAKING_SPEED: 1 ADD\n```"
+    },
+    "WATER_MOVEMENT_EFFICIENCY": {
+        "description": "This attribute is a factor of movement speed when submerged. A higher value lets entities move faster. This represents only the submersion factor itself; other factors (such as sprinting) also apply.\n```yml\ncustom_item:\nId: wooden_sword\nAttributes:\nAll:\nWATER_MOVEMENT_EFFICIENCY: 1 ADD\n```"
+    },
+    "SUBMERGED_MINING_SPEED": {
+        "description": "This attribute determines the mining speed factor when underwater. A factor of 1 means mining as fast as on land, a factor of 0 means unable to mine while submerged. This represents only the submersion factor itself; other factors (such as not touching the ground) also apply.\n```yml\ncustom_item:\nId: wooden_sword\nAttributes:\nAll:\nSUBMERGED_MINING_SPEED: 1 ADD\n```"
+    },
+    "MINING_EFFICIENCY": {
+        "description": "This attribute is a factor to speed up the mining of blocks when using the right tool.\n```yml\ncustom_item:\nId: wooden_sword\nAttributes:\nAll:\nMINING_EFFICIENCY: 1 ADD\n```"
+    },
+    "TEMPT_RANGE": {
+        "description": "This attribute determines the range, in blocks, in which mobs can be tempted. When tempted, mobs follow the player while the player is holding a specific item.\n```yml\ncustom_item:\nId: wooden_sword\nAttributes:\nAll:\nTEMPT_RANGE: 1 ADD\n```"
+    },
+    "SWEEPING_DAMAGE_RATIO": {
+        "description": "This attribute determines how much of the base attack damage gets transferred to secondary targets in a sweep attack. This is in addition to the base attack of the sweep damage itself. A value of 1 means that all of the base attack damage is transferred (sweep damage is attack_damage + 1)\n```yml\ncustom_item:\nId: wooden_sword\nAttributes:\nAll:\nSWEEPING_DAMAGE_RATIO: 0.5 ADD\n```"
+    },
+    "SPAWN_REINFORCEMENTS": {
+        "description": "This attribute determines the chance for a zombie to spawn another zombie when attacked\n```yml\ncustom_item:\nId: wooden_sword\nAttributes:\nAll:\nSPAWN_REINFORCEMENTS: 0 MULTIPLY\n```"
+    }
+}

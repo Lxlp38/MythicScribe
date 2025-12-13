@@ -29,12 +29,11 @@ function checkJsons(dir: string, score: Score) {
 			}
 		}
 	});
-
 }
 
 export function checkJsonFiles() {
     console.log('Checking JSON files in data directory:', dataDir);
-        const score = {
+    const score = {
         valid: 0,
         invalid: 0
     }
@@ -43,7 +42,10 @@ export function checkJsonFiles() {
     console.log(`Summary: ${score.valid} valid JSON files, ${score.invalid} invalid JSON files.`);
     if (score.invalid > 0) {
         console.error('❌ Please fix the invalid JSON files listed above.');
+        throw new Error('Invalid JSON files found.');
     } else {
         console.log('✅ All JSON files are valid!');
     }
+
+    return score;
 }
