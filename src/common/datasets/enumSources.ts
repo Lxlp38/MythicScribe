@@ -1,32 +1,41 @@
-import atlasJson from './atlas.json';
+import atlasJson from '../../../data/atlas.json';
 
 export type AtlasNode = { name: string } & (
-    | { type: 'file' }
+    | { type: 'file'; hash: string }
     | { type: 'directory'; children: AtlasNode[] }
 );
 
-class AtlasregistryNode {
-    public type: 'file' | 'directory';
-    public name: string;
-    public children?: AtlasregistryNode[];
-    constructor(public node: AtlasNode) {
-        this.type = node.type;
-        this.name = node.name;
+export class AtlasNodeImpl {
+    public children?: AtlasNodeImpl[];
+    constructor(
+        public node: AtlasNode,
+        public root: string = ''
+    ) {
         if (node.type === 'directory' && node.children) {
-            this.children = node.children.map((child) => new AtlasregistryNode(child));
+            this.children = node.children.map(
+                (child) =>
+                    new AtlasNodeImpl(child, this.root ? this.root + '/' + node.name : node.name)
+            );
         }
     }
 
-    public getNode(path: string): AtlasregistryNode | null {
+    get path(): string {
+        return this.root ? this.root + '/' + this.node.name : this.node.name;
+    }
+    get identifier(): string {
+        return this.node.name.split('.')[0].toLowerCase();
+    }
+
+    public getNode(path: string): AtlasNodeImpl | null {
         const parts = path.split('/').filter((part) => part.length > 0);
-        let currentNode: AtlasregistryNode = this;
+        let currentNode: AtlasNodeImpl = this;
 
         for (const part of parts) {
-            if (currentNode.type !== 'directory' || !currentNode.children) {
+            if (currentNode.node.type !== 'directory' || !currentNode.children) {
                 return null;
             }
 
-            const nextNode = currentNode.children.find((child) => child.name === part);
+            const nextNode = currentNode.children.find((child) => child.node.name === part);
             if (!nextNode) {
                 return null;
             }
@@ -37,39 +46,44 @@ class AtlasregistryNode {
         return currentNode;
     }
 
-    public getFirstChild(): AtlasregistryNode | null {
-        if (this.type === 'directory' && this.children && this.children.length > 0) {
+    public getFirstChild(): AtlasNodeImpl | null {
+        if (this.node.type === 'directory' && this.children && this.children.length > 0) {
             return this.children[0];
         }
         return null;
     }
-    public getLastChild(): AtlasregistryNode | null {
-        if (this.type === 'directory' && this.children && this.children.length > 0) {
+    public getLastChild(): AtlasNodeImpl | null {
+        if (this.node.type === 'directory' && this.children && this.children.length > 0) {
             return this.children[this.children.length - 1];
         }
         return null;
     }
 
-    public getFiles(removeSelfName: boolean = true): string[] {
-        if (this.type === 'file') {
-            return [removeSelfName ? '' : this.name];
-        } else if (this.type === 'directory' && this.children) {
-            let paths: string[] = [];
+    public getFiles(): AtlasNodeImpl[] {
+        if (this.node.type === 'file') {
+            return [this];
+        } else if (this.node.type === 'directory' && this.children) {
+            let nodes: AtlasNodeImpl[] = [];
             for (const child of this.children) {
-                const childFiles = child.getFiles(false);
-                paths = paths.concat(
-                    childFiles.map((p) => (removeSelfName ? '' : this.name + '/') + p)
-                );
+                const childFiles = child.getFiles();
+                nodes = nodes.concat(childFiles);
             }
-            return paths;
+            return nodes;
         }
         return [];
     }
 
+    public getHash(): string | null {
+        if (this.node.type === 'file') {
+            return this.node.hash;
+        }
+        return null;
+    }
+
     public printTree(indent: string = ' '): void {
         // eslint-disable-next-line no-console
-        console.log(`${indent}- ${this.name} (${this.type})`);
-        if (this.type === 'directory' && this.children) {
+        console.log(`${indent}- ${this.node.name} (${this.node.type})`);
+        if (this.node.type === 'directory' && this.children) {
             for (const child of this.children) {
                 child.printTree(indent + '  ');
             }
@@ -77,12 +91,9 @@ class AtlasregistryNode {
     }
 }
 
-export const atlasRegistry = new AtlasregistryNode(atlasJson as AtlasNode);
+export const atlasRegistry = new AtlasNodeImpl(atlasJson as AtlasNode);
 
-export const volatileEnums: string[] =
-    atlasRegistry.getNode('versions/')?.getLastChild()?.getFiles() || [];
-
-export const localEnums: string[] = atlasRegistry.getNode('mythic/')?.getFiles(false) || [];
+export const localEnums: AtlasNodeImpl[] = atlasRegistry.getNode('mythic')?.getFiles() || [];
 
 export enum scriptedEnums {
     Color = 'color',

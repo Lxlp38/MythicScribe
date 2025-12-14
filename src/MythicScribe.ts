@@ -36,7 +36,7 @@ export async function activate(context: vscode.ExtensionContext) {
     ConfigProvider.addContextSubscriptions(context);
 
     const enumHandler = getScribeEnumHandler();
-    enumHandler.setContext(context);
+    enumHandler.context.value = context;
 
     nodeDecorations.addContext(context);
     loadNodeEvents(context);

@@ -2,11 +2,13 @@ import * as vscode from 'vscode';
 import { PromiseCallbackProvider } from '@common/providers/callbackProvider';
 import { getMinecraftVersion } from '@common/providers/configProvider';
 import { fetchJsonFromURL, fetchJsonFromLocalFile } from '@common/utils/uriutils';
+import { HangingObject } from '@common/utils/HangingObject';
+import { MinecraftVersions } from '@common/packageData';
 
 import { ScribeCloneableFile } from './ScribeCloneableFile';
 import { getLogger } from '../providers/loggerProvider';
 import { insertColor } from '../color/colorprovider';
-import { localEnums, scriptedEnums, volatileEnums } from './enumSources';
+import { AtlasNodeImpl, atlasRegistry, localEnums, scriptedEnums } from './enumSources';
 import { timeCounter } from '../utils/timeUtils';
 import { Attribute } from './types/Attribute';
 import { EnumDatasetValue, Enum } from './types/Enum';
@@ -119,34 +121,19 @@ export class StaticScribeEnum extends AbstractScribeEnum {
         fetchJsonFromLocalFile<Enum>(vscode.Uri.parse(path)).then((data) => this.setDataset(data));
     }
 }
-class LocalScribeEnum extends AbstractScribeEnum {
+class FileScribeEnum extends AbstractScribeEnum {
     constructor({
-        identifier,
-        path,
         context,
+        atlasNode,
     }: {
-        identifier: string;
-        path: string;
         context: vscode.ExtensionContext;
+        atlasNode: AtlasNodeImpl;
     }) {
-        const localPath = vscode.Uri.joinPath(context.extensionUri, 'data', path);
-        super({ identifier, path: localPath.fsPath });
-        new ScribeCloneableFile<Enum>(localPath).get().then((data) => this.setDataset(data));
-    }
-}
-class VolatileScribeEnum extends LocalScribeEnum {
-    constructor({
-        identifier,
-        path,
-        version,
-        context,
-    }: {
-        identifier: string;
-        path: string;
-        version: string;
-        context: vscode.ExtensionContext;
-    }) {
-        super({ identifier, path: `versions/${version}/${path}`, context });
+        const localPath = vscode.Uri.joinPath(context.extensionUri, atlasNode.path);
+        super({ identifier: atlasNode.identifier, path: localPath.fsPath });
+        new ScribeCloneableFile<Enum>(context, atlasNode)
+            .get()
+            .then((data) => this.setDataset(data));
     }
 }
 export class WebScribeEnum extends AbstractScribeEnum {
@@ -188,44 +175,33 @@ class ScriptedEnum extends AbstractScribeEnum {
     }
 }
 
+export function generateVolatileEnumAtlasNodes(version?: MinecraftVersions) {
+    const targetVersion = version || getMinecraftVersion();
+    return atlasRegistry.getNode('versions')?.getNode(targetVersion)?.getFiles() || [];
+}
+
 export class ScribeEnumHandlerImpl {
-    version = getMinecraftVersion();
     enums = new Map<string, AbstractScribeEnum>();
     enumCallback = new PromiseCallbackProvider<string, AbstractScribeEnum>();
 
-    private context?: vscode.ExtensionContext;
-    setContext(ctx: vscode.ExtensionContext) {
-        this.context = ctx;
-    }
-
-    enumDefinitions = [
-        {
-            clazz: VolatileScribeEnum,
-            items: volatileEnums,
-        },
-        {
-            clazz: LocalScribeEnum,
-            items: localEnums,
-        },
-    ] as const;
+    public context = new HangingObject<vscode.ExtensionContext>();
 
     loadEnumDatasets(): void {
         this.emptyDatasets();
         const time = timeCounter();
         const targetVersion = getMinecraftVersion();
-        this.version = targetVersion;
         getLogger().debug('Loading Enum Datasets. Target Minecraft Version:', targetVersion);
-        this.enumDefinitions.forEach(({ clazz, items }) => {
-            items.forEach((item) => {
-                if (Array.isArray(item)) {
-                    const [identifier, path] = item;
-                    this.addEnum(clazz, identifier, path);
-                } else {
-                    const identifier = item.split('/').pop()!.split('.')[0];
-                    this.addEnum(clazz, identifier, item);
-                }
-            });
+
+        localEnums.forEach((item) => {
+            this.addAtlasNodeEnum(FileScribeEnum, item);
         });
+
+        const volatileFiles = generateVolatileEnumAtlasNodes(targetVersion);
+
+        volatileFiles.forEach((item) => {
+            this.addAtlasNodeEnum(FileScribeEnum, item);
+        });
+
         this.initializeScriptedEnums();
         getLogger().debug('Loaded Enum Datasets in', time.stop());
     }
@@ -238,28 +214,39 @@ export class ScribeEnumHandlerImpl {
         return Array.from(this.enums.keys());
     }
 
+    addAtlasNodeEnum(
+        oclass: new (params: {
+            context: vscode.ExtensionContext;
+            atlasNode: AtlasNodeImpl;
+        }) => AbstractScribeEnum,
+        atlasNode: AtlasNodeImpl
+    ) {
+        const enumObject = new oclass({
+            atlasNode,
+            context: this.context.value,
+        });
+        this.handleNewEnum(enumObject, atlasNode.identifier);
+    }
+
     addEnum(
         oclass: new (params: {
             identifier: string;
             path: string;
-            version: string;
             context: vscode.ExtensionContext;
+            atlasNode?: AtlasNodeImpl;
         }) => AbstractScribeEnum,
         identifier: string,
         path: string
     ) {
-        if (!this.context) {
-            getLogger().error(
-                `Cannot add Enum ${identifier} because ScribeEnumHandler context is not set`
-            );
-            throw new Error('ScribeEnumHandler context is not set');
-        }
         const enumObject = new oclass({
-            identifier: identifier.toLowerCase(),
+            identifier,
             path,
-            version: this.version,
-            context: this.context,
+            context: this.context.value,
         });
+        this.handleNewEnum(enumObject, identifier);
+    }
+
+    private handleNewEnum(enumObject: AbstractScribeEnum, identifier: string) {
         if (this.enums.has(identifier.toLowerCase())) {
             getLogger().debug(`Enum ${identifier} already exists, adding new values to it instead`);
             this.expandEnum(identifier, enumObject);

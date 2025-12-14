@@ -13,14 +13,19 @@ import { GITHUB_API_COMMITS_BASE_URL } from '@common/constants';
 import { stateControlBooleanProvider } from '@common/stateDataProvider';
 
 import { edcsUri } from './edcsUri';
+import { AtlasNodeImpl } from './enumSources';
 
 export class ScribeCloneableFile<T> {
+    private localHash: string | null = null;
     relativePath: string;
     localUri: vscode.Uri;
     githubUri: vscode.Uri;
     edcsUri: vscode.Uri;
 
-    constructor(uri: vscode.Uri) {
+    constructor(context: vscode.ExtensionContext, atlasNode: AtlasNodeImpl) {
+        getLogger().trace('ScribeCloneableFile Init:', JSON.stringify(atlasNode));
+        const uri = vscode.Uri.joinPath(context.extensionUri, atlasNode.path);
+        this.localHash = atlasNode.node.type === 'file' ? atlasNode.node.hash : null;
         this.relativePath = getRelativePath(uri);
         this.localUri = uri;
         this.githubUri = vscode.Uri.parse(convertRelativePathToGitHubUrl(this.relativePath));

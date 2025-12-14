@@ -1,6 +1,7 @@
 import * as path from "path";
 import * as fs from "fs";
 import { AtlasNode } from "../../src/common/datasets/enumSources";
+import crypto from "crypto";
 
 function buildTree(dirPath: string): AtlasNode {
     const node: AtlasNode = {
@@ -17,9 +18,12 @@ function buildTree(dirPath: string): AtlasNode {
         if (entryStat.isDirectory()) {
             node.children!.push(buildTree(fullPath));
         } else {
+            const content = fs.readFileSync(fullPath, 'utf8');
+            const hash = generateEnumHash(entry, content);
             node.children!.push({
                 name: entry,
-                type: "file"
+                type: "file",
+                hash: hash
             });
         }
     }
@@ -47,9 +51,13 @@ export function generateEnumAtlas() {
 
     const node = run(dir);
     if (node) {
-        const outputPath = path.join(__dirname, '../../src/common/datasets/atlas.json');
+        const outputPath = path.join(__dirname, '../../data/atlas.json');
         fs.mkdirSync(path.dirname(outputPath), { recursive: true });
         fs.writeFileSync(outputPath, JSON.stringify(node, null, undefined), 'utf8');
         console.log(`Enum atlas generated at ${outputPath}`);
     }
+}
+
+function generateEnumHash(name: string, content: string): string {
+    return crypto.createHash('sha256').update(name + content).digest('hex');
 }

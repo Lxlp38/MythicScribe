@@ -1,347 +1,347 @@
 [
   {
     "id": "achievementcriteria",
-    "path": "mythic/achievementcriteria.json",
+    "path": "data/mythic/achievementcriteria.json",
     "type": "Static"
   },
   {
     "id": "audience",
-    "path": "mythic/audience.json",
+    "path": "data/mythic/audience.json",
     "type": "Static"
   },
   {
     "id": "culltype",
-    "path": "mythic/culltype.json",
+    "path": "data/mythic/culltype.json",
     "type": "Static"
   },
   {
     "id": "dropmethod",
-    "path": "mythic/dropmethod.json",
+    "path": "data/mythic/dropmethod.json",
     "type": "Static"
   },
   {
     "id": "mythicbukkitattributes",
-    "path": "mythic/enums/mythicbukkitattributes.json",
+    "path": "data/mythic/enums/mythicbukkitattributes.json",
     "type": "Static"
   },
   {
     "id": "equipslot",
-    "path": "mythic/equipslot.json",
+    "path": "data/mythic/equipslot.json",
     "type": "Static"
   },
   {
     "id": "fluid",
-    "path": "mythic/fluid.json",
+    "path": "data/mythic/fluid.json",
     "type": "Static"
   },
   {
     "id": "furnitureorientation",
-    "path": "mythic/furnitureorientation.json",
+    "path": "data/mythic/furnitureorientation.json",
     "type": "Static"
   },
   {
     "id": "furnitureplacement",
-    "path": "mythic/furnitureplacement.json",
+    "path": "data/mythic/furnitureplacement.json",
     "type": "Static"
   },
   {
     "id": "furnituretype",
-    "path": "mythic/furnituretype.json",
+    "path": "data/mythic/furnituretype.json",
     "type": "Static"
   },
   {
     "id": "glowcolor",
-    "path": "mythic/glowcolor.json",
+    "path": "data/mythic/glowcolor.json",
     "type": "Static"
   },
   {
     "id": "itemrarity",
-    "path": "mythic/itemrarity.json",
+    "path": "data/mythic/itemrarity.json",
     "type": "Static"
   },
   {
     "id": "itemtype",
-    "path": "mythic/itemtype.json",
+    "path": "data/mythic/itemtype.json",
     "type": "Static"
   },
   {
     "id": "addtrade_action",
-    "path": "mythic/mechanicScoped/addtrade_action.json",
+    "path": "data/mythic/mechanicScoped/addtrade_action.json",
     "type": "Static"
   },
   {
     "id": "displaytransformation_action",
-    "path": "mythic/mechanicScoped/displaytransformation_action.json",
+    "path": "data/mythic/mechanicScoped/displaytransformation_action.json",
     "type": "Static"
   },
   {
     "id": "modifyprojectile_action",
-    "path": "mythic/mechanicScoped/modifyprojectile_action.json",
+    "path": "data/mythic/mechanicScoped/modifyprojectile_action.json",
     "type": "Static"
   },
   {
     "id": "modifyprojectile_trait",
-    "path": "mythic/mechanicScoped/modifyprojectile_trait.json",
+    "path": "data/mythic/mechanicScoped/modifyprojectile_trait.json",
     "type": "Static"
   },
   {
     "id": "projectile_bullettype",
-    "path": "mythic/mechanicScoped/projectile_bullettype.json",
+    "path": "data/mythic/mechanicScoped/projectile_bullettype.json",
     "type": "Static"
   },
   {
     "id": "projectile_highaccuracymode",
-    "path": "mythic/mechanicScoped/projectile_highaccuracymode.json",
+    "path": "data/mythic/mechanicScoped/projectile_highaccuracymode.json",
     "type": "Static"
   },
   {
     "id": "projectile_type",
-    "path": "mythic/mechanicScoped/projectile_type.json",
+    "path": "data/mythic/mechanicScoped/projectile_type.json",
     "type": "Static"
   },
   {
     "id": "setmaxhealth_mode",
-    "path": "mythic/mechanicScoped/setmaxhealth_mode.json",
+    "path": "data/mythic/mechanicScoped/setmaxhealth_mode.json",
     "type": "Static"
   },
   {
     "id": "shootfireball_type",
-    "path": "mythic/mechanicScoped/shootfireball_type.json",
+    "path": "data/mythic/mechanicScoped/shootfireball_type.json",
     "type": "Static"
   },
   {
     "id": "shoot_type",
-    "path": "mythic/mechanicScoped/shoot_type.json",
+    "path": "data/mythic/mechanicScoped/shoot_type.json",
     "type": "Static"
   },
   {
     "id": "threat_mode",
-    "path": "mythic/mechanicScoped/threat_mode.json",
+    "path": "data/mythic/mechanicScoped/threat_mode.json",
     "type": "Static"
   },
   {
     "id": "time_mode",
-    "path": "mythic/mechanicScoped/time_mode.json",
+    "path": "data/mythic/mechanicScoped/time_mode.json",
     "type": "Static"
   },
   {
     "id": "velocity_mode",
-    "path": "mythic/mechanicScoped/velocity_mode.json",
+    "path": "data/mythic/mechanicScoped/velocity_mode.json",
     "type": "Static"
   },
   {
     "id": "moboption",
-    "path": "mythic/moboption.json",
+    "path": "data/mythic/moboption.json",
     "type": "Static"
   },
   {
     "id": "mythicentity",
-    "path": "mythic/mythicentity.json",
+    "path": "data/mythic/mythicentity.json",
     "type": "Static"
   },
   {
     "id": "paperattributeoperation",
-    "path": "mythic/paperattributeoperation.json",
+    "path": "data/mythic/paperattributeoperation.json",
     "type": "Static"
   },
   {
     "id": "particle",
-    "path": "mythic/particle.json",
+    "path": "data/mythic/particle.json",
     "type": "Static"
   },
   {
     "id": "placeholder",
-    "path": "mythic/placeholder.json",
+    "path": "data/mythic/placeholder.json",
     "type": "Static"
   },
   {
     "id": "randomspawnaction",
-    "path": "mythic/randomspawnaction.json",
+    "path": "data/mythic/randomspawnaction.json",
     "type": "Static"
   },
   {
     "id": "randomspawnpositiontype",
-    "path": "mythic/randomspawnpositiontype.json",
+    "path": "data/mythic/randomspawnpositiontype.json",
     "type": "Static"
   },
   {
     "id": "recipetype",
-    "path": "mythic/recipetype.json",
+    "path": "data/mythic/recipetype.json",
     "type": "Static"
   },
   {
     "id": "scoreaction",
-    "path": "mythic/scoreaction.json",
+    "path": "data/mythic/scoreaction.json",
     "type": "Static"
   },
   {
     "id": "shape",
-    "path": "mythic/shape.json",
+    "path": "data/mythic/shape.json",
     "type": "Static"
   },
   {
     "id": "shapeadv",
-    "path": "mythic/shapeadv.json",
+    "path": "data/mythic/shapeadv.json",
     "type": "Static"
   },
   {
     "id": "statexecutionpoint",
-    "path": "mythic/statexecutionpoint.json",
+    "path": "data/mythic/statexecutionpoint.json",
     "type": "Static"
   },
   {
     "id": "statsmodifier",
-    "path": "mythic/statsmodifier.json",
+    "path": "data/mythic/statsmodifier.json",
     "type": "Static"
   },
   {
     "id": "stattype",
-    "path": "mythic/stattype.json",
+    "path": "data/mythic/stattype.json",
     "type": "Static"
   },
   {
     "id": "variableplaceholdermetakeyword",
-    "path": "mythic/variableplaceholdermetakeyword.json",
+    "path": "data/mythic/variableplaceholdermetakeyword.json",
     "type": "Static"
   },
   {
     "id": "variablescope",
-    "path": "mythic/variablescope.json",
+    "path": "data/mythic/variablescope.json",
     "type": "Static"
   },
   {
     "id": "variabletype",
-    "path": "mythic/variabletype.json",
+    "path": "data/mythic/variabletype.json",
     "type": "Static"
   },
   {
     "id": "sound",
-    "path": "minecraft/sound.json",
+    "path": "sound",
     "type": "Volatile"
   },
   {
     "id": "advancementdisplayframe",
-    "path": "paper/advancementdisplayframe.json",
+    "path": "advancementdisplayframe",
     "type": "Volatile"
   },
   {
     "id": "barcolor",
-    "path": "paper/barcolor.json",
+    "path": "barcolor",
     "type": "Volatile"
   },
   {
     "id": "barstyle",
-    "path": "paper/barstyle.json",
+    "path": "barstyle",
     "type": "Volatile"
   },
   {
     "id": "billboard",
-    "path": "paper/billboard.json",
+    "path": "billboard",
     "type": "Volatile"
   },
   {
     "id": "blockface",
-    "path": "paper/blockface.json",
+    "path": "blockface",
     "type": "Volatile"
   },
   {
     "id": "damagecause",
-    "path": "paper/damagecause.json",
+    "path": "damagecause",
     "type": "Volatile"
   },
   {
     "id": "dragonbattlerespawnphase",
-    "path": "paper/dragonbattlerespawnphase.json",
+    "path": "dragonbattlerespawnphase",
     "type": "Volatile"
   },
   {
     "id": "dye",
-    "path": "paper/dye.json",
+    "path": "dye",
     "type": "Volatile"
   },
   {
     "id": "enchantment",
-    "path": "paper/enchantment.json",
+    "path": "enchantment",
     "type": "Volatile"
   },
   {
     "id": "enderdragonphase",
-    "path": "paper/enderdragonphase.json",
+    "path": "enderdragonphase",
     "type": "Volatile"
   },
   {
     "id": "entitypose",
-    "path": "paper/entitypose.json",
+    "path": "entitypose",
     "type": "Volatile"
   },
   {
     "id": "entitytype",
-    "path": "paper/entitytype.json",
+    "path": "entitytype",
     "type": "Volatile"
   },
   {
     "id": "fireworkeffecttype",
-    "path": "paper/fireworkeffecttype.json",
+    "path": "fireworkeffecttype",
     "type": "Volatile"
   },
   {
     "id": "fluidcollisionmode",
-    "path": "paper/fluidcollisionmode.json",
+    "path": "fluidcollisionmode",
     "type": "Volatile"
   },
   {
     "id": "gamemode",
-    "path": "paper/gamemode.json",
+    "path": "gamemode",
     "type": "Volatile"
   },
   {
     "id": "itemdisplaytransform",
-    "path": "paper/itemdisplaytransform.json",
+    "path": "itemdisplaytransform",
     "type": "Volatile"
   },
   {
     "id": "itemflag",
-    "path": "paper/itemflag.json",
+    "path": "itemflag",
     "type": "Volatile"
   },
   {
     "id": "itemuseanimation",
-    "path": "paper/itemuseanimation.json",
+    "path": "itemuseanimation",
     "type": "Volatile"
   },
   {
     "id": "material",
-    "path": "paper/material.json",
+    "path": "material",
     "type": "Volatile"
   },
   {
     "id": "paperattribute",
-    "path": "paper/paperattribute.json",
+    "path": "paperattribute",
     "type": "Volatile"
   },
   {
     "id": "potioneffecttype",
-    "path": "paper/potioneffecttype.json",
+    "path": "potioneffecttype",
     "type": "Volatile"
   },
   {
     "id": "soundcategory",
-    "path": "paper/soundcategory.json",
+    "path": "soundcategory",
     "type": "Volatile"
   },
   {
     "id": "spawnreason",
-    "path": "paper/spawnreason.json",
+    "path": "spawnreason",
     "type": "Volatile"
   },
   {
     "id": "textalignment",
-    "path": "paper/textalignment.json",
+    "path": "textalignment",
     "type": "Volatile"
   },
   {
     "id": "worldenvironment",
-    "path": "paper/worldenvironment.json",
+    "path": "worldenvironment",
     "type": "Volatile"
   },
   {

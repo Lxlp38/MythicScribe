@@ -1,277 +1,277 @@
 # `achievementcriteria`
-### Path: `mythic/achievementcriteria.json`
+### Path: `data/mythic/achievementcriteria.json`
 ### Type: `Static`
 
 # `audience`
-### Path: `mythic/audience.json`
+### Path: `data/mythic/audience.json`
 ### Type: `Static`
 
 # `culltype`
-### Path: `mythic/culltype.json`
+### Path: `data/mythic/culltype.json`
 ### Type: `Static`
 
 # `dropmethod`
-### Path: `mythic/dropmethod.json`
+### Path: `data/mythic/dropmethod.json`
 ### Type: `Static`
 
 # `mythicbukkitattributes`
-### Path: `mythic/enums/mythicbukkitattributes.json`
+### Path: `data/mythic/enums/mythicbukkitattributes.json`
 ### Type: `Static`
 
 # `equipslot`
-### Path: `mythic/equipslot.json`
+### Path: `data/mythic/equipslot.json`
 ### Type: `Static`
 
 # `fluid`
-### Path: `mythic/fluid.json`
+### Path: `data/mythic/fluid.json`
 ### Type: `Static`
 
 # `furnitureorientation`
-### Path: `mythic/furnitureorientation.json`
+### Path: `data/mythic/furnitureorientation.json`
 ### Type: `Static`
 
 # `furnitureplacement`
-### Path: `mythic/furnitureplacement.json`
+### Path: `data/mythic/furnitureplacement.json`
 ### Type: `Static`
 
 # `furnituretype`
-### Path: `mythic/furnituretype.json`
+### Path: `data/mythic/furnituretype.json`
 ### Type: `Static`
 
 # `glowcolor`
-### Path: `mythic/glowcolor.json`
+### Path: `data/mythic/glowcolor.json`
 ### Type: `Static`
 
 # `itemrarity`
-### Path: `mythic/itemrarity.json`
+### Path: `data/mythic/itemrarity.json`
 ### Type: `Static`
 
 # `itemtype`
-### Path: `mythic/itemtype.json`
+### Path: `data/mythic/itemtype.json`
 ### Type: `Static`
 
 # `addtrade_action`
-### Path: `mythic/mechanicScoped/addtrade_action.json`
+### Path: `data/mythic/mechanicScoped/addtrade_action.json`
 ### Type: `Static`
 
 # `displaytransformation_action`
-### Path: `mythic/mechanicScoped/displaytransformation_action.json`
+### Path: `data/mythic/mechanicScoped/displaytransformation_action.json`
 ### Type: `Static`
 
 # `modifyprojectile_action`
-### Path: `mythic/mechanicScoped/modifyprojectile_action.json`
+### Path: `data/mythic/mechanicScoped/modifyprojectile_action.json`
 ### Type: `Static`
 
 # `modifyprojectile_trait`
-### Path: `mythic/mechanicScoped/modifyprojectile_trait.json`
+### Path: `data/mythic/mechanicScoped/modifyprojectile_trait.json`
 ### Type: `Static`
 
 # `projectile_bullettype`
-### Path: `mythic/mechanicScoped/projectile_bullettype.json`
+### Path: `data/mythic/mechanicScoped/projectile_bullettype.json`
 ### Type: `Static`
 
 # `projectile_highaccuracymode`
-### Path: `mythic/mechanicScoped/projectile_highaccuracymode.json`
+### Path: `data/mythic/mechanicScoped/projectile_highaccuracymode.json`
 ### Type: `Static`
 
 # `projectile_type`
-### Path: `mythic/mechanicScoped/projectile_type.json`
+### Path: `data/mythic/mechanicScoped/projectile_type.json`
 ### Type: `Static`
 
 # `setmaxhealth_mode`
-### Path: `mythic/mechanicScoped/setmaxhealth_mode.json`
+### Path: `data/mythic/mechanicScoped/setmaxhealth_mode.json`
 ### Type: `Static`
 
 # `shootfireball_type`
-### Path: `mythic/mechanicScoped/shootfireball_type.json`
+### Path: `data/mythic/mechanicScoped/shootfireball_type.json`
 ### Type: `Static`
 
 # `shoot_type`
-### Path: `mythic/mechanicScoped/shoot_type.json`
+### Path: `data/mythic/mechanicScoped/shoot_type.json`
 ### Type: `Static`
 
 # `threat_mode`
-### Path: `mythic/mechanicScoped/threat_mode.json`
+### Path: `data/mythic/mechanicScoped/threat_mode.json`
 ### Type: `Static`
 
 # `time_mode`
-### Path: `mythic/mechanicScoped/time_mode.json`
+### Path: `data/mythic/mechanicScoped/time_mode.json`
 ### Type: `Static`
 
 # `velocity_mode`
-### Path: `mythic/mechanicScoped/velocity_mode.json`
+### Path: `data/mythic/mechanicScoped/velocity_mode.json`
 ### Type: `Static`
 
 # `moboption`
-### Path: `mythic/moboption.json`
+### Path: `data/mythic/moboption.json`
 ### Type: `Static`
 
 # `mythicentity`
-### Path: `mythic/mythicentity.json`
+### Path: `data/mythic/mythicentity.json`
 ### Type: `Static`
 
 # `paperattributeoperation`
-### Path: `mythic/paperattributeoperation.json`
+### Path: `data/mythic/paperattributeoperation.json`
 ### Type: `Static`
 
 # `particle`
-### Path: `mythic/particle.json`
+### Path: `data/mythic/particle.json`
 ### Type: `Static`
 
 # `placeholder`
-### Path: `mythic/placeholder.json`
+### Path: `data/mythic/placeholder.json`
 ### Type: `Static`
 
 # `randomspawnaction`
-### Path: `mythic/randomspawnaction.json`
+### Path: `data/mythic/randomspawnaction.json`
 ### Type: `Static`
 
 # `randomspawnpositiontype`
-### Path: `mythic/randomspawnpositiontype.json`
+### Path: `data/mythic/randomspawnpositiontype.json`
 ### Type: `Static`
 
 # `recipetype`
-### Path: `mythic/recipetype.json`
+### Path: `data/mythic/recipetype.json`
 ### Type: `Static`
 
 # `scoreaction`
-### Path: `mythic/scoreaction.json`
+### Path: `data/mythic/scoreaction.json`
 ### Type: `Static`
 
 # `shape`
-### Path: `mythic/shape.json`
+### Path: `data/mythic/shape.json`
 ### Type: `Static`
 
 # `shapeadv`
-### Path: `mythic/shapeadv.json`
+### Path: `data/mythic/shapeadv.json`
 ### Type: `Static`
 
 # `statexecutionpoint`
-### Path: `mythic/statexecutionpoint.json`
+### Path: `data/mythic/statexecutionpoint.json`
 ### Type: `Static`
 
 # `statsmodifier`
-### Path: `mythic/statsmodifier.json`
+### Path: `data/mythic/statsmodifier.json`
 ### Type: `Static`
 
 # `stattype`
-### Path: `mythic/stattype.json`
+### Path: `data/mythic/stattype.json`
 ### Type: `Static`
 
 # `variableplaceholdermetakeyword`
-### Path: `mythic/variableplaceholdermetakeyword.json`
+### Path: `data/mythic/variableplaceholdermetakeyword.json`
 ### Type: `Static`
 
 # `variablescope`
-### Path: `mythic/variablescope.json`
+### Path: `data/mythic/variablescope.json`
 ### Type: `Static`
 
 # `variabletype`
-### Path: `mythic/variabletype.json`
+### Path: `data/mythic/variabletype.json`
 ### Type: `Static`
 
 # `sound`
-### Path: `minecraft/sound.json`
+### Path: `sound`
 ### Type: `Volatile`
 
 # `advancementdisplayframe`
-### Path: `paper/advancementdisplayframe.json`
+### Path: `advancementdisplayframe`
 ### Type: `Volatile`
 
 # `barcolor`
-### Path: `paper/barcolor.json`
+### Path: `barcolor`
 ### Type: `Volatile`
 
 # `barstyle`
-### Path: `paper/barstyle.json`
+### Path: `barstyle`
 ### Type: `Volatile`
 
 # `billboard`
-### Path: `paper/billboard.json`
+### Path: `billboard`
 ### Type: `Volatile`
 
 # `blockface`
-### Path: `paper/blockface.json`
+### Path: `blockface`
 ### Type: `Volatile`
 
 # `damagecause`
-### Path: `paper/damagecause.json`
+### Path: `damagecause`
 ### Type: `Volatile`
 
 # `dragonbattlerespawnphase`
-### Path: `paper/dragonbattlerespawnphase.json`
+### Path: `dragonbattlerespawnphase`
 ### Type: `Volatile`
 
 # `dye`
-### Path: `paper/dye.json`
+### Path: `dye`
 ### Type: `Volatile`
 
 # `enchantment`
-### Path: `paper/enchantment.json`
+### Path: `enchantment`
 ### Type: `Volatile`
 
 # `enderdragonphase`
-### Path: `paper/enderdragonphase.json`
+### Path: `enderdragonphase`
 ### Type: `Volatile`
 
 # `entitypose`
-### Path: `paper/entitypose.json`
+### Path: `entitypose`
 ### Type: `Volatile`
 
 # `entitytype`
-### Path: `paper/entitytype.json`
+### Path: `entitytype`
 ### Type: `Volatile`
 
 # `fireworkeffecttype`
-### Path: `paper/fireworkeffecttype.json`
+### Path: `fireworkeffecttype`
 ### Type: `Volatile`
 
 # `fluidcollisionmode`
-### Path: `paper/fluidcollisionmode.json`
+### Path: `fluidcollisionmode`
 ### Type: `Volatile`
 
 # `gamemode`
-### Path: `paper/gamemode.json`
+### Path: `gamemode`
 ### Type: `Volatile`
 
 # `itemdisplaytransform`
-### Path: `paper/itemdisplaytransform.json`
+### Path: `itemdisplaytransform`
 ### Type: `Volatile`
 
 # `itemflag`
-### Path: `paper/itemflag.json`
+### Path: `itemflag`
 ### Type: `Volatile`
 
 # `itemuseanimation`
-### Path: `paper/itemuseanimation.json`
+### Path: `itemuseanimation`
 ### Type: `Volatile`
 
 # `material`
-### Path: `paper/material.json`
+### Path: `material`
 ### Type: `Volatile`
 
 # `paperattribute`
-### Path: `paper/paperattribute.json`
+### Path: `paperattribute`
 ### Type: `Volatile`
 
 # `potioneffecttype`
-### Path: `paper/potioneffecttype.json`
+### Path: `potioneffecttype`
 ### Type: `Volatile`
 
 # `soundcategory`
-### Path: `paper/soundcategory.json`
+### Path: `soundcategory`
 ### Type: `Volatile`
 
 # `spawnreason`
-### Path: `paper/spawnreason.json`
+### Path: `spawnreason`
 ### Type: `Volatile`
 
 # `textalignment`
-### Path: `paper/textalignment.json`
+### Path: `textalignment`
 ### Type: `Volatile`
 
 # `worldenvironment`
-### Path: `paper/worldenvironment.json`
+### Path: `worldenvironment`
 ### Type: `Volatile`
 
 # `color`

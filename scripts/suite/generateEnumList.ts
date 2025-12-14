@@ -1,6 +1,7 @@
 import * as fs from 'fs';
 import * as path from 'path';
-import { localEnums, volatileEnums, scriptedEnums, attributeSpecialValues } from './../../src/common/datasets/enumSources';
+import { localEnums, scriptedEnums, attributeSpecialValues, atlasRegistry } from './../../src/common/datasets/enumSources';
+import { MinecraftVersions } from '../../src/common/packageData';
 
 interface enumInfo { id: string, path: string | null, type: string }
 
@@ -13,8 +14,9 @@ enum EnumType {
 export function generateEnumList() {
     console.log('Generating enum list...');
     const enums: enumInfo[] = [];
-    iterateOverEnum(enums, localEnums, EnumType.Static);
-    iterateOverEnum(enums, volatileEnums, EnumType.Volatile);
+    const targetVersion = MinecraftVersions[0]; // latest version
+    iterateOverEnum(enums, localEnums.map(file => file.path), EnumType.Static);
+    iterateOverEnum(enums, atlasRegistry.getNode('versions')!.getNode(targetVersion)!.getFiles().map(file => file.identifier), EnumType.Volatile);
     iterateOverEnum(enums, Object.keys(scriptedEnums), EnumType.Scripted);
     iterateOverEnum(enums, Object.keys(attributeSpecialValues), EnumType.Scripted);
 
@@ -38,16 +40,10 @@ export function generateEnumList() {
     console.log(`Generated a list containing ${enums.length} enums.`);
 }
 
-function iterateOverEnum(list: enumInfo[], source: (string | string[])[], type: string) {
+function iterateOverEnum(list: enumInfo[], source: string[], type: string) {
     source.forEach((item) => {
-        if (Array.isArray(item)) {
-            const identifier = item[0];
-            const path = item[1];
-            list.push({ id: identifier.toLowerCase(), path, type: type });
-        } else {
-            let identifier = item.split('/').pop();
-            identifier = identifier ? identifier.split('.')[0] : item;
-            list.push({ id: identifier.toLowerCase(), path: type === EnumType.Scripted ? null : item, type: type });
-        }
+        let identifier = item.split('/').pop();
+        identifier = identifier ? identifier.split('.')[0] : item;
+        list.push({ id: identifier.toLowerCase(), path: type === EnumType.Scripted ? null : item, type: type });
     });
 }

@@ -4,7 +4,7 @@ import { retriggerCompletionsCommand } from '@common/constants';
 
 import { isPluginEnabled } from '../providers/configProvider';
 import { ScribeCloneableFile } from './ScribeCloneableFile';
-import { atlasRegistry, attributeSpecialValues, scriptedEnums } from './enumSources';
+import { AtlasNodeImpl, atlasRegistry, attributeSpecialValues, scriptedEnums } from './enumSources';
 import { isBoolean } from '../objectInfos';
 import { timeCounter } from '../utils/timeUtils';
 import { getLogger } from '../providers/loggerProvider';
@@ -234,11 +234,10 @@ export abstract class AbstractScribeMechanicRegistry {
         const time = timeCounter();
         getLogger().debug(`Loading ${this.type} Dataset`);
         const node = atlasRegistry.getNode(`${this.folder}`);
-        const directoryFiles: vscode.Uri[] =
-            node
-                ?.getFiles(false)
-                .map((file) => vscode.Uri.joinPath(context.extensionUri, 'data', file)) || [];
-        const files = directoryFiles.map((file) => new ScribeCloneableFile<Mechanic>(file));
+        const directoryFiles: AtlasNodeImpl[] = node?.getFiles() || [];
+        const files = directoryFiles.map(
+            (file) => new ScribeCloneableFile<Mechanic>(context, file)
+        );
         const promises = files.map((file) => file.get());
         const result = await Promise.allSettled(promises);
         const loadDatasetPromises = result.map((promise) => {
