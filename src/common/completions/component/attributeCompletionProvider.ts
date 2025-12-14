@@ -6,16 +6,16 @@ import {
     ScribeMechanicHandler,
 } from '@common/datasets/ScribeMechanic';
 import type { EnumDatasetValue } from '@common/datasets/types/Enum';
-import {
-    checkShouldPrefixComplete,
-    getCharBefore,
-    getEnumCompletion,
-} from '@common/utils/completionhelper';
 import { retriggerCompletionsCommand } from '@common/constants';
 import * as yamlutils from '@common/utils/yamlutils';
 import * as cursorutils from '@common/utils/cursorutils';
 import { ConfigProvider } from '@common/providers/configProvider';
 import { getObjectLinkedToAttribute } from '@common/utils/cursorutils';
+import {
+    checkShouldPrefixComplete,
+    getCharBefore,
+    getEnumCompletion,
+} from '@common/schemas/resolution/helpers';
 
 export function attributeCompletionProvider() {
     return vscode.languages.registerCompletionItemProvider(

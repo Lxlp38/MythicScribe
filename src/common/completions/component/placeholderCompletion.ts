@@ -1,9 +1,9 @@
 import * as vscode from 'vscode';
-import { checkShouldPrefixComplete } from '@common/utils/completionhelper';
 import {
     getLastNodeFromPlaceholder,
     ScribePlaceholderRoot,
 } from '@common/datasets/ScribePlaceholder';
+import { checkShouldPrefixComplete } from '@common/schemas/resolution/helpers';
 
 export function placeholderCompletionProvider() {
     return vscode.languages.registerCompletionItemProvider(

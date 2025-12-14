@@ -6,7 +6,7 @@ import {
 import {
     checkShouldKeyComplete,
     getListCompletionNeededSpaces,
-} from '@common/utils/completionhelper';
+} from '@common/schemas/resolution/helpers';
 import { isInsideInlineConditionList } from '@common/utils/cursorutils';
 
 export function mechanicCompletionProvider(

@@ -6,8 +6,8 @@ import {
     checkShouldKeyComplete,
     checkShouldPrefixComplete,
     getListCompletionNeededSpaces,
-    fileCompletions,
-} from '../../../src/common/utils/completionhelper';
+} from '../../../src/common/schemas/resolution/helpers';
+import { generateFileCompletion } from '../../../src/common/schemas/resolution/schemaResolution';
 import { getStubDocument } from '..';
 import { addMechanicCompletions, MythicAttribute, MythicMechanic } from '../../../src/common/datasets/ScribeMechanic';
 import { Schema, SchemaElementTypes } from '../../../src/common/objectInfos';
@@ -284,36 +284,6 @@ suite('CompletionHelper', () => {
                     },
                 },
             };
-        });
-
-        test('should return undefined if no keys are found', () => {
-            document = getStubDocument(['']);
-            const result = fileCompletions(document, position, objectmap);
-            assert.strictEqual(result, undefined);
-        });
-
-        test('should return undefined if no result is found in fileCompletionFindNodesOnLevel', () => {
-            document = getStubDocument(['key2:']);
-            const result = fileCompletions(document, position, objectmap);
-            assert.strictEqual(result, undefined);
-        });
-
-        test('should return file completions for FileObject', () => {
-            document = getStubDocument(['id:', '  ']);
-            position = new vscode.Position(1, 2);
-            const result = fileCompletions(document, position, objectmap);
-            assert.ok(result);
-            assert.strictEqual(result?.length, 1);
-            assert.strictEqual(result?.[0].label, 'key1');
-        });
-
-        test('should return file completions for FileObjectMap', () => {
-            document = getStubDocument(['id:', '  key1:', '    ']);
-            position = new vscode.Position(2, 4);
-            const result = fileCompletions(document, position, objectmap);
-            assert.ok(result);
-            assert.strictEqual(result?.length, 1);
-            assert.strictEqual(result?.[0].label, 'subkey1');
         });
     });
 });

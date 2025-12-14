@@ -7,23 +7,23 @@ const customCommand: Schema = {
         type: SchemaElementTypes.KEY,
         description:
             'The field Command allows the metaskill it is used into to be regarded as a command, also enabling all of the relative options',
-        plugin: DefaultPlugins.MythicRPG,
-        link: 'https://git.lumine.io/mythiccraft/mythicrpg/-/wikis/Skill-Commands',
+        plugin: DefaultPlugins.MythicMobs,
+        link: 'https://git.lumine.io/mythiccraft/mythicmobs/-/wikis/Skills/Skill-Commands',
         keys: {
             Id: {
                 type: SchemaElementTypes.STRING,
                 description: 'The unique identifier for the command.',
-                link: 'https://git.lumine.io/mythiccraft/mythicrpg/-/wikis/Skill-Commands#id',
+                link: 'https://git.lumine.io/mythiccraft/mythicmobs/-/wikis/Skills/Skill-Commands#id',
             },
             Aliases: {
                 type: SchemaElementTypes.LIST,
                 description: 'A list of aliases for the command.',
-                link: 'https://git.lumine.io/mythiccraft/mythicrpg/-/wikis/Skill-Commands#aliases',
+                link: 'https://git.lumine.io/mythiccraft/mythicmobs/-/wikis/Skills/Skill-Commands#aliases',
             },
             Completions: {
                 type: SchemaElementTypes.KEY_LIST,
                 description: 'The completions for the command.',
-                link: 'https://git.lumine.io/mythiccraft/mythicrpg/-/wikis/Skill-Commands#completions',
+                link: 'https://git.lumine.io/mythiccraft/mythicmobs/-/wikis/Skills/Skill-Commands#completions',
             },
         },
     },

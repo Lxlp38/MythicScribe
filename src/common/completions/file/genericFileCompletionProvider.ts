@@ -1,7 +1,7 @@
 import * as vscode from 'vscode';
 import { ConfigProvider } from '@common/providers/configProvider';
+import { generateFileCompletion } from '@common/schemas/resolution/schemaResolution';
 
-import { generateFileCompletion } from '../../utils/completionhelper';
 import { Schema } from '../../objectInfos';
 
 export function genericFileCompletionProvider(schema: Schema) {

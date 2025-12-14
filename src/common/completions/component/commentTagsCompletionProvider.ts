@@ -1,6 +1,6 @@
 import * as vscode from 'vscode';
-import { checkShouldPrefixCompleteExec } from '@common/utils/completionhelper';
 import { CommentTagsSchema } from '@common/mythicnodes/comment-parser/comment-tags-schema';
+import { checkShouldPrefixCompleteExec } from '@common/schemas/resolution/helpers';
 
 export function commentTagsCompletionProvider() {
     return vscode.languages.registerCompletionItemProvider(

@@ -1,8 +1,8 @@
 import * as vscode from 'vscode';
 import { keyAliases } from '@common/objectInfos';
-import { checkShouldComplete, getCharBefore } from '@common/utils/completionhelper';
 import { retriggerCompletionsCommand } from '@common/constants';
 import { ScribeMechanicHandler } from '@common/datasets/ScribeMechanic';
+import { checkShouldComplete, getCharBefore } from '@common/schemas/resolution/helpers';
 
 export function inlineConditionCompletionProvider() {
     return vscode.languages.registerCompletionItemProvider(

@@ -21,7 +21,7 @@ export enum SchemaElementTypes {
 
 export enum SchemaElementSpecialKeys {
     WILDKEY = '*KEY',
-    ARRAYKEY = '*ENUM',
+    ARRAYKEY = '*ARRAY',
 }
 
 type BaseSchemaElement = {
@@ -41,7 +41,7 @@ export type EnumSchemaElement = BaseSchemaElement & {
     type: SchemaElementTypes.ENUM;
     dataset: string;
 };
-type ListSchemaElement = BaseSchemaElement &
+export type ListSchemaElement = BaseSchemaElement &
     EntrySchemaElement & {
         type: SchemaElementTypes.LIST;
         dataset?: string;
@@ -57,7 +57,7 @@ export type EntryListSchemaElement = BaseSchemaElement &
         type: SchemaElementTypes.ENTRY_LIST;
         entries: Array<SchemaElement>;
     };
-type OtherSchemaElement = BaseSchemaElement & {
+export type OtherSchemaElement = BaseSchemaElement & {
     type: Exclude<
         SchemaElementTypes,
         | SchemaElementTypes.ENUM

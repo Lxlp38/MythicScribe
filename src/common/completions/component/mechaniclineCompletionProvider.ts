@@ -3,8 +3,8 @@ import * as yamlutils from '@common/utils/yamlutils';
 import { ActiveFileTypeInfo } from '@common/subscriptions/ActiveFileTypeInfo';
 import { getMechanicLine } from '@common/utils/yamlutils';
 import { keyAliases } from '@common/objectInfos';
-import { getCharBefore } from '@common/utils/completionhelper';
 import { retriggerCompletionsCommand } from '@common/constants';
+import { getCharBefore } from '@common/schemas/resolution/helpers';
 
 export function mechaniclineCompletionProvider() {
     return vscode.languages.registerCompletionItemProvider(

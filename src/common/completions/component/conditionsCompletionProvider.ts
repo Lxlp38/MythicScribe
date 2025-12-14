@@ -2,9 +2,9 @@ import * as vscode from 'vscode';
 import * as yamlutils from '@common/utils/yamlutils';
 import { keyAliases } from '@common/objectInfos';
 import { ConditionActions } from '@common/schemas/conditionActions';
-import { checkShouldKeyComplete, getCharBefore } from '@common/utils/completionhelper';
 import { retriggerCompletionsCommand } from '@common/constants';
 import { ScribeMechanicHandler } from '@common/datasets/ScribeMechanic';
+import { checkShouldKeyComplete, getCharBefore } from '@common/schemas/resolution/helpers';
 
 import { addMetaskillsToConditionLine } from './inlinemetaskillCompletionProvider';
 

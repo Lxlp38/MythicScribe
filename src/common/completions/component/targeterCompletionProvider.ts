@@ -1,7 +1,7 @@
 import * as vscode from 'vscode';
 import { keyAliases } from '@common/objectInfos';
-import { checkShouldComplete } from '@common/utils/completionhelper';
 import { ScribeMechanicHandler } from '@common/datasets/ScribeMechanic';
+import { checkShouldComplete } from '@common/schemas/resolution/helpers';
 
 export function targeterCompletionProvider() {
     return vscode.languages.registerCompletionItemProvider(
