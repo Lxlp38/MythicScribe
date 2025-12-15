@@ -1,6 +1,7 @@
 import * as vscode from 'vscode';
 import { ScribeMechanicHandler } from '@common/datasets/ScribeMechanic';
 import type { MythicMechanic } from '@common/datasets/ScribeMechanic';
+import { getLogger } from '@common/providers/loggerProvider';
 
 export interface DocumentDataNode {
     metadata: Map<string, unknown>;
@@ -26,6 +27,11 @@ class DocumentData<K extends DocumentDataNode> {
         this.diagnostics.push(diagnostic);
     }
 
+    clear(): void {
+        this.clearNodes();
+        this.clearDiagnostics();
+    }
+
     clearNodes(): void {
         this.nodes = [];
         ScribeMechanicHandler.registry.mechanic.clearLambdaContainer(this.uri);
@@ -37,6 +43,7 @@ class DocumentData<K extends DocumentDataNode> {
 export class DocumentDataMap<K extends DocumentDataNode> extends Map<string, DocumentData<K>> {
     get(uri: string): DocumentData<K> {
         if (!this.has(uri)) {
+            getLogger().trace(`Creating new DocumentData for ${uri}`);
             const newData = new DocumentData<K>(uri);
             this.set(uri, newData);
             return newData;
@@ -57,10 +64,8 @@ export class DocumentDataMap<K extends DocumentDataNode> extends Map<string, Doc
 
     clearDocument(uri: string): void {
         if (this.has(uri)) {
-            const metadata = this.get(uri);
-            metadata.clearNodes();
-            metadata.clearDiagnostics();
-            this.delete(uri);
+            getLogger().trace(`Clearing DocumentData for ${uri}`);
+            this.get(uri).clear();
         }
     }
 }

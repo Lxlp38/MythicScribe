@@ -8,10 +8,11 @@ import { MinecraftVersions } from '@common/packageData';
 import { ScribeCloneableFile } from './ScribeCloneableFile';
 import { getLogger } from '../providers/loggerProvider';
 import { insertColor } from '../color/colorprovider';
-import { AtlasNodeImpl, atlasRegistry, localEnums, scriptedEnums } from './enumSources';
+import { localEnums, scriptedEnums } from './enumSources';
 import { timeCounter } from '../utils/timeUtils';
 import { Attribute } from './types/Attribute';
 import { EnumDatasetValue, Enum } from './types/Enum';
+import { atlasDataNode, AbstractAtlasNodeImpl, AtlasFileNodeImpl } from './AtlasNode';
 
 const enumLoadedEventEmitter = new vscode.EventEmitter<AbstractScribeEnum>();
 export const onEnumLoaded = enumLoadedEventEmitter.event;
@@ -127,7 +128,7 @@ class FileScribeEnum extends AbstractScribeEnum {
         atlasNode,
     }: {
         context: vscode.ExtensionContext;
-        atlasNode: AtlasNodeImpl;
+        atlasNode: AtlasFileNodeImpl;
     }) {
         const localPath = vscode.Uri.joinPath(context.extensionUri, atlasNode.path);
         super({ identifier: atlasNode.identifier, path: localPath.fsPath });
@@ -177,7 +178,7 @@ class ScriptedEnum extends AbstractScribeEnum {
 
 export function generateVolatileEnumAtlasNodes(version?: MinecraftVersions) {
     const targetVersion = version || getMinecraftVersion();
-    return atlasRegistry.getNode('versions')?.getNode(targetVersion)?.getFiles() || [];
+    return atlasDataNode.getNode('versions')?.getNode(targetVersion)?.getFiles() || [];
 }
 
 export class ScribeEnumHandlerImpl {
@@ -217,9 +218,9 @@ export class ScribeEnumHandlerImpl {
     addAtlasNodeEnum(
         oclass: new (params: {
             context: vscode.ExtensionContext;
-            atlasNode: AtlasNodeImpl;
+            atlasNode: AtlasFileNodeImpl;
         }) => AbstractScribeEnum,
-        atlasNode: AtlasNodeImpl
+        atlasNode: AtlasFileNodeImpl
     ) {
         const enumObject = new oclass({
             atlasNode,
@@ -233,7 +234,7 @@ export class ScribeEnumHandlerImpl {
             identifier: string;
             path: string;
             context: vscode.ExtensionContext;
-            atlasNode?: AtlasNodeImpl;
+            atlasNode?: AbstractAtlasNodeImpl;
         }) => AbstractScribeEnum,
         identifier: string,
         path: string

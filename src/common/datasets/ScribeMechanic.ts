@@ -4,13 +4,14 @@ import { retriggerCompletionsCommand } from '@common/constants';
 
 import { isPluginEnabled } from '../providers/configProvider';
 import { ScribeCloneableFile } from './ScribeCloneableFile';
-import { AtlasNodeImpl, atlasRegistry, attributeSpecialValues, scriptedEnums } from './enumSources';
+import { attributeSpecialValues, scriptedEnums } from './enumSources';
 import { isBoolean } from '../objectInfos';
 import { timeCounter } from '../utils/timeUtils';
 import { getLogger } from '../providers/loggerProvider';
 import { Mechanic } from './types/Mechanic';
 import { Attribute } from './types/Attribute';
 import { ObjectType } from './types/ObjectType';
+import { atlasDataNode, AtlasFileNodeImpl } from './AtlasNode';
 
 export type MechanicDataset = Mechanic[];
 
@@ -233,8 +234,8 @@ export abstract class AbstractScribeMechanicRegistry {
     async loadDataset(context: vscode.ExtensionContext) {
         const time = timeCounter();
         getLogger().debug(`Loading ${this.type} Dataset`);
-        const node = atlasRegistry.getNode(`${this.folder}`);
-        const directoryFiles: AtlasNodeImpl[] = node?.getFiles() || [];
+        const node = atlasDataNode.getNode(`${this.folder}`);
+        const directoryFiles: AtlasFileNodeImpl[] = node?.getFiles() || [];
         const files = directoryFiles.map(
             (file) => new ScribeCloneableFile<Mechanic>(context, file)
         );

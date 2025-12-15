@@ -996,49 +996,6 @@ export class MythicNodeRegistry {
         this.documentDataMap.clear();
     }
 
-    clearNodesByDocument(uri: vscode.Uri): void {
-        const uriString = uri.toString();
-        const documentData = this.documentDataMap.get(uriString);
-        const nodesToRemove = documentData.nodes;
-        if (nodesToRemove) {
-            nodesToRemove.forEach((node) => {
-                getLogger().trace(`Unregistered ${this.type} ${node.name.text} in ${uriString}`);
-                this.nodes.delete(node.name.text);
-            });
-        }
-        documentData.clearNodes();
-    }
-
-    clearDiagnosticsByDocument(uri: vscode.Uri): void {
-        NodeDiagnosticCollection.delete(uri);
-        const uriString = uri.toString();
-        const documentData = this.documentDataMap.get(uriString);
-        const diagnostics = documentData.diagnostics;
-        if (diagnostics && diagnostics.length > 0) {
-            diagnostics.forEach((diagnostic) => {
-                getLogger().trace(
-                    `Unregistered ${this.type} ${diagnostic.message} in ${uriString}`
-                );
-            });
-        }
-        documentData.clearDiagnostics();
-    }
-
-    // clearDecorationsByDocument(uri: vscode.Uri): void {
-    //     const uriString = uri.toString();
-    //     const documentData = this.documentDataMap.get(uriString);
-    //     const activeEditor = vscode.window.activeTextEditor;
-    //     if (activeEditor && activeEditor.document.uri.toString() === uriString) {
-    //         const decorations = documentData.decorations;
-    //         if (decorations) {
-    //             for (const [_key, decoration] of decorations) {
-    //                 activeEditor.setDecorations(decoration.decorationType, []);
-    //             }
-    //         }
-    //     }
-    //     documentData.clearDecorations();
-    // }
-
     scanDocument(document: vscode.TextDocument): void {
         if (document.lineAt(0).text === ParserIntructions.DISABLE_PARSING) {
             getLogger().debug(`Parsing disabled for ${document.uri.toString()}`);
