@@ -5,17 +5,23 @@ import { getLogger } from '@common/providers/loggerProvider';
 
 export interface DocumentDataNode {
     metadata: Map<string, unknown>;
+    name: {
+        text: string;
+    };
 }
 
 class DocumentData<K extends DocumentDataNode> {
+    public nodes: K[] = [];
+    public diagnostics: vscode.Diagnostic[] = [];
+
     constructor(
-        public uri: string,
-        public nodes: K[] = [],
-        public diagnostics: vscode.Diagnostic[] = []
+        private parent: DocumentDataMap<K>,
+        public uri: string
     ) {}
 
     addNode(node: K): void {
         this.nodes.push(node);
+        this.parent.nodes.set(node.name.text, node);
         if (node.metadata.has('lambdaMechanic')) {
             ScribeMechanicHandler.registry.mechanic.addLambdaMechanic(
                 this.uri,
@@ -33,6 +39,9 @@ class DocumentData<K extends DocumentDataNode> {
     }
 
     clearNodes(): void {
+        for (const node of this.nodes) {
+            this.parent.nodes.delete(node.name.text);
+        }
         this.nodes = [];
         ScribeMechanicHandler.registry.mechanic.clearLambdaContainer(this.uri);
     }
@@ -41,10 +50,12 @@ class DocumentData<K extends DocumentDataNode> {
     }
 }
 export class DocumentDataMap<K extends DocumentDataNode> extends Map<string, DocumentData<K>> {
+    nodes: Map<string, K> = new Map();
+
     get(uri: string): DocumentData<K> {
         if (!this.has(uri)) {
             getLogger().trace(`Creating new DocumentData for ${uri}`);
-            const newData = new DocumentData<K>(uri);
+            const newData = new DocumentData<K>(this, uri);
             this.set(uri, newData);
             return newData;
         }
@@ -56,8 +67,7 @@ export class DocumentDataMap<K extends DocumentDataNode> extends Map<string, Doc
 
     clear(): void {
         this.forEach((metadata) => {
-            metadata.clearNodes();
-            metadata.clearDiagnostics();
+            metadata.clear();
         });
         super.clear();
     }

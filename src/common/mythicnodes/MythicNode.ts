@@ -946,7 +946,6 @@ export class MythicNodeRegistry {
     readonly type: registryKey;
     referenceAttributes: Set<string> = new Set();
     referenceMap: Map<string, Set<string>> = new Map();
-    nodes: NodeEntry = new Map();
     documentDataMap = new DocumentDataMap<MythicNode>();
     decoratorRegex: RegExp;
     backingDataset: string | undefined;
@@ -962,7 +961,6 @@ export class MythicNodeRegistry {
     }
 
     registerNode(node: MythicNode): void {
-        this.nodes.set(node.name.text, node);
         const documentUri = node.document.uri.toString();
         this.documentDataMap.get(documentUri).addNode(node);
         getLogger().trace(
@@ -971,12 +969,12 @@ export class MythicNodeRegistry {
     }
 
     getNode(name: string): MythicNode | undefined {
-        return this.nodes.get(name);
+        return this.documentDataMap.nodes.get(name);
     }
 
     hasNode(name: string): boolean {
         return (
-            this.nodes.has(name) ||
+            this.documentDataMap.nodes.has(name) ||
             (this.backingDataset === undefined
                 ? false
                 : !!getScribeEnumHandler().getEnum(this.backingDataset)?.has(name, true))
@@ -984,15 +982,14 @@ export class MythicNodeRegistry {
     }
 
     getNodes(): NodeEntry {
-        return this.nodes;
+        return this.documentDataMap.nodes;
     }
 
     getNodeValues(): MythicNode[] {
-        return Array.from(this.nodes.values());
+        return Array.from(this.documentDataMap.nodes.values());
     }
 
     clearNodes(): void {
-        this.nodes.clear();
         this.documentDataMap.clear();
     }
 

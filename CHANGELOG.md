@@ -48,6 +48,8 @@ ExampleMetaskill:
       Amount: 0to1
       MaxAmount: 3
 ```
+- Some nodes (Metaskills, Mobs etc.) not being correctly removed once the backing configuration was removed/renamed and remaining available 
+  - For instance, if you wrote and then deleted a metaskill, its name would still pop up inside of completions until the extension was restarted 
 
 ## [1.7.8]
 
