@@ -1,6 +1,7 @@
 import * as fs from 'fs';
 import * as path from 'path';
-import { localEnums, scriptedEnums, attributeSpecialValues, atlasRegistry } from './../../src/common/datasets/enumSources';
+import { localEnums, scriptedEnums, attributeSpecialValues } from './../../src/common/datasets/enumSources';
+import { atlasDataNode } from "../../src/common/datasets/AtlasNode";
 import { MinecraftVersions } from '../../src/common/packageData';
 
 interface enumInfo { id: string, path: string | null, type: string }
@@ -16,7 +17,7 @@ export function generateEnumList() {
     const enums: enumInfo[] = [];
     const targetVersion = MinecraftVersions[0]; // latest version
     iterateOverEnum(enums, localEnums.map(file => file.path), EnumType.Static);
-    iterateOverEnum(enums, atlasRegistry.getNode('versions')!.getNode(targetVersion)!.getFiles().map(file => file.identifier), EnumType.Volatile);
+    iterateOverEnum(enums, atlasDataNode.getNode('versions')!.getNode(targetVersion)!.getFiles().map(file => file.identifier), EnumType.Volatile);
     iterateOverEnum(enums, Object.keys(scriptedEnums), EnumType.Scripted);
     iterateOverEnum(enums, Object.keys(attributeSpecialValues), EnumType.Scripted);
 

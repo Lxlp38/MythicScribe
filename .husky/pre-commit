@@ -1,1 +1,3 @@
-npm run scripts
+npm run scripts || exit 1
+
+git add .
