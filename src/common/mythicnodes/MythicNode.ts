@@ -517,7 +517,7 @@ const SkillParameterRegex = /<skill\.(?<parameter>[\w_\-]+)>/gms;
 // Represents a MythicNode specifically for metaskills, extending the base functionality
 // to include condition actions as additional edges.
 export class MetaskillMythicNode extends MythicNode {
-    protected findNodeEdges(body: string): void {
+    protected override findNodeEdges(body: string): void {
         super.findNodeEdges(body);
         this.matchConditionActions(body).forEach((action) => {
             this.addEdge('metaskill', action);
@@ -563,7 +563,7 @@ export class MetaskillMythicNode extends MythicNode {
         }
     }
 
-    protected processDescription(): void {
+    protected override processDescription(): void {
         super.processDescription();
         if (this.description.text?.includes('@mechanic')) {
             const parseableComment = this.description.text.split('@mechanic', 2);
@@ -694,7 +694,7 @@ export class MetaskillMythicNode extends MythicNode {
 // Represents a MythicNode that supports templates, adding functionality to handle
 // and validate templates within the node body.
 export class TemplatableMythicNode extends MythicNode {
-    protected findNodeEdges(body: string): void {
+    protected override findNodeEdges(body: string): void {
         super.findNodeEdges(body);
         this.matchTemplate(body).forEach((template) => {
             if (this.templates.has(template.name)) {
@@ -715,7 +715,7 @@ const variablesRegex =
 const variableEntryRegex = /^\s*(?<variable>[\w\-_]+)\s*:/gm;
 
 export class MobMythicNode extends TemplatableMythicNode {
-    protected findNodeEdges(body: string): void {
+    protected override findNodeEdges(body: string): void {
         super.findNodeEdges(body);
 
         const variables = this.matchVariables(body);
@@ -777,7 +777,7 @@ export class MobMythicNode extends TemplatableMythicNode {
 }
 
 export class ItemMythicNode extends TemplatableMythicNode {
-    protected findNodeEdges(body: string): void {
+    protected override findNodeEdges(body: string): void {
         super.findNodeEdges(body);
 
         const type = this.matchSingleEntry(body, /^\s*Type:\s*(?<entry>.*)/gm);
@@ -795,7 +795,7 @@ export class ItemMythicNode extends TemplatableMythicNode {
 // Represents a MythicNode for stats, extending functionality to include parent stats
 // and trigger stats as additional edges.
 export class StatMythicNode extends MythicNode {
-    protected findNodeEdges(body: string): void {
+    protected override findNodeEdges(body: string): void {
         super.findNodeEdges(body);
 
         this.matchList(body, /(?<=ParentStats:)(\s*- [\w_\-]+\s.*(?:\n|$))*/gm).forEach(
@@ -832,7 +832,7 @@ export class StatMythicNode extends MythicNode {
 // Represents a MythicNode for random spawns, adding functionality to handle mob types
 // and templates specific to random spawn configurations.
 export class RandomSpawnMythicNode extends MythicNode {
-    protected findNodeEdges(body: string): void {
+    protected override findNodeEdges(body: string): void {
         super.findNodeEdges(body);
 
         const typelist: CompactNodeReference[] = [];
@@ -860,7 +860,7 @@ export class RandomSpawnMythicNode extends MythicNode {
 }
 
 class ArchetypeMythicNode extends MythicNode {
-    protected findNodeEdges(body: string): void {
+    protected override findNodeEdges(body: string): void {
         super.findNodeEdges(body);
 
         this.matchList(body, /(?<=BaseStats:)(\s*- [\w_\-]+\s.*(?:\n|$))*/gm).forEach((stat) => {
@@ -883,7 +883,7 @@ class ArchetypeMythicNode extends MythicNode {
 }
 
 class ReagentMythicNode extends MythicNode {
-    protected findNodeEdges(body: string): void {
+    protected override findNodeEdges(body: string): void {
         super.findNodeEdges(body);
 
         const regexes: RegExp[] = [
@@ -901,7 +901,7 @@ class ReagentMythicNode extends MythicNode {
 }
 
 class AchievementMythicNode extends MythicNode {
-    protected findNodeEdges(body: string): void {
+    protected override findNodeEdges(body: string): void {
         super.findNodeEdges(body);
 
         this.matchMultipleEntries(body, /^\s*MobType:\s*(?<entry>.*)/gm).forEach((mob) => {
@@ -937,7 +937,7 @@ export class MockMythicNode extends MythicNode {
         };
         super(registry, document, range, description, mockName, body);
     }
-    get hash(): string {
+    override get hash(): string {
         return `Mock:${this.name.text}@${this.registry.type}`;
     }
 }

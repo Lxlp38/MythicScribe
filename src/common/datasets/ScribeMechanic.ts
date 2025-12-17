@@ -254,52 +254,52 @@ export abstract class AbstractScribeMechanicRegistry {
     }
 }
 class ScribeMechanicRegistry extends AbstractScribeMechanicRegistry {
-    readonly regex: RegExp = /(?<=\s- )[\w:]+/gm;
-    readonly type: ObjectType = ObjectType.MECHANIC;
-    readonly folder: string = 'mechanics';
+    override readonly regex: RegExp = /(?<=\s- )[\w:]+/gm;
+    override readonly type: ObjectType = ObjectType.MECHANIC;
+    override readonly folder: string = 'mechanics';
 }
 class ScribeTargeterRegistry extends AbstractScribeMechanicRegistry {
-    readonly regex: RegExp = /(?<=[\s=]@)[\w:]+/gm;
-    readonly type: ObjectType = ObjectType.TARGETER;
-    readonly folder: string = 'targeters';
+    override readonly regex: RegExp = /(?<=[\s=]@)[\w:]+/gm;
+    override readonly type: ObjectType = ObjectType.TARGETER;
+    override readonly folder: string = 'targeters';
 }
 class ScribeConditionRegistry extends AbstractScribeMechanicRegistry {
-    readonly regex: RegExp = /(?<=[\s\|\&][-\(\|\&\)] )[\w:]+/gm;
-    readonly type: ObjectType = ObjectType.CONDITION;
-    readonly folder: string = 'conditions';
+    override readonly regex: RegExp = /(?<=[\s\|\&][-\(\|\&\)] )[\w:]+/gm;
+    override readonly type: ObjectType = ObjectType.CONDITION;
+    override readonly folder: string = 'conditions';
 }
 class ScribeInlineConditionRegistry extends ScribeConditionRegistry {
-    readonly regex: RegExp = /(?<=\s(\?)|(\?!)|(\?~)|(\?~!))[\w:]+/gm;
-    readonly type: ObjectType = ObjectType.INLINECONDITION;
-    getMechanics(): MythicMechanic[] {
+    override readonly regex: RegExp = /(?<=\s(\?)|(\?!)|(\?~)|(\?~!))[\w:]+/gm;
+    override readonly type: ObjectType = ObjectType.INLINECONDITION;
+    override getMechanics(): MythicMechanic[] {
         return ScribeMechanicHandler.registry.condition.getMechanics();
     }
-    getMechanicByName(name: string): MythicMechanic | undefined {
+    override getMechanicByName(name: string): MythicMechanic | undefined {
         return ScribeMechanicHandler.registry.condition.getMechanicByName(name);
     }
-    getMechanicByClass(name: string): MythicMechanic | undefined {
+    override getMechanicByClass(name: string): MythicMechanic | undefined {
         return ScribeMechanicHandler.registry.condition.getMechanicByClass(name);
     }
-    async loadDataset(): Promise<void> {
+    override async loadDataset(): Promise<void> {
         return;
     }
 }
 class ScribeTriggerRegistry extends AbstractScribeMechanicRegistry {
-    readonly regex: RegExp = /(?<=\s~)on[\w:]+/gm;
-    readonly type: ObjectType = ObjectType.TRIGGER;
-    readonly folder: string = 'triggers';
+    override readonly regex: RegExp = /(?<=\s~)on[\w:]+/gm;
+    override readonly type: ObjectType = ObjectType.TRIGGER;
+    override readonly folder: string = 'triggers';
 }
 class ScribeAITargetRegistry extends AbstractScribeMechanicRegistry {
-    readonly regex: RegExp = /(?<=\s- )[\w:]+/gm;
-    readonly type: ObjectType = ObjectType.AITARGET;
-    readonly folder: string = 'aitargets';
-    readonly defaultExtend: string = 'WrappedPathfindingGoal';
+    override readonly regex: RegExp = /(?<=\s- )[\w:]+/gm;
+    override readonly type: ObjectType = ObjectType.AITARGET;
+    override readonly folder: string = 'aitargets';
+    override readonly defaultExtend: string = 'WrappedPathfindingGoal';
 }
 class ScribeAIGoalRegistry extends AbstractScribeMechanicRegistry {
-    readonly regex: RegExp = /(?<=\s- )[\w:]+/gm;
-    readonly type: ObjectType = ObjectType.AIGOAL;
-    readonly folder: string = 'aigoals';
-    readonly defaultExtend: string = 'WrappedPathfindingGoal';
+    override readonly regex: RegExp = /(?<=\s- )[\w:]+/gm;
+    override readonly type: ObjectType = ObjectType.AIGOAL;
+    override readonly folder: string = 'aigoals';
+    override readonly defaultExtend: string = 'WrappedPathfindingGoal';
 }
 
 export class MythicMechanic {

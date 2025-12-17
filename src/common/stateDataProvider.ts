@@ -1,11 +1,14 @@
 import * as vscode from 'vscode';
 
-import { PromiseCallbackProvider } from './providers/callbackProvider';
+import {
+    DefaultingPromiseCallbackProvider,
+    PromiseCallbackProvider,
+} from './providers/callbackProvider';
 import { Schema } from './objectInfos';
 
-export const stateControlBooleanProvider = new PromiseCallbackProvider<
-    'doUpdateGithubDataset',
-    boolean
+export const filesToUpdateProvider = new DefaultingPromiseCallbackProvider<
+    string,
+    'shouldUpdate' | 'isFineAsIs'
 >();
 
 export const edcsUriProvider = new PromiseCallbackProvider<'edcsUri', vscode.Uri>();

@@ -1,12 +1,12 @@
 import * as vscode from 'vscode';
 import { getScribeEnumHandler } from '@common/datasets/ScribeEnum';
-import { GITHUB_API_COMMITS_URL } from '@common/constants';
-import { stateControlBooleanProvider } from '@common/stateDataProvider';
+import { atlasJsonRemoteUrl, GITHUB_API_COMMITS_URL } from '@common/constants';
+import { filesToUpdateProvider } from '@common/stateDataProvider';
 import { registryKey, specialAttributeEnumToRegistryKey } from '@common/objectInfos';
 
 import { getLogger } from '../providers/loggerProvider';
 import { MythicAttribute, ScribeMechanicHandler } from './ScribeMechanic';
-import { ensureComponentsExist } from '../utils/uriutils';
+import { ensureComponentsExist, fetchJsonFromURL } from '../utils/uriutils';
 import { ConfigProvider, finallySetEnabledPlugins } from '../providers/configProvider';
 import {
     addCustomDataset,
@@ -17,12 +17,13 @@ import {
 import { MythicNodeHandler } from '../mythicnodes/MythicNode';
 import { edcsUri } from './edcsUri';
 import { addScriptedEnums } from './ScriptedEnums';
+import { atlasDataNode, AtlasDirectoryNode, AtlasRootNodeImpl } from './AtlasNode';
 
 const datasetsLoadedEventEmitter = new vscode.EventEmitter<void>();
 export const onDatasetsLoaded = datasetsLoadedEventEmitter.event;
 
 export async function loadDatasets(context: vscode.ExtensionContext) {
-    stateControlBooleanProvider.clear('doUpdateGithubDataset');
+    filesToUpdateProvider.clear();
     getLogger().debug(
         'Loading datasets from',
         ConfigProvider.registry.generic.get('datasetSource') || 'undefined'
@@ -30,8 +31,8 @@ export async function loadDatasets(context: vscode.ExtensionContext) {
 
     if (ConfigProvider.registry.generic.get('datasetSource') === 'GitHub') {
         await initializeExtensionDatasetsClonedStorage();
-        const latestCommitHash = context!.globalState.get<string>('latestCommitHash');
-        const savedCommitHash = context!.globalState.get<string>('savedCommitHash');
+        const latestCommitHash = context.globalState.get<string>('latestCommitHash');
+        const savedCommitHash = context.globalState.get<string>('savedCommitHash');
         if (!savedCommitHash || latestCommitHash !== savedCommitHash) {
             getLogger().debug(
                 'Commit hash mismatch, updating datasets',
@@ -39,13 +40,64 @@ export async function loadDatasets(context: vscode.ExtensionContext) {
                 '-->',
                 latestCommitHash?.toString() || 'undefined'
             );
-            stateControlBooleanProvider.run('doUpdateGithubDataset', true);
+
+            const localFiles: Map<string, string> = new Map();
+            atlasDataNode.getFiles().forEach((file) => {
+                localFiles.set(file.path, file.getHash());
+            });
+            try {
+                // Fetch the atlas.json from GitHub
+                const atlasRemoteJson =
+                    await fetchJsonFromURL<AtlasDirectoryNode>(atlasJsonRemoteUrl);
+                if (!atlasRemoteJson) {
+                    throw new Error('Failed to fetch atlas.json from remote URL');
+                }
+                const atlasRemoteNode = new AtlasRootNodeImpl(
+                    atlasRemoteJson as unknown as AtlasDirectoryNode
+                );
+
+                // Compare with local atlas.json
+                const remoteFiles: Map<string, string> = new Map();
+                atlasRemoteNode.getFiles().forEach((file) => {
+                    remoteFiles.set(file.path, file.getHash());
+                });
+
+                const filesToUpdate: Set<string> = new Set();
+
+                // Determine which files need to be updated
+                localFiles.forEach((hash, path) => {
+                    const remoteHash = remoteFiles.get(path);
+                    if (remoteHash && remoteHash !== hash) {
+                        filesToUpdate.add(path);
+                    }
+                });
+
+                // // Detect new files in remote that don't exist locally
+                // remoteFiles.forEach((hash, path) => {
+                //     if (!localFiles.has(path)) {
+                //         filesToUpdate.add(path);
+                //     }
+                // });
+
+                // Notify about files to update
+                filesToUpdate.forEach((filePath) => {
+                    getLogger().trace('File needs to update:', filePath);
+                    filesToUpdateProvider.run(filePath, 'shouldUpdate');
+                });
+                filesToUpdateProvider.setDefault('isFineAsIs');
+            } catch (error) {
+                getLogger().error('Error fetching atlas.json:', String(error));
+                // If there's an error, assume all files need to be updated
+                filesToUpdateProvider.setDefault('shouldUpdate');
+            }
             context.globalState.update('savedCommitHash', latestCommitHash);
         } else {
-            stateControlBooleanProvider.run('doUpdateGithubDataset', false);
+            filesToUpdateProvider.setDefault('isFineAsIs');
             getLogger().debug('Commit hash matches, no need to update datasets');
         }
         fetchNextHash(latestCommitHash || '', context);
+    } else {
+        filesToUpdateProvider.setDefault('isFineAsIs');
     }
 
     // Load Enums

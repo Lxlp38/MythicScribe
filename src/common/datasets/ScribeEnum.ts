@@ -167,7 +167,7 @@ class ScriptedEnum extends AbstractScribeEnum {
         super({ identifier, path: '' });
         this.callback = callback;
     }
-    getDataset(): Map<string, EnumDatasetValue> {
+    override getDataset(): Map<string, EnumDatasetValue> {
         const ret = this.callback();
         if (ret) {
             return ret;

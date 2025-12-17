@@ -24,7 +24,10 @@
 		"noFallthroughCasesInSwitch": true,
 		"noUnusedParameters": true,
 		"forceConsistentCasingInFileNames": true,
-		"resolveJsonModule": true
+		"resolveJsonModule": true,
+		"noImplicitOverride": true,
+		"noImplicitThis": true,
+		"noUnusedLocals": true,
 	},
 	"exclude": ["node_modules"],
 	"include": ["src/**/*", "src/node-test/**/*", "data/**/*"]

@@ -9,7 +9,7 @@
         "name": [
             "modeldriver"
         ],
-        "description": "Targets the driver of the casting modeled entity",
+        "description": "Targets the driver of the casting modeled entity ",
         "link": "https://git.lumine.io/mythiccraft/model-engine-4/-/wikis/Skills/Targeters/ModelDriver",
         "attributes": []
     },

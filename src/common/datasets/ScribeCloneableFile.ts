@@ -10,22 +10,22 @@ import {
 } from '@common/utils/uriutils';
 import * as vscode from 'vscode';
 import { GITHUB_API_COMMITS_BASE_URL } from '@common/constants';
-import { stateControlBooleanProvider } from '@common/stateDataProvider';
+import { filesToUpdateProvider } from '@common/stateDataProvider';
 
 import { edcsUri } from './edcsUri';
 import { AtlasFileNodeImpl } from './AtlasNode';
 
 export class ScribeCloneableFile<T> {
-    private localHash: string | null = null;
+    private node: AtlasFileNodeImpl;
     relativePath: string;
     localUri: vscode.Uri;
     githubUri: vscode.Uri;
     edcsUri: vscode.Uri;
 
     constructor(context: vscode.ExtensionContext, atlasNode: AtlasFileNodeImpl) {
+        this.node = atlasNode;
         getLogger().trace('ScribeCloneableFile Init:', JSON.stringify(atlasNode));
         const uri = vscode.Uri.joinPath(context.extensionUri, atlasNode.path);
-        this.localHash = atlasNode.getHash();
         this.relativePath = getRelativePath(uri);
         this.localUri = uri;
         this.githubUri = vscode.Uri.parse(convertRelativePathToGitHubUrl(this.relativePath));
@@ -43,14 +43,18 @@ export class ScribeCloneableFile<T> {
 
     async get(): Promise<T[]> {
         if (ConfigProvider.registry.generic.get('datasetSource') === 'GitHub') {
-            const doUpdateGithubDataset = stateControlBooleanProvider
-                .register('doUpdateGithubDataset')
+            const doUpdateGithubDataset = filesToUpdateProvider
+                .register(this.node.path)
                 .then((value) => value)
-                .catch(() => false);
+                .catch(() => 'shouldUpdate');
             getLogger().trace(
-                `Checking if we should update GitHub datasets for ${this.githubUri.toString()}: ${(await doUpdateGithubDataset) ? 'Yes' : 'No'}`
+                `Checking if we should update GitHub datasets for ${this.githubUri.toString()}}`
             );
-            if (!(await doUpdateGithubDataset)) {
+            const shouldUpdate = await doUpdateGithubDataset;
+            getLogger().trace(
+                `Decision for updating GitHub datasets for ${this.githubUri.toString()}: ${shouldUpdate}`
+            );
+            if (shouldUpdate !== 'shouldUpdate') {
                 const status = await ensureComponentsExist(this.edcsUri);
                 if (status === ComponentStatus.Exists) {
                     return fetchJsonFromLocalFile<T>(this.edcsUri);

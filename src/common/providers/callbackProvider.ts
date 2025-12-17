@@ -115,7 +115,7 @@ type Entry<V> = {
  * ```
  */
 export class PromiseCallbackProvider<K extends string = 'default', V = void> {
-    private registry = new Map<K, Entry<V>>();
+    protected registry = new Map<K, Entry<V>>();
 
     register(key: K): Promise<V> {
         //console.log('PromiseCallbackProvider: Registering promise for key', key);
@@ -180,6 +180,51 @@ export class PromiseCallbackProvider<K extends string = 'default', V = void> {
         } else {
             this.registry.clear();
         }
+    }
+}
+
+export class DefaultingPromiseCallbackProvider<
+    K extends string = 'default',
+    V = void,
+> extends PromiseCallbackProvider<K, V> {
+    private defaultValue: V | undefined;
+    private hasDefault: boolean = false;
+
+    setDefault(value: V): void {
+        this.defaultValue = value;
+        this.hasDefault = true;
+
+        for (const [key, entry] of this.registry.entries()) {
+            if (!entry.settled) {
+                entry.settled = true;
+                entry.value = value;
+                entry.resolve?.(value);
+                this.registry.set(key, entry);
+            }
+        }
+    }
+
+    override clear(key?: K): void {
+        if (!key) {
+            this.removeDefault();
+        }
+        super.clear(key);
+    }
+
+    private removeDefault(): void {
+        this.defaultValue = undefined;
+        this.hasDefault = false;
+    }
+
+    override register(key: K): Promise<V> {
+        if (!this.registry.has(key) && this.hasDefault) {
+            const entry: Entry<V> = {
+                settled: true,
+                value: this.defaultValue,
+            };
+            this.registry.set(key, entry);
+        }
+        return super.register(key);
     }
 }
 

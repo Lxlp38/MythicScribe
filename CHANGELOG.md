@@ -35,6 +35,7 @@ ExampleMetaskill:
   Beware: to actually modify the value of the setting, a yellow line should be seen on the left of the configuration box itself, with the text on hover "`This setting has been configured in the current scope`" and also a text in parenthesis saying "`(Also modified elsewhere)`" next to the configuration name. If those two things do not appear despite the setting's value being anything but `off`, you may need to set the config to something else *and then* to set it back to the value you want. Don't ask me why that's the case.
 
 - `decorationOptions.soundPlayback` now only handles the sound playback decoration on top of metaskills, and not those on top of sound mechanics
+- Optimized GitHub dataset update: instead of fetching every file once a change in the remote `data` folder was detected (aka: if *any* file was modified, every file would be re-downloaded), now the remote `atlas.json` is checked, and any file with a changed hash is updated
 
 ### Removed
 - Deprecated `MythicScribe.enableFileSpecificSuggestions` configuration. As stated above, file specific suggestions will be automatically shown depending on the value of the `editor.acceptSuggestionOnEnter` setting

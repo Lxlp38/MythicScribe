@@ -72,7 +72,7 @@ class ScribeColorProvider
             );
     }
 
-    protected onDispose(): void {
+    protected override onDispose(): void {
         super.onDispose();
         ConfigProvider.registry.colorProviderOptions.unregisterCallback(
             'configChange',

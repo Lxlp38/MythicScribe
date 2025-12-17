@@ -1,8 +1,8 @@
 import atlasJson from '../../../data/atlas.json';
 
 type AtlasBaseNode = { name: string };
-type AtlasFileNode = AtlasBaseNode & { type: 'file'; hash: string };
-type AtlasDirectoryNode = AtlasBaseNode & { type: 'directory'; children: AtlasNode[] };
+export type AtlasFileNode = AtlasBaseNode & { type: 'file'; hash: string };
+export type AtlasDirectoryNode = AtlasBaseNode & { type: 'directory'; children: AtlasNode[] };
 
 export type AtlasNode = AtlasFileNode | AtlasDirectoryNode;
 
@@ -80,7 +80,7 @@ export class AtlasRootNodeImpl extends AtlasDirectoryNodeImpl {
         super(node, '');
     }
 
-    public getNode(path: string): AbstractAtlasNodeImpl | null {
+    public override getNode(path: string): AbstractAtlasNodeImpl | null {
         const parts = path.split('/').filter((part) => part.length > 0);
         if (parts.length === 0) {
             return this;

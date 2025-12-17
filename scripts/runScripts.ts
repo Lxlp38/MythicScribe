@@ -16,7 +16,7 @@ console.log(separator);
 for (const callback of callbacks) {
     console.log(`Executing ${callback.name}...`);
     try {
-        const test = callback();
+        callback();
     } catch (error) {
         console.error(`Error executing ${callback.name}`);
         throw error;

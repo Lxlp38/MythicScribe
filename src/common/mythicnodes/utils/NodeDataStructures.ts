@@ -52,7 +52,7 @@ class DocumentData<K extends DocumentDataNode> {
 export class DocumentDataMap<K extends DocumentDataNode> extends Map<string, DocumentData<K>> {
     nodes: Map<string, K> = new Map();
 
-    get(uri: string): DocumentData<K> {
+    override get(uri: string): DocumentData<K> {
         if (!this.has(uri)) {
             getLogger().trace(`Creating new DocumentData for ${uri}`);
             const newData = new DocumentData<K>(this, uri);
@@ -65,7 +65,7 @@ export class DocumentDataMap<K extends DocumentDataNode> extends Map<string, Doc
         return this.get(uri.toString());
     }
 
-    clear(): void {
+    override clear(): void {
         this.forEach((metadata) => {
             metadata.clear();
         });

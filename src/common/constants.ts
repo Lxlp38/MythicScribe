@@ -10,3 +10,6 @@ export const retriggerCompletionsCommand: vscode.Command = {
     command: 'editor.action.triggerSuggest',
     title: 'Re-trigger completions...',
 };
+
+export const atlasJsonRemoteUrl =
+    'https://raw.githubusercontent.com/Lxlp38/MythicScribe/refs/heads/master/data/atlas.json';
