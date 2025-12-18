@@ -6,6 +6,8 @@ export type AtlasDirectoryNode = AtlasBaseNode & { type: 'directory'; children: 
 
 export type AtlasNode = AtlasFileNode | AtlasDirectoryNode;
 
+export type AtlasFileNodeHash = string;
+
 export abstract class AbstractAtlasNodeImpl<NodeType extends AtlasNode = AtlasNode> {
     constructor(
         public node: NodeType,
@@ -105,7 +107,7 @@ export class AtlasFileNodeImpl extends AbstractAtlasNodeImpl<AtlasFileNode> {
         return [this];
     }
 
-    public getHash(): string {
+    public getHash(): AtlasFileNodeHash {
         return this.node.hash;
     }
 
@@ -123,3 +125,12 @@ export function createNode(node: AtlasNode, root: string = '') {
 }
 
 export const atlasDataNode = new AtlasRootNodeImpl(atlasJson as AtlasDirectoryNode);
+
+export const atlasJsonFileNode = new AtlasFileNodeImpl(
+    {
+        name: 'atlas.json',
+        type: 'file',
+        hash: 'static-internal',
+    },
+    'data'
+);

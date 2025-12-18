@@ -17,7 +17,12 @@ import {
 import { MythicNodeHandler } from '../mythicnodes/MythicNode';
 import { edcsUri } from './edcsUri';
 import { addScriptedEnums } from './ScriptedEnums';
-import { atlasDataNode, AtlasDirectoryNode, AtlasRootNodeImpl } from './AtlasNode';
+import {
+    atlasDataNode,
+    AtlasDirectoryNode,
+    AtlasFileNodeHash,
+    AtlasRootNodeImpl,
+} from './AtlasNode';
 
 const datasetsLoadedEventEmitter = new vscode.EventEmitter<void>();
 export const onDatasetsLoaded = datasetsLoadedEventEmitter.event;
@@ -41,7 +46,7 @@ export async function loadDatasets(context: vscode.ExtensionContext) {
                 latestCommitHash?.toString() || 'undefined'
             );
 
-            const localFiles: Map<string, string> = new Map();
+            const localFiles: Map<string, AtlasFileNodeHash> = new Map();
             atlasDataNode.getFiles().forEach((file) => {
                 localFiles.set(file.path, file.getHash());
             });
@@ -57,8 +62,11 @@ export async function loadDatasets(context: vscode.ExtensionContext) {
                 );
 
                 // Compare with local atlas.json
-                const remoteFiles: Map<string, string> = new Map();
+                const remoteFiles: Map<string, AtlasFileNodeHash> = new Map();
                 atlasRemoteNode.getFiles().forEach((file) => {
+                    getLogger().trace(
+                        'Found remote file: ' + file.path + ' with hash: ' + file.getHash()
+                    );
                     remoteFiles.set(file.path, file.getHash());
                 });
 
@@ -67,6 +75,9 @@ export async function loadDatasets(context: vscode.ExtensionContext) {
                 // Determine which files need to be updated
                 localFiles.forEach((hash, path) => {
                     const remoteHash = remoteFiles.get(path);
+                    getLogger().trace(
+                        `Comparing file: ${path}, local hash: ${hash}, remote hash: ${remoteHash}`
+                    );
                     if (remoteHash && remoteHash !== hash) {
                         filesToUpdate.add(path);
                     }
