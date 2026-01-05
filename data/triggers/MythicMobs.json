@@ -257,7 +257,7 @@
             "onUnmounted",
             "onDismounted"
         ],
-        "description": "Executes the skill when the mob is dismounted from (an dismounts the mob).",
+        "description": "Executes the skill when the mob is dismounted from.",
         "link": "https://git.lumine.io/mythiccraft/MythicMobs/-/wikis/Skills/Triggers/onDismounted",
         "attributes": []
     },

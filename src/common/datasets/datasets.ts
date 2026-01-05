@@ -17,12 +17,8 @@ import {
 import { MythicNodeHandler } from '../mythicnodes/MythicNode';
 import { edcsUri } from './edcsUri';
 import { addScriptedEnums } from './ScriptedEnums';
-import {
-    atlasDataNode,
-    AtlasDirectoryNode,
-    AtlasFileNodeHash,
-    AtlasRootNodeImpl,
-} from './AtlasNode';
+import { atlasDataNode } from './AtlasNode';
+import { AtlasFileNodeHash, AtlasDirectoryNode, AtlasRootNodeImpl } from './types/AtlasNode';
 
 const datasetsLoadedEventEmitter = new vscode.EventEmitter<void>();
 export const onDatasetsLoaded = datasetsLoadedEventEmitter.event;

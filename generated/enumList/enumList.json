@@ -21,7 +21,7 @@
   },
   {
     "id": "mythicbukkitattributes",
-    "path": "data/mythic/enums/mythicbukkitattributes.json",
+    "path": "data/mythic/enums/MythicBukkitAttributes.json",
     "type": "Static"
   },
   {

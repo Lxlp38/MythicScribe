@@ -1,6 +1,35 @@
 [
     {
         "plugin": "MythicRPG",
+        "class": "BindSpellMechanic",
+        "extends": "SkillMechanic",
+        "implements": [
+            "ITargetedEntitySkill",
+            "INoTargetSkill"
+        ],
+        "name": [
+            "bindSpell",
+            "setQuickcastBinding",
+            "setSpellBinding"
+        ],
+        "description": "Force-sets the casting player's quickcast binding if possible",
+        "link": "https://git.lumine.io/mythiccraft/mythicrpg/-/wikis/Skills/Mechanics/SetQuickcastBinding",
+        "attributes": [
+            {
+                "name": [
+                    "spell",
+                    "s"
+                ],
+                "type": "PlaceholderString",
+                "description": "The spell to link",
+                "link": "https://git.lumine.io/mythiccraft/mythicrpg/-/wikis/Skills/Mechanics/SetQuickcastBinding",
+                "default_value": "FIREBALL",
+                "enum": "Spell"
+            }
+        ]
+    },
+    {
+        "plugin": "MythicRPG",
         "class": "GiveExperienceMechanic",
         "extends": "SkillMechanic",
         "implements": [
@@ -82,9 +111,19 @@
                     "a"
                 ],
                 "type": "String",
-                "description": "The amount",
+                "description": "The amount of the change. Use only if `stat` was not used",
                 "link": "https://git.lumine.io/mythiccraft/mythicrpg/-/wikis/Skills/Mechanics/ModifyResource",
                 "default_value": "1"
+            },
+            {
+                "name": [
+                    "stat"
+                ],
+                "type": "String",
+                "description": "If the change in value depends solely on the value of a certain stat, you *must* specify which stat it is here",
+                "link": "https://git.lumine.io/mythiccraft/mythicrpg/-/wikis/Skills/Mechanics/ModifyResource",
+                "default_value": "",
+                "enum": "Stat"
             },
             {
                 "name": [
@@ -169,43 +208,6 @@
                 "link": "https://git.lumine.io/mythiccraft/mythicrpg/-/wikis/Skills/Mechanics/SetArchetype",
                 "default_value": "",
                 "enum": "Archetype"
-            }
-        ]
-    },
-    {
-        "plugin": "MythicRPG",
-        "class": "SetQuickcastingBindingMechanic",
-        "extends": "SkillMechanic",
-        "implements": [
-            "INoTargetSkill"
-        ],
-        "name": [
-            "setQuickcastBinding",
-            "setSpellBinding"
-        ],
-        "description": "Force-sets the casting player's quickcast binding if possible",
-        "link": "https://git.lumine.io/mythiccraft/mythicrpg/-/wikis/Skills/Mechanics/SetQuickcastBinding",
-        "attributes": [
-            {
-                "name": [
-                    "binding",
-                    "b"
-                ],
-                "type": "PlaceholderInteger",
-                "description": "The slot binding",
-                "link": "https://git.lumine.io/mythiccraft/mythicrpg/-/wikis/Skills/Mechanics/SetQuickcastBinding",
-                "default_value": "0"
-            },
-            {
-                "name": [
-                    "spell",
-                    "s"
-                ],
-                "type": "PlaceholderString",
-                "description": "The spell to link",
-                "link": "https://git.lumine.io/mythiccraft/mythicrpg/-/wikis/Skills/Mechanics/SetQuickcastBinding",
-                "default_value": "FIREBALL",
-                "enum": "Spell"
             }
         ]
     },

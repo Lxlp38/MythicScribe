@@ -36,7 +36,7 @@
         "description": "Sets whether the mob can be interacted with. If the mob is an armor stand, it will deny any interaction with the equipments.\nDefaults to `false`."
     },
     "LockPitch": {
-        "description": "Keeps the mob's head from looking up/down. Requires [ProtocolLib](https://www.spigotmc.org/resources/protocollib.1997/).\nDefaults to `false`."
+        "description": "Keeps the mob's head from looking up/down.\nDefaults to `false`."
     },
     "KnockbackResistance": {
         "description": "A percentage of knockback resisted from attacks. This option can be anywhere between `0` and `1`. \nBut a mob with 100% knockback resistance can still be knocked back by a bow's enchantment: `ARROW_KNOCKBACK` (punch enchantment).\nFor true knockback resistance, see the [velocity](/Skills/mechanics/velocity) mechanic page. Defaults to `0`."
@@ -103,6 +103,9 @@
     },
     "UseThreatTable": {
         "description": "Whether the mob should have [Threat Tables](https://git.mythiccraft.io/mythiccraft/MythicMobs/-/wikis/Mobs/ThreatTables) enabled"
+    },
+    "RandomizeProperties": {
+        "description": "RandomizeProperties is the vanilla feature in charge of giving variations to mobs when they spawn, such as equipment, zombie leader status, animal variations, zombie/spider jockey, mob size, chance of spawning as baby, etc  \nThis is ideal if you are heavily overriding entity behaviors and don't want the natural randomization  \nDefaults to `true`"
     },
     "Type": {
         "description": "Represents [Villager type](https://hub.spigotmc.org/javadocs/bukkit/org/bukkit/entity/Villager.Type.html), usually corresponding to what biome they spawn in.  \nDefaults to PLAINS."
@@ -189,7 +192,10 @@
         "description": "Sets the armor stand to small variant. Defaults to `false`."
     },
     "Pose": {
-        "description": "Sets the body part's current pose.  \nDefault values are `0,0,0` and accepts ranges like `#to#`.  \nThese will go under the `Pose` section instead of the `Options` section.  \n###### Head"
+        "description": "Sets the body part's current pose.  \nDefault values are `0,0,0` and accepts ranges like `#to#`.  \nThese will go under the `Pose` section instead of the `Options` section."
+    },
+    "Head": {
+        "description": ""
     },
     "Body": {
         "description": ""
@@ -230,6 +236,9 @@
     "CollarColor": {
         "description": "Sets the color of the cat's collar.  \nAvailable colors are: BLACK, BLUE, BROWN, CYAN, GRAY, GREEN, LIGHT_BLUE, LIGHT_GRAY, LIME, MAGENTA, ORANGE, PINK, PURPLE, RED, WHITE, or YELLOW."
     },
+    "Variant": {
+        "description": "Sets the [Wolf Variant](https://hub.spigotmc.org/javadocs/bukkit/org/bukkit/entity/Wolf.Variant.html)"
+    },
     "Jockey": {
         "description": "Whether or not the chicken has the `IsChickenJockey` NBT set to 1.  \nIf true, the chicken can naturally despawn, drops 10 experience upon death instead of 1-3 and cannot lay eggs.    \nDefaults to `false`."
     },
@@ -245,6 +254,12 @@
     "PreventSuicide": {
         "description": "Prevents creepers from dying upon exploding. Set `mobGriefing` gamerule to true for this option to work.  \nDefaults to `false`."
     },
+    "WeatheringState": {
+        "description": "The weathering state of the golem. Can be any of [these values](https://hub.spigotmc.org/javadocs/spigot/org/bukkit/entity/CopperGolem.CopperWeatherState.html)"
+    },
+    "Waxed": {
+        "description": "Whether the copper golem is waxed.  \nDefaults to `true`."
+    },
     "PreventTeleport": {
         "description": "Meant for Endermen but //might// work on other mobs. May break teleport skills!  \nDefaults to `false`."
     },
@@ -258,7 +273,7 @@
         "description": "Determines the [type of the block](https://hub.spigotmc.org/javadocs/bukkit/org/bukkit/Material.html).  \nDefaults to `STONE`."
     },
     "BlockData": {
-        "description": "Additional field for inputting blockdata.  \nDefaults to `0`.  \n\n#### DropsItem\nShould the entity be able to drops the falling block's item.  \nDefaults to `true`."
+        "description": "Additional field for inputting blockdata.  \nDefaults to `0`."
     },
     "HurtsEntities": {
         "description": "Damages entities on impact.  \nDefaults to `true`."
@@ -294,7 +309,10 @@
         "description": "Sets the style of the horse.  \nStyles can be any of the [Spigot Horse Style](https://hub.spigotmc.org/javadocs/bukkit/org/bukkit/entity/Horse.Style.html)"
     },
     "HorseType": {
-        "description": "Defines the type of horse\nCan be any of the [Spigot Horse variants](https://hub.spigotmc.org/javadocs/bukkit/org/bukkit/entity/Horse.Variant.html)\nDefaults to `HORSE`\n**Removed in MC 1.11+, use[Type](/Mobs/Mobs#type) instead.**\n\n\n## Interaction\n#### Height\nThe Height of the Interaction entity.  \nDefaults to `1`."
+        "description": "Defines the type of horse\nCan be any of the [Spigot Horse variants](https://hub.spigotmc.org/javadocs/bukkit/org/bukkit/entity/Horse.Variant.html)\nDefaults to `HORSE`\n**Removed in MC 1.11+, use[Type](/Mobs/Mobs#type) instead.**"
+    },
+    "Height": {
+        "description": "The Height of the Interaction entity.  \nDefaults to `1`."
     },
     "Width": {
         "description": "The Width of the Interaction entity.  \nDefaults to the value of the `Height` option."
@@ -326,9 +344,6 @@
     "HiddenGene": {
         "description": "Sets the hidden [gene](https://hub.spigotmc.org/javadocs/bukkit/org/bukkit/entity/Panda.Gene.html) that the panda can pass on to its offspring.  \nCan be NORMAL, AGGRESSIVE, LAZY, WORRIED, PLAYFUL, WEAK, BROWN.  \nDefaults to `NORMAL`."
     },
-    "Variant": {
-        "description": "Sets the [Wolf Variant](https://hub.spigotmc.org/javadocs/bukkit/org/bukkit/entity/Wolf.Variant.html)"
-    },
     "FlyingSpeed": {
         "description": "The flying speed of the parrot.  \nDefaults to `-1` (The option is not applied)"
     },
@@ -347,11 +362,14 @@
     "PreventBlockInfection": {
         "description": "Prevent silverfish from infecting blocks.  \nDefaults to `false`."
     },
+    "Derp": {
+        "description": "Whether the Snow Golem has its pumpkin already sheared.  \nDefaults to `false`."
+    },
     "PreventSnowFormation": {
         "description": "Prevent the Snow Golem from creating snow.  \nDefaults to `false`."
     },
     "ExplosionYield": {
-        "description": "Determines the strength of the explosion.  \nDefaults to `-1` (none)."
+        "description": "Determines the strength of the explosion.  \nDefaults to `-1` (The normal TNT Explosion Yield is used)."
     },
     "Incendiary": {
         "description": "Whether the explosion is capable of starting fires.  \nDefaults to `false`."

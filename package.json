@@ -609,7 +609,7 @@
     "pretest": "npm run compile",
     "test": "node ./dist/node/test/runTests.js",
     "openweb": "npm run compile && vscode-test-web --extensionPath .",
-    "scripts": "npx ts-node ./scripts/runScripts.ts",
+    "scripts": "npx ts-node ./scripts/runScripts.ts || npx ts-node ./scripts/runScripts.ts",
     "prepare": "husky"
   },
   "devDependencies": {

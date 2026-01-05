@@ -1,4 +1,5 @@
-import { atlasDataNode, AtlasFileNodeImpl } from './AtlasNode';
+import { atlasDataNode } from './AtlasNode';
+import { AtlasFileNodeImpl } from './types/AtlasNode';
 
 export const localEnums: AtlasFileNodeImpl[] = atlasDataNode.getNode('mythic')?.getFiles() || [];
 

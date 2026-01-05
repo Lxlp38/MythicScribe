@@ -4607,6 +4607,16 @@
                 "description": "Range of how many targets to check for",
                 "link": "https://git.lumine.io/mythiccraft/MythicMobs/-/wikis/Skills/Conditions/targets",
                 "default_value": ">0"
+            },
+            {
+                "name": [
+                    "targeter"
+                ],
+                "type": "String",
+                "description": "If provided, this condition will check against the targets of the given targeter instead",
+                "link": "https://git.lumine.io/mythiccraft/MythicMobs/-/wikis/Skills/Conditions/targets",
+                "default_value": "",
+                "enum": "Targeter"
             }
         ]
     },

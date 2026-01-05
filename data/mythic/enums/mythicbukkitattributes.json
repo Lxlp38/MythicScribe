@@ -1,6 +1,6 @@
 {
     "ATTACK_DAMAGE": {
-        "description": "Sets the damage dealt by melee attacks.\n1 damage equals to 0.5 hearts of damage dealt (without armor).\n```yml\ncustom_item:\nId: stick\nAttributes:\nAll:\nATTACK_DAMAGE: 0.2 ADD_SCALAR\n``` "
+        "description": "Sets the damage dealt by melee attacks.\n1 damage equals to 0.5 hearts of damage dealt (without armor).\n```yml\ncustom_item:\nId: stick\nAttributes:\nAll:\nATTACK_DAMAGE: 0.2 ADD_SCALAR\n```"
     },
     "ATTACK_SPEED": {
         "description": "Determines recharging rate of attack strength. Its value is the number of full-strength attacks per second.\n```yml\ncustom_item:\nId: stick\nAttributes:\nMainHand:\nATTACK_SPEED: 0.1 MULTIPLY\n```"

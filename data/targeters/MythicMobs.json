@@ -621,6 +621,49 @@
     },
     {
         "plugin": "MythicMobs",
+        "class": "EscapeLocationTargeter",
+        "extends": "ILocationSelector",
+        "name": [
+            "escapeLocation",
+            "EndermanTeleport"
+        ],
+        "description": "Targets a nearby safe escape location like how an Enderman would choose its teleport destination",
+        "link": "https://git.lumine.io/mythiccraft/MythicMobs/-/wikis/Skills/Targeters/EscapeLocation",
+        "attributes": [
+            {
+                "name": [
+                    "radius",
+                    "r"
+                ],
+                "type": "PlaceholderDouble",
+                "description": "The maximum horizontal and vertical offset from the caster used when randomly searching for a teleport destination",
+                "link": "https://git.lumine.io/mythiccraft/MythicMobs/-/wikis/Skills/Targeters/EscapeLocation",
+                "default_value": "32"
+            },
+            {
+                "name": [
+                    "iterations",
+                    "i"
+                ],
+                "type": "PlaceholderInteger",
+                "description": "How many times the plugin will try to find a suitable teleport destination",
+                "link": "https://git.lumine.io/mythiccraft/MythicMobs/-/wikis/Skills/Targeters/EscapeLocation",
+                "default_value": "64"
+            },
+            {
+                "name": [
+                    "height",
+                    "h"
+                ],
+                "type": "PlaceholderInteger",
+                "description": "The number of vertical air blocks required at the destination to ensure the entity fits safely",
+                "link": "https://git.lumine.io/mythiccraft/MythicMobs/-/wikis/Skills/Targeters/EscapeLocation",
+                "default_value": "3"
+            }
+        ]
+    },
+    {
+        "plugin": "MythicMobs",
         "class": "FatherTargeter",
         "extends": "IEntitySelector",
         "name": [

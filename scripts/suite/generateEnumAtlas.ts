@@ -1,6 +1,6 @@
 import * as path from "path";
 import * as fs from "fs";
-import { AtlasNode } from "../../src/common/datasets/AtlasNode";
+import { AtlasNode } from "../../src/common/datasets/types/AtlasNode";
 import crypto from "crypto";
 
 function buildTree(dirPath: string): AtlasNode {

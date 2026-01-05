@@ -13,7 +13,7 @@ import { GITHUB_API_COMMITS_BASE_URL } from '@common/constants';
 import { filesToUpdateProvider } from '@common/stateDataProvider';
 
 import { edcsUri } from './edcsUri';
-import { AtlasFileNodeImpl } from './AtlasNode';
+import { AtlasFileNodeImpl } from './types/AtlasNode';
 
 export class ScribeCloneableFile<T> {
     private node: AtlasFileNodeImpl;

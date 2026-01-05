@@ -11,7 +11,8 @@ import { getLogger } from '../providers/loggerProvider';
 import { Mechanic } from './types/Mechanic';
 import { Attribute } from './types/Attribute';
 import { ObjectType } from './types/ObjectType';
-import { atlasDataNode, AtlasFileNodeImpl } from './AtlasNode';
+import { atlasDataNode } from './AtlasNode';
+import { AtlasFileNodeImpl } from './types/AtlasNode';
 
 export type MechanicDataset = Mechanic[];
 

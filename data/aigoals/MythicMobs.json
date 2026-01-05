@@ -1113,6 +1113,56 @@
     },
     {
         "plugin": "MythicMobs",
+        "class": "MoveTowardsConditionalGoal",
+        "extends": "WrappedPathfindingGoal",
+        "implements": [
+            "PathfinderHolder"
+        ],
+        "name": [
+            "moveTowardsTargetConditional",
+            "moveTowardsTargetCond"
+        ],
+        "description": "Paths to an entity that checks some conditions",
+        "link": "https://git.lumine.io/mythiccraft/MythicMobs/-/wikis/Mobs/ai/goals/MoveTowardsTargetConditional",
+        "attributes": [
+            {
+                "name": [
+                    "speed",
+                    "s"
+                ],
+                "type": "Double",
+                "description": "The speed modifier",
+                "link": "https://git.lumine.io/mythiccraft/MythicMobs/-/wikis/Mobs/ai/goals/MoveTowardsTargetConditional",
+                "default_value": "1"
+            },
+            {
+                "name": [
+                    "maxrange",
+                    "range",
+                    "r"
+                ],
+                "type": "Float",
+                "description": "The maximum range from the target entity",
+                "link": "https://git.lumine.io/mythiccraft/MythicMobs/-/wikis/Mobs/ai/goals/MoveTowardsTargetConditional",
+                "default_value": "32.0"
+            },
+            {
+                "name": [
+                    "targetconditions",
+                    "conditions",
+                    "cond",
+                    "c"
+                ],
+                "type": "String",
+                "description": "The conditions the target entity must match",
+                "link": "https://git.lumine.io/mythiccraft/MythicMobs/-/wikis/Mobs/ai/goals/MoveTowardsTargetConditional",
+                "default_value": "",
+                "enum": "Conditions"
+            }
+        ]
+    },
+    {
+        "plugin": "MythicMobs",
         "class": "MoveTowardsRestrictionGoal",
         "extends": "WrappedPathfindingGoal",
         "implements": [
@@ -1195,7 +1245,7 @@
                     "d"
                 ],
                 "type": "Double",
-                "description": "The minimum range to from the target entity",
+                "description": "The minimum range from the target entity",
                 "link": "https://git.lumine.io/mythiccraft/MythicMobs/-/wikis/Mobs/ai/goals/MoveWithinDistanceOfTarget",
                 "default_value": "10.0"
             },
@@ -1206,7 +1256,7 @@
                     "maxr"
                 ],
                 "type": "Double",
-                "description": "The maximum range to from the target entity",
+                "description": "The maximum range from the target entity",
                 "link": "https://git.lumine.io/mythiccraft/MythicMobs/-/wikis/Mobs/ai/goals/MoveWithinDistanceOfTarget",
                 "default_value": "32.0"
             }

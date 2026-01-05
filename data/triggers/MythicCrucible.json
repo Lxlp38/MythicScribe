@@ -30,19 +30,6 @@
     },
     {
         "plugin": "MythicCrucible",
-        "class": "BREAK",
-        "implements": [
-            "Item"
-        ],
-        "name": [
-            "onBreak"
-        ],
-        "description": "Executes the skill when the player holding or equipping the item breaks it",
-        "link": "https://git.lumine.io/mythiccraft/mythiccrucible/-/wikis/Skills/Triggers/onBreak",
-        "attributes": []
-    },
-    {
-        "plugin": "MythicCrucible",
         "class": "FURNITURE_INVENTORY_CLOSE",
         "implements": [
             "Furniture",
@@ -100,6 +87,20 @@
         ],
         "description": "Executes the skill when the player holds the item",
         "link": "https://git.lumine.io/mythiccraft/mythiccrucible/-/wikis/Skills/Triggers/onHold",
+        "attributes": []
+    },
+    {
+        "plugin": "MythicCrucible",
+        "class": "ITEM_BREAK",
+        "implements": [
+            "Item"
+        ],
+        "name": [
+            "onBreak",
+            "onItembreak"
+        ],
+        "description": "Executes the skill when the player holding or equipping the item breaks it",
+        "link": "https://git.lumine.io/mythiccraft/mythiccrucible/-/wikis/Skills/Triggers/onBreak",
         "attributes": []
     },
     {

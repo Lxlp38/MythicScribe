@@ -12,7 +12,8 @@ import { localEnums, scriptedEnums } from './enumSources';
 import { timeCounter } from '../utils/timeUtils';
 import { Attribute } from './types/Attribute';
 import { EnumDatasetValue, Enum } from './types/Enum';
-import { atlasDataNode, AbstractAtlasNodeImpl, AtlasFileNodeImpl } from './AtlasNode';
+import { atlasDataNode } from './AtlasNode';
+import { AbstractAtlasNodeImpl, AtlasFileNodeImpl } from './types/AtlasNode';
 
 const enumLoadedEventEmitter = new vscode.EventEmitter<AbstractScribeEnum>();
 export const onEnumLoaded = enumLoadedEventEmitter.event;

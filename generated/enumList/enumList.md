@@ -15,7 +15,7 @@
 ### Type: `Static`
 
 # `mythicbukkitattributes`
-### Path: `data/mythic/enums/mythicbukkitattributes.json`
+### Path: `data/mythic/enums/MythicBukkitAttributes.json`
 ### Type: `Static`
 
 # `equipslot`

@@ -305,7 +305,7 @@
             "swingarm",
             "armAnimation"
         ],
-        "description": "Makes the caster swing their arm",
+        "description": "Makes the casting **player** swing their arm",
         "link": "https://git.lumine.io/mythiccraft/MythicMobs/-/wikis/Skills/Mechanics/ArmAnimation",
         "attributes": []
     },
@@ -5238,7 +5238,7 @@
             "matchrotation",
             "matchrot"
         ],
-        "description": "Sets the caster's yaw and pitch to the same value of the target's",
+        "description": "Sets the target's yaw and pitch to the same value of the specified target attribute",
         "link": "https://git.lumine.io/mythiccraft/MythicMobs/-/wikis/Skills/Mechanics/MatchRotation",
         "attributes": [
             {
@@ -11833,6 +11833,41 @@
     },
     {
         "plugin": "MythicMobs",
+        "class": "SetCustomMenuButtonMechanic",
+        "extends": "SkillMechanic",
+        "implements": [
+            "INoTargetSkill"
+        ],
+        "name": [
+            "SetCustomMenuButton"
+        ],
+        "description": "Sets a specific slot of the opened [custom menu](https://git.lumine.io/mythiccraft/MythicMobs/-/wikis/Custom-Menus) to the specified button.  \nWill work as long as the player has an opened [custom menu](https://git.lumine.io/mythiccraft/MythicMobs/-/wikis/Custom-Menus), even if it's not casted from within the menu itself.  \n\n> **This feature requires either [MythicMobs Premium](https://git.lumine.io/mythiccraft/MythicMobs/-/wikis/Premium-Features) or [MythicRPG](https://mythiccraft.io/index.php?resources/mythicrpg-spells-classes-professions-more.129/) to be used!**",
+        "link": "https://git.lumine.io/mythiccraft/MythicMobs/-/wikis/Skills/Mechanics/SetCustomMenuButton",
+        "attributes": [
+            {
+                "name": [
+                    "slot",
+                    "s"
+                ],
+                "type": "PlaceholderInteger",
+                "description": "The slot to modify",
+                "link": "https://git.lumine.io/mythiccraft/MythicMobs/-/wikis/Skills/Mechanics/SetCustomMenuButton",
+                "default_value": "0"
+            },
+            {
+                "name": [
+                    "icon",
+                    "i"
+                ],
+                "type": "PlaceholderString",
+                "description": "The button to set on the slot",
+                "link": "https://git.lumine.io/mythiccraft/MythicMobs/-/wikis/Skills/Mechanics/SetCustomMenuButton",
+                "default_value": "default"
+            }
+        ]
+    },
+    {
+        "plugin": "MythicMobs",
         "class": "SetDisplayEntityItemMechanic",
         "extends": "SkillMechanic",
         "implements": [
@@ -14933,13 +14968,24 @@
             },
             {
                 "name": [
+                    "chained",
+                    "chain"
+                ],
+                "type": "Boolean",
+                "description": "Whether to make each target of the mechanic cast the specified metaskill *sequentially*, each time targeting the previous caster",
+                "link": "https://git.lumine.io/mythiccraft/MythicMobs/-/wikis/Skills/Mechanics/sudoskill",
+                "default_value": "false"
+            },
+            {
+                "name": [
                     "target",
                     "t"
                 ],
                 "type": "String",
                 "description": "Sets the inherited targets of the called metaskill to the specified ones",
                 "link": "https://git.lumine.io/mythiccraft/MythicMobs/-/wikis/Skills/Mechanics/sudoskill",
-                "default_value": ""
+                "default_value": "",
+                "enum": "Targeter"
             }
         ]
     },

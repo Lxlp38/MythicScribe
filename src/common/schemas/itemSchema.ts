@@ -408,6 +408,39 @@ export const ItemSchema: Schema = {
         link: 'https://git.lumine.io/mythiccraft/MythicMobs/-/wikis/Items/Items#book',
         description: 'The pages of the book',
     },
+    AttackRange: {
+        type: SchemaElementTypes.KEY,
+        link: 'https://git.lumine.io/mythiccraft/MythicMobs/-/wikis/Items/Items#attackrange',
+        description: 'Configures the attack range for melee weapons',
+        keys: {
+            Min: {
+                type: SchemaElementTypes.FLOAT,
+                description: 'The minimum attack range',
+            },
+            Max: {
+                type: SchemaElementTypes.FLOAT,
+                description: 'The maximum attack range',
+            },
+            MinCreative: {
+                type: SchemaElementTypes.FLOAT,
+                description: 'The minimum attack range in creative mode',
+            },
+            MaxCreative: {
+                type: SchemaElementTypes.FLOAT,
+                description: 'The maximum attack range in creative mode',
+            },
+            HitboxMargin: {
+                type: SchemaElementTypes.FLOAT,
+                description:
+                    'The margin applied to the target bounding box when checking for valid hitbox collision',
+            },
+            MobFactor: {
+                type: SchemaElementTypes.FLOAT,
+                description:
+                    'The multiplier applied to min_range and max_range when checking for valid distance if item is used by a mob',
+            },
+        },
+    },
     Consumable: {
         type: SchemaElementTypes.KEY,
         link: 'https://git.lumine.io/mythiccraft/MythicMobs/-/wikis/Items/Options#consumable',

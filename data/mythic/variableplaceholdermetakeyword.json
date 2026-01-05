@@ -9,57 +9,62 @@
         "returnType": "STRING",
         "description": "Returns a more human-readable version of the input value"
     },
-    "tointeger": {
+    "toInteger": {
         "originType": "ALL",
         "returnType": "INTEGER",
         "description": "Converts the value to an Integer without doing any specific operation, allowing chaining for Integer meta keywords"
     },
-    "tofloat": {
+    "toFloat": {
         "originType": "ALL",
         "returnType": "FLOAT",
         "description": "Converts the value to a Float without doing any specific operation, allowing chaining for Float meta keywords"
     },
-    "todouble": {
+    "toLong": {
+        "originType": "ALL",
+        "returnType": "LONG",
+        "description": "Converts the value to a Long without doing any specific operation, allowing chaining for Long meta keywords"
+    },
+    "toDouble": {
         "originType": "ALL",
         "returnType": "DOUBLE",
         "description": "Converts the value to a Double without doing any specific operation, allowing chaining for Double meta keywords"
     },
-    "toboolean": {
+    "toBoolean": {
         "originType": "ALL",
         "returnType": "BOOLEAN",
         "description": "Converts the value to a Boolean without doing any specific operation, allowing chaining for Boolean meta keywords"
     },
-    "tostring": {
+    "toString": {
         "originType": "ALL",
         "returnType": "STRING",
         "description": "Converts the value to a String without doing any specific operation, allowing chaining for String meta keywords"
     },
-    "tolocation": {
+    "toLocation": {
         "originType": "ALL",
         "returnType": "LOCATION",
         "description": "Converts the value to a Location without doing any specific operation, allowing chaining for Location meta keywords"
     },
-    "tovector": {
+    "toVector": {
         "originType": "ALL",
         "returnType": "VECTOR",
         "description": "Converts the value to a Vector without doing any specific operation, allowing chaining for Vector meta keywords"
     },
-    "tolist": {
+    "toList": {
         "originType": "ALL",
         "returnType": "LIST",
         "description": "Converts the value to a List without doing any specific operation, allowing chaining for List meta keywords"
     },
-    "toset": {
+    "toSet": {
         "originType": "ALL",
         "returnType": "SET",
         "description": "Converts the value to a Set without doing any specific operation, allowing chaining for Set meta keywords"
     },
-    "tomap": {
+    "toMap": {
         "originType": "ALL",
         "returnType": "MAP",
         "description": "Converts the value to a Map without doing any specific operation, allowing chaining for Map meta keywords"
     },
-    "totime": {
+    "toTime": {
         "originType": "ALL",
         "returnType": "TIME",
         "description": "Converts the value to a Time without doing any specific operation, allowing chaining for Time meta keywords"
@@ -108,6 +113,36 @@
         "originType": "FLOAT",
         "returnType": "FLOAT",
         "description": "The division between the value and the specified Float"
+    },
+    "round": {
+        "originType": "DOUBLE",
+        "returnType": "LONG",
+        "description": "Rounds the value to the nearest Long"
+    },
+    "precision.{Integer}": {
+        "originType": "DOUBLE",
+        "returnType": "DOUBLE",
+        "description": "Returns the same float value, but with a given maximum precision. Extra precision is rounded using the HALF_UP rounding mode"
+    },
+    "add.{Long}": {
+        "originType": "LONG",
+        "returnType": "LONG",
+        "description": "The addition between the value and the specified Long"
+    },
+    "sub.{Long}": {
+        "originType": "LONG",
+        "returnType": "LONG",
+        "description": "The subtraction between the value and the specified Long"
+    },
+    "mul.{Long}": {
+        "originType": "LONG",
+        "returnType": "LONG",
+        "description": "The multiplication between the value and the specified Long"
+    },
+    "div.{Long}": {
+        "originType": "LONG",
+        "returnType": "LONG",
+        "description": "The division between the value and the specified Long"
     },
     "add.{Double}": {
         "originType": "DOUBLE",

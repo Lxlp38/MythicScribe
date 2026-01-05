@@ -290,6 +290,9 @@
     "utils.epoch.ticks": {
         "description": "Returns the current epoch, converted in ticks. Assumes that the server always maintains 20 ticks per second. Accounts for milliseconds. <br>While unorthodox, since time within Minecraft (and by extension Mythic) is measured in ticks, this may be of some help streamlining some processes where converting the normal epoch time to accomodate for ticks may be burdensome if done at scale"
     },
+    "skill.power": {
+        "description": "Returns the [power](/Mobs/Power) of the metaskill in which the placeholder is evaluated"
+    },
     "item.amount": {
         "description": "Returns the amount of the item that triggered the skill"
     },
@@ -438,7 +441,7 @@
         "description": "Returns the value of the specified modifier of that stat."
     },
     "furniture.var.{VariableName}": {
-        "description": "Fetched the variable by the given name on the target furniture entity. Can use [Meta Keywords](/../../../MythicMobs/-/wikis/Skills/Placeholders#meta-variable-placeholders)"
+        "description": "Fetched the variable by the given name on the target furniture entity. Can use [Meta Keywords](/../../../MythicMobs/-/wikis/Skills/Placeholders/meta-variable-placeholders)"
     },
     "font.{FontName}": {
         "description": "Returns the character associated with the custom font named `{FontName}`"

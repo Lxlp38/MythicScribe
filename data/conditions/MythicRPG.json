@@ -37,7 +37,8 @@
                 "type": "String",
                 "description": "The class of the provided archetype group",
                 "link": "https://git.lumine.io/mythiccraft/mythicrpg/-/wikis/Skills/Conditions/Archetype",
-                "default_value": "none"
+                "default_value": "",
+                "enum": "Archetype"
             }
         ]
     },
@@ -92,6 +93,42 @@
     },
     {
         "plugin": "MythicRPG",
+        "class": "HasArchetypesInCategoryCondition",
+        "extends": "SkillCondition",
+        "implements": [
+            "IEntityCondition"
+        ],
+        "name": [
+            "hasarchetypesincategory"
+        ],
+        "description": "Matches if the player has a certain amount of archetypes that belong to a category",
+        "link": "https://git.lumine.io/mythiccraft/mythicrpg/-/wikis/Skills/Conditions/HasArchetypesInCategory",
+        "attributes": [
+            {
+                "name": [
+                    "category",
+                    "cat",
+                    "c"
+                ],
+                "type": "PlaceholderString",
+                "description": "The category to check",
+                "link": "https://git.lumine.io/mythiccraft/mythicrpg/-/wikis/Skills/Conditions/HasArchetypesInCategory",
+                "default_value": "CLASS <!--type:"
+            },
+            {
+                "name": [
+                    "amount",
+                    "a"
+                ],
+                "type": "String",
+                "description": "The amount to check",
+                "link": "https://git.lumine.io/mythiccraft/mythicrpg/-/wikis/Skills/Conditions/HasArchetypesInCategory",
+                "default_value": ""
+            }
+        ]
+    },
+    {
+        "plugin": "MythicRPG",
         "class": "HasLearnedSpell",
         "extends": "SkillCondition",
         "implements": [
@@ -117,5 +154,59 @@
                 "enum": "Spell"
             }
         ]
+    },
+    {
+        "plugin": "MythicRPG",
+        "class": "HasReagentCondition",
+        "extends": "SkillCondition",
+        "implements": [
+            "IEntityCondition"
+        ],
+        "name": [
+            "hasreagent",
+            "hasresource"
+        ],
+        "description": "Matches if the player has a certain amount of a reagent",
+        "link": "https://git.lumine.io/mythiccraft/mythicrpg/-/wikis/Skills/Conditions/HasReagent",
+        "attributes": [
+            {
+                "name": [
+                    "reagent",
+                    "resource",
+                    "r"
+                ],
+                "type": "PlaceholderString",
+                "description": "The reagent to check",
+                "link": "https://git.lumine.io/mythiccraft/mythicrpg/-/wikis/Skills/Conditions/HasReagent",
+                "default_value": "MANA ",
+                "enum": "Reagent"
+            },
+            {
+                "name": [
+                    "amount",
+                    "a"
+                ],
+                "type": "String",
+                "description": "The amount to check",
+                "link": "https://git.lumine.io/mythiccraft/mythicrpg/-/wikis/Skills/Conditions/HasReagent",
+                "default_value": ""
+            }
+        ]
+    },
+    {
+        "plugin": "MythicRPG",
+        "class": "IsQuickcastingCondition",
+        "extends": "SkillCondition",
+        "implements": [
+            "IEntityCondition"
+        ],
+        "name": [
+            "isQuickcastingActive",
+            "quickcastingActive",
+            "isQuickcasting"
+        ],
+        "description": "Whether the target player is currently using a quickcasting method",
+        "link": "https://git.lumine.io/mythiccraft/mythicrpg/-/wikis/Skills/Conditions/IsQuickcastingActive",
+        "attributes": []
     }
 ]

@@ -1297,7 +1297,7 @@
                     "h",
                     "hitbox"
                 ],
-                "type": "Boolean",
+                "type": "PlaceholderBoolean",
                 "description": "Should the model override the hitbox",
                 "link": "https://git.lumine.io/mythiccraft/model-engine-4/-/wikis/Skills/Mechanics/Model",
                 "default_value": "true"
@@ -1307,7 +1307,7 @@
                     "r",
                     "remove"
                 ],
-                "type": "Boolean",
+                "type": "PlaceholderBoolean",
                 "description": "Is this mechanic used for removing model",
                 "link": "https://git.lumine.io/mythiccraft/model-engine-4/-/wikis/Skills/Mechanics/Model",
                 "default_value": "false"
@@ -1317,7 +1317,7 @@
                     "ko",
                     "killowner"
                 ],
-                "type": "Boolean",
+                "type": "PlaceholderBoolean",
                 "description": "Should the base entity be killed",
                 "link": "https://git.lumine.io/mythiccraft/model-engine-4/-/wikis/Skills/Mechanics/Model",
                 "default_value": "false"
@@ -1328,7 +1328,7 @@
                     "invis",
                     "invisible"
                 ],
-                "type": "Boolean",
+                "type": "PlaceholderBoolean",
                 "description": "Should the base entity be invisible",
                 "link": "https://git.lumine.io/mythiccraft/model-engine-4/-/wikis/Skills/Mechanics/Model",
                 "default_value": "true"
@@ -1339,7 +1339,7 @@
                     "tint",
                     "damagetint"
                 ],
-                "type": "Boolean",
+                "type": "PlaceholderBoolean",
                 "description": "Should the model flash red when damaged",
                 "link": "https://git.lumine.io/mythiccraft/model-engine-4/-/wikis/Skills/Mechanics/Model",
                 "default_value": "true"
@@ -1359,7 +1359,7 @@
                 "name": [
                     "drive"
                 ],
-                "type": "Boolean",
+                "type": "PlaceholderBoolean",
                 "description": "Can this model be driven",
                 "link": "https://git.lumine.io/mythiccraft/model-engine-4/-/wikis/Skills/Mechanics/Model",
                 "default_value": "false"
@@ -1368,7 +1368,7 @@
                 "name": [
                     "ride"
                 ],
-                "type": "Boolean",
+                "type": "PlaceholderBoolean",
                 "description": "Can this model have passengers",
                 "link": "https://git.lumine.io/mythiccraft/model-engine-4/-/wikis/Skills/Mechanics/Model",
                 "default_value": "false"
@@ -1379,7 +1379,7 @@
                     "lpitch",
                     "lockpitch"
                 ],
-                "type": "Boolean",
+                "type": "PlaceholderBoolean",
                 "description": "Should the model's pitch be locked",
                 "link": "https://git.lumine.io/mythiccraft/model-engine-4/-/wikis/Skills/Mechanics/Model",
                 "default_value": "false"
@@ -1390,7 +1390,7 @@
                     "lyaw",
                     "lockyaw"
                 ],
-                "type": "Boolean",
+                "type": "PlaceholderBoolean",
                 "description": "Should the model's yaw be locked",
                 "link": "https://git.lumine.io/mythiccraft/model-engine-4/-/wikis/Skills/Mechanics/Model",
                 "default_value": "false"
@@ -1440,7 +1440,7 @@
                     "statemachine",
                     "usestatemachine"
                 ],
-                "type": "Boolean",
+                "type": "PlaceholderBoolean",
                 "description": "Use the new animation system<br/>**Highly recommended to switch to this system**",
                 "link": "https://git.lumine.io/mythiccraft/model-engine-4/-/wikis/Skills/Mechanics/Model",
                 "default_value": "false"
@@ -1450,7 +1450,7 @@
                     "init",
                     "initrender"
                 ],
-                "type": "Boolean",
+                "type": "PlaceholderBoolean",
                 "description": "Whether the model should immediately be shown to players. If false, this allows you to further customize your model before showing with [RenderInit](https://git.lumine.io/mythiccraft/model-engine-4/-/wikis/Skills/Mechanics/RenderInit)",
                 "link": "https://git.lumine.io/mythiccraft/model-engine-4/-/wikis/Skills/Mechanics/Model",
                 "default_value": "true"
@@ -1459,7 +1459,7 @@
                 "name": [
                     "showhitbox"
                 ],
-                "type": "Boolean",
+                "type": "PlaceholderBoolean",
                 "description": "Should the model's hitbox be visible.<br>If hidden, the player can no longer interact with the model.",
                 "link": "https://git.lumine.io/mythiccraft/model-engine-4/-/wikis/Skills/Mechanics/Model",
                 "default_value": "true"
@@ -1468,7 +1468,7 @@
                 "name": [
                     "showshadow"
                 ],
-                "type": "Boolean",
+                "type": "PlaceholderBoolean",
                 "description": "Should the shadow be visible",
                 "link": "https://git.lumine.io/mythiccraft/model-engine-4/-/wikis/Skills/Mechanics/Model",
                 "default_value": "true"
@@ -1477,7 +1477,7 @@
                 "name": [
                     "syncbody"
                 ],
-                "type": "Boolean",
+                "type": "PlaceholderBoolean",
                 "description": "Should the body rotation be synced to the head rotation",
                 "link": "https://git.lumine.io/mythiccraft/model-engine-4/-/wikis/Skills/Mechanics/Model",
                 "default_value": "true"
@@ -1486,7 +1486,7 @@
                 "name": [
                     "save"
                 ],
-                "type": "Boolean",
+                "type": "PlaceholderBoolean",
                 "description": "Should the model be saved on entity unload",
                 "link": "https://git.lumine.io/mythiccraft/model-engine-4/-/wikis/Skills/Mechanics/Model",
                 "default_value": "false"
