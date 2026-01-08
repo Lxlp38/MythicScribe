@@ -1,3 +1,5 @@
+npm run check-types
 npm run scripts || exit 1
+npm run lint
 
 git add .

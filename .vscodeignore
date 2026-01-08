@@ -4,6 +4,7 @@
 src/**
 .gitignore
 .yarnrc
+.husky/**
 vsc-extension-quickstart.md
 **/tsconfig.json
 **/eslint.config.mjs
