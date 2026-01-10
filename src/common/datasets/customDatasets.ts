@@ -87,20 +87,26 @@ export async function addCustomDataset() {
             if (elementType === 'Enum') {
                 const enumDataset = JSON.parse(data);
                 if (!enumDataset) {
-                    getLogger().error(`Error parsing file content.`);
+                    getLogger().error(
+                        'Dataset Enum data is empty or invalid',
+                        `Error parsing file content for ${uri}.`
+                    );
                     continue;
                 }
             } else {
                 const mechanicdataset = JSON.parse(data) as MechanicDataset;
                 if (!mechanicdataset) {
-                    getLogger().error(`Error parsing file content.`);
+                    getLogger().error(
+                        'Dataset Mechanic data is empty or invalid',
+                        `Error parsing file content for ${uri}.`
+                    );
                     continue;
                 }
             }
             getLogger().info(`File content loaded successfully.`);
             validPaths.push(uri);
         } catch (err) {
-            getLogger().error(`Error reading file: ${err}`);
+            getLogger().error(err, `Error reading file ${uri}`);
         }
     }
 
@@ -241,7 +247,7 @@ export async function createBundleDataset() {
         );
         getLogger().info(`Bundle created at: ${bundlePath.fsPath}`);
     } catch (err) {
-        getLogger().error(`Error creating bundle: ${err}`);
+        getLogger().error(err, `Error creating bundle: `);
         return;
     }
 
@@ -287,8 +293,7 @@ async function addCustomDatasetFromLink(elementtype: string, scope: vscode.Confi
 
         getLogger().info(`Successfully added dataset from: ${uri.toString()}`);
     } catch (err) {
-        getLogger().error(err);
-        getLogger().error(`Invalid URL or path: ${pathOrUrl}`);
+        getLogger().error(err, `Error adding dataset from link: ${pathOrUrl}`);
     }
 }
 
@@ -438,7 +443,7 @@ async function loadBundleDataset(dataset: CustomDataset, stack: string[] = ['Myt
             await processCustomDatasetEntry(entry, stack);
         }
     } catch (error) {
-        getLogger().error(error);
+        getLogger().error(error, `Error loading bundle dataset: ${dataset.pathOrUrl}`);
     }
 }
 

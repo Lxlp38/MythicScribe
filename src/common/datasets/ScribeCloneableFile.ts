@@ -82,7 +82,7 @@ export class ScribeCloneableFile<T> {
 
     private async updateEDCS(data: T[]) {
         const json = JSON.stringify(data);
-        getLogger().trace('Fetched data:', json);
+        //getLogger().trace('Fetched data:', json);
         const status = await ensureComponentsExist(this.edcsUri);
         if (status === ComponentStatus.Error) {
             getLogger().warn(`Failed to ensure EDCS exists: ${this.edcsUri.fsPath}`);
@@ -97,7 +97,7 @@ export class ScribeCloneableFile<T> {
             const stats = await vscode.workspace.fs.stat(uri);
             return stats.mtime;
         } catch (error) {
-            getLogger().error(error);
+            getLogger().error(error, `Error fetching modified time for URI: ${uri.toString()}`);
             return null;
         }
     }
@@ -107,6 +107,7 @@ export class ScribeCloneableFile<T> {
             const response = await fetch(GITHUB_API_COMMITS_BASE_URL + this.relativePath);
             if (!response.ok) {
                 getLogger().error(
+                    response.statusText,
                     `Failed to fetch commit time: ${response.status} ${response.statusText}`
                 );
                 return null;
@@ -121,7 +122,7 @@ export class ScribeCloneableFile<T> {
                 return new Date(data[0].commit.author.date).getTime();
             }
         } catch (error) {
-            getLogger().error('Error fetching commit time:', String(error));
+            getLogger().error(error, 'Error fetching commit time:');
         }
         return null;
     }

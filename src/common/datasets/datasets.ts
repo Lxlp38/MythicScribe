@@ -91,20 +91,20 @@ export async function loadDatasets(context: vscode.ExtensionContext) {
                     getLogger().trace('File needs to update:', filePath);
                     filesToUpdateProvider.run(filePath, 'shouldUpdate');
                 });
-                filesToUpdateProvider.setDefault('isFineAsIs');
+                filesToUpdateProvider.setDefault('shouldUpdate');
             } catch (error) {
-                getLogger().error('Error fetching atlas.json:', String(error));
+                getLogger().error(error, `Error fetching atlas.json`);
                 // If there's an error, assume all files need to be updated
                 filesToUpdateProvider.setDefault('shouldUpdate');
             }
             context.globalState.update('savedCommitHash', latestCommitHash);
         } else {
-            filesToUpdateProvider.setDefault('isFineAsIs');
+            filesToUpdateProvider.setDefault('shouldUpdate');
             getLogger().debug('Commit hash matches, no need to update datasets');
         }
         fetchNextHash(latestCommitHash || '', context);
     } else {
-        filesToUpdateProvider.setDefault('isFineAsIs');
+        filesToUpdateProvider.setDefault('shouldUpdate');
     }
 
     // Load Enums
@@ -119,7 +119,7 @@ export async function loadDatasets(context: vscode.ExtensionContext) {
     ]);
     results.forEach((result) => {
         if (result.status === 'rejected') {
-            getLogger().error('Error while loading datasets:', result.reason);
+            getLogger().error(result.reason, 'Error while loading datasets');
         }
     });
     // Finalize Mechanic Datasets
@@ -224,7 +224,7 @@ async function fetchLatestCommitHash(): Promise<string | null> {
             throw new Error('Unexpected data format');
         }
     } catch (error) {
-        getLogger().error(error);
+        getLogger().error(error, 'Error fetching latest commit hash');
         return null;
     }
 }

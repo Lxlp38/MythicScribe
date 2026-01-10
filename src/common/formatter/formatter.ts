@@ -59,7 +59,9 @@ export function getFormatter() {
 
                 return [vscode.TextEdit.replace(fullRange, text)];
             } catch (error) {
-                getLogger().error(error, undefined, { silent: true });
+                getLogger().error(error, `Error formatting document: ${document.uri.toString()}`, {
+                    silent: true,
+                });
                 return [];
             }
         },
@@ -226,7 +228,9 @@ function normalizeYamlIndentation(par: FormatterParameters): string {
         }
         return doc.toString();
     } catch (error) {
-        getLogger().error(error, undefined, { silent: true });
+        getLogger().error(error, `Error formatting document: ${par.document?.uri.toString()}`, {
+            silent: true,
+        });
     }
     return par.text;
 }

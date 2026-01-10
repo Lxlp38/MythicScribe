@@ -246,7 +246,7 @@ export abstract class AbstractScribeMechanicRegistry {
             if (promise.status === 'fulfilled') {
                 return this.addMechanic(...promise.value);
             }
-            getLogger().error(`Failed to load ${this.type} dataset: ${promise.reason}`);
+            getLogger().error(promise.reason, `Failed to load ${this.type} dataset`);
             return;
         });
         await Promise.allSettled(loadDatasetPromises);

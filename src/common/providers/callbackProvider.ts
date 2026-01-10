@@ -1,4 +1,6 @@
 import * as vscode from 'vscode';
+
+import { getLogger } from './loggerProvider';
 //import { getLogger } from './loggerProvider';
 
 export class CallbackProvider<K extends string = 'default', A = void, R = void> {
@@ -72,8 +74,10 @@ export class CallbackProvider<K extends string = 'default', A = void, R = void> 
                         this.unregisterCallback(key, symbol);
                         this.volatileCallbacks.delete(symbol);
                     }
-                } catch {
-                    //getLogger().error(error, `Error executing callback for key ${key}:`);
+                } catch (error) {
+                    getLogger().error(error, `Error executing callback for key ${key}:`, {
+                        silent: true,
+                    });
                 }
             }
         }

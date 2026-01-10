@@ -186,7 +186,7 @@ export async function fetchJsonFromURL<T>(url: string): Promise<T[] | undefined>
             throw new Error(`Failed to fetch JSON data from URL: ${url}`);
         }
     } catch (error) {
-        getLogger().error(error);
+        getLogger().error(error, `Error fetching JSON data from URL: ${url}`);
         return undefined;
     }
 }
