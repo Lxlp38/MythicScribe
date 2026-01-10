@@ -91,7 +91,7 @@ export async function loadDatasets(context: vscode.ExtensionContext) {
                     getLogger().trace('File needs to update:', filePath);
                     filesToUpdateProvider.run(filePath, 'shouldUpdate');
                 });
-                filesToUpdateProvider.setDefault('shouldUpdate');
+                filesToUpdateProvider.setDefault('isFineAsIs');
             } catch (error) {
                 getLogger().error(error, `Error fetching atlas.json`);
                 // If there's an error, assume all files need to be updated
@@ -99,12 +99,12 @@ export async function loadDatasets(context: vscode.ExtensionContext) {
             }
             context.globalState.update('savedCommitHash', latestCommitHash);
         } else {
-            filesToUpdateProvider.setDefault('shouldUpdate');
+            filesToUpdateProvider.setDefault('isFineAsIs');
             getLogger().debug('Commit hash matches, no need to update datasets');
         }
         fetchNextHash(latestCommitHash || '', context);
     } else {
-        filesToUpdateProvider.setDefault('shouldUpdate');
+        filesToUpdateProvider.setDefault('isFineAsIs');
     }
 
     // Load Enums
@@ -221,7 +221,7 @@ async function fetchLatestCommitHash(): Promise<string | null> {
             getLogger().debug('Latest commit hash fetched: ' + data[0].sha);
             return data[0].sha;
         } else {
-            throw new Error('Unexpected data format');
+            throw new Error('Unexpected data format: ' + JSON.stringify(data));
         }
     } catch (error) {
         getLogger().error(error, 'Error fetching latest commit hash');
