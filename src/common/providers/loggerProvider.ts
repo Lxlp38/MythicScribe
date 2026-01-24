@@ -84,10 +84,15 @@ export class Logger {
         vscode.window.showInformationMessage(message);
     }
 
-    async options(message: string, options: InfoMessageOptions) {
+    async options(
+        message: string,
+        options: InfoMessageOptions,
+        func: (message: string, ...items: string[]) => Thenable<undefined | string> = vscode.window
+            .showInformationMessage
+    ) {
         this.debug(message);
         const optionKeys = Object.keys(options);
-        return vscode.window.showInformationMessage(message, ...optionKeys).then((selected) => {
+        return func(message, ...optionKeys).then((selected) => {
             if (selected) {
                 const sel = options[selected];
                 switch (sel.type) {
@@ -95,7 +100,7 @@ export class Logger {
                         this.debug(`Opened ${sel.target}`);
                         return vscode.env.openExternal(vscode.Uri.parse(sel.target));
                     case 'command':
-                        this.debug(`Executed command: ${sel.target}`);
+                        this.debug(`Executed command: ${sel.target} with action: ${sel.action}`);
                         return vscode.commands.executeCommand(sel.target, sel.action);
                 }
             }
@@ -112,6 +117,7 @@ export class Logger {
     }
 
     error(error: unknown, message: string = 'An error occurred:', options: logOptions = {}): void {
+        message = message.trim();
         let finalMessage: string;
         if (error instanceof Error) {
             finalMessage = message + '\n' + error.message + '\n' + error.stack;
@@ -123,18 +129,25 @@ export class Logger {
         if (options.silent) {
             return;
         }
-        vscode.window.showErrorMessage(finalMessage);
+        this.options(
+            message,
+            {
+                'Check the logs for more details': {
+                    type: 'command',
+                    target: 'MythicScribe.openLogs',
+                },
+            },
+            vscode.window.showErrorMessage
+        );
     }
 
     private processError(message: string, error?: Error) {
-        this.log(message, vscode.LogLevel.Error);
-        if (!error) {
-            return;
-        }
-        this.log(error.message, vscode.LogLevel.Error);
-        if (error.stack) {
-            this.log(error.stack, vscode.LogLevel.Error);
-        }
+        const errorMap = {
+            message: message,
+            errorMessage: error?.message,
+            stack: error?.stack,
+        };
+        this.log(JSON.stringify(errorMap, null, 2), vscode.LogLevel.Error);
     }
 
     show(): void {

@@ -221,6 +221,22 @@ async function fetchLatestCommitHash(): Promise<string | null> {
             getLogger().debug('Latest commit hash fetched: ' + data[0].sha);
             return data[0].sha;
         } else {
+            if (
+                typeof data === 'object' &&
+                data !== null &&
+                'message' in data &&
+                typeof data.message === 'string'
+            ) {
+                if (data.message.includes('rate limit exceeded')) {
+                    throw new Error(
+                        'GitHub API rate limit exceeded. Are you using a VPN or proxy?'
+                    );
+                }
+                throw new Error(
+                    'Error fetching latest commit hash. The request returned the following message: ' +
+                        data.message
+                );
+            }
             throw new Error('Unexpected data format: ' + JSON.stringify(data));
         }
     } catch (error) {
