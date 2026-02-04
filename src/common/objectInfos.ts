@@ -26,7 +26,7 @@ export enum SchemaElementSpecialKeys {
 
 type BaseSchemaElement = {
     link?: string;
-    description?: string;
+    description: string;
     values?: string[];
     display?: string;
     plugin?: string;

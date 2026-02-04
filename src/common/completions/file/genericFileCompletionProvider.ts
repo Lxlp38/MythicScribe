@@ -6,7 +6,7 @@ import { Schema } from '../../objectInfos';
 
 export function genericFileCompletionProvider(schema: Schema) {
     const triggerChar =
-        ConfigProvider.registry.editor.get('acceptSuggestionOnEnter') === 'off'
+        (ConfigProvider.registry.editor.get('acceptSuggestionOnEnter') || 'off') in ['off', 'smart']
             ? ['\n']
             : undefined;
     return vscode.languages.registerCompletionItemProvider(

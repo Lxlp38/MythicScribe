@@ -23,6 +23,7 @@ export function getMobVariables(): Schema {
     variables.forEach((value) => {
         ret[value] = {
             type: SchemaElementTypes.STRING,
+            description: `Variable for mob ${mob}`,
         };
     });
     return ret;

@@ -3,8 +3,10 @@ import { generateNumbersInRange } from '@common/utils/schemautils';
 
 export const DropsSchema: SchemaElement = {
     type: SchemaElementTypes.LIST,
+    description: 'The items that can be dropped.',
     entries: [
         {
+            description: 'The item to drop.',
             type: SchemaElementTypes.ENUM,
             dataset: 'ITEM',
         },

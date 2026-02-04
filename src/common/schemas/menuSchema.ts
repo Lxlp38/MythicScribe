@@ -60,6 +60,6 @@ export const MenuSchema: Schema = {
 
 inheritSchemaOptions(
     MenuSchema,
-    'https://git.lumine.io/mythiccraft/mythicrpg/-/wikis/Custom-Menus',
-    DefaultPlugins.MythicRPG
+    'https://git.lumine.io/mythiccraft/mythicmobs/-/wikis/Custom-Menus',
+    DefaultPlugins.MythicMobs
 );

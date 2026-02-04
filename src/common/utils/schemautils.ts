@@ -233,7 +233,7 @@ export function getSchemaElement(keys: string[], type: Schema): SchemaElement | 
         const possibleKeys = (maybeObject as ArrayKeySchemaElement).possibleKeyValues();
         if (possibleKeys.has(key)) {
             object = type[SchemaElementSpecialKeys.ARRAYKEY]!;
-            object.description = possibleKeys.get(key)?.description;
+            object.description = possibleKeys.get(key)?.description || '';
         }
     }
     if (!object) {

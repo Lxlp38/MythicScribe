@@ -45,7 +45,7 @@ export function handleArrayKeySchemaKey(element: SchemaElement) {
     newMapping.forEach((newElement, enumKey) => {
         iterableMapping.push({
             key: enumKey,
-            element: { ...element, description: newElement.description },
+            element: { ...element, description: newElement.description || '' },
         });
     });
     return iterableMapping;

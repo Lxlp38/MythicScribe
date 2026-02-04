@@ -18,6 +18,7 @@ import { DropsSchema } from './commonSchema';
 
 export const Generation: Schema = {
     Generation: {
+        description: 'Settings related to item generation',
         type: SchemaElementTypes.KEY_LIST,
         link: 'https://git.lumine.io/mythiccraft/mythiccrucible/-/wikis/ResourcePack-Generator',
         plugin: DefaultPlugins.MythicCrucible,
@@ -34,17 +35,21 @@ const ConsumeEffects: Schema = {
 
 const FurnitureStatesCompatibleOptions: Schema = {
     CanPlaceUnderwater: {
+        description: 'Whether the furniture can be placed underwater',
         type: SchemaElementTypes.BOOLEAN,
         plugin: DefaultPlugins.MythicCrucible,
     },
     GlowingFrame: {
+        description: "Whether the furniture's frame glows",
         type: SchemaElementTypes.BOOLEAN,
         plugin: DefaultPlugins.MythicCrucible,
     },
     Lights: {
         type: SchemaElementTypes.LIST,
+        description: 'Defines light sources for the furniture',
         entries: [
             {
+                description: 'The light position coordinates, relative to the furniture origin',
                 type: SchemaElementTypes.VECTOR,
                 values: generateVectorsInRange(-1, 1, 1),
             },
@@ -52,17 +57,20 @@ const FurnitureStatesCompatibleOptions: Schema = {
         plugin: DefaultPlugins.MythicCrucible,
     },
     Barriers: {
-        type: SchemaElementTypes.LIST,
-        plugin: DefaultPlugins.MythicCrucible,
-    },
-    Model: {
+        description: 'Defines barrier positions for the furniture',
         type: SchemaElementTypes.LIST,
         entries: [
             {
+                description: 'The barrier position coordinates, relative to the furniture origin',
                 type: SchemaElementTypes.VECTOR,
                 values: generateVectorsInRange(-1, 1, 1),
             },
         ],
+        plugin: DefaultPlugins.MythicCrucible,
+    },
+    Model: {
+        description: 'The model applied for the furniture state',
+        type: SchemaElementTypes.STRING,
         plugin: DefaultPlugins.MythicCrucible,
     },
     CustomModelData: {
@@ -82,6 +90,7 @@ const ItemAttributesEntries: Array<SchemaElement> = [
     },
     {
         type: SchemaElementTypes.ENUM,
+        description: 'The operation to apply to the attribute',
         dataset: 'PAPERATTRIBUTEOPERATION',
     },
 ];
@@ -89,6 +98,7 @@ const ItemAttributesEntries: Array<SchemaElement> = [
 const ItemAttributes: Schema = {
     [SchemaElementSpecialKeys.ARRAYKEY]: {
         type: SchemaElementTypes.ENTRY_LIST,
+        description: 'An item attribute entry',
         possibleKeyValues: () => {
             const dataset = getScribeEnumHandler().getEnum('mythicbukkitattributes')?.getDataset();
             if (dataset) {
@@ -241,30 +251,37 @@ export const ItemSchema: Schema = {
             'Allows the addition of item attributes, such as health, to certain armor slots',
         keys: {
             All: {
+                description: 'Applies the attribute to all equipment slots',
                 type: SchemaElementTypes.KEY,
                 keys: ItemAttributes,
             },
             MainHand: {
+                description: 'Applies the attribute to the main hand slot',
                 type: SchemaElementTypes.KEY,
                 keys: ItemAttributes,
             },
             OffHand: {
+                description: 'Applies the attribute to the off hand slot',
                 type: SchemaElementTypes.KEY,
                 keys: ItemAttributes,
             },
             Head: {
+                description: 'Applies the attribute to the head slot',
                 type: SchemaElementTypes.KEY,
                 keys: ItemAttributes,
             },
             Chest: {
+                description: 'Applies the attribute to the chest slot',
                 type: SchemaElementTypes.KEY,
                 keys: ItemAttributes,
             },
             Legs: {
+                description: 'Applies the attribute to the legs slot',
                 type: SchemaElementTypes.KEY,
                 keys: ItemAttributes,
             },
             Feet: {
+                description: 'Applies the attribute to the feet slot',
                 type: SchemaElementTypes.KEY,
                 keys: ItemAttributes,
             },
@@ -351,10 +368,12 @@ export const ItemSchema: Schema = {
             'Sets custom armor trim for items, like iron chestplates, with specified materials and patterns',
         keys: {
             Material: {
+                description: 'The material used for the armor trim',
                 type: SchemaElementTypes.ENUM,
                 dataset: 'MATERIAL',
             },
             Pattern: {
+                description: 'The pattern applied to the armor trim',
                 type: SchemaElementTypes.STRING,
             },
         },
@@ -455,10 +474,12 @@ export const ItemSchema: Schema = {
                 description: 'Whether to show particles when the item is consumed',
             },
             Animation: {
+                description: 'The animation to play when the item is consumed',
                 type: SchemaElementTypes.ENUM,
                 dataset: 'itemuseanimation',
             },
             Sound: {
+                description: 'The sound to play when the item is consumed',
                 type: SchemaElementTypes.ENUM,
                 dataset: 'SOUND',
             },
@@ -472,14 +493,17 @@ export const ItemSchema: Schema = {
             'Configures food items with attributes like nutrition, saturation, and effects',
         keys: {
             Nutrition: {
+                description: 'The amount of hunger points restored by the food item',
                 type: SchemaElementTypes.FLOAT,
                 values: generateNumbersInRange(1, 20, 1),
             },
             Saturation: {
+                description: 'The amount of saturation restored by the food item',
                 type: SchemaElementTypes.FLOAT,
                 values: generateNumbersInRange(1, 20, 1),
             },
             CanAlwaysEat: {
+                description: 'Whether the food can be eaten even when the player is not hungry',
                 type: SchemaElementTypes.BOOLEAN,
             },
         },
@@ -592,6 +616,7 @@ export const ItemSchema: Schema = {
         plugin: DefaultPlugins.MythicCrucible,
         keys: {
             Durability: {
+                description: 'The maximum durability of the item',
                 type: SchemaElementTypes.INTEGER,
             },
         },
@@ -608,12 +633,15 @@ export const ItemSchema: Schema = {
                 display: 'Set the Internal Name for the Recipe',
                 keys: {
                     Type: {
+                        description: 'The type of the recipe',
                         type: SchemaElementTypes.STRING,
                     },
                     Amount: {
+                        description: 'The amount of items to craft',
                         type: SchemaElementTypes.INTEGER,
                     },
                     Ingredients: {
+                        description: 'The ingredients of the recipe',
                         type: SchemaElementTypes.LIST,
                     },
                 },
@@ -640,27 +668,35 @@ export const ItemSchema: Schema = {
         plugin: DefaultPlugins.MythicCrucible,
         keys: {
             Type: {
+                description: 'The type of the custom block',
                 type: SchemaElementTypes.STRING,
             },
             Id: {
+                description: 'The ID of the custom block',
                 type: SchemaElementTypes.INTEGER,
             },
             Texture: {
+                description: 'The texture of the custom block',
                 type: SchemaElementTypes.STRING,
             },
             Hardness: {
+                description: 'The hardness of the custom block',
                 type: SchemaElementTypes.INTEGER,
             },
             Tools: {
+                description: 'The tools required to break the custom block',
                 type: SchemaElementTypes.LIST,
             },
             Parent: {
+                description: 'The parent of the custom block',
                 type: SchemaElementTypes.STRING,
             },
             Textures: {
+                description: 'The textures of the custom block',
                 type: SchemaElementTypes.KEY_LIST,
             },
             Variant: {
+                description: 'The variant of the custom block',
                 type: SchemaElementTypes.LIST,
             },
         },
@@ -679,58 +715,75 @@ export const ItemSchema: Schema = {
         plugin: DefaultPlugins.MythicCrucible,
         keys: {
             Material: {
+                description: 'The material of the furniture',
                 type: SchemaElementTypes.ENUM,
                 dataset: 'MATERIAL',
             },
             Type: {
+                description: 'The type of the furniture',
                 type: SchemaElementTypes.ENUM,
                 dataset: 'FURNITURETYPE',
             },
             Health: {
+                description: 'The number of hits necessary for the destruction of the furniture',
                 type: SchemaElementTypes.INTEGER,
             },
             Hitbox: {
+                description: 'The hitbox dimensions of the furniture',
                 type: SchemaElementTypes.KEY,
                 keys: {
                     Height: {
+                        description: 'The height of the hitbox',
                         type: SchemaElementTypes.INTEGER,
                     },
                     Width: {
+                        description: 'The width of the hitbox',
                         type: SchemaElementTypes.INTEGER,
                     },
                 },
             },
             CanRotate: {
+                description: 'Whether the furniture can be rotated',
                 type: SchemaElementTypes.BOOLEAN,
             },
             GlowingItem: {
+                description: 'Whether the furniture has a glowing item effect',
                 type: SchemaElementTypes.BOOLEAN,
             },
             DropSelf: {
+                description: 'Whether the furniture drops itself when broken',
                 type: SchemaElementTypes.BOOLEAN,
             },
             Color: {
+                description: 'The color of the furniture',
                 dataset: 'RGBCOLOR',
                 type: SchemaElementTypes.ENUM,
             },
             Colorable: {
+                description: 'Whether the furniture is colorable',
                 type: SchemaElementTypes.BOOLEAN,
             },
             Placement: {
+                description: 'The placement type of the furniture',
                 type: SchemaElementTypes.ENUM,
                 dataset: 'FURNITUREPLACEMENT',
             },
             Orientation: {
+                description: 'The orientation of the furniture',
                 type: SchemaElementTypes.ENUM,
                 dataset: 'FURNITUREORIENTATION',
             },
             Diagonalable: {
+                description: 'Whether the furniture can be placed or rotated diagonally',
                 type: SchemaElementTypes.BOOLEAN,
             },
             Seats: {
                 type: SchemaElementTypes.LIST,
+                description: 'Defines the seats for the furniture',
                 entries: [
                     {
+                        description:
+                            'The seat position coordinates, relative to the furniture origin',
                         type: SchemaElementTypes.VECTOR,
                         values: generateVectorsInRange(-1, 1, 1),
                     },
@@ -740,40 +793,51 @@ export const ItemSchema: Schema = {
                 ...DropsSchema,
             },
             DefaultState: {
+                description: 'The default state of the furniture',
                 type: SchemaElementTypes.STRING,
             },
             States: {
+                description: 'Defines the furniture states',
                 type: SchemaElementTypes.KEY,
                 keys: {
                     [SchemaElementSpecialKeys.WILDKEY]: {
                         type: SchemaElementTypes.KEY,
+                        description: 'Defines a furniture state',
                         display: 'Set the Internal Name for the State',
                         keys: FurnitureStatesCompatibleOptions,
                     },
                 },
             },
             Height: {
+                description: 'The height of the furniture',
                 type: SchemaElementTypes.INTEGER,
             },
             Width: {
+                description: 'The width of the furniture',
                 type: SchemaElementTypes.INTEGER,
             },
             Billboard: {
+                description: 'The billboard type of the furniture',
                 type: SchemaElementTypes.STRING,
             },
             Brightness: {
+                description: 'The brightness of the furniture',
                 type: SchemaElementTypes.INTEGER,
             },
             InterpolationDelay: {
+                description: 'The interpolation delay of the furniture',
                 type: SchemaElementTypes.INTEGER,
             },
             InterpolationDuration: {
+                description: 'The interpolation duration of the furniture',
                 type: SchemaElementTypes.INTEGER,
             },
             Transform: {
+                description: 'The transform of the furniture',
                 type: SchemaElementTypes.STRING,
             },
             Scale: {
+                description: 'The scale of the furniture',
                 type: SchemaElementTypes.VECTOR,
                 values: generateVectorsInRange(0.1, 2, 0.1),
             },
@@ -807,9 +871,11 @@ export const ItemSchema: Schema = {
         plugin: DefaultPlugins.MythicCrucible,
         keys: {
             Title: {
+                description: 'The title of the inventory',
                 type: SchemaElementTypes.STRING,
             },
             Size: {
+                description: 'The size of the inventory',
                 type: SchemaElementTypes.INTEGER,
                 values: generateNumbersInRange(9, 54, 9),
             },
@@ -821,45 +887,59 @@ export const ItemSchema: Schema = {
         description: 'Configures the spawner settings for the item',
         keys: {
             Delay: {
+                description: 'Initial delay before the spawner activates',
                 type: SchemaElementTypes.INTEGER,
             },
             MinSpawnDelay: {
+                description: 'Minimum delay between spawns',
                 type: SchemaElementTypes.INTEGER,
             },
             MaxSpawnDelay: {
+                description: 'Maximum delay between spawns',
                 type: SchemaElementTypes.INTEGER,
             },
             RequiredPlayerRange: {
+                description: 'Range within which players must be present to activate the spawner',
                 type: SchemaElementTypes.INTEGER,
             },
             SpawnCount: {
+                description: 'Number of entities to spawn each activation',
                 type: SchemaElementTypes.INTEGER,
             },
             SpawnRange: {
+                description: 'Radius around the spawner where entities can spawn',
                 type: SchemaElementTypes.INTEGER,
             },
             MaxNearbyEntities: {
+                description: 'Maximum number of nearby entities allowed before spawning halts',
                 type: SchemaElementTypes.INTEGER,
             },
             Mobs: {
+                description: 'List of mobs that can be spawned by the spawner',
                 type: SchemaElementTypes.LIST,
                 keys: {
                     Type: {
+                        description: 'The type of mob to spawn',
                         type: SchemaElementTypes.STRING,
                     },
                     Weight: {
+                        description: 'The weight for random selection of this mob',
                         type: SchemaElementTypes.INTEGER,
                     },
                     MinBlockLight: {
+                        description: 'Minimum block light level required for spawning',
                         type: SchemaElementTypes.INTEGER,
                     },
                     MaxBlockLight: {
+                        description: 'Maximum block light level required for spawning',
                         type: SchemaElementTypes.INTEGER,
                     },
                     MinSkyLight: {
+                        description: 'Minimum sky light level required for spawning',
                         type: SchemaElementTypes.INTEGER,
                     },
                     MaxSkyLight: {
+                        description: 'Maximum sky light level required for spawning',
                         type: SchemaElementTypes.INTEGER,
                     },
                 },
@@ -877,39 +957,50 @@ export const ItemSchema: Schema = {
         description: 'Default drop settings for this item',
         keys: {
             DropGlowColor: {
+                description: 'The color of the glow effect when the item is dropped',
                 dataset: 'COLOR',
                 type: SchemaElementTypes.ENUM,
             },
             DropBeamColor: {
+                description: 'The color of the beam effect when the item is dropped',
                 dataset: 'COLOR',
                 type: SchemaElementTypes.ENUM,
             },
             DropLootsplosion: {
+                description: 'Whether to create a loot explosion effect when the item is dropped',
                 type: SchemaElementTypes.BOOLEAN,
             },
             DropHologram: {
+                description: 'Whether to display a hologram above the dropped item',
                 type: SchemaElementTypes.BOOLEAN,
             },
             DropVFX: {
+                description: 'Whether to display visual effects when the item is dropped',
                 type: SchemaElementTypes.BOOLEAN,
             },
             DropVFXMaterial: {
+                description: 'The material used for the drop visual effects',
                 type: SchemaElementTypes.STRING,
             },
             DropVFXData: {
+                description: 'The data value for the drop visual effects',
                 type: SchemaElementTypes.INTEGER,
             },
             DropVFXColor: {
+                description: 'The color of the drop visual effects',
                 dataset: 'COLOR',
                 type: SchemaElementTypes.ENUM,
             },
             DropBillboarding: {
+                description: 'The billboarding style for the drop visual effects',
                 type: SchemaElementTypes.STRING,
             },
             DropBrightness: {
+                description: 'The brightness level for the drop visual effects',
                 type: SchemaElementTypes.INTEGER,
             },
             DropClientSide: {
+                description: 'Whether the drop effects are only visible to the client',
                 type: SchemaElementTypes.BOOLEAN,
             },
         },

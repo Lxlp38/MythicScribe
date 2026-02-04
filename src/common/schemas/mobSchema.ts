@@ -62,9 +62,11 @@ export const MobSchema: Schema = {
         type: SchemaElementTypes.KEY,
         keys: {
             Enabled: {
+                description: 'Whether the health bar feature is enabled or not.',
                 type: SchemaElementTypes.BOOLEAN,
             },
             Offset: {
+                description: 'The vertical offset of the health bar from the mob.',
                 type: SchemaElementTypes.FLOAT,
                 values: generateNumbersInRange(0.1, 2.0, 0.1, true),
             },
@@ -76,30 +78,38 @@ export const MobSchema: Schema = {
         type: SchemaElementTypes.KEY,
         keys: {
             Enabled: {
+                description: 'Whether the boss bar feature is enabled or not.',
                 type: SchemaElementTypes.BOOLEAN,
             },
             Title: {
+                description: 'The title of the boss bar.',
                 type: SchemaElementTypes.STRING,
             },
             Range: {
+                description: 'The range at which the boss bar is visible to players.',
                 type: SchemaElementTypes.FLOAT,
                 values: generateNumbersInRange(10, 100, 10, true),
             },
             Color: {
+                description: 'The color of the boss bar.',
                 type: SchemaElementTypes.ENUM,
                 dataset: 'BARCOLOR',
             },
             Style: {
+                description: 'The style of the boss bar.',
                 type: SchemaElementTypes.ENUM,
                 dataset: 'BARSTYLE',
             },
             CreateFog: {
+                description: 'Whether to create fog when the boss bar is active.',
                 type: SchemaElementTypes.BOOLEAN,
             },
             DarkenSky: {
+                description: 'Whether to darken the sky when the boss bar is active.',
                 type: SchemaElementTypes.BOOLEAN,
             },
             PlayMusic: {
+                description: 'Whether to play music when the boss bar is active.',
                 type: SchemaElementTypes.BOOLEAN,
             },
         },
@@ -130,9 +140,11 @@ export const MobSchema: Schema = {
         keys: {
             ThreatTable: {
                 type: SchemaElementTypes.BOOLEAN,
+                description: 'Whether the threat table module is enabled or not.',
             },
             ImmunityTable: {
                 type: SchemaElementTypes.BOOLEAN,
+                description: 'Whether the immunity table module is enabled or not.',
             },
         },
     },
@@ -155,6 +167,7 @@ export const MobSchema: Schema = {
         type: SchemaElementTypes.LIST,
         entries: [
             {
+                description: 'The type of damage cause to modify.',
                 type: SchemaElementTypes.ENUM,
                 dataset: 'DAMAGECAUSE',
             },
@@ -172,10 +185,12 @@ export const MobSchema: Schema = {
         entries: [
             {
                 type: SchemaElementTypes.ENUM,
+                description: 'The item to equip the mob with.',
                 dataset: 'ITEM',
             },
             {
                 type: SchemaElementTypes.ENUM,
+                description: 'The equipment slot to place the item in.',
                 dataset: 'EQUIPSLOT',
             },
         ],
@@ -194,23 +209,29 @@ export const MobSchema: Schema = {
         keys: {
             Health: {
                 type: SchemaElementTypes.FLOAT,
+                description: 'The health level modifier of the mob.',
             },
             Damage: {
                 type: SchemaElementTypes.FLOAT,
+                description: 'The damage level modifier of the mob.',
             },
             Armor: {
                 type: SchemaElementTypes.FLOAT,
+                description: 'The armor level modifier of the mob.',
             },
             KnockbackResistance: {
                 type: SchemaElementTypes.FLOAT,
                 values: generateNumbersInRange(0.0, 1.0, 0.1, true),
+                description: 'The knockback resistance level modifier of the mob.',
             },
             Power: {
                 type: SchemaElementTypes.FLOAT,
+                description: 'The power level modifier of the mob.',
             },
             MovementSpeed: {
                 type: SchemaElementTypes.FLOAT,
                 values: generateNumbersInRange(0.0, 0.4, 0.05, true),
+                description: 'The movement speed level modifier of the mob.',
             },
         },
     },
@@ -220,6 +241,7 @@ export const MobSchema: Schema = {
             {
                 type: SchemaElementTypes.ENUM,
                 dataset: 'ENTITYTYPE',
+                description: 'The entity type of the disguise.',
             },
             {
                 type: SchemaElementTypes.STRING,
@@ -241,17 +263,22 @@ export const MobSchema: Schema = {
         keys: {
             Enabled: {
                 type: SchemaElementTypes.BOOLEAN,
+                description: 'Whether the nameplate is enabled or not.',
             },
             Offset: {
                 type: SchemaElementTypes.FLOAT,
                 values: generateNumbersInRange(0.1, 2.0, 0.1, true),
+                description: 'The vertical offset of the nameplate from the mob.',
             },
             Scale: {
                 type: SchemaElementTypes.VECTOR,
                 values: ['1,1,1'],
+                description: 'The scale of the nameplate.',
             },
             Mounted: {
                 type: SchemaElementTypes.BOOLEAN,
+                description:
+                    'If set, forces the nameplate to work with modeled entities from the ModelEngine plugin.',
             },
         },
     },
@@ -262,6 +289,7 @@ export const MobSchema: Schema = {
         keys: {
             Enabled: {
                 type: SchemaElementTypes.BOOLEAN,
+                description: 'Whether the hearing feature is enabled or not.',
             },
         },
     },
@@ -333,10 +361,12 @@ export const MobSchema: Schema = {
                         type: SchemaElementTypes.ENTRY_LIST,
                         entries: [
                             {
+                                description: 'The quantity of the first item in the trade.',
                                 type: SchemaElementTypes.INTEGER,
                                 values: generateNumbersInRange(1, 64, 1, false),
                             },
                             {
+                                description: 'The type of the first item in the trade.',
                                 type: SchemaElementTypes.ENUM,
                                 dataset: 'ITEM',
                             },
@@ -347,10 +377,12 @@ export const MobSchema: Schema = {
                         type: SchemaElementTypes.ENTRY_LIST,
                         entries: [
                             {
+                                description: 'The quantity of the second item in the trade.',
                                 type: SchemaElementTypes.INTEGER,
                                 values: generateNumbersInRange(1, 64, 1, false),
                             },
                             {
+                                description: 'The type of the second item in the trade.',
                                 type: SchemaElementTypes.ENUM,
                                 dataset: 'ITEM',
                             },
@@ -366,10 +398,12 @@ export const MobSchema: Schema = {
                         type: SchemaElementTypes.ENTRY_LIST,
                         entries: [
                             {
+                                description: 'The quantity of the resulting item of the trade.',
                                 type: SchemaElementTypes.INTEGER,
                                 values: generateNumbersInRange(1, 64, 1, false),
                             },
                             {
+                                description: 'The type of the resulting item of the trade.',
                                 type: SchemaElementTypes.ENUM,
                                 dataset: 'ITEM',
                             },
@@ -655,7 +689,7 @@ function addMobOptions(options: Map<string, EnumDatasetValue>) {
             link:
                 'https://git.lumine.io/mythiccraft/MythicMobs/-/wikis/Mobs/Options#' +
                 name.toLowerCase(),
-            description: body.description,
+            description: body.description || 'No description provided.',
         };
     }
 }
