@@ -1,14 +1,10 @@
 import * as vscode from 'vscode';
-import { ConfigProvider } from '@common/providers/configProvider';
 import { generateFileCompletion } from '@common/schemas/resolution/schemaResolution';
 
 import { Schema } from '../../objectInfos';
 
 export function genericFileCompletionProvider(schema: Schema) {
-    const triggerChar =
-        (ConfigProvider.registry.editor.get('acceptSuggestionOnEnter') || 'off') in ['off', 'smart']
-            ? ['\n']
-            : undefined;
+    const triggerChar = ['\n'];
     return vscode.languages.registerCompletionItemProvider(
         ['mythicscript', 'yaml'],
         {

@@ -482,10 +482,10 @@
                     "op"
                 ],
                 "type": "Enum",
-                "description": "The [operation](https://git.lumine.io/mythiccraft/MythicMobs/-/wikis/Items/Attributes#operations) to perform",
+                "description": "The [operation](https://hub.spigotmc.org/javadocs/spigot/org/bukkit/attribute/AttributeModifier.Operation.html) to perform",
                 "link": "https://git.lumine.io/mythiccraft/MythicMobs/-/wikis/Skills/Mechanics/AttributeModifier",
                 "default_value": "ADD_NUMBER",
-                "enum": "PaperAttributeOperation"
+                "enum": "AttributeModifierOperation"
             },
             {
                 "name": [
@@ -538,6 +538,18 @@
         "attributes": [
             {
                 "name": [
+                    "components",
+                    "component",
+                    "comp"
+                ],
+                "type": "StringList",
+                "description": "The aura components to apply. Better explained later in the page",
+                "link": "https://git.lumine.io/mythiccraft/MythicMobs/-/wikis/Skills/Mechanics/aura",
+                "default_value": "",
+                "inheritable": false
+            },
+            {
+                "name": [
                     "aura",
                     "auraname",
                     "b",
@@ -565,6 +577,16 @@
                 "description": "The type of the aura. It's similar to its name",
                 "link": "https://git.lumine.io/mythiccraft/MythicMobs/-/wikis/Skills/Mechanics/aura",
                 "default_value": ""
+            },
+            {
+                "name": [
+                    "tags",
+                    "tag"
+                ],
+                "type": "StringList",
+                "description": "A list of comma-separated tags that the aura will have. The tags do nothing on their own, but can be used to \"mark\" the aura and better check against it",
+                "link": "https://git.lumine.io/mythiccraft/MythicMobs/-/wikis/Skills/Mechanics/aura",
+                "default_value": null
             },
             {
                 "name": [
@@ -2711,7 +2733,7 @@
                     "tag"
                 ],
                 "type": "String",
-                "description": "Allows you to specify any number of arbitrary tags for the damage mechanic using `tags=THIS,THAT`. All tags inserted will be UPPERCASED, so always use uppercased names when checking against them",
+                "description": "Allows you to specify any number of arbitrary tags for the mechanic using `tags=THIS,THAT`. All tags inserted will be UPPERCASED, so always use uppercased names when checking against them",
                 "link": "https://git.lumine.io/mythiccraft/MythicMobs/-/wikis/Skills/Mechanics/damage",
                 "default_value": ""
             },
@@ -3256,6 +3278,16 @@
             },
             {
                 "name": [
+                    "dynamic",
+                    "fd"
+                ],
+                "type": "Boolean",
+                "description": "Forces the drop to be parsed as a dynamic item each time",
+                "link": "https://git.lumine.io/mythiccraft/MythicMobs/-/wikis/Skills/Mechanics/dropitem",
+                "default_value": "false"
+            },
+            {
+                "name": [
                     "ondropskill",
                     "ondrop",
                     "then"
@@ -3574,65 +3606,6 @@
     },
     {
         "plugin": "MythicMobs",
-        "class": "FearMechanic",
-        "extends": "AuraMechanic",
-        "implements": [
-            "ITargetedEntitySkill"
-        ],
-        "name": [
-            "fear"
-        ],
-        "description": "Applies an aura that makes the target run around in fear",
-        "link": "https://git.lumine.io/mythiccraft/MythicMobs/-/wikis/Skills/Mechanics/Fear",
-        "attributes": [
-            {
-                "name": [
-                    "speed",
-                    "s"
-                ],
-                "type": "PlaceholderFloat",
-                "description": "The fleeing speed of the entity",
-                "link": "https://git.lumine.io/mythiccraft/MythicMobs/-/wikis/Skills/Mechanics/Fear",
-                "default_value": "0.35"
-            },
-            {
-                "name": [
-                    "directionChangeInterval",
-                    "dirchange",
-                    "dci"
-                ],
-                "type": "PlaceholderInteger",
-                "description": "How often, in ticks, the entity changes direction",
-                "link": "https://git.lumine.io/mythiccraft/MythicMobs/-/wikis/Skills/Mechanics/Fear",
-                "default_value": "20"
-            },
-            {
-                "name": [
-                    "feardistance",
-                    "fearrange",
-                    "fdist",
-                    "fd"
-                ],
-                "type": "PlaceholderFloat",
-                "description": "When the affected entity's distance from the caster is less than this value, it will try to run *away* form it instead of completely randomly",
-                "link": "https://git.lumine.io/mythiccraft/MythicMobs/-/wikis/Skills/Mechanics/Fear",
-                "default_value": "10.0"
-            },
-            {
-                "name": [
-                    "rotationticks",
-                    "rotateticks",
-                    "rt"
-                ],
-                "type": "PlaceholderInteger",
-                "description": "A duration, in ticks, over which the entity's head will be rotated towards the new runnign direction",
-                "link": "https://git.lumine.io/mythiccraft/MythicMobs/-/wikis/Skills/Mechanics/Fear",
-                "default_value": "5"
-            }
-        ]
-    },
-    {
-        "plugin": "MythicMobs",
         "class": "FeedSkill",
         "extends": "SkillMechanic",
         "implements": [
@@ -3826,20 +3799,6 @@
         ],
         "description": "Creates the flames effect at the location of the targeter. Imitates the appearance of Minecraft's mob spawner block flames and thus has a randomness-factor to it.",
         "link": "https://git.lumine.io/mythiccraft/MythicMobs/-/wikis/Skills/Mechanics/flames",
-        "attributes": []
-    },
-    {
-        "plugin": "MythicMobs",
-        "class": "FlyMechanic",
-        "extends": "AuraMechanic",
-        "implements": [
-            "ITargetedEntitySkill"
-        ],
-        "name": [
-            "fly"
-        ],
-        "description": "Makes the player fly, similar to the /fly command. Can use any aura\nattribute.",
-        "link": "https://git.lumine.io/mythiccraft/MythicMobs/-/wikis/Skills/Mechanics/fly",
         "attributes": []
     },
     {
@@ -4400,55 +4359,6 @@
     },
     {
         "plugin": "MythicMobs",
-        "class": "GlowEffect",
-        "extends": "AuraMechanic",
-        "implements": [
-            "ITargetedEntitySkill"
-        ],
-        "name": [
-            "effect:glow",
-            "glow",
-            "e:glow"
-        ],
-        "description": "Makes the target entity glow (like with the Glowing potion effect).  \nThis mechanic is also an [aura](https://git.lumine.io/mythiccraft/MythicMobs/-/wikis/skills/mechanics/aura).\n\n> **[Glow API](https://www.spigotmc.org/resources/api-glowapi-1-9-1-10.19422/)** is required for minecraft version 1.16.\n\n> Please note that this mechanic is not actually giving the *glowing* effect in any form: it will just *look* like it. If you want to check against the presence of this mechanic, you must check against the presence of the applied aura (an [hasaura](https://git.lumine.io/mythiccraft/MythicMobs/-/wikis/skills/conditions/hasaura) condition con do the trick, for instance)",
-        "link": "https://git.lumine.io/mythiccraft/MythicMobs/-/wikis/Skills/Mechanics/glow",
-        "attributes": [
-            {
-                "name": [
-                    "auraname",
-                    "buffname",
-                    "debuffname"
-                ],
-                "type": "PlaceholderString",
-                "description": "The name of the aura",
-                "link": "https://git.lumine.io/mythiccraft/MythicMobs/-/wikis/Skills/Mechanics/glow",
-                "default_value": "#glowing"
-            },
-            {
-                "name": [
-                    "audience"
-                ],
-                "type": "Audience",
-                "description": "The [audience](https://git.lumine.io/mythiccraft/MythicMobs/-/wikis/Skills/Audience) of the glow effect",
-                "link": "https://git.lumine.io/mythiccraft/MythicMobs/-/wikis/Skills/Mechanics/glow",
-                "default_value": "nearby",
-                "enum": "Audience"
-            },
-            {
-                "name": [
-                    "color",
-                    "c"
-                ],
-                "type": "String",
-                "description": "The [color](#color-attribute) with which the entity will glow",
-                "link": "https://git.lumine.io/mythiccraft/MythicMobs/-/wikis/Skills/Mechanics/glow",
-                "default_value": "white",
-                "enum": "GlowColor"
-            }
-        ]
-    },
-    {
-        "plugin": "MythicMobs",
         "class": "GoToMechanic",
         "extends": "SkillMechanic",
         "implements": [
@@ -4665,6 +4575,26 @@
                 "description": "The maximum amount of overhealing that can be applied",
                 "link": "https://git.lumine.io/mythiccraft/MythicMobs/-/wikis/Skills/Mechanics/heal",
                 "default_value": "1"
+            },
+            {
+                "name": [
+                    "tags",
+                    "tag"
+                ],
+                "type": "String",
+                "description": "Allows you to specify any number of arbitrary tags for the mechanic using `tags=THIS,THAT`. All tags inserted will be UPPERCASED, so always use uppercased names when checking against them",
+                "link": "https://git.lumine.io/mythiccraft/MythicMobs/-/wikis/Skills/Mechanics/heal",
+                "default_value": ""
+            },
+            {
+                "name": [
+                    "rawtags",
+                    "rtag"
+                ],
+                "type": "String",
+                "description": "Works the same as tags and what is put here will also qualify as a tag, but it will not be UPPERCASED like tags",
+                "link": "https://git.lumine.io/mythiccraft/MythicMobs/-/wikis/Skills/Mechanics/heal",
+                "default_value": ""
             }
         ]
     },
@@ -4718,6 +4648,26 @@
                 "description": "The maximum amount of overhealing that can be applied",
                 "link": "https://git.lumine.io/mythiccraft/MythicMobs/-/wikis/Skills/Mechanics/healpercent",
                 "default_value": "0"
+            },
+            {
+                "name": [
+                    "tags",
+                    "tag"
+                ],
+                "type": "String",
+                "description": "Allows you to specify any number of arbitrary tags for the mechanic using `tags=THIS,THAT`. All tags inserted will be UPPERCASED, so always use uppercased names when checking against them",
+                "link": "https://git.lumine.io/mythiccraft/MythicMobs/-/wikis/Skills/Mechanics/healpercent",
+                "default_value": ""
+            },
+            {
+                "name": [
+                    "rawtags",
+                    "rtag"
+                ],
+                "type": "String",
+                "description": "Works the same as tags and what is put here will also qualify as a tag, but it will not be UPPERCASED like tags",
+                "link": "https://git.lumine.io/mythiccraft/MythicMobs/-/wikis/Skills/Mechanics/healpercent",
+                "default_value": ""
             }
         ]
     },
@@ -5893,383 +5843,6 @@
     },
     {
         "plugin": "MythicMobs",
-        "class": "OnAttackMechanic",
-        "extends": "AuraMechanic",
-        "implements": [
-            "ITargetedEntitySkill"
-        ],
-        "name": [
-            "onattack",
-            "onhit"
-        ],
-        "description": "Applies an aura to the target that triggers a skill when they damage\nsomething. Can use any aura attribute\n\n| [Implemented Placeholders](https://git.lumine.io/mythiccraft/MythicMobs/-/wikis/Skills/Placeholders#variable-placeholders)     |\n|--------------------------------|\n| `<skill.var.damage-amount>`    |\n| `<skill.var.damage-type>`      |\n| `<skill.var.damage-cause>`     |",
-        "link": "https://git.lumine.io/mythiccraft/MythicMobs/-/wikis/Skills/Mechanics/onattack",
-        "attributes": [
-            {
-                "name": [
-                    "onattackskill",
-                    "onattack",
-                    "oa",
-                    "onmelee",
-                    "onhitskill",
-                    "onhit",
-                    "oh"
-                ],
-                "type": "String",
-                "description": "[metaskill](https://git.lumine.io/mythiccraft/MythicMobs/-/wikis/Skills/Metaskills) to execute if the target hits something",
-                "link": "https://git.lumine.io/mythiccraft/MythicMobs/-/wikis/Skills/Mechanics/onattack",
-                "default_value": "",
-                "enum": "Metaskill"
-            },
-            {
-                "name": [
-                    "modDamageType",
-                    "damagetype"
-                ],
-                "type": "PlaceholderString",
-                "description": "The [type](https://hub.spigotmc.org/javadocs/spigot/org/bukkit/event/entity/EntityDamageEvent.DamageCause.html) of the damage inflicted",
-                "link": "https://git.lumine.io/mythiccraft/MythicMobs/-/wikis/Skills/Mechanics/onattack",
-                "default_value": "",
-                "enum": "DamageCause"
-            },
-            {
-                "name": [
-                    "cancelevent",
-                    "ce",
-                    "canceldamage",
-                    "cd"
-                ],
-                "type": "Boolean",
-                "description": "Whether or not to cancel the event that triggered the aura",
-                "link": "https://git.lumine.io/mythiccraft/MythicMobs/-/wikis/Skills/Mechanics/onattack",
-                "default_value": "false"
-            },
-            {
-                "name": [
-                    "damageadd",
-                    "add",
-                    "a"
-                ],
-                "type": "String",
-                "description": "An optional static increase to the original hit's damage",
-                "link": "https://git.lumine.io/mythiccraft/MythicMobs/-/wikis/Skills/Mechanics/onattack",
-                "default_value": "0"
-            },
-            {
-                "name": [
-                    "damagemultiplier",
-                    "multiplier",
-                    "m"
-                ],
-                "type": "String",
-                "description": "An optional multiplier to the original hit's damage",
-                "link": "https://git.lumine.io/mythiccraft/MythicMobs/-/wikis/Skills/Mechanics/onattack",
-                "default_value": "1"
-            }
-        ]
-    },
-    {
-        "plugin": "MythicMobs",
-        "class": "OnBlockBreakMechanic",
-        "extends": "AuraMechanic",
-        "implements": [
-            "ITargetedEntitySkill"
-        ],
-        "name": [
-            "onblockbreak",
-            "onbreakblock"
-        ],
-        "description": "Applies an aura to the target that triggers a skill when they break a block",
-        "link": "https://git.lumine.io/mythiccraft/MythicMobs/-/wikis/Skills/Mechanics/onblockbreak",
-        "attributes": [
-            {
-                "name": [
-                    "onbreakskill",
-                    "onbreak",
-                    "ob"
-                ],
-                "type": "String",
-                "description": "Skill to execute if the target breaks a block",
-                "link": "https://git.lumine.io/mythiccraft/MythicMobs/-/wikis/Skills/Mechanics/onblockbreak",
-                "default_value": "",
-                "enum": "Metaskill"
-            },
-            {
-                "name": [
-                    "blocktypes",
-                    "blocktypes",
-                    "bt",
-                    "t",
-                    "material",
-                    "materials",
-                    "m",
-                    "blocks",
-                    "block",
-                    "b"
-                ],
-                "type": "PlaceholderString",
-                "description": "What blocks should trigger this aura<br>You can add a `*` at the front of the type to indicate that the one specified is not a block type, but a [block tag](https://minecraft.wiki/w/Tag#Block_tags_2) (example: `blocktype=*sculk_replaceable` )",
-                "link": "https://git.lumine.io/mythiccraft/MythicMobs/-/wikis/Skills/Mechanics/onblockbreak",
-                "default_value": ""
-            },
-            {
-                "name": [
-                    "cancelevent",
-                    "ce",
-                    "cancel"
-                ],
-                "type": "Boolean",
-                "description": "Whether or not to cancel the event that triggered the aura",
-                "link": "https://git.lumine.io/mythiccraft/MythicMobs/-/wikis/Skills/Mechanics/onblockbreak",
-                "default_value": "false"
-            },
-            {
-                "name": [
-                    "dropItem",
-                    "drop",
-                    "allowDrop"
-                ],
-                "type": "Boolean",
-                "description": "If the broken item should be dropped or not",
-                "link": "https://git.lumine.io/mythiccraft/MythicMobs/-/wikis/Skills/Mechanics/onblockbreak",
-                "default_value": "true"
-            }
-        ]
-    },
-    {
-        "plugin": "MythicMobs",
-        "class": "OnBlockPlaceMechanic",
-        "extends": "AuraMechanic",
-        "implements": [
-            "ITargetedEntitySkill"
-        ],
-        "name": [
-            "onblockplace",
-            "onplaceblock"
-        ],
-        "description": "Applies an aura to the target that triggers a skill when they place a block",
-        "link": "https://git.lumine.io/mythiccraft/MythicMobs/-/wikis/Skills/Mechanics/onblockplace",
-        "attributes": [
-            {
-                "name": [
-                    "onplaceskill",
-                    "onplace",
-                    "op"
-                ],
-                "type": "String",
-                "description": "Skill to execute if the target places a block",
-                "link": "https://git.lumine.io/mythiccraft/MythicMobs/-/wikis/Skills/Mechanics/onblockplace",
-                "default_value": "",
-                "enum": "Metaskill"
-            },
-            {
-                "name": [
-                    "cancelevent",
-                    "ce",
-                    "cancel"
-                ],
-                "type": "Boolean",
-                "description": "Whether or not to cancel the event that triggered the aura",
-                "link": "https://git.lumine.io/mythiccraft/MythicMobs/-/wikis/Skills/Mechanics/onblockplace",
-                "default_value": "false"
-            }
-        ]
-    },
-    {
-        "plugin": "MythicMobs",
-        "class": "OnChatMechanic",
-        "extends": "AuraMechanic",
-        "implements": [
-            "ITargetedEntitySkill"
-        ],
-        "name": [
-            "onchat",
-            "chatprompt"
-        ],
-        "description": "Applies an [aura](https://git.lumine.io/mythiccraft/MythicMobs/-/wikis/skills/mechanics/aura) on the target player that triggers a [metaskill](https://git.lumine.io/mythiccraft/MythicMobs/-/wikis/Skills/Metaskills) when they type a chat message\n\n| [Implemented Placeholders](https://git.lumine.io/mythiccraft/MythicMobs/-/wikis/Skills/Placeholders#variable-placeholders)     |\n|--------------------------------|\n| `<skill.var.input>`            |",
-        "link": "https://git.lumine.io/mythiccraft/MythicMobs/-/wikis/Skills/Mechanics/OnChat",
-        "attributes": [
-            {
-                "name": [
-                    "onchatskill",
-                    "onchat",
-                    "oc",
-                    "then"
-                ],
-                "type": "String",
-                "description": "The [metaskill](https://git.lumine.io/mythiccraft/MythicMobs/-/wikis/Skills/Metaskills) to execute when the player chats",
-                "link": "https://git.lumine.io/mythiccraft/MythicMobs/-/wikis/Skills/Mechanics/OnChat",
-                "default_value": "",
-                "enum": "Metaskill"
-            }
-        ]
-    },
-    {
-        "plugin": "MythicMobs",
-        "class": "OnDamagedMechanic",
-        "extends": "AuraMechanic",
-        "implements": [
-            "ITargetedEntitySkill"
-        ],
-        "name": [
-            "ondamaged"
-        ],
-        "description": "Applies an aura to the target that triggers a skill when they take\ndamage. Can use any aura attribute\n\n| [Implemented Placeholders](https://git.lumine.io/mythiccraft/MythicMobs/-/wikis/Skills/Placeholders#variable-placeholders)     |\n|--------------------------------|\n| `<skill.var.damage-amount>`    |\n| `<skill.var.damage-type>`      |\n| `<skill.var.damage-cause>`     |",
-        "link": "https://git.lumine.io/mythiccraft/MythicMobs/-/wikis/Skills/Mechanics/ondamaged",
-        "attributes": [
-            {
-                "name": [
-                    "ondamagedskill",
-                    "ondamaged",
-                    "od",
-                    "onhitskill",
-                    "onhit",
-                    "oh"
-                ],
-                "type": "String",
-                "description": "[Metaskill] to execute if the target is damaged",
-                "link": "https://git.lumine.io/mythiccraft/MythicMobs/-/wikis/Skills/Mechanics/ondamaged",
-                "default_value": "",
-                "enum": "Metaskill"
-            },
-            {
-                "name": [
-                    "modDamageType",
-                    "damagetype"
-                ],
-                "type": "PlaceholderString",
-                "description": "The [type](https://hub.spigotmc.org/javadocs/spigot/org/bukkit/event/entity/EntityDamageEvent.DamageCause.html) of the damage that must be received in order to trigger the onHit metaskill",
-                "link": "https://git.lumine.io/mythiccraft/MythicMobs/-/wikis/Skills/Mechanics/ondamaged",
-                "default_value": "",
-                "enum": "DamageCause"
-            },
-            {
-                "name": [
-                    "cancelevent",
-                    "ce",
-                    "canceldamage"
-                ],
-                "type": "Boolean",
-                "description": "Whether or not to cancel the event that triggered the aura",
-                "link": "https://git.lumine.io/mythiccraft/MythicMobs/-/wikis/Skills/Mechanics/ondamaged",
-                "default_value": "false"
-            },
-            {
-                "name": [
-                    "damagesub",
-                    "sub",
-                    "s"
-                ],
-                "type": "String",
-                "description": "An optional static decrease (or increase if negative) to the original hit's damage",
-                "link": "https://git.lumine.io/mythiccraft/MythicMobs/-/wikis/Skills/Mechanics/ondamaged",
-                "default_value": "0"
-            },
-            {
-                "name": [
-                    "damagemultiplier",
-                    "multiplier",
-                    "m"
-                ],
-                "type": "String",
-                "description": "An optional multiplier on the original hit's damage",
-                "link": "https://git.lumine.io/mythiccraft/MythicMobs/-/wikis/Skills/Mechanics/ondamaged",
-                "default_value": "1"
-            },
-            {
-                "name": [
-                    "deflectProjectiles",
-                    "deflect",
-                    "reflect"
-                ],
-                "type": "Boolean",
-                "description": "Whether projectiles should be deflected",
-                "link": "https://git.lumine.io/mythiccraft/MythicMobs/-/wikis/Skills/Mechanics/ondamaged",
-                "default_value": "false"
-            },
-            {
-                "name": [
-                    "damagemodifiers",
-                    "damagemods",
-                    "damagemod"
-                ],
-                "type": "PlaceholderString",
-                "description": "Allows the aura to apply damage modifiers. Also accepts a list, as shown in the example. Placeholders can be used as the modifier's amount (**Premium only**).",
-                "link": "https://git.lumine.io/mythiccraft/MythicMobs/-/wikis/Skills/Mechanics/ondamaged",
-                "default_value": ""
-            },
-            {
-                "name": [
-                    "deflectconditions",
-                    "dconditions"
-                ],
-                "type": "String",
-                "description": "If `deflectProjectiles` is enabled, it will have to follow the specified set of conditions to work",
-                "link": "https://git.lumine.io/mythiccraft/MythicMobs/-/wikis/Skills/Mechanics/ondamaged",
-                "default_value": "",
-                "enum": "Conditions"
-            }
-        ]
-    },
-    {
-        "plugin": "MythicMobs",
-        "class": "OnDeathMechanic",
-        "extends": "AuraMechanic",
-        "implements": [
-            "ITargetedEntitySkill"
-        ],
-        "name": [
-            "ondeath"
-        ],
-        "description": "Applies an aura to the target that triggers a skill when they die",
-        "link": "https://git.lumine.io/mythiccraft/MythicMobs/-/wikis/Skills/Mechanics/ondeath",
-        "attributes": [
-            {
-                "name": [
-                    "ondeathskill",
-                    "od"
-                ],
-                "type": "String",
-                "description": "Skill to execute if the target dies",
-                "link": "https://git.lumine.io/mythiccraft/MythicMobs/-/wikis/Skills/Mechanics/ondeath",
-                "default_value": "",
-                "enum": "Metaskill"
-            }
-        ]
-    },
-    {
-        "plugin": "MythicMobs",
-        "class": "OnInteractMechanic",
-        "extends": "AuraMechanic",
-        "implements": [
-            "ITargetedEntitySkill"
-        ],
-        "name": [
-            "OnInteract",
-            "OnInteract"
-        ],
-        "description": "Applies an aura to a PLAYER that triggers a skill when they interact (right click) while holding an item, or are looking at a block (NOT AIR) that gets outlined (5 block range).\n\nApplies an aura to an entity that triggers a skill when they are interacted with (gets right clicked) by a player",
-        "link": "https://git.lumine.io/mythiccraft/MythicMobs/-/wikis/Skills/Mechanics/oninteract",
-        "attributes": [
-            {
-                "name": [
-                    "onrightclickskill",
-                    "oninteractskill",
-                    "onrightclick",
-                    "oninteract",
-                    "or",
-                    "oi"
-                ],
-                "type": "String",
-                "description": "Skill to execute if the target player interacts with a block or the target entity is interacted by a player",
-                "link": "https://git.lumine.io/mythiccraft/MythicMobs/-/wikis/Skills/Mechanics/oninteract",
-                "default_value": "",
-                "enum": "Metaskill"
-            }
-        ]
-    },
-    {
-        "plugin": "MythicMobs",
         "class": "OnJumpMechanic",
         "extends": "AuraMechanic",
         "implements": [
@@ -6302,84 +5875,6 @@
                 "description": "Whether to cancel the event when it is triggered",
                 "link": "https://git.lumine.io/mythiccraft/MythicMobs/-/wikis/Skills/Mechanics/onjump",
                 "default_value": "false"
-            }
-        ]
-    },
-    {
-        "plugin": "MythicMobs",
-        "class": "OnLeftClickMechanic",
-        "extends": "AuraMechanic",
-        "implements": [
-            "ITargetedEntitySkill"
-        ],
-        "name": [
-            "OnSwing",
-            "OnLeftClick"
-        ],
-        "description": "Applies an aura to the target that triggers a skill when they swing (left click)",
-        "link": "https://git.lumine.io/mythiccraft/MythicMobs/-/wikis/Skills/Mechanics/onswing",
-        "attributes": [
-            {
-                "name": [
-                    "onswingskill",
-                    "onswing",
-                    "osw"
-                ],
-                "type": "String",
-                "description": "Skill to execute if the target swings / left clicks",
-                "link": "https://git.lumine.io/mythiccraft/MythicMobs/-/wikis/Skills/Mechanics/onswing",
-                "default_value": "",
-                "enum": "Metaskill"
-            }
-        ]
-    },
-    {
-        "plugin": "MythicMobs",
-        "class": "OnShootMechanic",
-        "extends": "AuraMechanic",
-        "implements": [
-            "ITargetedEntitySkill"
-        ],
-        "name": [
-            "onbowshoot",
-            "onshoot"
-        ],
-        "description": "Applies an aura to the target that triggers a skill when they shoot with a bow. Can use any [aura](https://git.lumine.io/mythiccraft/MythicMobs/-/wikis/skills/mechanics/aura) attribute\n\n| [Implemented Placeholders](https://git.lumine.io/mythiccraft/MythicMobs/-/wikis/Skills/Placeholders#variable-placeholders)     |\n|--------------------------------|\n| `<skill.var.bow-tension>`      |",
-        "link": "https://git.lumine.io/mythiccraft/MythicMobs/-/wikis/Skills/Mechanics/onshoot",
-        "attributes": [
-            {
-                "name": [
-                    "onshootskill",
-                    "onshoot",
-                    "osh",
-                    "onbowshoot",
-                    "onbowshootskill"
-                ],
-                "type": "String",
-                "description": "Skill to execute when the entity shoots",
-                "link": "https://git.lumine.io/mythiccraft/MythicMobs/-/wikis/Skills/Mechanics/onshoot",
-                "default_value": "",
-                "enum": "Metaskill"
-            },
-            {
-                "name": [
-                    "cancelevent",
-                    "ce"
-                ],
-                "type": "Boolean",
-                "description": "Whether or not to cancel the event that triggered the aura",
-                "link": "https://git.lumine.io/mythiccraft/MythicMobs/-/wikis/Skills/Mechanics/onshoot",
-                "default_value": "false"
-            },
-            {
-                "name": [
-                    "forceaspower",
-                    "fap"
-                ],
-                "type": "Boolean",
-                "description": "Whether to pass the force of the bow as the skill's power",
-                "link": "https://git.lumine.io/mythiccraft/MythicMobs/-/wikis/Skills/Mechanics/onshoot",
-                "default_value": "true"
             }
         ]
     },
@@ -7345,7 +6840,7 @@
                     "ystartoffset",
                     "ys"
                 ],
-                "type": "Float",
+                "type": "PlaceholderFloat",
                 "description": "Offset Y location of the starting point of the line",
                 "link": "https://git.lumine.io/mythiccraft/MythicMobs/-/wikis/Skills/Mechanics/ParticleLine",
                 "default_value": "0"
@@ -7357,7 +6852,7 @@
                     "ytargetoffset",
                     "yt"
                 ],
-                "type": "Float",
+                "type": "PlaceholderFloat",
                 "description": "Offset Y location of the target point of the line",
                 "link": "https://git.lumine.io/mythiccraft/MythicMobs/-/wikis/Skills/Mechanics/ParticleLine",
                 "default_value": "0"
@@ -8465,7 +7960,7 @@
                     "onpoint",
                     "op"
                 ],
-                "type": "PlaceholderString",
+                "type": "String",
                 "description": "Meta-Skill executed at every vertex",
                 "link": "https://git.lumine.io/mythiccraft/MythicMobs/-/wikis/Skills/Mechanics/polygon",
                 "default_value": "",
@@ -8477,7 +7972,7 @@
                     "onedge",
                     "oe"
                 ],
-                "type": "PlaceholderString",
+                "type": "String",
                 "description": "Meta-Skill executed on the segments that connects the vertices",
                 "link": "https://git.lumine.io/mythiccraft/MythicMobs/-/wikis/Skills/Mechanics/polygon",
                 "default_value": "",
@@ -8489,7 +7984,7 @@
                     "onstar",
                     "os"
                 ],
-                "type": "PlaceholderString",
+                "type": "String",
                 "description": "Meta-Skill executed at the \"start of the \"star\" of the polygon, aka the figure formed inside of the polygon by tweaking the \"skip\" parameter",
                 "link": "https://git.lumine.io/mythiccraft/MythicMobs/-/wikis/Skills/Mechanics/polygon",
                 "default_value": "",
@@ -8502,7 +7997,7 @@
                     "ohe",
                     "oh"
                 ],
-                "type": "PlaceholderString",
+                "type": "String",
                 "description": "Meta-Skill executed when the polygon hits an entity. Only triggered once per entity inside the polygon area for every execution of the polygon mechanic",
                 "link": "https://git.lumine.io/mythiccraft/MythicMobs/-/wikis/Skills/Mechanics/polygon",
                 "default_value": "",
@@ -9795,7 +9290,18 @@
             {
                 "name": [
                     "bulletmodel",
-                    "model",
+                    "model"
+                ],
+                "type": "String",
+                "description": "The CustomModelData integer for the material (define model strings on a MythicItem instead)",
+                "link": "https://git.lumine.io/mythiccraft/MythicMobs/-/wikis/Skills/Mechanics/projectile",
+                "default_value": "0"
+            },
+            {
+                "name": [
+                    "bulletcustommodeldata",
+                    "custommodeldata",
+                    "cmd",
                     "bulletmodel",
                     "model"
                 ],
@@ -10220,6 +9726,25 @@
                 "description": "The glow color of the bullet, if `bulletGlowing` is set to true",
                 "link": "https://git.lumine.io/mythiccraft/MythicMobs/-/wikis/Skills/Mechanics/projectile",
                 "default_value": ""
+            },
+            {
+                "name": [
+                    "bulletbrightness"
+                ],
+                "type": "PlaceholderInteger",
+                "description": "The bullet's brightness",
+                "link": "https://git.lumine.io/mythiccraft/MythicMobs/-/wikis/Skills/Mechanics/projectile",
+                "default_value": "-1"
+            },
+            {
+                "name": [
+                    "bulletalod",
+                    "alod"
+                ],
+                "type": "Boolean",
+                "description": "Whether to use LOD culling on the bullet",
+                "link": "https://git.lumine.io/mythiccraft/MythicMobs/-/wikis/Skills/Mechanics/projectile",
+                "default_value": "true"
             },
             {
                 "name": [
@@ -14208,7 +13733,7 @@
                     "onpoint",
                     "op"
                 ],
-                "type": "PlaceholderString",
+                "type": "String",
                 "description": "Meta-Skill executed at every point of the slash",
                 "link": "https://git.lumine.io/mythiccraft/MythicMobs/-/wikis/Skills/Mechanics/slash",
                 "default_value": "",
@@ -14220,7 +13745,7 @@
                     "onend",
                     "oe"
                 ],
-                "type": "PlaceholderString",
+                "type": "String",
                 "description": "Meta-Skill executed at the end of the slash",
                 "link": "https://git.lumine.io/mythiccraft/MythicMobs/-/wikis/Skills/Mechanics/slash",
                 "default_value": "",
@@ -14232,7 +13757,7 @@
                     "onstart",
                     "os"
                 ],
-                "type": "PlaceholderString",
+                "type": "String",
                 "description": "Meta-Skill executed at the start of the slash",
                 "link": "https://git.lumine.io/mythiccraft/MythicMobs/-/wikis/Skills/Mechanics/slash",
                 "default_value": "",
@@ -14245,7 +13770,7 @@
                     "ohe",
                     "oh"
                 ],
-                "type": "PlaceholderString",
+                "type": "String",
                 "description": "Meta-Skill executed when a point of the slash hits an entity. Only triggered once per entity for every execution of the slash mechanic",
                 "link": "https://git.lumine.io/mythiccraft/MythicMobs/-/wikis/Skills/Mechanics/slash",
                 "default_value": "",
@@ -14680,59 +14205,6 @@
     },
     {
         "plugin": "MythicMobs",
-        "class": "StatAuraMechanic",
-        "extends": "AuraMechanic",
-        "implements": [
-            "ITargetedEntitySkill"
-        ],
-        "name": [
-            "stataura",
-            "statbuff",
-            "statdebuff"
-        ],
-        "description": "Applies an [aura](https://git.lumine.io/mythiccraft/MythicMobs/-/wikis/skills/mechanics/aura) to the target that applies a specific [stat](Stats) to them.  \nThe buff received is multiplied by the amount of stacks the aura has",
-        "link": "https://git.lumine.io/mythiccraft/MythicMobs/-/wikis/Skills/Mechanics/StatAura",
-        "attributes": [
-            {
-                "name": [
-                    "stat",
-                    "s"
-                ],
-                "type": "PlaceholderString",
-                "description": "The [stat](Stats) to apply",
-                "link": "https://git.lumine.io/mythiccraft/MythicMobs/-/wikis/Skills/Mechanics/StatAura",
-                "default_value": "",
-                "enum": "Stat"
-            },
-            {
-                "name": [
-                    "type",
-                    "t",
-                    "modifier",
-                    "mod",
-                    "m"
-                ],
-                "type": "PlaceholderString",
-                "description": "The [stat modifier](Stats#modifiers) to use",
-                "link": "https://git.lumine.io/mythiccraft/MythicMobs/-/wikis/Skills/Mechanics/StatAura",
-                "default_value": "ADDITIVE",
-                "enum": "StatModifier"
-            },
-            {
-                "name": [
-                    "value",
-                    "val",
-                    "v"
-                ],
-                "type": "PlaceholderDouble",
-                "description": "The value to use for the stat",
-                "link": "https://git.lumine.io/mythiccraft/MythicMobs/-/wikis/Skills/Mechanics/StatAura",
-                "default_value": "0.0"
-            }
-        ]
-    },
-    {
-        "plugin": "MythicMobs",
         "class": "StealItemMechanic",
         "extends": "SkillMechanic",
         "implements": [
@@ -14874,76 +14346,6 @@
         "description": "Stops the targeted living entity from using an item, i.e. blocking with a shield.\n> If you want to do some sort of cooldown, try using this mechanic in an aura",
         "link": "https://git.lumine.io/mythiccraft/MythicMobs/-/wikis/Skills/Mechanics/stopusingitem",
         "attributes": []
-    },
-    {
-        "plugin": "MythicMobs",
-        "class": "StunMechanic",
-        "extends": "AuraMechanic",
-        "implements": [
-            "ITargetedEntitySkill"
-        ],
-        "name": [
-            "stun"
-        ],
-        "description": "Holds the target in place temporarily.\n\n> This mechanic can cause Spigot to kick the player (`PlayerName moved wrongly!`)",
-        "link": "https://git.lumine.io/mythiccraft/MythicMobs/-/wikis/Skills/Mechanics/stun",
-        "attributes": [
-            {
-                "name": [
-                    "auragroup",
-                    "auratype",
-                    "group",
-                    "type",
-                    "g"
-                ],
-                "type": "PlaceholderString",
-                "description": "Remove gravity from target when stunned (1.9+)",
-                "link": "https://git.lumine.io/mythiccraft/MythicMobs/-/wikis/Skills/Mechanics/stun",
-                "default_value": "false"
-            },
-            {
-                "name": [
-                    "stopai",
-                    "ai"
-                ],
-                "type": "Boolean",
-                "description": "Removes entity AI while stunned",
-                "link": "https://git.lumine.io/mythiccraft/MythicMobs/-/wikis/Skills/Mechanics/stun",
-                "default_value": "false"
-            },
-            {
-                "name": [
-                    "gravity",
-                    "g"
-                ],
-                "type": "Boolean",
-                "description": "Remove gravity from target when stunned (1.9+)",
-                "link": "https://git.lumine.io/mythiccraft/MythicMobs/-/wikis/Skills/Mechanics/stun",
-                "default_value": "false"
-            },
-            {
-                "name": [
-                    "facing",
-                    "face",
-                    "f"
-                ],
-                "type": "Boolean",
-                "description": "When false, entity cannot rotate or look around when stunned",
-                "link": "https://git.lumine.io/mythiccraft/MythicMobs/-/wikis/Skills/Mechanics/stun",
-                "default_value": "false"
-            },
-            {
-                "name": [
-                    "noknockback",
-                    "nokb",
-                    "kb"
-                ],
-                "type": "Boolean",
-                "description": "When true, entity cannot be knocked back when stunned",
-                "link": "https://git.lumine.io/mythiccraft/MythicMobs/-/wikis/Skills/Mechanics/stun",
-                "default_value": "false"
-            }
-        ]
     },
     {
         "plugin": "MythicMobs",

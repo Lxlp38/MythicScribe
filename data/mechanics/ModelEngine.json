@@ -4,7 +4,8 @@
         "class": "AnimateModelMechanic",
         "extends": "SkillMechanic",
         "implements": [
-            "ITargetedEntitySkill"
+            "ITargetedEntitySkill",
+            "INoTargetSkill"
         ],
         "name": [
             "animatemodel"
@@ -148,7 +149,8 @@
         "class": "BodyRotationMechanic",
         "extends": "SkillMechanic",
         "implements": [
-            "ITargetedEntitySkill"
+            "ITargetedEntitySkill",
+            "INoTargetSkill"
         ],
         "name": [
             "bodyrotation",
@@ -159,6 +161,9 @@
         "attributes": [
             {
                 "name": [
+                    "hu",
+                    "head",
+                    "headuneven",
                     "hu",
                     "head",
                     "headuneven"
@@ -172,6 +177,9 @@
                 "name": [
                     "mh",
                     "mxh",
+                    "maxhead",
+                    "mh",
+                    "mxh",
                     "maxhead"
                 ],
                 "type": "PlaceholderFloat",
@@ -182,6 +190,8 @@
             {
                 "name": [
                     "mnh",
+                    "minhead",
+                    "mnh",
                     "minhead"
                 ],
                 "type": "PlaceholderFloat",
@@ -191,6 +201,9 @@
             },
             {
                 "name": [
+                    "bu",
+                    "body",
+                    "bodyuneven",
                     "bu",
                     "body",
                     "bodyuneven"
@@ -204,6 +217,9 @@
                 "name": [
                     "mb",
                     "mxb",
+                    "maxbody",
+                    "mb",
+                    "mxb",
                     "maxbody"
                 ],
                 "type": "PlaceholderFloat",
@@ -213,6 +229,8 @@
             },
             {
                 "name": [
+                    "mnb",
+                    "minbody",
                     "mnb",
                     "minbody"
                 ],
@@ -226,6 +244,10 @@
                     "m",
                     "mode",
                     "player",
+                    "playermode",
+                    "m",
+                    "mode",
+                    "player",
                     "playermode"
                 ],
                 "type": "Boolean",
@@ -235,6 +257,8 @@
             },
             {
                 "name": [
+                    "s",
+                    "stable",
                     "s",
                     "stable"
                 ],
@@ -246,6 +270,8 @@
             {
                 "name": [
                     "rde",
+                    "rdelay",
+                    "rde",
                     "rdelay"
                 ],
                 "type": "PlaceholderInteger",
@@ -255,6 +281,8 @@
             },
             {
                 "name": [
+                    "rdu",
+                    "rduration",
                     "rdu",
                     "rduration"
                 ],
@@ -270,7 +298,8 @@
         "class": "BrightnessMechanic",
         "extends": "SkillMechanic",
         "implements": [
-            "ITargetedEntitySkill"
+            "ITargetedEntitySkill",
+            "INoTargetSkill"
         ],
         "name": [
             "brightness",
@@ -352,7 +381,8 @@
         "class": "ChangeParentMechanic",
         "extends": "SkillMechanic",
         "implements": [
-            "ITargetedEntitySkill"
+            "ITargetedEntitySkill",
+            "INoTargetSkill"
         ],
         "name": [
             "changeparent"
@@ -399,7 +429,8 @@
         "class": "ChangePartMechanic",
         "extends": "SkillMechanic",
         "implements": [
-            "ITargetedEntitySkill"
+            "ITargetedEntitySkill",
+            "INoTargetSkill"
         ],
         "name": [
             "changepart"
@@ -462,7 +493,8 @@
         "class": "ConfigureCullMechanic",
         "extends": "SkillMechanic",
         "implements": [
-            "ITargetedEntitySkill"
+            "ITargetedEntitySkill",
+            "INoTargetSkill"
         ],
         "name": [
             "cullconfig",
@@ -891,7 +923,8 @@
         "class": "EnchantMechanic",
         "extends": "SkillMechanic",
         "implements": [
-            "ITargetedEntitySkill"
+            "ITargetedEntitySkill",
+            "INoTargetSkill"
         ],
         "name": [
             "enchant"
@@ -962,7 +995,8 @@
         "class": "GlowMechanic",
         "extends": "SkillMechanic",
         "implements": [
-            "ITargetedEntitySkill"
+            "ITargetedEntitySkill",
+            "INoTargetSkill"
         ],
         "name": [
             "glow",
@@ -1246,7 +1280,8 @@
         "class": "LockModelRotationMechanic",
         "extends": "SkillMechanic",
         "implements": [
-            "ITargetedEntitySkill"
+            "ITargetedEntitySkill",
+            "INoTargetSkill"
         ],
         "name": [
             "lockmodel",
@@ -1587,7 +1622,8 @@
         "class": "ModifyStateMechanic",
         "extends": "SkillMechanic",
         "implements": [
-            "ITargetedEntitySkill"
+            "ITargetedEntitySkill",
+            "INoTargetSkill"
         ],
         "name": [
             "modifystate",
@@ -1911,7 +1947,8 @@
         "class": "PartVisibilityMechanic",
         "extends": "SkillMechanic",
         "implements": [
-            "ITargetedEntitySkill"
+            "ITargetedEntitySkill",
+            "INoTargetSkill"
         ],
         "name": [
             "partvisibility",
@@ -1970,6 +2007,7 @@
             {
                 "name": [
                     "c",
+                    "ch",
                     "child"
                 ],
                 "type": "Boolean",
@@ -2011,7 +2049,8 @@
         "class": "RemapModelMechanic",
         "extends": "SkillMechanic",
         "implements": [
-            "ITargetedEntitySkill"
+            "ITargetedEntitySkill",
+            "INoTargetSkill"
         ],
         "name": [
             "remapmodel",
@@ -2133,7 +2172,8 @@
         "class": "ScaleMechanic",
         "extends": "SkillMechanic",
         "implements": [
-            "ITargetedEntitySkill"
+            "ITargetedEntitySkill",
+            "INoTargetSkill"
         ],
         "name": [
             "scale"
@@ -2180,7 +2220,8 @@
         "class": "SegmentMechanic",
         "extends": "SkillMechanic",
         "implements": [
-            "ITargetedEntitySkill"
+            "ITargetedEntitySkill",
+            "INoTargetSkill"
         ],
         "name": [
             "segment",
@@ -2467,7 +2508,8 @@
         "class": "StateMechanic",
         "extends": "SkillMechanic",
         "implements": [
-            "ITargetedEntitySkill"
+            "ITargetedEntitySkill",
+            "INoTargetSkill"
         ],
         "name": [
             "state",
@@ -2606,7 +2648,8 @@
         "class": "StateToggleMechanic",
         "extends": "SkillMechanic",
         "implements": [
-            "ITargetedEntitySkill"
+            "ITargetedEntitySkill",
+            "INoTargetSkill"
         ],
         "name": [
             "statetoggle",
@@ -2705,7 +2748,8 @@
         "class": "SubModelMechanic",
         "extends": "SkillMechanic",
         "implements": [
-            "ITargetedEntitySkill"
+            "ITargetedEntitySkill",
+            "INoTargetSkill"
         ],
         "name": [
             "submodel"
@@ -2884,7 +2928,8 @@
         "class": "TintMechanic",
         "extends": "SkillMechanic",
         "implements": [
-            "ITargetedEntitySkill"
+            "ITargetedEntitySkill",
+            "INoTargetSkill"
         ],
         "name": [
             "tint",

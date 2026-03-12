@@ -1,5 +1,6 @@
 export enum ObjectType {
     MECHANIC = 'Mechanic',
+    AURACOMPONENT = 'Aura Component',
     ATTRIBUTE = 'Attribute',
     TARGETER = 'Targeter',
     CONDITION = 'Condition',

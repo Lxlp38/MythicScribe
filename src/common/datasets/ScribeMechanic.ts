@@ -235,7 +235,7 @@ export abstract class AbstractScribeMechanicRegistry {
     async loadDataset(context: vscode.ExtensionContext) {
         const time = timeCounter();
         getLogger().debug(`Loading ${this.type} Dataset`);
-        const node = atlasDataNode.getNode(`${this.folder}`);
+        const node = atlasDataNode.getNode(this.folder);
         const directoryFiles: AtlasFileNodeImpl[] = node?.getFiles() || [];
         const files = directoryFiles.map(
             (file) => new ScribeCloneableFile<Mechanic>(context, file)
@@ -258,6 +258,11 @@ class ScribeMechanicRegistry extends AbstractScribeMechanicRegistry {
     override readonly regex: RegExp = /(?<=\s- )[\w:]+/gm;
     override readonly type: ObjectType = ObjectType.MECHANIC;
     override readonly folder: string = 'mechanics';
+}
+class ScribeAuraComponentRegistry extends AbstractScribeMechanicRegistry {
+    override readonly regex: RegExp = /(?<=\s- )[\w:]+/gm;
+    override readonly type: ObjectType = ObjectType.AURACOMPONENT;
+    override readonly folder: string = 'auracomponents';
 }
 class ScribeTargeterRegistry extends AbstractScribeMechanicRegistry {
     override readonly regex: RegExp = /(?<=[\s=]@)[\w:]+/gm;
@@ -492,6 +497,8 @@ export const ScribeMechanicHandler = {
         trigger: new ScribeTriggerRegistry(),
         aitarget: new ScribeAITargetRegistry(),
         aigoal: new ScribeAIGoalRegistry(),
+
+        auracomponent: new ScribeAuraComponentRegistry(),
     },
 
     async loadMechanicDatasets(context: vscode.ExtensionContext) {

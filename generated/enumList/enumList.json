@@ -225,6 +225,11 @@
     "type": "Volatile"
   },
   {
+    "id": "attributemodifieroperation",
+    "path": "attributemodifieroperation",
+    "type": "Volatile"
+  },
+  {
     "id": "barcolor",
     "path": "barcolor",
     "type": "Volatile"
@@ -541,6 +546,11 @@
   },
   {
     "id": "conditions",
+    "path": null,
+    "type": "Scripted"
+  },
+  {
+    "id": "auracomponents",
     "path": null,
     "type": "Scripted"
   }

@@ -1,7 +1,7 @@
 import * as vscode from 'vscode';
 import { LogLevel } from '@common/packageData';
 
-import { CallbackProvider } from './callbackProvider';
+import type { CallbackProvider } from './callbackProvider';
 
 type logOptions = {
     silent?: boolean;

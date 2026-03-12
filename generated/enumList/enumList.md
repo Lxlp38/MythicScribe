@@ -178,6 +178,10 @@
 ### Path: `advancementdisplayframe`
 ### Type: `Volatile`
 
+# `attributemodifieroperation`
+### Path: `attributemodifieroperation`
+### Type: `Volatile`
+
 # `barcolor`
 ### Path: `barcolor`
 ### Type: `Volatile`
@@ -431,5 +435,9 @@
 ### Type: `Scripted`
 
 # `conditions`
+### Path: `null`
+### Type: `Scripted`
+
+# `auracomponents`
 ### Path: `null`
 ### Type: `Scripted`

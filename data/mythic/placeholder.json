@@ -131,17 +131,26 @@
     "target.l.x.{Float}": {
         "description": "Returns the X coordinate of the target +- random number between {Float}"
     },
+    "target.l.x.double": {
+        "description": "Returns the precise X coordinate of the target"
+    },
     "target.l.y": {
         "description": "Returns the Y coordinate of the target"
     },
     "target.l.y.{Float}": {
         "description": "Returns the Y coordinate of the target +- random number between {Float}"
     },
+    "target.l.y.double": {
+        "description": "Returns the precise Y coordinate of the target"
+    },
     "target.l.z": {
         "description": "Returns the Z coordinate of the target"
     },
     "target.l.z.{Float}": {
         "description": "Returns the Z coordinate of the target +- random number between {Float}"
+    },
+    "target.l.z.double": {
+        "description": "Returns the precise Z coordinate of the target"
     },
     "target.l.yaw": {
         "description": "Returns the yaw of the target"
@@ -292,6 +301,9 @@
     },
     "skill.power": {
         "description": "Returns the [power](/Mobs/Power) of the metaskill in which the placeholder is evaluated"
+    },
+    "centertext{v=example;w=10}": {
+        "description": "Centers the given text. The attributes are:<br>`value/v/text/line`: The text to center<br>`pixelwidth/width/w/pw`: The total pixels (integer) to account for (will center at half the width)<br>`bold/b`: Whether the provided value is bolded<br>`singlepixelunicodes/spus`: A list of unicodes of 1-3 pixels to use for extra precision. Defaults to `\" , , , \"`"
     },
     "item.amount": {
         "description": "Returns the amount of the item that triggered the skill"

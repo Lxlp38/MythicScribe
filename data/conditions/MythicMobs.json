@@ -1683,7 +1683,7 @@
         "name": [
             "hasOwner"
         ],
-        "description": "This condition checks if the target mob has an owner. \n(Note: Player ownership is cleared on logout.)",
+        "description": "This condition checks if the target mob has an owner.",
         "link": "https://git.lumine.io/mythiccraft/MythicMobs/-/wikis/Skills/Conditions/hasowner",
         "attributes": []
     },
@@ -2733,7 +2733,8 @@
         "class": "LivingInRadiusCondition",
         "extends": "SkillCondition",
         "implements": [
-            "ISkillMetaCondition"
+            "ISkillMetaCondition",
+            "ILocationCondition"
         ],
         "name": [
             "livinginradius"
@@ -4360,6 +4361,38 @@
     },
     {
         "plugin": "MythicMobs",
+        "class": "StatDamageModifierCondition",
+        "extends": "SkillCondition",
+        "implements": [
+            "ISkillMetaComparisonCondition"
+        ],
+        "name": [
+            "statDamageModifier",
+            "statDamage"
+        ],
+        "description": "Used in stat triggers to check the increased damage (as a multiplier).\nCan be useful to differentiate between positive and negative effects.",
+        "link": "https://git.lumine.io/mythiccraft/MythicMobs/-/wikis/Skills/Conditions/StatDamageModifier",
+        "attributes": [
+            {
+                "name": [
+                    "value",
+                    "v",
+                    "amount",
+                    "a",
+                    "damage",
+                    "d",
+                    "multiplier",
+                    "m"
+                ],
+                "type": "PlaceholderDouble",
+                "description": "The minimum multiplier to check for. Defaults to 1. Will return true if the multiplier is bigger than the value to check for.",
+                "link": "https://git.lumine.io/mythiccraft/MythicMobs/-/wikis/Skills/Conditions/StatDamageModifier",
+                "default_value": "1"
+            }
+        ]
+    },
+    {
+        "plugin": "MythicMobs",
         "class": "StringEmptyCondition",
         "extends": "SkillCondition",
         "implements": [
@@ -4545,7 +4578,7 @@
         "name": [
             "targetnotwithin"
         ],
-        "description": "Tests if the target's target is not within a certain distance.",
+        "description": "Tests if the target's vanilla target is not within a certain distance.",
         "link": "https://git.lumine.io/mythiccraft/MythicMobs/-/wikis/Skills/Conditions/targetnotwithin",
         "attributes": [
             {
@@ -4570,7 +4603,7 @@
         "name": [
             "targetWithin"
         ],
-        "description": "Tests if the target's target is within a certain distance.",
+        "description": "Tests if the target's vanilla target is within a certain distance.",
         "link": "https://git.lumine.io/mythiccraft/MythicMobs/-/wikis/Skills/Conditions/targetwithin",
         "attributes": [
             {

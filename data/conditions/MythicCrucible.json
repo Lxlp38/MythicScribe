@@ -1,0 +1,143 @@
+[
+    {
+        "plugin": "MythicCrucible",
+        "class": "AttackOnCooldownCondition",
+        "extends": "SkillCondition",
+        "implements": [
+            "IEntityCondition"
+        ],
+        "name": [
+            "attackOnCooldown",
+            "heldItemOnCooldown"
+        ],
+        "description": "Checks if the player has an active [attack cooldown](https://minecraft.wiki/w/Damage#Attack_cooldown)",
+        "link": "https://git.lumine.io/mythiccraft/mythiccrucible/-/wikis/Skills/Conditions/AttackOnCooldown",
+        "attributes": []
+    },
+    {
+        "plugin": "MythicCrucible",
+        "class": "EquipSlotCondition",
+        "extends": "SkillCondition",
+        "implements": [
+            "ISkillMetaCondition"
+        ],
+        "name": [
+            "equipmentSlot",
+            "equipSlot",
+            "wornSlot"
+        ],
+        "description": "This condition checks if the player has the Crucible item equipped in a particular slot. This condition does not work for other materials, only the item running the skill. for a skill to check for materials for more complex checks, see the [wearing](https://git.mythiccraft.io/mythiccraft/MythicMobs/-/wikis/skills/conditions/wearing) condition.",
+        "link": "https://git.lumine.io/mythiccraft/mythiccrucible/-/wikis/Skills/Conditions/EquipSlot",
+        "attributes": [
+            {
+                "name": [
+                    "slot",
+                    "s"
+                ],
+                "type": "String",
+                "description": "The item slot to check",
+                "link": "https://git.lumine.io/mythiccraft/mythiccrucible/-/wikis/Skills/Conditions/EquipSlot",
+                "default_value": "HAND"
+            }
+        ]
+    },
+    {
+        "plugin": "MythicCrucible",
+        "class": "FurnitureDirectionCondition",
+        "extends": "SkillCondition",
+        "implements": [
+            "IEntityCondition",
+            "ISkillMetaCondition"
+        ],
+        "name": [
+            "furnitureDirection"
+        ],
+        "description": "Checks if the targeted Furniture entity has a specific direction",
+        "link": "https://git.lumine.io/mythiccraft/mythiccrucible/-/wikis/Skills/Conditions/FurnitureDirection",
+        "attributes": [
+            {
+                "name": [
+                    "direction",
+                    "dir",
+                    "d"
+                ],
+                "type": "String",
+                "description": "The direction to check for",
+                "link": "https://git.lumine.io/mythiccraft/mythiccrucible/-/wikis/Skills/Conditions/FurnitureDirection",
+                "default_value": ""
+            }
+        ]
+    },
+    {
+        "plugin": "MythicCrucible",
+        "class": "FurnitureStateCondition",
+        "extends": "SkillCondition",
+        "implements": [
+            "IEntityCondition",
+            "ISkillMetaCondition"
+        ],
+        "name": [
+            "furnitureState"
+        ],
+        "description": "Checks if the target Furniture's [State](https://git.lumine.io/mythiccraft/mythiccrucible/-/wikis/Furniture#furniture-states) is the specified one",
+        "link": "https://git.lumine.io/mythiccraft/mythiccrucible/-/wikis/Skills/Conditions/furnitureState",
+        "attributes": []
+    },
+    {
+        "plugin": "MythicCrucible",
+        "class": "FurnitureTypeCondition",
+        "extends": "SkillCondition",
+        "implements": [
+            "IEntityCondition",
+            "ISkillMetaCondition"
+        ],
+        "name": [
+            "furnitureType"
+        ],
+        "description": "Checks if the target furniture is of the specified type",
+        "link": "https://git.lumine.io/mythiccraft/mythiccrucible/-/wikis/Skills/Conditions/FurnitureType",
+        "attributes": [
+            {
+                "name": [
+                    "type",
+                    "t"
+                ],
+                "type": "String",
+                "description": "The type to check for",
+                "link": "https://git.lumine.io/mythiccraft/mythiccrucible/-/wikis/Skills/Conditions/FurnitureType",
+                "default_value": "",
+                "enum": "Furniture"
+            }
+        ]
+    },
+    {
+        "plugin": "MythicCrucible",
+        "class": "IsFurnitureCondition",
+        "extends": "SkillCondition",
+        "implements": [
+            "IEntityCondition",
+            "ILocationCondition"
+        ],
+        "name": [
+            "isFurniture"
+        ],
+        "description": "Checks if the targeted entity is a Furniture or if there is a Furniture entity at the targeted location",
+        "link": "https://git.lumine.io/mythiccraft/mythiccrucible/-/wikis/Skills/Conditions/IsFurniture",
+        "attributes": []
+    },
+    {
+        "plugin": "MythicCrucible",
+        "class": "ItemCustomModelDataCondition",
+        "extends": "ItemCondition",
+        "implements": [
+            "ISkillMetaCondition"
+        ],
+        "name": [
+            "itemCustomModelData",
+            "customModelData"
+        ],
+        "description": null,
+        "link": "https://git.lumine.io/mythiccraft/mythiccrucible/-/wikis/Skills/Conditions/custommodeldata",
+        "attributes": []
+    }
+]

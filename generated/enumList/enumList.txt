@@ -43,6 +43,7 @@ variablescope
 variabletype
 sound
 advancementdisplayframe
+attributemodifieroperation
 barcolor
 barstyle
 billboard
@@ -107,3 +108,4 @@ reagentschema
 menuschema
 achievementschema
 conditions
+auracomponents

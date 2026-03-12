@@ -1,0 +1,11 @@
+{
+    "ADD_NUMBER": {
+        "description": "Adds (or subtracts) the specified amount to the base value."
+    },
+    "ADD_SCALAR": {
+        "description": "Adds this scalar of amount to the base value."
+    },
+    "MULTIPLY_SCALAR_1": {
+        "description": "Multiply amount by this value, after adding 1 to it."
+    }
+}

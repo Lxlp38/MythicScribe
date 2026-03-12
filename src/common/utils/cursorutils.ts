@@ -133,6 +133,7 @@ export function getCursorSkills(
         ScribeMechanicHandler.registry.targeter,
         ScribeMechanicHandler.registry.trigger,
         ScribeMechanicHandler.registry.inlinecondition,
+        ScribeMechanicHandler.registry.auracomponent,
     ];
 
     if (
@@ -194,6 +195,21 @@ export function getCursorSkills(
         ) {
             return condition.getAttributeByName(attribute);
         }
+
+        const auracomponent =
+            ScribeMechanicHandler.registry.auracomponent.getMechanicByName(object);
+        if (
+            auracomponent &&
+            isInsideInlineMechanicList(
+                document,
+                position,
+                attributeSpecialValues.auracomponents,
+                ScribeMechanicHandler.registry.mechanic
+            )
+        ) {
+            return auracomponent.getAttributeByName(attribute);
+        }
+
         return null;
     }
     return null;
@@ -239,6 +255,20 @@ export function isInsideInlineConditionList(
     position: vscode.Position,
     ...registry: AbstractScribeMechanicRegistry[]
 ) {
+    return isInsideInlineMechanicList(
+        document,
+        position,
+        attributeSpecialValues.conditions,
+        ...registry
+    );
+}
+
+export function isInsideInlineMechanicList(
+    document: vscode.TextDocument,
+    position: vscode.Position,
+    specialValue: string,
+    ...registry: AbstractScribeMechanicRegistry[]
+) {
     const maybeAttribute = getSquareBracketObject(document, position);
     if (maybeAttribute && maybeAttribute[0] && maybeAttribute[1]) {
         let attribute: undefined | MythicAttribute;
@@ -256,7 +286,7 @@ export function isInsideInlineConditionList(
                 }
             }
         }
-        if (attribute && attribute.specialValue === attributeSpecialValues.conditions) {
+        if (attribute && attribute.specialValue === specialValue) {
             return true;
         }
     }

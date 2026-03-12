@@ -7,7 +7,8 @@ import {
     checkShouldKeyComplete,
     getListCompletionNeededSpaces,
 } from '@common/schemas/resolution/helpers';
-import { isInsideInlineConditionList } from '@common/utils/cursorutils';
+import { isInsideInlineConditionList, isInsideInlineMechanicList } from '@common/utils/cursorutils';
+import { attributeSpecialValues } from '@common/datasets/enumSources';
 
 export function mechanicCompletionProvider(
     registry: AbstractScribeMechanicRegistry,
@@ -41,6 +42,16 @@ export function mechanicCompletionProvider(
 
                 if (isInsideInlineConditionList(document, position, registry)) {
                     return ScribeMechanicHandler.registry.condition.mechanicCompletions;
+                }
+                if (
+                    isInsideInlineMechanicList(
+                        document,
+                        position,
+                        attributeSpecialValues.auracomponents,
+                        ScribeMechanicHandler.registry.mechanic
+                    )
+                ) {
+                    return ScribeMechanicHandler.registry.auracomponent.mechanicCompletions;
                 }
                 return registry.mechanicCompletions;
             },

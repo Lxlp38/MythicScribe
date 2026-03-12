@@ -16,6 +16,7 @@ import {
     getCharBefore,
     getEnumCompletion,
 } from '@common/schemas/resolution/helpers';
+import { attributeSpecialValues } from '@common/datasets/enumSources';
 
 export function attributeCompletionProvider() {
     return vscode.languages.registerCompletionItemProvider(
@@ -208,6 +209,16 @@ function searchForLinkedMythicMechanic(
         )
     ) {
         mechanic = ScribeMechanicHandler.registry.condition.getMechanicByName(object);
+    } else if (
+        !mechanic &&
+        cursorutils.isInsideInlineMechanicList(
+            document,
+            position,
+            attributeSpecialValues.auracomponents,
+            ScribeMechanicHandler.registry.mechanic
+        )
+    ) {
+        mechanic = ScribeMechanicHandler.registry.auracomponent.getMechanicByName(object);
     }
 
     return mechanic ? mechanic : null;

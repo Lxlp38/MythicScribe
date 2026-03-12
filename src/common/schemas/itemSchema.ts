@@ -29,7 +29,7 @@ const ConsumeEffects: Schema = {
     ConsumeEffects: {
         type: SchemaElementTypes.LIST,
         description: 'Effects to apply when the item is consumed',
-        plugin: DefaultPlugins.MythicCrucible,
+        plugin: DefaultPlugins.MythicMobs,
     },
 };
 

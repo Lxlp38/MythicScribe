@@ -55,4 +55,5 @@ export enum scriptedEnums {
 
 export enum attributeSpecialValues {
     conditions = 'conditions',
+    auracomponents = 'auracomponents',
 }
