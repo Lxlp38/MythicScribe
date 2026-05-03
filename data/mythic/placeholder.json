@@ -1,473 +1,1398 @@
 {
-    "^dot": {
-        "description": "`.`"
-    },
-    "^dot2": {
-        "description": "`<^dot>`"
-    },
-    "caster.damage": {
-        "description": "Returns the caster's Attack_Damage attribute value"
-    },
-    "caster.display": {
-        "description": "Returns the caster's displayed name"
-    },
-    "caster.mythic_type": {
-        "description": "Returns the caster's internal mob type"
-    },
-    "caster.type": {
-        "description": "Returns the internal id of a MythicMob or the entity name otherwise"
-    },
-    "caster.type.name": {
-        "description": "Returns the display name of a MythicMob or the entity name otherwise"
-    },
-    "caster.uuid": {
-        "description": "Returns the UUID of the caster"
-    },
-    "caster.level": {
-        "description": "Returns the level of the caster"
-    },
-    "caster.name": {
-        "description": "Returns the name of the caster"
-    },
-    "caster.hp": {
-        "description": "Returns current hp of the caster"
-    },
-    "caster.mhp": {
-        "description": "Returns the max hp of the caster"
-    },
-    "caster.php": {
-        "description": "Returns the percent hp of the caster"
-    },
-    "caster.thp": {
-        "description": "Returns the full number hp of the caster"
-    },
-    "caster.tt.top": {
-        "description": "Returns the name of the top threat holder of the caster"
-    },
-    "caster.l.w": {
-        "description": "Returns the world name the caster is in"
-    },
-    "caster.l.x": {
-        "description": "Returns the X coordinate of the caster"
-    },
-    "caster.l.x.{Float}": {
-        "description": "Returns the X coordinate of the caster +- random number between {Float}"
-    },
-    "caster.l.x.double": {
-        "description": "Returns the precise X coordinate of the caster"
-    },
-    "caster.l.y": {
-        "description": "Returns the Y coordinate of the caster"
-    },
-    "caster.l.y.{Float}": {
-        "description": "Returns the Y coordinate of the caster +- random number between {Float}"
-    },
-    "caster.l.y.double": {
-        "description": "Returns the precise Y coordinate of the caster"
-    },
-    "caster.l.z": {
-        "description": "Returns the Z coordinate of the caster"
-    },
-    "caster.l.z.{Float}": {
-        "description": "Returns the Z coordinate of the caster +- random number between {Float}"
-    },
-    "caster.l.z.double": {
-        "description": "Returns the precise Z coordinate of the caster"
-    },
-    "caster.l.yaw": {
-        "description": "Returns the yaw of the caster"
-    },
-    "caster.l.pitch": {
-        "description": "Returns the pitch of the caster"
-    },
-    "caster.stance": {
-        "description": "Returns the current stance of the caster"
-    },
-    "caster.stat.{Stat}": {
-        "description": "Returns the value of the specified {Stat} on the caster"
-    },
-    "caster.heldenchantlevel.{Integer}": {
-        "description": "Returns the enchant level of specified {Integer} enchant"
-    },
-    "caster.skill.{Metaskill}.cooldown": {
-        "description": "Returns the current cooldown of the give skill as a float number"
-    },
-    "caster.raytrace.{Float}": {
-        "description": "Returns the name of the block being looked at by the caster if within {Float} range, if {Float} is specified. If only <caster.raytrace> is used, then the range defaults to `4.5`. If no block is found, `AIR` is returned."
-    },
-    "caster.children.size": {
-        "description": "Returns the number of children this entity has"
-    },
-    "caster.attack_cooldown": {
-        "description": "Returns the attack cooldown of the player's equipped item. The value will be a float between 0 (maximum cooldown for the item) and 1 (no cooldown)"
-    },
-    "target.uuid": {
-        "description": "Returns the UUID of the target"
-    },
-    "target.name": {
-        "description": "Returns the name of the target"
-    },
-    "target.hp": {
-        "description": "Returns current hp of the target"
-    },
-    "target.mhp": {
-        "description": "Returns the max hp of the target"
-    },
-    "target.php": {
-        "description": "Returns the percent hp of the target"
-    },
-    "target.thp": {
-        "description": "Returns the full number hp of the target"
-    },
-    "target.threat": {
-        "description": "Returns the threat level of the target"
-    },
-    "target.l.w": {
-        "description": "Returns the world name the target is in"
-    },
-    "target.l.x": {
-        "description": "Returns the X coordinate of the target"
-    },
-    "target.l.x.{Float}": {
-        "description": "Returns the X coordinate of the target +- random number between {Float}"
-    },
-    "target.l.x.double": {
-        "description": "Returns the precise X coordinate of the target"
-    },
-    "target.l.y": {
-        "description": "Returns the Y coordinate of the target"
-    },
-    "target.l.y.{Float}": {
-        "description": "Returns the Y coordinate of the target +- random number between {Float}"
-    },
-    "target.l.y.double": {
-        "description": "Returns the precise Y coordinate of the target"
-    },
-    "target.l.z": {
-        "description": "Returns the Z coordinate of the target"
-    },
-    "target.l.z.{Float}": {
-        "description": "Returns the Z coordinate of the target +- random number between {Float}"
-    },
-    "target.l.z.double": {
-        "description": "Returns the precise Z coordinate of the target"
-    },
-    "target.l.yaw": {
-        "description": "Returns the yaw of the target"
-    },
-    "target.l.pitch": {
-        "description": "Returns the pitch of the target"
-    },
-    "target.level": {
-        "description": "Returns the level of the target"
-    },
-    "target.block.type": {
-        "description": "Returns the block type of the target"
-    },
-    "target.block.data": {
-        "description": "Returns the block data of the target block"
-    },
-    "target.entity_type": {
-        "description": "Returns the entity type of the target"
-    },
-    "target.item.type": {
-        "description": "Returns the type of the targeted item entity"
-    },
-    "target.held.item": {
-        "description": "Returns the item held by the target"
-    },
-    "target.itemstack_amount": {
-        "description": "Returns the amount of item entities on the ground"
-    },
-    "target.stat.{StatName}": {
-        "description": "Returns the value of the specified stat on the target"
-    },
-    "target.raytrace.{Float}": {
-        "description": "Returns the name of the block being looked at by the target if within {Float} range, if {Float} is specified. If only <target.raytrace> is used, then the range defaults to `4.5`. If no block is found, `AIR` is returned."
-    },
-    "target.fovoffset{rotation=0;absolute=true}": {
-        "description": "Returns the angular offset (in degrees) between the direction the caster is looking and the direction from the caster to the target entity. This offset can be used to determine how far the target is from the caster's center of view"
-    },
-    "target.distance": {
-        "description": "Return the distance between the caster and the mechanic's target. If the target cannot be found in the caster's world, returns the maximum double value"
-    },
-    "target.distancesquared": {
-        "description": "Return the squared distance between the caster and the mechanic's target. If the target cannot be found in the caster's world, returns the maximum double value"
+    "caster.armor": {
+        "description": "Returns the entity's armor value",
+        "returnType": "Double"
     },
     "target.armor": {
-        "description": "Returns the target's armor value"
+        "description": "Returns the entity's armor value",
+        "returnType": "Double"
     },
-    "target.item.itemstack.{EquipSlot}": {
-        "description": "Returns the ItemStack of the item in the specified slot on the target player. The slot can either be a named one (HAND, OFFHAND etc.) or a number"
+    "trigger.armor": {
+        "description": "Returns the entity's armor value",
+        "returnType": "Double"
     },
-    "trigger.uuid": {
-        "description": "Returns the UUID of the entity triggering the skill"
+    "parent.armor": {
+        "description": "Returns the entity's armor value",
+        "returnType": "Double"
     },
-    "trigger.name": {
-        "description": "Returns the name of the entity triggering the skill"
+    "owner.armor": {
+        "description": "Returns the entity's armor value",
+        "returnType": "Double"
     },
-    "trigger.hp": {
-        "description": "Returns the current hp of the entity triggering the skill"
+    "caster.attack_cooldown": {
+        "description": "Returns the attack cooldown of the player's equipped item. The value will be a double between 0 (maximum cooldown for the item) and 1 (no cooldown)",
+        "returnType": "Double"
     },
-    "trigger.mhp": {
-        "description": "Returns the max hp of the entity triggering the skill"
+    "target.attack_cooldown": {
+        "description": "Returns the attack cooldown of the player's equipped item. The value will be a double between 0 (maximum cooldown for the item) and 1 (no cooldown)",
+        "returnType": "Double"
     },
-    "trigger.threat": {
-        "description": "Returns the threat level of the entity triggering the skill"
+    "trigger.attack_cooldown": {
+        "description": "Returns the attack cooldown of the player's equipped item. The value will be a double between 0 (maximum cooldown for the item) and 1 (no cooldown)",
+        "returnType": "Double"
     },
-    "trigger.l.w": {
-        "description": "Returns the world name of the entity triggering the skill"
+    "parent.attack_cooldown": {
+        "description": "Returns the attack cooldown of the player's equipped item. The value will be a double between 0 (maximum cooldown for the item) and 1 (no cooldown)",
+        "returnType": "Double"
     },
-    "trigger.l.x": {
-        "description": "Returns the X coordinate of the entity triggering the skill"
+    "owner.attack_cooldown": {
+        "description": "Returns the attack cooldown of the player's equipped item. The value will be a double between 0 (maximum cooldown for the item) and 1 (no cooldown)",
+        "returnType": "Double"
     },
-    "trigger.l.x.{Float}": {
-        "description": "Returns the X coordinate of the entity triggering the skill +- random number between {Float}"
+    "caster.aura.`{auraName}`.stacks": {
+        "description": "Returns the entity's amount of stacks for the specified aura",
+        "returnType": "Integer"
     },
-    "trigger.l.y": {
-        "description": "Returns the Y coordinate of the entity triggering the skill"
+    "target.aura.`{auraName}`.stacks": {
+        "description": "Returns the entity's amount of stacks for the specified aura",
+        "returnType": "Integer"
     },
-    "trigger.l.y.{Float}": {
-        "description": "Returns the Y coordinate of the entity triggering the skill +- random number between {Float}"
+    "trigger.aura.`{auraName}`.stacks": {
+        "description": "Returns the entity's amount of stacks for the specified aura",
+        "returnType": "Integer"
     },
-    "trigger.l.z": {
-        "description": "Returns the Z coordinate of the entity triggering the skill"
+    "parent.aura.`{auraName}`.stacks": {
+        "description": "Returns the entity's amount of stacks for the specified aura",
+        "returnType": "Integer"
     },
-    "trigger.l.z.{Float}": {
-        "description": "Returns the Z coordinate of the entity triggering the skill +- random number between {Float}"
+    "owner.aura.`{auraName}`.stacks": {
+        "description": "Returns the entity's amount of stacks for the specified aura",
+        "returnType": "Integer"
     },
-    "trigger.l.yaw": {
-        "description": "Returns the yaw of the trigger"
+    "caster.block.data": {
+        "description": "Returns the location block's data",
+        "returnType": "String"
     },
-    "trigger.l.pitch": {
-        "description": "Returns the pitch of the trigger"
+    "target.block.data": {
+        "description": "Returns the location block's data",
+        "returnType": "String"
     },
-    "trigger.held.item": {
-        "description": "Returns the item held by the trigger"
+    "trigger.block.data": {
+        "description": "Returns the location block's data",
+        "returnType": "String"
     },
-    "trigger.raytrace": {
-        "description": "Returns the name of the block being looked at by the trigger (4.5 blocks of range)"
+    "parent.block.data": {
+        "description": "Returns the location block's data",
+        "returnType": "String"
     },
-    "trigger.item.amount": {
-        "description": "Returns the amount of the item the trigger is holding"
+    "owner.block.data": {
+        "description": "Returns the location block's data",
+        "returnType": "String"
     },
-    "trigger.item.type": {
-        "description": "Returns the type of the item the trigger is holding"
+    "caster.block.hardness": {
+        "description": "Returns the location block's hardness",
+        "returnType": "Float"
     },
-    "trigger.item.model": {
-        "description": "Returns the model of the item the trigger is holding"
+    "target.block.hardness": {
+        "description": "Returns the location block's hardness",
+        "returnType": "Float"
     },
-    "trigger.stat.{Stat}": {
-        "description": "Returns the value of the specified stat on the trigger"
+    "trigger.block.hardness": {
+        "description": "Returns the location block's hardness",
+        "returnType": "Float"
     },
-    "trigger.raytrace.{Float}": {
-        "description": "Returns the name of the block being looked at by the trigger if within {Float} range, if # is specified. If only <trigger.raytrace> is used, then the range defaults to `4.5`. If no block is found, `AIR` is returned."
+    "parent.block.hardness": {
+        "description": "Returns the location block's hardness",
+        "returnType": "Float"
+    },
+    "owner.block.hardness": {
+        "description": "Returns the location block's hardness",
+        "returnType": "Float"
+    },
+    "caster.block.type": {
+        "description": "Returns the location block's type",
+        "returnType": "String"
+    },
+    "target.block.type": {
+        "description": "Returns the location block's type",
+        "returnType": "String"
+    },
+    "trigger.block.type": {
+        "description": "Returns the location block's type",
+        "returnType": "String"
+    },
+    "parent.block.type": {
+        "description": "Returns the location block's type",
+        "returnType": "String"
+    },
+    "owner.block.type": {
+        "description": "Returns the location block's type",
+        "returnType": "String"
+    },
+    "caster.children": {
+        "description": "Returns a list of the entity children's uuids",
+        "returnType": "List"
+    },
+    "target.children": {
+        "description": "Returns a list of the entity children's uuids",
+        "returnType": "List"
+    },
+    "trigger.children": {
+        "description": "Returns a list of the entity children's uuids",
+        "returnType": "List"
+    },
+    "parent.children": {
+        "description": "Returns a list of the entity children's uuids",
+        "returnType": "List"
+    },
+    "owner.children": {
+        "description": "Returns a list of the entity children's uuids",
+        "returnType": "List"
+    },
+    "caster.children.size": {
+        "description": "Returns the amount of children the entity has",
+        "returnType": "Integer"
+    },
+    "target.children.size": {
+        "description": "Returns the amount of children the entity has",
+        "returnType": "Integer"
+    },
+    "trigger.children.size": {
+        "description": "Returns the amount of children the entity has",
+        "returnType": "Integer"
+    },
+    "parent.children.size": {
+        "description": "Returns the amount of children the entity has",
+        "returnType": "Integer"
+    },
+    "owner.children.size": {
+        "description": "Returns the amount of children the entity has",
+        "returnType": "Integer"
+    },
+    "caster.damage": {
+        "description": "Returns the entity's Attack_Damage attribute value",
+        "returnType": "Double"
+    },
+    "target.damage": {
+        "description": "Returns the entity's Attack_Damage attribute value",
+        "returnType": "Double"
+    },
+    "trigger.damage": {
+        "description": "Returns the entity's Attack_Damage attribute value",
+        "returnType": "Double"
+    },
+    "parent.damage": {
+        "description": "Returns the entity's Attack_Damage attribute value",
+        "returnType": "Double"
+    },
+    "owner.damage": {
+        "description": "Returns the entity's Attack_Damage attribute value",
+        "returnType": "Double"
+    },
+    "caster.display": {
+        "description": "Returns the entity's displayed name",
+        "returnType": "String"
+    },
+    "target.display": {
+        "description": "Returns the entity's displayed name",
+        "returnType": "String"
+    },
+    "trigger.display": {
+        "description": "Returns the entity's displayed name",
+        "returnType": "String"
+    },
+    "parent.display": {
+        "description": "Returns the entity's displayed name",
+        "returnType": "String"
+    },
+    "owner.display": {
+        "description": "Returns the entity's displayed name",
+        "returnType": "String"
+    },
+    "caster.distance": {
+        "description": "Returns the distance between the entity and the caster",
+        "returnType": "Double"
+    },
+    "target.distance": {
+        "description": "Returns the distance between the entity and the caster",
+        "returnType": "Double"
     },
     "trigger.distance": {
-        "description": "Return the distance between the caster and the skilltree's trigger. If the trigger cannot be found in the caster's world, returns the maximum double value"
+        "description": "Returns the distance between the entity and the caster",
+        "returnType": "Double"
+    },
+    "parent.distance": {
+        "description": "Returns the distance between the entity and the caster",
+        "returnType": "Double"
+    },
+    "owner.distance": {
+        "description": "Returns the distance between the entity and the caster",
+        "returnType": "Double"
+    },
+    "caster.distancesquared": {
+        "description": "Returns the distance between the entity and the caster, squared.<br>Realistically speaking, you should never need this.",
+        "returnType": "Double"
+    },
+    "target.distancesquared": {
+        "description": "Returns the distance between the entity and the caster, squared.<br>Realistically speaking, you should never need this.",
+        "returnType": "Double"
     },
     "trigger.distancesquared": {
-        "description": "Return the squared distance between the caster and the skilltree's trigger. If the target cannot be found in the caster's world, returns the maximum double value"
+        "description": "Returns the distance between the entity and the caster, squared.<br>Realistically speaking, you should never need this.",
+        "returnType": "Double"
+    },
+    "parent.distancesquared": {
+        "description": "Returns the distance between the entity and the caster, squared.<br>Realistically speaking, you should never need this.",
+        "returnType": "Double"
+    },
+    "owner.distancesquared": {
+        "description": "Returns the distance between the entity and the caster, squared.<br>Realistically speaking, you should never need this.",
+        "returnType": "Double"
+    },
+    "caster.enchantlevel.`{enchantname}`": {
+        "description": "Returns the total amount of levels the entity has for the specified enchant. (the levels on all slots are summed)",
+        "returnType": "Integer"
+    },
+    "target.enchantlevel.`{enchantname}`": {
+        "description": "Returns the total amount of levels the entity has for the specified enchant. (the levels on all slots are summed)",
+        "returnType": "Integer"
+    },
+    "trigger.enchantlevel.`{enchantname}`": {
+        "description": "Returns the total amount of levels the entity has for the specified enchant. (the levels on all slots are summed)",
+        "returnType": "Integer"
+    },
+    "parent.enchantlevel.`{enchantname}`": {
+        "description": "Returns the total amount of levels the entity has for the specified enchant. (the levels on all slots are summed)",
+        "returnType": "Integer"
+    },
+    "owner.enchantlevel.`{enchantname}`": {
+        "description": "Returns the total amount of levels the entity has for the specified enchant. (the levels on all slots are summed)",
+        "returnType": "Integer"
+    },
+    "caster.item": {
+        "description": "For Item entities, returns its item",
+        "returnType": "Item"
+    },
+    "target.item": {
+        "description": "For Item entities, returns its item",
+        "returnType": "Item"
+    },
+    "trigger.item": {
+        "description": "For Item entities, returns its item",
+        "returnType": "Item"
+    },
+    "parent.item": {
+        "description": "For Item entities, returns its item",
+        "returnType": "Item"
+    },
+    "owner.item": {
+        "description": "For Item entities, returns its item",
+        "returnType": "Item"
+    },
+    "caster.item.amount": {
+        "description": "For Item entities, returns the item's amount. Otherwise, returns 0",
+        "returnType": "Integer"
+    },
+    "target.item.amount": {
+        "description": "For Item entities, returns the item's amount. Otherwise, returns 0",
+        "returnType": "Integer"
+    },
+    "trigger.item.amount": {
+        "description": "For Item entities, returns the item's amount. Otherwise, returns 0",
+        "returnType": "Integer"
+    },
+    "parent.item.amount": {
+        "description": "For Item entities, returns the item's amount. Otherwise, returns 0",
+        "returnType": "Integer"
+    },
+    "owner.item.amount": {
+        "description": "For Item entities, returns the item's amount. Otherwise, returns 0",
+        "returnType": "Integer"
+    },
+    "caster.item.model": {
+        "description": "For Item entities, returns the item's custom model data. Otherwise, returns 0",
+        "returnType": "Integer"
+    },
+    "target.item.model": {
+        "description": "For Item entities, returns the item's custom model data. Otherwise, returns 0",
+        "returnType": "Integer"
+    },
+    "trigger.item.model": {
+        "description": "For Item entities, returns the item's custom model data. Otherwise, returns 0",
+        "returnType": "Integer"
+    },
+    "parent.item.model": {
+        "description": "For Item entities, returns the item's custom model data. Otherwise, returns 0",
+        "returnType": "Integer"
+    },
+    "owner.item.model": {
+        "description": "For Item entities, returns the item's custom model data. Otherwise, returns 0",
+        "returnType": "Integer"
+    },
+    "caster.item.itemstack.`{slot}`": {
+        "description": "Returns the itemstack of the item in the entity's `slot`",
+        "returnType": "String"
+    },
+    "target.item.itemstack.`{slot}`": {
+        "description": "Returns the itemstack of the item in the entity's `slot`",
+        "returnType": "String"
+    },
+    "trigger.item.itemstack.`{slot}`": {
+        "description": "Returns the itemstack of the item in the entity's `slot`",
+        "returnType": "String"
+    },
+    "parent.item.itemstack.`{slot}`": {
+        "description": "Returns the itemstack of the item in the entity's `slot`",
+        "returnType": "String"
+    },
+    "owner.item.itemstack.`{slot}`": {
+        "description": "Returns the itemstack of the item in the entity's `slot`",
+        "returnType": "String"
+    },
+    "caster.item.type": {
+        "description": "For Item entities, returns the item's type. Otherwise, returns AIR",
+        "returnType": "String"
+    },
+    "target.item.type": {
+        "description": "For Item entities, returns the item's type. Otherwise, returns AIR",
+        "returnType": "String"
+    },
+    "trigger.item.type": {
+        "description": "For Item entities, returns the item's type. Otherwise, returns AIR",
+        "returnType": "String"
+    },
+    "parent.item.type": {
+        "description": "For Item entities, returns the item's type. Otherwise, returns AIR",
+        "returnType": "String"
+    },
+    "owner.item.type": {
+        "description": "For Item entities, returns the item's type. Otherwise, returns AIR",
+        "returnType": "String"
+    },
+    "caster.entity_type": {
+        "description": "Returns the type of the entity",
+        "returnType": "String"
+    },
+    "target.entity_type": {
+        "description": "Returns the type of the entity",
+        "returnType": "String"
+    },
+    "trigger.entity_type": {
+        "description": "Returns the type of the entity",
+        "returnType": "String"
+    },
+    "parent.entity_type": {
+        "description": "Returns the type of the entity",
+        "returnType": "String"
+    },
+    "owner.entity_type": {
+        "description": "Returns the type of the entity",
+        "returnType": "String"
+    },
+    "caster.faction": {
+        "description": "Returns entity's faction",
+        "returnType": "String"
+    },
+    "target.faction": {
+        "description": "Returns entity's faction",
+        "returnType": "String"
+    },
+    "trigger.faction": {
+        "description": "Returns entity's faction",
+        "returnType": "String"
+    },
+    "parent.faction": {
+        "description": "Returns entity's faction",
+        "returnType": "String"
+    },
+    "owner.faction": {
+        "description": "Returns entity's faction",
+        "returnType": "String"
+    },
+    "caster.fovoffset{rotation=0;absolute=true}": {
+        "description": "Returns the angular offset (in degrees) between the direction the caster is looking and the direction from the caster to the target entity. This offset can be used to determine how far the target is from the caster's center of view",
+        "returnType": "Double"
+    },
+    "target.fovoffset{rotation=0;absolute=true}": {
+        "description": "Returns the angular offset (in degrees) between the direction the caster is looking and the direction from the caster to the target entity. This offset can be used to determine how far the target is from the caster's center of view",
+        "returnType": "Double"
+    },
+    "trigger.fovoffset{rotation=0;absolute=true}": {
+        "description": "Returns the angular offset (in degrees) between the direction the caster is looking and the direction from the caster to the target entity. This offset can be used to determine how far the target is from the caster's center of view",
+        "returnType": "Double"
+    },
+    "parent.fovoffset{rotation=0;absolute=true}": {
+        "description": "Returns the angular offset (in degrees) between the direction the caster is looking and the direction from the caster to the target entity. This offset can be used to determine how far the target is from the caster's center of view",
+        "returnType": "Double"
+    },
+    "owner.fovoffset{rotation=0;absolute=true}": {
+        "description": "Returns the angular offset (in degrees) between the direction the caster is looking and the direction from the caster to the target entity. This offset can be used to determine how far the target is from the caster's center of view",
+        "returnType": "Double"
+    },
+    "caster.globalcooldown": {
+        "description": "Returns the entity's global cooldown",
+        "returnType": "Integer"
+    },
+    "target.globalcooldown": {
+        "description": "Returns the entity's global cooldown",
+        "returnType": "Integer"
+    },
+    "trigger.globalcooldown": {
+        "description": "Returns the entity's global cooldown",
+        "returnType": "Integer"
+    },
+    "parent.globalcooldown": {
+        "description": "Returns the entity's global cooldown",
+        "returnType": "Integer"
+    },
+    "owner.globalcooldown": {
+        "description": "Returns the entity's global cooldown",
+        "returnType": "Integer"
+    },
+    "caster.hp": {
+        "description": "Returns the entity's health",
+        "returnType": "Double"
+    },
+    "target.hp": {
+        "description": "Returns the entity's health",
+        "returnType": "Double"
+    },
+    "trigger.hp": {
+        "description": "Returns the entity's health",
+        "returnType": "Double"
+    },
+    "parent.hp": {
+        "description": "Returns the entity's health",
+        "returnType": "Double"
+    },
+    "owner.hp": {
+        "description": "Returns the entity's health",
+        "returnType": "Double"
+    },
+    "caster.php": {
+        "description": "Returns the entity's health percent",
+        "returnType": "Double"
+    },
+    "target.php": {
+        "description": "Returns the entity's health percent",
+        "returnType": "Double"
+    },
+    "trigger.php": {
+        "description": "Returns the entity's health percent",
+        "returnType": "Double"
+    },
+    "parent.php": {
+        "description": "Returns the entity's health percent",
+        "returnType": "Double"
+    },
+    "owner.php": {
+        "description": "Returns the entity's health percent",
+        "returnType": "Double"
+    },
+    "caster.mhp": {
+        "description": "Returns the entity's max health",
+        "returnType": "Double"
+    },
+    "target.mhp": {
+        "description": "Returns the entity's max health",
+        "returnType": "Double"
+    },
+    "trigger.mhp": {
+        "description": "Returns the entity's max health",
+        "returnType": "Double"
+    },
+    "parent.mhp": {
+        "description": "Returns the entity's max health",
+        "returnType": "Double"
+    },
+    "owner.mhp": {
+        "description": "Returns the entity's max health",
+        "returnType": "Double"
+    },
+    "caster.heldenchantlevel.`{enchantname}`": {
+        "description": "Returns the levels the entity has for the specified enchant in the HAND slot",
+        "returnType": "Integer"
+    },
+    "target.heldenchantlevel.`{enchantname}`": {
+        "description": "Returns the levels the entity has for the specified enchant in the HAND slot",
+        "returnType": "Integer"
+    },
+    "trigger.heldenchantlevel.`{enchantname}`": {
+        "description": "Returns the levels the entity has for the specified enchant in the HAND slot",
+        "returnType": "Integer"
+    },
+    "parent.heldenchantlevel.`{enchantname}`": {
+        "description": "Returns the levels the entity has for the specified enchant in the HAND slot",
+        "returnType": "Integer"
+    },
+    "owner.heldenchantlevel.`{enchantname}`": {
+        "description": "Returns the levels the entity has for the specified enchant in the HAND slot",
+        "returnType": "Integer"
+    },
+    "caster.held.item": {
+        "description": "Returns the entity's held item",
+        "returnType": "Item"
+    },
+    "target.held.item": {
+        "description": "Returns the entity's held item",
+        "returnType": "Item"
+    },
+    "trigger.held.item": {
+        "description": "Returns the entity's held item",
+        "returnType": "Item"
+    },
+    "parent.held.item": {
+        "description": "Returns the entity's held item",
+        "returnType": "Item"
+    },
+    "owner.held.item": {
+        "description": "Returns the entity's held item",
+        "returnType": "Item"
+    },
+    "caster.input.`{inputType key}`": {
+        "description": "Returns whether the player entity is pressing the specified `{inputType key}`.<br> Available keys are `forward`, `backward`, `left`, `right`, `jump`, `sneak`, `sprint`.<br>In case the key is being pressed, returns `1`, otherwise `0`",
+        "returnType": "Integer"
+    },
+    "target.input.`{inputType key}`": {
+        "description": "Returns whether the player entity is pressing the specified `{inputType key}`.<br> Available keys are `forward`, `backward`, `left`, `right`, `jump`, `sneak`, `sprint`.<br>In case the key is being pressed, returns `1`, otherwise `0`",
+        "returnType": "Integer"
+    },
+    "trigger.input.`{inputType key}`": {
+        "description": "Returns whether the player entity is pressing the specified `{inputType key}`.<br> Available keys are `forward`, `backward`, `left`, `right`, `jump`, `sneak`, `sprint`.<br>In case the key is being pressed, returns `1`, otherwise `0`",
+        "returnType": "Integer"
+    },
+    "parent.input.`{inputType key}`": {
+        "description": "Returns whether the player entity is pressing the specified `{inputType key}`.<br> Available keys are `forward`, `backward`, `left`, `right`, `jump`, `sneak`, `sprint`.<br>In case the key is being pressed, returns `1`, otherwise `0`",
+        "returnType": "Integer"
+    },
+    "owner.input.`{inputType key}`": {
+        "description": "Returns whether the player entity is pressing the specified `{inputType key}`.<br> Available keys are `forward`, `backward`, `left`, `right`, `jump`, `sneak`, `sprint`.<br>In case the key is being pressed, returns `1`, otherwise `0`",
+        "returnType": "Integer"
+    },
+    "caster.lastsignal": {
+        "description": "Returns the entity's last received signal",
+        "returnType": "String"
+    },
+    "target.lastsignal": {
+        "description": "Returns the entity's last received signal",
+        "returnType": "String"
+    },
+    "trigger.lastsignal": {
+        "description": "Returns the entity's last received signal",
+        "returnType": "String"
+    },
+    "parent.lastsignal": {
+        "description": "Returns the entity's last received signal",
+        "returnType": "String"
+    },
+    "owner.lastsignal": {
+        "description": "Returns the entity's last received signal",
+        "returnType": "String"
+    },
+    "caster.level": {
+        "description": "Returns the entity's (mythic) level",
+        "returnType": "Double"
+    },
+    "target.level": {
+        "description": "Returns the entity's (mythic) level",
+        "returnType": "Double"
+    },
+    "trigger.level": {
+        "description": "Returns the entity's (mythic) level",
+        "returnType": "Double"
+    },
+    "parent.level": {
+        "description": "Returns the entity's (mythic) level",
+        "returnType": "Double"
+    },
+    "owner.level": {
+        "description": "Returns the entity's (mythic) level",
+        "returnType": "Double"
+    },
+    "caster.l.pitch": {
+        "description": "Returns the location's pitch",
+        "returnType": "Double"
+    },
+    "target.l.pitch": {
+        "description": "Returns the location's pitch",
+        "returnType": "Double"
+    },
+    "trigger.l.pitch": {
+        "description": "Returns the location's pitch",
+        "returnType": "Double"
+    },
+    "parent.l.pitch": {
+        "description": "Returns the location's pitch",
+        "returnType": "Double"
+    },
+    "owner.l.pitch": {
+        "description": "Returns the location's pitch",
+        "returnType": "Double"
+    },
+    "caster.l.yaw": {
+        "description": "Returns the location's yaw",
+        "returnType": "Double"
+    },
+    "target.l.yaw": {
+        "description": "Returns the location's yaw",
+        "returnType": "Double"
+    },
+    "trigger.l.yaw": {
+        "description": "Returns the location's yaw",
+        "returnType": "Double"
+    },
+    "parent.l.yaw": {
+        "description": "Returns the location's yaw",
+        "returnType": "Double"
+    },
+    "owner.l.yaw": {
+        "description": "Returns the location's yaw",
+        "returnType": "Double"
+    },
+    "caster.l.w": {
+        "description": "Returns the location's world",
+        "returnType": "String"
+    },
+    "target.l.w": {
+        "description": "Returns the location's world",
+        "returnType": "String"
+    },
+    "trigger.l.w": {
+        "description": "Returns the location's world",
+        "returnType": "String"
+    },
+    "parent.l.w": {
+        "description": "Returns the location's world",
+        "returnType": "String"
+    },
+    "owner.l.w": {
+        "description": "Returns the location's world",
+        "returnType": "String"
+    },
+    "caster.l.x": {
+        "description": "Returns the location's centered x coordinate",
+        "returnType": "Double"
+    },
+    "target.l.x": {
+        "description": "Returns the location's centered x coordinate",
+        "returnType": "Double"
+    },
+    "trigger.l.x": {
+        "description": "Returns the location's centered x coordinate",
+        "returnType": "Double"
+    },
+    "parent.l.x": {
+        "description": "Returns the location's centered x coordinate",
+        "returnType": "Double"
+    },
+    "owner.l.x": {
+        "description": "Returns the location's centered x coordinate",
+        "returnType": "Double"
+    },
+    "caster.l.x.double": {
+        "description": "Returns the location's precise x coordinate",
+        "returnType": "Double"
+    },
+    "target.l.x.double": {
+        "description": "Returns the location's precise x coordinate",
+        "returnType": "Double"
+    },
+    "trigger.l.x.double": {
+        "description": "Returns the location's precise x coordinate",
+        "returnType": "Double"
+    },
+    "parent.l.x.double": {
+        "description": "Returns the location's precise x coordinate",
+        "returnType": "Double"
+    },
+    "owner.l.x.double": {
+        "description": "Returns the location's precise x coordinate",
+        "returnType": "Double"
+    },
+    "caster.l.y": {
+        "description": "Returns the location's centered y coordinate",
+        "returnType": "Double"
+    },
+    "target.l.y": {
+        "description": "Returns the location's centered y coordinate",
+        "returnType": "Double"
+    },
+    "trigger.l.y": {
+        "description": "Returns the location's centered y coordinate",
+        "returnType": "Double"
+    },
+    "parent.l.y": {
+        "description": "Returns the location's centered y coordinate",
+        "returnType": "Double"
+    },
+    "owner.l.y": {
+        "description": "Returns the location's centered y coordinate",
+        "returnType": "Double"
+    },
+    "caster.l.y.double": {
+        "description": "Returns the location's precise y coordinate",
+        "returnType": "Double"
+    },
+    "target.l.y.double": {
+        "description": "Returns the location's precise y coordinate",
+        "returnType": "Double"
+    },
+    "trigger.l.y.double": {
+        "description": "Returns the location's precise y coordinate",
+        "returnType": "Double"
+    },
+    "parent.l.y.double": {
+        "description": "Returns the location's precise y coordinate",
+        "returnType": "Double"
+    },
+    "owner.l.y.double": {
+        "description": "Returns the location's precise y coordinate",
+        "returnType": "Double"
+    },
+    "caster.l.z": {
+        "description": "Returns the location's centered z coordinate",
+        "returnType": "Double"
+    },
+    "target.l.z": {
+        "description": "Returns the location's centered z coordinate",
+        "returnType": "Double"
+    },
+    "trigger.l.z": {
+        "description": "Returns the location's centered z coordinate",
+        "returnType": "Double"
+    },
+    "parent.l.z": {
+        "description": "Returns the location's centered z coordinate",
+        "returnType": "Double"
+    },
+    "owner.l.z": {
+        "description": "Returns the location's centered z coordinate",
+        "returnType": "Double"
+    },
+    "caster.l.z.double": {
+        "description": "Returns the location's precise z coordinate",
+        "returnType": "Double"
+    },
+    "target.l.z.double": {
+        "description": "Returns the location's precise z coordinate",
+        "returnType": "Double"
+    },
+    "trigger.l.z.double": {
+        "description": "Returns the location's precise z coordinate",
+        "returnType": "Double"
+    },
+    "parent.l.z.double": {
+        "description": "Returns the location's precise z coordinate",
+        "returnType": "Double"
+    },
+    "owner.l.z.double": {
+        "description": "Returns the location's precise z coordinate",
+        "returnType": "Double"
+    },
+    "caster.luck": {
+        "description": "Returns the entity's luck",
+        "returnType": "Double"
+    },
+    "target.luck": {
+        "description": "Returns the entity's luck",
+        "returnType": "Double"
+    },
+    "trigger.luck": {
+        "description": "Returns the entity's luck",
+        "returnType": "Double"
+    },
+    "parent.luck": {
+        "description": "Returns the entity's luck",
+        "returnType": "Double"
+    },
+    "owner.luck": {
+        "description": "Returns the entity's luck",
+        "returnType": "Double"
+    },
+    "caster.mythic_type": {
+        "description": "Returns the entity's mythic type (internal mythic id)",
+        "returnType": "String"
+    },
+    "target.mythic_type": {
+        "description": "Returns the entity's mythic type (internal mythic id)",
+        "returnType": "String"
+    },
+    "trigger.mythic_type": {
+        "description": "Returns the entity's mythic type (internal mythic id)",
+        "returnType": "String"
+    },
+    "parent.mythic_type": {
+        "description": "Returns the entity's mythic type (internal mythic id)",
+        "returnType": "String"
+    },
+    "owner.mythic_type": {
+        "description": "Returns the entity's mythic type (internal mythic id)",
+        "returnType": "String"
+    },
+    "caster.name": {
+        "description": "Returns the entity's name",
+        "returnType": "String"
+    },
+    "target.name": {
+        "description": "Returns the entity's name",
+        "returnType": "String"
+    },
+    "trigger.name": {
+        "description": "Returns the entity's name",
+        "returnType": "String"
+    },
+    "parent.name": {
+        "description": "Returns the entity's name",
+        "returnType": "String"
+    },
+    "owner.name": {
+        "description": "Returns the entity's name",
+        "returnType": "String"
+    },
+    "caster.pity.`{category}`": {
+        "description": "Returns the entity's pity for the given category",
+        "returnType": "Double"
+    },
+    "target.pity.`{category}`": {
+        "description": "Returns the entity's pity for the given category",
+        "returnType": "Double"
+    },
+    "trigger.pity.`{category}`": {
+        "description": "Returns the entity's pity for the given category",
+        "returnType": "Double"
+    },
+    "parent.pity.`{category}`": {
+        "description": "Returns the entity's pity for the given category",
+        "returnType": "Double"
+    },
+    "owner.pity.`{category}`": {
+        "description": "Returns the entity's pity for the given category",
+        "returnType": "Double"
+    },
+    "caster.raytrace{maxdistance=4.5}": {
+        "description": "Returns the name of the block being looked at by the entity if within `maxdistance` range (defaults to `4.5`),. If no block is found, `AIR` is returned.",
+        "returnType": "ALL"
+    },
+    "target.raytrace{maxdistance=4.5}": {
+        "description": "Returns the name of the block being looked at by the entity if within `maxdistance` range (defaults to `4.5`),. If no block is found, `AIR` is returned.",
+        "returnType": "ALL"
+    },
+    "trigger.raytrace{maxdistance=4.5}": {
+        "description": "Returns the name of the block being looked at by the entity if within `maxdistance` range (defaults to `4.5`),. If no block is found, `AIR` is returned.",
+        "returnType": "ALL"
+    },
+    "parent.raytrace{maxdistance=4.5}": {
+        "description": "Returns the name of the block being looked at by the entity if within `maxdistance` range (defaults to `4.5`),. If no block is found, `AIR` is returned.",
+        "returnType": "ALL"
+    },
+    "owner.raytrace{maxdistance=4.5}": {
+        "description": "Returns the name of the block being looked at by the entity if within `maxdistance` range (defaults to `4.5`),. If no block is found, `AIR` is returned.",
+        "returnType": "ALL"
+    },
+    "caster.skill.`{Metaskill}`.cooldown": {
+        "description": "Returns the entity's current cooldown of the give skill as a float number",
+        "returnType": "Float"
+    },
+    "target.skill.`{Metaskill}`.cooldown": {
+        "description": "Returns the entity's current cooldown of the give skill as a float number",
+        "returnType": "Float"
+    },
+    "trigger.skill.`{Metaskill}`.cooldown": {
+        "description": "Returns the entity's current cooldown of the give skill as a float number",
+        "returnType": "Float"
+    },
+    "parent.skill.`{Metaskill}`.cooldown": {
+        "description": "Returns the entity's current cooldown of the give skill as a float number",
+        "returnType": "Float"
+    },
+    "owner.skill.`{Metaskill}`.cooldown": {
+        "description": "Returns the entity's current cooldown of the give skill as a float number",
+        "returnType": "Float"
+    },
+    "caster.stance": {
+        "description": "Returns the current stance of the entity",
+        "returnType": "String"
+    },
+    "target.stance": {
+        "description": "Returns the current stance of the entity",
+        "returnType": "String"
+    },
+    "trigger.stance": {
+        "description": "Returns the current stance of the entity",
+        "returnType": "String"
+    },
+    "parent.stance": {
+        "description": "Returns the current stance of the entity",
+        "returnType": "String"
+    },
+    "owner.stance": {
+        "description": "Returns the current stance of the entity",
+        "returnType": "String"
+    },
+    "caster.stat.[Stat]": {
+        "description": "Returns the value of the specified {Stat} on the entity",
+        "returnType": "Float"
+    },
+    "target.stat.[Stat]": {
+        "description": "Returns the value of the specified {Stat} on the entity",
+        "returnType": "Float"
+    },
+    "trigger.stat.[Stat]": {
+        "description": "Returns the value of the specified {Stat} on the entity",
+        "returnType": "Float"
+    },
+    "parent.stat.[Stat]": {
+        "description": "Returns the value of the specified {Stat} on the entity",
+        "returnType": "Float"
+    },
+    "owner.stat.[Stat]": {
+        "description": "Returns the value of the specified {Stat} on the entity",
+        "returnType": "Float"
+    },
+    "caster.threat": {
+        "description": "Returns the amount of threat the caster has towards the entity",
+        "returnType": "Double"
+    },
+    "target.threat": {
+        "description": "Returns the amount of threat the caster has towards the entity",
+        "returnType": "Double"
+    },
+    "trigger.threat": {
+        "description": "Returns the amount of threat the caster has towards the entity",
+        "returnType": "Double"
+    },
+    "parent.threat": {
+        "description": "Returns the amount of threat the caster has towards the entity",
+        "returnType": "Double"
+    },
+    "owner.threat": {
+        "description": "Returns the amount of threat the caster has towards the entity",
+        "returnType": "Double"
+    },
+    "caster.tt.top": {
+        "description": "Returns the name of the top threat holder of the entity",
+        "returnType": "String"
+    },
+    "target.tt.top": {
+        "description": "Returns the name of the top threat holder of the entity",
+        "returnType": "String"
+    },
+    "trigger.tt.top": {
+        "description": "Returns the name of the top threat holder of the entity",
+        "returnType": "String"
+    },
+    "parent.tt.top": {
+        "description": "Returns the name of the top threat holder of the entity",
+        "returnType": "String"
+    },
+    "owner.tt.top": {
+        "description": "Returns the name of the top threat holder of the entity",
+        "returnType": "String"
+    },
+    "caster.tt.size": {
+        "description": "Returns how many entities are on the entity's threat table",
+        "returnType": "Integer"
+    },
+    "target.tt.size": {
+        "description": "Returns how many entities are on the entity's threat table",
+        "returnType": "Integer"
+    },
+    "trigger.tt.size": {
+        "description": "Returns how many entities are on the entity's threat table",
+        "returnType": "Integer"
+    },
+    "parent.tt.size": {
+        "description": "Returns how many entities are on the entity's threat table",
+        "returnType": "Integer"
+    },
+    "owner.tt.size": {
+        "description": "Returns how many entities are on the entity's threat table",
+        "returnType": "Integer"
+    },
+    "caster.type": {
+        "description": "Returns the internal id of a MythicMob or the entity name otherwise",
+        "returnType": "String"
+    },
+    "target.type": {
+        "description": "Returns the internal id of a MythicMob or the entity name otherwise",
+        "returnType": "String"
+    },
+    "trigger.type": {
+        "description": "Returns the internal id of a MythicMob or the entity name otherwise",
+        "returnType": "String"
+    },
+    "parent.type": {
+        "description": "Returns the internal id of a MythicMob or the entity name otherwise",
+        "returnType": "String"
+    },
+    "owner.type": {
+        "description": "Returns the internal id of a MythicMob or the entity name otherwise",
+        "returnType": "String"
+    },
+    "caster.type.name": {
+        "description": "Returns the display name of a MythicMob or the entity name otherwise",
+        "returnType": "String"
+    },
+    "target.type.name": {
+        "description": "Returns the display name of a MythicMob or the entity name otherwise",
+        "returnType": "String"
+    },
+    "trigger.type.name": {
+        "description": "Returns the display name of a MythicMob or the entity name otherwise",
+        "returnType": "String"
+    },
+    "parent.type.name": {
+        "description": "Returns the display name of a MythicMob or the entity name otherwise",
+        "returnType": "String"
+    },
+    "owner.type.name": {
+        "description": "Returns the display name of a MythicMob or the entity name otherwise",
+        "returnType": "String"
+    },
+    "caster.uuid": {
+        "description": "Returns the UUID of the entity",
+        "returnType": "String"
+    },
+    "target.uuid": {
+        "description": "Returns the UUID of the entity",
+        "returnType": "String"
+    },
+    "trigger.uuid": {
+        "description": "Returns the UUID of the entity",
+        "returnType": "String"
+    },
+    "parent.uuid": {
+        "description": "Returns the UUID of the entity",
+        "returnType": "String"
+    },
+    "owner.uuid": {
+        "description": "Returns the UUID of the entity",
+        "returnType": "String"
+    },
+    "caster.velocity": {
+        "description": "Returns the entity's velocity",
+        "returnType": "Double"
+    },
+    "target.velocity": {
+        "description": "Returns the entity's velocity",
+        "returnType": "Double"
+    },
+    "trigger.velocity": {
+        "description": "Returns the entity's velocity",
+        "returnType": "Double"
+    },
+    "parent.velocity": {
+        "description": "Returns the entity's velocity",
+        "returnType": "Double"
+    },
+    "owner.velocity": {
+        "description": "Returns the entity's velocity",
+        "returnType": "Double"
+    },
+    "caster.ydiff": {
+        "description": "Returns the difference in the y value between the caster and the location",
+        "returnType": "Double"
+    },
+    "target.ydiff": {
+        "description": "Returns the difference in the y value between the caster and the location",
+        "returnType": "Double"
+    },
+    "trigger.ydiff": {
+        "description": "Returns the difference in the y value between the caster and the location",
+        "returnType": "Double"
+    },
+    "parent.ydiff": {
+        "description": "Returns the difference in the y value between the caster and the location",
+        "returnType": "Double"
+    },
+    "owner.ydiff": {
+        "description": "Returns the difference in the y value between the caster and the location",
+        "returnType": "Double"
     },
     "drop.amount": {
-        "description": "Returns the amount dropped while used in specific drop types"
+        "description": "Returns the amount dropped while used in specific drop types",
+        "returnType": "ALL"
     },
     "drops.xp": {
-        "description": "Returns the xp dropped via specific drop types"
+        "description": "Returns the xp dropped via specific drop types",
+        "returnType": "ALL"
     },
     "drops.money": {
-        "description": "Returns the money dropped through the vault plug-in"
+        "description": "Returns the money dropped through the vault plug-in",
+        "returnType": "ALL"
     },
     "random.#to#": {
-        "description": "Returns a random integer in the specified range"
+        "description": "Returns a random integer in the specified range",
+        "returnType": "ALL"
     },
     "random.float.#to#": {
-        "description": "Returns a random float number in the specified range"
+        "description": "Returns a random float number in the specified range",
+        "returnType": "ALL"
+    },
+    "random.uuid": {
+        "description": "Returns a random uuid",
+        "returnType": "String"
     },
     "utils.epoch": {
-        "description": "Returns the current epoch"
+        "description": "Returns the current epoch",
+        "returnType": "Long"
     },
     "utils.epoch.seconds": {
-        "description": "Returns the current epoch"
+        "description": "Returns the current epoch",
+        "returnType": "Long"
     },
     "utils.epoch.timestamp": {
-        "description": "Returns the amount of milliseconds elapsed since the epoch"
+        "description": "Returns the amount of milliseconds elapsed since the epoch",
+        "returnType": "Long"
     },
     "utils.epoch.millis": {
-        "description": "Returns the amount of milliseconds of the current epoch"
+        "description": "Returns the amount of milliseconds of the current epoch",
+        "returnType": "Long"
     },
     "utils.epoch.ticks": {
-        "description": "Returns the current epoch, converted in ticks. Assumes that the server always maintains 20 ticks per second. Accounts for milliseconds. <br>While unorthodox, since time within Minecraft (and by extension Mythic) is measured in ticks, this may be of some help streamlining some processes where converting the normal epoch time to accomodate for ticks may be burdensome if done at scale"
+        "description": "Returns the current epoch, converted in ticks. Assumes that the server always maintains 20 ticks per second. Accounts for milliseconds. <br>While unorthodox, since time within Minecraft (and by extension Mythic) is measured in ticks, this may be of some help streamlining some processes where converting the normal epoch time to accomodate for ticks may be burdensome if done at scale",
+        "returnType": "Long"
     },
     "skill.power": {
-        "description": "Returns the [power](/Mobs/Power) of the metaskill in which the placeholder is evaluated"
-    },
-    "centertext{v=example;w=10}": {
-        "description": "Centers the given text. The attributes are:<br>`value/v/text/line`: The text to center<br>`pixelwidth/width/w/pw`: The total pixels (integer) to account for (will center at half the width)<br>`bold/b`: Whether the provided value is bolded<br>`singlepixelunicodes/spus`: A list of unicodes of 1-3 pixels to use for extra precision. Defaults to `\" , , , \"`"
-    },
-    "item.amount": {
-        "description": "Returns the amount of the item that triggered the skill"
-    },
-    "mythicitem.{MythicItem}.material": {
-        "description": "Returns the material of the specified mythic item"
-    },
-    "mythicitem.{MythicItem}.model": {
-        "description": "Returns the custommodeldata of the specified mythic item"
-    },
-    "mythicitem.{MythicItem}.display": {
-        "description": "Returns the display name of the specified mythic item"
-    },
-    "mythicitem.{MythicItem}.itemstack": {
-        "description": "Returns the itemstack of the specified mythic item"
-    },
-    "caster.score.{Objective}": {
-        "description": "Returns the score of the caster from \"{Objective}\""
-    },
-    "target.score.{Objective}": {
-        "description": "Returns the targeters score from \"{Objective}\""
-    },
-    "trigger.score.{Objective}": {
-        "description": "Returns the score of the trigger from \"{Objective}\""
-    },
-    "global.score.{Objective}": {
-        "description": "Returns the score of fake player: \\_\\_GLOBAL\\_\\_ score from \"{Objective}\""
-    },
-    "score.objective.player": {
-        "description": "Returns the score of the defined player from \"objective\""
-    },
-    "score.objective.dummyname": {
-        "description": "Returns the score of \"dummyname\" (fake player) from \"objective\""
-    },
-    "caster.var.{VariableName}": {
-        "description": "Returns the value of the variable {VariableName} on the variable registry of the caster of the mechanic"
-    },
-    "target.var.{VariableName}": {
-        "description": "Returns the value of the variable {VariableName} on the variable registry of the target of the mechanic"
-    },
-    "world.var.{VariableName}": {
-        "description": "Returns the value of the variable {VariableName} on the variable registry of the world the mechanic is used in"
-    },
-    "global.var.{VariableName}": {
-        "description": "Returns the value of the variable {VariableName} on the variable registry of the whole server"
-    },
-    "skill.var.{VariableName}": {
-        "description": "Returns the value of the variable {VariableName} on the current [skill tree](https://git.lumine.io/mythiccraft/MythicMobs/-/wikis/Skills/SkillTrees)"
-    },
-    "skill.var.damage-amount": {
-        "description": "Returns the amount of damage taken or done"
-    },
-    "skill.var.damage-type": {
-        "description": "Returns the type of damage taken or done, if any"
-    },
-    "skill.var.damage-cause": {
-        "description": "Returns the cause of damage taken/done"
-    },
-    "skill.var.aura-name": {
-        "description": "Returns the name of the aura"
-    },
-    "skill.var.aura-type": {
-        "description": "Returns the type of the aura"
-    },
-    "skill.var.aura-charges": {
-        "description": "Returns the amount of charges the aura has left"
-    },
-    "skill.var.aura-duration": {
-        "description": "Returns the remaining duration of the aura"
-    },
-    "skill.var.aura-duration-millis": {
-        "description": "Returns the remaining duration of the aura, in milliseconds"
-    },
-    "skill.var.aura-stacks": {
-        "description": "Returns the amount of stacks the aura has left"
-    },
-    "skill.var.input": {
-        "description": "Returns the chat input"
+        "description": "Returns the [power](/Mobs/Power) of the metaskill in which the placeholder is evaluated",
+        "returnType": "Float"
     },
     "skill.targets": {
-        "description": "Returns the amount of inherited targets"
+        "description": "Returns the amount of inherited targets",
+        "returnType": "Integer"
+    },
+    "spawner.pir": {
+        "description": "Returns the amount of players in the spawner's radius",
+        "returnType": "Integer"
+    },
+    "char.[String]": {
+        "description": "Returns the given Unicode identifier to the respective character (`<char.007B>` --> `{`)<br> The identifier can optionally be prepended with `\\u`<br>This is intended to be used inside of other placeholders or other similar context, where the load order is important.<br>For instance, all special characters will be replaced even before normal placeholders are, so, if you wanted to use those special characters inside of sensitive contexts, you may find that they are replaced *too early*. This can be solved by using this placeholder",
+        "returnType": "String"
+    },
+    "item.amount": {
+        "description": "Returns the amount of the item that triggered the skill",
+        "returnType": "Integer"
+    },
+    "item.droplevel": {
+        "description": "Returns the drop level of the item, if this is a drop. Otherwise, behaves like `<item.amount>`",
+        "returnType": "Integer"
+    },
+    "mythicitem.[MythicItem].material": {
+        "description": "Returns the material of the specified mythic item",
+        "returnType": "String"
+    },
+    "mythicitem.[MythicItem].model": {
+        "description": "Returns the custommodeldata of the specified mythic item",
+        "returnType": "String"
+    },
+    "mythicitem.[MythicItem].display": {
+        "description": "Returns the display name of the specified mythic item",
+        "returnType": "String"
+    },
+    "mythicitem.[MythicItem].itemstack": {
+        "description": "Returns the itemstack of the specified mythic item",
+        "returnType": "String"
+    },
+    "caster.score.[Objective]": {
+        "description": "Returns the score of the scoped entity from \"{Objective}\"",
+        "returnType": "Integer"
+    },
+    "target.score.[Objective]": {
+        "description": "Returns the score of the scoped entity from \"{Objective}\"",
+        "returnType": "Integer"
+    },
+    "trigger.score.[Objective]": {
+        "description": "Returns the score of the scoped entity from \"{Objective}\"",
+        "returnType": "Integer"
+    },
+    "parent.score.[Objective]": {
+        "description": "Returns the score of the scoped entity from \"{Objective}\"",
+        "returnType": "Integer"
+    },
+    "owner.score.[Objective]": {
+        "description": "Returns the score of the scoped entity from \"{Objective}\"",
+        "returnType": "Integer"
+    },
+    "global.score.[Objective]": {
+        "description": "Returns the score of fake player: \\_\\_GLOBAL\\_\\_ score from \"{Objective}\"",
+        "returnType": "Integer"
+    },
+    "score.objective.player": {
+        "description": "Returns the score of the defined player from \"objective\"",
+        "returnType": "Integer"
+    },
+    "score.objective.dummyname": {
+        "description": "Returns the score of \"dummyname\" (fake player) from \"objective\"",
+        "returnType": "Integer"
+    },
+    "bar{value=0;maxValue=100;length=100;remainingSymbol=\"#\";progressSymbol=\"#\";remainingPrefix=<gray>;progressPrefix=<green>}": {
+        "description": "Returns a formatted bar with the specified values",
+        "returnType": "String"
+    },
+    "centertext{value=The text to center;pixelwidth=100;singlepixelunicodes= , , , ;bold=false}": {
+        "description": "Centers the given text. The attributes are:<br>`value/v/text/line`: The text to center<br>`pixelwidth/width/w/pw`: The total pixels (integer) to account for (will center at half the width)<br>`bold/b`: Whether the provided value is bolded<br>`singlepixelunicodes/spus`: A list of unicodes of 1-3 pixels to use for extra precision. Defaults to `\" , , , \"`",
+        "returnType": "String"
+    },
+    "caster.var.[VariableName]": {
+        "description": "Returns the value of the variable {VariableName} on the variable registry of the caster of the mechanic",
+        "returnType": "ALL"
+    },
+    "target.var.[VariableName]": {
+        "description": "Returns the value of the variable {VariableName} on the variable registry of the target of the mechanic",
+        "returnType": "ALL"
+    },
+    "world.var.[VariableName]": {
+        "description": "Returns the value of the variable {VariableName} on the variable registry of the world the mechanic is used in",
+        "returnType": "ALL"
+    },
+    "global.var.[VariableName]": {
+        "description": "Returns the value of the variable {VariableName} on the variable registry of the whole server",
+        "returnType": "ALL"
+    },
+    "skill.var.[VariableName]": {
+        "description": "Returns the value of the variable {VariableName} on the current [skill tree](https://git.lumine.io/mythiccraft/MythicMobs/-/wikis/Skills/SkillTrees)",
+        "returnType": "ALL"
+    },
+    "skill.var.damage-amount": {
+        "description": "Returns the amount of damage taken or done",
+        "returnType": "ALL"
+    },
+    "skill.var.damage-type": {
+        "description": "Returns the type of damage taken or done, if any",
+        "returnType": "ALL"
+    },
+    "skill.var.damage-cause": {
+        "description": "Returns the cause of damage taken/done",
+        "returnType": "ALL"
+    },
+    "skill.var.aura-name": {
+        "description": "Returns the name of the aura",
+        "returnType": "ALL"
+    },
+    "skill.var.aura-type": {
+        "description": "Returns the type of the aura",
+        "returnType": "ALL"
+    },
+    "skill.var.aura-charges": {
+        "description": "Returns the amount of charges the aura has left",
+        "returnType": "ALL"
+    },
+    "skill.var.aura-duration": {
+        "description": "Returns the remaining duration of the aura",
+        "returnType": "ALL"
+    },
+    "skill.var.aura-duration-millis": {
+        "description": "Returns the remaining duration of the aura, in milliseconds",
+        "returnType": "ALL"
+    },
+    "skill.var.aura-stacks": {
+        "description": "Returns the amount of stacks the aura has left",
+        "returnType": "ALL"
+    },
+    "skill.var.input": {
+        "description": "Returns the chat input",
+        "returnType": "ALL"
     },
     "skill.var.interval": {
-        "description": "Returns the current iteration"
+        "description": "Returns the current iteration",
+        "returnType": "ALL"
     },
     "skill.var.itr": {
-        "description": "Returns the current iteration"
+        "description": "Returns the current iteration",
+        "returnType": "ALL"
     },
     "skill.var.volume": {
-        "description": "Returns a float value between 1 and 15 representing the intensity of the sound. Directly proportional to the distance (the further away the source, the higher this value)"
+        "description": "Returns a float value between 1 and 15 representing the intensity of the sound. Directly proportional to the distance (the further away the source, the higher this value)",
+        "returnType": "ALL"
     },
     "skill.var.sound-type": {
-        "description": "Returns the type of the sound"
+        "description": "Returns the type of the sound",
+        "returnType": "ALL"
     },
     "skill.var.hit-block-type": {
-        "description": "Returns the block that was hit, or AIR if none"
+        "description": "Returns the block that was hit, or AIR if none",
+        "returnType": "ALL"
     },
     "skill.var.bow-tension": {
-        "description": "Returns the force with which the projectile has been shot"
+        "description": "Returns the force with which the projectile has been shot",
+        "returnType": "ALL"
     },
     "skill.var.click-type": {
-        "description": "The type of the click used to interact with a [menu button](/Custom-Menus#button-skills). Returns `1` if rightclick was used, `0` otherwise"
+        "description": "The type of the click used to interact with a [menu button](/Custom-Menus#button-skills). Returns `1` if rightclick was used, `0` otherwise",
+        "returnType": "ALL"
     },
     "caster.item.nbt.KEY": {
-        "description": "If no slot is specified, this checks the caster's item that called the skill."
+        "description": "If no slot is specified, this checks the caster's item that called the skill.",
+        "returnType": "ALL"
     },
     "caster.item.hand.nbt.KEY": {
-        "description": "Returns the specified NBT key of the caster's hand item."
+        "description": "Returns the specified NBT key of the caster's hand item.",
+        "returnType": "ALL"
     },
     "caster.item.offhand.nbt.KEY": {
-        "description": "Returns the specified NBT key of the caster's offhand item."
+        "description": "Returns the specified NBT key of the caster's offhand item.",
+        "returnType": "ALL"
     },
     "caster.item.head.nbt.KEY": {
-        "description": "Returns the specified NBT key of the caster's head item."
+        "description": "Returns the specified NBT key of the caster's head item.",
+        "returnType": "ALL"
     },
     "caster.item.chest.nbt.KEY": {
-        "description": "Returns the specified NBT key of the caster's head item."
+        "description": "Returns the specified NBT key of the caster's head item.",
+        "returnType": "ALL"
     },
     "caster.item.legs.nbt.KEY": {
-        "description": "Returns the specified NBT key of the caster's head item."
+        "description": "Returns the specified NBT key of the caster's head item.",
+        "returnType": "ALL"
     },
     "caster.item.feet.nbt.KEY": {
-        "description": "Returns the specified NBT key of the caster's feet item."
+        "description": "Returns the specified NBT key of the caster's feet item.",
+        "returnType": "ALL"
     },
     "skill.var.crafts": {
-        "description": "Returns the amount of items crafted"
+        "description": "[CraftSkills](Recipes#craftskills)",
+        "returnType": "Returns the amount of items crafted"
     },
     "skill.var.equip-item": {
-        "description": "Returns the Itemstack of the item being used"
+        "description": "",
+        "returnType": "Returns the Itemstack of the item being used"
     },
     "skill.var.equip-slot": {
-        "description": "Returns the slot of the item being used"
+        "description": "",
+        "returnType": "Returns the slot of the item being used"
     },
     "skill.var.block-internalid": {
-        "description": "Returns the internal name of the custom block being placed/broken, if used inside CustomBlockSkills"
+        "description": "[onBlockBreak](/Skills/Triggers/onBlockBreak)<br>[onBlockPlace](/Skills/Triggers/onBlockPlace)",
+        "returnType": "Returns the internal name of the custom block being placed/broken, if used inside CustomBlockSkills"
     },
     "trigger.item.hand.nbt.KEY": {
-        "description": "Returns the specified NBT key of the trigger's hand item."
+        "description": "Returns the specified NBT key of the trigger's hand item.",
+        "returnType": "ALL"
     },
     "item.color.hex": {
-        "description": "Returns the hex color of the item that called the skill"
+        "description": "Returns the hex color of the item that called the skill",
+        "returnType": "ALL"
     },
     "item.stat.display.{Stat}": {
-        "description": "Returns the value of the specified stat."
+        "description": "Returns the value of the specified stat.",
+        "returnType": "ALL"
     },
     "item.stat.display.{Stat}.{StatModifier}": {
-        "description": "Returns the value of the specified modifier of that stat."
+        "description": "Returns the value of the specified modifier of that stat.",
+        "returnType": "ALL"
     },
     "furniture.var.{VariableName}": {
-        "description": "Fetched the variable by the given name on the target furniture entity. Can use [Meta Keywords](/../../../MythicMobs/-/wikis/Skills/Placeholders/meta-variable-placeholders)"
+        "description": "Fetched the variable by the given name on the target furniture entity. Can use [Meta Keywords](/../../../MythicMobs/-/wikis/Skills/Placeholders/meta-placeholders)",
+        "returnType": "ALL"
     },
     "font.{FontName}": {
-        "description": "Returns the character associated with the custom font named `{FontName}`"
+        "description": "Returns the character associated with the custom font named `{FontName}`",
+        "returnType": "ALL"
     },
     "caster.archetype.[group]": {
-        "description": "Returns the caster's [archetype](/Archetypes) from the specified `group`<br>Defaults to `NONE`"
+        "description": "Returns the caster's [archetype](/Archetypes) from the specified `group`<br>Defaults to `NONE`",
+        "returnType": "ALL"
     },
     "caster.archetype.level.[group]": {
-        "description": "Returns the caster's [archetype](/Archetypes) level from the specified `group`"
+        "description": "Returns the caster's [archetype](/Archetypes) level from the specified `group`",
+        "returnType": "ALL"
     },
     "caster.archetype.exp.[group]": {
-        "description": "Returns the caster's [archetype](/Archetypes) experience from the specified `group`"
+        "description": "Returns the caster's [archetype](/Archetypes) experience from the specified `group`",
+        "returnType": "ALL"
     },
     "caster.archetype.exp.goal.[group]": {
-        "description": "Returns the caster's [archetype](/Archetypes) experience goal from the specified `group`"
+        "description": "Returns the caster's [archetype](/Archetypes) experience goal from the specified `group`",
+        "returnType": "ALL"
     }
 }

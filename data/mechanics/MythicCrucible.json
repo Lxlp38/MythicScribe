@@ -163,7 +163,7 @@
                     "item",
                     "i"
                 ],
-                "type": "String",
+                "type": "PlaceholderString",
                 "description": "The item to remove",
                 "link": "https://git.lumine.io/mythiccraft/mythiccrucible/-/wikis/Skills/Mechanics/Consumeitem",
                 "default_value": "STONE",
@@ -1103,6 +1103,42 @@
                 "description": "The [slot](https://git.lumine.io/mythiccraft/mythiccrucible/-/wikis/../../../MythicMobs/-/wikis/Skills/EquipSlot) to target",
                 "link": "https://git.lumine.io/mythiccraft/mythiccrucible/-/wikis/Skills/Mechanics/modeltoggle",
                 "default_value": ""
+            }
+        ]
+    },
+    {
+        "plugin": "MythicCrucible",
+        "class": "UpgradeItemMechanic",
+        "extends": "SkillMechanic",
+        "implements": [
+            "INoTargetSkill"
+        ],
+        "name": [
+            "upgradeItem"
+        ],
+        "description": "Upgrades the [level](https://git.lumine.io/mythiccraft/mythiccrucible/-/wikis/Levels) of the item in the specified slot. If not slot is specified, the used item will be upgraded instead",
+        "link": "https://git.lumine.io/mythiccraft/mythiccrucible/-/wikis/Skills/Mechanics/UpgradeItem",
+        "attributes": [
+            {
+                "name": [
+                    "amount",
+                    "a"
+                ],
+                "type": "PlaceholderInteger",
+                "description": "How many levels to upgrade the item by",
+                "link": "https://git.lumine.io/mythiccraft/mythiccrucible/-/wikis/Skills/Mechanics/UpgradeItem",
+                "default_value": "1"
+            },
+            {
+                "name": [
+                    "slot",
+                    "s"
+                ],
+                "type": "String",
+                "description": "The [equipment slot](https://git.lumine.io/mythiccraft/mythiccrucible/-/wikis/../../../MythicMobs/-/wikis/Skills/EquipSlot) to target",
+                "link": "https://git.lumine.io/mythiccraft/mythiccrucible/-/wikis/Skills/Mechanics/UpgradeItem",
+                "default_value": "NONE",
+                "enum": "EquipSlot"
             }
         ]
     }

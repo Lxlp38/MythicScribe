@@ -81,7 +81,18 @@
         ],
         "description": "Checks if the target Furniture's [State](https://git.lumine.io/mythiccraft/mythiccrucible/-/wikis/Furniture#furniture-states) is the specified one",
         "link": "https://git.lumine.io/mythiccraft/mythiccrucible/-/wikis/Skills/Conditions/furnitureState",
-        "attributes": []
+        "attributes": [
+            {
+                "name": [
+                    "state",
+                    "s"
+                ],
+                "type": "String",
+                "description": "The state to check for",
+                "link": "https://git.lumine.io/mythiccraft/mythiccrucible/-/wikis/Skills/Conditions/furnitureState",
+                "default_value": ""
+            }
+        ]
     },
     {
         "plugin": "MythicCrucible",
@@ -139,5 +150,56 @@
         "description": null,
         "link": "https://git.lumine.io/mythiccraft/mythiccrucible/-/wikis/Skills/Conditions/custommodeldata",
         "attributes": []
+    },
+    {
+        "plugin": "MythicCrucible",
+        "class": "ItemUpgradeLevelCondition",
+        "extends": "SkillCondition",
+        "implements": [
+            "ISkillMetaCondition"
+        ],
+        "name": [
+            "itemUpgradeLevel"
+        ],
+        "description": "Checks the [level](https://git.lumine.io/mythiccraft/mythiccrucible/-/wikis/Levels) of the item in the specified slot. If not slot is specified, the used item will be checked instead",
+        "link": "https://git.lumine.io/mythiccraft/mythiccrucible/-/wikis/Skills/Conditions/ItemUpgradeLevel",
+        "attributes": [
+            {
+                "name": [
+                    "checkUpgrade",
+                    "upgrade",
+                    "upgr",
+                    "u"
+                ],
+                "type": "Boolean",
+                "description": "Whether to only check the difference between the current level and the default one",
+                "link": "https://git.lumine.io/mythiccraft/mythiccrucible/-/wikis/Skills/Conditions/ItemUpgradeLevel",
+                "default_value": "false"
+            },
+            {
+                "name": [
+                    "minimumLevel",
+                    "minlevel",
+                    "minlvl",
+                    "lvl",
+                    "l"
+                ],
+                "type": "Integer",
+                "description": "The minimum level the item must have",
+                "link": "https://git.lumine.io/mythiccraft/mythiccrucible/-/wikis/Skills/Conditions/ItemUpgradeLevel",
+                "default_value": "1"
+            },
+            {
+                "name": [
+                    "slot",
+                    "s"
+                ],
+                "type": "String",
+                "description": "The [equipment slot](https://git.lumine.io/mythiccraft/mythiccrucible/-/wikis/../../../MythicMobs/-/wikis/Skills/EquipSlot) to target",
+                "link": "https://git.lumine.io/mythiccraft/mythiccrucible/-/wikis/Skills/Conditions/ItemUpgradeLevel",
+                "default_value": "NONE",
+                "enum": "EquipSlot"
+            }
+        ]
     }
 ]

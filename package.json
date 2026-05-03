@@ -615,7 +615,7 @@
   "devDependencies": {
     "@esbuild-plugins/node-globals-polyfill": "^0.2.3",
     "@types/mocha": "^10.0.10",
-    "@types/node": "20.x",
+    "@types/node": "^20.19.39",
     "@types/sinon": "^17.0.3",
     "@types/vscode": "^1.93.0",
     "@typescript-eslint/eslint-plugin": "^8.19.0",
@@ -637,7 +637,7 @@
     "nodemon": "^3.1.9",
     "npm-run-all": "^4.1.5",
     "prettier": "^3.4.2",
-    "sinon": "^19.0.2",
+    "sinon": "^21.1.2",
     "typescript": "^5.6.2"
   },
   "dependencies": {

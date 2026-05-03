@@ -546,6 +546,7 @@
                 "description": "The aura components to apply. Better explained later in the page",
                 "link": "https://git.lumine.io/mythiccraft/MythicMobs/-/wikis/Skills/Mechanics/aura",
                 "default_value": "",
+                "enum": "AuraComponents",
                 "inheritable": false
             },
             {
@@ -1686,7 +1687,7 @@
             "effect:redScreen",
             "e:redScreen"
         ],
-        "description": "Shows the near world border effect.  \nPlayers must enable Fancy Graphics to see the effect.",
+        "description": "Shows the near world border effect.  \nPlayers must enable Fancy Graphics to see the effect.  \n\nNote: Players with the effect are unable to use the trigger \"onUse\" in skills.",
         "link": "https://git.lumine.io/mythiccraft/MythicMobs/-/wikis/Skills/Mechanics/BloodyScreen",
         "attributes": [
             {
@@ -13310,6 +13311,35 @@
     },
     {
         "plugin": "MythicMobs",
+        "class": "ShowDialogMechanic",
+        "extends": "SkillMechanic",
+        "implements": [
+            "ITargetedEntitySkill",
+            "INoTargetSkill"
+        ],
+        "name": [
+            "showDialog",
+            "openDialog",
+            "dialog"
+        ],
+        "description": "Shows a [Dialog](https://git.lumine.io/mythiccraft/MythicMobs/-/wikis/Dialogs) to the target player. Dialogs are interactive UI windows built with the Paper Dialog API that can display text, items, inputs, and buttons.\n\nDialog definitions are configured in YAML files inside the `Dialogs/` folder. See the [Dialogs](https://git.lumine.io/mythiccraft/MythicMobs/-/wikis/Dialogs) page for full configuration details.\n\n> **This is a [Paper-Only](https://papermc.io/downloads/all) mechanic!**\n\n> **This is a [Premium-Only](Premium-Features) mechanic!**\n\n| [Implemented Placeholders](https://git.lumine.io/mythiccraft/MythicMobs/-/wikis/Skills/Placeholders#variable-placeholders)     |\n|--------------------------------|\n| `<skill.var.dialog.button>`    |\n| `<skill.var.dialog.<key>>`     |",
+        "link": "https://git.lumine.io/mythiccraft/MythicMobs/-/wikis/Skills/Mechanics/ShowDialog",
+        "attributes": [
+            {
+                "name": [
+                    "dialog",
+                    "d",
+                    "name"
+                ],
+                "type": "PlaceholderString",
+                "description": "The name of the dialog definition to show",
+                "link": "https://git.lumine.io/mythiccraft/MythicMobs/-/wikis/Skills/Mechanics/ShowDialog",
+                "default_value": "default"
+            }
+        ]
+    },
+    {
+        "plugin": "MythicMobs",
         "class": "ShowEntityMechanic",
         "extends": "SkillMechanic",
         "implements": [
@@ -14241,6 +14271,43 @@
             },
             {
                 "name": [
+                    "types",
+                    "type",
+                    "t",
+                    "material",
+                    "mat",
+                    "m",
+                    "item",
+                    "i"
+                ],
+                "type": "PlaceholderString",
+                "description": "The items to match. Can be a list",
+                "link": "https://git.lumine.io/mythiccraft/MythicMobs/-/wikis/Skills/Mechanics/StealItem",
+                "default_value": "DIRT"
+            },
+            {
+                "name": [
+                    "strict",
+                    "exact",
+                    "e"
+                ],
+                "type": "Boolean",
+                "description": "Whether the matcher should more strictly match the target item",
+                "link": "https://git.lumine.io/mythiccraft/MythicMobs/-/wikis/Skills/Mechanics/StealItem",
+                "default_value": "false"
+            },
+            {
+                "name": [
+                    "vanillaonly",
+                    "vanilla"
+                ],
+                "type": "Boolean",
+                "description": "Whether the matched item can only be a vanilla one",
+                "link": "https://git.lumine.io/mythiccraft/MythicMobs/-/wikis/Skills/Mechanics/StealItem",
+                "default_value": "false"
+            },
+            {
+                "name": [
                     "onstealskill",
                     "onsteal",
                     "then"
@@ -14982,6 +15049,23 @@
         "attributes": [
             {
                 "name": [
+                    "types",
+                    "type",
+                    "t",
+                    "material",
+                    "mat",
+                    "m",
+                    "item",
+                    "i"
+                ],
+                "type": "PlaceholderString",
+                "description": "The item, or material, to remove",
+                "link": "https://git.lumine.io/mythiccraft/MythicMobs/-/wikis/Skills/Mechanics/takeitem",
+                "default_value": "DIRT",
+                "enum": "Item"
+            },
+            {
+                "name": [
                     "amount",
                     "a"
                 ],
@@ -14989,6 +15073,27 @@
                 "description": "The amount to remove",
                 "link": "https://git.lumine.io/mythiccraft/MythicMobs/-/wikis/Skills/Mechanics/takeitem",
                 "default_value": "1"
+            },
+            {
+                "name": [
+                    "strict",
+                    "exact",
+                    "e"
+                ],
+                "type": "Boolean",
+                "description": "Whether the name of the item should match exactly to the specified one",
+                "link": "https://git.lumine.io/mythiccraft/MythicMobs/-/wikis/Skills/Mechanics/takeitem",
+                "default_value": "true"
+            },
+            {
+                "name": [
+                    "vanillaonly",
+                    "vanilla"
+                ],
+                "type": "Boolean",
+                "description": "Whether the matched item can only be a vanilla one",
+                "link": "https://git.lumine.io/mythiccraft/MythicMobs/-/wikis/Skills/Mechanics/takeitem",
+                "default_value": "false"
             },
             {
                 "name": [
@@ -15303,8 +15408,7 @@
                 "name": [
                     "terminateconditions",
                     "conditions",
-                    "cond",
-                    "c"
+                    "cond"
                 ],
                 "type": "String",
                 "description": "The conditions to check against",
@@ -15460,7 +15564,7 @@
                     "fromorigin",
                     "fo"
                 ],
-                "type": "Boolean",
+                "type": "PlaceholderBoolean",
                 "description": "Sets whether to throw the entity from the origin",
                 "link": "https://git.lumine.io/mythiccraft/MythicMobs/-/wikis/Skills/Mechanics/throw",
                 "default_value": "false"
@@ -16275,9 +16379,19 @@
                     "r"
                 ],
                 "type": "Double",
-                "description": "The radius of the volley",
+                "description": "The radius of the volley spread. **Only applies when `source=RAIN`.**",
                 "link": "https://git.lumine.io/mythiccraft/MythicMobs/-/wikis/Skills/Mechanics/volley",
-                "default_value": "1"
+                "default_value": "0"
+            },
+            {
+                "name": [
+                    "spread",
+                    "sp"
+                ],
+                "type": "PlaceholderFloat",
+                "description": "How spread out the volley is (random yaw/pitch jitter, in degrees)",
+                "link": "https://git.lumine.io/mythiccraft/MythicMobs/-/wikis/Skills/Mechanics/volley",
+                "default_value": "0"
             },
             {
                 "name": [
@@ -16285,9 +16399,9 @@
                     "y"
                 ],
                 "type": "Double",
-                "description": "The y offset of the target location of the projectiles",
+                "description": "The vertical offset of the rain source above the target. **Only applies when `source=RAIN`.**",
                 "link": "https://git.lumine.io/mythiccraft/MythicMobs/-/wikis/Skills/Mechanics/volley",
-                "default_value": "0"
+                "default_value": "1"
             },
             {
                 "name": [

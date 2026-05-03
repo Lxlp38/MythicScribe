@@ -1295,7 +1295,7 @@
                     "l",
                     "lock"
                 ],
-                "type": "Boolean",
+                "type": "PlaceholderBoolean",
                 "description": "Lock the rotation of the entity",
                 "link": "https://git.lumine.io/mythiccraft/model-engine-4/-/wikis/Skills/Mechanics/LockModel",
                 "default_value": "true"
@@ -1363,7 +1363,7 @@
                     "invis",
                     "invisible"
                 ],
-                "type": "PlaceholderBoolean",
+                "type": "PlaceholderString",
                 "description": "Should the base entity be invisible",
                 "link": "https://git.lumine.io/mythiccraft/model-engine-4/-/wikis/Skills/Mechanics/Model",
                 "default_value": "true"

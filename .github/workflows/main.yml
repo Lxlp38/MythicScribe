@@ -11,6 +11,10 @@ permissions:
 jobs:
   build:
     runs-on: ubuntu-latest
+    environment: 
+      name: vscode-marketplace
+      deployment: true
+      url: https://marketplace.visualstudio.com/items?itemName=Lxlp.mythicscribe
 
     steps:
       - name: Checkout code

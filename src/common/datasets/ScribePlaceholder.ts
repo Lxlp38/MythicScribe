@@ -7,6 +7,7 @@ import { generateNumbersInRange } from '../utils/schemautils';
 import { MythicAttribute } from './ScribeMechanic';
 import { getScribeEnumHandler } from './ScribeEnum';
 import { EnumDatasetValue } from './types/Enum';
+import { Attribute } from './types/Attribute';
 
 interface MetaKeyword {
     description: string;
@@ -16,11 +17,39 @@ interface MetaKeyword {
 
 class PlaceholderSegment {
     public identifier: string;
+    public attributes: Attribute[] = [];
     constructor(identifier: string) {
+        if (identifier.indexOf('{') !== -1 || identifier.indexOf('}') !== -1) {
+            const attributeSubstring = identifier.substring(
+                identifier.indexOf('{') + 1,
+                identifier.lastIndexOf('}')
+            );
+            const attributePairs = attributeSubstring.split(';');
+            attributePairs.forEach((pair) => {
+                const [key, value] = pair.split('=');
+                if (key && value) {
+                    this.attributes.push({
+                        name: [key.trim()],
+                        type: value.trim(),
+                        description: '',
+                        default_value: '',
+                    });
+                }
+            });
+            identifier = identifier.replace(/\{.*\}/, '');
+        }
         this.identifier = identifier.toLowerCase();
     }
     get(): string[] {
-        return [this.identifier];
+        if (this.attributes.length === 0) {
+            return [this.identifier];
+        }
+        return [this.identifier, this.identifier + this.getAttributesString()];
+    }
+    getAttributesString(): string {
+        return this.attributes.length > 0
+            ? `{${this.attributes.map((attr) => `${attr.name[0]}=${attr.type}`).join(';')}}`
+            : '';
     }
     toString(): string {
         return this.identifier;
@@ -29,7 +58,7 @@ class PlaceholderSegment {
 
 class ScriptedPlaceholderSegment extends PlaceholderSegment {
     constructor(identifier: string, get: () => string[], isOwnValue?: (value: string) => boolean) {
-        super('{' + identifier.toLowerCase() + '}');
+        super('[' + identifier.toLowerCase() + ']');
         this.get = get;
         if (isOwnValue) {
             this.isOwnValue = isOwnValue;
@@ -173,8 +202,9 @@ export function removeLastPlaceholderSegment(placeholder: string): string {
 }
 
 export function getLastNodeFromPlaceholder(placeholder: string): PlaceholderNode | undefined {
+    const stripped = placeholder.replace(/\{.*\}/, '');
     // Split the placeholder string on dots
-    const segments = placeholder.split('.');
+    const segments = stripped.split('.');
     // Start from the root of the placeholder tree
     let currentNode = ScribePlaceholderRoot;
 
@@ -236,12 +266,12 @@ export function fromPlaceholderNodeIdentifierToRegistryKey(
     const identifier = typeof target === 'string' ? target : target.value.identifier;
     let maybeRegistryKey = '';
     switch (identifier) {
-        case '{mythicitem}':
+        case '[mythicitem]':
             return 'item';
-        case '{customplaceholder}':
+        case '[customplaceholder]':
             return 'placeholder';
     }
-    if (identifier.startsWith('{') && identifier.endsWith('}')) {
+    if (identifier.startsWith('[') && identifier.endsWith(']')) {
         maybeRegistryKey = identifier.slice(1, -1).toLowerCase();
         if ((registryKey as readonly string[]).includes(maybeRegistryKey)) {
             return maybeRegistryKey as registryKey;
@@ -321,7 +351,7 @@ export async function initializePlaceholders(placeholderDataset: Map<string, Enu
 
     // Add the Custom Placeholder placeholder. I wrote that right.
     ScribePlaceholderRoot.addNodes(
-        parsePlaceholder('placeholder.{CustomPlaceholder}').getPlaceholderNodes()
+        parsePlaceholder('placeholder.[CustomPlaceholder]').getPlaceholderNodes()
     );
 }
 
@@ -367,7 +397,7 @@ export async function initializeMetaKeywords(mkDataset: Map<string, MetaKeyword>
     ['caster', 'target', 'skill', 'world', 'global', 'furniture'].forEach((name) => {
         const variablePlaceholderLastNode = ScribePlaceholderRoot.getChild(name)
             ?.getChild('var')
-            ?.getChild('{variablename}');
+            ?.getChild('[variablename]');
 
         if (variablePlaceholderLastNode) {
             ScribePlaceholderMetaKeywordsRoot.forEach((mk) => {

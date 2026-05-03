@@ -6,6 +6,9 @@
 		"target": "ES2022",
 		"rootDir": "./",
 		"outDir": "out",
+		"types": [
+			"node"
+		],
 		"lib": [
 			"ES2022",
 			"DOM"

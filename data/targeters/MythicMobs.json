@@ -1260,7 +1260,7 @@
                     "faulty"
                 ],
                 "type": "Boolean",
-                "description": "Whether the mechanic should use the old vector formula",
+                "description": "Whether the old vector calculation formula should be used",
                 "link": "https://git.lumine.io/mythiccraft/MythicMobs/-/wikis/Skills/Targeters#common-location-targeters-attributes",
                 "default_value": "false"
             },
@@ -1417,7 +1417,7 @@
                     "radius",
                     "r"
                 ],
-                "type": "Float",
+                "type": "PlaceholderDouble",
                 "description": "The distance between each point in the line and the radius around each point where entities will be targeted",
                 "link": "https://git.lumine.io/mythiccraft/MythicMobs/-/wikis/Skills/Targeters/LivingInLine",
                 "default_value": "1"
@@ -2153,7 +2153,7 @@
                     "maxradius",
                     "maxr"
                 ],
-                "type": "Integer",
+                "type": "PlaceholderInteger",
                 "description": "The radius in which target points will be generated",
                 "link": "https://git.lumine.io/mythiccraft/MythicMobs/-/wikis/Skills/Targeters/RandomLocationsNearOrigin",
                 "default_value": "5"
@@ -2163,7 +2163,7 @@
                     "minradius",
                     "minr"
                 ],
-                "type": "Integer",
+                "type": "PlaceholderInteger",
                 "description": "The minimum radius in which target points will be generated",
                 "link": "https://git.lumine.io/mythiccraft/MythicMobs/-/wikis/Skills/Targeters/RandomLocationsNearOrigin",
                 "default_value": "0"
@@ -2173,7 +2173,7 @@
                     "spacing",
                     "s"
                 ],
-                "type": "Integer",
+                "type": "PlaceholderInteger",
                 "description": "The minimum amount of space between selected targets",
                 "link": "https://git.lumine.io/mythiccraft/MythicMobs/-/wikis/Skills/Targeters/RandomLocationsNearOrigin",
                 "default_value": "0"
@@ -2244,7 +2244,7 @@
                     "spacing",
                     "s"
                 ],
-                "type": "Integer",
+                "type": "PlaceholderInteger",
                 "description": "The minimum amount of space between selected targets",
                 "link": "https://git.lumine.io/mythiccraft/MythicMobs/-/wikis/Skills/Targeters/RandomLocationsNearTargets",
                 "default_value": "0"
@@ -2290,7 +2290,7 @@
                     "maxradius",
                     "maxr"
                 ],
-                "type": "Integer",
+                "type": "PlaceholderInteger",
                 "description": "The radius in which target points will be generated",
                 "link": "https://git.lumine.io/mythiccraft/MythicMobs/-/wikis/Skills/Targeters/RandomLocationsNearCaster",
                 "default_value": "5"
@@ -2300,7 +2300,7 @@
                     "minradius",
                     "minr"
                 ],
-                "type": "Integer",
+                "type": "PlaceholderInteger",
                 "description": "The minimum radius in which target points will be generated",
                 "link": "https://git.lumine.io/mythiccraft/MythicMobs/-/wikis/Skills/Targeters/RandomLocationsNearCaster",
                 "default_value": "0"
@@ -2310,7 +2310,7 @@
                     "spacing",
                     "s"
                 ],
-                "type": "Integer",
+                "type": "PlaceholderInteger",
                 "description": "The minimum amount of space between selected targets",
                 "link": "https://git.lumine.io/mythiccraft/MythicMobs/-/wikis/Skills/Targeters/RandomLocationsNearCaster",
                 "default_value": "0"

@@ -28,6 +28,8 @@ ExampleMetaskill:
   - message{m=<skill.test1>} @self
 ```
 > Example of a documented metaskill
+- added support for new placeholders syntax
+- added support for new aura components
 
 ### Changed
 - `decorationOptions.soundPlayback` now only handles the sound playback decoration on top of metaskills, and not those on top of sound mechanics
