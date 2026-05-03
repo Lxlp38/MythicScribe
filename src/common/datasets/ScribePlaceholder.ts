@@ -10,6 +10,7 @@ import { EnumDatasetValue } from './types/Enum';
 import { Attribute } from './types/Attribute';
 
 interface MetaKeyword {
+    keyword: string;
     description: string;
     originType: string;
     returnType: string;
@@ -112,10 +113,12 @@ class Placeholder {
 
 export class PlaceholderNode {
     public value: PlaceholderSegment;
+    public returnType?: string;
     public attributes: MythicAttribute[] = [];
     public children: Record<string, PlaceholderNode> = {};
-    constructor(value: PlaceholderSegment) {
+    constructor(value: PlaceholderSegment, returnType?: string) {
         this.value = value;
+        this.returnType = returnType;
     }
     public isEnd: boolean = false;
 
@@ -280,7 +283,9 @@ export function fromPlaceholderNodeIdentifierToRegistryKey(
     return undefined;
 }
 
-export async function initializePlaceholders(placeholderDataset: Map<string, EnumDatasetValue>) {
+export async function initializePlaceholders(
+    placeholderDataset: Map<string, EnumDatasetValue & { returnType?: string }>
+) {
     ScriptedPlaceholderSegmentHandler.clearSegments();
 
     // Generate scripted placeholder segments from enums
@@ -345,8 +350,12 @@ export async function initializePlaceholders(placeholderDataset: Map<string, Enu
     });
 
     // Generate placeholder nodes for all placeholder enums
-    for (const key of placeholderDataset.keys()) {
-        ScribePlaceholderRoot.addNodes(parsePlaceholder(key).getPlaceholderNodes());
+    for (const [key, value] of placeholderDataset.entries()) {
+        const placeholderNodes = parsePlaceholder(key).getPlaceholderNodes();
+        const lastNode = placeholderNodes[placeholderNodes.length - 1];
+        lastNode.returnType = value.returnType;
+
+        ScribePlaceholderRoot.addNodes(placeholderNodes);
     }
 
     // Add the Custom Placeholder placeholder. I wrote that right.
@@ -363,11 +372,11 @@ interface MetaKeywordData {
 
 export const ScribePlaceholderMetaKeywordsRoot: MetaKeywordData[] = [];
 
-export async function initializeMetaKeywords(mkDataset: Map<string, MetaKeyword>) {
-    for (const [key, value] of mkDataset.entries()) {
+export async function initializeMetaKeywords(mkDataset: MetaKeyword[]) {
+    for (const value of mkDataset) {
         ScribePlaceholderMetaKeywordsRoot.push({
             input: value.originType,
-            nodes: parsePlaceholder(key).getPlaceholderNodes(),
+            nodes: parsePlaceholder(value.keyword).getPlaceholderNodes(),
             output: value.returnType,
         });
     }
@@ -411,17 +420,48 @@ globalCallbacks.activation.registerCallback('post-activation', () => {
     initScribePlaceholders();
 });
 
+function linkReturnTypesToMetaKeywords() {
+    const visited = new WeakSet<PlaceholderNode>();
+
+    function stampNode(node: PlaceholderNode) {
+        if (visited.has(node)) {
+            return;
+        }
+        visited.add(node);
+
+        if (node.isEnd && node.returnType) {
+            ScribePlaceholderMetaKeywordsRoot.filter(
+                (mk) =>
+                    mk.input.toLowerCase() === node.returnType?.toLowerCase() || mk.input === 'ALL'
+            ).forEach((mk) => {
+                node.addNodes(Array.from(mk.nodes));
+            });
+        }
+
+        Object.values(node.children).forEach(stampNode);
+    }
+
+    stampNode(ScribePlaceholderRoot);
+}
 export function initScribePlaceholders() {
-    getScribeEnumHandler()
+    const placeholderPromise = getScribeEnumHandler()
         .enumCallback.register('placeholder')
         .then((target) => {
-            initializePlaceholders(target.getDataset());
-            return;
+            return initializePlaceholders(
+                target.getDataset() as Map<string, EnumDatasetValue & { returnType?: string }>
+            );
         });
-    getScribeEnumHandler()
+
+    const metaKeywordPromise = getScribeEnumHandler()
         .enumCallback.register('variableplaceholdermetakeyword')
         .then((target) => {
-            initializeMetaKeywords(target.getDataset() as Map<string, MetaKeyword>);
-            return;
+            return initializeMetaKeywords(
+                Array.from(target.getDataset().values()) as MetaKeyword[]
+            );
         });
+
+    Promise.all([placeholderPromise, metaKeywordPromise]).then(() => {
+        linkReturnTypesToMetaKeywords();
+        return;
+    });
 }

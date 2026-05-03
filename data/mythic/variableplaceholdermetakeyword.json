@@ -1,600 +1,834 @@
 {
-    "cache": {
+    "0": {
+        "keyword": "cache",
         "originType": "ALL",
         "returnType": "ALL",
         "description": "Given the input value and the keywords used after it, this keyword will cache the result the first time the placeholder is parsed, and directly return the cached value each subsequent parsing"
     },
-    "formatted": {
+    "1": {
+        "keyword": "formatted",
         "originType": "ALL",
         "returnType": "STRING",
         "description": "Returns a more human-readable version of the input value"
     },
-    "typename": {
+    "2": {
+        "keyword": "typename",
         "originType": "ALL",
         "returnType": "STRING",
         "description": "Returns the type name of the previous value's return type"
     },
-    "toInteger": {
+    "3": {
+        "keyword": "toInteger",
         "originType": "ALL",
         "returnType": "INTEGER",
         "description": "Converts the value to an Integer without doing any specific operation, allowing chaining for Integer meta keywords"
     },
-    "toFloat": {
+    "4": {
+        "keyword": "toFloat",
         "originType": "ALL",
         "returnType": "FLOAT",
         "description": "Converts the value to a Float without doing any specific operation, allowing chaining for Float meta keywords"
     },
-    "toLong": {
+    "5": {
+        "keyword": "toLong",
         "originType": "ALL",
         "returnType": "LONG",
         "description": "Converts the value to a Long without doing any specific operation, allowing chaining for Long meta keywords"
     },
-    "toDouble": {
+    "6": {
+        "keyword": "toDouble",
         "originType": "ALL",
         "returnType": "DOUBLE",
         "description": "Converts the value to a Double without doing any specific operation, allowing chaining for Double meta keywords"
     },
-    "toBoolean": {
+    "7": {
+        "keyword": "toBoolean",
         "originType": "ALL",
         "returnType": "BOOLEAN",
         "description": "Converts the value to a Boolean without doing any specific operation, allowing chaining for Boolean meta keywords"
     },
-    "toString": {
+    "8": {
+        "keyword": "toString",
         "originType": "ALL",
         "returnType": "STRING",
         "description": "Converts the value to a String without doing any specific operation, allowing chaining for String meta keywords"
     },
-    "toLocation": {
+    "9": {
+        "keyword": "toLocation",
         "originType": "ALL",
         "returnType": "LOCATION",
         "description": "Converts the value to a Location without doing any specific operation, allowing chaining for Location meta keywords"
     },
-    "toVector": {
+    "10": {
+        "keyword": "toVector",
         "originType": "ALL",
         "returnType": "VECTOR",
         "description": "Converts the value to a Vector without doing any specific operation, allowing chaining for Vector meta keywords"
     },
-    "toList": {
+    "11": {
+        "keyword": "toList",
         "originType": "ALL",
         "returnType": "LIST",
         "description": "Converts the value to a List without doing any specific operation, allowing chaining for List meta keywords"
     },
-    "toSet": {
+    "12": {
+        "keyword": "toSet",
         "originType": "ALL",
         "returnType": "SET",
         "description": "Converts the value to a Set without doing any specific operation, allowing chaining for Set meta keywords"
     },
-    "toMap": {
+    "13": {
+        "keyword": "toMap",
         "originType": "ALL",
         "returnType": "MAP",
         "description": "Converts the value to a Map without doing any specific operation, allowing chaining for Map meta keywords"
     },
-    "toTime": {
+    "14": {
+        "keyword": "toTime",
         "originType": "ALL",
         "returnType": "TIME",
         "description": "Converts the value to a Time without doing any specific operation, allowing chaining for Time meta keywords"
     },
-    "add{amount=[Integer]}": {
+    "15": {
+        "keyword": "add{amount=[Integer]}",
         "originType": "INTEGER",
         "returnType": "INTEGER",
         "description": "The addition between the value and the specified Integer"
     },
-    "sub{amount=[Integer]}": {
+    "16": {
+        "keyword": "sub{amount=[Integer]}",
         "originType": "INTEGER",
         "returnType": "INTEGER",
         "description": "The subtraction between the value and the specified Integer"
     },
-    "mul{amount=[Integer]}": {
+    "17": {
+        "keyword": "mul{amount=[Integer]}",
         "originType": "INTEGER",
         "returnType": "INTEGER",
         "description": "The multiplication between the value and the specified Integer"
     },
-    "div{amount=[Integer]}": {
+    "18": {
+        "keyword": "div{amount=[Integer]}",
         "originType": "INTEGER",
         "returnType": "INTEGER",
         "description": "The division between the value and the specified Integer"
     },
-    "abs": {
-        "originType": "DOUBLE",
-        "returnType": "DOUBLE",
+    "19": {
+        "keyword": "abs",
+        "originType": "INTEGER",
+        "returnType": "INTEGER",
         "description": "The absolute value of the value"
     },
-    "add{amount=[Float]}": {
+    "20": {
+        "keyword": "add{amount=[Float]}",
         "originType": "FLOAT",
         "returnType": "FLOAT",
         "description": "The addition between the value and the specified Float"
     },
-    "sub{amount=[Float]}": {
+    "21": {
+        "keyword": "sub{amount=[Float]}",
         "originType": "FLOAT",
         "returnType": "FLOAT",
         "description": "The subtraction between the value and the specified Float"
     },
-    "mul{amount=[Float]}": {
+    "22": {
+        "keyword": "mul{amount=[Float]}",
         "originType": "FLOAT",
         "returnType": "FLOAT",
         "description": "The multiplication between the value and the specified Float"
     },
-    "div{amount=[Float]}": {
+    "23": {
+        "keyword": "div{amount=[Float]}",
         "originType": "FLOAT",
         "returnType": "FLOAT",
         "description": "The division between the value and the specified Float"
     },
-    "round": {
-        "originType": "DOUBLE",
-        "returnType": "LONG",
-        "description": "Rounds the value to the nearest Long"
+    "24": {
+        "keyword": "abs",
+        "originType": "FLOAT",
+        "returnType": "FLOAT",
+        "description": "The absolute value of the value"
     },
-    "precision{amount=[Integer]}": {
-        "originType": "DOUBLE",
-        "returnType": "DOUBLE",
+    "25": {
+        "keyword": "round",
+        "originType": "FLOAT",
+        "returnType": "INTEGER",
+        "description": "Rounds the value to the nearest Integer"
+    },
+    "26": {
+        "keyword": "precision{amount=[Integer]}",
+        "originType": "FLOAT",
+        "returnType": "FLOAT",
         "description": "Returns the same float value, but with a given maximum precision. Extra precision is rounded using the HALF_UP rounding mode"
     },
-    "add{amount=[Long]}": {
+    "27": {
+        "keyword": "add{amount=[Long]}",
         "originType": "LONG",
         "returnType": "LONG",
         "description": "The addition between the value and the specified Long"
     },
-    "sub{amount=[Long]}": {
+    "28": {
+        "keyword": "sub{amount=[Long]}",
         "originType": "LONG",
         "returnType": "LONG",
         "description": "The subtraction between the value and the specified Long"
     },
-    "mul{amount=[Long]}": {
+    "29": {
+        "keyword": "mul{amount=[Long]}",
         "originType": "LONG",
         "returnType": "LONG",
         "description": "The multiplication between the value and the specified Long"
     },
-    "div{amount=[Long]}": {
+    "30": {
+        "keyword": "div{amount=[Long]}",
         "originType": "LONG",
         "returnType": "LONG",
         "description": "The division between the value and the specified Long"
     },
-    "add{amount=[Double]}": {
+    "31": {
+        "keyword": "abs",
+        "originType": "LONG",
+        "returnType": "LONG",
+        "description": "The absolute value of the value"
+    },
+    "32": {
+        "keyword": "add{amount=[Double]}",
         "originType": "DOUBLE",
         "returnType": "DOUBLE",
         "description": "The addition between the value and the specified Double"
     },
-    "sub{amount=[Double]}": {
+    "33": {
+        "keyword": "sub{amount=[Double]}",
         "originType": "DOUBLE",
         "returnType": "DOUBLE",
         "description": "The subtraction between the value and the specified Double"
     },
-    "mul{amount=[Double]}": {
+    "34": {
+        "keyword": "mul{amount=[Double]}",
         "originType": "DOUBLE",
         "returnType": "DOUBLE",
         "description": "The multiplication between the value and the specified Double"
     },
-    "div{amount=[Double]}": {
+    "35": {
+        "keyword": "div{amount=[Double]}",
         "originType": "DOUBLE",
         "returnType": "DOUBLE",
         "description": "The division between the value and the specified Double"
     },
-    "inverse": {
+    "36": {
+        "keyword": "abs",
+        "originType": "DOUBLE",
+        "returnType": "DOUBLE",
+        "description": "The absolute value of the value"
+    },
+    "37": {
+        "keyword": "round",
+        "originType": "DOUBLE",
+        "returnType": "LONG",
+        "description": "Rounds the value to the nearest Long"
+    },
+    "38": {
+        "keyword": "precision{amount=[Integer]}",
+        "originType": "DOUBLE",
+        "returnType": "DOUBLE",
+        "description": "Returns the same float value, but with a given maximum precision. Extra precision is rounded using the HALF_UP rounding mode"
+    },
+    "39": {
+        "keyword": "inverse",
         "originType": "BOOLEAN",
         "returnType": "BOOLEAN",
         "description": "The inverse of the value"
     },
-    "number": {
+    "40": {
+        "keyword": "number",
         "originType": "BOOLEAN",
         "returnType": "INTEGER",
         "description": "The value as either a 0 (false) or 1 (true)"
     },
-    "yesno": {
+    "41": {
+        "keyword": "yesno",
         "originType": "BOOLEAN",
         "returnType": "STRING",
         "description": "The value as either a no (false) or yes (true)"
     },
-    "union.{Boolean}": {
+    "42": {
+        "keyword": "union.{Boolean}",
         "originType": "BOOLEAN",
         "returnType": "BOOLEAN",
         "description": "Logical OR with specified Boolean"
     },
-    "intersection.{Boolean}": {
+    "43": {
+        "keyword": "intersection.{Boolean}",
         "originType": "BOOLEAN",
         "returnType": "BOOLEAN",
         "description": "Logical AND with specified Boolean"
     },
-    "difference.{Boolean}": {
+    "44": {
+        "keyword": "difference.{Boolean}",
         "originType": "BOOLEAN",
         "returnType": "BOOLEAN",
         "description": "True if value is true and argument is false"
     },
-    "size": {
-        "originType": "MAP",
+    "45": {
+        "keyword": "size",
+        "originType": "STRING",
         "returnType": "INTEGER",
-        "description": "Number of key-value pairs"
+        "description": "The length of the string"
     },
-    "uppercase": {
+    "46": {
+        "keyword": "uppercase",
         "originType": "STRING",
         "returnType": "STRING",
         "description": "The string in uppercase"
     },
-    "lowercase": {
+    "47": {
+        "keyword": "lowercase",
         "originType": "STRING",
         "returnType": "STRING",
         "description": "The string in lowercase"
     },
-    "capitalize": {
+    "48": {
+        "keyword": "capitalize",
         "originType": "STRING",
         "returnType": "STRING",
         "description": "The string with the first character in uppercase"
     },
-    "trim": {
+    "49": {
+        "keyword": "trim",
         "originType": "STRING",
         "returnType": "STRING",
         "description": "The string with leading and trailing spaces removed"
     },
-    "replace{from=old;to=new}": {
+    "50": {
+        "keyword": "replace{from=old;to=new}",
         "originType": "STRING",
         "returnType": "STRING",
         "description": "The string with occurrences of `old` replaced by `new`"
     },
-    "remove{value=text}": {
+    "51": {
+        "keyword": "remove{value=text}",
         "originType": "STRING",
         "returnType": "STRING",
         "description": "The string with occurrences of `text` removed"
     },
-    "contains{value=text}": {
+    "52": {
+        "keyword": "contains{value=text}",
         "originType": "STRING",
         "returnType": "BOOLEAN",
         "description": "Whether the string contains `text`"
     },
-    "substring{from=[Integer];to=[Integer]}": {
+    "53": {
+        "keyword": "substring{from=[Integer];to=[Integer]}",
         "originType": "STRING",
         "returnType": "STRING",
         "description": "A substring from the `from` index to the `to` index"
     },
-    "shift{amount=[Integer]}": {
+    "54": {
+        "keyword": "shift{amount=[Integer]}",
         "originType": "STRING",
         "returnType": "STRING",
         "description": "Removes the first `Integer` characters"
     },
-    "split{regex=[String];with=[String]}": {
+    "55": {
+        "keyword": "split{regex=[String];with=[String]}",
         "originType": "STRING",
         "returnType": "STRING",
         "description": "Splits the string by `regex`, then joins it with the `with` string"
     },
-    "indexof{value=[String]}": {
-        "originType": "LIST",
+    "56": {
+        "keyword": "indexof{value=[String]}",
+        "originType": "STRING",
         "returnType": "INTEGER",
-        "description": "Index of first occurrence of `value`"
+        "description": "The index of the first occurrence of the `value` text"
     },
-    "lastindexof{value=[String]}": {
-        "originType": "LIST",
+    "57": {
+        "keyword": "lastindexof{value=[String]}",
+        "originType": "STRING",
         "returnType": "INTEGER",
-        "description": "Index of last occurrence of `value`"
+        "description": "The index of the last occurrence of the `value` text"
     },
-    "startswith{value=[String]}": {
+    "58": {
+        "keyword": "startswith{value=[String]}",
         "originType": "STRING",
         "returnType": "BOOLEAN",
         "description": "Whether the string starts with `value`"
     },
-    "endswith{value=[String]}": {
+    "59": {
+        "keyword": "endswith{value=[String]}",
         "originType": "STRING",
         "returnType": "BOOLEAN",
         "description": "Whether the string ends with `value`"
     },
-    "append{value=[String]}": {
-        "originType": "LIST",
-        "returnType": "LIST",
-        "description": "Adds `value` to the end of the list"
+    "60": {
+        "keyword": "append{value=[String]}",
+        "originType": "STRING",
+        "returnType": "STRING",
+        "description": "Appends `value` to the end of the string"
     },
-    "prepend{value=[String]}": {
-        "originType": "LIST",
-        "returnType": "LIST",
-        "description": "Adds `value` to the start of the list"
+    "61": {
+        "keyword": "prepend{value=[String]}",
+        "originType": "STRING",
+        "returnType": "STRING",
+        "description": "Prepends `value` to the beginning of the string"
     },
-    "insert{index=[Integer];value=[String]}": {
-        "originType": "LIST",
-        "returnType": "LIST",
-        "description": "Inserts `value` at the given `index`"
+    "62": {
+        "keyword": "insert{index=[Integer];value=[String]}",
+        "originType": "STRING",
+        "returnType": "STRING",
+        "description": "Inserts `value` at the specified `index`"
     },
-    "regex{regex=[String]}": {
+    "63": {
+        "keyword": "regex{regex=[String]}",
         "originType": "STRING",
         "returnType": "BOOLEAN",
         "description": "Whether the string matches the `regex` pattern"
     },
-    "{index}": {
-        "originType": "LIST",
+    "64": {
+        "keyword": "{index}",
+        "originType": "STRING",
         "returnType": "STRING",
-        "description": "Element at specified `index`"
+        "description": "Returns the character at the specified `index`"
     },
-    "join{with=[String]}": {
-        "originType": "LIST",
+    "65": {
+        "keyword": "size",
+        "originType": "SET",
+        "returnType": "INTEGER",
+        "description": "The number of elements in the set"
+    },
+    "66": {
+        "keyword": "join{with=[String]}",
+        "originType": "SET",
         "returnType": "STRING",
-        "description": "Joins elements using the `with` delimiter"
+        "description": "Joins all elements using the `with` delimiter"
     },
-    "contains{value=[String]}": {
-        "originType": "LIST",
+    "67": {
+        "keyword": "contains{value=[String]}",
+        "originType": "SET",
         "returnType": "BOOLEAN",
-        "description": "Whether the list contains `value`"
+        "description": "Whether the set contains the given `value`"
     },
-    "x": {
-        "originType": "VECTOR",
+    "68": {
+        "keyword": "x",
+        "originType": "LOCATION",
         "returnType": "DOUBLE",
-        "description": "The X component"
+        "description": "The X coordinate"
     },
-    "y": {
-        "originType": "VECTOR",
+    "69": {
+        "keyword": "y",
+        "originType": "LOCATION",
         "returnType": "DOUBLE",
-        "description": "The Y component"
+        "description": "The Y coordinate"
     },
-    "z": {
-        "originType": "VECTOR",
+    "70": {
+        "keyword": "z",
+        "originType": "LOCATION",
         "returnType": "DOUBLE",
-        "description": "The Z component"
+        "description": "The Z coordinate"
     },
-    "world": {
+    "71": {
+        "keyword": "world",
         "originType": "LOCATION",
         "returnType": "STRING",
         "description": "The world name"
     },
-    "yaw": {
+    "72": {
+        "keyword": "yaw",
         "originType": "LOCATION",
         "returnType": "DOUBLE",
         "description": "The yaw"
     },
-    "pitch": {
+    "73": {
+        "keyword": "pitch",
         "originType": "LOCATION",
         "returnType": "DOUBLE",
         "description": "The pitch"
     },
-    "coords": {
+    "74": {
+        "keyword": "coords",
         "originType": "LOCATION",
         "returnType": "LIST",
         "description": "A list with the X, Y, and Z coordinates. Also useful if you want to call .toVector on it"
     },
-    "normalized": {
+    "75": {
+        "keyword": "x",
+        "originType": "VECTOR",
+        "returnType": "DOUBLE",
+        "description": "The X component"
+    },
+    "76": {
+        "keyword": "y",
+        "originType": "VECTOR",
+        "returnType": "DOUBLE",
+        "description": "The Y component"
+    },
+    "77": {
+        "keyword": "z",
+        "originType": "VECTOR",
+        "returnType": "DOUBLE",
+        "description": "The Z component"
+    },
+    "78": {
+        "keyword": "normalized",
         "originType": "VECTOR",
         "returnType": "VECTOR",
         "description": "The normalized vector"
     },
-    "length": {
+    "79": {
+        "keyword": "length",
         "originType": "VECTOR",
         "returnType": "DOUBLE",
         "description": "The length (magnitude) of the vector"
     },
-    "add{amount=[Vector]}": {
+    "80": {
+        "keyword": "add{amount=[Vector]}",
         "originType": "VECTOR",
         "returnType": "VECTOR",
         "description": "Adds another vector"
     },
-    "sub{amount=[Vector]}": {
+    "81": {
+        "keyword": "sub{amount=[Vector]}",
         "originType": "VECTOR",
         "returnType": "VECTOR",
         "description": "Subtracts another vector"
     },
-    "mul{amount=[Vector]}": {
+    "82": {
+        "keyword": "mul{amount=[Vector]}",
         "originType": "VECTOR",
         "returnType": "VECTOR",
         "description": "Multiplies the vector by another vector"
     },
-    "div{amount=[Vector]}": {
+    "83": {
+        "keyword": "div{amount=[Vector]}",
         "originType": "VECTOR",
         "returnType": "VECTOR",
         "description": "Divides the vector by another vector"
     },
-    "rotate{axis=[String];angle=[Double]}": {
+    "84": {
+        "keyword": "rotate{axis=[String];angle=[Double]}",
         "originType": "VECTOR",
         "returnType": "VECTOR",
         "description": "Rotates the vector around `axis` by `angle` radians"
     },
-    "first": {
+    "85": {
+        "keyword": "size",
+        "originType": "LIST",
+        "returnType": "INTEGER",
+        "description": "Number of elements in the list"
+    },
+    "86": {
+        "keyword": "first",
         "originType": "LIST",
         "returnType": "STRING",
         "description": "First element in the list"
     },
-    "last": {
+    "87": {
+        "keyword": "last",
         "originType": "LIST",
         "returnType": "STRING",
         "description": "Last element in the list"
     },
-    "reverse": {
+    "88": {
+        "keyword": "reverse",
         "originType": "LIST",
         "returnType": "LIST",
         "description": "The list reversed"
     },
-    "sort": {
+    "89": {
+        "keyword": "sort",
         "originType": "LIST",
         "returnType": "LIST",
         "description": "The list sorted alphabetically"
     },
-    "sortnum": {
+    "90": {
+        "keyword": "sortnum",
         "originType": "LIST",
         "returnType": "LIST",
         "description": "This list sorted numerically. Each element of the list needs to be a number"
     },
-    "shuffle": {
+    "91": {
+        "keyword": "shuffle",
         "originType": "LIST",
         "returnType": "LIST",
         "description": "Shuffles the list, randomizing its elements"
     },
-    "get{index=[Integer]}": {
+    "92": {
+        "keyword": "get{index=[Integer]}",
         "originType": "LIST",
         "returnType": "STRING",
         "description": "Element at specified `index`"
     },
-    "maxnumber": {
+    "93": {
+        "keyword": "join{with=[String]}",
+        "originType": "LIST",
+        "returnType": "STRING",
+        "description": "Joins elements using the `with` delimiter"
+    },
+    "94": {
+        "keyword": "contains{value=[String]}",
+        "originType": "LIST",
+        "returnType": "BOOLEAN",
+        "description": "Whether the list contains `value`"
+    },
+    "95": {
+        "keyword": "maxnumber",
         "originType": "LIST",
         "returnType": "DOUBLE",
         "description": "Maximum numerical value in list"
     },
-    "minnumber": {
+    "96": {
+        "keyword": "minnumber",
         "originType": "LIST",
         "returnType": "DOUBLE",
         "description": "Minimum numerical value in list"
     },
-    "slice{from=[Integer];to=[Integer]}": {
+    "97": {
+        "keyword": "indexof{value=[String]}",
+        "originType": "LIST",
+        "returnType": "INTEGER",
+        "description": "Index of first occurrence of `value`"
+    },
+    "98": {
+        "keyword": "lastindexof{value=[String]}",
+        "originType": "LIST",
+        "returnType": "INTEGER",
+        "description": "Index of last occurrence of `value`"
+    },
+    "99": {
+        "keyword": "slice{from=[Integer];to=[Integer]}",
         "originType": "LIST",
         "returnType": "LIST",
         "description": "Slice of list from `from` to `to`"
     },
-    "slicefrom{from=[Integer]}": {
+    "100": {
+        "keyword": "slicefrom{from=[Integer]}",
         "originType": "LIST",
         "returnType": "LIST",
         "description": "Slice of list from `from` to end"
     },
-    "sliceto{to=[Integer]}": {
+    "101": {
+        "keyword": "sliceto{to=[Integer]}",
         "originType": "LIST",
         "returnType": "LIST",
         "description": "Slice of list from start to `to`"
     },
-    "remove{index=[Integer]}": {
+    "102": {
+        "keyword": "append{value=[String]}",
+        "originType": "LIST",
+        "returnType": "LIST",
+        "description": "Adds `value` to the end of the list"
+    },
+    "103": {
+        "keyword": "prepend{value=[String]}",
+        "originType": "LIST",
+        "returnType": "LIST",
+        "description": "Adds `value` to the start of the list"
+    },
+    "104": {
+        "keyword": "insert{index=[Integer];value=[String]}",
+        "originType": "LIST",
+        "returnType": "LIST",
+        "description": "Inserts `value` at the given `index`"
+    },
+    "105": {
+        "keyword": "remove{index=[Integer]}",
         "originType": "LIST",
         "returnType": "LIST",
         "description": "Removes value at given `index`"
     },
-    "keys": {
+    "106": {
+        "keyword": "{index}",
+        "originType": "LIST",
+        "returnType": "STRING",
+        "description": "Element at specified `index`"
+    },
+    "107": {
+        "keyword": "size",
+        "originType": "MAP",
+        "returnType": "INTEGER",
+        "description": "Number of key-value pairs"
+    },
+    "108": {
+        "keyword": "keys",
         "originType": "MAP",
         "returnType": "LIST",
         "description": "List of all keys"
     },
-    "values": {
+    "109": {
+        "keyword": "values",
         "originType": "MAP",
         "returnType": "LIST",
         "description": "List of all values"
     },
-    "get{key=[String]}": {
+    "110": {
+        "keyword": "get{key=[String]}",
         "originType": "MAP",
         "returnType": "STRING",
         "description": "Value associated with the specified `key`"
     },
-    "{key}": {
+    "111": {
+        "keyword": "{key}",
         "originType": "MAP",
         "returnType": "STRING",
         "description": "Value associated with the specified `key`"
     },
-    "delta{value=[Long]}": {
+    "112": {
+        "keyword": "delta{value=[Long]}",
         "originType": "TIME",
         "returnType": "INTEGER",
         "description": "Difference between the value's time and the and given `value` timestamp"
     },
-    "formatted{value=[String]}": {
+    "113": {
+        "keyword": "formatted{value=[String]}",
         "originType": "TIME",
         "returnType": "STRING",
         "description": "Formatted date/time using the specified pattern. The pattern can be anything the Java function [ZoneOffset.of](https://docs.oracle.com/javase/8/docs/api/java/time/ZoneOffset.html#of-java.lang.String-) accepts"
     },
-    "duration": {
+    "114": {
+        "keyword": "duration",
         "originType": "TIME",
         "returnType": "STRING",
         "description": "Interprets the Time as a raw \"amount of milliseconds\" and displays the total amount of Seconds, Minutes, Hours, Days, Months and Years. Can be useful for countdowns and the likes, especially if paired with the `.delta` meta keywords"
     },
-    "withType{type=[String]}": {
+    "115": {
+        "keyword": "withType{type=[String]}",
         "originType": "ITEM",
         "returnType": "ITEM",
         "description": "Returns the same item but with its type set to the specified `type` material (case-insensitive, must match a valid `Material` enum)"
     },
-    "withDurability{durability=[Integer]}": {
+    "116": {
+        "keyword": "withDurability{durability=[Integer]}",
         "originType": "ITEM",
         "returnType": "ITEM",
         "description": "Returns the same item but with its durability set to the specified integer `durability`"
     },
-    "withMaxDurability{durability=[Integer]}": {
+    "117": {
+        "keyword": "withMaxDurability{durability=[Integer]}",
         "originType": "ITEM",
         "returnType": "ITEM",
         "description": "Returns the same item but with its maximum durability set to the specified integer `durability`"
     },
-    "withLore{lore=[List]}": {
+    "118": {
+        "keyword": "withLore{lore=[List]}",
         "originType": "ITEM",
         "returnType": "ITEM",
         "description": "Returns the same item but with its lore set to the specified list of strings."
     },
-    "withName{name=[String]}": {
+    "119": {
+        "keyword": "withName{name=[String]}",
         "originType": "ITEM",
         "returnType": "ITEM",
         "description": "Returns the same item but with its display name set to `name`"
     },
-    "withMythicType{type=[String]}": {
+    "120": {
+        "keyword": "withMythicType{type=[String]}",
         "originType": "ITEM",
         "returnType": "ITEM",
         "description": "Returns the same item but with its persistent \"Mythic Type\" set to `type`, allowing you to make Mythic believe the modified item is the `type` mythic item"
     },
-    "withEnchants{enchant=[Map]}": {
+    "121": {
+        "keyword": "withEnchants{enchant=[Map]}",
         "originType": "ITEM",
         "returnType": "ITEM",
         "description": "Returns the same item but with enchantments replaced by those provided in the map. Removes all previous enchantments before applying the new ones"
     },
-    "withCustomData{namespace=[String];key=[String];value=[String]}": {
+    "122": {
+        "keyword": "withCustomData{namespace=[String];key=[String];value=[String]}",
         "originType": "ITEM",
         "returnType": "ITEM",
         "description": "Returns the same item but with custom persistent data (`value` stored under `namespace:key`)"
     },
-    "withAmount{amount=[Integer]}": {
+    "123": {
+        "keyword": "withAmount{amount=[Integer]}",
         "originType": "ITEM",
         "returnType": "ITEM",
         "description": "Returns the same item but with its stack amount set to `value`"
     },
-    "withUUID{uuid=[String]}": {
+    "124": {
+        "keyword": "withUUID{uuid=[String]}",
         "originType": "ITEM",
         "returnType": "ITEM",
         "description": "Returns the same item but with its UUID nbt set to the specified value"
     },
-    "withTimestamp{timestamp=[Long]}": {
+    "125": {
+        "keyword": "withTimestamp{timestamp=[Long]}",
         "originType": "ITEM",
         "returnType": "ITEM",
         "description": "Returns the same item but with its timestamp nbt set to the specified integer value"
     },
-    "withCustomModelData{value=[String]}": {
+    "126": {
+        "keyword": "withCustomModelData{value=[String]}",
         "originType": "ITEM",
         "returnType": "ITEM",
         "description": "Returns the same item but with its Custom Model Data set to `value`"
     },
-    "withModel{namespace=[String];value=[String]}": {
+    "127": {
+        "keyword": "withModel{namespace=[String];value=[String]}",
         "originType": "ITEM",
         "returnType": "ITEM",
         "description": "Returns the same item but with its item model set to `{namespace}:{path}`"
     },
-    "type": {
+    "128": {
+        "keyword": "type",
         "originType": "ITEM",
         "returnType": "STRING",
         "description": "The item's type as a string (Material name)"
     },
-    "durability": {
+    "129": {
+        "keyword": "durability",
         "originType": "ITEM",
         "returnType": "INTEGER",
         "description": "The current durability value of the item"
     },
-    "maxDurability": {
+    "130": {
+        "keyword": "maxDurability",
         "originType": "ITEM",
         "returnType": "INTEGER",
         "description": "The maximum durability value of the item"
     },
-    "lore": {
+    "131": {
+        "keyword": "lore",
         "originType": "ITEM",
         "returnType": "LIST",
         "description": "The item's lore as a list of strings"
     },
-    "name": {
+    "132": {
+        "keyword": "name",
         "originType": "ITEM",
         "returnType": "STRING",
         "description": "The display name of the item"
     },
-    "mythicType": {
+    "133": {
+        "keyword": "mythicType",
         "originType": "ITEM",
         "returnType": "STRING",
         "description": "The persistent \"Mythic Type\" value of the item, if set"
     },
-    "enchants": {
+    "134": {
+        "keyword": "enchants",
         "originType": "ITEM",
         "returnType": "MAP",
         "description": "A map of all enchantments on the item"
     },
-    "getCustomData{namespace=[String];key=[String]}": {
+    "135": {
+        "keyword": "getCustomData{namespace=[String];key=[String]}",
         "originType": "ITEM",
         "returnType": "STRING",
         "description": "The string value stored in the item's custom persistent data under `{namespace}:{key}`"
     },
-    "customModelData": {
+    "136": {
+        "keyword": "customModelData",
         "originType": "ITEM",
         "returnType": "INTEGER",
         "description": "The item's Custom Model Data value"
     },
-    "model": {
+    "137": {
+        "keyword": "model",
         "originType": "ITEM",
         "returnType": "STRING",
         "description": "The item's model identifier in `namespace:path` format"
     },
-    "amount": {
+    "138": {
+        "keyword": "amount",
         "originType": "ITEM",
         "returnType": "INTEGER",
         "description": "The stack amount of the item"
