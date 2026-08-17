@@ -7,6 +7,7 @@ import {
 import { AchievementSchema } from '@common/schemas/achievementSchema';
 import { EnchantmentSchema } from '@common/schemas/enchantmentSchema';
 import { ArchetypeSchema } from '@common/schemas/archetypeSchema';
+import { TalentTreeFileSchema } from '@common/schemas/talentTreeSchema';
 import { DroptableSchema } from '@common/schemas/droptableSchema';
 import { EquipmentSetSchema } from '@common/schemas/equipmentsetSchema';
 import { ItemSchema } from '@common/schemas/itemSchema';
@@ -16,6 +17,9 @@ import { MobSchema } from '@common/schemas/mobSchema';
 import { PlaceholderSchema } from '@common/schemas/placeholderSchema';
 import { RandomSpawnSchema } from '@common/schemas/randomSpawnSchema';
 import { ReagentSchema } from '@common/schemas/reagentSchema';
+import { ExperienceCurveSchema } from '@common/schemas/experienceCurveSchema';
+import { ExperienceSourceSchema } from '@common/schemas/experienceSourceSchema';
+import { PointSchema } from '@common/schemas/pointSchema';
 import { StatSchema } from '@common/schemas/statSchema';
 import * as vscode from 'vscode';
 
@@ -77,10 +81,30 @@ export const FileTypeInfoMap: {
         key: 'archetype',
         configKey: 'Archetype',
     },
+    talenttree: {
+        schema: TalentTreeFileSchema,
+        key: 'talenttree',
+        configKey: 'TalentTree',
+    },
     reagent: {
         schema: ReagentSchema,
         key: 'reagent',
         configKey: 'Reagent',
+    },
+    experiencecurve: {
+        schema: ExperienceCurveSchema,
+        key: 'experiencecurve',
+        configKey: 'ExperienceCurve',
+    },
+    experiencesource: {
+        schema: ExperienceSourceSchema,
+        key: 'experiencesource',
+        configKey: 'ExperienceSource',
+    },
+    point: {
+        schema: PointSchema,
+        key: 'point',
+        configKey: 'Point',
     },
     menu: {
         schema: MenuSchema,

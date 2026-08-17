@@ -381,9 +381,25 @@
               "type": "string",
               "description": "Regex to identify Archetype files."
             },
+            "TalentTree": {
+              "type": "string",
+              "description": "Regex to identify MythicRPG standalone talent tree files."
+            },
             "Reagent": {
               "type": "string",
               "description": "Regex to identify Reagent files."
+            },
+            "ExperienceCurve": {
+              "type": "string",
+              "description": "Regex to identify MythicRPG experience curve files."
+            },
+            "ExperienceSource": {
+              "type": "string",
+              "description": "Regex to identify MythicRPG experience source files."
+            },
+            "Point": {
+              "type": "string",
+              "description": "Regex to identify MythicRPG point files."
             },
             "Menu": {
               "type": "string",
@@ -410,6 +426,7 @@
             "RandomSpawn": "[\\\\\\/][Rr]andom[Ss]pawns[\\\\\\/]",
             "EquipmentSet": "[\\\\\\/]equipment-sets.((yaml)|(yml)|(txt))",
             "Archetype": "[\\\\\\/][Aa]rchetypes[\\\\\\/]",
+            "TalentTree": "[\\\\\\/]talents.((yaml)|(yml))",
             "Reagent": "[\\\\\\/]reagents.((yaml)|(yml)|(txt))",
             "Menu": "[\\\\\\/][Mm]enus[\\\\\\/]",
             "Achievement": "[\\\\\\/][Aa]chievements[\\\\\\/]",

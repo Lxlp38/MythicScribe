@@ -2,9 +2,13 @@ import * as vscode from 'vscode';
 import { RandomSpawnSchema } from '@common/schemas/randomSpawnSchema';
 import { ReagentSchema } from '@common/schemas/reagentSchema';
 import { ArchetypeSchema } from '@common/schemas/archetypeSchema';
+import { TalentTreeFileSchema } from '@common/schemas/talentTreeSchema';
 import { MenuSchema } from '@common/schemas/menuSchema';
 import { AchievementSchema } from '@common/schemas/achievementSchema';
 import { EnchantmentSchema } from '@common/schemas/enchantmentSchema';
+import { ExperienceCurveSchema } from '@common/schemas/experienceCurveSchema';
+import { ExperienceSourceSchema } from '@common/schemas/experienceSourceSchema';
+import { PointSchema } from '@common/schemas/pointSchema';
 import { PlaceholderSchema } from '@common/schemas/placeholderSchema';
 import { EquipmentSetSchema } from '@common/schemas/equipmentsetSchema';
 import { commentTagsCompletionProvider } from '@common/completions/component/commentTagsCompletionProvider';
@@ -375,6 +379,18 @@ class AchievementSubscriptionHandler extends AbstractScribeSubscription {
     }
 }
 
+class TalentTreeSubscriptionHandler extends AbstractScribeSubscription {
+    constructor() {
+        super(
+            [
+                () => genericFileCompletionProvider(TalentTreeFileSchema),
+                () => hoverProvider(TalentTreeFileSchema),
+            ],
+            []
+        );
+    }
+}
+
 class EnchantmentSubscriptionHandler extends AbstractScribeSubscription {
     constructor() {
         super(
@@ -383,6 +399,39 @@ class EnchantmentSubscriptionHandler extends AbstractScribeSubscription {
                 () => hoverProvider(EnchantmentSchema),
                 () => triggerfileCompletionProvider(TriggerType.ENCHANTMENT, ['Skills']),
             ],
+            []
+        );
+    }
+}
+
+class ExperienceCurveSubscriptionHandler extends AbstractScribeSubscription {
+    constructor() {
+        super(
+            [
+                () => genericFileCompletionProvider(ExperienceCurveSchema),
+                () => hoverProvider(ExperienceCurveSchema),
+            ],
+            []
+        );
+    }
+}
+
+class ExperienceSourceSubscriptionHandler extends AbstractScribeSubscription {
+    constructor() {
+        super(
+            [
+                () => genericFileCompletionProvider(ExperienceSourceSchema),
+                () => hoverProvider(ExperienceSourceSchema),
+            ],
+            []
+        );
+    }
+}
+
+class PointSubscriptionHandler extends AbstractScribeSubscription {
+    constructor() {
+        super(
+            [() => genericFileCompletionProvider(PointSchema), () => hoverProvider(PointSchema)],
             []
         );
     }
@@ -406,7 +455,11 @@ export const ScribeSubscriptionHandler: ScribeSubscriptionHandler = {
         randomspawn: new RandomSpawnSubscriptionHandler(),
         equipmentset: new EquipmentSetSubscriptionHandler(),
         archetype: new ArchetypeSubscriptionHandler(),
+        talenttree: new TalentTreeSubscriptionHandler(),
         reagent: new ReagentSubscriptionHandler(),
+        experiencecurve: new ExperienceCurveSubscriptionHandler(),
+        experiencesource: new ExperienceSourceSubscriptionHandler(),
+        point: new PointSubscriptionHandler(),
         menu: new MenuSubscriptionHandler(),
         achievement: new AchievementSubscriptionHandler(),
         enchantment: new EnchantmentSubscriptionHandler(),
