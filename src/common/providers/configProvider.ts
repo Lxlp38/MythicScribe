@@ -101,6 +101,7 @@ export const fileRegexConfigCache = {
     Reagent: undefined as string | undefined,
     Menu: undefined as string | undefined,
     Achievement: undefined as string | undefined,
+    Enchantment: undefined as string | undefined,
 };
 
 const fileParsingPolicyConfigCache = {

@@ -4,6 +4,7 @@ import { ReagentSchema } from '@common/schemas/reagentSchema';
 import { ArchetypeSchema } from '@common/schemas/archetypeSchema';
 import { MenuSchema } from '@common/schemas/menuSchema';
 import { AchievementSchema } from '@common/schemas/achievementSchema';
+import { EnchantmentSchema } from '@common/schemas/enchantmentSchema';
 import { PlaceholderSchema } from '@common/schemas/placeholderSchema';
 import { EquipmentSetSchema } from '@common/schemas/equipmentsetSchema';
 import { commentTagsCompletionProvider } from '@common/completions/component/commentTagsCompletionProvider';
@@ -374,6 +375,19 @@ class AchievementSubscriptionHandler extends AbstractScribeSubscription {
     }
 }
 
+class EnchantmentSubscriptionHandler extends AbstractScribeSubscription {
+    constructor() {
+        super(
+            [
+                () => genericFileCompletionProvider(EnchantmentSchema),
+                () => hoverProvider(EnchantmentSchema),
+                () => triggerfileCompletionProvider(TriggerType.ENCHANTMENT, ['Skills']),
+            ],
+            []
+        );
+    }
+}
+
 interface ScribeSubscriptionHandler {
     registry: Record<registryKey | 'global', AbstractScribeSubscription>;
     disposeAll(): void;
@@ -395,6 +409,7 @@ export const ScribeSubscriptionHandler: ScribeSubscriptionHandler = {
         reagent: new ReagentSubscriptionHandler(),
         menu: new MenuSubscriptionHandler(),
         achievement: new AchievementSubscriptionHandler(),
+        enchantment: new EnchantmentSubscriptionHandler(),
     },
 
     disposeAll(): void {

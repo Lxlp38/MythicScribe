@@ -1133,6 +1133,7 @@ export namespace MythicNodeHandler {
         reagent: new MythicNodeRegistry('reagent', ReagentMythicNode),
         menu: new MythicNodeRegistry('menu'),
         achievement: new MythicNodeRegistry('achievement', AchievementMythicNode),
+        enchantment: new MythicNodeRegistry('enchantment'),
     };
 
     export function getRegistry(key: keyof typeof registry): MythicNodeRegistry {

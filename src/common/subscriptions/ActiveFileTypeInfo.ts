@@ -15,4 +15,5 @@ export const ActiveFileTypeInfo: Record<registryKey | 'enabled', boolean> = {
     reagent: false,
     menu: false,
     achievement: false,
+    enchantment: false,
 };

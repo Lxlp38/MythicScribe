@@ -131,7 +131,7 @@ export async function loadDatasets(context: vscode.ExtensionContext) {
     // Updates the plugins list based on newly found ones in datasets
     finallySetEnabledPlugins();
     if (ConfigProvider.registry.fileParsingPolicy.get('parseOnStartup')) {
-        MythicNodeHandler.scanAllDocuments();
+        await MythicNodeHandler.scanAllDocuments();
     }
     datasetsLoadedEventEmitter.fire();
 }

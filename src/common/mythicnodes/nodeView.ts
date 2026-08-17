@@ -120,6 +120,7 @@ const NodeTypeToAdditionalData: Record<registryKey, NodeData> = {
     reagent: { shape: 'round-heptagon', color: '#cc00cc', image: 'reagent' },
     menu: { shape: 'cut-rectangle', color: '#8fce00', image: 'menu' },
     achievement: { shape: 'star', color: '#ffd966', image: 'achievement' },
+    enchantment: { shape: 'star', color: '#8e7dff', image: 'achievement' },
 };
 
 const NodeSpecialTypeToAdditionalData: Partial<

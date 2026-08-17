@@ -77,7 +77,8 @@ export type SchemaElement =
 type DefaultSchemaElementMap = Record<string, SchemaElement>;
 type SpecialSchemaElementBaseMap = { display: string };
 
-export type WildKeySchemaElement = SpecialSchemaElementBaseMap & KeySchemaElement;
+export type WildKeySchemaElement = SpecialSchemaElementBaseMap &
+    (KeySchemaElement | ListSchemaElement);
 export type ArrayKeySchemaElement = SpecialSchemaElementBaseMap & {
     possibleKeyValues: () => Map<string, EnumDatasetValue>;
 } & SchemaElement;
@@ -109,6 +110,7 @@ export const keyAliases = {
 export enum TriggerType {
     MOB = 'Mob',
     ITEM = 'Item',
+    ENCHANTMENT = 'Enchantment',
     ARCHETYPE = 'Archetype',
     BLOCK = 'Block',
     FURNITURE = 'Furniture',
@@ -127,6 +129,7 @@ export const registryKey = [
     'reagent',
     'menu',
     'achievement',
+    'enchantment',
 ] as const;
 export type registryKey = (typeof registryKey)[number];
 
@@ -150,6 +153,7 @@ export enum DefaultPlugins {
     MythicCrucible = 'MythicCrucible',
     MythicRPG = 'MythicRPG',
     MythicAchievements = 'MythicAchievements',
+    MythicEnchants = 'MythicEnchants',
 }
 
 export function getKeySchema(maybeSchema: Schema | (() => Schema)): Schema {

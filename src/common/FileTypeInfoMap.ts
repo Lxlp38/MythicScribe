@@ -5,6 +5,7 @@ import {
     checkFileEnabled,
 } from '@common/providers/configProvider';
 import { AchievementSchema } from '@common/schemas/achievementSchema';
+import { EnchantmentSchema } from '@common/schemas/enchantmentSchema';
 import { ArchetypeSchema } from '@common/schemas/archetypeSchema';
 import { DroptableSchema } from '@common/schemas/droptableSchema';
 import { EquipmentSetSchema } from '@common/schemas/equipmentsetSchema';
@@ -90,6 +91,11 @@ export const FileTypeInfoMap: {
         schema: AchievementSchema,
         key: 'achievement',
         configKey: 'Achievement',
+    },
+    enchantment: {
+        schema: EnchantmentSchema,
+        key: 'enchantment',
+        configKey: 'Enchantment',
     },
 };
 

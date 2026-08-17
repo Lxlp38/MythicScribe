@@ -327,7 +327,8 @@
             "ModelEngine": true,
             "MythicCrucible": true,
             "MythicRPG": true,
-            "MythicAchievements": true
+            "MythicAchievements": true,
+            "MythicEnchants": true
           },
           "description": "Enable / Disable specific plugins' datasets",
           "title": "Enabled Plugins",
@@ -391,6 +392,10 @@
             "Achievement": {
               "type": "string",
               "description": "Regex to identify Achievement files."
+            },
+            "Enchantment": {
+              "type": "string",
+              "description": "Regex to identify MythicEnchants enchantment files."
             }
           },
           "default": {
@@ -407,7 +412,11 @@
             "Archetype": "[\\\\\\/][Aa]rchetypes[\\\\\\/]",
             "Reagent": "[\\\\\\/]reagents.((yaml)|(yml)|(txt))",
             "Menu": "[\\\\\\/][Mm]enus[\\\\\\/]",
-            "Achievement": "[\\\\\\/][Aa]chievements[\\\\\\/]"
+            "Achievement": "[\\\\\\/][Aa]chievements[\\\\\\/]",
+            "Enchantment": "[\\\\\\/][Ee]nchantments[\\\\\\/]",
+            "ExperienceCurve": "[\\\\\\/]experience-curves.((yaml)|(yml)|(txt))",
+            "ExperienceSource": "[\\\\\\/]experience-sources.((yaml)|(yml)|(txt))",
+            "Point": "[\\\\\\/]points.((yaml)|(yml)|(txt))"
           },
           "additionalProperties": false,
           "description": "Regexes used against each document's file path: if it matches, the document will be considered as being a specific type of file, enabling specific functionalities.",

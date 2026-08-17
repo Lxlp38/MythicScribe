@@ -1,0 +1,896 @@
+[
+    {
+        "plugin": "MythicEnchants",
+        "class": "BatchedChanceCondition",
+        "extends": "SkillCondition",
+        "implements": [
+            "ISkillMetaComparisonCondition"
+        ],
+        "name": [
+            "batchedchance",
+            "linkedchance",
+            "sharedchance",
+            "batchchance"
+        ],
+        "description": "A chance rolled once and shared across multiple skill lines (per caster + key).",
+        "link": "https://github.com/finder1793/MythicEnchants/blob/main/src/main/java/com/stelliusstudio/mythicenchants/condition/BatchedChanceCondition.java",
+        "author": "StelliusStudio",
+        "attributes": [
+            {
+                "name": [
+                    "key",
+                    "k",
+                    "id"
+                ],
+                "type": "String",
+                "description": "MythicEnchants key option.",
+                "link": "https://github.com/finder1793/MythicEnchants/blob/main/",
+                "default_value": ""
+            },
+            {
+                "name": [
+                    "chance",
+                    "c"
+                ],
+                "type": "Float",
+                "description": "MythicEnchants chance option.",
+                "link": "https://github.com/finder1793/MythicEnchants/blob/main/",
+                "default_value": "0.5"
+            },
+            {
+                "name": [
+                    "consume",
+                    "uses",
+                    "n"
+                ],
+                "type": "Integer",
+                "description": "MythicEnchants consume option.",
+                "link": "https://github.com/finder1793/MythicEnchants/blob/main/",
+                "default_value": "2"
+            }
+        ]
+    },
+    {
+        "plugin": "MythicEnchants",
+        "class": "CheckRecoverItemCondition",
+        "extends": "SkillCondition",
+        "implements": [
+            "ISkillMetaComparisonCondition",
+            "IEntityCondition"
+        ],
+        "name": [
+            "checkrecoveritem",
+            "recoveruses",
+            "soulbounduses",
+            "recovercharges"
+        ],
+        "description": "Checks the remaining recoverItem uses on the trigger item. Supports comparisons like >=3, <1, 2to5.",
+        "link": "https://github.com/finder1793/MythicEnchants/blob/main/src/main/java/com/stelliusstudio/mythicenchants/condition/CheckRecoverItemCondition.java",
+        "author": "StelliusStudio",
+        "attributes": [
+            {
+                "name": [
+                    "uses",
+                    "u",
+                    "charges",
+                    "c",
+                    "value",
+                    "v"
+                ],
+                "type": "String",
+                "description": "MythicEnchants uses option.",
+                "link": "https://github.com/finder1793/MythicEnchants/blob/main/",
+                "default_value": ">0"
+            },
+            {
+                "name": [
+                    "slot",
+                    "s"
+                ],
+                "type": "String",
+                "description": "MythicEnchants slot option.",
+                "link": "https://github.com/finder1793/MythicEnchants/blob/main/",
+                "default_value": "TRIGGER"
+            }
+        ]
+    },
+    {
+        "plugin": "MythicEnchants",
+        "class": "ChiseledBookshelvesInRangeCondition",
+        "extends": "SkillCondition",
+        "implements": [
+            "ILocationCondition"
+        ],
+        "name": [
+            "chiseledbookshelvesinrange",
+            "cbir",
+            "chiseledbookshelf",
+            "chiseledbookshelves"
+        ],
+        "description": "Checks that nearby chiseled bookshelves contain the specified enchanted books.",
+        "link": "https://github.com/finder1793/MythicEnchants/blob/main/src/main/java/com/stelliusstudio/mythicenchants/condition/ChiseledBookshelvesInRangeCondition.java",
+        "author": "StelliusStudio",
+        "attributes": [
+            {
+                "name": [
+                    "books",
+                    "b",
+                    "enchants"
+                ],
+                "type": "String",
+                "description": "MythicEnchants books option.",
+                "link": "https://github.com/finder1793/MythicEnchants/blob/main/",
+                "default_value": ""
+            },
+            {
+                "name": [
+                    "require",
+                    "mode"
+                ],
+                "type": "String",
+                "description": "MythicEnchants require option.",
+                "link": "https://github.com/finder1793/MythicEnchants/blob/main/",
+                "default_value": "all"
+            },
+            {
+                "name": [
+                    "radius",
+                    "r"
+                ],
+                "type": "Integer",
+                "description": "MythicEnchants radius option.",
+                "link": "https://github.com/finder1793/MythicEnchants/blob/main/",
+                "default_value": "0"
+            },
+            {
+                "name": [
+                    "los",
+                    "lineofsight"
+                ],
+                "type": "Boolean",
+                "description": "MythicEnchants los option.",
+                "link": "https://github.com/finder1793/MythicEnchants/blob/main/",
+                "default_value": "true"
+            }
+        ]
+    },
+    {
+        "plugin": "MythicEnchants",
+        "class": "CustomBlockInRangeCondition",
+        "extends": "SkillCondition",
+        "implements": [
+            "ILocationCondition"
+        ],
+        "name": [
+            "customblockinrange",
+            "custombir",
+            "cbr"
+        ],
+        "description": "Checks whether Nexo/MythicCrucible/ItemsAdder custom blocks are present within enchanting-table range.",
+        "link": "https://github.com/finder1793/MythicEnchants/blob/main/src/main/java/com/stelliusstudio/mythicenchants/condition/CustomBlockInRangeCondition.java",
+        "author": "StelliusStudio",
+        "attributes": [
+            {
+                "name": [
+                    "addon",
+                    "a",
+                    "source"
+                ],
+                "type": "String",
+                "description": "MythicEnchants addon option.",
+                "link": "https://github.com/finder1793/MythicEnchants/blob/main/",
+                "default_value": ""
+            },
+            {
+                "name": [
+                    "blocktypes",
+                    "bt",
+                    "id",
+                    "ids"
+                ],
+                "type": "String",
+                "description": "MythicEnchants blocktypes option.",
+                "link": "https://github.com/finder1793/MythicEnchants/blob/main/",
+                "default_value": ""
+            },
+            {
+                "name": [
+                    "require",
+                    "mode"
+                ],
+                "type": "String",
+                "description": "MythicEnchants require option.",
+                "link": "https://github.com/finder1793/MythicEnchants/blob/main/",
+                "default_value": "all"
+            },
+            {
+                "name": [
+                    "count",
+                    "c",
+                    "min",
+                    "amount"
+                ],
+                "type": "Integer",
+                "description": "MythicEnchants count option.",
+                "link": "https://github.com/finder1793/MythicEnchants/blob/main/",
+                "default_value": "1"
+            },
+            {
+                "name": [
+                    "radius",
+                    "r"
+                ],
+                "type": "Integer",
+                "description": "MythicEnchants radius option.",
+                "link": "https://github.com/finder1793/MythicEnchants/blob/main/",
+                "default_value": "0"
+            },
+            {
+                "name": [
+                    "los",
+                    "lineofsight"
+                ],
+                "type": "Boolean",
+                "description": "MythicEnchants los option.",
+                "link": "https://github.com/finder1793/MythicEnchants/blob/main/",
+                "default_value": "true"
+            }
+        ]
+    },
+    {
+        "plugin": "MythicEnchants",
+        "class": "HasExperienceCondition",
+        "extends": "SkillCondition",
+        "implements": [
+            "ISkillMetaComparisonCondition",
+            "IEntityCondition"
+        ],
+        "name": [
+            "hasexperience",
+            "hasxp",
+            "experiencecheck",
+            "xpcheck"
+        ],
+        "description": "Checks whether the target player has at least the specified amount of XP points or levels.",
+        "link": "https://github.com/finder1793/MythicEnchants/blob/main/src/main/java/com/stelliusstudio/mythicenchants/condition/HasExperienceCondition.java",
+        "author": "StelliusStudio",
+        "attributes": [
+            {
+                "name": [
+                    "amount",
+                    "a",
+                    "value",
+                    "v"
+                ],
+                "type": "Integer",
+                "description": "MythicEnchants amount option.",
+                "link": "https://github.com/finder1793/MythicEnchants/blob/main/",
+                "default_value": "1"
+            },
+            {
+                "name": [
+                    "unit",
+                    "u"
+                ],
+                "type": "String",
+                "description": "MythicEnchants unit option.",
+                "link": "https://github.com/finder1793/MythicEnchants/blob/main/",
+                "default_value": "POINTS"
+            }
+        ]
+    },
+    {
+        "plugin": "MythicEnchants",
+        "class": "HasMenchCondition",
+        "extends": "SkillCondition",
+        "implements": [
+            "ISkillMetaComparisonCondition",
+            "IEntityCondition"
+        ],
+        "name": [
+            "mench",
+            "enchant",
+            "enchantment"
+        ],
+        "description": "Checks whether an entity's item slot has a specific enchantment at the given level.",
+        "link": "https://github.com/finder1793/MythicEnchants/blob/main/src/main/java/com/stelliusstudio/mythicenchants/condition/HasMenchCondition.java",
+        "author": "StelliusStudio",
+        "attributes": [
+            {
+                "name": [
+                    "id",
+                    "enchant",
+                    "enchantment",
+                    "e"
+                ],
+                "type": "String",
+                "description": "MythicEnchants id option.",
+                "link": "https://github.com/finder1793/MythicEnchants/blob/main/",
+                "default_value": ""
+            },
+            {
+                "name": [
+                    "level",
+                    "lvl",
+                    "l"
+                ],
+                "type": "String",
+                "description": "MythicEnchants level option.",
+                "link": "https://github.com/finder1793/MythicEnchants/blob/main/",
+                "default_value": "DEFAULT_LEVEL"
+            },
+            {
+                "name": [
+                    "slot",
+                    "s"
+                ],
+                "type": "String",
+                "description": "MythicEnchants slot option.",
+                "link": "https://github.com/finder1793/MythicEnchants/blob/main/",
+                "default_value": "TRIGGER"
+            }
+        ]
+    },
+    {
+        "plugin": "MythicEnchants",
+        "class": "IsCustomBlockCondition",
+        "extends": "SkillCondition",
+        "implements": [
+            "ISkillMetaCondition"
+        ],
+        "name": [
+            "customblock",
+            "custblock",
+            "iscustomblock"
+        ],
+        "description": "Checks whether the current block-break's block is a Nexo/MythicCrucible/ItemsAdder/CraftEngine custom block.",
+        "link": "https://github.com/finder1793/MythicEnchants/blob/main/src/main/java/com/stelliusstudio/mythicenchants/condition/IsCustomBlockCondition.java",
+        "author": "StelliusStudio",
+        "attributes": [
+            {
+                "name": [
+                    "addon",
+                    "a",
+                    "source"
+                ],
+                "type": "String",
+                "description": "MythicEnchants addon option.",
+                "link": "https://github.com/finder1793/MythicEnchants/blob/main/",
+                "default_value": ""
+            },
+            {
+                "name": [
+                    "blocktypes",
+                    "bt",
+                    "id",
+                    "ids"
+                ],
+                "type": "String",
+                "description": "MythicEnchants blocktypes option.",
+                "link": "https://github.com/finder1793/MythicEnchants/blob/main/",
+                "default_value": ""
+            }
+        ]
+    },
+    {
+        "plugin": "MythicEnchants",
+        "class": "ItemDurabilityCondition",
+        "extends": "SkillCondition",
+        "implements": [
+            "ISkillMetaComparisonCondition",
+            "IEntityCondition"
+        ],
+        "name": [
+            "itemdurability",
+            "durability",
+            "remainingdurability"
+        ],
+        "description": "Evaluates the remaining durability on the enchanted item.",
+        "link": "https://github.com/finder1793/MythicEnchants/blob/main/src/main/java/com/stelliusstudio/mythicenchants/condition/ItemDurabilityCondition.java",
+        "author": "StelliusStudio",
+        "attributes": [
+            {
+                "name": [
+                    "value",
+                    "v",
+                    "amount",
+                    "a"
+                ],
+                "type": "String",
+                "description": "MythicEnchants value option.",
+                "link": "https://github.com/finder1793/MythicEnchants/blob/main/",
+                "default_value": ">0"
+            },
+            {
+                "name": [
+                    "slot",
+                    "s"
+                ],
+                "type": "String",
+                "description": "MythicEnchants slot option.",
+                "link": "https://github.com/finder1793/MythicEnchants/blob/main/",
+                "default_value": "TRIGGER"
+            }
+        ]
+    },
+    {
+        "plugin": "MythicEnchants",
+        "class": "ItemDurabilityPercentCondition",
+        "extends": "SkillCondition",
+        "implements": [
+            "ISkillMetaComparisonCondition",
+            "IEntityCondition"
+        ],
+        "name": [
+            "itemdurabilitypercent",
+            "durabilitypercent",
+            "durabilitypercentage",
+            "durabilitypct"
+        ],
+        "description": "Evaluates the remaining durability percentage on the enchanted item.",
+        "link": "https://github.com/finder1793/MythicEnchants/blob/main/src/main/java/com/stelliusstudio/mythicenchants/condition/ItemDurabilityPercentCondition.java",
+        "author": "StelliusStudio",
+        "attributes": [
+            {
+                "name": [
+                    "value",
+                    "v",
+                    "amount",
+                    "a"
+                ],
+                "type": "String",
+                "description": "MythicEnchants value option.",
+                "link": "https://github.com/finder1793/MythicEnchants/blob/main/",
+                "default_value": ">0"
+            },
+            {
+                "name": [
+                    "slot",
+                    "s"
+                ],
+                "type": "String",
+                "description": "MythicEnchants slot option.",
+                "link": "https://github.com/finder1793/MythicEnchants/blob/main/",
+                "default_value": "TRIGGER"
+            }
+        ]
+    },
+    {
+        "plugin": "MythicEnchants",
+        "class": "ItemLoreCondition",
+        "extends": "AbstractItemCondition",
+        "implements": [
+            "ISkillMetaCondition",
+            "IEntityCondition"
+        ],
+        "name": [
+            "itemlore",
+            "lorecontains",
+            "haslore"
+        ],
+        "description": "Checks the plain-text lore of the evaluated item.",
+        "link": "https://github.com/finder1793/MythicEnchants/blob/main/src/main/java/com/stelliusstudio/mythicenchants/condition/ItemLoreCondition.java",
+        "author": "StelliusStudio",
+        "attributes": [
+            {
+                "name": [
+                    "text",
+                    "t",
+                    "lore",
+                    "l"
+                ],
+                "type": "String",
+                "description": "MythicEnchants text option.",
+                "link": "https://github.com/finder1793/MythicEnchants/blob/main/",
+                "default_value": ""
+            },
+            {
+                "name": [
+                    "line",
+                    "index",
+                    "i"
+                ],
+                "type": "Integer",
+                "description": "MythicEnchants line option.",
+                "link": "https://github.com/finder1793/MythicEnchants/blob/main/",
+                "default_value": "-1"
+            },
+            {
+                "name": [
+                    "regex",
+                    "r"
+                ],
+                "type": "Boolean",
+                "description": "MythicEnchants regex option.",
+                "link": "https://github.com/finder1793/MythicEnchants/blob/main/",
+                "default_value": "false"
+            }
+        ]
+    },
+    {
+        "plugin": "MythicEnchants",
+        "class": "ItemMaterialCondition",
+        "extends": "AbstractItemCondition",
+        "implements": [
+            "ISkillMetaCondition",
+            "IEntityCondition"
+        ],
+        "name": [
+            "material",
+            "itemmaterial",
+            "mat",
+            "itemmat"
+        ],
+        "description": "Checks the material of the evaluated item (supports comma lists and #item tags).",
+        "link": "https://github.com/finder1793/MythicEnchants/blob/main/src/main/java/com/stelliusstudio/mythicenchants/condition/ItemMaterialCondition.java",
+        "author": "StelliusStudio",
+        "attributes": [
+            {
+                "name": [
+                    "material",
+                    "materials",
+                    "mat",
+                    "m",
+                    "type",
+                    "types",
+                    "t",
+                    "item",
+                    "i"
+                ],
+                "type": "String",
+                "description": "MythicEnchants material option.",
+                "link": "https://github.com/finder1793/MythicEnchants/blob/main/",
+                "default_value": ""
+            }
+        ]
+    },
+    {
+        "plugin": "MythicEnchants",
+        "class": "ItemModelCondition",
+        "extends": "AbstractItemCondition",
+        "implements": [
+            "ISkillMetaCondition",
+            "IEntityCondition"
+        ],
+        "name": [
+            "itemmodel",
+            "itemmodelkey",
+            "modelkey",
+            "hasitemmodel"
+        ],
+        "description": "Checks the item_model component (resource-pack model JSON path) of the evaluated item.",
+        "link": "https://github.com/finder1793/MythicEnchants/blob/main/src/main/java/com/stelliusstudio/mythicenchants/condition/ItemModelCondition.java",
+        "author": "StelliusStudio",
+        "attributes": [
+            {
+                "name": [
+                    "model",
+                    "m",
+                    "key",
+                    "k"
+                ],
+                "type": "String",
+                "description": "MythicEnchants model option.",
+                "link": "https://github.com/finder1793/MythicEnchants/blob/main/",
+                "default_value": ""
+            },
+            {
+                "name": [
+                    "prefix",
+                    "startswith"
+                ],
+                "type": "String",
+                "description": "MythicEnchants prefix option.",
+                "link": "https://github.com/finder1793/MythicEnchants/blob/main/",
+                "default_value": ""
+            }
+        ]
+    },
+    {
+        "plugin": "MythicEnchants",
+        "class": "ItemModelDataCondition",
+        "extends": "AbstractItemCondition",
+        "implements": [
+            "ISkillMetaCondition",
+            "IEntityCondition"
+        ],
+        "name": [
+            "itemmodeldata",
+            "modeldata",
+            "itemcmd"
+        ],
+        "description": "Checks the custom model data of the evaluated item (supports ranges).",
+        "link": "https://github.com/finder1793/MythicEnchants/blob/main/src/main/java/com/stelliusstudio/mythicenchants/condition/ItemModelDataCondition.java",
+        "author": "StelliusStudio",
+        "attributes": [
+            {
+                "name": [
+                    "model",
+                    "m",
+                    "value",
+                    "v",
+                    "data",
+                    "d"
+                ],
+                "type": "String",
+                "description": "MythicEnchants model option.",
+                "link": "https://github.com/finder1793/MythicEnchants/blob/main/",
+                "default_value": ""
+            }
+        ]
+    },
+    {
+        "plugin": "MythicEnchants",
+        "class": "ItemNameCondition",
+        "extends": "AbstractItemCondition",
+        "implements": [
+            "ISkillMetaCondition",
+            "IEntityCondition"
+        ],
+        "name": [
+            "itemname",
+            "itemdisplayname"
+        ],
+        "description": "Checks the plain-text display name of the evaluated item.",
+        "link": "https://github.com/finder1793/MythicEnchants/blob/main/src/main/java/com/stelliusstudio/mythicenchants/condition/ItemNameCondition.java",
+        "author": "StelliusStudio",
+        "attributes": [
+            {
+                "name": [
+                    "name",
+                    "n",
+                    "text"
+                ],
+                "type": "String",
+                "description": "MythicEnchants name option.",
+                "link": "https://github.com/finder1793/MythicEnchants/blob/main/",
+                "default_value": ""
+            },
+            {
+                "name": [
+                    "contains",
+                    "c"
+                ],
+                "type": "Boolean",
+                "description": "MythicEnchants contains option.",
+                "link": "https://github.com/finder1793/MythicEnchants/blob/main/",
+                "default_value": "false"
+            },
+            {
+                "name": [
+                    "regex",
+                    "r"
+                ],
+                "type": "Boolean",
+                "description": "MythicEnchants regex option.",
+                "link": "https://github.com/finder1793/MythicEnchants/blob/main/",
+                "default_value": "false"
+            }
+        ]
+    },
+    {
+        "plugin": "MythicEnchants",
+        "class": "ItemPdcCondition",
+        "extends": "AbstractItemCondition",
+        "implements": [
+            "ISkillMetaCondition",
+            "IEntityCondition"
+        ],
+        "name": [
+            "itempdc",
+            "pdc",
+            "itemnbt",
+            "haspdc"
+        ],
+        "description": "Checks a persistent data container entry on the evaluated item.",
+        "link": "https://github.com/finder1793/MythicEnchants/blob/main/src/main/java/com/stelliusstudio/mythicenchants/condition/ItemPdcCondition.java",
+        "author": "StelliusStudio",
+        "attributes": [
+            {
+                "name": [
+                    "key",
+                    "k"
+                ],
+                "type": "String",
+                "description": "MythicEnchants key option.",
+                "link": "https://github.com/finder1793/MythicEnchants/blob/main/",
+                "default_value": ""
+            },
+            {
+                "name": [
+                    "type",
+                    "t",
+                    "datatype"
+                ],
+                "type": "String",
+                "description": "MythicEnchants type option.",
+                "link": "https://github.com/finder1793/MythicEnchants/blob/main/",
+                "default_value": "ANY"
+            },
+            {
+                "name": [
+                    "value",
+                    "v"
+                ],
+                "type": "String",
+                "description": "MythicEnchants value option.",
+                "link": "https://github.com/finder1793/MythicEnchants/blob/main/",
+                "default_value": ""
+            },
+            {
+                "name": [
+                    "contains",
+                    "c"
+                ],
+                "type": "Boolean",
+                "description": "MythicEnchants contains option.",
+                "link": "https://github.com/finder1793/MythicEnchants/blob/main/",
+                "default_value": "false"
+            }
+        ]
+    },
+    {
+        "plugin": "MythicEnchants",
+        "class": "ItemStatCondition",
+        "extends": "AbstractItemCondition",
+        "implements": [
+            "ISkillMetaCondition",
+            "IEntityCondition"
+        ],
+        "name": [
+            "itemstat",
+            "mythicstat",
+            "hasstat",
+            "itemstats"
+        ],
+        "description": "Checks a MythicMobs stat stored on the item itself (Crucible Stats payload, not enchants/attributes).",
+        "link": "https://github.com/finder1793/MythicEnchants/blob/main/src/main/java/com/stelliusstudio/mythicenchants/condition/ItemStatCondition.java",
+        "author": "StelliusStudio",
+        "attributes": [
+            {
+                "name": [
+                    "stat",
+                    "st",
+                    "name",
+                    "n"
+                ],
+                "type": "String",
+                "description": "MythicEnchants stat option.",
+                "link": "https://github.com/finder1793/MythicEnchants/blob/main/",
+                "default_value": ""
+            },
+            {
+                "name": [
+                    "operation",
+                    "op",
+                    "o"
+                ],
+                "type": "String",
+                "description": "MythicEnchants operation option.",
+                "link": "https://github.com/finder1793/MythicEnchants/blob/main/",
+                "default_value": ""
+            },
+            {
+                "name": [
+                    "value",
+                    "v",
+                    "amount",
+                    "a"
+                ],
+                "type": "String",
+                "description": "MythicEnchants value option.",
+                "link": "https://github.com/finder1793/MythicEnchants/blob/main/",
+                "default_value": ""
+            }
+        ]
+    },
+    {
+        "plugin": "MythicEnchants",
+        "class": "ItemUsedDurabilityCondition",
+        "extends": "SkillCondition",
+        "implements": [
+            "ISkillMetaComparisonCondition",
+            "IEntityCondition"
+        ],
+        "name": [
+            "itemuseddurability",
+            "useddurability",
+            "lostdurability",
+            "itemdamaged"
+        ],
+        "description": "Evaluates the amount of lost durability on the enchanted item.",
+        "link": "https://github.com/finder1793/MythicEnchants/blob/main/src/main/java/com/stelliusstudio/mythicenchants/condition/ItemUsedDurabilityCondition.java",
+        "author": "StelliusStudio",
+        "attributes": [
+            {
+                "name": [
+                    "value",
+                    "v",
+                    "amount",
+                    "a"
+                ],
+                "type": "String",
+                "description": "MythicEnchants value option.",
+                "link": "https://github.com/finder1793/MythicEnchants/blob/main/",
+                "default_value": ">0"
+            },
+            {
+                "name": [
+                    "slot",
+                    "s"
+                ],
+                "type": "String",
+                "description": "MythicEnchants slot option.",
+                "link": "https://github.com/finder1793/MythicEnchants/blob/main/",
+                "default_value": "TRIGGER"
+            }
+        ]
+    },
+    {
+        "plugin": "MythicEnchants",
+        "class": "LethalCheckCondition",
+        "extends": "SkillCondition",
+        "implements": [
+            "ISkillMetaComparisonCondition",
+            "IEntityCondition"
+        ],
+        "name": [
+            "lethalcheck",
+            "islethal",
+            "wouldkill",
+            "lethal"
+        ],
+        "description": "True when the current damage event would kill the target entity.",
+        "link": "https://github.com/finder1793/MythicEnchants/blob/main/src/main/java/com/stelliusstudio/mythicenchants/condition/LethalCheckCondition.java",
+        "author": "StelliusStudio",
+        "attributes": [
+            {
+                "name": [
+                    "checktotems",
+                    "ct",
+                    "totemsafe",
+                    "totemcheck"
+                ],
+                "type": "Boolean",
+                "description": "MythicEnchants checktotems option.",
+                "link": "https://github.com/finder1793/MythicEnchants/blob/main/",
+                "default_value": "true"
+            }
+        ]
+    },
+    {
+        "plugin": "MythicEnchants",
+        "class": "TemperatureCondition",
+        "extends": "SkillCondition",
+        "implements": [
+            "ISkillMetaComparisonCondition",
+            "IEntityCondition",
+            "ILocationCondition"
+        ],
+        "name": [
+            "temperature",
+            "temp",
+            "localtemperature",
+            "localtemp"
+        ],
+        "description": "Checks the biome temperature at an entity's or location's block coordinates.",
+        "link": "https://github.com/finder1793/MythicEnchants/blob/main/src/main/java/com/stelliusstudio/mythicenchants/condition/TemperatureCondition.java",
+        "author": "StelliusStudio",
+        "attributes": [
+            {
+                "name": [
+                    "value",
+                    "v",
+                    "temp",
+                    "t",
+                    "amount",
+                    "a"
+                ],
+                "type": "String",
+                "description": "MythicEnchants value option.",
+                "link": "https://github.com/finder1793/MythicEnchants/blob/main/",
+                "default_value": ">0"
+            }
+        ]
+    }
+]

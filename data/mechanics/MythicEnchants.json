@@ -1,0 +1,2227 @@
+[
+    {
+        "plugin": "MythicEnchants",
+        "class": "ArrowBuffMechanic",
+        "extends": "SkillMechanic",
+        "implements": [
+            "INoTargetSkill"
+        ],
+        "name": [
+            "arrowbuff",
+            "arrowdamage",
+            "arrowpower"
+        ],
+        "description": "Adds flat damage to the arrow projectile so it scales with critical hits.",
+        "link": "https://github.com/finder1793/MythicEnchants/blob/main/src/main/java/com/stelliusstudio/mythicenchants/mechanic/ArrowBuffMechanic.java",
+        "author": "StelliusStudio",
+        "attributes": [
+            {
+                "name": [
+                    "amount",
+                    "damage",
+                    "a",
+                    "d"
+                ],
+                "type": "Float",
+                "description": "MythicEnchants amount option.",
+                "link": "https://github.com/finder1793/MythicEnchants/blob/main/",
+                "default_value": "0.5"
+            }
+        ]
+    },
+    {
+        "plugin": "MythicEnchants",
+        "class": "ArrowFireMechanic",
+        "extends": "SkillMechanic",
+        "implements": [
+            "INoTargetSkill"
+        ],
+        "name": [
+            "arrowfire",
+            "flamearrow"
+        ],
+        "description": "Sets the arrow projectile on fire for a duration in ticks.",
+        "link": "https://github.com/finder1793/MythicEnchants/blob/main/src/main/java/com/stelliusstudio/mythicenchants/mechanic/ArrowFireMechanic.java",
+        "author": "StelliusStudio",
+        "attributes": [
+            {
+                "name": [
+                    "ticks",
+                    "duration",
+                    "t",
+                    "d"
+                ],
+                "type": "Integer",
+                "description": "MythicEnchants ticks option.",
+                "link": "https://github.com/finder1793/MythicEnchants/blob/main/",
+                "default_value": "100"
+            }
+        ]
+    },
+    {
+        "plugin": "MythicEnchants",
+        "class": "BlockDropsMechanic",
+        "extends": "SkillMechanic",
+        "implements": [
+            "INoTargetSkill"
+        ],
+        "name": [
+            "blockdrops",
+            "tooldrops",
+            "vanillablockdrops"
+        ],
+        "description": "Drops the current block using the live held tool.",
+        "link": "https://github.com/finder1793/MythicEnchants/blob/main/src/main/java/com/stelliusstudio/mythicenchants/mechanic/BlockDropsMechanic.java",
+        "author": "StelliusStudio",
+        "attributes": [
+            {
+                "name": [
+                    "exp",
+                    "experience",
+                    "xp"
+                ],
+                "type": "Boolean",
+                "description": "MythicEnchants exp option.",
+                "link": "https://github.com/finder1793/MythicEnchants/blob/main/",
+                "default_value": "true"
+            },
+            {
+                "name": [
+                    "blocktypes",
+                    "bt",
+                    "blocks"
+                ],
+                "type": "String",
+                "description": "MythicEnchants blocktypes option.",
+                "link": "https://github.com/finder1793/MythicEnchants/blob/main/",
+                "default_value": ""
+            },
+            {
+                "name": [
+                    "chance"
+                ],
+                "type": "Float",
+                "description": "MythicEnchants chance option.",
+                "link": "https://github.com/finder1793/MythicEnchants/blob/main/",
+                "default_value": "1.0"
+            },
+            {
+                "name": [
+                    "multiplier",
+                    "mult",
+                    "m"
+                ],
+                "type": "String",
+                "description": "MythicEnchants multiplier option.",
+                "link": "https://github.com/finder1793/MythicEnchants/blob/main/",
+                "default_value": "1"
+            },
+            {
+                "name": [
+                    "multmin",
+                    "mmin"
+                ],
+                "type": "Float",
+                "description": "MythicEnchants multmin option.",
+                "link": "https://github.com/finder1793/MythicEnchants/blob/main/",
+                "default_value": "rangeParts[0]"
+            },
+            {
+                "name": [
+                    "multmax",
+                    "mmax"
+                ],
+                "type": "Float",
+                "description": "MythicEnchants multmax option.",
+                "link": "https://github.com/finder1793/MythicEnchants/blob/main/",
+                "default_value": "rangeParts[1]"
+            },
+            {
+                "name": [
+                    "savecontainer",
+                    "keepcontainer",
+                    "savecontents"
+                ],
+                "type": "Boolean",
+                "description": "MythicEnchants savecontainer option.",
+                "link": "https://github.com/finder1793/MythicEnchants/blob/main/",
+                "default_value": "false"
+            },
+            {
+                "name": [
+                    "silkspawner"
+                ],
+                "type": "Boolean",
+                "description": "MythicEnchants silkspawner option.",
+                "link": "https://github.com/finder1793/MythicEnchants/blob/main/",
+                "default_value": "false"
+            },
+            {
+                "name": [
+                    "silktouch"
+                ],
+                "type": "Boolean",
+                "description": "MythicEnchants silktouch option.",
+                "link": "https://github.com/finder1793/MythicEnchants/blob/main/",
+                "default_value": "false"
+            },
+            {
+                "name": [
+                    "spawneruses",
+                    "spawnercharges"
+                ],
+                "type": "Integer",
+                "description": "MythicEnchants spawneruses option.",
+                "link": "https://github.com/finder1793/MythicEnchants/blob/main/",
+                "default_value": "-1"
+            },
+            {
+                "name": [
+                    "spawnerusemode"
+                ],
+                "type": "String",
+                "enum": "CHARGES,LEVEL",
+                "description": "MythicEnchants spawnerusemode option.",
+                "link": "https://github.com/finder1793/MythicEnchants/blob/main/",
+                "default_value": "CHARGES"
+            }
+        ]
+    },
+    {
+        "plugin": "MythicEnchants",
+        "class": "ChannelingMechanic",
+        "extends": "SkillMechanic",
+        "implements": [
+            "INoTargetSkill"
+        ],
+        "name": [
+            "channeling",
+            "tridentchanneling"
+        ],
+        "description": "Strikes lightning when a trident hits during a thunderstorm.",
+        "link": "https://github.com/finder1793/MythicEnchants/blob/main/src/main/java/com/stelliusstudio/mythicenchants/mechanic/ChannelingMechanic.java",
+        "author": "StelliusStudio",
+        "attributes": [
+            {
+                "name": [
+                    "requirethunderstorm",
+                    "thunderstorm",
+                    "storm"
+                ],
+                "type": "Boolean",
+                "description": "MythicEnchants requirethunderstorm option.",
+                "link": "https://github.com/finder1793/MythicEnchants/blob/main/",
+                "default_value": "true"
+            },
+            {
+                "name": [
+                    "requireskyaccess",
+                    "skyaccess",
+                    "sky"
+                ],
+                "type": "Boolean",
+                "description": "MythicEnchants requireskyaccess option.",
+                "link": "https://github.com/finder1793/MythicEnchants/blob/main/",
+                "default_value": "true"
+            },
+            {
+                "name": [
+                    "uselightningrods",
+                    "rods",
+                    "lr"
+                ],
+                "type": "Boolean",
+                "description": "MythicEnchants uselightningrods option.",
+                "link": "https://github.com/finder1793/MythicEnchants/blob/main/",
+                "default_value": "true"
+            },
+            {
+                "name": [
+                    "effectonly",
+                    "effect",
+                    "cosmetic"
+                ],
+                "type": "Boolean",
+                "description": "MythicEnchants effectonly option.",
+                "link": "https://github.com/finder1793/MythicEnchants/blob/main/",
+                "default_value": "false"
+            }
+        ]
+    },
+    {
+        "plugin": "MythicEnchants",
+        "class": "ChannelingNativeMechanic",
+        "extends": "SkillMechanic",
+        "implements": [
+            "INoTargetSkill"
+        ],
+        "name": [
+            "nativechanneling",
+            "channelingnative"
+        ],
+        "description": "Marker for channeling \u2014 actual lightning strike is applied via the generated datapack.",
+        "link": "https://github.com/finder1793/MythicEnchants/blob/main/src/main/java/com/stelliusstudio/mythicenchants/mechanic/ChannelingNativeMechanic.java",
+        "author": "StelliusStudio",
+        "attributes": []
+    },
+    {
+        "plugin": "MythicEnchants",
+        "class": "CureZombieMechanic",
+        "extends": "SkillMechanic",
+        "implements": [
+            "INoTargetSkill",
+            "ITargetedEntitySkill"
+        ],
+        "name": [
+            "curezombievillager",
+            "cure",
+            "curezone",
+            "curevillager",
+            "cureinfected"
+        ],
+        "description": "Cures a ZombieVillager, preserving profession/type and optionally all trade data.",
+        "link": "https://github.com/finder1793/MythicEnchants/blob/main/src/main/java/com/stelliusstudio/mythicenchants/mechanic/CureZombieMechanic.java",
+        "author": "StelliusStudio",
+        "attributes": [
+            {
+                "name": [
+                    "mode",
+                    "m"
+                ],
+                "type": "String",
+                "enum": "INSTANT,VANILLA",
+                "description": "MythicEnchants mode option.",
+                "link": "https://github.com/finder1793/MythicEnchants/blob/main/",
+                "default_value": "INSTANT"
+            },
+            {
+                "name": [
+                    "delay",
+                    "d",
+                    "ticks"
+                ],
+                "type": "Integer",
+                "description": "MythicEnchants delay option.",
+                "link": "https://github.com/finder1793/MythicEnchants/blob/main/",
+                "default_value": "0"
+            }
+        ]
+    },
+    {
+        "plugin": "MythicEnchants",
+        "class": "CurseItemMechanic",
+        "extends": "SkillMechanic",
+        "implements": [
+            "INoTargetSkill"
+        ],
+        "name": [
+            "curseitem",
+            "markcurse"
+        ],
+        "description": "Applies or removes persistent curse state on the current item.",
+        "link": "https://github.com/finder1793/MythicEnchants/blob/main/src/main/java/com/stelliusstudio/mythicenchants/mechanic/CurseItemMechanic.java",
+        "author": "StelliusStudio",
+        "attributes": [
+            {
+                "name": [
+                    "type",
+                    "t"
+                ],
+                "type": "String",
+                "enum": "BINDING,VANISHING",
+                "description": "MythicEnchants type option.",
+                "link": "https://github.com/finder1793/MythicEnchants/blob/main/",
+                "default_value": "BINDING"
+            },
+            {
+                "name": [
+                    "mode",
+                    "m"
+                ],
+                "type": "String",
+                "enum": "APPLY,REMOVE",
+                "description": "MythicEnchants mode option.",
+                "link": "https://github.com/finder1793/MythicEnchants/blob/main/",
+                "default_value": "APPLY"
+            },
+            {
+                "name": [
+                    "slot",
+                    "s"
+                ],
+                "type": "String",
+                "description": "MythicEnchants slot option.",
+                "link": "https://github.com/finder1793/MythicEnchants/blob/main/",
+                "default_value": "TRIGGER"
+            }
+        ]
+    },
+    {
+        "plugin": "MythicEnchants",
+        "class": "EnchantAttributeMechanic",
+        "extends": "SkillMechanic",
+        "implements": [
+            "INoTargetSkill",
+            "ITargetedEntitySkill"
+        ],
+        "name": [
+            "enchantattribute",
+            "vanillaattribute",
+            "equipattribute"
+        ],
+        "description": "Applies or removes a persistent attribute modifier for the current enchant item.",
+        "link": "https://github.com/finder1793/MythicEnchants/blob/main/src/main/java/com/stelliusstudio/mythicenchants/mechanic/EnchantAttributeMechanic.java",
+        "author": "StelliusStudio",
+        "attributes": [
+            {
+                "name": [
+                    "attribute",
+                    "attr"
+                ],
+                "type": "String",
+                "description": "MythicEnchants attribute option.",
+                "link": "https://github.com/finder1793/MythicEnchants/blob/main/",
+                "default_value": ""
+            },
+            {
+                "name": [
+                    "operation",
+                    "op"
+                ],
+                "type": "String",
+                "enum": "",
+                "description": "MythicEnchants operation option.",
+                "link": "https://github.com/finder1793/MythicEnchants/blob/main/",
+                "default_value": "ADD_NUMBER"
+            },
+            {
+                "name": [
+                    "amount",
+                    "amt",
+                    "a"
+                ],
+                "type": "Float",
+                "description": "MythicEnchants amount option.",
+                "link": "https://github.com/finder1793/MythicEnchants/blob/main/",
+                "default_value": "0"
+            },
+            {
+                "name": [
+                    "mode",
+                    "m"
+                ],
+                "type": "String",
+                "enum": "APPLY,REMOVE",
+                "description": "MythicEnchants mode option.",
+                "link": "https://github.com/finder1793/MythicEnchants/blob/main/",
+                "default_value": "APPLY"
+            },
+            {
+                "name": [
+                    "key",
+                    "k"
+                ],
+                "type": "String",
+                "description": "MythicEnchants key option.",
+                "link": "https://github.com/finder1793/MythicEnchants/blob/main/",
+                "default_value": ""
+            }
+        ]
+    },
+    {
+        "plugin": "MythicEnchants",
+        "class": "EnchantItemAttributeMechanic",
+        "extends": "SkillMechanic",
+        "implements": [
+            "INoTargetSkill",
+            "ITargetedEntitySkill"
+        ],
+        "name": [
+            "enchantitemattribute",
+            "itemattribute",
+            "itemattr"
+        ],
+        "description": "Adds or removes an attribute modifier directly on the enchanted item.",
+        "link": "https://github.com/finder1793/MythicEnchants/blob/main/src/main/java/com/stelliusstudio/mythicenchants/mechanic/EnchantItemAttributeMechanic.java",
+        "author": "StelliusStudio",
+        "attributes": [
+            {
+                "name": [
+                    "attribute",
+                    "attr"
+                ],
+                "type": "String",
+                "description": "MythicEnchants attribute option.",
+                "link": "https://github.com/finder1793/MythicEnchants/blob/main/",
+                "default_value": ""
+            },
+            {
+                "name": [
+                    "operation",
+                    "op"
+                ],
+                "type": "String",
+                "description": "MythicEnchants operation option.",
+                "link": "https://github.com/finder1793/MythicEnchants/blob/main/",
+                "default_value": "ADD_NUMBER"
+            },
+            {
+                "name": [
+                    "amount",
+                    "amt",
+                    "a"
+                ],
+                "type": "Float",
+                "description": "MythicEnchants amount option.",
+                "link": "https://github.com/finder1793/MythicEnchants/blob/main/",
+                "default_value": "0"
+            },
+            {
+                "name": [
+                    "mode",
+                    "m"
+                ],
+                "type": "String",
+                "enum": "ADD,SET,REMOVE",
+                "description": "MythicEnchants mode option.",
+                "link": "https://github.com/finder1793/MythicEnchants/blob/main/",
+                "default_value": "AD"
+            },
+            {
+                "name": [
+                    "key",
+                    "k"
+                ],
+                "type": "String",
+                "description": "MythicEnchants key option.",
+                "link": "https://github.com/finder1793/MythicEnchants/blob/main/",
+                "default_value": ""
+            },
+            {
+                "name": [
+                    "slot",
+                    "s"
+                ],
+                "type": "String",
+                "description": "MythicEnchants slot option.",
+                "link": "https://github.com/finder1793/MythicEnchants/blob/main/",
+                "default_value": "TRIGGER"
+            },
+            {
+                "name": [
+                    "equipslot",
+                    "eslot",
+                    "es"
+                ],
+                "type": "String",
+                "description": "MythicEnchants equipslot option.",
+                "link": "https://github.com/finder1793/MythicEnchants/blob/main/",
+                "default_value": "any"
+            }
+        ]
+    },
+    {
+        "plugin": "MythicEnchants",
+        "class": "EnchantItemMechanic",
+        "extends": "SkillMechanic",
+        "implements": [
+            "ITargetedEntitySkill"
+        ],
+        "name": [
+            "enchant",
+            "enchantitem",
+            "enchantment",
+            "mythicEnchant",
+            "meenchant"
+        ],
+        "description": "Adds, sets, or removes an enchantment level on a targeted entity's item slot.",
+        "link": "https://github.com/finder1793/MythicEnchants/blob/main/src/main/java/com/stelliusstudio/mythicenchants/mechanic/EnchantItemMechanic.java",
+        "author": "StelliusStudio",
+        "attributes": [
+            {
+                "name": [
+                    "id",
+                    "enchant",
+                    "enchantment",
+                    "e"
+                ],
+                "type": "String",
+                "description": "MythicEnchants id option.",
+                "link": "https://github.com/finder1793/MythicEnchants/blob/main/",
+                "default_value": ""
+            },
+            {
+                "name": [
+                    "mode",
+                    "m",
+                    "function",
+                    "f"
+                ],
+                "type": "String",
+                "enum": "SET,ADD,REMOVE",
+                "description": "MythicEnchants mode option.",
+                "link": "https://github.com/finder1793/MythicEnchants/blob/main/",
+                "default_value": "SET"
+            },
+            {
+                "name": [
+                    "level",
+                    "lvl",
+                    "l"
+                ],
+                "type": "Integer",
+                "description": "MythicEnchants level option.",
+                "link": "https://github.com/finder1793/MythicEnchants/blob/main/",
+                "default_value": "1"
+            },
+            {
+                "name": [
+                    "slot",
+                    "s"
+                ],
+                "type": "String",
+                "description": "MythicEnchants slot option.",
+                "link": "https://github.com/finder1793/MythicEnchants/blob/main/",
+                "default_value": "TRIGGER"
+            },
+            {
+                "name": [
+                    "returnxp",
+                    "giveexp",
+                    "xp"
+                ],
+                "type": "Boolean",
+                "description": "MythicEnchants returnxp option.",
+                "link": "https://github.com/finder1793/MythicEnchants/blob/main/",
+                "default_value": "false"
+            },
+            {
+                "name": [
+                    "xpmultiplier",
+                    "xpmult"
+                ],
+                "type": "Float",
+                "description": "MythicEnchants xpmultiplier option.",
+                "link": "https://github.com/finder1793/MythicEnchants/blob/main/",
+                "default_value": "1.0"
+            }
+        ]
+    },
+    {
+        "plugin": "MythicEnchants",
+        "class": "EnchantTableMechanic",
+        "extends": "SkillMechanic",
+        "implements": [
+            "INoTargetSkill",
+            "ITargetedEntitySkill"
+        ],
+        "name": [
+            "enchanttable",
+            "opentable",
+            "enchantingtable",
+            "openenchanting"
+        ],
+        "description": "Opens the enchanting table for a player, optionally faking the bookshelf count.",
+        "link": "https://github.com/finder1793/MythicEnchants/blob/main/src/main/java/com/stelliusstudio/mythicenchants/mechanic/EnchantTableMechanic.java",
+        "author": "StelliusStudio",
+        "attributes": [
+            {
+                "name": [
+                    "power",
+                    "bookshelves",
+                    "shelves",
+                    "p"
+                ],
+                "type": "Integer",
+                "description": "MythicEnchants power option.",
+                "link": "https://github.com/finder1793/MythicEnchants/blob/main/",
+                "default_value": "NO_OVERRIDE"
+            },
+            {
+                "name": [
+                    "force",
+                    "f"
+                ],
+                "type": "Boolean",
+                "description": "MythicEnchants force option.",
+                "link": "https://github.com/finder1793/MythicEnchants/blob/main/",
+                "default_value": "true"
+            }
+        ]
+    },
+    {
+        "plugin": "MythicEnchants",
+        "class": "EnchantWeightMechanic",
+        "extends": "SkillMechanic",
+        "implements": [
+            "ITargetedEntitySkill",
+            "INoTargetSkill"
+        ],
+        "name": [
+            "enchantweight",
+            "enchantluck",
+            "modenchantweight",
+            "enchantodds"
+        ],
+        "description": "Temporarily modifies the target player's enchanting-table weight for specific enchantments.",
+        "link": "https://github.com/finder1793/MythicEnchants/blob/main/src/main/java/com/stelliusstudio/mythicenchants/mechanic/EnchantWeightMechanic.java",
+        "author": "MythicEnchants",
+        "attributes": [
+            {
+                "name": [
+                    "enchant",
+                    "id",
+                    "e",
+                    "type",
+                    "t"
+                ],
+                "type": "String",
+                "description": "MythicEnchants enchant option.",
+                "link": "https://github.com/finder1793/MythicEnchants/blob/main/",
+                "default_value": "EnchantWeightModifierStore.MATCH_ALL"
+            },
+            {
+                "name": [
+                    "weight",
+                    "w",
+                    "add",
+                    "a",
+                    "amount"
+                ],
+                "type": "Integer",
+                "description": "MythicEnchants weight option.",
+                "link": "https://github.com/finder1793/MythicEnchants/blob/main/",
+                "default_value": "0"
+            },
+            {
+                "name": [
+                    "multiplier",
+                    "mult",
+                    "m"
+                ],
+                "type": "Float",
+                "description": "MythicEnchants multiplier option.",
+                "link": "https://github.com/finder1793/MythicEnchants/blob/main/",
+                "default_value": "1"
+            },
+            {
+                "name": [
+                    "duration",
+                    "d",
+                    "ticks"
+                ],
+                "type": "Integer",
+                "description": "MythicEnchants duration option.",
+                "link": "https://github.com/finder1793/MythicEnchants/blob/main/",
+                "default_value": "600"
+            },
+            {
+                "name": [
+                    "clear",
+                    "remove",
+                    "reset"
+                ],
+                "type": "Boolean",
+                "description": "MythicEnchants clear option.",
+                "link": "https://github.com/finder1793/MythicEnchants/blob/main/",
+                "default_value": "false"
+            }
+        ]
+    },
+    {
+        "plugin": "MythicEnchants",
+        "class": "EnchSeedMechanic",
+        "extends": "SkillMechanic",
+        "implements": [
+            "ITargetedEntitySkill"
+        ],
+        "name": [
+            "enchseed",
+            "rerollenchseed",
+            "enchantseed"
+        ],
+        "description": "Rerolls the target player's enchanting seed, changing their offered enchantments.",
+        "link": "https://github.com/finder1793/MythicEnchants/blob/main/src/main/java/com/stelliusstudio/mythicenchants/mechanic/EnchSeedMechanic.java",
+        "author": "MythicEnchants",
+        "attributes": []
+    },
+    {
+        "plugin": "MythicEnchants",
+        "class": "ExperienceMechanic",
+        "extends": "SkillMechanic",
+        "implements": [
+            "INoTargetSkill",
+            "ITargetedEntitySkill"
+        ],
+        "name": [
+            "experience",
+            "xp",
+            "exp"
+        ],
+        "description": "Modifies a player's experience levels or points (point-accurate, no Bukkit rounding loss).",
+        "link": "https://github.com/finder1793/MythicEnchants/blob/main/src/main/java/com/stelliusstudio/mythicenchants/mechanic/ExperienceMechanic.java",
+        "author": "StelliusStudio",
+        "attributes": [
+            {
+                "name": [
+                    "mode",
+                    "m"
+                ],
+                "type": "String",
+                "enum": "SET,ADD,REMOVE",
+                "description": "MythicEnchants mode option.",
+                "link": "https://github.com/finder1793/MythicEnchants/blob/main/",
+                "default_value": "AD"
+            },
+            {
+                "name": [
+                    "unit",
+                    "u"
+                ],
+                "type": "String",
+                "description": "MythicEnchants unit option.",
+                "link": "https://github.com/finder1793/MythicEnchants/blob/main/",
+                "default_value": "POINTS"
+            },
+            {
+                "name": [
+                    "amount",
+                    "amnt",
+                    "a"
+                ],
+                "type": "Integer",
+                "description": "MythicEnchants amount option.",
+                "link": "https://github.com/finder1793/MythicEnchants/blob/main/",
+                "default_value": "1"
+            }
+        ]
+    },
+    {
+        "plugin": "MythicEnchants",
+        "class": "FakeDropsMechanic",
+        "extends": "SkillMechanic",
+        "implements": [
+            "INoTargetSkill"
+        ],
+        "name": [
+            "fakedrops",
+            "fakedrop",
+            "transformdrop"
+        ],
+        "description": "Spawns a fake item drop that transforms into another item or loot table after a delay.",
+        "link": "https://github.com/finder1793/MythicEnchants/blob/main/src/main/java/com/stelliusstudio/mythicenchants/mechanic/FakeDropsMechanic.java",
+        "author": "StelliusStudio",
+        "attributes": [
+            {
+                "name": [
+                    "initial",
+                    "i"
+                ],
+                "type": "String",
+                "description": "MythicEnchants initial option.",
+                "link": "https://github.com/finder1793/MythicEnchants/blob/main/",
+                "default_value": ""
+            },
+            {
+                "name": [
+                    "transform",
+                    "t"
+                ],
+                "type": "String",
+                "description": "MythicEnchants transform option.",
+                "link": "https://github.com/finder1793/MythicEnchants/blob/main/",
+                "default_value": ""
+            },
+            {
+                "name": [
+                    "delay",
+                    "d"
+                ],
+                "type": "Integer",
+                "description": "MythicEnchants delay option.",
+                "link": "https://github.com/finder1793/MythicEnchants/blob/main/",
+                "default_value": "20L"
+            },
+            {
+                "name": [
+                    "pickup",
+                    "p"
+                ],
+                "type": "Boolean",
+                "description": "MythicEnchants pickup option.",
+                "link": "https://github.com/finder1793/MythicEnchants/blob/main/",
+                "default_value": "true"
+            },
+            {
+                "name": [
+                    "fortune",
+                    "f"
+                ],
+                "type": "Boolean",
+                "description": "MythicEnchants fortune option.",
+                "link": "https://github.com/finder1793/MythicEnchants/blob/main/",
+                "default_value": "false"
+            },
+            {
+                "name": [
+                    "looting",
+                    "l"
+                ],
+                "type": "Boolean",
+                "description": "MythicEnchants looting option.",
+                "link": "https://github.com/finder1793/MythicEnchants/blob/main/",
+                "default_value": "false"
+            },
+            {
+                "name": [
+                    "fire",
+                    "flame"
+                ],
+                "type": "Boolean",
+                "description": "MythicEnchants fire option.",
+                "link": "https://github.com/finder1793/MythicEnchants/blob/main/",
+                "default_value": "false"
+            },
+            {
+                "name": [
+                    "amount",
+                    "a"
+                ],
+                "type": "Integer",
+                "description": "MythicEnchants amount option.",
+                "link": "https://github.com/finder1793/MythicEnchants/blob/main/",
+                "default_value": "1"
+            },
+            {
+                "name": [
+                    "glow",
+                    "g"
+                ],
+                "type": "Boolean",
+                "description": "MythicEnchants glow option.",
+                "link": "https://github.com/finder1793/MythicEnchants/blob/main/",
+                "default_value": "false"
+            },
+            {
+                "name": [
+                    "perdrop",
+                    "perdurability",
+                    "pd"
+                ],
+                "type": "Boolean",
+                "description": "MythicEnchants perdrop option.",
+                "link": "https://github.com/finder1793/MythicEnchants/blob/main/",
+                "default_value": "false"
+            },
+            {
+                "name": [
+                    "chanceperdrop",
+                    "chance",
+                    "dc"
+                ],
+                "type": "Float",
+                "description": "MythicEnchants chanceperdrop option.",
+                "link": "https://github.com/finder1793/MythicEnchants/blob/main/",
+                "default_value": "-1"
+            },
+            {
+                "name": [
+                    "respectunbreaking",
+                    "unbreaking",
+                    "ru"
+                ],
+                "type": "Boolean",
+                "description": "MythicEnchants respectunbreaking option.",
+                "link": "https://github.com/finder1793/MythicEnchants/blob/main/",
+                "default_value": "true"
+            },
+            {
+                "name": [
+                    "blocktypes",
+                    "bt",
+                    "blocks"
+                ],
+                "type": "String",
+                "description": "MythicEnchants blocktypes option.",
+                "link": "https://github.com/finder1793/MythicEnchants/blob/main/",
+                "default_value": ""
+            },
+            {
+                "name": [
+                    "particle",
+                    "par"
+                ],
+                "type": "String",
+                "description": "MythicEnchants particle option.",
+                "link": "https://github.com/finder1793/MythicEnchants/blob/main/",
+                "default_value": ""
+            },
+            {
+                "name": [
+                    "particlecolor",
+                    "pc"
+                ],
+                "type": "String",
+                "description": "MythicEnchants particlecolor option.",
+                "link": "https://github.com/finder1793/MythicEnchants/blob/main/",
+                "default_value": ""
+            },
+            {
+                "name": [
+                    "particlesize",
+                    "ps"
+                ],
+                "type": "Float",
+                "description": "MythicEnchants particlesize option.",
+                "link": "https://github.com/finder1793/MythicEnchants/blob/main/",
+                "default_value": "1.0"
+            },
+            {
+                "name": [
+                    "particlecount",
+                    "pn"
+                ],
+                "type": "Integer",
+                "description": "MythicEnchants particlecount option.",
+                "link": "https://github.com/finder1793/MythicEnchants/blob/main/",
+                "default_value": "3"
+            },
+            {
+                "name": [
+                    "particlespread",
+                    "psp"
+                ],
+                "type": "Float",
+                "description": "MythicEnchants particlespread option.",
+                "link": "https://github.com/finder1793/MythicEnchants/blob/main/",
+                "default_value": "0.15"
+            },
+            {
+                "name": [
+                    "particlerate",
+                    "pr"
+                ],
+                "type": "Integer",
+                "description": "MythicEnchants particlerate option.",
+                "link": "https://github.com/finder1793/MythicEnchants/blob/main/",
+                "default_value": "4L"
+            }
+        ]
+    },
+    {
+        "plugin": "MythicEnchants",
+        "class": "FireEnchantTriggerMechanic",
+        "extends": "SkillMechanic",
+        "implements": [
+            "INoTargetSkill"
+        ],
+        "name": [
+            "fireenchanttrigger",
+            "enchanttrigger",
+            "menchfire"
+        ],
+        "description": "Fires the ENCHANT_APPLY or ENCHANT_REMOVE trigger on the caster's held item. ",
+        "link": "https://github.com/finder1793/MythicEnchants/blob/main/src/main/java/com/stelliusstudio/mythicenchants/mechanic/FireEnchantTriggerMechanic.java",
+        "author": "StelliusStudio",
+        "attributes": [
+            {
+                "name": [
+                    "id",
+                    "enchant",
+                    "enchantment",
+                    "e"
+                ],
+                "type": "String",
+                "description": "MythicEnchants id option.",
+                "link": "https://github.com/finder1793/MythicEnchants/blob/main/",
+                "default_value": ""
+            },
+            {
+                "name": [
+                    "level",
+                    "lvl",
+                    "l"
+                ],
+                "type": "Integer",
+                "description": "MythicEnchants level option.",
+                "link": "https://github.com/finder1793/MythicEnchants/blob/main/",
+                "default_value": "1"
+            },
+            {
+                "name": [
+                    "mode",
+                    "m",
+                    "type",
+                    "t"
+                ],
+                "type": "String",
+                "enum": "APPLY,REMOVE",
+                "description": "MythicEnchants mode option.",
+                "link": "https://github.com/finder1793/MythicEnchants/blob/main/",
+                "default_value": "APPLY"
+            },
+            {
+                "name": [
+                    "source",
+                    "src"
+                ],
+                "type": "String",
+                "description": "MythicEnchants source option.",
+                "link": "https://github.com/finder1793/MythicEnchants/blob/main/",
+                "default_value": "SKILL"
+            }
+        ]
+    },
+    {
+        "plugin": "MythicEnchants",
+        "class": "FishingWaitTimeMechanic",
+        "extends": "SkillMechanic",
+        "implements": [
+            "INoTargetSkill"
+        ],
+        "name": [
+            "fishingwaittime",
+            "fishingtime",
+            "luretime"
+        ],
+        "description": "Reduces fishing hook min/max wait time by a flat tick amount per enchantment level.",
+        "link": "https://github.com/finder1793/MythicEnchants/blob/main/src/main/java/com/stelliusstudio/mythicenchants/mechanic/FishingWaitTimeMechanic.java",
+        "author": "StelliusStudio",
+        "attributes": [
+            {
+                "name": [
+                    "base",
+                    "b"
+                ],
+                "type": "Integer",
+                "description": "MythicEnchants base option.",
+                "link": "https://github.com/finder1793/MythicEnchants/blob/main/",
+                "default_value": "0"
+            },
+            {
+                "name": [
+                    "per_level",
+                    "perlevel",
+                    "pl"
+                ],
+                "type": "Integer",
+                "description": "MythicEnchants per_level option.",
+                "link": "https://github.com/finder1793/MythicEnchants/blob/main/",
+                "default_value": "0"
+            }
+        ]
+    },
+    {
+        "plugin": "MythicEnchants",
+        "class": "FrostWalkerMechanic",
+        "extends": "SkillMechanic",
+        "implements": [
+            "INoTargetSkill"
+        ],
+        "name": [
+            "frostwalker",
+            "freezewater"
+        ],
+        "description": "Freezes nearby surface water under the caster.",
+        "link": "https://github.com/finder1793/MythicEnchants/blob/main/src/main/java/com/stelliusstudio/mythicenchants/mechanic/FrostWalkerMechanic.java",
+        "author": "StelliusStudio",
+        "attributes": [
+            {
+                "name": [
+                    "level",
+                    "lvl",
+                    "l"
+                ],
+                "type": "Integer",
+                "description": "MythicEnchants level option.",
+                "link": "https://github.com/finder1793/MythicEnchants/blob/main/",
+                "default_value": "0"
+            },
+            {
+                "name": [
+                    "baseradius",
+                    "br"
+                ],
+                "type": "Integer",
+                "description": "MythicEnchants baseradius option.",
+                "link": "https://github.com/finder1793/MythicEnchants/blob/main/",
+                "default_value": "2"
+            },
+            {
+                "name": [
+                    "radiusperlevel",
+                    "rpl"
+                ],
+                "type": "Integer",
+                "description": "MythicEnchants radiusperlevel option.",
+                "link": "https://github.com/finder1793/MythicEnchants/blob/main/",
+                "default_value": "1"
+            },
+            {
+                "name": [
+                    "maxradius",
+                    "mr"
+                ],
+                "type": "Integer",
+                "description": "MythicEnchants maxradius option.",
+                "link": "https://github.com/finder1793/MythicEnchants/blob/main/",
+                "default_value": "16"
+            },
+            {
+                "name": [
+                    "vanilla",
+                    "v"
+                ],
+                "type": "Boolean",
+                "description": "MythicEnchants vanilla option.",
+                "link": "https://github.com/finder1793/MythicEnchants/blob/main/",
+                "default_value": "true"
+            },
+            {
+                "name": [
+                    "meltdelay",
+                    "md",
+                    "duration",
+                    "d"
+                ],
+                "type": "Integer",
+                "description": "MythicEnchants meltdelay option.",
+                "link": "https://github.com/finder1793/MythicEnchants/blob/main/",
+                "default_value": "60L"
+            }
+        ]
+    },
+    {
+        "plugin": "MythicEnchants",
+        "class": "LootLuckMechanic",
+        "extends": "SkillMechanic",
+        "implements": [
+            "INoTargetSkill",
+            "ITargetedEntitySkill"
+        ],
+        "name": [
+            "lootluck",
+            "droploot",
+            "loottabledrop",
+            "bonusloot"
+        ],
+        "description": "Stages loot-context luck and looting modifiers for the current loot event.",
+        "link": "https://github.com/finder1793/MythicEnchants/blob/main/src/main/java/com/stelliusstudio/mythicenchants/mechanic/LootLuckMechanic.java",
+        "author": "StelliusStudio",
+        "attributes": [
+            {
+                "name": [
+                    "table",
+                    "loottable",
+                    "id",
+                    "t"
+                ],
+                "type": "String",
+                "description": "MythicEnchants table option.",
+                "link": "https://github.com/finder1793/MythicEnchants/blob/main/",
+                "default_value": "AUTO"
+            },
+            {
+                "name": [
+                    "luck",
+                    "l"
+                ],
+                "type": "Float",
+                "description": "MythicEnchants luck option.",
+                "link": "https://github.com/finder1793/MythicEnchants/blob/main/",
+                "default_value": "0"
+            },
+            {
+                "name": [
+                    "looting",
+                    "modifier",
+                    "m"
+                ],
+                "type": "Integer",
+                "description": "MythicEnchants looting option.",
+                "link": "https://github.com/finder1793/MythicEnchants/blob/main/",
+                "default_value": "0"
+            }
+        ]
+    },
+    {
+        "plugin": "MythicEnchants",
+        "class": "LoyaltyMechanic",
+        "extends": "SkillMechanic",
+        "implements": [
+            "INoTargetSkill"
+        ],
+        "name": [
+            "loyalty",
+            "tridentloyalty"
+        ],
+        "description": "Sets the loyalty level of the current thrown trident.",
+        "link": "https://github.com/finder1793/MythicEnchants/blob/main/src/main/java/com/stelliusstudio/mythicenchants/mechanic/LoyaltyMechanic.java",
+        "author": "StelliusStudio",
+        "attributes": [
+            {
+                "name": [
+                    "level",
+                    "lvl",
+                    "l"
+                ],
+                "type": "Integer",
+                "description": "MythicEnchants level option.",
+                "link": "https://github.com/finder1793/MythicEnchants/blob/main/",
+                "default_value": "0"
+            }
+        ]
+    },
+    {
+        "plugin": "MythicEnchants",
+        "class": "LureMechanic",
+        "extends": "SkillMechanic",
+        "implements": [
+            "INoTargetSkill"
+        ],
+        "name": [
+            "lure",
+            "fishinglure"
+        ],
+        "description": "Marker for the Lure enchantment \u2014 actual reduction is applied via the generated datapack.",
+        "link": "https://github.com/finder1793/MythicEnchants/blob/main/src/main/java/com/stelliusstudio/mythicenchants/mechanic/LureMechanic.java",
+        "author": "StelliusStudio",
+        "attributes": []
+    },
+    {
+        "plugin": "MythicEnchants",
+        "class": "MendingRepairMechanic",
+        "extends": "SkillMechanic",
+        "implements": [
+            "INoTargetSkill"
+        ],
+        "name": [
+            "mendingrepair",
+            "mending",
+            "repairwithxp"
+        ],
+        "description": "Repairs the current trigger item using XP from the current gain event.",
+        "link": "https://github.com/finder1793/MythicEnchants/blob/main/src/main/java/com/stelliusstudio/mythicenchants/mechanic/MendingRepairMechanic.java",
+        "author": "StelliusStudio",
+        "attributes": []
+    },
+    {
+        "plugin": "MythicEnchants",
+        "class": "ModifyDropsMechanic",
+        "extends": "SkillMechanic",
+        "implements": [
+            "INoTargetSkill",
+            "ITargetedEntitySkill"
+        ],
+        "name": [
+            "moddrops",
+            "modifydrops",
+            "changedrops"
+        ],
+        "description": "Cancels original drops and pulls from MythicMobs drop tables or specific drops.",
+        "link": "https://github.com/finder1793/MythicEnchants/blob/main/src/main/java/com/stelliusstudio/mythicenchants/mechanic/ModifyDropsMechanic.java",
+        "author": "StelliusStudio",
+        "attributes": [
+            {
+                "name": [
+                    "table",
+                    "t"
+                ],
+                "type": "String",
+                "description": "MythicEnchants table option.",
+                "link": "https://github.com/finder1793/MythicEnchants/blob/main/",
+                "default_value": ""
+            },
+            {
+                "name": [
+                    "drop",
+                    "d"
+                ],
+                "type": "String",
+                "description": "MythicEnchants drop option.",
+                "link": "https://github.com/finder1793/MythicEnchants/blob/main/",
+                "default_value": ""
+            },
+            {
+                "name": [
+                    "quantity",
+                    "q"
+                ],
+                "type": "Integer",
+                "description": "MythicEnchants quantity option.",
+                "link": "https://github.com/finder1793/MythicEnchants/blob/main/",
+                "default_value": "1"
+            },
+            {
+                "name": [
+                    "chance",
+                    "c"
+                ],
+                "type": "Float",
+                "description": "MythicEnchants chance option.",
+                "link": "https://github.com/finder1793/MythicEnchants/blob/main/",
+                "default_value": "1.0"
+            },
+            {
+                "name": [
+                    "block",
+                    "b"
+                ],
+                "type": "String",
+                "description": "MythicEnchants block option.",
+                "link": "https://github.com/finder1793/MythicEnchants/blob/main/",
+                "default_value": ""
+            },
+            {
+                "name": [
+                    "entity",
+                    "e"
+                ],
+                "type": "String",
+                "description": "MythicEnchants entity option.",
+                "link": "https://github.com/finder1793/MythicEnchants/blob/main/",
+                "default_value": ""
+            }
+        ]
+    },
+    {
+        "plugin": "MythicEnchants",
+        "class": "MultishotMechanic",
+        "extends": "SkillMechanic",
+        "implements": [
+            "INoTargetSkill"
+        ],
+        "name": [
+            "multishot",
+            "extrashots"
+        ],
+        "description": "Spawns two extra projectiles from the current shot.",
+        "link": "https://github.com/finder1793/MythicEnchants/blob/main/src/main/java/com/stelliusstudio/mythicenchants/mechanic/MultishotMechanic.java",
+        "author": "StelliusStudio",
+        "attributes": [
+            {
+                "name": [
+                    "spread",
+                    "angle",
+                    "a"
+                ],
+                "type": "Float",
+                "description": "MythicEnchants spread option.",
+                "link": "https://github.com/finder1793/MythicEnchants/blob/main/",
+                "default_value": "10"
+            }
+        ]
+    },
+    {
+        "plugin": "MythicEnchants",
+        "class": "PiercingMechanic",
+        "extends": "SkillMechanic",
+        "implements": [
+            "INoTargetSkill"
+        ],
+        "name": [
+            "piercing",
+            "projectilepiercing"
+        ],
+        "description": "Sets the pierce level of the current projectile.",
+        "link": "https://github.com/finder1793/MythicEnchants/blob/main/src/main/java/com/stelliusstudio/mythicenchants/mechanic/PiercingMechanic.java",
+        "author": "StelliusStudio",
+        "attributes": [
+            {
+                "name": [
+                    "level",
+                    "lvl",
+                    "l"
+                ],
+                "type": "Integer",
+                "description": "MythicEnchants level option.",
+                "link": "https://github.com/finder1793/MythicEnchants/blob/main/",
+                "default_value": "0"
+            }
+        ]
+    },
+    {
+        "plugin": "MythicEnchants",
+        "class": "PlayerStatMechanic",
+        "extends": "SkillMechanic",
+        "implements": [
+            "INoTargetSkill",
+            "ITargetedEntitySkill"
+        ],
+        "name": [
+            "playerstat",
+            "modifystat",
+            "statmodifier",
+            "menchstat"
+        ],
+        "description": "Adds or removes a MythicMobs stat modifier on the caster or target entity.",
+        "link": "https://github.com/finder1793/MythicEnchants/blob/main/src/main/java/com/stelliusstudio/mythicenchants/mechanic/PlayerStatMechanic.java",
+        "author": "StelliusStudio",
+        "attributes": [
+            {
+                "name": [
+                    "stat",
+                    "s"
+                ],
+                "type": "String",
+                "description": "MythicEnchants stat option.",
+                "link": "https://github.com/finder1793/MythicEnchants/blob/main/",
+                "default_value": ""
+            },
+            {
+                "name": [
+                    "amount",
+                    "amt",
+                    "a",
+                    "value",
+                    "val",
+                    "v"
+                ],
+                "type": "Float",
+                "description": "MythicEnchants amount option.",
+                "link": "https://github.com/finder1793/MythicEnchants/blob/main/",
+                "default_value": "0"
+            },
+            {
+                "name": [
+                    "mode",
+                    "m"
+                ],
+                "type": "String",
+                "enum": "ADD,REMOVE",
+                "description": "MythicEnchants mode option.",
+                "link": "https://github.com/finder1793/MythicEnchants/blob/main/",
+                "default_value": "AD"
+            },
+            {
+                "name": [
+                    "type",
+                    "t",
+                    "modifier",
+                    "mod"
+                ],
+                "type": "String",
+                "description": "MythicEnchants type option.",
+                "link": "https://github.com/finder1793/MythicEnchants/blob/main/",
+                "default_value": "ADDITIVE"
+            },
+            {
+                "name": [
+                    "key",
+                    "k",
+                    "source",
+                    "src"
+                ],
+                "type": "String",
+                "description": "MythicEnchants key option.",
+                "link": "https://github.com/finder1793/MythicEnchants/blob/main/",
+                "default_value": "mench_default"
+            }
+        ]
+    },
+    {
+        "plugin": "MythicEnchants",
+        "class": "ProjectilePathMechanic",
+        "extends": "SkillMechanic",
+        "implements": [
+            "INoTargetSkill"
+        ],
+        "name": [
+            "projectilepath",
+            "trajectory",
+            "aimline",
+            "predictpath"
+        ],
+        "description": "Renders a live ballistic trajectory preview while drawing a bow (use on ~onUse).",
+        "link": "https://github.com/finder1793/MythicEnchants/blob/main/src/main/java/com/stelliusstudio/mythicenchants/mechanic/ProjectilePathMechanic.java",
+        "author": "StelliusStudio",
+        "attributes": [
+            {
+                "name": [
+                    "particle",
+                    "p"
+                ],
+                "type": "String",
+                "description": "MythicEnchants particle option.",
+                "link": "https://github.com/finder1793/MythicEnchants/blob/main/",
+                "default_value": "CRIT"
+            },
+            {
+                "name": [
+                    "interval",
+                    "i"
+                ],
+                "type": "Integer",
+                "description": "MythicEnchants interval option.",
+                "link": "https://github.com/finder1793/MythicEnchants/blob/main/",
+                "default_value": "1"
+            },
+            {
+                "name": [
+                    "step",
+                    "s"
+                ],
+                "type": "Float",
+                "description": "MythicEnchants step option.",
+                "link": "https://github.com/finder1793/MythicEnchants/blob/main/",
+                "default_value": "1.0"
+            },
+            {
+                "name": [
+                    "maxsteps",
+                    "ms"
+                ],
+                "type": "Integer",
+                "description": "MythicEnchants maxsteps option.",
+                "link": "https://github.com/finder1793/MythicEnchants/blob/main/",
+                "default_value": "160"
+            },
+            {
+                "name": [
+                    "points",
+                    "pts"
+                ],
+                "type": "Integer",
+                "description": "MythicEnchants points option.",
+                "link": "https://github.com/finder1793/MythicEnchants/blob/main/",
+                "default_value": "1"
+            },
+            {
+                "name": [
+                    "mindraw",
+                    "md"
+                ],
+                "type": "Integer",
+                "description": "MythicEnchants mindraw option.",
+                "link": "https://github.com/finder1793/MythicEnchants/blob/main/",
+                "default_value": "0"
+            },
+            {
+                "name": [
+                    "size"
+                ],
+                "type": "Float",
+                "description": "MythicEnchants size option.",
+                "link": "https://github.com/finder1793/MythicEnchants/blob/main/",
+                "default_value": "1.0"
+            },
+            {
+                "name": [
+                    "color",
+                    "c"
+                ],
+                "type": "String",
+                "description": "MythicEnchants color option.",
+                "link": "https://github.com/finder1793/MythicEnchants/blob/main/",
+                "default_value": "255,255,255"
+            },
+            {
+                "name": [
+                    "onpathskill",
+                    "ops",
+                    "skill"
+                ],
+                "type": "String",
+                "description": "MythicEnchants onpathskill option.",
+                "link": "https://github.com/finder1793/MythicEnchants/blob/main/",
+                "default_value": ""
+            },
+            {
+                "name": [
+                    "onpathcooldown",
+                    "opcd"
+                ],
+                "type": "Integer",
+                "description": "MythicEnchants onpathcooldown option.",
+                "link": "https://github.com/finder1793/MythicEnchants/blob/main/",
+                "default_value": "10"
+            }
+        ]
+    },
+    {
+        "plugin": "MythicEnchants",
+        "class": "QuickChargeMechanic",
+        "extends": "SkillMechanic",
+        "implements": [
+            "INoTargetSkill"
+        ],
+        "name": [
+            "quickcharge",
+            "crossbowcharge"
+        ],
+        "description": "Marker for crossbow quick-charge \u2014 actual reduction is applied via the generated datapack.",
+        "link": "https://github.com/finder1793/MythicEnchants/blob/main/src/main/java/com/stelliusstudio/mythicenchants/mechanic/QuickChargeMechanic.java",
+        "author": "StelliusStudio",
+        "attributes": []
+    },
+    {
+        "plugin": "MythicEnchants",
+        "class": "RecoverItemMechanic",
+        "extends": "SkillMechanic",
+        "implements": [
+            "ITargetedEntitySkill"
+        ],
+        "name": [
+            "recoveritem",
+            "soulbound",
+            "itemrecover",
+            "keepitem"
+        ],
+        "description": "Recovers the trigger item from death drops on ~onDeath. Optionally tracks limited uses via PDC or enchant levels.",
+        "link": "https://github.com/finder1793/MythicEnchants/blob/main/src/main/java/com/stelliusstudio/mythicenchants/mechanic/RecoverItemMechanic.java",
+        "author": "StelliusStudio",
+        "attributes": [
+            {
+                "name": [
+                    "slot",
+                    "s"
+                ],
+                "type": "String",
+                "description": "MythicEnchants slot option.",
+                "link": "https://github.com/finder1793/MythicEnchants/blob/main/",
+                "default_value": "TRIGGER"
+            },
+            {
+                "name": [
+                    "limit",
+                    "uses",
+                    "charges"
+                ],
+                "type": "Integer",
+                "description": "MythicEnchants limit option.",
+                "link": "https://github.com/finder1793/MythicEnchants/blob/main/",
+                "default_value": "-1"
+            },
+            {
+                "name": [
+                    "removepdc",
+                    "rp",
+                    "cleanpdc"
+                ],
+                "type": "Boolean",
+                "description": "MythicEnchants removepdc option.",
+                "link": "https://github.com/finder1793/MythicEnchants/blob/main/",
+                "default_value": "false"
+            },
+            {
+                "name": [
+                    "reequip",
+                    "req",
+                    "equipslot"
+                ],
+                "type": "Boolean",
+                "description": "MythicEnchants reequip option.",
+                "link": "https://github.com/finder1793/MythicEnchants/blob/main/",
+                "default_value": "false"
+            },
+            {
+                "name": [
+                    "uselevels",
+                    "ul",
+                    "leveluses",
+                    "decrementlevel"
+                ],
+                "type": "Boolean",
+                "description": "MythicEnchants uselevels option.",
+                "link": "https://github.com/finder1793/MythicEnchants/blob/main/",
+                "default_value": "false"
+            },
+            {
+                "name": [
+                    "onrecover",
+                    "or",
+                    "skill",
+                    "s"
+                ],
+                "type": "String",
+                "description": "MythicEnchants onrecover option.",
+                "link": "https://github.com/finder1793/MythicEnchants/blob/main/",
+                "default_value": ""
+            }
+        ]
+    },
+    {
+        "plugin": "MythicEnchants",
+        "class": "ReduceDamageMechanic",
+        "extends": "SkillMechanic",
+        "implements": [
+            "INoTargetSkill",
+            "ITargetedEntitySkill"
+        ],
+        "name": [
+            "reducedamage",
+            "protectdamage",
+            "vanillaprotection"
+        ],
+        "description": "Reduces the current damage event by a flat amount.",
+        "link": "https://github.com/finder1793/MythicEnchants/blob/main/src/main/java/com/stelliusstudio/mythicenchants/mechanic/ReduceDamageMechanic.java",
+        "author": "StelliusStudio",
+        "attributes": [
+            {
+                "name": [
+                    "amount",
+                    "amt",
+                    "a"
+                ],
+                "type": "Float",
+                "description": "MythicEnchants amount option.",
+                "link": "https://github.com/finder1793/MythicEnchants/blob/main/",
+                "default_value": "0"
+            },
+            {
+                "name": [
+                    "burnreduction",
+                    "burn",
+                    "b"
+                ],
+                "type": "Float",
+                "description": "MythicEnchants burnreduction option.",
+                "link": "https://github.com/finder1793/MythicEnchants/blob/main/",
+                "default_value": "0"
+            },
+            {
+                "name": [
+                    "cap",
+                    "maxreduction",
+                    "max"
+                ],
+                "type": "Float",
+                "description": "MythicEnchants cap option.",
+                "link": "https://github.com/finder1793/MythicEnchants/blob/main/",
+                "default_value": "DEFAULT_CAP"
+            },
+            {
+                "name": [
+                    "cause",
+                    "causes",
+                    "c"
+                ],
+                "type": "String",
+                "description": "MythicEnchants cause option.",
+                "link": "https://github.com/finder1793/MythicEnchants/blob/main/",
+                "default_value": ""
+            }
+        ]
+    },
+    {
+        "plugin": "MythicEnchants",
+        "class": "ReduceDurabilityMechanic",
+        "extends": "SkillMechanic",
+        "implements": [
+            "INoTargetSkill"
+        ],
+        "name": [
+            "reducedurability",
+            "durabilityreduce",
+            "itemdamage"
+        ],
+        "description": "Damages the caster's item durability by a flat amount or percentage.",
+        "link": "https://github.com/finder1793/MythicEnchants/blob/main/src/main/java/com/stelliusstudio/mythicenchants/mechanic/ReduceDurabilityMechanic.java",
+        "author": "StelliusStudio",
+        "attributes": [
+            {
+                "name": [
+                    "amount",
+                    "a"
+                ],
+                "type": "Float",
+                "description": "MythicEnchants amount option.",
+                "link": "https://github.com/finder1793/MythicEnchants/blob/main/",
+                "default_value": "1"
+            },
+            {
+                "name": [
+                    "percent",
+                    "p"
+                ],
+                "type": "Boolean",
+                "description": "MythicEnchants percent option.",
+                "link": "https://github.com/finder1793/MythicEnchants/blob/main/",
+                "default_value": "false"
+            },
+            {
+                "name": [
+                    "respectunbreaking",
+                    "unbreaking",
+                    "ru"
+                ],
+                "type": "Boolean",
+                "description": "MythicEnchants respectunbreaking option.",
+                "link": "https://github.com/finder1793/MythicEnchants/blob/main/",
+                "default_value": "true"
+            }
+        ]
+    },
+    {
+        "plugin": "MythicEnchants",
+        "class": "SoulSpeedMechanic",
+        "extends": "SkillMechanic",
+        "implements": [
+            "INoTargetSkill"
+        ],
+        "name": [
+            "soulspeed",
+            "soulspeedboost",
+            "blockspeedboost",
+            "blockspeed"
+        ],
+        "description": "Applies a movement speed attribute boost while the caster stands on specific blocks.",
+        "link": "https://github.com/finder1793/MythicEnchants/blob/main/src/main/java/com/stelliusstudio/mythicenchants/mechanic/SoulSpeedMechanic.java",
+        "author": "StelliusStudio",
+        "attributes": [
+            {
+                "name": [
+                    "amount",
+                    "amt",
+                    "a"
+                ],
+                "type": "Float",
+                "description": "MythicEnchants amount option.",
+                "link": "https://github.com/finder1793/MythicEnchants/blob/main/",
+                "default_value": "0.0405"
+            },
+            {
+                "name": [
+                    "operation",
+                    "op",
+                    "o"
+                ],
+                "type": "String",
+                "description": "MythicEnchants operation option.",
+                "link": "https://github.com/finder1793/MythicEnchants/blob/main/",
+                "default_value": "ADD_NUMBER"
+            },
+            {
+                "name": [
+                    "blocks",
+                    "b"
+                ],
+                "type": "String",
+                "description": "MythicEnchants blocks option.",
+                "link": "https://github.com/finder1793/MythicEnchants/blob/main/",
+                "default_value": "SOUL_SAND,SOUL_SOIL"
+            }
+        ]
+    },
+    {
+        "plugin": "MythicEnchants",
+        "class": "SweepAttackMechanic",
+        "extends": "SkillMechanic",
+        "implements": [
+            "INoTargetSkill",
+            "ITargetedEntitySkill"
+        ],
+        "name": [
+            "sweepattack",
+            "sweepingedge"
+        ],
+        "description": "Deals bonus sweep damage to nearby living entities.",
+        "link": "https://github.com/finder1793/MythicEnchants/blob/main/src/main/java/com/stelliusstudio/mythicenchants/mechanic/SweepAttackMechanic.java",
+        "author": "StelliusStudio",
+        "attributes": [
+            {
+                "name": [
+                    "amount",
+                    "amt",
+                    "a"
+                ],
+                "type": "Float",
+                "description": "MythicEnchants amount option.",
+                "link": "https://github.com/finder1793/MythicEnchants/blob/main/",
+                "default_value": "1"
+            },
+            {
+                "name": [
+                    "radius",
+                    "r"
+                ],
+                "type": "Float",
+                "description": "MythicEnchants radius option.",
+                "link": "https://github.com/finder1793/MythicEnchants/blob/main/",
+                "default_value": "1"
+            },
+            {
+                "name": [
+                    "ignorecrit",
+                    "nocrit",
+                    "ic"
+                ],
+                "type": "Boolean",
+                "description": "MythicEnchants ignorecrit option.",
+                "link": "https://github.com/finder1793/MythicEnchants/blob/main/",
+                "default_value": "false"
+            }
+        ]
+    },
+    {
+        "plugin": "MythicEnchants",
+        "class": "SweepingEdgeNativeMechanic",
+        "extends": "SkillMechanic",
+        "implements": [
+            "INoTargetSkill"
+        ],
+        "name": [
+            "sweepingedge",
+            "nativesweep"
+        ],
+        "description": "Marker for sweeping edge \u2014 actual sweep damage ratio is applied via the generated datapack.",
+        "link": "https://github.com/finder1793/MythicEnchants/blob/main/src/main/java/com/stelliusstudio/mythicenchants/mechanic/SweepingEdgeNativeMechanic.java",
+        "author": "StelliusStudio",
+        "attributes": []
+    },
+    {
+        "plugin": "MythicEnchants",
+        "class": "UnbreakingMechanic",
+        "extends": "SkillMechanic",
+        "implements": [
+            "INoTargetSkill"
+        ],
+        "name": [
+            "unbreaking",
+            "unbreakingitem",
+            "durabilityguard"
+        ],
+        "description": "Rolls a per-point negate chance against the current item damage event.",
+        "link": "https://github.com/finder1793/MythicEnchants/blob/main/src/main/java/com/stelliusstudio/mythicenchants/mechanic/UnbreakingMechanic.java",
+        "author": "StelliusStudio",
+        "attributes": [
+            {
+                "name": [
+                    "chance",
+                    "negatechance",
+                    "c"
+                ],
+                "type": "Float",
+                "description": "MythicEnchants chance option.",
+                "link": "https://github.com/finder1793/MythicEnchants/blob/main/",
+                "default_value": "-1"
+            }
+        ]
+    },
+    {
+        "plugin": "MythicEnchants",
+        "class": "VeinMinerMechanic",
+        "extends": "SkillMechanic",
+        "implements": [
+            "INoTargetSkill"
+        ],
+        "name": [
+            "veinminer",
+            "vein",
+            "fellblocks"
+        ],
+        "description": "Breaks matching tagged/material blocks in a cube around the skill origin.",
+        "link": "https://github.com/finder1793/MythicEnchants/blob/main/src/main/java/com/stelliusstudio/mythicenchants/mechanic/VeinMinerMechanic.java",
+        "author": "StelliusStudio",
+        "attributes": [
+            {
+                "name": [
+                    "rx",
+                    "radiusx",
+                    "r"
+                ],
+                "type": "Integer",
+                "description": "MythicEnchants rx option.",
+                "link": "https://github.com/finder1793/MythicEnchants/blob/main/",
+                "default_value": "2"
+            },
+            {
+                "name": [
+                    "ry",
+                    "radiusy"
+                ],
+                "type": "Integer",
+                "description": "MythicEnchants ry option.",
+                "link": "https://github.com/finder1793/MythicEnchants/blob/main/",
+                "default_value": "24"
+            },
+            {
+                "name": [
+                    "rz",
+                    "radiusz"
+                ],
+                "type": "Integer",
+                "description": "MythicEnchants rz option.",
+                "link": "https://github.com/finder1793/MythicEnchants/blob/main/",
+                "default_value": "2"
+            },
+            {
+                "name": [
+                    "drops",
+                    "d"
+                ],
+                "type": "Boolean",
+                "description": "MythicEnchants drops option.",
+                "link": "https://github.com/finder1793/MythicEnchants/blob/main/",
+                "default_value": "true"
+            },
+            {
+                "name": [
+                    "usetool",
+                    "tool"
+                ],
+                "type": "Boolean",
+                "description": "MythicEnchants usetool option.",
+                "link": "https://github.com/finder1793/MythicEnchants/blob/main/",
+                "default_value": "true"
+            },
+            {
+                "name": [
+                    "silk",
+                    "silktouch",
+                    "st"
+                ],
+                "type": "Boolean",
+                "description": "MythicEnchants silk option.",
+                "link": "https://github.com/finder1793/MythicEnchants/blob/main/",
+                "default_value": "false"
+            },
+            {
+                "name": [
+                    "maxblocks",
+                    "max",
+                    "mb"
+                ],
+                "type": "Integer",
+                "description": "MythicEnchants maxblocks option.",
+                "link": "https://github.com/finder1793/MythicEnchants/blob/main/",
+                "default_value": "0"
+            },
+            {
+                "name": [
+                    "t",
+                    "type",
+                    "tag",
+                    "types",
+                    "blocks"
+                ],
+                "type": "String",
+                "description": "MythicEnchants t option.",
+                "link": "https://github.com/finder1793/MythicEnchants/blob/main/",
+                "default_value": "#minecraft:logs"
+            },
+            {
+                "name": [
+                    "perdrop",
+                    "perdurability",
+                    "pd"
+                ],
+                "type": "Boolean",
+                "description": "MythicEnchants perdrop option.",
+                "link": "https://github.com/finder1793/MythicEnchants/blob/main/",
+                "default_value": "true"
+            },
+            {
+                "name": [
+                    "chanceperdrop",
+                    "chance",
+                    "dc"
+                ],
+                "type": "Float",
+                "description": "MythicEnchants chanceperdrop option.",
+                "link": "https://github.com/finder1793/MythicEnchants/blob/main/",
+                "default_value": "-1"
+            },
+            {
+                "name": [
+                    "respectunbreaking",
+                    "unbreaking",
+                    "ru"
+                ],
+                "type": "Boolean",
+                "description": "MythicEnchants respectunbreaking option.",
+                "link": "https://github.com/finder1793/MythicEnchants/blob/main/",
+                "default_value": "true"
+            }
+        ]
+    },
+    {
+        "plugin": "MythicEnchants",
+        "class": "WindBurstMechanic",
+        "extends": "SkillMechanic",
+        "implements": [
+            "INoTargetSkill",
+            "ITargetedEntitySkill"
+        ],
+        "name": [
+            "windburst",
+            "windcharge",
+            "windburstmace"
+        ],
+        "description": "Launches the caster upward and knocks back nearby entities on a smash attack.",
+        "link": "https://github.com/finder1793/MythicEnchants/blob/main/src/main/java/com/stelliusstudio/mythicenchants/mechanic/WindBurstMechanic.java",
+        "author": "StelliusStudio",
+        "attributes": [
+            {
+                "name": [
+                    "launchbase",
+                    "lb"
+                ],
+                "type": "Float",
+                "description": "MythicEnchants launchbase option.",
+                "link": "https://github.com/finder1793/MythicEnchants/blob/main/",
+                "default_value": "0.5"
+            },
+            {
+                "name": [
+                    "launchperlevel",
+                    "lpl"
+                ],
+                "type": "Float",
+                "description": "MythicEnchants launchperlevel option.",
+                "link": "https://github.com/finder1793/MythicEnchants/blob/main/",
+                "default_value": "0.5"
+            },
+            {
+                "name": [
+                    "knockbackradius",
+                    "kr"
+                ],
+                "type": "Float",
+                "description": "MythicEnchants knockbackradius option.",
+                "link": "https://github.com/finder1793/MythicEnchants/blob/main/",
+                "default_value": "3.5"
+            },
+            {
+                "name": [
+                    "knockbackstrength",
+                    "ks"
+                ],
+                "type": "Float",
+                "description": "MythicEnchants knockbackstrength option.",
+                "link": "https://github.com/finder1793/MythicEnchants/blob/main/",
+                "default_value": "1.0"
+            },
+            {
+                "name": [
+                    "requirefalling",
+                    "rf"
+                ],
+                "type": "Boolean",
+                "description": "MythicEnchants requirefalling option.",
+                "link": "https://github.com/finder1793/MythicEnchants/blob/main/",
+                "default_value": "true"
+            },
+            {
+                "name": [
+                    "particles",
+                    "p"
+                ],
+                "type": "Boolean",
+                "description": "MythicEnchants particles option.",
+                "link": "https://github.com/finder1793/MythicEnchants/blob/main/",
+                "default_value": "true"
+            },
+            {
+                "name": [
+                    "sound",
+                    "s"
+                ],
+                "type": "Boolean",
+                "description": "MythicEnchants sound option.",
+                "link": "https://github.com/finder1793/MythicEnchants/blob/main/",
+                "default_value": "true"
+            }
+        ]
+    }
+]

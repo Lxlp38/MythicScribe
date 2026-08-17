@@ -73,7 +73,12 @@ function resolveStructureCompletion(
     if (keys.length === 0) {
         return undefined;
     }
-    const result = fileCompletionFindNodesOnLevel(schema, getKeyNameFromYamlKey(keys).slice(1), 1);
+    const keyNames = getKeyNameFromYamlKey(keys);
+    // A root wildcard represents named objects in multi-entry files such as
+    // MythicRPG's talents.yml. Preserve that object key so completion can
+    // descend into the wildcard's child schema after `TreeId:`.
+    const schemaPath = SchemaElementSpecialKeys.WILDKEY in schema ? keyNames : keyNames.slice(1);
+    const result = fileCompletionFindNodesOnLevel(schema, schemaPath, 1);
     if (!result) {
         return undefined;
     }
@@ -166,14 +171,29 @@ async function resolveValueCompletion(
     const parentKeys = getParentKeys(document, position, true).reverse();
     const cleanKeys = getKeyNameFromYamlKey(parentKeys).slice(1);
 
+    // File schemas whose top-level keys are user-defined names are represented
+    // by a single root wildcard. The YAML path already omits that user-defined
+    // name here, so resolve the remaining path against the wildcard's child
+    // schema instead of returning the wildcard itself.
+    let lookupSchema = rootSchema;
+    const rootSchemaKeys = Object.keys(rootSchema);
+    const rootWildcard = rootSchema[SchemaElementSpecialKeys.WILDKEY];
+    if (
+        rootSchemaKeys.length === 1 &&
+        rootWildcard?.type === SchemaElementTypes.KEY &&
+        rootWildcard.keys
+    ) {
+        lookupSchema = getKeySchema(rootWildcard.keys);
+    }
+
     let object: SchemaElement | undefined;
     let extractor: ((text: string) => string) | undefined;
 
     if (isKey(document, position.line)) {
-        object = getSchemaElement(cleanKeys, rootSchema);
+        object = getSchemaElement(cleanKeys, lookupSchema);
         extractor = getTextAfterKey;
     } else if (isList(document, position.line)) {
-        object = getSchemaElement(cleanKeys, rootSchema);
+        object = getSchemaElement(cleanKeys, lookupSchema);
         extractor = getTextAfterListDash;
     }
 
@@ -220,6 +240,16 @@ function fileCompletionFindNodesOnLevel(
     if (!(key in schema)) {
         if (SchemaElementSpecialKeys.WILDKEY in schema) {
             const wildcardObject = schema[SchemaElementSpecialKeys.WILDKEY]!;
+            if (wildcardObject.type === SchemaElementTypes.LIST) {
+                if (keys.length > 1 && wildcardObject.keys) {
+                    return fileCompletionFindNodesOnLevel(
+                        getKeySchema(wildcardObject.keys),
+                        keys.slice(2),
+                        level + 1
+                    );
+                }
+                return [wildcardObject, level];
+            }
             const result = fileCompletionFindNodesOnLevel(
                 getKeySchema(wildcardObject.keys),
                 keys.slice(1),
