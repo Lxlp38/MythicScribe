@@ -1,0 +1,941 @@
+[
+    {
+        "plugin": "MythicEnchants",
+        "class": "ATTACK",
+        "implements": [
+            "Enchantment"
+        ],
+        "name": [
+            "onAttack",
+            "onHit"
+        ],
+        "description": "Fires the enchantment skill on the attack trigger.",
+        "link": "https://github.com/finder1793/MythicEnchants/blob/main/docs/API.md",
+        "attributes": []
+    },
+    {
+        "plugin": "MythicEnchants",
+        "class": "DAMAGED",
+        "implements": [
+            "Enchantment"
+        ],
+        "name": [
+            "onDamaged",
+            "onDamage"
+        ],
+        "description": "Fires the enchantment skill on the damaged trigger.",
+        "link": "https://github.com/finder1793/MythicEnchants/blob/main/docs/API.md",
+        "attributes": []
+    },
+    {
+        "plugin": "MythicEnchants",
+        "class": "BLOCK",
+        "implements": [
+            "Enchantment"
+        ],
+        "name": [
+            "onBlock"
+        ],
+        "description": "Fires the enchantment skill on the block trigger.",
+        "link": "https://github.com/finder1793/MythicEnchants/blob/main/docs/API.md",
+        "attributes": []
+    },
+    {
+        "plugin": "MythicEnchants",
+        "class": "SHIELD_BLOCK",
+        "implements": [
+            "Enchantment"
+        ],
+        "name": [
+            "onShieldBlock"
+        ],
+        "description": "Fires the enchantment skill on the shield_block trigger.",
+        "link": "https://github.com/finder1793/MythicEnchants/blob/main/docs/API.md",
+        "attributes": []
+    },
+    {
+        "plugin": "MythicEnchants",
+        "class": "BOW_HIT",
+        "implements": [
+            "Enchantment"
+        ],
+        "name": [
+            "onBowHit"
+        ],
+        "description": "Fires the enchantment skill on the bow_hit trigger.",
+        "link": "https://github.com/finder1793/MythicEnchants/blob/main/docs/API.md",
+        "attributes": []
+    },
+    {
+        "plugin": "MythicEnchants",
+        "class": "BOW_MISS",
+        "implements": [
+            "Enchantment"
+        ],
+        "name": [
+            "onBowMiss"
+        ],
+        "description": "Fires the enchantment skill on the bow_miss trigger.",
+        "link": "https://github.com/finder1793/MythicEnchants/blob/main/docs/API.md",
+        "attributes": []
+    },
+    {
+        "plugin": "MythicEnchants",
+        "class": "PLAYER_IMPACT",
+        "implements": [
+            "Enchantment"
+        ],
+        "name": [
+            "onPlayerImpact",
+            "onPlayerLand"
+        ],
+        "description": "Fires the enchantment skill on the player_impact trigger.",
+        "link": "https://github.com/finder1793/MythicEnchants/blob/main/docs/API.md",
+        "attributes": []
+    },
+    {
+        "plugin": "MythicEnchants",
+        "class": "SHOOT",
+        "implements": [
+            "Enchantment"
+        ],
+        "name": [
+            "onShoot"
+        ],
+        "description": "Fires the enchantment skill on the shoot trigger.",
+        "link": "https://github.com/finder1793/MythicEnchants/blob/main/docs/API.md",
+        "attributes": []
+    },
+    {
+        "plugin": "MythicEnchants",
+        "class": "PROJECTILE_THROW",
+        "implements": [
+            "Enchantment"
+        ],
+        "name": [
+            "onProjectileThrow"
+        ],
+        "description": "Fires the enchantment skill on the projectile_throw trigger.",
+        "link": "https://github.com/finder1793/MythicEnchants/blob/main/docs/API.md",
+        "attributes": []
+    },
+    {
+        "plugin": "MythicEnchants",
+        "class": "PROJECTILE_HIT",
+        "implements": [
+            "Enchantment"
+        ],
+        "name": [
+            "onProjectileHit"
+        ],
+        "description": "Fires the enchantment skill on the projectile_hit trigger.",
+        "link": "https://github.com/finder1793/MythicEnchants/blob/main/docs/API.md",
+        "attributes": []
+    },
+    {
+        "plugin": "MythicEnchants",
+        "class": "PROJECTILE_LAND",
+        "implements": [
+            "Enchantment"
+        ],
+        "name": [
+            "onProjectileLand"
+        ],
+        "description": "Fires the enchantment skill on the projectile_land trigger.",
+        "link": "https://github.com/finder1793/MythicEnchants/blob/main/docs/API.md",
+        "attributes": []
+    },
+    {
+        "plugin": "MythicEnchants",
+        "class": "KILL",
+        "implements": [
+            "Enchantment"
+        ],
+        "name": [
+            "onKill"
+        ],
+        "description": "Fires the enchantment skill on the kill trigger.",
+        "link": "https://github.com/finder1793/MythicEnchants/blob/main/docs/API.md",
+        "attributes": []
+    },
+    {
+        "plugin": "MythicEnchants",
+        "class": "KILLPLAYER",
+        "implements": [
+            "Enchantment"
+        ],
+        "name": [
+            "onKillPlayer"
+        ],
+        "description": "Fires the enchantment skill on the killplayer trigger.",
+        "link": "https://github.com/finder1793/MythicEnchants/blob/main/docs/API.md",
+        "attributes": []
+    },
+    {
+        "plugin": "MythicEnchants",
+        "class": "DEATH",
+        "implements": [
+            "Enchantment"
+        ],
+        "name": [
+            "onDeath"
+        ],
+        "description": "Fires the enchantment skill on the death trigger.",
+        "link": "https://github.com/finder1793/MythicEnchants/blob/main/docs/API.md",
+        "attributes": []
+    },
+    {
+        "plugin": "MythicEnchants",
+        "class": "ENCHANT",
+        "implements": [
+            "Enchantment"
+        ],
+        "name": [
+            "onEnchant"
+        ],
+        "description": "Fires the enchantment skill on the enchant trigger.",
+        "link": "https://github.com/finder1793/MythicEnchants/blob/main/docs/API.md",
+        "attributes": []
+    },
+    {
+        "plugin": "MythicEnchants",
+        "class": "ENCHANT_APPLY",
+        "implements": [
+            "Enchantment"
+        ],
+        "name": [
+            "onEnchantApply"
+        ],
+        "description": "Fires the enchantment skill on the enchant_apply trigger.",
+        "link": "https://github.com/finder1793/MythicEnchants/blob/main/docs/API.md",
+        "attributes": []
+    },
+    {
+        "plugin": "MythicEnchants",
+        "class": "ENCHANT_REMOVE",
+        "implements": [
+            "Enchantment"
+        ],
+        "name": [
+            "onEnchantRemove"
+        ],
+        "description": "Fires the enchantment skill on the enchant_remove trigger.",
+        "link": "https://github.com/finder1793/MythicEnchants/blob/main/docs/API.md",
+        "attributes": []
+    },
+    {
+        "plugin": "MythicEnchants",
+        "class": "RIGHTCLICK",
+        "implements": [
+            "Enchantment"
+        ],
+        "name": [
+            "onRightClick"
+        ],
+        "description": "Fires the enchantment skill on the rightclick trigger.",
+        "link": "https://github.com/finder1793/MythicEnchants/blob/main/docs/API.md",
+        "attributes": []
+    },
+    {
+        "plugin": "MythicEnchants",
+        "class": "INTERACT",
+        "implements": [
+            "Enchantment"
+        ],
+        "name": [
+            "onInteract"
+        ],
+        "description": "Fires the enchantment skill on the interact trigger.",
+        "link": "https://github.com/finder1793/MythicEnchants/blob/main/docs/API.md",
+        "attributes": []
+    },
+    {
+        "plugin": "MythicEnchants",
+        "class": "USE",
+        "implements": [
+            "Enchantment"
+        ],
+        "name": [
+            "onUse"
+        ],
+        "description": "Fires the enchantment skill on the use trigger.",
+        "link": "https://github.com/finder1793/MythicEnchants/blob/main/docs/API.md",
+        "attributes": []
+    },
+    {
+        "plugin": "MythicEnchants",
+        "class": "SWING",
+        "implements": [
+            "Enchantment"
+        ],
+        "name": [
+            "onSwing"
+        ],
+        "description": "Fires the enchantment skill on the swing trigger.",
+        "link": "https://github.com/finder1793/MythicEnchants/blob/main/docs/API.md",
+        "attributes": []
+    },
+    {
+        "plugin": "MythicEnchants",
+        "class": "CONSUME",
+        "implements": [
+            "Enchantment"
+        ],
+        "name": [
+            "onConsume"
+        ],
+        "description": "Fires the enchantment skill on the consume trigger.",
+        "link": "https://github.com/finder1793/MythicEnchants/blob/main/docs/API.md",
+        "attributes": []
+    },
+    {
+        "plugin": "MythicEnchants",
+        "class": "STOPUSE",
+        "implements": [
+            "Enchantment"
+        ],
+        "name": [
+            "onStopUse"
+        ],
+        "description": "Fires the enchantment skill on the stopuse trigger.",
+        "link": "https://github.com/finder1793/MythicEnchants/blob/main/docs/API.md",
+        "attributes": []
+    },
+    {
+        "plugin": "MythicEnchants",
+        "class": "JUMP",
+        "implements": [
+            "Enchantment"
+        ],
+        "name": [
+            "onJump"
+        ],
+        "description": "Fires the enchantment skill on the jump trigger.",
+        "link": "https://github.com/finder1793/MythicEnchants/blob/main/docs/API.md",
+        "attributes": []
+    },
+    {
+        "plugin": "MythicEnchants",
+        "class": "CROUCH",
+        "implements": [
+            "Enchantment"
+        ],
+        "name": [
+            "onCrouch"
+        ],
+        "description": "Fires the enchantment skill on the crouch trigger.",
+        "link": "https://github.com/finder1793/MythicEnchants/blob/main/docs/API.md",
+        "attributes": []
+    },
+    {
+        "plugin": "MythicEnchants",
+        "class": "UNCROUCH",
+        "implements": [
+            "Enchantment"
+        ],
+        "name": [
+            "onUncrouch"
+        ],
+        "description": "Fires the enchantment skill on the uncrouch trigger.",
+        "link": "https://github.com/finder1793/MythicEnchants/blob/main/docs/API.md",
+        "attributes": []
+    },
+    {
+        "plugin": "MythicEnchants",
+        "class": "INPUT_FORWARD",
+        "implements": [
+            "Enchantment"
+        ],
+        "name": [
+            "onInputForward"
+        ],
+        "description": "Fires the enchantment skill on the input_forward trigger.",
+        "link": "https://github.com/finder1793/MythicEnchants/blob/main/docs/API.md",
+        "attributes": []
+    },
+    {
+        "plugin": "MythicEnchants",
+        "class": "INPUT_BACKWARD",
+        "implements": [
+            "Enchantment"
+        ],
+        "name": [
+            "onInputBackward"
+        ],
+        "description": "Fires the enchantment skill on the input_backward trigger.",
+        "link": "https://github.com/finder1793/MythicEnchants/blob/main/docs/API.md",
+        "attributes": []
+    },
+    {
+        "plugin": "MythicEnchants",
+        "class": "INPUT_LEFT",
+        "implements": [
+            "Enchantment"
+        ],
+        "name": [
+            "onInputLeft"
+        ],
+        "description": "Fires the enchantment skill on the input_left trigger.",
+        "link": "https://github.com/finder1793/MythicEnchants/blob/main/docs/API.md",
+        "attributes": []
+    },
+    {
+        "plugin": "MythicEnchants",
+        "class": "INPUT_RIGHT",
+        "implements": [
+            "Enchantment"
+        ],
+        "name": [
+            "onInputRight"
+        ],
+        "description": "Fires the enchantment skill on the input_right trigger.",
+        "link": "https://github.com/finder1793/MythicEnchants/blob/main/docs/API.md",
+        "attributes": []
+    },
+    {
+        "plugin": "MythicEnchants",
+        "class": "INPUT_JUMP",
+        "implements": [
+            "Enchantment"
+        ],
+        "name": [
+            "onInputJump"
+        ],
+        "description": "Fires the enchantment skill on the input_jump trigger.",
+        "link": "https://github.com/finder1793/MythicEnchants/blob/main/docs/API.md",
+        "attributes": []
+    },
+    {
+        "plugin": "MythicEnchants",
+        "class": "INPUT_SNEAK",
+        "implements": [
+            "Enchantment"
+        ],
+        "name": [
+            "onInputSneak"
+        ],
+        "description": "Fires the enchantment skill on the input_sneak trigger.",
+        "link": "https://github.com/finder1793/MythicEnchants/blob/main/docs/API.md",
+        "attributes": []
+    },
+    {
+        "plugin": "MythicEnchants",
+        "class": "INPUT_SPRINT",
+        "implements": [
+            "Enchantment"
+        ],
+        "name": [
+            "onInputSprint"
+        ],
+        "description": "Fires the enchantment skill on the input_sprint trigger.",
+        "link": "https://github.com/finder1793/MythicEnchants/blob/main/docs/API.md",
+        "attributes": []
+    },
+    {
+        "plugin": "MythicEnchants",
+        "class": "PRESS_Q",
+        "implements": [
+            "Enchantment"
+        ],
+        "name": [
+            "onPressQ"
+        ],
+        "description": "Fires the enchantment skill on the press_q trigger.",
+        "link": "https://github.com/finder1793/MythicEnchants/blob/main/docs/API.md",
+        "attributes": []
+    },
+    {
+        "plugin": "MythicEnchants",
+        "class": "PRESS_CTRL_Q",
+        "implements": [
+            "Enchantment"
+        ],
+        "name": [
+            "onPressCtrlQ"
+        ],
+        "description": "Fires the enchantment skill on the press_ctrl_q trigger.",
+        "link": "https://github.com/finder1793/MythicEnchants/blob/main/docs/API.md",
+        "attributes": []
+    },
+    {
+        "plugin": "MythicEnchants",
+        "class": "PRESS_F",
+        "implements": [
+            "Enchantment"
+        ],
+        "name": [
+            "onPressF"
+        ],
+        "description": "Fires the enchantment skill on the press_f trigger.",
+        "link": "https://github.com/finder1793/MythicEnchants/blob/main/docs/API.md",
+        "attributes": []
+    },
+    {
+        "plugin": "MythicEnchants",
+        "class": "EQUIP",
+        "implements": [
+            "Enchantment"
+        ],
+        "name": [
+            "onEquip"
+        ],
+        "description": "Fires the enchantment skill on the equip trigger.",
+        "link": "https://github.com/finder1793/MythicEnchants/blob/main/docs/API.md",
+        "attributes": []
+    },
+    {
+        "plugin": "MythicEnchants",
+        "class": "UNEQUIP",
+        "implements": [
+            "Enchantment"
+        ],
+        "name": [
+            "onUnequip"
+        ],
+        "description": "Fires the enchantment skill on the unequip trigger.",
+        "link": "https://github.com/finder1793/MythicEnchants/blob/main/docs/API.md",
+        "attributes": []
+    },
+    {
+        "plugin": "MythicEnchants",
+        "class": "ITEM_DAMAGE",
+        "implements": [
+            "Enchantment"
+        ],
+        "name": [
+            "onItemDamage"
+        ],
+        "description": "Fires the enchantment skill on the item_damage trigger.",
+        "link": "https://github.com/finder1793/MythicEnchants/blob/main/docs/API.md",
+        "attributes": []
+    },
+    {
+        "plugin": "MythicEnchants",
+        "class": "XP_GAIN",
+        "implements": [
+            "Enchantment"
+        ],
+        "name": [
+            "onXpGain"
+        ],
+        "description": "Fires the enchantment skill on the xp_gain trigger.",
+        "link": "https://github.com/finder1793/MythicEnchants/blob/main/docs/API.md",
+        "attributes": []
+    },
+    {
+        "plugin": "MythicEnchants",
+        "class": "BLOCK_BREAK",
+        "implements": [
+            "Enchantment"
+        ],
+        "name": [
+            "onBlockBreak"
+        ],
+        "description": "Fires the enchantment skill on the block_break trigger.",
+        "link": "https://github.com/finder1793/MythicEnchants/blob/main/docs/API.md",
+        "attributes": []
+    },
+    {
+        "plugin": "MythicEnchants",
+        "class": "BLOCK_PLACE",
+        "implements": [
+            "Enchantment"
+        ],
+        "name": [
+            "onBlockPlace"
+        ],
+        "description": "Fires the enchantment skill on the block_place trigger.",
+        "link": "https://github.com/finder1793/MythicEnchants/blob/main/docs/API.md",
+        "attributes": []
+    },
+    {
+        "plugin": "MythicEnchants",
+        "class": "CUSTOMBLOCKBREAK",
+        "implements": [
+            "Enchantment"
+        ],
+        "name": [
+            "onCustomBlockBreak"
+        ],
+        "description": "Fires the enchantment skill on the customblockbreak trigger.",
+        "link": "https://github.com/finder1793/MythicEnchants/blob/main/docs/API.md",
+        "attributes": []
+    },
+    {
+        "plugin": "MythicEnchants",
+        "class": "STARTDESTROYBLOCK",
+        "implements": [
+            "Enchantment"
+        ],
+        "name": [
+            "onStartdestroyblock"
+        ],
+        "description": "Fires the enchantment skill on the startdestroyblock trigger.",
+        "link": "https://github.com/finder1793/MythicEnchants/blob/main/docs/API.md",
+        "attributes": []
+    },
+    {
+        "plugin": "MythicEnchants",
+        "class": "TRAMPLE",
+        "implements": [
+            "Enchantment"
+        ],
+        "name": [
+            "onTrample"
+        ],
+        "description": "Fires the enchantment skill on the trample trigger.",
+        "link": "https://github.com/finder1793/MythicEnchants/blob/main/docs/API.md",
+        "attributes": []
+    },
+    {
+        "plugin": "MythicEnchants",
+        "class": "TRAMPLE_FARMLAND",
+        "implements": [
+            "Enchantment"
+        ],
+        "name": [
+            "onTrampleFarmland"
+        ],
+        "description": "Fires the enchantment skill on the trample_farmland trigger.",
+        "link": "https://github.com/finder1793/MythicEnchants/blob/main/docs/API.md",
+        "attributes": []
+    },
+    {
+        "plugin": "MythicEnchants",
+        "class": "TRAMPLE_EGG",
+        "implements": [
+            "Enchantment"
+        ],
+        "name": [
+            "onTrampleEgg"
+        ],
+        "description": "Fires the enchantment skill on the trample_egg trigger.",
+        "link": "https://github.com/finder1793/MythicEnchants/blob/main/docs/API.md",
+        "attributes": []
+    },
+    {
+        "plugin": "MythicEnchants",
+        "class": "TRAMPLE_TURTLE_EGG",
+        "implements": [
+            "Enchantment"
+        ],
+        "name": [
+            "onTrampleTurtleEgg"
+        ],
+        "description": "Fires the enchantment skill on the trample_turtle_egg trigger.",
+        "link": "https://github.com/finder1793/MythicEnchants/blob/main/docs/API.md",
+        "attributes": []
+    },
+    {
+        "plugin": "MythicEnchants",
+        "class": "MOUNT",
+        "implements": [
+            "Enchantment"
+        ],
+        "name": [
+            "onMount"
+        ],
+        "description": "Fires the enchantment skill on the mount trigger.",
+        "link": "https://github.com/finder1793/MythicEnchants/blob/main/docs/API.md",
+        "attributes": []
+    },
+    {
+        "plugin": "MythicEnchants",
+        "class": "DISMOUNT",
+        "implements": [
+            "Enchantment"
+        ],
+        "name": [
+            "onDismount"
+        ],
+        "description": "Fires the enchantment skill on the dismount trigger.",
+        "link": "https://github.com/finder1793/MythicEnchants/blob/main/docs/API.md",
+        "attributes": []
+    },
+    {
+        "plugin": "MythicEnchants",
+        "class": "DISMOUNTED",
+        "implements": [
+            "Enchantment"
+        ],
+        "name": [
+            "onDismounted"
+        ],
+        "description": "Fires the enchantment skill on the dismounted trigger.",
+        "link": "https://github.com/finder1793/MythicEnchants/blob/main/docs/API.md",
+        "attributes": []
+    },
+    {
+        "plugin": "MythicEnchants",
+        "class": "TAME",
+        "implements": [
+            "Enchantment"
+        ],
+        "name": [
+            "onTame"
+        ],
+        "description": "Fires the enchantment skill on the tame trigger.",
+        "link": "https://github.com/finder1793/MythicEnchants/blob/main/docs/API.md",
+        "attributes": []
+    },
+    {
+        "plugin": "MythicEnchants",
+        "class": "BREED",
+        "implements": [
+            "Enchantment"
+        ],
+        "name": [
+            "onBreed"
+        ],
+        "description": "Fires the enchantment skill on the breed trigger.",
+        "link": "https://github.com/finder1793/MythicEnchants/blob/main/docs/API.md",
+        "attributes": []
+    },
+    {
+        "plugin": "MythicEnchants",
+        "class": "SHEARED",
+        "implements": [
+            "Enchantment"
+        ],
+        "name": [
+            "onSheared"
+        ],
+        "description": "Fires the enchantment skill on the sheared trigger.",
+        "link": "https://github.com/finder1793/MythicEnchants/blob/main/docs/API.md",
+        "attributes": []
+    },
+    {
+        "plugin": "MythicEnchants",
+        "class": "BUCKET",
+        "implements": [
+            "Enchantment"
+        ],
+        "name": [
+            "onBucket"
+        ],
+        "description": "Fires the enchantment skill on the bucket trigger.",
+        "link": "https://github.com/finder1793/MythicEnchants/blob/main/docs/API.md",
+        "attributes": []
+    },
+    {
+        "plugin": "MythicEnchants",
+        "class": "TRADE",
+        "implements": [
+            "Enchantment"
+        ],
+        "name": [
+            "onTrade"
+        ],
+        "description": "Fires the enchantment skill on the trade trigger.",
+        "link": "https://github.com/finder1793/MythicEnchants/blob/main/docs/API.md",
+        "attributes": []
+    },
+    {
+        "plugin": "MythicEnchants",
+        "class": "FISH",
+        "implements": [
+            "Enchantment"
+        ],
+        "name": [
+            "onFish"
+        ],
+        "description": "Fires the enchantment skill on the fish trigger.",
+        "link": "https://github.com/finder1793/MythicEnchants/blob/main/docs/API.md",
+        "attributes": []
+    },
+    {
+        "plugin": "MythicEnchants",
+        "class": "FISH_BITE",
+        "implements": [
+            "Enchantment"
+        ],
+        "name": [
+            "onFishBite"
+        ],
+        "description": "Fires the enchantment skill on the fish_bite trigger.",
+        "link": "https://github.com/finder1793/MythicEnchants/blob/main/docs/API.md",
+        "attributes": []
+    },
+    {
+        "plugin": "MythicEnchants",
+        "class": "FISHCATCH",
+        "implements": [
+            "Enchantment"
+        ],
+        "name": [
+            "onFishCatch"
+        ],
+        "description": "Fires the enchantment skill on the fishcatch trigger.",
+        "link": "https://github.com/finder1793/MythicEnchants/blob/main/docs/API.md",
+        "attributes": []
+    },
+    {
+        "plugin": "MythicEnchants",
+        "class": "FISHGRAB",
+        "implements": [
+            "Enchantment"
+        ],
+        "name": [
+            "onFishGrab"
+        ],
+        "description": "Fires the enchantment skill on the fishgrab trigger.",
+        "link": "https://github.com/finder1793/MythicEnchants/blob/main/docs/API.md",
+        "attributes": []
+    },
+    {
+        "plugin": "MythicEnchants",
+        "class": "FISH_GROUND",
+        "implements": [
+            "Enchantment"
+        ],
+        "name": [
+            "onFishGround"
+        ],
+        "description": "Fires the enchantment skill on the fish_ground trigger.",
+        "link": "https://github.com/finder1793/MythicEnchants/blob/main/docs/API.md",
+        "attributes": []
+    },
+    {
+        "plugin": "MythicEnchants",
+        "class": "FISH_REEL",
+        "implements": [
+            "Enchantment"
+        ],
+        "name": [
+            "onFishReel"
+        ],
+        "description": "Fires the enchantment skill on the fish_reel trigger.",
+        "link": "https://github.com/finder1793/MythicEnchants/blob/main/docs/API.md",
+        "attributes": []
+    },
+    {
+        "plugin": "MythicEnchants",
+        "class": "FISH_FAIL",
+        "implements": [
+            "Enchantment"
+        ],
+        "name": [
+            "onFishFail"
+        ],
+        "description": "Fires the enchantment skill on the fish_fail trigger.",
+        "link": "https://github.com/finder1793/MythicEnchants/blob/main/docs/API.md",
+        "attributes": []
+    },
+    {
+        "plugin": "MythicEnchants",
+        "class": "DRAGDROP",
+        "implements": [
+            "Enchantment"
+        ],
+        "name": [
+            "onDragdrop"
+        ],
+        "description": "Fires the enchantment skill on the dragdrop trigger.",
+        "link": "https://github.com/finder1793/MythicEnchants/blob/main/docs/API.md",
+        "attributes": []
+    },
+    {
+        "plugin": "MythicEnchants",
+        "class": "SPAWN",
+        "implements": [
+            "Enchantment"
+        ],
+        "name": [
+            "onSpawn"
+        ],
+        "description": "Fires the enchantment skill on the spawn trigger.",
+        "link": "https://github.com/finder1793/MythicEnchants/blob/main/docs/API.md",
+        "attributes": []
+    },
+    {
+        "plugin": "MythicEnchants",
+        "class": "JOIN",
+        "implements": [
+            "Enchantment"
+        ],
+        "name": [
+            "onJoin"
+        ],
+        "description": "Fires the enchantment skill on the join trigger.",
+        "link": "https://github.com/finder1793/MythicEnchants/blob/main/docs/API.md",
+        "attributes": []
+    },
+    {
+        "plugin": "MythicEnchants",
+        "class": "QUIT",
+        "implements": [
+            "Enchantment"
+        ],
+        "name": [
+            "onQuit"
+        ],
+        "description": "Fires the enchantment skill on the quit trigger.",
+        "link": "https://github.com/finder1793/MythicEnchants/blob/main/docs/API.md",
+        "attributes": []
+    },
+    {
+        "plugin": "MythicEnchants",
+        "class": "RESPAWN",
+        "implements": [
+            "Enchantment"
+        ],
+        "name": [
+            "onRespawn"
+        ],
+        "description": "Fires the enchantment skill on the respawn trigger.",
+        "link": "https://github.com/finder1793/MythicEnchants/blob/main/docs/API.md",
+        "attributes": []
+    },
+    {
+        "plugin": "MythicEnchants",
+        "class": "CHANGE_WORLD",
+        "implements": [
+            "Enchantment"
+        ],
+        "name": [
+            "onChangeWorld"
+        ],
+        "description": "Fires the enchantment skill on the change_world trigger.",
+        "link": "https://github.com/finder1793/MythicEnchants/blob/main/docs/API.md",
+        "attributes": []
+    },
+    {
+        "plugin": "MythicEnchants",
+        "class": "TELEPORT",
+        "implements": [
+            "Enchantment"
+        ],
+        "name": [
+            "onTeleport"
+        ],
+        "description": "Fires the enchantment skill on the teleport trigger.",
+        "link": "https://github.com/finder1793/MythicEnchants/blob/main/docs/API.md",
+        "attributes": []
+    },
+    {
+        "plugin": "MythicEnchants",
+        "class": "HEALED",
+        "implements": [
+            "Enchantment"
+        ],
+        "name": [
+            "onHealed"
+        ],
+        "description": "Fires the enchantment skill on the healed trigger.",
+        "link": "https://github.com/finder1793/MythicEnchants/blob/main/docs/API.md",
+        "attributes": []
+    },
+    {
+        "plugin": "MythicEnchants",
+        "class": "TIMER",
+        "implements": [
+            "Enchantment"
+        ],
+        "name": [
+            "onTimer"
+        ],
+        "description": "Fires the enchantment skill on the timer trigger.",
+        "link": "https://github.com/finder1793/MythicEnchants/blob/main/docs/API.md",
+        "attributes": []
+    }
+]

@@ -117,9 +117,14 @@ const NodeTypeToAdditionalData: Record<registryKey, NodeData> = {
         color: '#0b5394',
         image: 'archetype',
     },
+    talenttree: { shape: 'round-rectangle', color: '#8064a2', image: 'archetype' },
     reagent: { shape: 'round-heptagon', color: '#cc00cc', image: 'reagent' },
+    experiencecurve: { shape: 'round-rectangle', color: '#5b9bd5', image: 'archetype' },
+    experiencesource: { shape: 'round-rectangle', color: '#70ad47', image: 'archetype' },
+    point: { shape: 'round-rectangle', color: '#ed7d31', image: 'stat' },
     menu: { shape: 'cut-rectangle', color: '#8fce00', image: 'menu' },
     achievement: { shape: 'star', color: '#ffd966', image: 'achievement' },
+    enchantment: { shape: 'star', color: '#8e7dff', image: 'achievement' },
 };
 
 const NodeSpecialTypeToAdditionalData: Partial<

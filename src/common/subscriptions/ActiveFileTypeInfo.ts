@@ -12,7 +12,12 @@ export const ActiveFileTypeInfo: Record<registryKey | 'enabled', boolean> = {
     randomspawn: false,
     equipmentset: false,
     archetype: false,
+    talenttree: false,
     reagent: false,
+    experiencecurve: false,
+    experiencesource: false,
+    point: false,
     menu: false,
     achievement: false,
+    enchantment: false,
 };

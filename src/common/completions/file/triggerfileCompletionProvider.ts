@@ -20,7 +20,7 @@ export function triggerfileCompletionProvider(
                 context: vscode.CompletionContext
             ) {
                 const keys = yamlutils.getParentKeys(document, position);
-                if (!parentKey.includes(keys[0].key)) {
+                if (!keys[0] || !parentKey.includes(keys[0].key)) {
                     return undefined;
                 }
 
@@ -33,7 +33,11 @@ export function triggerfileCompletionProvider(
                 ScribeMechanicHandler.registry.trigger
                     .getMechanics()
                     .filter((item: MythicMechanic) => {
-                        return item.implements && item.implements.includes(type.toString());
+                        return (
+                            item.implements?.includes(type.toString()) ||
+                            (type === TriggerType.ENCHANTMENT &&
+                                item.implements?.includes(TriggerType.ITEM.toString()))
+                        );
                     })
                     .forEach((item: MythicMechanic) => {
                         item.name.forEach((name: string) => {

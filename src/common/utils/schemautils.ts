@@ -270,8 +270,21 @@ function handleWildKeySchemaElement(keys: string[], type: Schema): SchemaElement
     if (keys.length === 0) {
         return wildcardObject;
     }
-    if (wildcardObject.keys) {
-        return getSchemaElement(keys, getKeySchema(wildcardObject.keys));
+    if (wildcardObject.type === 'list' && wildcardObject.keys) {
+        // The first key is the dynamic map key. Resolve the list itself when
+        // the cursor is on its dash, or resolve the list-entry schema when a
+        // field inside that map entry is being completed.
+        if (keys.length === 1) {
+            return wildcardObject;
+        }
+        return getSchemaElement(keys.slice(1), getKeySchema(wildcardObject.keys));
+    }
+    if ('keys' in wildcardObject && wildcardObject.keys) {
+        const wildcardSchema = getKeySchema(wildcardObject.keys);
+        if (wildcardSchema === type) {
+            return wildcardObject;
+        }
+        return getSchemaElement(keys, wildcardSchema);
     }
     return undefined;
 }

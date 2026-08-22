@@ -1130,9 +1130,14 @@ export namespace MythicNodeHandler {
         randomspawn: new MythicNodeRegistry('randomspawn', RandomSpawnMythicNode),
         equipmentset: new MythicNodeRegistry('equipmentset'),
         archetype: new MythicNodeRegistry('archetype', ArchetypeMythicNode),
+        talenttree: new MythicNodeRegistry('talenttree'),
         reagent: new MythicNodeRegistry('reagent', ReagentMythicNode),
+        experiencecurve: new MythicNodeRegistry('experiencecurve'),
+        experiencesource: new MythicNodeRegistry('experiencesource'),
+        point: new MythicNodeRegistry('point'),
         menu: new MythicNodeRegistry('menu'),
         achievement: new MythicNodeRegistry('achievement', AchievementMythicNode),
+        enchantment: new MythicNodeRegistry('enchantment'),
     };
 
     export function getRegistry(key: keyof typeof registry): MythicNodeRegistry {

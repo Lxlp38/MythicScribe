@@ -327,7 +327,8 @@
             "ModelEngine": true,
             "MythicCrucible": true,
             "MythicRPG": true,
-            "MythicAchievements": true
+            "MythicAchievements": true,
+            "MythicEnchants": true
           },
           "description": "Enable / Disable specific plugins' datasets",
           "title": "Enabled Plugins",
@@ -380,9 +381,25 @@
               "type": "string",
               "description": "Regex to identify Archetype files."
             },
+            "TalentTree": {
+              "type": "string",
+              "description": "Regex to identify MythicRPG standalone talent tree files."
+            },
             "Reagent": {
               "type": "string",
               "description": "Regex to identify Reagent files."
+            },
+            "ExperienceCurve": {
+              "type": "string",
+              "description": "Regex to identify MythicRPG experience curve files."
+            },
+            "ExperienceSource": {
+              "type": "string",
+              "description": "Regex to identify MythicRPG experience source files."
+            },
+            "Point": {
+              "type": "string",
+              "description": "Regex to identify MythicRPG point files."
             },
             "Menu": {
               "type": "string",
@@ -391,6 +408,10 @@
             "Achievement": {
               "type": "string",
               "description": "Regex to identify Achievement files."
+            },
+            "Enchantment": {
+              "type": "string",
+              "description": "Regex to identify MythicEnchants enchantment files."
             }
           },
           "default": {
@@ -405,9 +426,14 @@
             "RandomSpawn": "[\\\\\\/][Rr]andom[Ss]pawns[\\\\\\/]",
             "EquipmentSet": "[\\\\\\/]equipment-sets.((yaml)|(yml)|(txt))",
             "Archetype": "[\\\\\\/][Aa]rchetypes[\\\\\\/]",
+            "TalentTree": "[\\\\\\/]talents.((yaml)|(yml))",
             "Reagent": "[\\\\\\/]reagents.((yaml)|(yml)|(txt))",
             "Menu": "[\\\\\\/][Mm]enus[\\\\\\/]",
-            "Achievement": "[\\\\\\/][Aa]chievements[\\\\\\/]"
+            "Achievement": "[\\\\\\/][Aa]chievements[\\\\\\/]",
+            "Enchantment": "[\\\\\\/][Ee]nchantments[\\\\\\/]",
+            "ExperienceCurve": "[\\\\\\/]experience-curves.((yaml)|(yml)|(txt))",
+            "ExperienceSource": "[\\\\\\/]experience-sources.((yaml)|(yml)|(txt))",
+            "Point": "[\\\\\\/]points.((yaml)|(yml)|(txt))"
           },
           "additionalProperties": false,
           "description": "Regexes used against each document's file path: if it matches, the document will be considered as being a specific type of file, enabling specific functionalities.",

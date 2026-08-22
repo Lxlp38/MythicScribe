@@ -11,7 +11,7 @@ export function inlineMetaskillCompletionProvider() {
         {
             async provideCompletionItems(document: vscode.TextDocument, position: vscode.Position) {
                 const keys = yamlutils.getParentKeys(document, position);
-                if (!keyAliases.Skills.includes(keys[0].key)) {
+                if (!keys[0] || !keyAliases.Skills.includes(keys[0].key)) {
                     return undefined;
                 }
 
@@ -33,7 +33,7 @@ export function metaskillCompletionProvider() {
         {
             async provideCompletionItems(document: vscode.TextDocument, position: vscode.Position) {
                 const keys = yamlutils.getParentKeys(document, position);
-                if (!keyAliases.Skills.includes(keys[0].key)) {
+                if (!keys[0] || !keyAliases.Skills.includes(keys[0].key)) {
                     return undefined;
                 }
 

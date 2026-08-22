@@ -1,0 +1,58 @@
+[
+    {
+        "plugin": "MythicEnchants",
+        "class": "CastingItemTargeter",
+        "implements": [
+            "IEntityTargeter"
+        ],
+        "name": [
+            "castingItem",
+            "enchantmentItem"
+        ],
+        "description": "Targets the entity holding the item that fired the enchantment skill.",
+        "link": "https://github.com/finder1793/MythicEnchants/blob/main/src/main/java/com/stelliusstudio/mythicenchants/targeting/CastingItemTargeter.java",
+        "attributes": []
+    },
+    {
+        "plugin": "MythicEnchants",
+        "class": "ShotProjectileTargeter",
+        "implements": [
+            "IEntityTargeter"
+        ],
+        "name": [
+            "shotProjectile",
+            "onShootProjectile"
+        ],
+        "description": "Targets the projectile fired by the enchantment skill.",
+        "link": "https://github.com/finder1793/MythicEnchants/blob/main/src/main/java/com/stelliusstudio/mythicenchants/targeting/ShotProjectileTargeter.java",
+        "attributes": []
+    },
+    {
+        "plugin": "MythicEnchants",
+        "class": "ProjectileOriginTargeter",
+        "implements": [
+            "ILocationTargeter"
+        ],
+        "name": [
+            "projectileOrigin",
+            "onShootProjectileOrigin"
+        ],
+        "description": "Targets the origin of the enchantment projectile.",
+        "link": "https://github.com/finder1793/MythicEnchants/blob/main/src/main/java/com/stelliusstudio/mythicenchants/targeting/ProjectileOriginTargeter.java",
+        "attributes": []
+    },
+    {
+        "plugin": "MythicEnchants",
+        "class": "ProjectileDestinationTargeter",
+        "implements": [
+            "ILocationTargeter"
+        ],
+        "name": [
+            "projectileDestination",
+            "onShootProjectileDestination"
+        ],
+        "description": "Targets the destination of the enchantment projectile.",
+        "link": "https://github.com/finder1793/MythicEnchants/blob/main/src/main/java/com/stelliusstudio/mythicenchants/targeting/ProjectileDestinationTargeter.java",
+        "attributes": []
+    }
+]
